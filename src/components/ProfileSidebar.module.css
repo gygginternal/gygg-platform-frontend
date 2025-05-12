@@ -1,0 +1,130 @@
+.profileSidebar {
+  width: 288px;
+  padding: 24px;
+}
+
+.profileTitleText {
+  color: #3d4d55;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 150%;
+  text-decoration: underline;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.arrowIcon {
+  display: flex;
+  align-items: center;
+}
+
+.profileCard {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.profileHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.profileImage {
+  border-radius: 50%;
+}
+
+.profileName {
+  color: #3d4d55;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.viewProfileLink {
+  color: #3d4d55;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: underline;
+  display: inline-block;
+}
+
+.gigsSection,
+.peopleSection {
+  margin-top: 24px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sectionIcon {
+  display: flex;
+}
+
+.sectionTitle,
+.sectionTitleUnderlined {
+  color: #3d4d55;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.sectionTitleUnderlined {
+  text-decoration: underline;
+}
+
+.gigTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.gigTag {
+  color: #fff;
+  background-color: #d99633;
+  border: 2px solid #b08461;
+  border-radius: 16px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.peopleList {
+  margin-top: 16px;
+}
+
+.personItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.personItem:last-child {
+  margin-bottom: 0;
+}
+
+.personImage {
+  border-radius: 50%;
+}
+
+.personDescription {
+  color: #536471;
+  font-size: 12px;
+  margin: 0;
+}
+
+.viewGigLink {
+  color: #3d4d55;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: underline;
+  display: inline-block;
+}

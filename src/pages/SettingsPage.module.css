@@ -1,0 +1,15 @@
+/* src/pages/SettingsPage.module.css */
+.pageTitle {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.settingsContainer {
+    /* Optional: add styling for the overall container if needed */
+    /* background-color: #f9f9f9; */
+    /* padding: 20px; */
+    /* border-radius: 8px; */
+}

@@ -1,0 +1,151 @@
+.container {
+    max-width: 1200px;
+    height: 560px;
+    position: relative;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  
+  .activeTab {
+    font-weight: bold;
+    border-bottom: 4px solid #00AABA;
+    padding-bottom: 5px;
+    cursor: pointer;
+    color: #000000;
+  }
+  
+  .inactiveTab {
+    color: #888;
+    cursor: pointer;
+    padding-bottom: 5px;
+  }
+  
+  .inactiveTab:hover {
+    color: #3D4D55;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  .inputGroup {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  
+  .inputGroup label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .inputGroup input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .inputGroup input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .withdrawLink {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  .withdrawLink:hover {
+    text-decoration: underline;
+  }
+  
+  .saveButton {
+    width: 80px;
+    padding: 12px;
+    background: #3D4D55;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    position: absolute; /* Positioned relative to the parent container */
+    bottom: 20px; /* 20px from the bottom of the container */
+    right: 20px; /* 20px from the right of the container */
+  }
+  
+  .saveButton:hover {
+    background: #0056b3;
+  }
+  
+.tabContent {
+    padding-top: 20px; /* Add space below tabs */
+}
+
+.subheading {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #444;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.stripeSection {
+    padding: 15px;
+    border: 1px dashed #ccc; /* Dashed border for emphasis */
+    border-radius: 5px;
+    margin-top: 10px;
+    background-color: #fdfdfd;
+}
+
+.stripeSection p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 0.95em;
+}
+.stripeSection code {
+    background-color: #eee;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+.stripeSection button {
+    margin-right: 10px; /* Space between buttons */
+}
+
+/* Ensure error/success messages have margin */
+.error-message, .success-message {
+    margin: 10px 0;
+}
+
+/* Adjust save button absolute positioning if needed */
+.saveButton {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: auto; /* Allow button to size naturally */
+    min-width: 120px; /* Set minimum width */
+}

@@ -1,0 +1,37 @@
+.postsCard {
+    background-color: #fff;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    padding: 24px;
+  }
+  
+  .postsHeader {
+    color: #3d4d55;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+  }
+  
+  .seeAllButton {
+    color: #3d4d55;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: underline;
+    background: none;
+    border: none;
+  }
+  
+  .postsGrid {
+    gap: 20px;
+    display: flex;
+  }
+  
+  @media (width<=991px) {
+    .postsGrid {
+      flex-direction: column;
+    }
+  }
+  

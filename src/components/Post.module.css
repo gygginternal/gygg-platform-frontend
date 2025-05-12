@@ -1,0 +1,120 @@
+.postCard,
+.postCardWithImage {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.postHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profileImage {
+  border-radius: 50%;
+}
+
+.username {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f1419;
+  margin: 0;
+}
+
+.userHandle {
+  font-size: 14px;
+  color: #536471;
+  margin: 0;
+}
+
+.moreIcon {
+  cursor: pointer;
+}
+
+.postContent {
+  color: #0f1419;
+  margin-top: 16px;
+}
+
+.postImage {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 16px;
+}
+
+.postActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 24px;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.actionCount {
+  font-size: 12px;
+  color: #536471;
+}
+
+.bookmarkIcon {
+  cursor: pointer;
+}
+
+.commentSection {
+  border: 1px solid #eff3f4;
+  padding: 16px;
+  margin-top: 16px;
+  border-radius: 12px;
+}
+
+.commentContent {
+  margin-top: 16px;
+}
+
+.commentUser {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.commentUsername {
+  font-weight: 700;
+  color: #0f1419;
+}
+
+.commentHandle {
+  color: #536471;
+  font-size: 14px;
+}
+
+.commentText {
+  margin-top: 8px;
+  color: #0f1419;
+}
+
+.writeComment {
+  margin-top: 16px;
+  padding: 11px;
+  background-color: #eff3f4;
+  border-radius: 16px;
+  color: #536471;
+  cursor: pointer;
+}

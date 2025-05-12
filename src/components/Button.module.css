@@ -1,0 +1,39 @@
+.baseButton {
+  padding: 8px 16px;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+  font-family: 'Inter', sans-serif; /* Assuming Inter is loaded globally */
+}
+.baseButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+.baseButton:active:not(:disabled) {
+  transform: translateY(0px);
+}
+.baseButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Default style if not active (you can customize) */
+.baseButton {
+  background-color: #f0f0f0;
+  color: #3d4d55;
+}
+.baseButton:hover:not(:disabled) {
+  background-color: #e0e0e0;
+}
+
+/* Style for when isActive prop is true */
+.active {
+  background-color: #d99633; /* Theme color */
+  color: #fff;
+  border: 2px solid #b08461; /* Example border */
+}
+.active:hover:not(:disabled) {
+   background-color: #c07a49; /* Darker hover */
+}

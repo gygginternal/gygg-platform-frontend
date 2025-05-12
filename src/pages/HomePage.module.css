@@ -1,0 +1,30 @@
+/* Styles primarily for the overall page layout */
+.pageContainer {
+    display: flex;
+    width: 100%;
+    min-height: 100vh; /* Ensure full viewport height */
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent scrollbars from flex items potentially */
+}
+
+.authLinks { /* Style for the logged-out links if needed */
+    margin-top: 20px;
+    text-align: center;
+}
+.authLinks a {
+    margin: 0 10px;
+    font-weight: 500;
+}
+
+.loggedInInfo { /* Style for the logged-in message */
+    text-align: center;
+    margin-top: 20px;
+}
+.loggedInInfo p {
+    margin-bottom: 10px;
+}
+.loggedInInfo a {
+   margin: 0 10px;
+   font-weight: 500;
+}

@@ -1,0 +1,20 @@
+.iconButton {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+  }
+  
+  .iconButton:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .iconButton:active {
+    transform: scale(0.95);
+  }
+  

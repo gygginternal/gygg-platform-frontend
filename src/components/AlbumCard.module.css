@@ -1,0 +1,28 @@
+.albumItem {
+  border: 1px solid #c4c4c4;
+  border-radius: 16px;
+  overflow: hidden;
+  width: 100%; /* Takes full width of the grid column */
+  max-width: 280px; /* Limits max size */
+  background: #fff;
+  transition: transform 0.2s ease-in-out;
+}
+
+.albumItem:hover {
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.albumImage {
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9; /* Ensures a fixed ratio */
+}
+
+.albumCaption {
+  color: #536471;
+  padding: 10px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 500;
+}

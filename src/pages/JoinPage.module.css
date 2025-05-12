@@ -1,0 +1,183 @@
+/* src/pages/JoinPage.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Use min-height to allow content growth */
+  width: 100vw;
+  background: linear-gradient(to bottom, #3C4A53, #0F212D);
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  align-items: center;
+  /* position: fixed; Remove fixed position */
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 900px; /* Slightly wider max width for cards */
+  margin: 0 auto;
+  padding: 4rem 2rem 3rem; /* Adjust padding */
+  /* height: 100%; -- Remove fixed height */
+  /* overflow: hidden; -- Remove */
+  justify-content: flex-start;
+}
+
+.logo {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  color: #D89362;
+  text-decoration: none;
+  margin-bottom: 2rem;
+  align-self: flex-start; /* Logo to the left */
+  /* position: fixed; -- Remove fixed */
+  /* top: 1rem; */
+  /* left: 1rem; */
+  /* z-index: 1; */
+}
+.logo img { display: block; width: 120px; height: auto;}
+
+
+.title {
+  font-size: clamp(1.8rem, 4vw, 2.2rem); /* Responsive title */
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  margin-bottom: 2rem; /* Increased space */
+  margin-top: 1rem; /* Reduced top margin */
+  text-align: center;
+  color: white;
+}
+
+.cardContainer {
+  display: flex;
+  justify-content: center;
+  gap: 2rem; /* Spacing between cards */
+  width: 100%;
+  /* max-width: 1200px; -- Use content max-width */
+  margin-top: 2rem;
+  margin-bottom: 2.5rem; /* Space before button */
+  flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.98); /* Slightly more opaque */
+  border-radius: 12px;
+  padding: 2rem 1.5rem; /* Adjusted padding */
+  width: 100%; /* Take full width within flex container */
+  max-width: 320px; /* Limit card width */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align content start */
+  text-align: left;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 3px solid transparent; /* Border for selection */
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card.selected { /* Style for selected card */
+  border-color: #D89362; /* Use theme color for selection */
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.cardLogo {
+  width: 50px; /* Slightly smaller logo */
+  height: 50px;
+  margin-bottom: 1rem;
+  /* transition: filter 0.3s ease; -- Removed filter transition */
+}
+
+/* Remove SVG color change on hover for simplicity */
+/* .card:hover .cardLogo, .card.selected .cardLogo { ... } */
+
+.cardTitle {
+  font-size: 1.3rem; /* Adjusted size */
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  margin-bottom: 0.75rem; /* Adjust spacing */
+  color: #222; /* Darker title */
+}
+
+.cardDescription {
+  font-size: 0.95rem; /* Adjusted size */
+  font-family: 'Inter', sans-serif;
+  color: #555;
+  line-height: 1.6;
+  flex-grow: 1; /* Allow description to take space */
+}
+
+/* Remove color change on hover for title/desc */
+/* .card:hover .cardTitle, .card.selected .cardTitle { ... } */
+/* .card:hover .cardDescription, .card.selected .cardDescription { ... } */
+
+.continueButton { /* Renamed from signupButton */
+  background-color: #D89362;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 1rem 2rem; /* Adjusted padding */
+  font-size: 1.1rem; /* Adjusted size */
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 1.5rem;
+  width: auto;
+  min-width: 250px; /* Wider button */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.continueButton:hover:not(:disabled) {
+  background-color: #c07a49;
+  transform: translateY(-2px);
+}
+.continueButton:disabled {
+    background-color: #a0a0a0; /* Grey out when disabled */
+    cursor: not-allowed;
+}
+
+.message { /* Style for the error/info message */
+  color: #ffcdd2; /* Light red for dark background */
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  height: 1.5em; /* Reserve space for message */
+}
+
+.loginText { /* Style for the "Already have an account?" text */
+    color: #ccc;
+    margin-top: 2rem;
+    font-size: 0.9em;
+}
+
+.link { /* Style for links within text */
+  color: #d99633;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #b45309;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .content { padding: 2rem 1rem 2rem; }
+    .cardContainer { flex-direction: column; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem;}
+    .card { max-width: 90%; width: 100%; }
+    .title { font-size: clamp(1.6rem, 5vw, 2rem); margin-bottom: 1.5rem;}
+    .continueButton { padding: 0.9rem 1.5rem; font-size: 1rem; min-width: 200px; }
+    .logo { align-self: center; margin-bottom: 1.5rem; }
+}

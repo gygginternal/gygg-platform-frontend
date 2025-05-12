@@ -1,0 +1,14 @@
+/* src/pages/ProfilePage.module.css */
+.content {
+  width: 100%;
+  max-width: 900px; /* Adjust max-width for profile content */
+  margin: 20px auto; /* Center the content area */
+  display: flex;
+  flex-direction: column;
+  gap: 25px; /* Space between profile sections */
+}
+
+/* Add responsive padding if needed */
+@media (max-width: 991px) {
+   .content { max-width: 100%; padding: 15px; }
+}

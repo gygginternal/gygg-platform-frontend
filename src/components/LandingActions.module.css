@@ -1,0 +1,114 @@
+/* Styles adapted from LandingActions */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+
+.actions {
+  width: 55%; /* Takes 55% of the flex container */
+  background: linear-gradient(to bottom, #0f212d, #38a1ac);
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; -- Let flex parent control height */
+  padding: 20px; /* Add padding */
+  box-sizing: border-box;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 2.5rem 2rem; /* Adjust padding */
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  font-weight: bold;
+  width: 100%; /* Make card take width */
+  max-width: 400px; /* Limit card width */
+  margin: 1rem; /* Add margin for spacing */
+}
+
+.title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.5rem, 6vw, 3rem); /* Responsive font size */
+  color: #d89362;
+  padding-bottom: 1.5rem; /* Adjust spacing */
+  margin-top: 0; /* Remove default margin */
+}
+
+.signup,
+.login {
+  display: block;
+  width: 100%;
+  padding: 0.85rem; /* Adjust padding */
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  font-weight: bold;
+}
+ .signup:hover, .login:hover {
+    transform: translateY(-1px); /* Slight lift on hover */
+ }
+ .signup:active, .login:active {
+    transform: translateY(0px);
+ }
+
+.signup {
+  background-color: #3d4d55;
+  color: white;
+}
+
+.signup:hover {
+  background-color: #2c3a40;
+}
+
+.login {
+  background-color: white;
+  color: #3d4d55;
+  border: 2px solid #3d4d55;
+  margin-bottom: 2rem; /* Increased space */
+}
+
+.login:hover {
+  background-color: #f0f0f0; /* Lighter hover */
+}
+
+.terms {
+  font-size: 0.75rem; /* Slightly smaller */
+  font-family: 'Inter', sans-serif;
+  color: #666;
+  /* margin: 0 15%; -- Removed fixed margin */
+  text-align: center;
+  line-height: 1.4;
+}
+
+.link {
+  color: #38a1ac;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+  font-weight: bold; /* Keep bold */
+  font-family: 'Inter', sans-serif;
+}
+
+.link:hover {
+  color: #286f77;
+}
+
+/* Media query for smaller screens if needed */
+@media (max-width: 768px) {
+    .actions {
+        width: 100%; /* Take full width */
+        height: auto; /* Auto height */
+        min-height: 50vh; /* Ensure minimum height */
+        order: 2; /* Show actions second */
+        padding: 30px 15px;
+    }
+    .card {
+        padding: 2rem 1.5rem;
+        margin: 0; /* Remove margin */
+    }
+     .title {
+         padding-bottom: 1rem;
+     }
+}

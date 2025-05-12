@@ -1,0 +1,78 @@
+/* Styles adapted from LandingVisual */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+
+.visual {
+  width: 45%; /* Takes 45% of the flex container */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f6f2ed;
+  position: relative; /* Needed for the absolute border */
+  /* height: 100vh; -- Let flex parent control height */
+  padding: 20px; /* Add some padding */
+  box-sizing: border-box;
+}
+
+.border {
+  position: absolute;
+  top: 15px; /* Adjust border positioning */
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border: 8px solid #d99633;
+  pointer-events: none; /* So it doesn't interfere with clicks */
+  z-index: 0; /* Behind content */
+}
+
+.text {
+  font-size: clamp(1.8rem, 4vw, 3rem); /* Responsive font size */
+  margin: 0 5%; /* Adjust margin */
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800; /* Adjusted weight */
+  color: black;
+  z-index: 1; /* Above border */
+  margin-bottom: 2rem; /* Space before image */
+}
+
+.highlight {
+  color: #38a1ac;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 80%; /* Adjust width relative to container */
+  max-width: 350px; /* Smaller max width */
+  aspect-ratio: 1 / 1; /* Make it square */
+  margin-top: 1rem; /* Reduced margin */
+  z-index: 1;
+}
+
+.image {
+  display: block; /* Remove extra space below image */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Media query for smaller screens if needed */
+@media (max-width: 768px) {
+  .visual {
+    width: 100%; /* Take full width */
+    height: 50vh; /* Take half height */
+    order: 1; /* Show visual first */
+    padding: 40px 20px; /* Adjust padding */
+  }
+  .text {
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
+  }
+  .imageWrapper {
+    max-width: 250px;
+    height: auto; /* Adjust height automatically */
+  }
+   .border {
+     display: none; /* Hide border on small screens */
+   }
+}

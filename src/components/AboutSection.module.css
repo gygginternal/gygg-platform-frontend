@@ -1,0 +1,169 @@
+.aboutCard {
+  background-color: #fff;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  padding: 24px;
+}
+
+.aboutHeader {
+  color: #3d4d55;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+}
+
+.editIcon {
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+
+.aboutContent {
+  color: #3d4d55;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  position: relative;
+  background-color: #fff;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.closeButton {
+  position: absolute;
+  top: 2.5px;
+  right: 10px;  
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  opacity: 0.8;
+}
+
+.modalHeader {
+  display: flex;
+  border-radius: 16px 16px 0px 0px;
+  justify-content: space-between; /* Distribute space between text and button */
+  align-items: center; /* Align vertically */
+  margin-bottom: 10px;
+  background-color: #00AABA; /* Set background color */
+  padding: 10px;
+  color: #fff;
+}
+
+.modalHeader h3 {
+  margin: 0; /* Remove default margin from h3 */
+  font-size: 20px; /* Set font size for the header text */
+}
+
+.modalPrompt {
+  color: #3d4d55;
+  font-size: 16px;
+  margin-bottom: 10px;
+  padding: 20px;
+}
+
+.textArea {
+  width: 560px;
+  height: 180px;
+  font-size: 16px;
+  line-height: 1.5;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  resize: none;
+  display: block; /* Ensures it behaves like a block element */
+  margin: 0 auto; /* Centers it horizontally */
+  overflow: auto; /* Enables scrolling when needed */
+  scrollbar-width: none; /* Hides scrollbar in Firefox */
+  -ms-overflow-style: none; /* Hides scrollbar in Internet Explorer & Edge */
+}
+
+/* Hides scrollbar for Webkit-based browsers (Chrome, Safari, Edge Chromium) */
+.textArea::-webkit-scrollbar {
+  display: none;
+}
+
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 20px;
+}
+
+.cancelButton,
+.saveButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.cancelButton {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.saveButton {
+  background-color: #3D4D55;
+  color: #fff;
+}
+
+.cancelButton:hover {
+  opacity: 0.8;
+}
+
+.saveButton:hover {
+  opacity: 0.8;
+}
+
+.noBio {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.noBio p {
+  color: #3d4d55;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.addButton {
+  background-color: #3D4D55;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.addButton:hover {
+  opacity: 0.8;
+}

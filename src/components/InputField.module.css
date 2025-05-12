@@ -1,0 +1,83 @@
+/* frontend/src/components/InputField.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+.fieldContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 5px; /* Reduced margin between fields */
+}
+
+.label {
+  color: #fff; /* Label color from signup */
+  font-size: 14px; /* Adjusted size */
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center; /* Vertically align items */
+  background-color: #fff;
+  border: 1px solid #ccc; /* Default border */
+  border-radius: 8px;
+  padding: 0; /* Remove padding here, apply to input/select */
+  gap: 0px; /* No gap needed if styled correctly */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Smooth transition */
+  overflow: hidden; /* Clip children to rounded corners */
+}
+
+.inputContainer:focus-within { /* Style container when input inside is focused */
+  border-color: #d99633; /* Use theme color */
+  box-shadow: 0 0 0 2px rgba(217, 150, 51, 0.25);
+}
+
+
+.input {
+  flex: 1; /* Take remaining space */
+  border: none;
+  font-size: 14px;
+  outline: none;
+  color: #333; /* Darker text */
+  font-family: 'Inter', sans-serif;
+  background-color: transparent;
+  padding: 10px 12px; /* Padding inside input */
+  width: 100%; /* Required for flex: 1 */
+  /* Remove spinners for number input if needed */
+  appearance: none;
+  -moz-appearance: textfield;
+}
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.input::placeholder { /* Style placeholder */
+    color: #aaa;
+}
+
+
+.togglePassword {
+  background: none;
+  border: none;
+  border-left: 1px solid #eee; /* Separator line */
+  padding: 0 12px; /* Padding around button */
+  cursor: pointer;
+  font-size: 13px; /* Slightly smaller */
+  font-weight: 500;
+  color: #d99633; /* Use theme color */
+  font-family: 'Inter', sans-serif;
+  align-self: stretch; /* Make button fill height */
+  transition: background-color 0.2s ease;
+}
+.togglePassword:hover {
+    background-color: #f8f8f8;
+}
+
+/* Adjustments when CountrySelect is present */
+.inputContainer select + .input { /* Target input immediately after select */
+    border-left: 1px solid #eee; /* Add separator */
+    border-top-left-radius: 0; /* Flatten corner */
+    border-bottom-left-radius: 0;
+}

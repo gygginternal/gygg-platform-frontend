@@ -1,0 +1,22 @@
+// src/pages/SettingsPage.js
+import React from 'react';
+import styles from './SettingsPage.module.css'; // Create this CSS Module
+import PersonalInfoForm from '../components/PersonalInfoForm'; // Adjust path
+// Import other settings components like NotificationSettings, SecuritySettings later
+
+function SettingsPage() {
+
+    return (
+        <div> {/* Wrapper div */}
+            <h2 className={styles.pageTitle}>Settings</h2>
+            <div className={styles.settingsContainer}>
+                <PersonalInfoForm />
+                {/* Add other settings sections here */}
+                {/* <NotificationSettings /> */}
+                {/* <SecuritySettings /> */}
+            </div>
+        </div>
+    );
+}
+
+export default SettingsPage;

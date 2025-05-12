@@ -1,0 +1,21 @@
+/* frontend/src/components/CountrySelect.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+.selectWrapper {
+  position: relative;
+  /* Adjust appearance if needed to fit inside InputField */
+}
+
+.select {
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  background-color: #fff; /* Match input background */
+  color: #333; /* Match input text color */
+  border: none; /* Remove border if inside InputField */
+  /* border: 1px solid #ddd; */
+  cursor: pointer;
+  height: 100%; /* Try to match input height */
+  outline: none;
+}
