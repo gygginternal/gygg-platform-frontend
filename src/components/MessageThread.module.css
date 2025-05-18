@@ -1,0 +1,202 @@
+/* Add to MessageThread.module.css */
+.thread {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .message {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  
+  .avatar {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 700px;
+    flex-shrink: 0;
+    width: 54px;
+  }
+  
+  .messageContent {
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  .messageHeader {
+    display: flex;
+    gap: 17px;
+    align-items: center;
+  }
+  
+  .userName {
+    color: #3d4d55;
+    font-family:
+      Inter,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .timestamp {
+    color: #707070;
+    font-family:
+      Roboto,
+      -apple-system,
+      Helvetica,
+      sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  
+  .messageText {
+    color: #303030;
+    letter-spacing: 0.8px;
+    background-color: #e7e7e7;
+    border-radius: 25px;
+    padding: 21px 24px;
+    font-family:
+      Inter,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 12px 0 0;
+    align-self: flex-start;
+    max-width: 80%;
+  }
+  
+  .receivedMessages {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+  }
+  
+  .messageGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+  }
+  
+  .receivedText {
+    color: #fff;
+    letter-spacing: 0.8px;
+    background-color: #536471;
+    border-radius: 25px;
+    padding: 21px 24px;
+    font-family:
+      Inter,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+  }
+  
+  @media (width <= 991px) {
+    .messageText,
+    .receivedText {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+  
+.messageWrapper {
+    display: flex;
+    margin-bottom: 8px;
+    max-width: 75%;
+    align-items: flex-end; /* Align avatar with bottom of message bubble */
+}
+.messageWrapper.sent {
+    margin-left: auto; /* Align to right */
+    flex-direction: row-reverse; /* Avatar on right */
+}
+.messageWrapper.received {
+    margin-right: auto; /* Align to left */
+}
+.messageWrapper.sent .messageContent {
+    background-color: #007bff; /* Example sent color */
+    color: white;
+    border-top-right-radius: 4px; /* Adjust bubble shape */
+}
+.messageWrapper.received .messageContent {
+    background-color: #e9ecef; /* Example received color */
+    color: #212529;
+    border-top-left-radius: 4px;
+}
+.messageWrapper.sent .messageContent .userName {
+    text-align: right;
+}
+.messageWrapper.sent .messageContent .timestamp {
+    text-align: right;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin: 0 8px;
+    object-fit: cover;
+}
+/* Hide avatar for continuous messages from same sender */
+.messageWrapper.continuous .avatar {
+    visibility: hidden;
+}
+/* Adjust margin for continuous messages to align text bubbles */
+.messageWrapper.continuous.sent .messageContent {
+    margin-right: calc(32px + 16px); /* Avatar width + margins */
+}
+.messageWrapper.continuous.received .messageContent {
+    margin-left: calc(32px + 16px);
+}
+
+
+.messageContent {
+    padding: 8px 12px;
+    border-radius: 12px; /* Bubble shape */
+    line-height: 1.4;
+}
+/* Hide name for continuous messages */
+.messageWrapper.continuous .messageHeader {
+    display: none;
+}
+
+.messageHeader { /* Already in your provided CSS, ensure it's used if needed */
+  display: flex;
+  justify-content: space-between; /* To push timestamp right if on same line as name */
+  align-items: center;
+  margin-bottom: 4px;
+}
+.userName { /* Already in your provided CSS */
+  font-size: 0.9em;
+  font-weight: 600;
+  margin: 0;
+  color: inherit; /* Inherit color from sent/received bubble */
+}
+.messageText { /* Already in your provided CSS */
+  margin: 0;
+  word-wrap: break-word; /* Wrap long messages */
+}
+.timestamp { /* Already in your provided CSS, style as needed */
+  font-size: 0.75em;
+  color: #888; /* Default timestamp color */
+  margin-top: 4px;
+  display: block; /* Ensure it's on its own line or adjust display */
+}
+.messageWrapper.sent .messageContent .timestamp {
+    color: #e0e0e0; /* Lighter timestamp for dark bubble */
+}

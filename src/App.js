@@ -9,21 +9,22 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import JoinPage from './pages/JoinPage';
 import SignupPage from './pages/SignupPage';
+import TaskerOnboardingPage from './pages/TaskerOnboardingPage';
+import ProviderOnboardingPage from './pages/ProviderOnboardingPage';
+import GigCreateOptionsPage from './pages/GigCreateOptionsPage'; 
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import GigsPage from './pages/GigsPage';
 import GigDetailPage from './pages/GigDetailPage';
-import DashboardPage from './pages/DashboardPage';
-import SettingsPage from './pages/SettingsPage';
 import StripeReturnPage from './pages/StripeReturnPage';
 import StripeRefreshPage from './pages/StripeRefreshPage';
 import FindTaskersPage from './pages/FindTaskersPage';
 import MatchedGigsPage from './pages/MatchedGigsPage';
 import ProfilePage from './pages/ProfilePage';
-import PostFeedPage from './pages/PostFeedPage';
 import GigCreatePage from './pages/GigCreatePage';
-import PostCreatePage from './pages/PostCreatePage'; // ✅ Add this import
-import Header from './components/Header'; // Import Header
-import SocialFeedLayoutPage from './pages/SocialFeedLayoutPage'; 
+import PostCreatePage from './pages/PostCreatePage'; 
+import Header from './components/Header'; 
+import SocialFeedLayoutPage from './pages/SocialFeedLayoutPage';
+import ChatPage from './pages/ChatPage'; 
 
 // Simple Protected Route component
 function ProtectedRoute({ children }) {
@@ -35,40 +36,40 @@ function ProtectedRoute({ children }) {
 }
 
 // Navigation Component
-function Nav() {
-    const { user, logout, isLoading } = useAuth();
-    const navigate = useNavigate();
-    const handleLogout = () => {
-        logout();
-        navigate('/login');
-    };
+// function Nav() {
+//     const { user, logout, isLoading } = useAuth();
+//     const navigate = useNavigate();
+//     const handleLogout = () => {
+//         logout();
+//         navigate('/login');
+//     };
 
-    return (
-        <nav>
-            <Link to="/">Home</Link>
-            {isLoading ? (
-                <span>Loading...</span>
-            ) : user ? (
-                <>
-                    <Link to="/dashboard">Dashboard</Link>
-                    <Link to="/gigs">All Gigs</Link>
-                    <Link to="/feed">Feed</Link>
-                    {user.role?.includes('provider') && <Link to="/find-taskers">Find Taskers</Link>}
-                    {user.role?.includes('tasker') && <Link to="/gigs/matched">Matched Gigs</Link>}
-                    {user.role?.includes('provider') && <Link to="/gigs/create">Post Gig</Link>}
-                    <Link to="/posts/create">Create Post</Link> {/* ✅ Add this link for logged-in users */}
-                    <span style={{ marginLeft: 'auto' }}>Hi, {user.firstName}!</span>
-                    <button onClick={handleLogout}>Logout</button>
-                </>
-            ) : (
-                <>
-                    <Link to="/login">Login</Link>
-                    <Link to="/join">Sign Up</Link>
-                </>
-            )}
-        </nav>
-    );
-}
+//     return (
+//         <nav>
+//             <Link to="/">Home</Link>
+//             {isLoading ? (
+//                 <span>Loading...</span>
+//             ) : user ? (
+//                 <>
+//                     <Link to="/dashboard">Dashboard</Link>
+//                     <Link to="/gigs">All Gigs</Link>
+//                     <Link to="/feed">Feed</Link>
+//                     {user.role?.includes('provider') && <Link to="/find-taskers">Find Taskers</Link>}
+//                     {user.role?.includes('tasker') && <Link to="/gigs/matched">Matched Gigs</Link>}
+//                     {user.role?.includes('provider') && <Link to="/gigs/create">Post Gig</Link>}
+//                     <Link to="/posts/create">Create Post</Link> {/* ✅ Add this link for logged-in users */}
+//                     <span style={{ marginLeft: 'auto' }}>Hi, {user.firstName}!</span>
+//                     <button onClick={handleLogout}>Logout</button>
+//                 </>
+//             ) : (
+//                 <>
+//                     <Link to="/login">Login</Link>
+//                     <Link to="/join">Sign Up</Link>
+//                 </>
+//             )}
+//         </nav>
+//     );
+// }
 
 // Main App Component
 function App() {
@@ -85,7 +86,11 @@ function App() {
                         <Route path="/join" element={<JoinPage />} />
                         <Route path="/signup" element={<SignupPage />} />
                         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                        <Route path="/onboarding/tasker" element={<ProtectedRoute><TaskerOnboardingPage /></ProtectedRoute>} />
+                        <Route path="/onboarding/provider" element={<ProtectedRoute><ProviderOnboardingPage /></ProtectedRoute>} />
+                        <Route path="/gigs/create/options" element={ <ProtectedRoute><GigCreateOptionsPage /></ProtectedRoute>} />
                         <Route path="/dashboard" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+                        <Route path="/messages" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
                         <Route path="/gigs" element={<ProtectedRoute><GigsPage /></ProtectedRoute>} />
                         <Route path="/gigs/create" element={<ProtectedRoute><GigCreatePage /></ProtectedRoute>} />
                         <Route path="/gigs/:gigId" element={<ProtectedRoute><GigDetailPage /></ProtectedRoute>} />

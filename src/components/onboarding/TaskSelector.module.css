@@ -1,0 +1,78 @@
+/* Container */
+.container {
+    width: 100%;
+}
+
+/* Label */
+.label {
+    color: white;
+    font-size: 0.875rem; /* text-sm */
+    margin-bottom: 1rem;
+}
+
+/* Select (Dropdown) */
+.select {
+    width: 700px;
+    padding: 0.75rem 1rem; /* px-4 py-3 */
+    border-radius: 0.75rem; /* rounded-lg */
+    background-color: white;
+    border: 1px solid #e5e7eb; /* border-gray-200 */
+    outline: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box; /* Ensures consistent alignment with dropdown */
+}
+
+.select:focus {
+    border-color: #fbbf24; /* focus:ring-amber-500 */
+    box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.5); /* focus:ring-2 */
+}
+
+/* Dropdown Container */
+.dropdown {
+    position: absolute;
+    width: 700px; /* Matches .select width minus padding */
+    max-width: 100%; /* Ensures dropdown does not exceed the width of the select */
+    margin-top: 0.25rem; /* mt-1 */
+    margin-left: 26rem;
+    background-color: white;
+    border-radius: 0.75rem; /* rounded-lg */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
+    overflow: hidden;
+    max-height: 300px;
+    z-index: 10;
+    left: 1rem; /* Aligns dropdown with .select's left padding */
+}
+
+/* Dropdown Option */
+.option {
+    padding: 0.75rem 1rem; /* px-4 py-3 */
+    cursor: pointer;
+    color: black; /* Ensuring options inside dropdown are also black */
+}
+
+.option:hover {
+    background-color: #f3f4f6; /* hover:bg-gray-100 */
+}
+
+/* Selected Option */
+.selected {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    color: black; /* Text inside the dropdown button is black */
+}
+
+/* Clear Button */
+.clearButton {
+    color: #6b7280; /* text-gray-500 */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.clearButton:hover {
+    color: #4b5563; /* text-gray-700 */
+}

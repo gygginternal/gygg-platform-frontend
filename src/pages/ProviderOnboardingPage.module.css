@@ -1,0 +1,330 @@
+/* src/pages/ProviderOnboardingPage.module.css */
+/* Base styles from your profilesetup1.module.css and adapted for a multi-step page */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+.pageContainer { /* Outermost wrapper for the entire page, sets background */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column; /* Changed to column for header and content */
+  align-items: center;
+  justify-content: flex-start; /* Align content to the top */
+  /* margin: -8px; -- Usually handled by global reset or body style */
+  background: linear-gradient(#3c4a53, #0f212d);
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+  width: 100%;
+  overflow-y: auto; /* Allow scrolling for content */
+}
+
+.onboardingContentWrapper { /* Centers the main onboarding content (header + form) */
+    width: 100%;
+    max-width: 800px; /* Max width for the entire onboarding block */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem; /* Space between progress header and form section */
+}
+
+.logoTop { /* For the logo at the top of the onboarding page */
+    margin-bottom: 1rem; /* Space below logo */
+    align-self: flex-start; /* Or center if preferred */
+}
+.logoTop img {
+    width: 120px; /* Adjust as needed */
+    height: auto;
+}
+
+
+.formSection { /* Replaces .formContainer from your single step examples */
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  background-color: rgba(255, 255, 255, 0.03); /* Subtle background for form area */
+  border-radius: 1rem;
+  padding: 1.5rem; /* Padding inside the form area */
+}
+
+.form { /* The actual <form> element or a div acting as one */
+  max-width: 42rem; /* Max width of the form content itself */
+  width: 100%;
+  padding: 1rem 1.5rem; /* Inner padding for form elements */
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Space between sections within the form */
+}
+
+.formTitle { /* Renamed from .title for clarity */
+  font-size: clamp(1.6rem, 4vw, 2rem); /* Responsive font size */
+  font-weight: 700;
+  color: #e5e7eb; /* Light grey for text */
+  margin-bottom: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+}
+
+.formDescription { /* Renamed from .subtitle */
+  font-size: clamp(0.95rem, 2vw, 1.1rem); /* Responsive */
+  color: #d1d5db; /* Lighter grey */
+  margin-bottom: 2rem;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.formGrid { /* For two-column layouts like first name/last name */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+  gap: 1.5rem 2rem; /* Row and column gap */
+  margin-bottom: 1rem;
+  background: none; /* Ensure no background if not needed */
+}
+
+/* --- Styles for InputField (assuming it uses these classes internally or via props) --- */
+/* These are copied from your InputField example, adjust if your global InputField is different */
+.inputField { /* Wrapper for label + input if FormInput component provides it */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem; /* Space between input fields */
+}
+
+.inputLabel {
+  font-size: 1rem; /* Adjusted */
+  font-weight: 500;
+  color: #d1d5db; /* Light text for dark background */
+  font-family: 'Inter',sans-serif;
+}
+
+.input,
+.textarea { /* Common styles for input and textarea */
+  width: 100%;
+  padding: 0.85rem 1rem; /* Slightly more padding */
+  border-radius: 0.5rem;
+  background-color: white;
+  border: 1px solid #d1d5db; /* Lighter border */
+  font-size: 1rem;
+  font-family: 'Inter',sans-serif;
+  color: #333; /* Text color inside input */
+  box-sizing: border-box;
+}
+.textarea {
+    min-height: 100px; /* Default height for textareas */
+    resize: vertical; /* Allow vertical resize */
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #D89362; /* Theme color for focus */
+  box-shadow: 0 0 0 3px rgba(217, 150, 51, 0.25); /* Theme shadow */
+}
+/* --- End InputField styles --- */
+
+
+/* --- Styles for Hobbies Multi-select (from profilesetup3.module.css) --- */
+.dropdownWrapper {
+  position: relative;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 1rem;
+}
+
+.tagsInput {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: white;
+  gap: 0.5rem;
+  min-height: 48px; /* Match input height */
+  align-items: center;
+}
+
+.tag {
+  background-color: #D89362; /* Theme color */
+  color: white;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.remove {
+  margin-left: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 1; /* Ensure 'x' is centered */
+}
+.remove:hover {
+    color: #f0f0f0;
+}
+
+.searchInput {
+  border: none;
+  flex: 1;
+  min-width: 120px; /* Ensure it has some width */
+  font-size: 1rem;
+  outline: none;
+  background-color: transparent;
+  color: #333;
+  padding: 0.25rem; /* Small padding */
+  font-family: 'Inter', sans-serif;
+}
+
+.dropdownList {
+  position: absolute;
+  list-style-type: none;
+  padding: 0; margin: 0; /* Reset list styles */
+  top: calc(100% + 4px); /* Position below input with small gap */
+  left: 0;
+  right: 0; /* Make it full width of wrapper */
+  z-index: 10;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  max-height: 180px;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.dropdownItem {
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: #333;
+  font-size: 0.95rem;
+}
+.dropdownItem:hover {
+  background-color: #f3f4f6;
+}
+/* --- End Hobbies Styles --- */
+
+/* --- Styles for Image Upload (from profilesetup5.module.css) --- */
+.imageSection {
+  display: flex;
+  flex-direction: column; /* Stack preview and upload on smaller screens */
+  gap: 1.5rem;
+  width: 100%;
+  align-items: center; /* Center items when stacked */
+  margin-top: 1.5rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.imagePreview {
+  width: 200px; /* Fixed size for preview */
+  height: 200px;
+  border: 2px dashed #d1d5db; /* Lighter dash */
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255,255,255,0.05); /* Subtle background */
+  overflow: hidden;
+  position: relative;
+  color: #d1d5db; /* Placeholder text color */
+}
+
+.previewImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder {
+  color: #9ca3af;
+  font-size: 1rem;
+}
+
+.imageUpload {
+  width: 100%; /* Take full width in column layout */
+  max-width: 300px; /* Limit width */
+  min-height: 150px; /* Adjust height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+  background-color: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  border: 2px dashed #d1d5db;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  padding: 1rem;
+  color: #d1d5db;
+}
+
+.imageUpload:hover {
+  background-color: rgba(255,255,255,0.1);
+  border-color: #D89362;
+}
+
+.uploadIcon { /* Style for the emoji/icon */
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.uploadText {
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+.uploadText + small { /* Style for the format hint */
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+.fileInput { /* Hidden file input */
+  display: none;
+}
+/* --- End Image Upload Styles --- */
+
+/* Specific Subtitles for sections within the form */
+.subTitle {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #e0e0e0;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+    .form {
+        padding: 2rem 2.5rem; /* More padding on larger screens */
+    }
+    .imageSection {
+        flex-direction: row; /* Side-by-side on larger screens */
+        justify-content: space-around; /* Space items out */
+        align-items: flex-start; /* Align to top */
+    }
+    .imagePreview {
+        width: 220px; /* Adjust as needed */
+        height: 220px;
+    }
+    .imageUpload {
+        width: calc(100% - 220px - 2rem); /* Take remaining space */
+        max-width: none; /* Remove max-width */
+        min-height: 220px; /* Match preview height */
+    }
+}
+
+.error-message { /* Copied from global styles for consistency */
+  color: #ff8a8a;
+  margin: 10px 0;
+  font-size: 0.9em;
+  padding: 8px;
+  background-color: rgba(220, 53, 69, 0.1);
+  border: 1px solid rgba(220, 53, 69, 0.3);
+  border-radius: 4px;
+  text-align: center;
+}

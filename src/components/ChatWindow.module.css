@@ -1,0 +1,56 @@
+.chatWindow {
+    flex-direction: column;
+    align-items: stretch;
+    width: 52%;
+    margin-left: 20px;
+    line-height: normal;
+    display: flex;
+  }
+  
+  .container {
+    flex-direction: column;
+    align-self: stretch;
+    align-items: stretch;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+  }
+  
+  .searchPlaceholder {
+    background-color: #fff;
+    border: 1px solid #f6f2ed;
+    border-radius: 15px;
+    flex-shrink: 0;
+    align-self: center;
+    width: 522px;
+    max-width: 100%;
+    height: 54px;
+  }
+  
+  .chatContent {
+    background-color: #fff;
+    border-radius: 16px;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    margin-top: 41px;
+    padding: 16px 7px;
+    display: flex;
+  }
+  
+  @media (width <= 991px) {
+    .chatWindow {
+      width: 100%;
+    }
+  
+    .container {
+      max-width: 100%;
+      margin-top: 40px;
+    }
+  
+    .chatContent {
+      max-width: 100%;
+      margin-top: 40px;
+    }
+  }
+  
