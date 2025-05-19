@@ -1,0 +1,54 @@
+/* frontend/src/components/Onboarding/NavigationButtons.module.css */
+.navigationContainer {
+    width: 100%;
+    max-width: 42rem; /* Match form width */
+    margin: 2rem auto 0 auto; /* Space above buttons */
+    padding: 0 2.5rem; /* Match form padding if needed for alignment */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+}
+
+.navButton {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #e5e7eb;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.navButton:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #D89362;
+}
+
+.navButton:disabled {
+    color: #777;
+    border-color: #555;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.backButton {
+    /* Specific styles if needed */
+}
+
+.nextButton {
+    background-color: #D89362;
+    border-color: #D89362;
+    color: #0F212D; /* Dark text on accent button */
+    font-weight: 600;
+}
+
+.nextButton:hover:not(:disabled) {
+    background-color: #c07a49;
+    border-color: #c07a49;
+}

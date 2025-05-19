@@ -1,0 +1,120 @@
+/* src/pages/TaskerOnboardingPage.module.css */
+/* Styles will be very similar to ProviderOnboardingPage.module.css */
+/* Example: */
+.container { /* Outermost wrapper for the entire page */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: linear-gradient(#3c4a53, #0f212d);
+    padding: 2rem;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.formContainer { /* Wrapper for the form content itself */
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px; /* Or your preferred width */
+    margin-top: 1.5rem; /* Space below ProgressHeader */
+}
+
+.form { /* The actual form or div containing form elements */
+    max-width: 42rem;
+    width: 100%;
+    padding: 2.5rem; /* Inner padding for form elements */
+    background-color: rgba(255,255,255,0.03);
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #e5e7eb;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: #d1d5db;
+    margin-bottom: 2rem;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Styles for InputField used within this page */
+.inputField { /* Class expected by InputField/FormInput if using it */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.inputLabel {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #d1d5db;
+}
+.input { /* Class for the input element itself */
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: 0.5rem;
+    background-color: white;
+    border: 1px solid #d1d5db;
+    font-size: 1rem;
+    color: #333;
+}
+.input:focus {
+    outline: none;
+    border-color: #D89362;
+    box-shadow: 0 0 0 3px rgba(217, 150, 51, 0.25);
+}
+
+
+/* Styles for Hobbies Dropdown (Step 3) */
+.dropdownWrapper { position: relative; width: 100%; margin-bottom: 1rem; }
+.tagsInput { display: flex; flex-wrap: wrap; padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 8px; background-color: white; gap: 0.5rem; min-height: 48px; align-items: center;}
+.tag { background-color: #D89362; color: white; padding: 4px 10px; border-radius: 16px; font-size: 0.9rem; display: flex; align-items: center; gap: 4px;}
+.remove { margin-left: 4px; cursor: pointer; font-weight: bold; font-size: 1rem; line-height: 1;}
+.remove:hover { color: #f0f0f0; }
+.searchInput { border: none; flex: 1; min-width: 120px; font-size: 1rem; outline: none; background-color: transparent; color: #333; padding: 0.25rem;}
+.dropdownList { position: absolute; list-style-type: none; padding: 0; margin: 0; top: calc(100% + 4px); left: 0; right: 0; z-index: 10; background: white; border: 1px solid #d1d5db; border-radius: 0.5rem; max-height: 180px; overflow-y: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);}
+.dropdownItem { padding: 0.6rem 1rem; cursor: pointer; transition: background-color 0.2s; color: #333; font-size: 0.95rem;}
+.dropdownItem:hover { background-color: #f3f4f6;}
+
+/* Styles for Image Upload (Step 5) */
+.imageSection { display: flex; flex-direction: column; gap: 1.5rem; width: 100%; align-items: center; margin-top: 1.5rem; }
+.imagePreview { width: 200px; height: 200px; border: 2px dashed #d1d5db; border-radius: 8px; display: flex; justify-content: center; align-items: center; background-color: rgba(255,255,255,0.05); overflow: hidden; position: relative; color: #d1d5db; }
+.previewImage { width: 100%; height: 100%; object-fit: cover; }
+.placeholder { color: #9ca3af; font-size: 1rem; }
+.imageUpload { width: 100%; max-width: 300px; min-height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; box-sizing: border-box; background-color: rgba(255,255,255,0.05); border-radius: 8px; border: 2px dashed #d1d5db; cursor: pointer; transition: background-color 0.2s ease; padding: 1rem; color: #d1d5db; }
+.imageUpload:hover { background-color: rgba(255,255,255,0.1); border-color: #D89362; }
+.uploadText { font-size: 0.9rem; margin-bottom: 0.25rem; }
+.uploadText + small { font-size: 0.8rem; color: #aaa; }
+.fileInput { display: none; }
+
+/* Styles for availability checkboxes */
+.availabilityRow { display: flex; align-items: center; margin-bottom: 8px; }
+.availabilityRow input[type="checkbox"] { margin-right: 10px; accent-color: #D89362; transform: scale(1.1); }
+.availabilityRow label { color: #e0e0e0; font-weight: normal; font-size: 1rem; margin-bottom: 0; /* Override default label margin */ }
+
+/* Add .error-message if you don't have it globally */
+.error-message {
+  color: #ff8a8a;
+  margin-top: 10px;
+  text-align: center;
+}

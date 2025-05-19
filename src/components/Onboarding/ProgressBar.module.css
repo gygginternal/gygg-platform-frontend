@@ -1,0 +1,45 @@
+/* frontend/src/components/Onboarding/ProgressBar.module.css */
+/* Styles adapted from ProgressHeader styles for consistency */
+
+.progressContainer {
+    width: 100%; /* Take full width of its parent */
+    max-width: 400px; /* Optional: Constrain max width */
+    margin: 1rem auto; /* Center and provide vertical spacing */
+    padding: 0.5rem 0; /* Small vertical padding */
+    font-family: 'Inter', sans-serif; /* Assuming Inter is loaded globally */
+    color: #e5e7eb; /* Light text color for dark backgrounds */
+}
+
+.progressLabel {
+    font-size: 0.9em;
+    font-weight: 500;
+    margin-bottom: 0.75rem; /* Space between label and bar */
+    display: block;
+    text-align: center; /* Center the label text */
+    color: #d1d5db; /* Slightly dimmer than main text */
+}
+
+.progressBarBackground {
+    height: 10px; /* Slightly thicker bar */
+    background-color: rgba(255, 255, 255, 0.15); /* Darker, less opaque background */
+    border-radius: 5px;
+    overflow: hidden; /* Ensure foreground stays within bounds */
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1); /* Subtle inner shadow */
+}
+
+.progressBarForeground {
+    height: 100%;
+    background-color: #D89362; /* Your theme's accent color */
+    border-radius: 5px; /* Match background radius */
+    transition: width 0.4s ease-out; /* Smooth progress transition */
+    display: flex; /* For potential future text inside bar */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Optional: If you want to put text on the progress bar itself */
+.progressBarForeground span {
+    color: white;
+    font-size: 0.75em;
+    font-weight: bold;
+}

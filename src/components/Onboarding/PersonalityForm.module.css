@@ -1,0 +1,10 @@
+/* frontend/src/components/Onboarding/PersonalityForm.module.css */
+.personalityFormContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Space between input groups */
+    font-family: 'Inter', sans-serif;
+}
+
+/* It will primarily use styles from FormInput.module.css if FormInput is used */
+/* Add specific wrapper styles if needed */

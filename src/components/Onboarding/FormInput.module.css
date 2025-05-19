@@ -1,0 +1,40 @@
+/* frontend/src/components/Onboarding/FormInput.module.css */
+.field { /* Wrapper for label + input */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem; /* Consistent spacing */
+  font-family: 'Inter', sans-serif;
+}
+
+.label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #d1d5db; /* Light text for dark background */
+}
+
+.input,
+.textarea, /* Add if your FormInput can be a textarea */
+.select /* Add if your FormInput can be a select */ {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  box-sizing: border-box;
+}
+.textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  outline: none;
+  border-color: #D89362; /* Theme color for focus */
+  box-shadow: 0 0 0 3px rgba(217, 150, 51, 0.25); /* Theme shadow */
+}

@@ -1,0 +1,108 @@
+/* frontend/src/components/Onboarding/BioAndPictureForm.module.css */
+/* Styles adapted from your profilesetup5.module.css for image upload */
+
+.bioPicContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Space between bio textarea and image section */
+    font-family: 'Inter', sans-serif;
+}
+
+/* Assuming FormInput component uses its own styling for the textarea */
+/* If not, add styles for the textarea here or ensure global ones apply */
+/* .bioTextarea { ... } */
+
+.imageSection {
+  display: flex;
+  flex-direction: column; /* Stack preview and upload on smaller screens initially */
+  gap: 1.5rem;
+  width: 100%;
+  align-items: center;
+  margin-top: 1rem; /* Space above image section */
+  font-family: 'Inter', sans-serif;
+}
+
+.imagePreview {
+  width: 200px;
+  height: 200px;
+  border: 2px dashed #d1d5db; /* For dark theme */
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255,255,255,0.05);
+  overflow: hidden;
+  position: relative;
+  color: #d1d5db; /* Placeholder text color */
+}
+
+.previewImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder {
+  color: #9ca3af;
+  font-size: 1rem;
+}
+
+.imageUpload {
+  width: 100%;
+  max-width: 300px;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+  background-color: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  border: 2px dashed #d1d5db;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  padding: 1rem;
+  color: #d1d5db;
+}
+
+.imageUpload:hover {
+  background-color: rgba(255,255,255,0.1);
+  border-color: #D89362; /* Theme color */
+}
+
+.uploadIcon { /* Style for the emoji/icon, assuming you use a span/div */
+  font-size: 1.8rem; /* Example if using emoji */
+  margin-bottom: 0.5rem;
+  color: #9ca3af;
+}
+
+.uploadText {
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+.uploadText + small { /* Style for the format hint */
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+.fileInput { /* Hidden file input */
+  display: none;
+}
+
+@media (min-width: 768px) {
+    .imageSection {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+    .imagePreview {
+        width: 220px;
+        height: 220px;
+    }
+    .imageUpload {
+        width: calc(100% - 220px - 2rem);
+        max-width: none;
+        min-height: 220px;
+    }
+}

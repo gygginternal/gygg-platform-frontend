@@ -1,0 +1,39 @@
+/* src/pages/GigCreateOptionsPage.module.css */
+/* Add styles for GigCreateOptionsPage later */
+.pageContainer { /* Example from your previous setup5 */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(#3c4a53, #0f212d); /* Dark theme */
+    color: #e5e7eb; /* Light text */
+    padding: 2rem;
+    font-family: 'Inter', sans-serif;
+    align-items: center; /* Center content */
+}
+.contentWrapper {
+    width: 100%;
+    max-width: 700px; /* Adjust as needed */
+}
+.pageHeader { margin-bottom: 2rem; text-align: center; }
+.logo { /* Styles for logo if needed */ }
+.formSection {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 8px;
+}
+.pageTitle { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.5rem; text-align: center;}
+.pageSubtitle { font-size: 1rem; color: #d1d5db; margin-bottom: 2rem; text-align: center;}
+.formGroup { margin-bottom: 1.5rem; }
+.label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+.input, .select, .textarea {
+    width: 100%; padding: 0.75rem; border-radius: 6px; border: 1px solid #555;
+    background-color: #2d3748; color: #e5e7eb; font-size: 1rem;
+}
+.textarea { min-height: 100px; }
+.submitButton { /* Styles from previous Next.js version */
+    color: #fff; cursor: pointer; background-color: #D99633; border: none;
+    border-radius: 12px; width: 100%; height: 45px; font-size: 15px;
+    font-weight: 700; transition: background-color 0.3s ease; margin-top: 1.5rem;
+}
+.submitButton:hover { background-color: #b45309; }
+/* Add other styles from your profilesetup5.module.css */
