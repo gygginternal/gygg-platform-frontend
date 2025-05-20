@@ -1,0 +1,101 @@
+/* Styles for InputField used within this page */
+.inputField {
+  /* Class expected by InputField/FormInput if using it */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.inputLabel {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #d1d5db;
+}
+.input {
+  /* Class for the input element itself */
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
+  color: #333;
+}
+.input:focus {
+  outline: none;
+  border-color: #d89362;
+  box-shadow: 0 0 0 3px rgba(217, 150, 51, 0.25);
+}
+
+/* Styles for Hobbies Dropdown (Step 3) */
+.dropdownWrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.tagsInput {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: white;
+  gap: 0.5rem;
+  min-height: 48px;
+  align-items: center;
+}
+.tag {
+  background-color: #d89362;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.remove {
+  margin-left: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 1;
+}
+.remove:hover {
+  color: #f0f0f0;
+}
+.searchInput {
+  border: none;
+  flex: 1;
+  min-width: 120px;
+  font-size: 1rem;
+  outline: none;
+  background-color: transparent;
+  color: #333;
+  padding: 0.25rem;
+}
+.dropdownList {
+  position: absolute;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  max-height: 180px;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.dropdownItem {
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: #333;
+  font-size: 0.95rem;
+}
+.dropdownItem:hover {
+  background-color: #f3f4f6;
+}
