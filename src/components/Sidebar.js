@@ -57,7 +57,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
   if (user?.role.includes("provider")) {
     navItems.push({
       key: "gig helpers",
-      path: "/taskers/matched",
+      path: "/find-taskers",
       icon: "/assets/briefcase.svg",
       text: "Gig Helpers",
     });

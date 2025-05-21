@@ -20,7 +20,7 @@ import GigsPage from "./pages/GigsPage";
 import GigDetailPage from "./pages/GigDetailPage";
 import StripeReturnPage from "./pages/StripeReturnPage";
 import StripeRefreshPage from "./pages/StripeRefreshPage";
-import FindTaskersPage from "./pages/FindTaskersPage";
+import { FindTaskersPage } from "./pages/FindTaskersPage";
 import MatchedGigsPage from "./pages/MatchedGigsPage";
 import ProfilePage from "./pages/ProfilePage"; // This is your new "Dashboard"
 import GigCreatePage from "./pages/GigCreatePage";
@@ -30,7 +30,7 @@ import ChatPage from "./pages/ChatPage";
 
 // Import Shared Components
 import Header from "./components/Header"; // Assuming Header is in components/Shared/
-import { MatchedTaskersPage } from "./pages/MatchedTaskersPage";
+import { MatchedTaskersPage } from "./pages/FindTaskersPage";
 
 // Simple Protected Route component
 function ProtectedRoute({ children }) {
@@ -185,14 +185,6 @@ function AppLayout() {
             element={
               <ProtectedRoute>
                 <MatchedGigsPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/taskers/matched"
-            element={
-              <ProtectedRoute>
-                <MatchedTaskersPage />
               </ProtectedRoute>
             }
           />
