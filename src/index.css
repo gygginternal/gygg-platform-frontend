@@ -66,8 +66,8 @@ nav a:hover, nav button:hover {
   margin-right: auto; /* Center the container */
   /* margin-top: 20px;    -- REMOVE if AppLayout's paddingTop handles this */
   /* margin-bottom: 20px; -- REMOVE if pages have their own bottom spacing */
-  padding-left: 15px;  /* Horizontal padding for content *within* pages */
-  padding-right: 15px; /* Horizontal padding for content *within* pages */
+  padding-left: 0px;  /* Horizontal padding for content *within* pages */
+  padding-right: 0px; /* Horizontal padding for content *within* pages */
   width: 100%; /* Ensure it respects parent width up to max-width */
   box-sizing: border-box;
 }

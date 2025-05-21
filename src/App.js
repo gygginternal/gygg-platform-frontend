@@ -63,7 +63,7 @@ function AppLayout() {
             {/* The hr might not be needed if Header is not always present */}
             {authToken && <hr style={{ border: 0, borderTop: '1px solid #ccc', margin: 0 }} />}
 
-            <main className="container" style={mainStyle}> {/* Apply dynamic styles */}
+            <main style={mainStyle}> {/* Apply dynamic styles */}
                 <Routes>
                     {/* Public Routes (HomePage will handle redirect if logged in) */}
                     <Route path="/" element={<HomePage />} />
