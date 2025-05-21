@@ -9,7 +9,11 @@ import { useAuth } from "../context/AuthContext";
 import apiClient from "../api/axiosConfig";
 import logger from "../utils/logger";
 import { AutoComplete } from "../components/AutoComplete";
-import { HOBBIES_OPTIONS, PERSONALITIES_OPTIONS } from "../utils/constants";
+import {
+  HOBBIES_OPTIONS,
+  PERSONALITIES_OPTIONS,
+  SKILL_OPTIONS,
+} from "../utils/constants";
 // Import FaUpload if using react-icons
 // import { FaUpload } from 'react-icons/fa';
 
@@ -98,7 +102,7 @@ function TaskerOnboardingPage() {
   };
   const handleSkillsChange = (newSkills) => {
     // For TaskSelector
-    setFormData((prev) => ({ ...prev, skills: [newSkills] }));
+    setFormData((prev) => ({ ...prev, skills: newSkills }));
   };
   const handleAvailabilityChange = (day, checked) => {
     setFormData((prev) => ({
@@ -177,9 +181,9 @@ function TaskerOnboardingPage() {
     // Append text fields
     payload.append("firstName", formData.firstName);
     payload.append("lastName", formData.lastName);
-    // Skills from TaskSelector - ensure it's an array of strings
-    (formData.skills || []).forEach((skill) =>
-      payload.append("skills[]", skill)
+    // Skills
+    (formData.skills || []).forEach((hobby) =>
+      payload.append("skills[]", hobby)
     );
     // Hobbies
     (formData.hobbies || []).forEach((hobby) =>
@@ -273,9 +277,11 @@ function TaskerOnboardingPage() {
             <p className={styles.subtitle}>
               Select categories and specific tasks you can help with.
             </p>
-            <TaskSelector
-              selectedCategory={formData.skills[0]}
-              onCategoryChange={handleSkillsChange}
+            <AutoComplete
+              label="Select categories and specific tasks you can help with."
+              options={SKILL_OPTIONS}
+              values={formData.skills}
+              onChange={handleSkillsChange}
             />
             {/* Add specific task checkboxes as in your example if needed, or integrate into TaskSelector */}
           </>

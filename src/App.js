@@ -1,61 +1,75 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, Navigate, useNavigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext'; // Assuming useAuth is exported
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { AuthProvider, useAuth } from "./context/AuthContext"; // Assuming useAuth is exported
 
 // Import Pages
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import JoinPage from './pages/JoinPage';
-import SignupPage from './pages/SignupPage';
-import TaskerOnboardingPage from './pages/TaskerOnboardingPage';
-import ProviderOnboardingPage from './pages/ProviderOnboardingPage';
-import GigCreateOptionsPage from './pages/GigCreateOptionsPage';
-import ForgotPasswordPage from './pages/ForgotPasswordPage';
-import GigsPage from './pages/GigsPage';
-import GigDetailPage from './pages/GigDetailPage';
-import StripeReturnPage from './pages/StripeReturnPage';
-import StripeRefreshPage from './pages/StripeRefreshPage';
-import FindTaskersPage from './pages/FindTaskersPage';
-import MatchedGigsPage from './pages/MatchedGigsPage';
-import ProfilePage from './pages/ProfilePage'; // This is your new "Dashboard"
-import GigCreatePage from './pages/GigCreatePage';
-import PostCreatePage from './pages/PostCreatePage';
-import SocialFeedLayoutPage from './pages/SocialFeedLayoutPage'; // Use this for the feed
-import ChatPage from './pages/ChatPage';
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import JoinPage from "./pages/JoinPage";
+import SignupPage from "./pages/SignupPage";
+import TaskerOnboardingPage from "./pages/TaskerOnboardingPage";
+import ProviderOnboardingPage from "./pages/ProviderOnboardingPage";
+import GigCreateOptionsPage from "./pages/GigCreateOptionsPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import GigsPage from "./pages/GigsPage";
+import GigDetailPage from "./pages/GigDetailPage";
+import StripeReturnPage from "./pages/StripeReturnPage";
+import StripeRefreshPage from "./pages/StripeRefreshPage";
+import { FindTaskersPage } from "./pages/FindTaskersPage";
+import MatchedGigsPage from "./pages/MatchedGigsPage";
+import ProfilePage from "./pages/ProfilePage"; // This is your new "Dashboard"
+import GigCreatePage from "./pages/GigCreatePage";
+import PostCreatePage from "./pages/PostCreatePage";
+import SocialFeedLayoutPage from "./pages/SocialFeedLayoutPage"; // Use this for the feed
+import ChatPage from "./pages/ChatPage";
 
 // Import Shared Components
-import Header from './components/Header'; // Assuming Header is in components/Shared/
+import Header from "./components/Header"; // Assuming Header is in components/Shared/
+import { MatchedTaskersPage } from "./pages/FindTaskersPage";
 
 // Simple Protected Route component
 function ProtectedRoute({ children }) {
-    const { authToken, isLoading } = useAuth();
-    if (isLoading) {
-        return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading User Session...</div>;
-    }
-    return authToken ? children : <Navigate to="/login" replace />;
+  const { authToken, isLoading } = useAuth();
+  if (isLoading) {
+    return (
+      <div style={{ padding: "2rem", textAlign: "center" }}>
+        Loading User Session...
+      </div>
+    );
+  }
+  return authToken ? children : <Navigate to="/login" replace />;
 }
 
 // --- New Component to Conditionally Render Header & Adjust Main Content Padding ---
 function AppLayout() {
-    const { authToken, isLoading } = useAuth();
+  const { authToken, isLoading } = useAuth();
 
-    // Determine padding based on auth state and sidebar visibility (from Header's state)
-    // This is a simplified example. For a dynamic sidebar, Header would need to lift its state up
-    // or use a separate context for sidebar state.
-    // For now, let's assume a fixed sidebar width if logged in.
-    const mainStyle = {
-        paddingTop: authToken ? '84px' : '0', // Only add top padding if header is visible
-        // paddingLeft: authToken ? '80px' : '0', // Add left padding if sidebar is visible and fixed
-                                                // This depends on your Sidebar's behavior (always visible vs. toggle)
-        // If your Header component *always* shows the toggleable Sidebar when logged in,
-        // then you'd add paddingLeft: authToken ? (isSidebarOpen ? '270px' : '80px') : '0',
-        // which requires 'isSidebarOpen' state to be managed globally or lifted up.
-        // For simplicity here, we'll assume paddingLeft is handled by the page layouts themselves if needed.
-    };
+  // Determine padding based on auth state and sidebar visibility (from Header's state)
+  // This is a simplified example. For a dynamic sidebar, Header would need to lift its state up
+  // or use a separate context for sidebar state.
+  // For now, let's assume a fixed sidebar width if logged in.
+  const mainStyle = {
+    paddingTop: authToken ? "84px" : "0", // Only add top padding if header is visible
+    // paddingLeft: authToken ? '80px' : '0', // Add left padding if sidebar is visible and fixed
+    // This depends on your Sidebar's behavior (always visible vs. toggle)
+    // If your Header component *always* shows the toggleable Sidebar when logged in,
+    // then you'd add paddingLeft: authToken ? (isSidebarOpen ? '270px' : '80px') : '0',
+    // which requires 'isSidebarOpen' state to be managed globally or lifted up.
+    // For simplicity here, we'll assume paddingLeft is handled by the page layouts themselves if needed.
+  };
 
-    if (isLoading) {
-        return <div style={{padding: '3rem', textAlign: 'center'}}>Loading Application...</div>; // Or a splash screen
-    }
+  if (isLoading) {
+    return (
+      <div style={{ padding: "3rem", textAlign: "center" }}>
+        Loading Application...
+      </div>
+    ); // Or a splash screen
+  }
 
     return (
         <>
@@ -100,16 +114,15 @@ function AppLayout() {
     );
 }
 
-
 // Main App Component
 function App() {
-    return (
-        <AuthProvider>
-            <Router>
-                <AppLayout /> {/* Use the AppLayout component */}
-            </Router>
-        </AuthProvider>
-    );
+  return (
+    <AuthProvider>
+      <Router>
+        <AppLayout /> {/* Use the AppLayout component */}
+      </Router>
+    </AuthProvider>
+  );
 }
 
 export default App;
