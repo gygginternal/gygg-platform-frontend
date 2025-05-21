@@ -452,7 +452,7 @@ function TaskerOnboardingPage() {
   return (
     <div className={styles.container}>
       <ProgressHeader
-        currentStep={currentStep}
+        step={currentStep}
         totalSteps={TOTAL_STEPS}
         onNavigate={handleNavigation}
         canGoNext={true}
