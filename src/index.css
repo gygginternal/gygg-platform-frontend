@@ -63,20 +63,15 @@ nav button:hover {
      will determine its height. No min-height needed here typically. */
 }
 
-.container {
-  /* Your existing styles are mostly good.
-     Let's ensure it's truly centered and respects AppLayout's padding.
-     It should not have its own top/bottom margin if AppLayout handles spacing. */
-  max-width: 1200px; /* Or your preferred max content width */
-  margin-left: auto; /* Center the container */
-  margin-right: auto; /* Center the container */
-  /* margin-top: 20px;    -- REMOVE if AppLayout's paddingTop handles this */
-  /* margin-bottom: 20px; -- REMOVE if pages have their own bottom spacing */
-  padding-left: 0px;  /* Horizontal padding for content *within* pages */
-  padding-right: 0px; /* Horizontal padding for content *within* pages */
-  width: 100%; /* Ensure it respects parent width up to max-width */
+/* .container {
+  max-width: 1200px; 
+  margin-left: auto; 
+  margin-right: auto; 
+  padding-left: 0px;  
+  padding-right: 0px; 
+  width: 100%; 
   box-sizing: border-box;
-}
+} */
 
 /* --- END OF MODIFIED/ADDED STYLES --- */
 
