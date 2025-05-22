@@ -1,45 +1,90 @@
- import React, { useState, useEffect } from 'react';
- import apiClient from '../api/axiosConfig';
- import TaskerCard from '../components/TaskerCard';
+import { useState, useEffect } from "react";
+import apiClient from "../api/axiosConfig"; // Adjust path
+import { ServiceProviderListing } from "../components/TaskerMatchedSection";
+import { TaskerMatchedSidebar } from "../components/TaskerMatchedSidebar";
+import styles from "./MatchedTaskersPage.module.css";
 
- function FindTaskersPage() {
-     const [matchedTaskers, setMatchedTaskers] = useState([]);
-     const [loading, setLoading] = useState(false);
-     const [error, setError] = useState('');
-     const [currentPage, setCurrentPage] = useState(1);
-     const [hasMore, setHasMore] = useState(true);
+export const FindTaskersPage = () => {
+  const [gigHelpers, setGigHelpers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
-     const fetchMatches = async (page = 1) => {
-         const isFirstPage = page === 1;
-         if(isFirstPage) { setMatchedTaskers([]); setHasMore(true); } // Reset on first load/refresh
-         setLoading(true); setError('');
-         try {
-             const response = await apiClient.get(`/users/match-taskers?page=${page}&limit=10`);
-             const newTaskers = response.data.data.taskers;
-             setMatchedTaskers(prev => isFirstPage ? newTaskers : [...prev, ...newTaskers]);
-             setHasMore(newTaskers.length === 10); // Assume more if limit was reached
-             setCurrentPage(page);
-         } catch (err) { setError(err.response?.data?.message || 'Failed to find matches.'); setHasMore(false); }
-         finally { setLoading(false); }
-     };
-     useEffect(() => { fetchMatches(1); }, []); // Fetch on mount
-     const loadMore = () => { if (!loading && hasMore) fetchMatches(currentPage + 1); };
+  const fetchGigHelpers = async (page = 1) => {
+    const isFirstPage = page === 1;
+    if (isFirstPage) {
+      setGigHelpers([]);
+      setHasMore(true); // Reset pagination state
+    }
+    setLoading(true);
+    setError("");
+    try {
+      const response = await apiClient.get(
+        `/taskers/matched?page=${page}&limit=10`
+      );
+      const newHelpers = response.data;
+      setGigHelpers((prev) =>
+        isFirstPage ? newHelpers : [...prev, ...newHelpers]
+      );
+      setHasMore(newHelpers.length === 10); // Assume more results if the limit is reached
+      setCurrentPage(page);
+    } catch (err) {
+      console.error("Error fetching gig helpers:", err);
+      setError(err.response?.data?.message || "Failed to load gig helpers.");
+      setHasMore(false);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-     return (
-        <div>
-             <h2>Find Matching Taskers</h2>
-             <p>Showing taskers based on similarities in your profile's hobbies and people preferences.</p>
-              <button onClick={() => fetchMatches(1)} disabled={loading} style={{ marginBottom: '20px' }}>Refresh Matches</button>
+  useEffect(() => {
+    fetchGigHelpers(1); // Fetch the first page on mount
+  }, []);
 
-             {error && <p className="error-message">{error}</p>}
-              {matchedTaskers.length > 0 ? (
-                 <ul style={{ padding: 0 }}>{matchedTaskers.map(t => <TaskerCard key={t._id} tasker={t} />)}</ul>
-             ) : ( !loading && <p>No matching taskers found. Try updating your profile preferences.</p> )}
+  const loadMore = () => {
+    if (!loading && hasMore) {
+      fetchGigHelpers(currentPage + 1);
+    }
+  };
 
-              {loading && <p>Loading...</p>}
-              {hasMore && !loading && <button onClick={loadMore} style={{marginTop: '10px'}}>Load More Taskers</button>}
-              {!hasMore && matchedTaskers.length > 0 && <p style={{textAlign: 'center', marginTop: '20px', color: '#888'}}>End of results.</p>}
-         </div>
-     );
- }
- export default FindTaskersPage;
+  return (
+    <div className={styles.pageContainer}>
+      <div className={styles.contentWrapper}>
+        <aside className={styles.sidebarArea}>
+          <TaskerMatchedSidebar />
+        </aside>
+        <main className={styles.mainFeedArea}>
+          <h2>Find Matching Taskers</h2>
+          <p>
+            Showing taskers based on similarities in your profile's hobbies and
+            people preferences.
+          </p>
+          <button
+            onClick={() => fetchGigHelpers(1)}
+            disabled={loading}
+            style={{ marginBottom: "20px" }}
+          >
+            Refresh Matches
+          </button>
+
+          {error && <p className="error-message">{error}</p>}
+          <ServiceProviderListing gigHelpers={gigHelpers} />
+          {loading && <p>Loading...</p>}
+          {hasMore && !loading && (
+            <button onClick={loadMore} style={{ marginTop: "10px" }}>
+              Load More Taskers
+            </button>
+          )}
+          {!hasMore && gigHelpers.length > 0 && (
+            <p
+              style={{ textAlign: "center", marginTop: "20px", color: "#888" }}
+            >
+              End of results.
+            </p>
+          )}
+        </main>
+      </div>
+    </div>
+  );
+};

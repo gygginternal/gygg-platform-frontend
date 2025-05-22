@@ -11,7 +11,8 @@
   padding: 20px;
   /* margin: -8px; -- Avoid negative margin, handle body margin in index.css */
   background: linear-gradient(#3c4a53, #0f212d);
-  overflow-y: auto; /* Allow vertical scroll */
+  overflow-y: hidden; 
+  overflow-x: hidden;
 }
 
 .logo {

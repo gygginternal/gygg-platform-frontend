@@ -15,34 +15,38 @@
 }
 
 .logo {
-  /* Removed fixed positioning to allow centering */
-  margin-bottom: 2rem; /* Space below logo */
-  /* align-self: flex-start; */ /* Remove if centering */
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  color: #D89362;
+  text-decoration: none;
+  margin-bottom: 2rem;
+  position: absolute; /* Position at top-left */
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 10;
 }
+
 .logo img {
-    display: block;
-    width: 150px; /* Use explicit width/height or Image component defaults */
-    height: 100px;
+  display: block;
+  width: 150px;
+  height: auto;
 }
 
 .formContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center form elements */
+  justify-content: center; 
   align-items: center;
-  gap: 20px; /* Space between title and form */
+  gap: 20px; 
   max-width: 450px;
   width: 100%;
-  /* flex: 1; -- Remove */
-  /* margin-top: 100px; -- Remove fixed margin */
-   background-color: rgba(255, 255, 255, 0.05); /* Subtle background for form area */
    padding: 30px;
    border-radius: 10px;
 }
 
 .title {
   color: #fff;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
   font-family: 'Inter', sans-serif;
   text-align: center;
@@ -52,10 +56,9 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 18px; /* Space between input fields */
+  gap: 18px;
   width: 100%;
-  margin-bottom: 10px; /* Space before footer */
-  /* flex-grow: 1; -- Remove */
+  margin-bottom: 10px; 
 }
 
 .forgotPasswordWrapper {
