@@ -3,7 +3,9 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  Link,
   Navigate,
+  useNavigate,
 } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext"; // Assuming useAuth is exported
 
@@ -30,7 +32,9 @@ import ChatPage from "./pages/ChatPage";
 
 // Import Shared Components
 import Header from "./components/Header"; // Assuming Header is in components/Shared/
+import SettingsPage from "./pages/SettingsPage";
 import { MatchedTaskersPage } from "./pages/FindTaskersPage";
+
 
 // Simple Protected Route component
 function ProtectedRoute({ children }) {
@@ -71,47 +75,156 @@ function AppLayout() {
     ); // Or a splash screen
   }
 
-    return (
-        <>
-            {authToken && <Header />} {/* Render Header only if authenticated */}
-            {/* The hr might not be needed if Header is not always present */}
-            {authToken && <hr style={{ border: 0, borderTop: '1px solid #ccc', margin: 0 }} />}
 
-            <main style={mainStyle}> {/* Apply dynamic styles */}
-                <Routes>
-                    {/* Public Routes (HomePage will handle redirect if logged in) */}
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/join" element={<JoinPage />} />
-                    <Route path="/signup" element={<SignupPage />} />
-                    <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-
-                    {/* Protected Routes */}
-                    <Route path="/onboarding/tasker" element={<ProtectedRoute><TaskerOnboardingPage /></ProtectedRoute>} />
-                    <Route path="/onboarding/provider" element={<ProtectedRoute><ProviderOnboardingPage /></ProtectedRoute>} />
-                    <Route path="/gigs/create/options" element={<ProtectedRoute><GigCreateOptionsPage /></ProtectedRoute>} />
-                    <Route path="/dashboard" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} /> {/* Dashboard is now ProfilePage */}
-                    <Route path="/messages" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} /> {/* Chat/Messages page */}
-                    <Route path="/gigs" element={<ProtectedRoute><GigsPage /></ProtectedRoute>} />
-                    <Route path="/gigs/create" element={<ProtectedRoute><GigCreatePage /></ProtectedRoute>} />
-                    <Route path="/gigs/:gigId" element={<ProtectedRoute><GigDetailPage /></ProtectedRoute>} />
-                    <Route path="/feed" element={<ProtectedRoute><SocialFeedLayoutPage /></ProtectedRoute>} /> {/* Main feed */}
-                    <Route path="/posts/create" element={<ProtectedRoute><PostCreatePage /></ProtectedRoute>} />
-                    <Route path="/find-taskers" element={<ProtectedRoute><FindTaskersPage /></ProtectedRoute>} />
-                    <Route path="/gigs/matched" element={<ProtectedRoute><MatchedGigsPage /></ProtectedRoute>} />
-                    <Route path="/settings" element={<ProtectedRoute>{/* <SettingsPage /> */ console.log("Settings route needs page")}</ProtectedRoute>} /> {/* Add SettingsPage if created */}
-
-
-                    {/* Stripe Redirect Handlers */}
-                    <Route path="/stripe-onboarding/return" element={<ProtectedRoute><StripeReturnPage /></ProtectedRoute>} />
-                    <Route path="/stripe-onboarding/refresh" element={<ProtectedRoute><StripeRefreshPage /></ProtectedRoute>} />
-
-                    {/* Catch all for any other paths */}
-                    <Route path="*" element={<Navigate to={authToken ? "/feed" : "/"} replace />} /> {/* Redirect to feed if logged in, else home */}
-                </Routes>
-            </main>
-        </>
-    );
+  return (
+    <>
+      {authToken && <Header />} {/* Render Header only if authenticated */}
+      {/* The hr might not be needed if Header is not always present */}
+      {authToken && (
+        <hr style={{ border: 0, borderTop: "1px solid #ccc", margin: 0 }} />
+      )}
+      <main className="container" style={mainStyle}>
+        {" "}
+        {/* Apply dynamic styles */}
+        <Routes>
+          {/* Public Routes (HomePage will handle redirect if logged in) */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/join" element={<JoinPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          {/* Protected Routes */}
+          <Route
+            path="/onboarding/tasker"
+            element={
+              <ProtectedRoute>
+                <TaskerOnboardingPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/onboarding/provider"
+            element={
+              <ProtectedRoute>
+                <ProviderOnboardingPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/gigs/create/options"
+            element={
+              <ProtectedRoute>
+                <GigCreateOptionsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />{" "}
+          {/* Dashboard is now ProfilePage */}
+          <Route
+            path="/messages"
+            element={
+              <ProtectedRoute>
+                <ChatPage />
+              </ProtectedRoute>
+            }
+          />{" "}
+          {/* Chat/Messages page */}
+          <Route
+            path="/gigs"
+            element={
+              <ProtectedRoute>
+                <GigsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/gigs/create"
+            element={
+              <ProtectedRoute>
+                <GigCreatePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/gigs/:gigId"
+            element={
+              <ProtectedRoute>
+                <GigDetailPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/feed"
+            element={
+              <ProtectedRoute>
+                <SocialFeedLayoutPage />
+              </ProtectedRoute>
+            }
+          />{" "}
+          {/* Main feed */}
+          <Route
+            path="/posts/create"
+            element={
+              <ProtectedRoute>
+                <PostCreatePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/find-taskers"
+            element={
+              <ProtectedRoute>
+                <FindTaskersPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/gigs/matched"
+            element={
+              <ProtectedRoute>
+                <MatchedGigsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={<ProtectedRoute>{<SettingsPage />}</ProtectedRoute>}
+          />{" "}
+          {/* Add SettingsPage if created */}
+          {/* Stripe Redirect Handlers */}
+          <Route
+            path="/stripe-onboarding/return"
+            element={
+              <ProtectedRoute>
+                <StripeReturnPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/stripe-onboarding/refresh"
+            element={
+              <ProtectedRoute>
+                <StripeRefreshPage />
+              </ProtectedRoute>
+            }
+          />
+          {/* Catch all for any other paths */}
+          <Route
+            path="*"
+            element={<Navigate to={authToken ? "/feed" : "/"} replace />}
+          />{" "}
+          {/* Redirect to feed if logged in, else home */}
+        </Routes>
+      </main>
+    </>
+  );
 }
 
 // Main App Component
