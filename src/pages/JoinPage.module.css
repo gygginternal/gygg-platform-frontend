@@ -4,12 +4,12 @@
 .container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Use min-height to allow content growth */
+  min-height: 100vh;
   width: 100vw;
   background: linear-gradient(to bottom, #3C4A53, #0F212D);
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-x: hidden; 
   align-items: center;
-  /* position: fixed; Remove fixed position */
+  position: fixed; 
   margin: 0;
   padding: 0;
 }
@@ -33,21 +33,24 @@
   color: #D89362;
   text-decoration: none;
   margin-bottom: 2rem;
-  align-self: flex-start; /* Logo to the left */
-  /* position: fixed; -- Remove fixed */
-  /* top: 1rem; */
-  /* left: 1rem; */
-  /* z-index: 1; */
+  position: absolute; /* Position at top-left */
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 10;
 }
-.logo img { display: block; width: 120px; height: auto;}
 
+.logo img {
+  display: block;
+  width: 150px;
+  height: auto;
+}
 
 .title {
   font-size: clamp(1.8rem, 4vw, 2.2rem); /* Responsive title */
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   margin-bottom: 2rem; /* Increased space */
-  margin-top: 1rem; /* Reduced top margin */
+  margin-top: 2rem; /* Reduced top margin */
   text-align: center;
   color: white;
 }
@@ -68,13 +71,13 @@
   border-radius: 12px;
   padding: 2rem 1.5rem; /* Adjusted padding */
   width: 100%; /* Take full width within flex container */
-  max-width: 320px; /* Limit card width */
+  max-width: 400px; /* Limit card width */
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Align content start */
   text-align: left;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 3px solid transparent; /* Border for selection */
+  border: 5px solid transparent; /* Border for selection */
   transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 }
@@ -85,9 +88,21 @@
 }
 
 .card.selected { /* Style for selected card */
-  border-color: #D89362; /* Use theme color for selection */
+  border-color: #00AABA; /* Use theme color for selection */
   transform: translateY(-5px);
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card.selected .cardLogo {
+  filter: brightness(0) saturate(100%) invert(55%) sepia(74%) saturate(328%) hue-rotate(135deg) brightness(93%) contrast(101%);
+}
+
+.card.selected .cardTitle {
+  color: #00AABA;
+}
+
+.card.selected .cardDescription {
+  color: #00AABA;
 }
 
 .cardLogo {
@@ -96,9 +111,6 @@
   margin-bottom: 1rem;
   /* transition: filter 0.3s ease; -- Removed filter transition */
 }
-
-/* Remove SVG color change on hover for simplicity */
-/* .card:hover .cardLogo, .card.selected .cardLogo { ... } */
 
 .cardTitle {
   font-size: 1.3rem; /* Adjusted size */
@@ -115,10 +127,6 @@
   line-height: 1.6;
   flex-grow: 1; /* Allow description to take space */
 }
-
-/* Remove color change on hover for title/desc */
-/* .card:hover .cardTitle, .card.selected .cardTitle { ... } */
-/* .card:hover .cardDescription, .card.selected .cardDescription { ... } */
 
 .continueButton { /* Renamed from signupButton */
   background-color: #D89362;
@@ -166,6 +174,7 @@
   color: #d99633;
   text-decoration: underline;
   transition: color 0.3s ease;
+  text-decoration: none;
 }
 
 .link:hover {
