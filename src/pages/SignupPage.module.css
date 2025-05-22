@@ -18,18 +18,20 @@
 .logo {
   font-family: 'Inter', sans-serif;
   font-weight: 900;
-  font-size: 2rem; /* Slightly smaller logo */
   color: #D89362;
   text-decoration: none;
   margin-bottom: 2rem;
-  align-self: flex-start; /* Align logo to the left */
-  /* Removed fixed positioning */
-}
-/* Style the image inside the logo link */
-.logo img {
-    display: block; /* Remove extra space */
+  position: absolute; /* Position at top-left */
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 10;
 }
 
+.logo img {
+  display: block;
+  width: 150px;
+  height: auto;
+}
 
 .formContainer {
   display: flex;
@@ -53,6 +55,11 @@
 }
 
 .form {
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
   display: flex;
   flex-direction: column;
   gap: 12px; /* Reduced gap between form fields */
@@ -83,7 +90,7 @@
 
 .link {
   color: #d99633; /* Match button color */
-  text-decoration: underline;
+  text-decoration: none;
   transition: color 0.3s ease;
 }
 
