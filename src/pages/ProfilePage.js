@@ -39,8 +39,6 @@ function ProfilePage() {
       {/* Profile Info card at the top */}
       <ProfileInfo />
 
-      <StripeOnboarding />
-
       {/* About Me section */}
       <AboutSection />
 

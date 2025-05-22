@@ -48,71 +48,83 @@ export function StripeOnboarding() {
     fetchStatus();
   }, []);
 
-  console.log({ status });
   const showOnboarding =
     !status || !status.detailsSubmitted || !status.chargesEnabled;
-  console.log({ showOnboarding });
 
   return (
-    <section className={`${styles.aboutCard} card`}>
-      {" "}
-      {/* Add card class */}
-      <div className={styles.aboutHeader}>
-        <h3>Stripe Payout Setup</h3>
-      </div>
-      <div className={styles.aboutContent}>
-        {status && (
-          <div>
-            <p>
-              Payout Enabled:{" "}
-              {status.chargesEnabled ? (
-                <span style={{ color: "green" }}>Yes</span>
-              ) : (
-                <span style={{ color: "orange" }}>No</span>
-              )}
-            </p>
-            <p>
-              Charge Enabled:{" "}
-              {status.chargesEnabled ? (
-                <span style={{ color: "green" }}>Yes</span>
-              ) : (
-                <span style={{ color: "orange" }}>No</span>
-              )}
-            </p>
-            <p>
-              Details Submitted:{" "}
-              {status.detailsSubmitted ? (
-                <span style={{ color: "green" }}>Yes</span>
-              ) : (
-                <span style={{ color: "orange" }}>No</span>
-              )}
-            </p>
-          </div>
-        )}
+    <section>
+      {loading && <p>Loading...</p>}
 
-        {loading && <p>Loading...</p>}
+      {!showOnboarding ? (
+        <span style={{ color: "green", fontWeight: "bold" }}>
+          ✓ Connected & Active
+          <br />
+          <p>
+            Your Stripe account setup is incomplete or needs updates to enable
+            payouts.
+          </p>
+        </span>
+      ) : (
+        <div>
+          <span style={{ color: "orange", fontWeight: "bold" }}>
+            ! Action Required: <br />
+            <small>
+              Your Stripe account setup is incomplete or needs updates to enable
+              payouts.
+            </small>
+          </span>
+        </div>
+      )}
 
-        {showOnboarding && (
-          <div className={styles.noBio}>
-            <p>Connect your Stripe account to process payments</p>
-            <button
-              className={styles.addButton}
-              onClick={() => {
-                apiClient
-                  .get("/users/stripe/account-link")
-                  .then((response) => {
-                    window.location.href = response.data.url;
-                  })
-                  .catch((error) => {
-                    console.error("Error connecting to Stripe:", error);
-                  });
-              }}
-            >
-              Connect
-            </button>
-          </div>
-        )}
-      </div>
+      {status && (
+        <div>
+          <p>
+            Payout Enabled:{" "}
+            {status.chargesEnabled ? (
+              <span style={{ color: "green" }}>Yes</span>
+            ) : (
+              <span style={{ color: "orange" }}>No</span>
+            )}
+          </p>
+          <p>
+            Charge Enabled:{" "}
+            {status.chargesEnabled ? (
+              <span style={{ color: "green" }}>Yes</span>
+            ) : (
+              <span style={{ color: "orange" }}>No</span>
+            )}
+          </p>
+          <p>
+            Details Submitted:{" "}
+            {status.detailsSubmitted ? (
+              <span style={{ color: "green" }}>Yes</span>
+            ) : (
+              <span style={{ color: "orange" }}>No</span>
+            )}
+          </p>
+        </div>
+      )}
+
+      {showOnboarding && (
+        <div className={styles.noBio}>
+          <p>Connect your Stripe account to process payments</p>
+          <button
+            className={styles.addButton}
+            onClick={() => {
+              apiClient
+                .get("/users/stripe/account-link")
+                .then((response) => {
+                  window.location.href = response.data.url;
+                })
+                .catch((error) => {
+                  console.error("Error connecting to Stripe:", error);
+                });
+            }}
+          >
+            Connect
+          </button>
+        </div>
+      )}
     </section>
   );
 }
