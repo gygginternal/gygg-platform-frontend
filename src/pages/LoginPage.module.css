@@ -8,9 +8,8 @@
   align-items: center;
   min-height: 100vh;
   padding: 20px;
-  /* margin: -8px; -- Avoid */
   background: linear-gradient(#3c4a53, #0f212d);
-  overflow: auto; /* Allow scroll if needed */
+  overflow: hidden; 
   box-sizing: border-box;
 }
 
@@ -40,8 +39,9 @@
   gap: 20px; 
   max-width: 450px;
   width: 100%;
-   padding: 30px;
-   border-radius: 10px;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: transparent;
 }
 
 .title {
@@ -54,6 +54,11 @@
 }
 
 .form {
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -64,8 +69,8 @@
 .forgotPasswordWrapper {
     width: 100%;
     display: flex;
-    justify-content: flex-end; /* Align forgot password right */
-    margin-bottom: 5px; /* Space below link */
+    justify-content: flex-start; 
+    margin-bottom: 5px; 
   }
 
 .footer {
@@ -80,9 +85,10 @@
 .forgotPassword {
   color: #d99633;
   cursor: pointer;
-  font-size: 13px; /* Smaller */
+  font-size: 16px; /* Smaller */
   text-decoration: underline;
   font-family: 'Inter', sans-serif;
+  text-decoration: none;
 }
 
 .forgotPassword:hover {
@@ -129,13 +135,13 @@
 .signupText {
   color: #ccc; /* Lighter text */
   text-align: center;
-  font-size: 14px;
+  font-size: 16px;
   margin-top: 10px; /* Space above sign up link */
 }
 
 .link {
   color: #d99633;
-  text-decoration: underline;
+  text-decoration: none;
   transition: color 0.3s ease;
   font-weight: 500; /* Normal weight for inline links */
 }

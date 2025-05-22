@@ -10,8 +10,10 @@
 }
 
 .label {
+  display: block; /* ensures it starts on a new line */
+  text-align: left;
   color: #fff; /* Label color from signup */
-  font-size: 14px; /* Adjusted size */
+  font-size: 16px; /* Adjusted size */
   font-weight: 500;
   font-family: 'Inter', sans-serif;
 }
@@ -20,7 +22,7 @@
   display: flex;
   align-items: center; /* Vertically align items */
   background-color: #fff;
-  border: 1px solid #ccc; /* Default border */
+  border: 2px solid #ccc; /* Default border */
   border-radius: 8px;
   padding: 0; /* Remove padding here, apply to input/select */
   gap: 0px; /* No gap needed if styled correctly */
@@ -37,7 +39,7 @@
 .input {
   flex: 1; /* Take remaining space */
   border: none;
-  font-size: 14px;
+  font-size: 16px;
   outline: none;
   color: #333; /* Darker text */
   font-family: 'Inter', sans-serif;
@@ -60,8 +62,7 @@
 
 .togglePassword {
   background: none;
-  border: none;
-  border-left: 1px solid #eee; /* Separator line */
+  border: none !important;
   padding: 0 12px; /* Padding around button */
   cursor: pointer;
   font-size: 13px; /* Slightly smaller */

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate, useNavigation } from 'react-router-dom'; // Use react-router-dom
 import styles from './SignupPage.module.css'; // Create this CSS Module
-import InputField from '../components/InputField'; // Adjust path
+import InputField from '../components//Shared/InputField'; // Adjust path
 import apiClient from '../api/axiosConfig'; // Adjust path
 import logger from '../utils/logger'; // Optional logger
 // Assuming you have the logo in public/

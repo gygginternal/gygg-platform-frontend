@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; // Use react-router-dom Link
 import styles from './ForgotPasswordPage.module.css'; // Create this CSS module
-import InputField from '../components/InputField'; // Adjust path
+import InputField from '../components/Shared/InputField'; // Adjust path
 import apiClient from '../api/axiosConfig'; // Adjust path
 import logger from '../utils/logger'; // Optional logger
 
@@ -68,13 +68,13 @@ function ForgotPasswordPage() {
                 {/* Only show title and icon if no message is displayed */}
                 {!message && (
                     <>
-                        <h1 className={styles.title}>Reset Your Password</h1>
+                        <h1 className={styles.title}>Enter email  to reset your password</h1>
                         <div className={styles.iconContainer}>
                              {/* Use standard img tag */}
                             <img src="/assets/mail-notification.svg" // Ensure this exists in public folder
                                 alt="Mail Notification"
-                                width={60} // Adjusted size
-                                height={60}
+                                width={80} // Adjusted size
+                                height={80}
                              />
                         </div>
                     </>
@@ -86,9 +86,6 @@ function ForgotPasswordPage() {
                 {/* Hide form after success message? Optional */}
                 {!message && (
                      <form className={styles.form} onSubmit={handleSubmit}>
-                        <p className={styles.instructionText}>
-                            Enter the email address associated with your account and we'll send you a link to reset your password.
-                        </p>
                         <InputField
                             label="Email"
                             name="email"
@@ -109,7 +106,7 @@ function ForgotPasswordPage() {
                  <p className={styles.retryText}>
                    Didn&apos;t get an email?{' '}
                    <span onClick={handleResendClick} className={styles.retryLink}>
-                     Click here to re-enter your email
+                    Re-enter your email
                    </span>
                    {' '} and try again. You can also <Link className={styles.link} to="/login">Log In</Link> or <Link className={styles.link} to="/join">Sign Up</Link>.
                  </p>

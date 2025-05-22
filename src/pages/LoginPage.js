@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Use react-router-dom
 import styles from "./LoginPage.module.css"; // Create this CSS Module
-import InputField from "../components/InputField"; // Adjust path if needed
+import InputField from "../components/Shared/InputField"; // Adjust path if needed
 import { useAuth } from "../context/AuthContext"; // Adjust path if needed
 import apiClient from "../api/axiosConfig"; // Adjust path if needed
 import logger from "../utils/logger"; // Optional: Adjust path if needed
@@ -80,7 +80,7 @@ function LoginPage() {
       </Link>
 
       <section className={styles.formContainer}>
-        <h1 className={styles.title}>Login</h1>
+        <h1 className={styles.title}>Log in</h1>
 
         <form className={styles.form} onSubmit={handleSubmit}>
           <InputField
