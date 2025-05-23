@@ -38,9 +38,9 @@
   }
   
   .activeFilterButton {
-    background-color: #d99633;
+    background-color: #3D4D55;
     color: #fff;
-    border: 2px solid #b08461;
+    /* border: 2px solid #b08461; */
   }
   
   .createPostCard {
@@ -90,11 +90,11 @@
   
   .postButton {
     padding: 8px 20px;
-    background-color: #d99633;
+    background-color: #3D4D55;
     color: #fff;
     font-weight: 600;
     font-size: 14px;
-    border: 2px solid #b08461;
+    border: 2px solid #3D4D55;
     border-radius: 16px;
     cursor: pointer;
   }

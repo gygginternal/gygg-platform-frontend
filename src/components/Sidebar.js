@@ -36,7 +36,12 @@ function Sidebar({ isOpen, toggleSidebar }) {
   // Navigation data
   const navItems = [
     // Map route paths used in your React Router setup
-    { key: "home", path: "/feed", icon: "/assets/home.svg", text: "Home" }, // Assuming /feed is home now
+    { 
+      key: "home", 
+      path: "/feed", 
+      icon: "/assets/home.svg", 
+      text: "Home" 
+    }, // Assuming /feed is home now
     {
       key: "messages",
       path: "/messages",
@@ -49,7 +54,12 @@ function Sidebar({ isOpen, toggleSidebar }) {
       icon: "/assets/clock.svg",
       text: "Task History",
     }, // Use your history path
-    { key: "gigs", path: "/gigs", icon: "/assets/briefcase.svg", text: "Gigs" }, // Path for all gigs
+    { 
+      key: "gigs", 
+      path: "/gigs", 
+      icon: "/assets/briefcase.svg", 
+      text: "Gigs" 
+    }, // Path for all gigs
   ];
 
   // Add "Gig Helpers" only if the user role is "provider"

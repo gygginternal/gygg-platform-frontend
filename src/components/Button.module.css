@@ -30,10 +30,10 @@
 
 /* Style for when isActive prop is true */
 .active {
-  background-color: #d99633; /* Theme color */
+  background-color: #3D4D55; /* Theme color */
   color: #fff;
-  border: 2px solid #b08461; /* Example border */
+  border: 2px solid #3D4D55; /* Example border */
 }
 .active:hover:not(:disabled) {
-   background-color: #c07a49; /* Darker hover */
+   background-color: #28343A; /* Darker hover */
 }
