@@ -24,11 +24,14 @@
 }
 
 .form { /* The actual form or div containing form elements */
+    background-color: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
     max-width: 42rem;
     width: 100%;
     padding: 2.5rem; /* Inner padding for form elements */
-    background-color: rgba(255,255,255,0.03);
-    border-radius: 10px;
     font-family: 'Inter', sans-serif;
     display: flex;
     flex-direction: column;

@@ -14,12 +14,23 @@
     margin-bottom: 0.5rem;
   }
   
-  .logo {
-    display: flex;
-    align-items: center;
-    position: absolute; /* Position logo on the extreme left */
-    left: 2rem;
-  }
+.logo {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  color: #D89362;
+  text-decoration: none;
+  margin-bottom: 2rem;
+  position: absolute; /* Position at top-left */
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 10;
+}
+
+.logo img {
+  display: block;
+  width: 150px;
+  height: auto;
+}
   
   .content {
     display: flex;

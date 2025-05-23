@@ -18,7 +18,7 @@ function ProgressHeader({
             <div className={styles.header}> {/* Assuming .header is next level */}
                 <div className={styles.logo}>
                     {/* Use standard img tag for logo, ensure /gygg-logo.svg is in public folder */}
-                    <img src="/gygg-logo.svg" alt="Gygg Logo" width={100} height={60} /> {/* Adjust size as needed */}
+                    <img src="/assets/gygg-logo.svg" alt="Gygg Logo" width={100} height={60} /> {/* Adjust size as needed */}
                 </div>
 
                 <div className={styles.content}>
