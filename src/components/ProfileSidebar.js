@@ -17,7 +17,7 @@ function ProfileSidebar() {
         { id: "3", description: "Wilson. H from Richmondhill needs a furniture assembler", gigId: "temp3" },
     ];
     // User's skills/gigs they offer - should come from user profile
-    const userSkills = user?.hobbies || ["Pet Sitting", "Gardening"]; // Example fallback
+    const userSkills = user?.skills || ["Pet Sitting", "Gardening"]; // Example fallback
 
     if (!user) {
         return <aside className={styles.profileSidebar}><p>Loading profile...</p></aside>;
@@ -47,7 +47,7 @@ function ProfileSidebar() {
                         <h3 className={styles.profileName}>{user.fullName || `${user.firstName} ${user.lastName}`}</h3>
                          {/* Link to actual profile edit page */}
                         <Link to="/dashboard" className={styles.viewProfileLink}>
-                            Edit Profile
+                            View Profile
                         </Link>
                     </div>
                 </div>
@@ -58,7 +58,7 @@ function ProfileSidebar() {
                         <div className={styles.sectionIcon}>
                             <img src="/assets/lamp-on.svg" alt="Lamp" width={20} height={20} /> {/* Icon path */}
                         </div>
-                        <h4 className={styles.sectionTitle}>My Skills/Gigs</h4>
+                        <h4 className={styles.sectionTitle}>Gigs I can help you with</h4>
                     </div>
                     <div className={styles.gigTags}>
                         {userSkills.length > 0 ? (

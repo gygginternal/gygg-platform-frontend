@@ -137,14 +137,14 @@ function Feed() {
     // --- Render ---
     return (
         <main className={styles.feedContainer}>
-            {/* Header with Sorting Buttons */}
-            <section className={styles.feedHeader}>
+            {/* Header with Sorting Buttons For Future Implementation */}
+            {/* <section className={styles.feedHeader}>
                 <div className={styles.filterButtons}>
                     <Button onClick={() => handleSortChange('recents')} isActive={sortOrder === 'recents'} disabled={loading}> Recents </Button>
                     <Button onClick={() => handleSortChange('trending')} isActive={sortOrder === 'trending'} disabled={loading}> Trending </Button>
                     <Button onClick={() => handleSortChange('near_me')} isActive={sortOrder === 'near_me'} disabled={loading}> Near Me </Button>
                 </div>
-            </section>
+            </section> */}
             {locationError && <p className="error-message">{locationError}</p>}
 
 

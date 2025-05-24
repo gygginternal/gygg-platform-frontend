@@ -94,7 +94,7 @@ button {
 }
 
 button:disabled {
-  background-color: #ccc;
+  /* background-color: #ccc; */
   cursor: not-allowed;
 }
 

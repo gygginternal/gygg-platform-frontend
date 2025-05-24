@@ -132,9 +132,9 @@
   font-size: 14px;
 }
 
-.dropdown p:hover {
+/* .dropdown p:hover {
   background-color: #f0f0f0;
-}
+} */
 
 .dropdownItem {
   display: flex;

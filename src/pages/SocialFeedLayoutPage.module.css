@@ -1,6 +1,6 @@
 .pageContainer {
-    padding-top: 65px; /* Height of fixed header */
-    min-height: calc(100vh - 65px);
+    padding-top: 20px; /* Height of fixed header */
+    min-height: calc(100vh - 20px);
   }
   
   .contentWrapper {
@@ -8,13 +8,13 @@
     flex-direction: row;
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    gap: 20px; /* Optional: adds spacing between columns */
+    margin: 0 300px;
+    padding: 10px;
+    gap: 20px; 
   }
   
   .sidebarArea {
-    width: 250px;
+    width: 360px;
     flex-shrink: 0;
   }
   
