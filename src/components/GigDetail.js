@@ -1,18 +1,95 @@
+// @ts-nocheck
 // frontend/src/pages/GigDetailPage.js
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import apiClient from "../api/axiosConfig";
 import { useAuth } from "../context/AuthContext";
-// DO NOT import mongoose here
+import {
+  PaymentElement,
+  useStripe,
+  useElements,
+  Elements,
+} from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import "./GigDetails.css"; // Assuming you have a CSS file for styling
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY); // Replace with your Stripe publishable key
+
+const ConfirmButton = ({ clientSecret }) => {
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const handleConfirmPayment = async () => {
+    if (!stripe || !elements) {
+      console.error("Stripe.js has not loaded yet.");
+      return;
+    }
+
+    const { error } = await stripe.confirmPayment({
+      clientSecret,
+      elements,
+      confirmParams: {
+        return_url: window.location.href, // Redirect URL after confirmation
+      },
+    });
+
+    if (error) {
+      console.error("Payment confirmation error:", error.message);
+    } else {
+      console.log("Payment confirmed successfully.");
+    }
+  };
+
+  return (
+    <button onClick={handleConfirmPayment} disabled={!stripe || !elements}>
+      Confirm Payment Intent
+    </button>
+  );
+};
 
 function GigDetailPage() {
   const { gigId } = useParams();
   const { user } = useAuth();
   const [gigData, setGigData] = useState(null);
   const [contractData, setContractData] = useState(null);
-  const [existingReview, setExistingReview] = useState(null);
+  const [paymentData, setPaymentData] = useState(null);
+  const [paymentIntent, setPaymentIntent] = useState(null);
+  const [isReleasable, setIsReleasable] = useState(false); // New state for release eligibility
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const fetchReleasableStatus = async (contractId) => {
+    try {
+      const response = await apiClient.get(
+        `/payments/contracts/${contractId}/releasable`
+      );
+      const { isBalanceSufficient } = response.data.data;
+      setIsReleasable(isBalanceSufficient);
+    } catch (err) {
+      console.error(
+        "Error fetching releasable status:",
+        err.response?.data || err.message
+      );
+      setIsReleasable(false);
+    }
+  };
+
+  const fetchPaymentDetails = async (contractId) => {
+    try {
+      const response = await apiClient.get(
+        `/payments/contracts/${contractId}/payment`
+      );
+      setPaymentData(response.data.data.payment);
+      setPaymentIntent(response.data.data.paymentIntent);
+      await fetchReleasableStatus(contractId); // Fetch releasable status after payment details
+    } catch (err) {
+      console.error(
+        "Error fetching payment details:",
+        err.response?.data || err.message
+      );
+      setPaymentData(null);
+    }
+  };
 
   const fetchData = useCallback(async () => {
     console.log("GigDetailPage - Attempting fetch with gigId:", gigId);
@@ -32,13 +109,12 @@ function GigDetailPage() {
       setLoading(false);
       setGigData(null); // Clear any potentially stale data
       setContractData(null);
-      setExistingReview(null);
+      setPaymentData(null); // Clear payment data
       return; // Stop execution
     }
 
     setLoading(true);
     setError("");
-    setExistingReview(null);
 
     try {
       // ... rest of your try/catch block for fetching gig, contract, and review data ...
@@ -66,8 +142,11 @@ function GigDetailPage() {
             params: reviewParams,
           });
           if (reviewResponse.data.results > 0) {
-            setExistingReview(reviewResponse.data.data.reviews[0]);
           }
+        }
+
+        if (currentContract?._id) {
+          await fetchPaymentDetails(currentContract._id); // Fetch payment details if contract exists
         }
       } catch (contractError) {
         if (
@@ -87,6 +166,8 @@ function GigDetailPage() {
           );
           setError("Error loading associated contract details.");
         }
+        setContractData(null);
+        setPaymentData(null); // Clear payment data if no contract
       }
     } catch (err) {
       console.error(
@@ -96,6 +177,7 @@ function GigDetailPage() {
       setError(err.response?.data?.message || "Failed to load gig details.");
       setGigData(null);
       setContractData(null);
+      setPaymentData(null); // Clear payment data
     } finally {
       setLoading(false);
     }
@@ -126,35 +208,123 @@ function GigDetailPage() {
     console.log("Review submitted, refreshing data...");
     fetchData();
   };
+  const options = {
+    clientSecret: paymentData?.stripePaymentIntentSecret, // your test secret
+    // Fully customizable with appearance API.
+    appearance: {
+      /*...*/
+    },
+  };
+
+  // Set up Stripe.js and Elements to use in checkout form, passing the client secret obtained in a previous step
 
   return (
-    <div>
+    <div className="ml-[200px]">
       <div>
-        <div>
-          <h1> Tasker</h1>
-          <button
-            onClick={() => {
-              apiClient
-                .post(`/gigs/${gigId}/accept`)
-                .then((response) => {
-                  console.log("Gig accepted:", response.data);
-                  handleAcceptSuccess();
-                })
-                .catch((error) => {
-                  console.error("Error accepting gig:", error);
-                });
-            }}
-          >
-            Apply
-          </button>
-        </div>
-        <div>
-          <h1>Provider</h1>
-          <button>Create test contract with test account</button>
-          <button>Deposit</button>
-          <button>Release</button>
-          <button>Cancel</button>
-        </div>
+        {user?.role?.includes("tasker") && !contractData && (
+          <div>
+            <h1> Tasker</h1>
+            <button
+              onClick={() => {
+                apiClient
+                  .patch(`/gigs/${gigId}/accept`)
+                  .then((response) => {
+                    console.log("Gig accepted:", response.data);
+                    handleAcceptSuccess();
+                  })
+                  .catch((error) => {
+                    console.error("Error accepting gig:", error);
+                  });
+              }}
+            >
+              Apply
+            </button>
+          </div>
+        )}
+
+        {contractData ? (
+          <div>
+            <h2>Contract Details</h2>
+            <p>Job applied. Try deposit, release, or refund.</p>
+            {paymentData ? (
+              <div>
+                <h3>Payment Details</h3>
+                <p>Status: {paymentData.status}</p>
+                <p>Amount: ${paymentData.amount / 100}</p>
+                <p>Currency: {paymentData.currency.toUpperCase()}</p>
+              </div>
+            ) : (
+              <p>No payment details available.</p>
+            )}
+          </div>
+        ) : (
+          <div>Apply for the job from a tasker account.</div>
+        )}
+
+        {user?.role?.includes("provider") && contractData && (
+          <div>
+            <h1>Provider</h1>
+            {!paymentData && (
+              <button
+                onClick={() => {
+                  apiClient
+                    .post(
+                      `/payments/contracts/${contractData._id}/create-payment-intent`
+                    )
+                    .then((response) => {
+                      console.log("Payment intent created:", response.data);
+                      handleAcceptSuccess();
+                    })
+                    .catch((error) => {
+                      console.error("Error creating payment intent:", error);
+                    });
+                }}
+              >
+                Deposit
+              </button>
+            )}
+            {paymentIntent && paymentIntent.status !== "succeeded" && (
+              <Elements stripe={stripePromise} options={options}>
+                <ConfirmButton clientSecret={paymentData?.clientSecret} />
+              </Elements>
+            )}
+            {paymentData && (
+              <button
+                onClick={() => {
+                  apiClient
+                    .post(`/payments/contracts/${contractData._id}/release`)
+                    .then((response) => {
+                      console.log("Funds released:", response.data);
+                      handlePaymentSuccess();
+                    })
+                    .catch((error) => {
+                      console.error("Error releasing funds:", error);
+                    });
+                }}
+                disabled={!isReleasable} // Disable button if not releasable
+              >
+                Release Funds
+              </button>
+            )}
+            {paymentData && (
+              <button
+                onClick={() => {
+                  apiClient
+                    .post(`/payments/contracts/${contractData._id}/refund`)
+                    .then((response) => {
+                      console.log("Funds refunded:", response.data);
+                      handlePaymentSuccess();
+                    })
+                    .catch((error) => {
+                      console.error("Error refunding funds:", error);
+                    });
+                }}
+              >
+                Refund
+              </button>
+            )}
+          </div>
+        )}
       </div>
 
       {!loading && (
