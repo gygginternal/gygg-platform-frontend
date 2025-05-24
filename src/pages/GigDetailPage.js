@@ -3,6 +3,12 @@ import { useParams } from "react-router-dom";
 import GigDetail from "../components/GigDetail"; // The component rendering details and actions
 import apiClient from "../api/axiosConfig";
 import { useAuth } from "../context/AuthContext";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+console.log("h", process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
 function GigDetailPage() {
   const { gigId } = useParams(); // Get gigId from URL
@@ -82,14 +88,17 @@ function GigDetailPage() {
   return (
     <div>
       <h2>Gig Details</h2>
-      <GigDetail
-        gig={gigData}
-        contract={contractData}
-        loading={loading}
-        error={error}
-        onAcceptSuccess={handleAcceptSuccess} // Pass callback
-        onPaymentInitiated={handlePaymentInitiated} // Pass callback
-      />
+      <Elements stripe={stripePromise}>
+        <GigDetail
+          gig={gigData}
+          contract={contractData}
+          loading={loading}
+          error={error}
+          onAcceptSuccess={handleAcceptSuccess} // Pass callback
+          onPaymentInitiated={handlePaymentInitiated} // Pass callback
+        />
+      </Elements>
+
       {/* You might add a button to refresh data */}
       {/* <button onClick={fetchData} disabled={loading}>Refresh Data</button> */}
     </div>

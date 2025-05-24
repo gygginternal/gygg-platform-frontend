@@ -5,10 +5,18 @@ import { useAuth } from "../context/AuthContext"; // Adjust path as needed
 import apiClient from "../api/axiosConfig"; // Adjust path as needed
 import logger from "../utils/logger"; // Optional logger, adjust path as needed
 import { StripeOnboarding } from "../components/StripeOnboarding"; // Import StripeOnboarding if needed
+import { useSearchParams } from "react-router-dom"; // Import hooks for URL params and navigation
 
 function PersonalInfoForm() {
   const { user, refreshUser } = useAuth(); // Get user and refresh function
-  const [activeTab, setActiveTab] = useState("personal"); // 'personal' or 'withdraw'
+  const [param, setParam] = useSearchParams(); // Get activeTab from URL params
+  const activeTabFromUrl = param.get("activeTab") || "personal"; // Default to 'personal' if not set
+  const [activeTab, setActiveTab] = useState(activeTabFromUrl); // 'personal' or 'withdraw'
+
+  useEffect(() => {
+    // sync URL param with state
+    setParam({ activeTab });
+  }, [activeTab]);
 
   // --- State for Forms ---
   const [personalInfo, setPersonalInfo] = useState({
@@ -57,6 +65,8 @@ function PersonalInfoForm() {
       });
     }
   }, [user]); // Rerun when user object changes
+
+  // --- Fetch Stripe Status (only for taskers) ---
 
   // --- Input Change Handlers ---
   const handlePersonalInfoChange = (e) => {
@@ -215,19 +225,17 @@ function PersonalInfoForm() {
           Personal Information
         </div>
         {/* Only show Withdraw tab for taskers */}
-        {user?.role?.includes("tasker") && (
-          <div
-            className={
-              activeTab === "withdraw" ? styles.activeTab : styles.inactiveTab
-            }
-            onClick={() => setActiveTab("withdraw")}
-            role="tab"
-            tabIndex={0}
-            aria-selected={activeTab === "withdraw"}
-          >
-            Withdraw Information
-          </div>
-        )}
+        <div
+          className={
+            activeTab === "withdraw" ? styles.activeTab : styles.inactiveTab
+          }
+          onClick={() => setActiveTab("withdraw")}
+          role="tab"
+          tabIndex={0}
+          aria-selected={activeTab === "withdraw"}
+        >
+          Withdraw Information
+        </div>
       </div>
       {/* Use a single form tag - Submit button is specific to Personal tab */}
       <form className={styles.form} onSubmit={handleSubmit}>
