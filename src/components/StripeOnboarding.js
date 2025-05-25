@@ -49,7 +49,7 @@ export function StripeOnboarding() {
   }, []);
 
   const showOnboarding =
-    !status || !status.detailsSubmitted || !status.chargesEnabled;
+    !status || !status.detailsSubmitted || !status.payoutsEnabled;
 
   return (
     <section>
@@ -59,10 +59,7 @@ export function StripeOnboarding() {
         <span style={{ color: "green", fontWeight: "bold" }}>
           ✓ Connected & Active
           <br />
-          <p>
-            Your Stripe account setup is incomplete or needs updates to enable
-            payouts.
-          </p>
+          <small>Your Stripe account setup is completed.</small>
         </span>
       ) : (
         <div>
@@ -80,7 +77,7 @@ export function StripeOnboarding() {
         <div>
           <p>
             Payout Enabled:{" "}
-            {status.chargesEnabled ? (
+            {status.payoutsEnabled ? (
               <span style={{ color: "green" }}>Yes</span>
             ) : (
               <span style={{ color: "orange" }}>No</span>
@@ -105,26 +102,44 @@ export function StripeOnboarding() {
         </div>
       )}
 
-      {showOnboarding && (
-        <div className={styles.noBio}>
-          <p>Connect your Stripe account to process payments</p>
+      <div className={styles.noBio}>
+        <p>
+          {showOnboarding ? "Connect" : "Update"} your Stripe account{" "}
+          {showOnboarding && "to process payments"}
+        </p>
+        <button
+          className={styles.addButton}
+          onClick={() => {
+            apiClient
+              .get("/users/stripe/account-link")
+              .then((response) => {
+                window.location.href = response.data.url;
+              })
+              .catch((error) => {
+                console.error("Error connecting to Stripe:", error);
+              });
+          }}
+        >
+          {status?.detailsSubmitted ? "Update Info" : "Connect Stripe"}
+        </button>
+        {status?.detailsSubmitted && (
           <button
             className={styles.addButton}
             onClick={() => {
               apiClient
-                .get("/users/stripe/account-link")
+                .get("/users/stripe/login-link")
                 .then((response) => {
-                  window.location.href = response.data.url;
+                  window.location.href = response.data.data.loginLink;
                 })
                 .catch((error) => {
                   console.error("Error connecting to Stripe:", error);
                 });
             }}
           >
-            Connect
+            View Stripe Dashboard
           </button>
-        </div>
-      )}
+        )}
+      </div>
     </section>
   );
 }
