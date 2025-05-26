@@ -43,20 +43,33 @@
 .paginationDots {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  align-items: center; /* Vertically align dots if height differs */
+  margin-top: 20px; /* Space above the dots */
+  padding: 10px 0; /* Add some padding around the dots area */
 }
 
 .dot {
-  width: 10px;
-  height: 10px;
-  margin: 0 5px;
-  background-color: #bbb;
-  border-radius: 50%;
+  /* --- REDUCE THESE VALUES --- */
+  width: 8px;  /* Example: Reduced width */
+  height: 8px; /* Example: Reduced height */
+  /* --- END REDUCTION --- */
+  margin: 0 4px; /* Adjust horizontal spacing between dots if needed */
+  background-color: #bbb; /* Color for inactive dots */
+  border-radius: 50%; /* Makes it a circle */
   cursor: pointer;
+  border: none; /* Ensure it's a button without default border */
+  padding: 0; /* Remove default button padding */
+  transition: background-color 0.2s ease-in-out; /* Smooth transition for active state */
 }
 
+/* .dot:hover {
+    background-color: #999; 
+} */
+
 .activeDot {
-  background-color: #D99633; /* Active dot color */
+  background-color: #D89362; /* Your theme color for the active dot */
+  /* Optional: Make active dot slightly larger if desired */
+  transform: scale(1.2);
 }
 
 .noAlbums {

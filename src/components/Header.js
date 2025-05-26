@@ -65,9 +65,9 @@ function Header() {
         <div className={styles.headerControls}>
           {user ? (
             <>
-              <button className={styles.iconButton} aria-label="Adjustments">
+              {/* <button className={styles.iconButton} aria-label="Adjustments">
                 <img src="/assets/adjustments.svg" alt="Adjustments" width={28} height={28} />
-              </button>
+              </button> */}
 
               <button className={styles.iconButton} aria-label="Notifications">
                 <img src="/assets/notification.svg" alt="Notification" width={28} height={28} />
@@ -81,7 +81,7 @@ function Header() {
                   <div className={styles.dropdown}>
                     <Link to="/dashboard" className={styles.dropdownItem} onClick={() => setIsProfileOpen(false)}>
                       <img src="/assets/user.svg" alt="" width={18} height={18} />
-                      <p>My Dashboard</p>
+                      <p>Profile</p>
                     </Link>
                     <div className={styles.dropdownItem} onClick={() => handleNavigation("/settings")}>
                       <img src="/assets/settings.svg" alt="" width={18} height={18} />
