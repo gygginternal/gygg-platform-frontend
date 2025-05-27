@@ -1,12 +1,30 @@
+// src/components/ProfilePage/AlbumCard.js
 import React from "react";
-import styles from "./AlbumCard.module.css"; // Create CSS module
+import styles from "./AlbumCard.module.css";
 
-function AlbumCard({ image, caption }) {
-  const handleImageError = (e) => { e.target.src = '/image-placeholder.png'; }; // Add fallback image
+function AlbumCard({ image, caption, photoId, onDelete }) { // Added photoId and onDelete
+  const handleImageError = (e) => { e.target.src = '/image-placeholder.png'; }; // Fallback
+
   return (
     <figure className={styles.albumItem}>
-      {/* Use standard img */}
-      <img src={image || '/image-placeholder.png'} alt={caption || 'Album image'} className={styles.albumImage} onError={handleImageError} loading="lazy"/>
+      {/* Delete button - shown only if onDelete function is provided */}
+      {onDelete && (
+          <button
+              className={styles.deleteButton}
+              onClick={() => onDelete(photoId)}
+              title="Delete photo"
+              aria-label="Delete photo"
+          >
+              × {/* Simple 'x' icon */}
+          </button>
+      )}
+      <img
+        src={image || '/image-placeholder.png'}
+        alt={caption || 'Album image'}
+        className={styles.albumImage}
+        onError={handleImageError}
+        loading="lazy"
+      />
       <figcaption className={styles.albumCaption}>{caption || 'No caption'}</figcaption>
     </figure>
   );

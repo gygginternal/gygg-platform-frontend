@@ -1,27 +1,28 @@
 // src/components/ProfilePage/PostsSection.js
 import React, { useState, useEffect } from "react";
-import styles from "./PostsSection.module.css"; // Your CSS Module
-import PostCard from "./PostCard"; // Import adapted PostCard
-import apiClient from "../api/axiosConfig"; // Adjust path as needed
-import { useAuth } from "../context/AuthContext"; // Adjust path as needed
-import { Link } from 'react-router-dom';
-import logger from "../utils/logger"; // Optional, adjust path as needed
+import styles from "./PostsSection.module.css";    // Ensure this CSS Module exists
+import PostCard from "../components/PostCard";    // Import your PostCard component (adjust path if needed)
+import apiClient from "../api/axiosConfig";      // Adjust path as needed
+import { useAuth } from "../context/AuthContext";  // Adjust path as needed
+import { Link } from 'react-router-dom';         // For "See all" and "Create Post" links
+import logger from "../utils/logger";          // Optional: Adjust path as needed
 
-function PostsSection({ userIdToView }) { // Accept userIdToView as a prop
-    const { user: loggedInUser } = useAuth(); // Logged-in user for context, if needed
+function PostsSection({ userIdToView }) { // Accepts userId of the profile being viewed
+    const { user: loggedInUser } = useAuth(); // Get the currently logged-in user
     const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(true); // Start loading true
+    const [loading, setLoading] = useState(true); // Start in loading state
     const [error, setError] = useState('');
 
-    // Determine whose posts to fetch: the logged-in user or another user (if userIdToView is provided)
+    // Determine whose posts to fetch. If userIdToView is provided, fetch for that user.
+    // Otherwise, (e.g., if on own dashboard and prop not passed), fetch for loggedInUser.
     const targetUserId = userIdToView || loggedInUser?._id;
 
     useEffect(() => {
         const fetchUserPosts = async () => {
             if (!targetUserId) {
                 logger.info("PostsSection: No targetUserId available to fetch posts.");
-                setLoading(false); // Stop loading if no ID
-                // setPosts([]); // Ensure posts are cleared if targetUserId becomes null
+                setLoading(false); // Stop loading if no target user ID
+                setPosts([]);      // Ensure posts are cleared
                 return;
             }
 
@@ -29,12 +30,12 @@ function PostsSection({ userIdToView }) { // Accept userIdToView as a prop
             setError('');
             try {
                 logger.info(`PostsSection: Fetching posts for authorId: ${targetUserId}`);
-                // Fetch posts authored by the targetUserId, limit to a few recent ones for a profile section
+                // API call to the general posts feed, filtered by authorId
                 const response = await apiClient.get(`/posts`, {
                     params: {
                         authorId: targetUserId,
-                        limit: 5, // Show, for example, the 5 most recent posts
-                        sort: 'recents' // Sort by recent postS
+                        limit: 5,         // Display a limited number of recent posts on the profile
+                        sort: 'recents'   // Get the newest posts first
                     }
                 });
 
@@ -42,7 +43,7 @@ function PostsSection({ userIdToView }) { // Accept userIdToView as a prop
                 logger.debug("PostsSection: Fetched user posts:", response.data.data.posts);
 
             } catch (err) {
-                logger.error("PostsSection: Error fetching user posts:", err.response?.data || err.message);
+                logger.error("PostsSection: Error fetching user posts:", err.response?.data || err.message, { targetUserId });
                 setError("Could not load recent posts for this user.");
                 setPosts([]); // Clear posts on error
             } finally {
@@ -51,14 +52,16 @@ function PostsSection({ userIdToView }) { // Accept userIdToView as a prop
         };
 
         fetchUserPosts();
-        // Refetch if the targetUserId changes (e.g., navigating between different user profiles)
+        // Dependency array: re-fetch if the targetUserId changes
+        // (e.g., if this component is reused and a different user's profile is loaded)
     }, [targetUserId]);
 
-    // Determine the "See all" link destination
-    // If viewing own profile, link to main feed filtered by self.
-    // If viewing another's profile, could link to a dedicated page for that user's posts.
-    // For simplicity, always link to the main feed for now.
-    const seeAllLink = `/feed`; // Or `/users/${targetUserId}/posts` if you build that page
+    // Determine if the profile being viewed is the logged-in user's own profile
+    const isOwnProfile = loggedInUser?._id === targetUserId;
+
+    // "See all" link can point to a dedicated page for this user's posts or their section in the main feed
+    // For now, linking to the main feed for simplicity
+    const seeAllLink = `/feed`; // Or more advanced: `/users/${targetUserId}/posts`
 
     // Render logic
     const renderContent = () => {
@@ -66,16 +69,14 @@ function PostsSection({ userIdToView }) { // Accept userIdToView as a prop
             return <p>Loading posts...</p>;
         }
         if (error) {
-            return <p className="error-message">{error}</p>;
+            return <p className="error-message">{error}</p>; // Assuming global .error-message style
         }
         if (posts.length === 0) {
-            // Check if the profile being viewed is the logged-in user's profile
-            const isOwnProfile = loggedInUser?._id === targetUserId;
             return (
                 <div style={{textAlign: 'center', padding: '20px 0'}}>
                     <p>{isOwnProfile ? "You haven't made any posts yet." : "This user hasn't made any posts yet."}</p>
                     {isOwnProfile && (
-                        <Link to="/posts/create" className={styles.createPostButton}>
+                        <Link to="/posts/create" className={styles.createPostButton}> {/* Style this button */}
                             Create Your First Post
                         </Link>
                     )}
@@ -83,24 +84,22 @@ function PostsSection({ userIdToView }) { // Accept userIdToView as a prop
             );
         }
         return posts.map(post => (
-            // Assuming PostCard expects a 'post' object prop
+            // Ensure PostCard component expects a 'post' object prop
             <PostCard key={post._id} post={post} />
         ));
     };
 
-
     return (
-        <section className={`${styles.postsCard} card`}> {/* Use card class for consistency */}
+        <section className={`${styles.postsCard} card`}> {/* Use a general 'card' style if available */}
             <div className={styles.postsHeader}>
                 <h2>Recent Posts</h2>
-                {/* Link to the main feed or a dedicated user posts page */}
-                {posts.length > 0 && ( // Only show "See all" if there are posts
-                     <Link to={seeAllLink} className={styles.seeAllButton}>
+                {posts.length > 0 && ( // Only show "See all" if there are posts to see
+                     <Link to={seeAllLink} className={styles.seeAllButton}> {/* Style this button/link */}
                         See all
                      </Link>
                 )}
             </div>
-            <div className={styles.postsGrid}>
+            <div className={styles.postsGrid}> {/* Ensure this class has layout styles (e.g., flex column, grid) */}
                  {renderContent()}
             </div>
         </section>

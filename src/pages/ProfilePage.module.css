@@ -6,6 +6,16 @@
   display: flex;
   flex-direction: column;
   gap: 25px; /* Space between profile sections */
+  padding-bottom: 30px;
+}
+
+.pageStateContainer { /* For loading/error messages if page content can't render */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px; /* Give it some height */
+    font-size: 1.2rem;
+    color: #555;
 }
 
 /* Add responsive padding if needed */
