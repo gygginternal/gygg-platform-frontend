@@ -42,6 +42,7 @@ function AuthForm({ isLogin }) {
                 email: formData.email,
                 password: formData.password
             };
+          
             logger.debug("Login Payload being sent:", payload.email); // Log email for privacy
             if (!payload.email || !payload.password) {
                 setError("Email and password are required.");
