@@ -7,11 +7,11 @@ import { useAuth } from '../context/AuthContext';
 function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(""); // Added state for search
 
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-
-  const profileDropdownRef = useRef(null); // Ref for profile dropdown
+  const profileDropdownRef = useRef(null);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -28,7 +28,7 @@ function Header() {
     setIsProfileOpen(false);
   };
 
-  // Handle outside click to close dropdown
+  // Handle click outside profile dropdown
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -38,10 +38,28 @@ function Header() {
         setIsProfileOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  // --- Search Handlers ---
+  const handleSearchInputChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    if (event && typeof event.preventDefault === 'function') {
+      event.preventDefault();
+    }
+
+    if (searchTerm.trim()) {
+      navigate(`/gigs?search=${encodeURIComponent(searchTerm.trim())}`);
+      setSearchTerm("");
+    } else {
+      navigate('/gigs');
+    }
+  };
+  // --- End Search Handlers ---
 
   return (
     <>
@@ -54,28 +72,32 @@ function Header() {
           <img src="/assets/gygg-logo.svg" alt="Gygg Logo" className={styles.headerLogo} height={50}/>
         </Link>
 
-        <div className={styles.searchContainer}>
+        {/* --- Search Bar Form --- */}
+        <form className={styles.searchContainer} onSubmit={handleSearchSubmit}>
           <div className={styles.searchBox}>
             <img src="/assets/search-outline.svg" alt="Search" width={20} height={20} />
-            <input type="text" placeholder="Search Tasks" className={styles.searchInput} />
+            <input
+              type="text"
+              placeholder="Search Tasks"
+              className={styles.searchInput}
+              value={searchTerm}
+              onChange={handleSearchInputChange}
+            />
           </div>
-          <button className={styles.searchButton} onClick={() => alert('Search not implemented')}>Search</button>
-        </div>
+          <button type="submit" className={styles.searchButton}>Search</button>
+        </form>
+        {/* --- End Search Bar Form --- */}
 
         <div className={styles.headerControls}>
           {user ? (
             <>
-              {/* <button className={styles.iconButton} aria-label="Adjustments">
-                <img src="/assets/adjustments.svg" alt="Adjustments" width={28} height={28} />
-              </button> */}
-
               <button className={styles.iconButton} aria-label="Notifications">
                 <img src="/assets/notification.svg" alt="Notification" width={28} height={28} />
               </button>
 
               <div className={styles.iconWithDropdown} ref={profileDropdownRef}>
                 <button className={styles.iconButton} onClick={() => setIsProfileOpen(!isProfileOpen)} aria-label="Profile Menu">
-                  { <img src={'/assets/profile.svg'} alt="Profile" width={36} height={36} style={{ borderRadius: '50%' }}/> /* user.profileImage ||  */}
+                  <img src={'/assets/profile.svg'} alt="Profile" width={36} height={36} style={{ borderRadius: '50%' }} />
                 </button>
                 {isProfileOpen && (
                   <div className={styles.dropdown}>

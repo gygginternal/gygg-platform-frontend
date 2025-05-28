@@ -117,12 +117,12 @@ label {
   display: block;
 }
 
-form {
+/* form {
   padding: 20px;
   border: 1px solid #eee;
   border-radius: 5px;
   background-color: #f9f9f9;
-}
+} */
 
 ul {
   list-style: none;

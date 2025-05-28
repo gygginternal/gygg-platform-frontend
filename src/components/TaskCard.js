@@ -1,194 +1,143 @@
 // src/components/GigsPage/TaskCard.js
 import React, { useState } from "react";
 import styles from "./TaskCard.module.css"; // Your CSS module
-import { Link, useNavigate } from "react-router-dom"; // Use React Router Link & Navigate
+import { Link, useNavigate } from "react-router-dom";
 
-// Placeholder Icon component
-const Icon = ({ src, alt, className, width = 16, height = 16 }) => (
+// Simple Icon component for reusability
+const Icon = ({ src, alt, className = "", width = 16, height = 16 }) => (
   <img
-    src={src}
+    src={src} // Assumes src is like "/assets/location.svg" (pointing to public folder)
     alt={alt}
     className={className}
     width={width}
     height={height}
-    onError={(e) => (e.target.style.display = "none")}
+    onError={(e) => {
+      // Fallback if icon is missing - hide or show text
+      e.currentTarget.style.display = 'none';
+      // Or: e.currentTarget.outerHTML = `<span>${alt || ''}</span>`;
+    }}
   />
 );
 
 function TaskCard({ gig }) {
-  // Accept a single 'gig' object prop from the backend
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
-  if (!gig || !gig.postedBy) {
-    // Optional: Render a placeholder or null if gig data is incomplete
+  // Defensive checks for essential data
+  if (!gig || !gig._id) {
     return (
-      <article className={styles.taskCard}>
-        <p>Loading gig data...</p>
+      <article className={styles.taskCard} style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <p>Gig data is unavailable.</p>
       </article>
     );
   }
 
-  // --- Data Mapping ---
-  const image = gig.postedBy.profileImage || "/assets/default.png"; // Use postedBy image or fallback
-  const author =
-    gig.postedBy.fullName ||
-    `${gig.postedBy.firstName} ${gig.postedBy.lastName}`;
-  const title = gig.title;
-  const rate = gig.ratePerHour
-    ? `$${gig.ratePerHour}/hr`
-    : gig.cost
-    ? `$${gig.cost} (fixed)`
-    : "N/A"; // Determine rate display
-  const location =
-    gig.location?.city ||
-    gig.location?.address ||
-    (gig.isRemote ? "Remote" : "Location N/A");
+  // --- Data Mapping with Fallbacks ---
+  const postedBy = gig.postedBy || {}; // Ensure postedBy object exists
+  const profileImage = (postedBy.profileImage && postedBy.profileImage !== 'default.jpg')
+    ? postedBy.profileImage // Assuming this is a full URL from S3/Cloudinary
+    : "/assets/default-profile.png"; // Generic fallback in public/assets/
+  const author = postedBy.fullName || `${postedBy.firstName || 'Unknown'} ${postedBy.lastName || 'User'}`.trim();
+  const title = gig.title || "Untitled Gig";
+
+  let rate = "Rate N/A";
+  if (gig.ratePerHour && gig.ratePerHour > 0) {
+    rate = `$${parseFloat(gig.ratePerHour).toFixed(2)}/hr`;
+  } else if (gig.cost && gig.cost > 0) {
+    rate = `$${parseFloat(gig.cost).toFixed(2)} (fixed)`;
+  }
+
+  const location = gig.location?.city || gig.location?.address || (gig.isRemote ? "Remote" : "Location not specified");
   const postedTime = gig.createdAt
-    ? `Posted ${new Date(gig.createdAt).toLocaleDateString()}`
-    : "Recently"; // Format date
+    ? `Posted ${new Date(gig.createdAt).toLocaleDateString()}` // Simple date
+    : "Posted recently";
 
-  const handleImageError = (e) => {
-    e.target.src = "/assets/default.png";
-  }; // Fallback image
+  // --- Event Handlers ---
+  const handleImageError = (e) => { e.currentTarget.src = "/assets/default-profile.png"; };
 
-  const handleApplyClick = (e) => {
-    e.stopPropagation(); // Prevent card click when clicking button
-    // Navigate to the Gig Detail page to handle application/acceptance
-    console.log(`Navigating to apply for Gig ID: ${gig._id}`);
-    navigate(`/gigs/${gig._id}`);
-    // Or directly call the acceptGig API endpoint if appropriate here? Usually better on detail page.
-    // alert(`Apply action for "${title}" (ID: ${gig._id}) - Implement navigation or API call`);
-    setIsModalOpen(false); // Close modal if open
+  const handleViewAndApply = (e) => {
+    e.stopPropagation(); // Prevent card click if button inside modal is clicked
+    navigate(`/gigs/${gig._id}`); // Navigate to full detail page
+    setIsModalOpen(false); // Close modal
   };
 
   const openModal = () => setIsModalOpen(true);
-  const closeModal = (e) => {
-    // Prevent modal closing if click is inside modal content (optional)
-    if (e.target === e.currentTarget) {
-      setIsModalOpen(false);
-    }
-  };
-  const closeWithButton = (e) => {
-    e.stopPropagation(); // Prevent card click trigger
-    setIsModalOpen(false);
-  };
+  const closeModal = (e) => { if (e.target === e.currentTarget) setIsModalOpen(false); }; // Close on overlay click
+  const closeWithButton = (e) => { e.stopPropagation(); setIsModalOpen(false); };
 
   return (
     <>
-      {/* Task Card */}
+      {/* Task Card - Click to open modal */}
       <article
         className={styles.taskCard}
         onClick={openModal}
+        onKeyPress={(e) => (e.key === 'Enter' || e.key === ' ') && openModal()} // Accessibility
         role="button"
         tabIndex={0}
+        aria-label={`View details for gig: ${title}`}
       >
         <img
-          src={image}
+          src={profileImage}
           alt={`${author}'s profile`}
           className={styles.taskImage}
-          width={155}
-          height={182}
+          // width={155} // Let CSS handle fixed dimensions if needed
+          // height={182}
           onError={handleImageError}
+          loading="lazy"
         />
         <div className={styles.taskContent}>
           <p className={styles.taskAuthor}>{author}</p>
-          {/* Link title to detail page */}
+          {/* Title is a link to the full detail page, also stops modal propagation */}
           <Link
             to={`/gigs/${gig._id}`}
             className={styles.taskTitle}
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()} // Don't open modal if title link clicked
           >
             {title}
           </Link>
           <p className={styles.taskRate}>{rate}</p>
           <div className={styles.taskDetails}>
             <div className={styles.taskLocation}>
-              <Icon
-                src="/assets/location.svg"
-                className={styles.locationIcon}
-                alt="Location"
-              />
+              <Icon src="/assets/location.svg" className={styles.locationIcon} alt="Location icon" />
               <span>{location}</span>
             </div>
-            {/* Consider using a time-ago library for postedTime */}
             <span className={styles.taskTime}>{postedTime}</span>
           </div>
         </div>
       </article>
 
-      {/* Modal (Popup) */}
+      {/* Modal (Popup) for Quick View */}
       {isModalOpen && (
-        // Use onClick on overlay for closing when clicking outside modal content
-        <div className={styles.modalOverlay} onClick={closeModal}>
-          {/* Prevent closing when clicking inside the modal itself */}
-          <div
-            className={styles.modalContent}
-            onClick={(e) => e.stopPropagation()}
-          >
+        <div className={styles.modalOverlay} onClick={closeModal} role="dialog" aria-modal="true" aria-labelledby={`modal-title-${gig._id}`}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()} role="document">
             <div className={styles.modalHeader}>
-              <h2>Gig Details</h2>
-              <button
-                className={styles.closeButton}
-                onClick={closeWithButton}
-                aria-label="Close modal"
-              >
-                <Icon
-                  src="/assets/close.svg"
-                  alt="Close"
-                  className={styles.closeIcon}
-                  width={18}
-                  height={18}
-                />
+              <h2 id={`modal-title-${gig._id}`}>Gig Details</h2>
+              <button className={styles.closeButton} onClick={closeWithButton} aria-label="Close gig details modal">
+                <Icon src="/assets/close.svg" alt="Close" className={styles.closeIcon} width={18} height={18} />
               </button>
             </div>
 
             <div className={styles.mainContent}>
-              {/* Use actual gig title */}
               <h3 className={styles.modalGigTitle}>{title}</h3>
-
-              {/* Profile info */}
               <div className={styles.profileTopRow}>
                 <div className={styles.profileLeft}>
                   <span className={styles.taskAuthor}>{author}</span>
-                  {/* Link to provider's profile page if you have one */}
-                  {/* <Link to={`/users/${gig.postedBy._id}`} className={styles.viewProfile}>View Profile</Link> */}
+                  <Link to={`/users/${gig.postedBy._id}`} className={styles.viewProfile} onClick={(e) => e.stopPropagation()}>View Profile</Link>
                 </div>
                 <span className={styles.taskTime}>{postedTime}</span>
               </div>
-
-              {/* Use actual gig description */}
-              <p className={styles.description}>
-                {gig.description || "No description provided."}
-              </p>
-
-              {/* Details row */}
+              <p className={styles.description}>{gig.description || "No detailed description provided."}</p>
               <div className={styles.taskRow}>
                 <div className={styles.taskLocation}>
-                  <Icon
-                    src="/assets/location.svg"
-                    className={styles.locationIcon}
-                    alt="Location"
-                  />
+                  <Icon src="/assets/location.svg" className={styles.locationIcon} alt="Location icon" />
                   <span>{location}</span>
                 </div>
-                <p className={styles.taskTime}>
-                  Pay <span className={styles.taskRate}>{rate}</span>
-                </p>
-                {/* Add duration if available */}
-                {gig.duration && (
-                  <span className={styles.taskTime}>
-                    Est.{" "}
-                    <span className={styles.taskRate}>{gig.duration}hr</span>
-                  </span>
-                )}
+                <p className={styles.taskTime}>Pay <span className={styles.taskRate}>{rate}</span></p>
+                {gig.duration && <span className={styles.taskTime}>Est. <span className={styles.taskRate}>{gig.duration}hr</span></span>}
               </div>
-
               <div className={styles.line}></div>
-
-              {/* Apply Button - Navigates to detail page */}
-              <button className={styles.applyButton} onClick={handleApplyClick}>
-                View & Apply
+              <button className={styles.applyButton} onClick={handleViewAndApply}>
+                Apply
               </button>
             </div>
           </div>

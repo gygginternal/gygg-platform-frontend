@@ -1,18 +1,28 @@
-.contentLayout {
-    /* display: flex; -- Not needed if ProfileSidebar isn't rendered here */
-    width: 100%; /* Take full width within App.js main container */
- }
- 
- .taskListContainer {
-     margin: 0 auto; /* Center the task list area */
-     max-width: 700px; /* Max width for the list itself */
-     width: 100%;
- }
- 
- .pageTitle {
-     font-size: 1.8rem;
-     color: #333;
-     margin-bottom: 25px;
-     border-bottom: 1px solid #eee;
-     padding-bottom: 10px;
- }
+.pageContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-height: 100vh;
+  margin-top: 40px;
+  margin-left: 200px;
+}
+
+.profileSidebar {
+  width: 250px;
+  flex-shrink: 0;
+  margin-right: 200px;
+}
+
+.taskListContainer {
+  flex: 1;
+  padding: 32px;
+  max-width: 900px;
+}
+
+.pageTitle {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
