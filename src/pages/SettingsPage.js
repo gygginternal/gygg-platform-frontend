@@ -7,14 +7,11 @@ import PersonalInfoForm from '../components/PersonalInfoForm'; // Adjust path
 function SettingsPage() {
 
     return (
-        <div> {/* Wrapper div */}
-            <h2 className={styles.pageTitle}>Settings</h2>
-            <div className={styles.settingsContainer}>
+        <div className={styles.settingsContainer}>
                 <PersonalInfoForm />
                 {/* Add other settings sections here */}
                 {/* <NotificationSettings /> */}
                 {/* <SecuritySettings /> */}
-            </div>
         </div>
     );
 }

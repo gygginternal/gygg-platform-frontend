@@ -1,151 +1,184 @@
+/* src/components/Settings/PersonalInfoForm.module.css */
 .container {
-    max-width: 1200px;
-    height: 560px;
-    position: relative;
-    margin: auto;
+    max-width: 800px; /* Max width for settings form, adjust as needed */
+    /* height: 560px; -- REMOVE FIXED HEIGHT */
+    min-height: 400px; /* Optional: set a minimum height */
+    position: relative; /* Still useful if any child uses absolute positioning relative to this */
+    margin: 20px auto; /* Center it on the page */
     background: #fff;
-    padding: 20px;
+    padding: 25px 30px; /* Increased padding */
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .tabs {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    display: flex; /* Added flex to manage tab content height better */
+    flex-direction: column;
+}
+
+.tabs {
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-  }
-  
-  .activeTab {
-    font-weight: bold;
-    border-bottom: 4px solid #00AABA;
-    padding-bottom: 5px;
+    /* justify-content: space-around; -- Use gap or start for better alignment */
+    gap: 25px; /* Space between tabs */
+    margin-bottom: 25px; /* Space below tabs */
+    border-bottom: 1px solid #eee; /* Separator line for tabs */
+    flex-shrink: 0; /* Prevent tabs from shrinking if content is large */
+}
+
+.activeTab {
+    font-weight: 600; /* Slightly less bold */
+    border-bottom: 3px solid #00AABA; /* Thinner, different color */
+    padding-bottom: 10px; /* Adjust padding */
     cursor: pointer;
-    color: #000000;
-  }
-  
-  .inactiveTab {
-    color: #888;
+    color: #00AABA; /* Active tab color */
+    margin-bottom: -1px; /* Align with border */
+}
+
+.inactiveTab {
+    color: #666; /* Darker grey for inactive */
     cursor: pointer;
-    padding-bottom: 5px;
-  }
-  
-  .inactiveTab:hover {
+    padding-bottom: 10px; /* Match active tab padding */
+    border-bottom: 3px solid transparent; /* Keep space but no visible border */
+}
+
+.inactiveTab:hover {
     color: #3D4D55;
-  }
-  
-  .form {
+    border-bottom-color: #ddd; /* Subtle hover indicator */
+}
+
+.form {
     display: flex;
     flex-direction: column;
-  }
-  
-  .row {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-  }
-  
-  .inputGroup {
-    flex: 1;
+    flex-grow: 1; /* Allow form to take available vertical space */
+    /* No specific height, will grow with content */
+}
+
+.tabContent { /* Container for the content of each tab */
+    padding-top: 15px; /* Space below tabs if not handled by .form */
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
-  }
-  
-  .inputGroup label {
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .inputGroup input {
-    padding: 10px;
+    gap: 15px; /* Consistent gap between form groups within tab */
+    flex-grow: 1; /* Allow tab content to expand */
+}
+
+
+.row {
+    display: flex;
+    /* justify-content: space-between; -- Let gap handle spacing */
+    gap: 20px; /* Increased gap for rows */
+}
+
+.inputGroup {
+    flex: 1; /* Distribute space equally */
+    display: flex;
+    flex-direction: column;
+    /* margin-bottom: 15px; -- Handled by .tabContent gap */
+}
+
+.inputGroup label {
+    font-weight: 500; /* Standard weight */
+    margin-bottom: 6px; /* Increased space */
+    font-size: 0.9em;
+    color: #333;
+}
+
+.inputGroup input {
+    padding: 10px 12px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 6px;
     font-size: 14px;
-  }
-  
-  .inputGroup input:focus {
-    border-color: #007bff;
+}
+
+.inputGroup input:focus {
+    border-color: #00AABA; /* Match active tab border */
     outline: none;
-  }
-  
-  .withdrawLink {
-    display: block;
-    text-align: center;
-    margin-top: 10px;
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-  }
-  
-  .withdrawLink:hover {
-    text-decoration: underline;
-  }
-  
-  .saveButton {
-    width: 80px;
-    padding: 12px;
+    box-shadow: 0 0 0 2px rgba(0, 170, 186, 0.2);
+}
+
+/* .withdrawLink styles (keep if used elsewhere) */
+
+.saveButton {
+    /* width: 80px; -- Remove fixed width, let padding define it */
+    padding: 10px 25px; /* Adjust padding for better look */
     background: #3D4D55;
     color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 6px; /* Consistent radius */
+    font-size: 1rem; /* Slightly larger */
     cursor: pointer;
-    position: absolute; /* Positioned relative to the parent container */
-    bottom: 20px; /* 20px from the bottom of the container */
-    right: 20px; /* 20px from the right of the container */
-  }
-  
-  .saveButton:hover {
-    background: #0056b3;
-  }
-  
-.tabContent {
-    padding-top: 20px; /* Add space below tabs */
+    /* position: absolute; -- REMOVE ABSOLUTE POSITIONING */
+    /* bottom: 20px; */
+    /* right: 20px; */
+    margin-top: 25px; /* Add margin to push it down */
+    align-self: flex-end; /* Align to the right if form is flex container */
+    transition: background-color 0.2s ease;
 }
+
+.saveButton:hover:not(:disabled) {
+    background: #2c3a40; /* Darken on hover */
+}
+.saveButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
 
 .subheading {
     font-size: 1.1em;
     font-weight: 600;
     color: #444;
-    margin-top: 25px;
+    margin-top: 20px; /* Adjust spacing */
     margin-bottom: 15px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0f0f0; /* Lighter border */
 }
 
 .stripeSection {
-    padding: 15px;
-    border: 1px dashed #ccc; /* Dashed border for emphasis */
-    border-radius: 5px;
-    margin-top: 10px;
-    background-color: #fdfdfd;
+    padding: 20px; /* More padding */
+    border: 1px solid #e9ecef; /* Lighter dashed border */
+    border-radius: 8px;
+    margin-top: 15px;
+    background-color: #f8f9fa; /* Very light grey */
 }
 
 .stripeSection p {
-    margin-bottom: 10px;
-    line-height: 1.5;
+    margin-bottom: 12px;
+    line-height: 1.6;
     font-size: 0.95em;
+    color: #495057; /* Darker text for better readability */
 }
 .stripeSection code {
-    background-color: #eee;
+    background-color: #e9ecef;
     padding: 2px 5px;
     border-radius: 3px;
-    font-size: 0.85em;
+    font-size: 0.9em;
+    color: #343a40;
 }
-.stripeSection button {
-    margin-right: 10px; /* Space between buttons */
+.stripeSection button { /* General style for buttons within stripe section */
+    margin-right: 10px;
+    margin-bottom: 5px; /* Space if they wrap */
 }
 
-/* Ensure error/success messages have margin */
-.error-message, .success-message {
+/* Ensure error/success messages have margin and clear styling */
+/* These might be global or defined in index.css */
+.error-message {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
     margin: 10px 0;
+    font-size: 0.9em;
+}
+.success-message {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+    font-size: 0.9em;
 }
 
-/* Adjust save button absolute positioning if needed */
-.saveButton {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    width: auto; /* Allow button to size naturally */
-    min-width: 120px; /* Set minimum width */
+/* Ensure inputs fill their group width if groups are in a row */
+.row .inputGroup input {
+    width: 100%;
+    box-sizing: border-box;
 }

@@ -52,7 +52,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
       key: "contracts",
       path: "/gig-history",
       icon: "/assets/clock.svg",
-      text: "Task History",
+      text: "Gig History",
     }, // Use your history path
     { 
       key: "gigs", 
