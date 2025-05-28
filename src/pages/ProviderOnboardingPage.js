@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./ProviderOnboardingPage.module.css"; // Create this
-import ProgressBar from "../components/Onboarding/ProgressBar"; // Adapted ProgressBar
+import ProgressBar from "../components/Onboarding/ProgressBar2"; // Adapted ProgressBar
 import FormInput from "../components/Onboarding/FormInput"; // Adapted FormInput
 import NavigationButtons from "../components/Onboarding/NavigationButtons";
 import PersonalityForm from "../components/Onboarding/PersonalityForm";
