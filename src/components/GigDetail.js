@@ -12,6 +12,8 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import "./GigDetails.css"; // Assuming you have a CSS file for styling
+import { GigApplications } from "./GigApplications";
+import { useMutation } from "@tanstack/react-query";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY); // Replace with your Stripe publishable key
 
@@ -230,8 +232,25 @@ function GigDetailPage() {
 
   // Set up Stripe.js and Elements to use in checkout form, passing the client secret obtained in a previous step
 
+  const cancelContractMutation = useMutation({
+    mutationFn: async (contractId) => {
+      await apiClient.delete(`/contracts/${contractId}`);
+    },
+    onSuccess: () => {
+      console.log("Contract canceled successfully.");
+      fetchData(); // Refetch data to update the UI
+    },
+    onError: (err) => {
+      console.error(
+        "Error canceling contract:",
+        err.response?.data || err.message
+      );
+    },
+  });
+
   return (
     <div className="ml-[200px]">
+      {!contractData && user?.role?.includes("provider") && <GigApplications />}
       {isRefunding && (
         <div className="alert alert-warning">
           Gig is being canceled. Provider, Please wait for the refund process.
@@ -249,7 +268,7 @@ function GigDetailPage() {
               <button
                 onClick={() => {
                   apiClient
-                    .patch(`/gigs/${gigId}/accept`)
+                    .post(`/gigs/${gigId}/apply`)
                     .then((response) => {
                       console.log("Gig accepted:", response.data);
                       handleAcceptSuccess();
@@ -264,7 +283,7 @@ function GigDetailPage() {
             </div>
           )}
 
-          {contractData ? (
+          {contractData && (
             <div>
               <h2>Contract Details</h2>
               <p>Job applied. Try deposit, release, or refund.</p>
@@ -279,13 +298,22 @@ function GigDetailPage() {
                 <p>No payment details available.</p>
               )}
             </div>
-          ) : (
-            <div>Apply for the job from a tasker account.</div>
           )}
 
           {user?.role?.includes("provider") && contractData && (
             <div>
               <h1>Provider</h1>
+
+              <button
+                onClick={() => {
+                  cancelContractMutation.mutate(contractData._id);
+                }}
+                disabled={cancelContractMutation.isLoading}
+              >
+                {cancelContractMutation.isLoading
+                  ? "Canceling..."
+                  : "Cancel Contract"}
+              </button>
 
               {!paymentData && (
                 <button

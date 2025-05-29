@@ -10,14 +10,14 @@ export function ServiceProviderListing({ gigHelpers }) {
             <ProviderCard key={provider.id} provider={provider} />
           ))
         ) : (
-          <p className="text-gray-500">No service providers found.</p>
+          <p className="text-gray-500">No Tasker Found.</p>
         )}
       </div>
     </div>
   );
 }
 
-function ProviderCard({ provider }) {
+export function ProviderCard({ provider }) {
   return (
     <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
       <div className="flex flex-col sm:flex-row">
@@ -33,10 +33,12 @@ function ProviderCard({ provider }) {
             <div>
               <h2 className="text-xl font-semibold">{provider.name}</h2>
               <p className="text-amber-500 font-semibold">{provider.rate}</p>
-              <div className="flex items-center text-gray-500 mt-1">
-                <MapPin className="h-4 w-4 mr-1" />
-                <span>{provider.location}</span>
-              </div>
+              {provider.location && (
+                <div className="flex items-center text-gray-500 mt-1">
+                  <MapPin className="h-4 w-4 mr-1" />
+                  <span>{provider.location}</span>
+                </div>
+              )}
             </div>
           </div>
 

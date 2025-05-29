@@ -11,9 +11,9 @@ frontend:
       commands:
         - npm run build
   artifacts:
-    baseDirectory: dist  # or build/out as per your framework
+    baseDirectory: build # or build/out as per your framework
     files:
-      - '**/*'
+      - "**/*"
   cache:
     paths:
       - node_modules/**/*
