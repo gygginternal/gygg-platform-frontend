@@ -51,8 +51,8 @@ function Sidebar({ isOpen, toggleSidebar }) {
     {
       key: "contracts",
       path: "/gig-history",
-      icon: "/assets/clock.svg",
-      text: "Gig History",
+      icon: "/assets/receipt-edit.svg",
+      text: "Contracts",
     }, // Use your history path
     { 
       key: "gigs", 

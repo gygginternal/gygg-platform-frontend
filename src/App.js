@@ -30,6 +30,8 @@ import GigDetailPage from './pages/GigDetailPage';
 import MatchedGigsPage from './pages/MatchedGigsPage';
 // import MatchedTaskersPage from './pages/MatchedTaskersPage';
 
+import ContractsPage from './pages/ContractsPage';
+
 import ProfilePage from './pages/ProfilePage';
 import SettingsPage from './pages/SettingsPage';
 import ChatPage from './pages/ChatPage';
@@ -124,6 +126,8 @@ function App() {
             <Route path="/gigs/create" element={<ProtectedRoute><GigCreatePage /></ProtectedRoute>} />
             <Route path="/gigs/:gigId" element={<ProtectedRoute><GigDetailPage /></ProtectedRoute>} />
             <Route path="/gigs/matched" element={<ProtectedRoute><MatchedGigsPage /></ProtectedRoute>} />
+
+            <Route path="/contracts" element={<ProtectedRoute><ContractsPage /></ProtectedRoute>} />
 
             {/* <Route path="/find-taskers" element={<ProtectedRoute><FindTaskersPage /></ProtectedRoute>} />
             <Route path="/taskers/matched" element={<ProtectedRoute><MatchedTaskersPage /></ProtectedRoute>} /> */}

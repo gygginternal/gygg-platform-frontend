@@ -154,8 +154,8 @@ function Feed() {
                     <img
                         src={user?.profileImage || '/default.jpg'} // Use logged-in user's image
                         alt={user?.firstName || 'Your profile'}
-                        width={40}
-                        height={40}
+                        width={48}
+                        height={48}
                         className={styles.profileImage}
                         onError={(e) => { e.target.src = '/default.jpg'; }} // Fallback image
                     />

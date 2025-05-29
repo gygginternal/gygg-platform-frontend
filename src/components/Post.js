@@ -44,8 +44,8 @@ function Post({
           <img // Use standard img
             src={author.profileImage || '/default.jpg'} // Add fallback default image in /public
             alt={author.fullName || author.firstName || 'User profile'}
-            width={40}
-            height={40}
+            width={48}
+            height={48}
             className={styles.profileImage}
             onError={handleImageError}
           />

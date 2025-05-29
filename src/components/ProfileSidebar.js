@@ -43,7 +43,7 @@ function ProfileSidebar() {
                         className={styles.profileImage}
                         onError={handleImageError}
                     />
-                    <div>
+                <div>
                         <h3 className={styles.profileName}>{user.fullName || `${user.firstName} ${user.lastName}`}</h3>
                          {/* Link to actual profile edit page */}
                         <Link to="/dashboard" className={styles.viewProfileLink}>

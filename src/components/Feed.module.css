@@ -58,6 +58,8 @@
   
   .profileImage {
     border-radius: 50%;
+    height: 48;
+    width: 48;
   }
   
   .createPostInput {

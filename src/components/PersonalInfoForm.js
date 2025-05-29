@@ -192,10 +192,10 @@ function PersonalInfoForm() {
             <form className={styles.form} onSubmit={handleSubmit}>
                 {activeTab === "personal" ? (
                     <div className={styles.tabContent}>
-                        <h2>Personal Information</h2>
+                        {/* <h2>Personal Information</h2>
                         {error && <p className="error-message">{error}</p>}
                         {success && <p className="success-message">{success}</p>}
-                        <h4 className={styles.subheading}>Basic Info</h4>
+                        <h4 className={styles.subheading}>Basic Info</h4> */}
                         <div className={styles.row}>
                             <div className={styles.inputGroup}>
                                 <label htmlFor="p-firstName">First Name</label>
@@ -242,7 +242,7 @@ function PersonalInfoForm() {
                     </div>
                 ) : activeTab === "withdraw" && user?.role?.includes('tasker') ? (
                     <div className={styles.tabContent}>
-                        <h2>Withdraw Information</h2>
+                        {/* <h2>Withdraw Information</h2> */}
                         <div className={styles.stripeSection}>
                             <h4 className={styles.subheading}>Payout Method (Stripe Connect)</h4>
                             {renderStripeSection()} {/* StripeOnboarding logic is here */}
