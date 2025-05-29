@@ -297,3 +297,64 @@
     /* ... your global styles ... */
     margin: 0 0 10px 0;
 }
+
+.imageUploadContainerModal {
+    display: flex;
+    flex-direction: column; /* Stack preview and button */
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px; /* Space below upload section */
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+.imagePreviewModal {
+    width: 150px; /* Adjust size as needed */
+    height: 150px;
+    border: 2px dashed #ccc;
+    border-radius: 50%; /* Make it circular for profile pics */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f8f8;
+    overflow: hidden;
+    cursor: pointer; /* Make preview clickable to open file dialog */
+    margin-bottom: 10px; /* Space between preview and button */
+}
+
+.previewImageModal {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.uploadPlaceholderModal {
+    color: #888;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.uploadButtonModal {
+    padding: 8px 15px;
+    font-size: 0.9em;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.uploadButtonModal:hover {
+    background-color: #e0e0e0;
+}
+
+.fileNameModal {
+    font-size: 0.8em;
+    color: #555;
+    margin-top: 5px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px; /* Prevent long filenames from breaking layout */
+}
