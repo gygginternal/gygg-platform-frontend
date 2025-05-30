@@ -43,14 +43,14 @@
     font-weight: 700;
     color: #e5e7eb;
     margin-bottom: 0.5rem;
-    text-align: center;
+    text-align: left;
 }
 
 .subtitle {
     font-size: 1.1rem;
     color: #d1d5db;
     margin-bottom: 2rem;
-    text-align: center;
+    text-align: left;
     line-height: 1.5;
 }
 
@@ -100,13 +100,51 @@
 .dropdownItem:hover { background-color: #f3f4f6;}
 
 /* Styles for Image Upload (Step 5) */
-.imageSection { display: flex; flex-direction: column; gap: 1.5rem; width: 100%; align-items: center; margin-top: 1.5rem; }
-.imagePreview { width: 200px; height: 200px; border: 2px dashed #d1d5db; border-radius: 8px; display: flex; justify-content: center; align-items: center; background-color: rgba(255,255,255,0.05); overflow: hidden; position: relative; color: #d1d5db; }
-.previewImage { width: 100%; height: 100%; object-fit: cover; }
+.imageRow {
+  display: flex;
+  gap: 1rem;
+  align-content: center;
+}
+
+.imagePreview,
+.imageUpload {
+  width: 200px; 
+  height: 200px;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  background-color: #f9f9f9;
+}
+
+.previewImage {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.uploadIcon {
+  display: block;
+  margin: 0 auto;
+}
+
+.uploadText {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.fileInput {
+  display: none;
+}
+
 .placeholder { color: #9ca3af; font-size: 1rem; }
-.imageUpload { width: 100%; max-width: 300px; min-height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; box-sizing: border-box; background-color: rgba(255,255,255,0.05); border-radius: 8px; border: 2px dashed #d1d5db; cursor: pointer; transition: background-color 0.2s ease; padding: 1rem; color: #d1d5db; }
 .imageUpload:hover { background-color: rgba(255,255,255,0.1); border-color: #D89362; }
-.uploadText { font-size: 0.9rem; margin-bottom: 0.25rem; }
 .uploadText + small { font-size: 0.8rem; color: #aaa; }
 .fileInput { display: none; }
 

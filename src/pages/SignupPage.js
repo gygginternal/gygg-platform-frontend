@@ -15,14 +15,11 @@ function SignupPage() {
   const initialRole = location.state?.selectedRole || 'tasker';
 
   const [formData, setFormData] = useState({
-    firstName: '', // Add firstName
-    lastName: '', // Add lastName
     email: '',
     phoneNo: '+1', // Changed name to match backend, initialize with country code
     password: '',
     passwordConfirm: '', // Changed name to match backend/AuthForm
-    // location: '', // Location might be complex (object?), handle separately or later
-    // dob: '', // Date of Birth - backend needs to handle this type
+    dateOfBirth: '', 
     role: [initialRole] 
   });
 
@@ -57,17 +54,25 @@ function SignupPage() {
       return;
     }
     // Basic validation (backend should handle more robustly)
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.password) {
+    if (!formData.email || !formData.password) {
         setError('Please fill in all required fields (*)');
         return;
     }
 
+    if (formData.dateOfBirth) {
+        const birthYear = new Date(formData.dateOfBirth).getFullYear();
+        const currentYear = new Date().getFullYear();
+        if (currentYear - birthYear < 50) { // Example: 18+ for general use
+             setError('You must be at least 18 years old to sign up.');
+             // If your backend rule is 50+, align this or rely on backend:
+             // if (currentYear - birthYear < 50) { setError('You must be at least 50 years old.'); return; }
+             return;
+        }
+    }
     setLoading(true);
 
     // Prepare payload matching backend expectations
     const payload = {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
         email: formData.email,
         password: formData.password,
         passwordConfirm: formData.passwordConfirm,
@@ -112,25 +117,6 @@ function SignupPage() {
         <h1 className={styles.title}>Sign up</h1>
 
         <form className={styles.form} onSubmit={handleSubmit}>
-           {/* Add First Name and Last Name */}
-           <InputField
-                label="First Name*"
-                name="firstName"
-                type="text"
-                placeholder="Enter first name"
-                value={formData.firstName}
-                onChange={handleChange}
-                required // Mark as required
-           />
-            <InputField
-                label="Last Name*"
-                name="lastName"
-                type="text"
-                placeholder="Enter last name"
-                value={formData.lastName}
-                onChange={handleChange}
-                required
-           />
 
           <InputField
             label="Email*"

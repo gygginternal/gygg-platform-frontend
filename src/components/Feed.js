@@ -134,6 +134,16 @@ function Feed() {
          }
      };
 
+    // Callback to update a single post in the local 'posts' state
+    const handleSinglePostUpdate = (updatedPostData) => {
+        logger.debug("Feed: Updating single post in list:", updatedPostData);
+        setPosts(currentPosts =>
+            currentPosts.map(p =>
+                p._id === updatedPostData._id ? updatedPostData : p
+            )
+        );
+    };
+
     // --- Render ---
     return (
         <main className={styles.feedContainer}>
@@ -188,9 +198,11 @@ function Feed() {
                 {error && !loading && <p className="error-message">{error}</p>}
                 {!loading && posts.length === 0 && <p>No posts found for this criteria.</p>}
                 {posts.map((post) => (
-                    // Pass the whole post object from the API
-                    // Add key using post._id
-                    <Post key={post._id} post={post} /* Add onLike, onComment handlers here */ />
+                    <Post
+                        key={post._id}
+                        post={post}
+                        onPostUpdate={handleSinglePostUpdate} // <<< Pass the callback
+                    />
                 ))}
                  {isLoadingMore && <p>Loading more posts...</p>}
                  {hasMore && !loading && !isLoadingMore && (

@@ -121,3 +121,151 @@
   color: #536471;
   cursor: pointer;
 }
+
+.postTimestamp { /* For styling date next to handle */
+    color: #657786;
+    font-size: 0.9em;
+    margin-left: 5px;
+}
+
+.actionButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Space between icon and count */
+    padding: 6px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+.actionButton:hover:not(:disabled) {
+    background-color: #f5f8fa;
+}
+.actionButton:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+.actionButton img {
+    opacity: 0.7; /* Default icon opacity */
+}
+.actionButton:hover img {
+    opacity: 1;
+}
+
+.actionButton.liked img { /* Style for when post is liked */
+    /* If using a filled heart icon, it might already be colored.
+       If using CSS to color, you might do:
+       filter: invert(37%) sepia(94%) saturate(2075%) hue-rotate(335deg) brightness(98%) contrast(102%); Reddish pink
+    */
+    opacity: 1;
+}
+.actionButton.liked .actionCount {
+    color: #e0245e; /* Example liked count color */
+    font-weight: bold;
+}
+
+/* Comment Input Section */
+.commentInputSection {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eff3f4;
+}
+
+.commentProfileImage {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.commentInput {
+    flex-grow: 1;
+    padding: 8px 12px;
+    border: 1px solid #ccd6dd;
+    border-radius: 16px;
+    font-size: 14px;
+    outline: none;
+}
+.commentInput:focus {
+    border-color: #D89362; /* Your theme color */
+}
+
+.commentSubmitButton {
+    padding: 8px 15px;
+    background-color: #D89362; /* Your theme color */
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+}
+.commentSubmitButton:hover:not(:disabled) {
+    background-color: #c07a49;
+}
+.commentSubmitButton:disabled {
+    background-color: #ccc;
+}
+
+
+/* Comments Preview */
+.commentsPreview {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eff3f4; /* Optional separator */
+    font-size: 0.9em;
+}
+
+.commentItem {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    align-items: flex-start;
+}
+.commentItem p {
+    margin: 0;
+    line-height: 1.4;
+    word-break: break-word;
+}
+.commentItem strong {
+    font-weight: 600;
+    color: #14171a;
+    margin-right: 5px;
+}
+
+.commentAuthorImage {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
+
+.viewAllComments {
+    background: none;
+    border: none;
+    color: #007bff; /* Link color */
+    cursor: pointer;
+    font-size: 0.85em;
+    padding: 5px 0;
+    margin-top: 5px;
+}
+.viewAllComments:hover {
+    text-decoration: underline;
+}
+
+/* Styles from your original Post.module.css for non-simple posts (if still used) */
+.postCardWithImage .commentSection {
+  border: 1px solid #eff3f4;
+  padding: 16px;
+  margin-top: 16px;
+  border-radius: 12px;
+}
+.postCardWithImage .commentContent { margin-top: 16px; }
+.postCardWithImage .commentUser { display: flex; align-items: center; gap: 4px; }
+.postCardWithImage .commentUsername { font-weight: 700; color: #0f1419; }
+.postCardWithImage .commentHandle { color: #536471; font-size: 14px; }
+.postCardWithImage .commentText { margin-top: 8px; color: #0f1419; }
+.postCardWithImage .writeComment { margin-top: 16px; padding: 11px; background-color: #eff3f4; border-radius: 16px; color: #536471; cursor: pointer;}
+

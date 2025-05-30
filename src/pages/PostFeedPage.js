@@ -129,6 +129,15 @@ function PostFeedPage() {
          }
     };
 
+    // Callback to update a single post in the local 'posts' state
+    const handleSinglePostUpdate = (updatedPostData) => {
+        setPosts(currentPosts =>
+            currentPosts.map(p =>
+                p._id === updatedPostData._id ? updatedPostData : p
+            )
+        );
+    };
+
     // Handler for loading more posts
      const loadMore = () => {
          if (!loading && !isLoadingMore && hasMore) {

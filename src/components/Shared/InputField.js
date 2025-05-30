@@ -94,19 +94,33 @@ function InputField({
              onChange={handleCountryCodeChange} // Handle select change
            />
         )}
-        <input
-          type={icon === "password" && showPassword ? "text" : type}
-          id={name} // Use name for id as well
-          name={name}
-          className={styles.input}
-          placeholder={placeholder}
-          value={currentValue} // Use the potentially modified value
-          onChange={changeHandler} // Use the determined handler
-          inputMode={inputMode} // Set input mode (numeric for phone digits)
-          maxLength={maxLength} // Apply maxLength
-          required={required}
-          autoComplete={name.includes('password') ? 'new-password' : 'on'} // Help browser autocomplete
-        />
+        {type === "textarea" ? (
+          <textarea
+            id={name}
+            name={name}
+            className={`${styles.input} ${styles.textarea}`}
+            placeholder={placeholder}
+            value={currentValue}
+            onChange={changeHandler}
+            rows={3} // Default height
+            required={required}
+            style={{ resize: "vertical" }} // Allow vertical resizing
+          />
+        ) : (
+          <input
+            type={icon === "password" && showPassword ? "text" : type}
+            id={name}
+            name={name}
+            className={styles.input}
+            placeholder={placeholder}
+            value={currentValue}
+            onChange={changeHandler}
+            inputMode={inputMode}
+            maxLength={maxLength}
+            required={required}
+            autoComplete={name.includes('password') ? 'new-password' : 'on'}
+          />
+        )}
         {icon === "password" && (
           <button
             type="button"

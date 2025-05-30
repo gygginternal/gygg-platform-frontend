@@ -59,6 +59,12 @@
     color: #aaa;
 }
 
+.textarea {
+  min-height: 48px; /* one line default height */
+  line-height: 1.4;
+  padding: 10px 12px;
+  resize: vertical; /* let user resize */
+}
 
 .togglePassword {
   background: none;

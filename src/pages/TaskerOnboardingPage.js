@@ -28,7 +28,6 @@ const initialFormData = {
   skills: [], // Store selected skills/tasks as an array of strings
   // Step 3
   hobbies: [], // Will be from searchable dropdown
-  selfDescription: "", // Maps to 'bio'
   // personality
   peoplePreference: [],
   // Step 4
@@ -68,7 +67,6 @@ function TaskerOnboardingPage() {
         lastName: user.lastName || "",
         skills: user.skills || [], // Assuming 'skills' is the field for TaskSelector
         hobbies: user.hobbies || [],
-        selfDescription: user.bio || "", // Map selfDescription to user.bio
         peoplePreference: user.peoplePreference || [],
         ratePerHour: user.ratePerHour || 0,
         availability: user.availability
@@ -298,13 +296,6 @@ function TaskerOnboardingPage() {
               onChange={handleHobbiesChange}
             />
 
-            <InputField
-              label="How would you describe yourself? (This will be your bio)"
-              name="selfDescription"
-              type="textarea"
-              value={formData.selfDescription}
-              onChange={(name, val) => handleInputChange(name, val)}
-            />
             <AutoComplete
               label="What kind of people do you enjoy spending time/working with?"
               options={PERSONALITIES_OPTIONS}
@@ -331,7 +322,7 @@ function TaskerOnboardingPage() {
               <label className={styles.inputLabel}>
                 What is your approximate hourly rate? ($)
               </label>
-              <input
+              {/* <input
                 className={styles.input}
                 type="number"
                 name="ratePerHour"
@@ -340,12 +331,11 @@ function TaskerOnboardingPage() {
                 min="0"
                 step="1"
                 placeholder="e.g., 25"
-              />
-              {/* Or a select for rate range:
-                            <select className={styles.inputDropdown} name="ratePerHour" value={formData.ratePerHour} onChange={handleDirectEventChange}>
-                                <option value="">Select rate range</option>
-                                {rateRanges.map(range => <option key={range} value={range}>${range}/hr</option>)}
-                            </select> */}
+              /> */}
+              <select className={styles.inputDropdown} name="ratePerHour" value={formData.ratePerHour} onChange={handleDirectEventChange}>
+                <option value="">Select rate range</option>
+                  {rateRanges.map(range => <option key={range} value={range}>${range}/hr</option>)}
+              </select>
             </div>
             <div className={styles.inputField}>
               <label className={styles.inputLabel}>
@@ -400,7 +390,7 @@ function TaskerOnboardingPage() {
               value={formData.bioStep5}
               onChange={(name, val) => handleInputChange(name, val)}
             />
-            <div className={styles.imageSection}>
+            <div className={styles.imageRow}>
               <div
                 className={styles.imagePreview}
                 onDrop={handleDrop}
@@ -416,6 +406,7 @@ function TaskerOnboardingPage() {
                   <div className={styles.placeholder}>No image selected</div>
                 )}
               </div>
+
               <div
                 className={styles.imageUpload}
                 onClick={handleUploadAreaClick}
@@ -425,11 +416,9 @@ function TaskerOnboardingPage() {
                   if (e.key === "Enter") handleUploadAreaClick();
                 }}
               >
-                {/* <FaUpload className={styles.uploadIcon} /> */}
-                <p>⬆️</p> {/* Simple Upload Icon */}
-                <p className={styles.uploadText}>
-                  Click to upload or drag image
-                </p>
+              <img src="/assets/upload.svg" alt="Upload" className={styles.uploadIcon} width={32} height={32} />
+                
+              <p className={styles.uploadText}>Drag and Drop Thumbnail or Browse</p>
                 <input
                   type="file"
                   ref={fileInputRef}
