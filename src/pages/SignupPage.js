@@ -155,15 +155,16 @@ function SignupPage() {
           />
 
           <InputField
-            label="Phone number*" // Changed label, added asterisk
-            name="phoneNo" // Use backend field name 'phoneNo'
-            type="tel" // Use tel type
-            placeholder="Enter phone number"
-            value={formData.phoneNo} // Use combined value state
-            onChange={handleChange} // Pass the handler
-            icon="phone" // Enables country code + digit handling
-            inputMode="tel" // Hint for mobile keyboards
+            label="Phone number*"
+            name="phoneNo" // This name matches the key in formData
+            type="tel" // Not strictly needed if icon="phone" sets it
+            value={formData.phoneNo} // Pass the full E.164 string from state
+            onChange={handleChange}
+            icon="phone"
+            placeholder="e.g., 123456789" // Placeholder for local part
             required
+            // localNumberMaxLength={10} // Can be passed via 'maxLength' prop now
+            maxLength={10} // This will apply to the local number part for phone
           />
 
           <InputField
