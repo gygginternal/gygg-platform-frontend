@@ -26,12 +26,14 @@ function ProviderCard({ provider, onOffer, onReject }) {
               />
               <h2 className="text-xl font-semibold">{provider.name}</h2>
               <p className="text-amber-500 font-semibold">{provider.rate}</p>
-              {provider.location && (
-                <div className="flex items-center text-gray-500 mt-1">
-                  <MapPin className="h-4 w-4 mr-1" />
-                  <span>{provider.location}</span>
-                </div>
-              )}
+              {provider.location &&
+                provider.location.trim().split(",").filter(Boolean).length >
+                  0 && (
+                  <div className="flex items-center text-gray-500 mt-1">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    <span>{provider.location}</span>
+                  </div>
+                )}
             </div>
           </div>
           <div>
@@ -82,18 +84,19 @@ export const GigApplications = ({ onOffer, onReject }) => {
       const response = await apiClient.get(
         `/gigs/${gigId}/applications?page=${currentPage}`
       );
+
+      const data = response.data;
+      if (data && data.data && data.data.applications) {
+        setApplications((prev) => [...prev, ...data.data.applications]); // Append new applications
+        setHasMore(currentPage < data.totalPages); // Check if more pages are available
+      }
       return response.data;
     },
+    onSuccess: (data) => {
+      console.log("Fetched applications:", data);
+    },
     enabled: !!gigId && hasMore, // Only fetch if gigId is available and more pages exist
-    keepPreviousData: true, // Keep previous data while fetching new data
   });
-
-  useEffect(() => {
-    if (data && data.data && data.data.applications) {
-      setApplications((prev) => [...prev, ...data.data.applications]); // Append new applications
-      setHasMore(currentPage < data.totalPages); // Check if more pages are available
-    }
-  }, [data, currentPage]);
 
   // Mutation for offering an application
   const offerMutation = useMutation({
@@ -133,20 +136,22 @@ export const GigApplications = ({ onOffer, onReject }) => {
     }
   };
 
-  const handleOffer = (applicationId) => {
+  const handleOffer = async (applicationId) => {
+    await offerMutation.mutateAsync(applicationId); // Default behavior
     if (onOffer) {
       onOffer(applicationId); // Call the external onOffer handler
-    } else {
-      offerMutation.mutate(applicationId); // Default behavior
     }
   };
 
-  const handleReject = (applicationId) => {
-    if (onReject) {
-      onReject(applicationId); // Call the external onReject handler
-    } else {
-      rejectMutation.mutate(applicationId); // Default behavior
-    }
+  const handleReject = async (applicationId) => {
+    rejectMutation.mutate(applicationId); // Default behavior
+    setApplications((prevApplications) =>
+      prevApplications.map((application) =>
+        application.id === applicationId
+          ? { ...application, status: "rejected" }
+          : application
+      )
+    );
   };
 
   if (isLoading && currentPage === 1) {

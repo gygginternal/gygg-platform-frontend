@@ -33,8 +33,7 @@ import StripeRefreshPage from "./pages/StripeRefreshPage";
 
 // Shared
 import Header from "./components/Header";
-
-const queryClient = new QueryClient();
+import { queryClient } from "./client";
 
 // -------------------- ProtectedRoute HOC --------------------
 function ProtectedRoute({ children }) {

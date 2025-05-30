@@ -14,6 +14,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import "./GigDetails.css"; // Assuming you have a CSS file for styling
 import { GigApplications } from "./GigApplications";
 import { useMutation } from "@tanstack/react-query";
+import { GigApplySection } from "./GigApplySection";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY); // Replace with your Stripe publishable key
 
@@ -250,7 +251,9 @@ function GigDetailPage() {
 
   return (
     <div className="ml-[200px]">
-      {!contractData && user?.role?.includes("provider") && <GigApplications />}
+      {!contractData && user?.role?.includes("provider") && (
+        <GigApplications onOffer={fetchData} onReject={fetchData} />
+      )}
       {isRefunding && (
         <div className="alert alert-warning">
           Gig is being canceled. Provider, Please wait for the refund process.
@@ -263,24 +266,7 @@ function GigDetailPage() {
       {!isRefunding && !isPaymentSucceeded && (
         <div>
           {user?.role?.includes("tasker") && !contractData && (
-            <div>
-              <h1> Tasker</h1>
-              <button
-                onClick={() => {
-                  apiClient
-                    .post(`/gigs/${gigId}/apply`)
-                    .then((response) => {
-                      console.log("Gig accepted:", response.data);
-                      handleAcceptSuccess();
-                    })
-                    .catch((error) => {
-                      console.error("Error accepting gig:", error);
-                    });
-                }}
-              >
-                Apply
-              </button>
-            </div>
+            <GigApplySection gigId={gigId} onApplySuccess={fetchData} />
           )}
 
           {contractData && (
@@ -300,7 +286,7 @@ function GigDetailPage() {
             </div>
           )}
 
-          {user?.role?.includes("provider") && contractData && (
+          {user?.role?.includes("provider") && contractData && !paymentData && (
             <div>
               <h1>Provider</h1>
 
