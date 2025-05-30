@@ -11,7 +11,6 @@ import logger from '../utils/logger'; // Optional logger
 function SignupPage() {
   const navigate = useNavigate();
   const location = useLocation();
-
   const initialRole = location.state?.selectedRole || 'tasker';
 
   const [formData, setFormData] = useState({
@@ -27,45 +26,46 @@ function SignupPage() {
   const [loading, setLoading] = useState(false);
 
   // Update role state if location state changes after initial mount (unlikely but safe)
+  
   useEffect(() => {
     const roleFromState = location.state?.selectedRole;
-    if (roleFromState) {
+    if (roleFromState && roleFromState !== formData.role[0]) {
       setFormData(prev => ({ ...prev, role: [roleFromState] }));
     }
-  }, [location.state]);  
-  
+  }, [location.state, formData.role]);
 
-  // Use the handler expected by InputField (name, value)
   const handleChange = (name, value) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear password match error when typing in either password field
-    if (name === 'password' || name === 'passwordConfirm') {
+    if (name === 'password' || name === 'passwordConfirm' || name === 'dateOfBirth' || error) {
         setError('');
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(''); // Clear previous errors
+    setError('');
 
-    // Frontend password match check
-    if (formData.password !== formData.passwordConfirm) {
-      setError('Passwords do not match');
-      return;
-    }
-    // Basic validation (backend should handle more robustly)
-    if (!formData.email || !formData.password) {
-        setError('Please fill in all required fields (*)');
+    // --- Frontend Validation ---
+    if (!formData.email || !formData.password || !formData.phoneNo || !formData.dateOfBirth) {
+        setError('Please fill in all required fields (*). Email, Password, Phone, and Date of Birth are required.');
         return;
     }
+    if (formData.password !== formData.passwordConfirm) {
+      setError('Passwords do not match.');
+      return;
+    }
 
+    // Client-side age check (UX enhancement, backend is authoritative)
     if (formData.dateOfBirth) {
-        const birthYear = new Date(formData.dateOfBirth).getFullYear();
-        const currentYear = new Date().getFullYear();
-        if (currentYear - birthYear < 50) { // Example: 18+ for general use
-             setError('You must be at least 18 years old to sign up.');
-             // If your backend rule is 50+, align this or rely on backend:
-             // if (currentYear - birthYear < 50) { setError('You must be at least 50 years old.'); return; }
+        const today = new Date();
+        const birthDate = new Date(formData.dateOfBirth);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        if (age < 50) { // <<< CHECK FOR 50 YEARS
+             setError('You must be at least 50 years old to sign up.');
              return;
         }
     }
@@ -77,20 +77,17 @@ function SignupPage() {
         password: formData.password,
         passwordConfirm: formData.passwordConfirm,
         role: formData.role,
-        phoneNo: formData.phoneNo, // Send combined phone number
-        // Add dob and location if backend handles them
+        dateOfBirth: formData.dateOfBirth || undefined,
     };
 
-    try {
-        logger.info("Attempting signup with payload:", payload.email);
-        // Use apiClient to call the backend signup endpoint
-        await apiClient.post('/users/signup', payload);
+    Object.keys(payload).forEach(key => payload[key] === undefined && delete payload[key]);
 
-        logger.info("Signup successful for:", payload.email);
-        // Redirect to a page indicating verification email was sent
-        // Or directly try to login (backend signup currently logs user in)
-        alert("Signup successful! Please check your email to verify your account. You will be redirected to login.");
-        navigate('/login'); // Redirect to login after successful signup
+    try {
+        logger.info("Attempting signup for email:", payload.email);
+        await apiClient.post('/users/signup', payload);
+        logger.info("Signup successful on backend for:", payload.email);
+        alert("Signup successful! Please check your email to verify your account.");
+        navigate('/verify-email-prompt', { state: { email: payload.email } });
 
     } catch (err) {
         const errorMessage = err.response?.data?.message || 'Signup failed. Please try again.';
@@ -101,20 +98,25 @@ function SignupPage() {
     }
   };
 
+  const getMaxDateForDOB = () => {
+      const today = new Date();
+      const maxDate = new Date(today.getFullYear() - 50, today.getMonth(), today.getDate());
+      return maxDate.toISOString().split("T")[0];
+  };
+
   return (
     <main className={styles.container}>
-      <Link to="/" className={styles.logo}> {/* Link logo to home */}
-         {/* Use standard img tag pointing to public folder */}
+      <Link to="/" className={styles.logo}> 
          <img
              src="/assets/gygg-logo.svg"
              alt="GYGG logo"
-             width={100} // Adjust size as needed
+             width={100} 
              height={60}
          />
       </Link>
 
       <section className={styles.formContainer}>
-        <h1 className={styles.title}>Sign up</h1>
+        <h1 className={styles.title}>Sign up as {formData.role[0] === 'tasker' ? 'a Tasker' : 'a Provider'}</h1>
 
         <form className={styles.form} onSubmit={handleSubmit}>
 
@@ -164,20 +166,22 @@ function SignupPage() {
             required
           />
 
-          {/* Removed DOB and Location for simplicity, add back if needed */}
-          {/* <InputField label="Date of Birth*" name="dob" type="date" ... /> */}
-          {/* <InputField label="Location*" name="location" type="text" ... /> */}
-
-           {/* Role Selection (if needed beyond default) */}
-           {/* <div><label htmlFor="role">Sign up as:</label><select id="role" name="role" value={formData.role[0]} onChange={(e)=>setFormData(prev => ({...prev, role: [e.target.value]}))}><option value="tasker">Tasker</option><option value="provider">Provider</option></select></div> */}
+          <InputField
+            label="Date of Birth*"
+            name="dateOfBirth"
+            type="date"
+            value={formData.dateOfBirth}
+            onChange={handleChange}
+            required
+            max={getMaxDateForDOB()} 
+          />
 
 
           <footer className={styles.footer}>
-             {/* Display general error OR password mismatch error */}
-             {error && <p className={styles.error}>{error}</p>}
+             {error && <p className={styles.error || 'error-message'}>{error}</p>}
 
             <p className={styles.terms}>
-            By registering for an account, you are consenting to our{' '}
+              By registering for an account, you are consenting to our{' '}
               <Link to="/terms" className={styles.link}> {/* Use react-router Link */}
                 Terms of Service
               </Link>{' '}
