@@ -1,0 +1,45 @@
+/* frontend/src/pages/GigCreatePage.module.css */
+/* Use styles similar to GigCreateOptionsPage.module.css or your onboarding forms */
+.pageContainer {
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto; /* Center on page, below header */
+}
+.backLink {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #007bff;
+    text-decoration: none;
+}
+.backLink:hover { text-decoration: underline; }
+
+.formWrapper {
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.pageTitle { font-size: 1.8rem; font-weight: 600; margin-bottom: 8px; color: #333; }
+.pageSubtitle { font-size: 1rem; color: #666; margin-bottom: 25px; }
+.sectionTitle { font-size: 1.2rem; font-weight: 500; margin-top: 20px; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid #eee; }
+
+.formGroup { margin-bottom: 15px; }
+.label { display: block; margin-bottom: 6px; font-weight: 500; color: #454545; font-size: 0.95em; }
+.input, .select, .textarea {
+    width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;
+    font-size: 1rem; box-sizing: border-box;
+}
+.textarea { min-height: 100px; resize: vertical; }
+.input:focus, .select:focus, .textarea:focus {
+    border-color: #007bff; outline: none; box-shadow: 0 0 0 2px rgba(0,123,255,.25);
+}
+.row { display: flex; gap: 15px; }
+.row .formGroup { flex: 1; }
+
+.submitButton {
+    display: block; width: 100%; padding: 12px; background-color: #007bff; color: white;
+    border: none; border-radius: 5px; font-size: 1.1rem; cursor: pointer; margin-top: 20px;
+}
+.submitButton:hover:not(:disabled) { background-color: #0056b3; }
+.submitButton:disabled { background-color: #ccc; }
+/* Add global .error-message if not already present */

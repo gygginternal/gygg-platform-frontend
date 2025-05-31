@@ -54,13 +54,17 @@ function Sidebar({ isOpen, toggleSidebar }) {
       icon: "/assets/receipt-edit.svg",
       text: "Contracts",
     }, // Use your history path
-    { 
+  ];
+
+  // Add "Gigs" only if the user role is "tasker"
+  if (user?.role.includes("tasker")){
+    navItems.push({ 
       key: "gigs", 
       path: "/gigs", 
       icon: "/assets/briefcase.svg", 
       text: "Gigs" 
-    }, // Path for all gigs
-  ];
+    });
+  }
 
   // Add "Gig Helpers" only if the user role is "provider"
 
