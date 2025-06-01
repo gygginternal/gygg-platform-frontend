@@ -57,6 +57,7 @@ function GigDetailPage() {
   const { gigId } = useParams();
   const { user } = useAuth();
   const [gigData, setGigData] = useState(null);
+
   const [contractData, setContractData] = useState(null);
   const [paymentData, setPaymentData] = useState(null);
   const [paymentIntent, setPaymentIntent] = useState(null);
@@ -249,6 +250,12 @@ function GigDetailPage() {
     },
   });
 
+  if (!gigData && !loading) {
+    return (
+      <div className="ml-[200px]">No gig found with ID: {gigId || "None"}.</div>
+    );
+  }
+
   return (
     <div className="ml-[200px]">
       {!contractData && user?.role?.includes("provider") && (
@@ -366,7 +373,7 @@ function GigDetailPage() {
                         });
                     }}
                   >
-                    Cancel
+                    Refund
                   </button>
                 )}
             </div>

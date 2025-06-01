@@ -36,11 +36,11 @@ function Sidebar({ isOpen, toggleSidebar }) {
   // Navigation data
   const navItems = [
     // Map route paths used in your React Router setup
-    { 
-      key: "home", 
-      path: "/feed", 
-      icon: "/assets/home.svg", 
-      text: "Home" 
+    {
+      key: "home",
+      path: "/feed",
+      icon: "/assets/home.svg",
+      text: "Home",
     }, // Assuming /feed is home now
     {
       key: "messages",
@@ -50,15 +50,15 @@ function Sidebar({ isOpen, toggleSidebar }) {
     }, // Placeholder path
     {
       key: "contracts",
-      path: "/gig-history",
+      path: "/contracts",
       icon: "/assets/receipt-edit.svg",
       text: "Contracts",
     }, // Use your history path
-    { 
-      key: "gigs", 
-      path: "/gigs", 
-      icon: "/assets/briefcase.svg", 
-      text: "Gigs" 
+    {
+      key: "gigs",
+      path: "/gigs",
+      icon: "/assets/briefcase.svg",
+      text: "Gigs",
     }, // Path for all gigs
   ];
 

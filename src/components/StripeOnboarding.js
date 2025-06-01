@@ -122,7 +122,7 @@ export function StripeOnboarding() {
         >
           {status?.detailsSubmitted ? "Update Info" : "Connect Stripe"}
         </button>
-        {status?.detailsSubmitted && (
+        {/* {status?.detailsSubmitted && (
           <button
             className={styles.addButton}
             onClick={() => {
@@ -138,7 +138,7 @@ export function StripeOnboarding() {
           >
             View Stripe Dashboard
           </button>
-        )}
+        )} */}
       </div>
     </section>
   );

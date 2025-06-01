@@ -1,8 +1,41 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useAuth } from "../context/AuthContext"; // To get userId if needed by backend
 import { useQuery, useMutation } from "@tanstack/react-query";
 import apiClient from "../api/axiosConfig";
 
 export const GigApplySection = ({ gigId, onApplySuccess }) => {
+  const { user } = useAuth(); // Get user if backend needs userId for non /me/album routes
+  const [stripeStatus, setStripeStatus] = useState(null); // State for Stripe account status
+  const [loadingStripeStatus, setLoadingStripeStatus] = useState(true); // Loading state for Stripe status
+
+  // Fetch Stripe account status
+  useEffect(() => {
+    const fetchStripeStatus = async () => {
+      setLoadingStripeStatus(true);
+      try {
+        const response = await apiClient.get("/users/stripe/account-status");
+        setStripeStatus(response.data);
+      } catch (err) {
+        console.error(
+          "Error fetching Stripe account status:",
+          err.response?.data || err.message
+        );
+        setStripeStatus(null); // Reset to null on error
+      } finally {
+        setLoadingStripeStatus(false);
+      }
+    };
+
+    fetchStripeStatus();
+  }, []);
+
+  const showOnboarding =
+    !stripeStatus ||
+    !stripeStatus.detailsSubmitted ||
+    !stripeStatus.payoutsEnabled;
+
+  const isStripeIntegrted = !showOnboarding; // Stripe is integrated if onboarding is not required
+
   // Fetch the current user's application for the gig
   const {
     data: application,
@@ -13,7 +46,6 @@ export const GigApplySection = ({ gigId, onApplySuccess }) => {
     queryKey: ["myApplication", gigId],
     queryFn: async () => {
       const response = await apiClient.get(`/gigs/${gigId}/my-application`);
-
       return response.data.data;
     },
     enabled: !!gigId, // Only fetch if gigId is available
@@ -60,33 +92,44 @@ export const GigApplySection = ({ gigId, onApplySuccess }) => {
     },
   });
 
-  if (isApplicationLoading) {
-    return <p>Loading application status...</p>;
+  if (isApplicationLoading || loadingStripeStatus) {
+    return <p>Loading...</p>;
   }
 
   if (isError) {
     return <p>Error loading application status.</p>;
   }
 
-  const isApplable = application && application.applicationStatus !== "pending";
-
   return (
     <div>
       <h1>Tasker</h1>
-      {isApplable ? (
+      {!isStripeIntegrted && (
+        <p className="text-orange-500">
+          You need to set up your Stripe account to apply for gigs.{" "}
+          <a className="underline" href="/settings?tab=withdraw">
+            Set up Stripe
+          </a>
+        </p>
+      )}
+      {!application && isStripeIntegrted && (
         <button
           onClick={() => applyMutation.mutate()}
           disabled={applyMutation.isLoading}
         >
           {applyMutation.isLoading ? "Applying..." : "Apply"}
         </button>
-      ) : (
-        <button
-          onClick={() => cancelMutation.mutate(application.id)}
-          disabled={cancelMutation.isLoading}
-        >
-          {cancelMutation.isLoading ? "Canceling..." : "Cancel Application"}
-        </button>
+      )}
+
+      {application && application.applicationStatus === "pending" && (
+        <div>
+          <p>Application Status: {application.applicationStatus}</p>
+          <button
+            onClick={() => cancelMutation.mutate(application.id)}
+            disabled={cancelMutation.isLoading}
+          >
+            {cancelMutation.isLoading ? "Canceling..." : "Cancel Application"}
+          </button>
+        </div>
       )}
     </div>
   );
