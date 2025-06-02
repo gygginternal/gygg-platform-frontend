@@ -6,18 +6,20 @@ import Button from "./Button";  // Use shared Button component
 import apiClient from "../api/axiosConfig"; // Adjust path
 import { useAuth } from "../context/AuthContext"; // Adjust path
 import logger from "../utils/logger";   // Optional logger
+import { Link, useNavigate } from 'react-router-dom'; // Import Link and useNavigate
 
 function Feed() {
-  const { user } = useAuth(); // Get logged-in user info
+  const { user } = useAuth();
+  const navigate = useNavigate(); // For programmatic navigation
   const [postText, setPostText] = useState("");
-  const [posts, setPosts] = useState([]); // Initialize with empty array
-  const [loading, setLoading] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false); // Main feed loading
   const [error, setError] = useState('');
   const [createPostLoading, setCreatePostLoading] = useState(false);
   const [createPostError, setCreatePostError] = useState('');
 
   // --- States for Phase 8 Sorting ---
-  const [sortOrder, setSortOrder] = useState('recents');
+   const [sortOrder, setSortOrder] = useState('recents');
   const [userLocation, setUserLocation] = useState(null);
   const [locationError, setLocationError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,12 +28,10 @@ function Feed() {
 
    // --- Fetching Logic (from PostFeedPage adaptation) ---
    const fetchPosts = useCallback(async (page = 1, sort = sortOrder, location = userLocation, append = false) => {
-        if (!append) { // If not appending (first load or sort change)
-            setPosts([]); setLoading(true); setHasMore(true); setCurrentPage(1);
-        } else { setIsLoadingMore(true); } // Loading more state
+        if (!append) { setPosts([]); setLoading(true); setHasMore(true); setCurrentPage(1); }
+        else { setIsLoadingMore(true); }
         setError(''); setLocationError('');
-        let params = { page, limit: 10, sort }; // Adjust limit
-
+        let params = { page, limit: 10, sort };
         if (sort === 'near_me') {
             if (!location) {
                 setError('Location permission needed for "Near Me". Try enabling location.'); setLoading(false); setIsLoadingMore(false); setHasMore(false);
@@ -42,13 +42,13 @@ function Feed() {
         try {
             logger.debug("Feed: Fetching posts with params:", params);
             const response = await apiClient.get('/posts', { params });
-            const newPosts = response.data.data.posts;
+            const newPosts = response.data.data.posts || [];
             setPosts(prev => append ? [...prev, ...newPosts] : newPosts);
-            setHasMore(newPosts.length === params.limit);
+            setHasMore(newPosts.length === params.limit); // Assuming limit is always sent
             setCurrentPage(page);
         } catch (err) { setError(err.response?.data?.message || 'Failed to load feed.'); setHasMore(false); }
         finally { setLoading(false); setIsLoadingMore(false); }
-   }, [sortOrder, userLocation]); // Dependencies for fetch logic
+    }, [sortOrder, userLocation]);
 
     // --- Geolocation Logic (from PostFeedPage adaptation) ---
     const getUserLocation = () => {
@@ -70,24 +70,19 @@ function Feed() {
         );
     };
 
-    // --- Initial Fetch & Fetch on Sort Change ---
+      // --- Initial Fetch & Sort Change Fetch ---
     useEffect(() => {
-        if (sortOrder === 'near_me') {
-             if (!userLocation) getUserLocation(); // Trigger location fetch if needed
-             // else fetchPosts(1, 'near_me', userLocation, false); // Fetch if location known - CAREFUL: might cause loop, handled by getUserLocation calling fetch
-        } else {
-             fetchPosts(1, sortOrder, null, false); // Fetch for recents/trending
-        }
-   // Only refetch explicitly when sortOrder changes (or on mount for default)
-   // Location fetches are triggered manually or within getUserLocation
-   }, [sortOrder]); // eslint-disable-line react-hooks/exhaustive-deps
+        if (sortOrder === 'near_me' && !userLocation) { getUserLocation(); }
+        else { fetchPosts(1, sortOrder, userLocation, false); }
+    }, [sortOrder]);  // eslint-disable-line react-hooks/exhaustive-deps
 
-
-   const handleSortChange = (newSort) => {
-       if (newSort !== sortOrder) {
-            setSortOrder(newSort); // This triggers the useEffect above
-       }
-   };
+    const handleSortChange = (newSort) => {
+      if (newSort !== sortOrder) {
+           // Clear userLocation if switching away from 'near_me' without a new location attempt
+           if (sortOrder === 'near_me' && newSort !== 'near_me') setUserLocation(null);
+           setSortOrder(newSort); // Triggers useEffect for fetching
+      }
+    };
 
     // --- Create Post Logic ---
     const handlePostSubmit = async () => {
@@ -147,16 +142,28 @@ function Feed() {
     // --- Render ---
     return (
         <main className={styles.feedContainer}>
-            {/* Header with Sorting Buttons For Future Implementation */}
+            {user && user.role?.includes('provider') && (
+                <section className={styles.providerActionsHeader}>
+                    <p>Looking for help? Post a new gig for taskers to find.</p>
+                    <Button
+                        onClick={() => navigate('/gigs/create')} // Navigate to your Gig Create page
+                        className={styles.postGigButton} // Add specific style for this button
+                    >
+                        Post a Gig
+                    </Button>
+                </section>
+            )}
+            
+            {/* Header with Sorting Buttons */}
             {/* <section className={styles.feedHeader}>
+                <h2 className={styles.feedTitle}>Activity Feed</h2>
                 <div className={styles.filterButtons}>
-                    <Button onClick={() => handleSortChange('recents')} isActive={sortOrder === 'recents'} disabled={loading}> Recents </Button>
-                    <Button onClick={() => handleSortChange('trending')} isActive={sortOrder === 'trending'} disabled={loading}> Trending </Button>
-                    <Button onClick={() => handleSortChange('near_me')} isActive={sortOrder === 'near_me'} disabled={loading}> Near Me </Button>
+                    <Button onClick={() => handleSortChange('recents')} isActive={sortOrder === 'recents'} disabled={loading} className={sortOrder !== 'recents' ? styles.filterButton : styles.activeFilterButton}> Recents </Button>
+                    <Button onClick={() => handleSortChange('trending')} isActive={sortOrder === 'trending'} disabled={loading} className={sortOrder !== 'trending' ? styles.filterButton : styles.activeFilterButton}> Trending </Button>
+                    <Button onClick={() => handleSortChange('near_me')} isActive={sortOrder === 'near_me'} disabled={loading} className={sortOrder !== 'near_me' ? styles.filterButton : styles.activeFilterButton}> Near Me </Button>
                 </div>
-            </section> */}
-            {locationError && <p className="error-message">{locationError}</p>}
-
+            </section>
+            {locationError && <p className="error-message">{locationError}</p>} */}
 
             {/* Create Post Section */}
             <section className={styles.createPostCard}>
