@@ -8,7 +8,7 @@ import { StatusBagde } from "../components/StatusBadge"; // Assuming you have a 
 
 function ProviderCard({ provider, onOffer, onReject }) {
   return (
-    <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
+    <div className="bg-white overflow-hidden">
       <div className="flex flex-col sm:flex-row">
         <div className="w-full sm:w-48 h-48 relative">
           <img

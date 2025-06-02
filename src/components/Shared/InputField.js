@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./InputField.module.css"; // Ensure this CSS Module exists and is styled
 import CountrySelect from "./CountrySelect"; // Ensure this component is correctly implemented
+import { cn } from "../../uitls/cn"; // Import the utility function for class names
 
 function InputField({
   label,
@@ -16,6 +17,8 @@ function InputField({
   required = false,
   rows = 3, // Default rows for textarea
   disabled = false,
+  onKeyDown,
+  className = "",
   // ... any other standard input/textarea props
   ...props
 }) {

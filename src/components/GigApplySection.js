@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext"; // To get userId if needed by backend
+import { Button } from "../components/ui/button";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import apiClient from "../api/axiosConfig";
 
@@ -102,7 +103,6 @@ export const GigApplySection = ({ gigId, onApplySuccess }) => {
 
   return (
     <div>
-      <h1>Tasker</h1>
       {!isStripeIntegrted && (
         <p className="text-orange-500">
           You need to set up your Stripe account to apply for gigs.{" "}
@@ -111,24 +111,26 @@ export const GigApplySection = ({ gigId, onApplySuccess }) => {
           </a>
         </p>
       )}
-      {!application && isStripeIntegrted && (
-        <button
-          onClick={() => applyMutation.mutate()}
-          disabled={applyMutation.isLoading}
-        >
-          {applyMutation.isLoading ? "Applying..." : "Apply"}
-        </button>
-      )}
+      {(!application || application.applicationStatus === "cancelled") &&
+        isStripeIntegrted && (
+          <Button
+            className="w-full flex-1 bg-blue-500 hover:bg-blue-600 text-white"
+            onClick={() => applyMutation.mutate()}
+            disabled={applyMutation.isLoading}
+          >
+            {applyMutation.isLoading ? "Applying..." : "Apply"}
+          </Button>
+        )}
 
       {application && application.applicationStatus === "pending" && (
         <div>
-          <p>Application Status: {application.applicationStatus}</p>
-          <button
+          <Button
+            className="w-full flex-1 bg-red-500 hover:bg-red-600 text-white"
             onClick={() => cancelMutation.mutate(application.id)}
             disabled={cancelMutation.isLoading}
           >
             {cancelMutation.isLoading ? "Canceling..." : "Cancel Application"}
-          </button>
+          </Button>
         </div>
       )}
     </div>

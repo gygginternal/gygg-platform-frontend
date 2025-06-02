@@ -1,4 +1,6 @@
 // @ts-nocheck
+
+import { Button } from "../components/ui/button";
 // frontend/src/pages/GigDetailPage.js
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
@@ -251,13 +253,11 @@ function GigDetailPage() {
   });
 
   if (!gigData && !loading) {
-    return (
-      <div className="ml-[200px]">No gig found with ID: {gigId || "None"}.</div>
-    );
+    return <div>No gig found with ID: {gigId || "None"}.</div>;
   }
 
   return (
-    <div className="ml-[200px]">
+    <div>
       {!contractData && user?.role?.includes("provider") && (
         <GigApplications onOffer={fetchData} onReject={fetchData} />
       )}
@@ -278,8 +278,6 @@ function GigDetailPage() {
 
           {contractData && (
             <div>
-              <h2>Contract Details</h2>
-              <p>Job applied. Try deposit, release, or refund.</p>
               {paymentData ? (
                 <div>
                   <h3>Payment Details</h3>
@@ -294,22 +292,10 @@ function GigDetailPage() {
           )}
 
           {user?.role?.includes("provider") && contractData && !paymentData && (
-            <div>
-              <h1>Provider</h1>
-
-              <button
-                onClick={() => {
-                  cancelContractMutation.mutate(contractData._id);
-                }}
-                disabled={cancelContractMutation.isLoading}
-              >
-                {cancelContractMutation.isLoading
-                  ? "Canceling..."
-                  : "Cancel Contract"}
-              </button>
-
+            <div className="flex gap-3 pt-4">
               {!paymentData && (
-                <button
+                <Button
+                  className="flex-1 bg-primary-500 hover:bg-primary-600 text-white"
                   onClick={() => {
                     apiClient
                       .post(
@@ -325,8 +311,21 @@ function GigDetailPage() {
                   }}
                 >
                   Deposit
-                </button>
+                </Button>
               )}
+
+              <Button
+                className="flex-1 bg-red-500 hover:bg-red-600 text-white"
+                onClick={() => {
+                  cancelContractMutation.mutate(contractData._id);
+                }}
+                disabled={cancelContractMutation.isLoading}
+              >
+                {cancelContractMutation.isLoading
+                  ? "Canceling..."
+                  : "End Contract"}
+              </Button>
+
               {isPaymentConfirming && (
                 <Elements stripe={stripePromise} options={options}>
                   <ConfirmButton clientSecret={paymentData?.clientSecret} />
@@ -337,7 +336,8 @@ function GigDetailPage() {
                 !isPaymentCanceling &&
                 !isPaymentCanceled &&
                 hasPayment && (
-                  <button
+                  <Button
+                    className="flex-1 bg-primary-500 hover:bg-primary-600 text-white"
                     onClick={() => {
                       apiClient
                         .post(`/payments/contracts/${contractData._id}/release`)
@@ -352,7 +352,7 @@ function GigDetailPage() {
                     disabled={!isReleasable} // Disable button if not releasable
                   >
                     Release Funds
-                  </button>
+                  </Button>
                 )}
 
               {!isPaymentConfirming &&
@@ -360,7 +360,8 @@ function GigDetailPage() {
                 !isPaymentCanceling &&
                 !isPaymentCanceled &&
                 hasPayment && (
-                  <button
+                  <Button
+                    className="flex-1 bg-red-500 hover:bg-red-600 text-white"
                     onClick={() => {
                       apiClient
                         .post(`/payments/contracts/${contractData._id}/refund`)
@@ -374,16 +375,20 @@ function GigDetailPage() {
                     }}
                   >
                     Refund
-                  </button>
+                  </Button>
                 )}
             </div>
           )}
         </div>
       )}
       {!loading && (
-        <button onClick={fetchData} style={{ marginTop: "15px" }}>
+        <Button
+          className="w-full"
+          onClick={fetchData}
+          style={{ marginTop: "15px" }}
+        >
           Refresh Details
-        </button>
+        </Button>
       )}
     </div>
   );

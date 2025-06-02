@@ -4,14 +4,13 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns"; // Import date-fns for formatting dates
 import apiClient from "../api/axiosConfig";
 import styles from "./ContractsPage.module.css";
-// import "./ContractPage.css";
 import { StatusBagde } from "../components/StatusBadge"; // Adjust the import path
 import InputField from "../components/Shared/InputField";
 import { Toggle } from "../components/Toggle"; // Import the Toggle component
 
 function JobListingsPage({ contracts }) {
   return (
-    <div className="max-w-3xl mx-auto p-4 md:p-6">
+    <div className="max-w-3xl mx-auto">
       <div className="space-y-4">
         {contracts.map((job, index) => (
           <div key={index}>
@@ -34,32 +33,36 @@ function JobListingItem({ job }) {
     <div>
       <Link
         to={`/gigs/${job.gigId}`}
-        className="text-lg font-medium text-gray-800 hover:underline cursor-pointer"
+        className="text-lg underline font-medium text-gray-800 hover:underline cursor-pointer"
       >
         {job.gigTitle}
       </Link>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-y-3 mt-3">
+      <div className="flex justify-between items-center mt-2">
+        <div className="">
+          <div className=" flex items-center">
+            <span className="text-sm text-gray-500">Hired by</span>
+            <div className="font-semibold ml-2">{job.provider}</div>
+          </div>
+          <div className=" flex items-center mt-5">
+            <span className="text-sm text-gray-500">Contract ID</span>
+            <div className="font-medium ml-2">{job.id}</div>
+          </div>
+        </div>
         <div className="flex flex-col">
-          <span className="text-sm text-gray-500">Hired by</span>
-          <span className="font-medium">{job.provider}</span>
+          <StatusBagde status={job.status} />
+          <div className="mt-2">
+            <span className="text-sm text-gray-500">Started</span>
+            <span className="ml-2">{formattedDate}</span>
+          </div>
         </div>
-      </div>
-
-      <div className="flex justify-between items-center mt-3">
-        <div>
-          <span className="text-sm text-gray-500">Started</span>
-          <span className="ml-2">{formattedDate}</span>
-        </div>
-
-        <StatusBagde status={job.status} />
       </div>
     </div>
   );
 }
 
 function ContractsPage() {
-  const [searchQuery, setSearchQuery] = useState(""); // State for search query
+  const [searchQuery, setSearchQuery] = useState(""); // State for input value
+  const [searchValue, setSearchValue] = useState(""); // State for actual search query
   const [selectedStatuses, setSelectedStatuses] = useState([]); // State for selected statuses
 
   // Fetch contracts using React Query's useInfiniteQuery
@@ -71,28 +74,30 @@ function ContractsPage() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    refetch,
   } = useInfiniteQuery({
-    queryKey: ["myContracts", searchQuery, selectedStatuses],
+    queryKey: ["contracts", searchValue, selectedStatuses],
     queryFn: async ({ pageParam = 0 }) => {
       const response = await apiClient.get(
-        `/contracts/my-contracts?page=${pageParam}&search=${searchQuery}&status=${selectedStatuses.join(
+        `/contracts/my-contracts?page=${pageParam}&search=${searchValue}&status=${selectedStatuses.join(
           ","
         )}`
       );
       return {
         contracts: response.data.data.contracts,
         nextPage: pageParam + 1,
-      }; // Increment page manually
+        totalPages: response.data.data.totalPages,
+      };
     },
-    getNextPageParam: (lastPage) => {
-      return lastPage.contracts.length > 0 ? lastPage.nextPage : undefined; // Stop when no more contracts
+    getNextPageParam: (lastPage, allPages) => {
+      return allPages.length < lastPage.totalPages
+        ? lastPage.nextPage
+        : undefined;
     },
   });
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
-      refetch(); // Refetch contracts with the updated search query
+      setSearchValue(searchQuery); // Update the actual search query
     }
   };
 
@@ -123,16 +128,13 @@ function ContractsPage() {
           type="text"
           placeholder="Search existing contract..."
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
+          onChange={(e) => setSearchQuery(e.target.value)} // Update input value
           onKeyDown={handleSearch} // Trigger search on Enter key press
         />
         Filter by Status:
         <Toggle
           pressed={selectedStatuses.includes("completed")}
-          onPressedChange={() => {
-            toggleStatus("completed");
-            refetch(); // Refetch contracts when toggling
-          }}
+          onPressedChange={() => toggleStatus("completed")}
           variant="outline"
           size="sm"
           className="data-[state=on]:bg-blue-500 data-[state=on]:text-white data-[state=on]:border-blue-500  ml-3"
@@ -141,10 +143,7 @@ function ContractsPage() {
         </Toggle>
         <Toggle
           pressed={selectedStatuses.includes("active")}
-          onPressedChange={() => {
-            toggleStatus("active");
-            refetch(); // Refetch contracts when toggling
-          }}
+          onPressedChange={() => toggleStatus("active")}
           variant="outline"
           size="sm"
           className="data-[state=on]:bg-green-500 data-[state=on]:text-white data-[state=on]:border-green-500  my-3 mx-3 "
@@ -153,10 +152,7 @@ function ContractsPage() {
         </Toggle>
         <Toggle
           pressed={selectedStatuses.includes("cancelled")}
-          onPressedChange={() => {
-            toggleStatus("cancelled");
-            refetch(); // Refetch contracts when toggling
-          }}
+          onPressedChange={() => toggleStatus("cancelled")}
           variant="outline"
           size="sm"
           className="data-[state=on]:bg-red-500 data-[state=on]:text-white data-[state=on]:border-red-500  "

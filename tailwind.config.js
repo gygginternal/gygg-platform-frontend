@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         gold: "#D99633", // or use any name you like
         white: "#FFFFFF",
+        primary: "#3D4D55",
       },
     },
   },

@@ -29,7 +29,7 @@ export function StatusBagde({ status, className }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center px-4 py-2 rounded-lg border text-sm font-medium",
+        "inline-flex items-center px-4 py-2 rounded-lg border text-sm font-medium ml-auto",
         config?.bgColor,
         config?.textColor,
         config?.borderColor,
