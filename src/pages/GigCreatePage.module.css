@@ -1,45 +1,48 @@
 /* frontend/src/pages/GigCreatePage.module.css */
-/* Use styles similar to GigCreateOptionsPage.module.css or your onboarding forms */
-.pageContainer {
-    padding: 20px;
-    max-width: 800px;
-    margin: 20px auto; /* Center on page, below header */
+.pageLayout {
+    display: flex;
+    flex-direction: row; /* Sidebar on left, form on right */
+    width: 100%;
+    gap: 20px; /* Space between sidebar and form area */
+    padding-top: 20px; /* Space from global header if present */
+    margin-left: 200px;
 }
-.backLink {
-    display: inline-block;
+
+.sidebarArea {
+    flex: 0 0 280px; /* Fixed width for sidebar, don't grow, don't shrink */
+}
+
+.formArea {
+    flex: 1; /* Gig creation form takes the remaining space */
+    display: flex; /* To center GigCreateForm if it's narrower */
+    flex-direction: column; /* Stack title and form */
+    align-items: center; /* Center form if it's narrower than this area */
+}
+
+/* Optional: Title for the page itself, if GigCreateForm doesn't have one */
+.pageTitle {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
     margin-bottom: 20px;
-    color: #007bff;
-    text-decoration: none;
+    text-align: center;
 }
-.backLink:hover { text-decoration: underline; }
 
-.formWrapper {
-    background-color: #fff;
-    padding: 25px 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+/* Responsive adjustments */
+@media (max-width: 992px) { /* Example breakpoint to stack sidebar and form */
+    .pageLayout {
+        flex-direction: column;
+        align-items: center; /* Center items when stacked */
+    }
+    .sidebarArea {
+        flex-basis: auto; /* Allow it to size to content */
+        width: 100%;
+        max-width: 400px; /* Example max-width for sidebar when stacked */
+        margin-bottom: 20px;
+        /* position: static;
+        height: auto; */
+    }
+    .formArea {
+        width: 100%;
+    }
 }
-.pageTitle { font-size: 1.8rem; font-weight: 600; margin-bottom: 8px; color: #333; }
-.pageSubtitle { font-size: 1rem; color: #666; margin-bottom: 25px; }
-.sectionTitle { font-size: 1.2rem; font-weight: 500; margin-top: 20px; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid #eee; }
-
-.formGroup { margin-bottom: 15px; }
-.label { display: block; margin-bottom: 6px; font-weight: 500; color: #454545; font-size: 0.95em; }
-.input, .select, .textarea {
-    width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;
-    font-size: 1rem; box-sizing: border-box;
-}
-.textarea { min-height: 100px; resize: vertical; }
-.input:focus, .select:focus, .textarea:focus {
-    border-color: #007bff; outline: none; box-shadow: 0 0 0 2px rgba(0,123,255,.25);
-}
-.row { display: flex; gap: 15px; }
-.row .formGroup { flex: 1; }
-
-.submitButton {
-    display: block; width: 100%; padding: 12px; background-color: #007bff; color: white;
-    border: none; border-radius: 5px; font-size: 1.1rem; cursor: pointer; margin-top: 20px;
-}
-.submitButton:hover:not(:disabled) { background-color: #0056b3; }
-.submitButton:disabled { background-color: #ccc; }
-/* Add global .error-message if not already present */

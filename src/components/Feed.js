@@ -144,12 +144,11 @@ function Feed() {
         <main className={styles.feedContainer}>
             {user && user.role?.includes('provider') && (
                 <section className={styles.providerActionsHeader}>
-                    <p>Looking for help? Post a new gig for taskers to find.</p>
                     <Button
                         onClick={() => navigate('/gigs/create')} // Navigate to your Gig Create page
                         className={styles.postGigButton} // Add specific style for this button
                     >
-                        Post a Gig
+                       + Post a Gig
                     </Button>
                 </section>
             )}

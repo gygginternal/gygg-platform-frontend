@@ -106,4 +106,14 @@
     flex-direction: column;
     gap: 20px;
   }
+
+  .providerActionsHeader {
+  display: flex;
+  justify-content: flex-end;
+}
   
+  .postGigButton{
+    background-color: #3D4D55;
+    font-weight: bold;
+    margin-left: auto;
+  } 

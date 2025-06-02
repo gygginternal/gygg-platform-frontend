@@ -53,16 +53,19 @@ function Sidebar({ isOpen, toggleSidebar }) {
       path: "/contracts",
       icon: "/assets/receipt-edit.svg",
       text: "Contracts",
-    }, // Use your history path
-    {
+    }, // Use your history path 
+  ];
+
+  // Add "Gig Helpers" only if the user role is "provider"
+
+  if (user?.role.includes("tasker")) {
+    navItems.push({
       key: "gigs",
       path: "/gigs",
       icon: "/assets/briefcase.svg",
       text: "Gigs",
-    }, // Path for all gigs
-  ];
-
-  // Add "Gig Helpers" only if the user role is "provider"
+    }); // Path for all gigs
+  }
 
   if (user?.role.includes("provider")) {
     navItems.push({
