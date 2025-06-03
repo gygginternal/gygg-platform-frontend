@@ -22,7 +22,7 @@ import GigsPage from "./pages/GigsPage";
 import GigCreatePage from "./pages/GigCreatePage";
 import GigDetailPage from "./pages/GigDetailPage";
 import MatchedGigsPage from "./pages/MatchedGigsPage";
-import {ContractDetailsPage} from "./pages/ContractDetailsPage";
+import { ContractDetailsPage } from "./pages/ContractDetailsPage";
 import ProfilePage from "./pages/ProfilePage";
 import SettingsPage from "./pages/SettingsPage";
 import ChatPage from "./pages/ChatPage";
@@ -34,11 +34,6 @@ import StripeRefreshPage from "./pages/StripeRefreshPage";
 // Shared
 import Header from "./components/Header";
 import { queryClient } from "./client";
-<<<<<<< Updated upstream
-import { fromJSON } from "postcss";
-=======
-import BillingDashboardPage from "./pages/BillingDashboardPage";
->>>>>>> Stashed changes
 
 // -------------------- ProtectedRoute HOC --------------------
 function ProtectedRoute({ children }) {
