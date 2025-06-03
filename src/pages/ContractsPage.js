@@ -7,6 +7,8 @@ import styles from "./ContractsPage.module.css";
 import { StatusBagde } from "../components/StatusBadge"; // Adjust the import path
 import InputField from "../components/Shared/InputField";
 import { Toggle } from "../components/Toggle"; // Import the Toggle component
+import { TabNavigation } from "../components/TabNavigation"; // Import the new TabNavigation component
+import { BillingTable } from "../components/BillingTable"; // Import the new BillingTable component
 
 function JobListingsPage({ contracts }) {
   return (
@@ -64,6 +66,7 @@ function ContractsPage() {
   const [searchQuery, setSearchQuery] = useState(""); // State for input value
   const [searchValue, setSearchValue] = useState(""); // State for actual search query
   const [selectedStatuses, setSelectedStatuses] = useState([]); // State for selected statuses
+  const [activeTab, setActiveTab] = useState("all"); // State for active tab
 
   // Fetch contracts using React Query's useInfiniteQuery
   const {
@@ -120,58 +123,87 @@ function ContractsPage() {
 
   const contracts = data.pages.flatMap((page) => page.contracts); // Combine all pages of contracts
 
+  // Example rows for the BillingTable
+  const billingRows = [
+    {
+      hiredBy: "Justin.S",
+      date: "Jun, 24, 2025",
+      detail: "Dog sitting for the weekend...",
+      invoice: "View",
+    },
+    {
+      hiredBy: "Alice.J",
+      date: "Jun, 25, 2025",
+      detail: "Graphic design project...",
+      invoice: "View",
+    },
+  ];
+
   return (
     <div className="max-w-3xl mx-auto p-4 md:p-6">
-      <div className="mb-0">
-        <InputField
-          name="search"
-          type="text"
-          placeholder="Search existing contract..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)} // Update input value
-          onKeyDown={handleSearch} // Trigger search on Enter key press
-        />
-        Filter by Status:
-        <Toggle
-          pressed={selectedStatuses.includes("completed")}
-          onPressedChange={() => toggleStatus("completed")}
-          variant="outline"
-          size="sm"
-          className="data-[state=on]:bg-blue-500 data-[state=on]:text-white data-[state=on]:border-blue-500  ml-3"
-        >
-          Completed
-        </Toggle>
-        <Toggle
-          pressed={selectedStatuses.includes("active")}
-          onPressedChange={() => toggleStatus("active")}
-          variant="outline"
-          size="sm"
-          className="data-[state=on]:bg-green-500 data-[state=on]:text-white data-[state=on]:border-green-500  my-3 mx-3 "
-        >
-          Active
-        </Toggle>
-        <Toggle
-          pressed={selectedStatuses.includes("cancelled")}
-          onPressedChange={() => toggleStatus("cancelled")}
-          variant="outline"
-          size="sm"
-          className="data-[state=on]:bg-red-500 data-[state=on]:text-white data-[state=on]:border-red-500  "
-        >
-          Cancelled
-        </Toggle>
-      </div>
-      <JobListingsPage contracts={contracts} />
-      {hasNextPage && (
-        <div className="text-center mt-4">
-          <button
-            onClick={() => fetchNextPage()}
-            disabled={isFetchingNextPage}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          >
-            {isFetchingNextPage ? "Loading more..." : "Load More"}
-          </button>
-        </div>
+      <TabNavigation
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        tabs={[
+          { id: "all", label: "All Contracts" },
+          { id: "billing", label: "Billing and Payment" },
+        ]}
+      />
+      {activeTab === "all" && (
+        <>
+          <div className="mt-5 mb-0">
+            <InputField
+              name="search"
+              type="text"
+              placeholder="Search existing contract..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)} // Update input value
+              onKeyDown={handleSearch} // Trigger search on Enter key press
+            />
+            Filter by Status:
+            <Toggle
+              pressed={selectedStatuses.includes("completed")}
+              onPressedChange={() => toggleStatus("completed")}
+              variant="outline"
+              size="sm"
+              className="data-[state=on]:bg-blue-500 data-[state=on]:text-white data-[state=on]:border-blue-500  ml-3"
+            >
+              Completed
+            </Toggle>
+            <Toggle
+              pressed={selectedStatuses.includes("active")}
+              onPressedChange={() => toggleStatus("active")}
+              variant="outline"
+              size="sm"
+              className="data-[state=on]:bg-green-500 data-[state=on]:text-white data-[state=on]:border-green-500  my-3 mx-3 "
+            >
+              Active
+            </Toggle>
+            <Toggle
+              pressed={selectedStatuses.includes("cancelled")}
+              onPressedChange={() => toggleStatus("cancelled")}
+              variant="outline"
+              size="sm"
+              className="data-[state=on]:bg-red-500 data-[state=on]:text-white data-[state=on]:border-red-500  "
+            >
+              Cancelled
+            </Toggle>
+          </div>
+          <JobListingsPage contracts={contracts} />
+          {hasNextPage && (
+            <div className="text-center mt-4">
+              <button
+                onClick={() => fetchNextPage()}
+                disabled={isFetchingNextPage}
+                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              >
+                {isFetchingNextPage ? "Loading more..." : "Load More"}
+              </button>
+            </div>
+          )}
+        </>
       )}
+      {activeTab === "billing" && <BillingTable rows={billingRows} />}
     </div>
   );
 }

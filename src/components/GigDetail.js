@@ -18,7 +18,9 @@ import { GigApplications } from "./GigApplications";
 import { useMutation } from "@tanstack/react-query";
 import { GigApplySection } from "./GigApplySection";
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY); // Replace with your Stripe publishable key
+const stripePromise = loadStripe(
+  "pk_test_51RRrQ2Q5bv7DRpKKkdum0wirsfQWdEid1PgmxjDvnY63M7wCbbRiH9mgitk4wpj37RTmTkgC3xYHEQhJOF9hUvXS00Z6OvQMz4"
+); // Replace with your Stripe publishable key
 
 const ConfirmButton = ({ clientSecret }) => {
   const stripe = useStripe();
@@ -47,10 +49,14 @@ const ConfirmButton = ({ clientSecret }) => {
 
   return (
     <div>
-      <button onClick={handleConfirmPayment} disabled={!stripe || !elements}>
-        Confirm Payment Intent
-      </button>
       <PaymentElement />
+      <Button
+        className="mt-5 w-full bg-primary-500 hover:bg-primary-600 text-white"
+        onClick={handleConfirmPayment}
+        disabled={!stripe || !elements}
+      >
+        Confirm Payment Intent
+      </Button>
     </div>
   );
 };
@@ -61,6 +67,8 @@ function GigDetailPage() {
   const [gigData, setGigData] = useState(null);
 
   const [contractData, setContractData] = useState(null);
+  const isContractCompleted = contractData?.status === "completed";
+
   const [paymentData, setPaymentData] = useState(null);
   const [paymentIntent, setPaymentIntent] = useState(null);
   const [isReleasable, setIsReleasable] = useState(false); // New state for release eligibility
@@ -68,13 +76,10 @@ function GigDetailPage() {
   const [error, setError] = useState("");
 
   const isRefunding = paymentData?.status === "refund_pending";
-  const isPaymentPending = paymentData?.status === "pending";
-  const isPaymentCanceling = paymentData?.status === "canceling";
-  const isPaymentSucceeded = paymentData?.status === "succeeded";
-  const isPaymentCanceled = paymentData?.status === "canceled";
-  const isPaymentConfirming =
-    paymentIntent && paymentIntent.status !== "succeeded";
+  const isPaymentDeposit = paymentIntent?.status === "succeeded";
   const hasPayment = Boolean(paymentData);
+  const isProvider = user?.role?.includes("provider");
+  const isTasker = !isProvider;
 
   const fetchReleasableStatus = async (contractId) => {
     try {
@@ -215,24 +220,25 @@ function GigDetailPage() {
     console.log("Gig accepted, refreshing data...");
     fetchData();
   };
-  const handlePaymentInitiated = () => {
-    console.log("Payment initiated by user.");
-  };
   const handlePaymentSuccess = () => {
     console.log("Payment successful, refreshing data...");
     fetchData();
   };
-  const handleReviewSuccess = () => {
-    console.log("Review submitted, refreshing data...");
-    fetchData();
-  };
+  const hasSecret = paymentData?.stripePaymentIntentSecret;
   const options = {
-    clientSecret: paymentData?.stripePaymentIntentSecret, // your test secret
+    // clientSecret: paymentData?.stripePaymentIntentSecret, // your test secret
+    clientSecret:
+      "pi_3RVl7SQ5bv7DRpKK1Ct8ziGw_secret_vXLXyg0ERmsJWiZxgnvtNN5JZ",
     // Fully customizable with appearance API.
     appearance: {
       /*...*/
     },
   };
+  console.log({
+    hasSecret,
+    options,
+    stripePromise,
+  });
 
   // Set up Stripe.js and Elements to use in checkout form, passing the client secret obtained in a previous step
 
@@ -266,32 +272,61 @@ function GigDetailPage() {
           Gig is being canceled. Provider, Please wait for the refund process.
         </div>
       )}
-      {isPaymentCanceled && <div>Contract canceled</div>}
-      {isPaymentSucceeded && <div>Gig Payment Released</div>}
+      {/* {isPaymentCanceled && <div>Contract canceled</div>}
+      {isPaymentDeposit && <div>Gig Payment Released</div>}
       {isPaymentPending && <div>Gig Payment Releasing</div>}
-      {isPaymentCanceling && <div>Gig Payment Canceling</div>}
-      {!isRefunding && !isPaymentSucceeded && (
+      {isPaymentCanceling && <div>Gig Payment Canceling</div>} */}
+
+      {hasPayment &&
+        isPaymentDeposit &&
+        isProvider &&
+        !isRefunding &&
+        !isContractCompleted && (
+          <div className="flex gap-3 pt-4">
+            <Button
+              className="flex-1 bg-primary-500 hover:bg-primary-600 text-white"
+              onClick={() => {
+                apiClient
+                  .post(`/payments/contracts/${contractData._id}/release`)
+                  .then((response) => {
+                    console.log("Funds released:", response.data);
+                    handlePaymentSuccess();
+                  })
+                  .catch((error) => {
+                    console.error("Error releasing funds:", error);
+                  });
+              }}
+              // disabled={!isReleasable} // Disable button if not releasable
+            >
+              Release Funds
+            </Button>
+
+            <Button
+              className="flex-1 bg-red-500 hover:bg-red-600 text-white"
+              onClick={() => {
+                apiClient
+                  .post(`/payments/contracts/${contractData._id}/refund`)
+                  .then((response) => {
+                    console.log("Funds refunded:", response.data);
+                    handlePaymentSuccess();
+                  })
+                  .catch((error) => {
+                    console.error("Error refunding funds:", error);
+                  });
+              }}
+            >
+              Refund
+            </Button>
+          </div>
+        )}
+
+      {isTasker && !contractData && (
+        <GigApplySection gigId={gigId} onApplySuccess={fetchData} />
+      )}
+
+      {!isRefunding && !isPaymentDeposit && !isContractCompleted && (
         <div>
-          {user?.role?.includes("tasker") && !contractData && (
-            <GigApplySection gigId={gigId} onApplySuccess={fetchData} />
-          )}
-
-          {contractData && (
-            <div>
-              {paymentData ? (
-                <div>
-                  <h3>Payment Details</h3>
-                  <p>Status: {paymentData.status}</p>
-                  <p>Amount: ${paymentData.amount / 100}</p>
-                  <p>Currency: {paymentData.currency.toUpperCase()}</p>
-                </div>
-              ) : (
-                <p>No payment details available.</p>
-              )}
-            </div>
-          )}
-
-          {user?.role?.includes("provider") && contractData && !paymentData && (
+          {isProvider && contractData && !paymentData && (
             <div className="flex gap-3 pt-4">
               {!paymentData && (
                 <Button
@@ -325,59 +360,13 @@ function GigDetailPage() {
                   ? "Canceling..."
                   : "End Contract"}
               </Button>
-
-              {isPaymentConfirming && (
-                <Elements stripe={stripePromise} options={options}>
-                  <ConfirmButton clientSecret={paymentData?.clientSecret} />
-                </Elements>
-              )}
-              {!isPaymentConfirming &&
-                !isPaymentPending &&
-                !isPaymentCanceling &&
-                !isPaymentCanceled &&
-                hasPayment && (
-                  <Button
-                    className="flex-1 bg-primary-500 hover:bg-primary-600 text-white"
-                    onClick={() => {
-                      apiClient
-                        .post(`/payments/contracts/${contractData._id}/release`)
-                        .then((response) => {
-                          console.log("Funds released:", response.data);
-                          handlePaymentSuccess();
-                        })
-                        .catch((error) => {
-                          console.error("Error releasing funds:", error);
-                        });
-                    }}
-                    disabled={!isReleasable} // Disable button if not releasable
-                  >
-                    Release Funds
-                  </Button>
-                )}
-
-              {!isPaymentConfirming &&
-                !isPaymentPending &&
-                !isPaymentCanceling &&
-                !isPaymentCanceled &&
-                hasPayment && (
-                  <Button
-                    className="flex-1 bg-red-500 hover:bg-red-600 text-white"
-                    onClick={() => {
-                      apiClient
-                        .post(`/payments/contracts/${contractData._id}/refund`)
-                        .then((response) => {
-                          console.log("Funds refunded:", response.data);
-                          handlePaymentSuccess();
-                        })
-                        .catch((error) => {
-                          console.error("Error refunding funds:", error);
-                        });
-                    }}
-                  >
-                    Refund
-                  </Button>
-                )}
             </div>
+          )}
+
+          {isProvider && contractData && (
+            <Elements stripe={stripePromise} options={options}>
+              <ConfirmButton clientSecret={paymentData?.clientSecret} />
+            </Elements>
           )}
         </div>
       )}
