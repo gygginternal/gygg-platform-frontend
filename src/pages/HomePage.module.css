@@ -1,30 +1,133 @@
 /* Styles primarily for the overall page layout */
 .pageContainer {
-    display: flex;
-    width: 100%;
-    min-height: 100vh; /* Ensure full viewport height */
-    margin: 0;
-    padding: 0;
-    overflow: hidden; /* Prevent scrollbars from flex items potentially */
+  display: flex;
+  width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  flex-wrap: wrap; /* Allows stacking on smaller screens */
 }
 
-.authLinks { /* Style for the logged-out links if needed */
+
+/* Auth Links for Logged Out Users */
+.authLinks {
     margin-top: 20px;
     text-align: center;
 }
 .authLinks a {
     margin: 0 10px;
     font-weight: 500;
+    font-size: 14px; /* Facebook-like nav labels/buttons */
 }
 
-.loggedInInfo { /* Style for the logged-in message */
+/* Logged-in Info Section */
+.loggedInInfo {
     text-align: center;
     margin-top: 20px;
 }
 .loggedInInfo p {
     margin-bottom: 10px;
+    font-size: 14px; /* Same as post text / nav label */
 }
 .loggedInInfo a {
-   margin: 0 10px;
-   font-weight: 500;
+    margin: 0 10px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+/* Icon Placeholder (optional for inline icons next to text or in nav) */
+.icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Small avatar like comment profile pic */
+.avatar-small {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+/* Medium avatar like post thumbnails */
+.avatar-medium {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* Large avatar like stories */
+.avatar-large {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+@media (max-width: 1024px) {
+  .pageContainer {
+    flex-wrap: wrap; /* Allow children to wrap to next line */
+  }
+
+  /* Make LandingVisual full width and appear first */
+  .visual {
+    width: 100% !important;
+    order: 1;
+    padding: 30px 20px;
+    height: auto;
+  }
+
+  /* Make LandingActions full width and appear second */
+  .actions {
+    width: 100% !important;
+    order: 2;
+    padding: 30px 20px;
+    min-height: auto;
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .authLinks a,
+    .loggedInInfo a,
+    .loggedInInfo p {
+        font-size: 13px; /* Slightly reduced for smaller screens */
+    }
+
+    .icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .avatar-small {
+        width: 28px;
+        height: 28px;
+    }
+
+    .avatar-medium {
+        width: 36px;
+        height: 36px;
+    }
+
+    .avatar-large {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .authLinks,
+    .loggedInInfo {
+        padding: 0 10px;
+    }
+
+    .authLinks a,
+    .loggedInInfo a,
+    .loggedInInfo p {
+        font-size: 12px;
+    }
+
+    .icon {
+        width: 16px;
+        height: 16px;
+    }
 }

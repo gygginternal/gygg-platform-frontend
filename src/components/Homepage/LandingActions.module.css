@@ -1,118 +1,167 @@
-/* Styles adapted from LandingActions */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
 
+/* Container for left or right action panel */
 .actions {
-  width: 55%; /* Takes 55% of the flex container */
+  width: 55%;
   background: linear-gradient(to bottom, #0f212d, #38a1ac);
   display: flex;
-  flex-direction: column; /* Stack items vertically */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* height: 100vh; -- Let flex parent control height */
-  padding: 20px; /* Add padding */
+  padding: 20px;
   box-sizing: border-box;
 }
 
+/* Card holding the login/signup UI */
 .card {
   background-color: white;
   border-radius: 8px;
-  padding: 2.5rem 2rem; /* Adjust padding */
+  padding: 2.5rem 2rem;
   text-align: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   font-weight: bold;
-  width: 100%; /* Make card take width */
-  max-width: 400px; /* Limit card width */
-  margin: 1rem; /* Add margin for spacing */
+  width: 100%;
+  max-width: 400px;
+  margin: 1rem;
 }
 
 .card a {
   text-decoration: none;
 }
 
+/* Title (e.g., “Join Now”) */
 .title {
   font-family: 'Inter', sans-serif;
   font-weight: 900;
-  font-size: clamp(2.5rem, 6vw, 3rem); /* Responsive font size */
+  font-size: clamp(2.5rem, 6vw, 3rem); /* Responsive title */
   color: #d89362;
-  padding-bottom: 1.5rem; /* Adjust spacing */
-  margin-top: 0; /* Remove default margin */
+  padding-bottom: 1.5rem;
+  margin-top: 0;
 }
 
+/* Buttons */
 .signup,
 .login {
   display: block;
   width: 100%;
-  padding: 0.85rem; 
+  padding: 0.85rem;
   margin-bottom: 1rem;
   border: none;
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: 14px; /* Facebook-like button font size */
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.1s ease;
   font-weight: bold;
 }
- .signup:hover, .login:hover {
-    transform: translateY(-1px); /* Slight lift on hover */
- }
- .signup:active, .login:active {
-    transform: translateY(0px);
- }
 
+.signup:hover,
+.login:hover {
+  transform: translateY(-1px);
+}
+
+.signup:active,
+.login:active {
+  transform: translateY(0px);
+}
+
+/* Signup Button */
 .signup {
   background-color: #3d4d55;
   color: white;
 }
-
 .signup:hover {
   background-color: #2c3a40;
 }
 
+/* Login Button */
 .login {
   background-color: white;
   color: #3d4d55;
   border: 2px solid #3d4d55;
-  margin-bottom: 2rem; /* Increased space */
+  margin-bottom: 2rem;
 }
-
 .login:hover {
-  background-color: #f0f0f0; /* Lighter hover */
+  background-color: #f0f0f0;
 }
 
+/* Terms and Conditions */
 .terms {
-  font-size: 0.75rem; /* Slightly smaller */
+  font-size: 12px; /* Meta info / timestamps size */
   font-family: 'Inter', sans-serif;
   color: #666;
-  /* margin: 0 15%; -- Removed fixed margin */
   text-align: center;
   line-height: 1.4;
+  padding: 0 10%;
 }
 
+/* Hyperlink style */
 .link {
   color: #38a1ac;
   text-decoration: underline;
   transition: color 0.3s ease;
-  font-weight: bold; /* Keep bold */
+  font-weight: bold;
   font-family: 'Inter', sans-serif;
 }
-
 .link:hover {
   color: #286f77;
 }
 
-/* Media query for smaller screens if needed */
+@media (max-width: 1024px) {
+  /* Make LandingActions full width and appear second */
+  .actions {
+    width: 100% !important;
+    order: 2;
+    padding: 30px 20px;
+    min-height: auto;
+  }
+}
+
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .actions {
-        width: 100%; /* Take full width */
-        height: auto; /* Auto height */
-        min-height: 50vh; /* Ensure minimum height */
-        order: 2; /* Show actions second */
-        padding: 30px 15px;
-    }
-    .card {
-        padding: 2rem 1.5rem;
-        margin: 0; /* Remove margin */
-    }
-     .title {
-         padding-bottom: 1rem;
-     }
+  .actions {
+    width: 100%;
+    order: 2;
+  }
+
+  .card {
+    padding: 2rem 1.25rem;
+    margin: 0.5rem 0;
+  }
+
+  .title {
+    font-size: clamp(2rem, 8vw, 2.5rem); /* Slightly smaller title */
+    padding-bottom: 1rem;
+  }
+
+  .signup,
+  .login {
+    font-size: 13px;
+    padding: 0.75rem;
+  }
+
+  .terms {
+    font-size: 11px;
+    padding: 0 5%;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 1.5rem 1rem;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .signup,
+  .login {
+    font-size: 12px;
+    padding: 0.7rem;
+  }
+
+  .terms {
+    font-size: 10.5px;
+  }
 }

@@ -6,6 +6,7 @@
   flex-direction: column;
   justify-content: center; /* Center vertically */
   align-items: center;
+  width: 100vw;
   min-height: 100vh;
   padding: 20px;
   background: linear-gradient(#3c4a53, #0f212d);

@@ -1,78 +1,113 @@
-/* Styles adapted from LandingVisual */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
 
+/* Visual side of split screen */
 .visual {
-  width: 45%; /* Takes 45% of the flex container */
+  width: 45%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: #f6f2ed;
-  position: relative; /* Needed for the absolute border */
-  /* height: 100vh; -- Let flex parent control height */
-  padding: 20px; /* Add some padding */
+  position: relative;
+  padding: 20px;
   box-sizing: border-box;
 }
 
+/* Decorative border */
 .border {
   position: absolute;
-  top: 15px; /* Adjust border positioning */
+  top: 15px;
   left: 15px;
   right: 15px;
   bottom: 15px;
   border: 8px solid #d99633;
-  pointer-events: none; /* So it doesn't interfere with clicks */
-  z-index: 0; /* Behind content */
+  pointer-events: none;
+  z-index: 0;
 }
 
+/* Main visual text */
 .text {
-  font-size: clamp(1.8rem, 4vw, 3rem); /* Responsive font size */
-  margin: 0 5%; /* Adjust margin */
+  font-size: clamp(1.8rem, 4vw, 2.25rem); /* Facebook header style */
+  margin: 0 5%;
   text-align: center;
   font-family: 'Inter', sans-serif;
-  font-weight: 800; /* Adjusted weight */
+  font-weight: 800;
   color: black;
-  z-index: 1; /* Above border */
-  margin-bottom: 2rem; /* Space before image */
+  z-index: 1;
+  margin-bottom: 2rem;
 }
 
+/* Highlighted text span */
 .highlight {
   color: #38a1ac;
 }
 
+/* Wrapper for image to control layout and aspect ratio */
 .imageWrapper {
   position: relative;
-  width: 80%; /* Adjust width relative to container */
-  max-width: 350px; /* Smaller max width */
-  aspect-ratio: 1 / 1; /* Make it square */
-  margin-top: 1rem; /* Reduced margin */
+  width: 80%;
+  max-width: 350px;
+  aspect-ratio: 1 / 1;
+  margin-top: 1rem;
   z-index: 1;
 }
 
+/* The actual image */
 .image {
-  display: block; /* Remove extra space below image */
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 8px;
 }
 
-/* Media query for smaller screens if needed */
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .visual {
+    width: 100% !important;
+    order: 1;
+    padding: 30px 20px;
+    height: auto;
+  }
+
+  .text {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    margin-bottom: 1.5rem;
+  }
+
+  .imageWrapper {
+    max-width: 300px;
+    aspect-ratio: 1 / 1;
+  }
+}
+
 @media (max-width: 768px) {
   .visual {
-    width: 100%; /* Take full width */
-    height: 50vh; /* Take half height */
-    order: 1; /* Show visual first */
-    padding: 40px 20px; /* Adjust padding */
+    height: 50vh;
+    padding: 40px 15px;
   }
+
   .text {
-    font-size: clamp(1.5rem, 5vw, 2.2rem);
+    font-size: clamp(1.3rem, 6vw, 1.8rem);
   }
+
   .imageWrapper {
-    max-width: 250px;
-    height: auto; /* Adjust height automatically */
+    max-width: 240px;
   }
-   .border {
-     display: none; /* Hide border on small screens */
-   }
+
+  .border {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .text {
+    font-size: 1.5rem;
+    margin: 0 8% 1rem;
+  }
+
+  .imageWrapper {
+    max-width: 200px;
+    margin-top: 0.75rem;
+  }
 }
