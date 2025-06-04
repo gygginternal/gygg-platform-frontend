@@ -9,6 +9,7 @@ import InputField from "../components/Shared/InputField";
 import { Toggle } from "../components/Toggle"; // Import the Toggle component
 import { TabNavigation } from "../components/TabNavigation"; // Import the new TabNavigation component
 import { BillingTable } from "../components/BillingTable"; // Import the new BillingTable component
+import ProfileSidebar from "../components/ProfileSidebar";
 
 function JobListingsPage({ contracts }) {
   return (
@@ -140,70 +141,73 @@ function ContractsPage() {
   ];
 
   return (
-    <div className="max-w-3xl mx-auto p-4 md:p-6">
-      <TabNavigation
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-        tabs={[
-          { id: "all", label: "All Contracts" },
-          { id: "billing", label: "Billing and Payment" },
-        ]}
-      />
-      {activeTab === "all" && (
-        <>
-          <div className="mt-5 mb-0">
-            <InputField
-              name="search"
-              type="text"
-              placeholder="Search existing contract..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)} // Update input value
-              onKeyDown={handleSearch} // Trigger search on Enter key press
-            />
-            Filter by Status:
-            <Toggle
-              pressed={selectedStatuses.includes("completed")}
-              onPressedChange={() => toggleStatus("completed")}
-              variant="outline"
-              size="sm"
-              className="data-[state=on]:bg-blue-500 data-[state=on]:text-white data-[state=on]:border-blue-500  ml-3"
-            >
-              Completed
-            </Toggle>
-            <Toggle
-              pressed={selectedStatuses.includes("active")}
-              onPressedChange={() => toggleStatus("active")}
-              variant="outline"
-              size="sm"
-              className="data-[state=on]:bg-green-500 data-[state=on]:text-white data-[state=on]:border-green-500  my-3 mx-3 "
-            >
-              Active
-            </Toggle>
-            <Toggle
-              pressed={selectedStatuses.includes("cancelled")}
-              onPressedChange={() => toggleStatus("cancelled")}
-              variant="outline"
-              size="sm"
-              className="data-[state=on]:bg-red-500 data-[state=on]:text-white data-[state=on]:border-red-500  "
-            >
-              Cancelled
-            </Toggle>
-          </div>
-          <JobListingsPage contracts={contracts} />
-          {hasNextPage && (
-            <div className="text-center mt-4">
-              <button
-                onClick={() => fetchNextPage()}
-                disabled={isFetchingNextPage}
-                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+    <div className="mx-auto flex ml-[200px] mt-5 p-4 md:p-6">
+      <ProfileSidebar />
+      <div className="max-w-3xl ml-16">
+        <TabNavigation
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          tabs={[
+            { id: "all", label: "All Contracts" },
+            { id: "billing", label: "Billing and Payment" },
+          ]}
+        />
+        {activeTab === "all" && (
+          <>
+            <div className="mt-5 mb-0">
+              <InputField
+                name="search"
+                type="text"
+                placeholder="Search existing contract..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)} // Update input value
+                onKeyDown={handleSearch} // Trigger search on Enter key press
+              />
+              Filter by Status:
+              <Toggle
+                pressed={selectedStatuses.includes("completed")}
+                onPressedChange={() => toggleStatus("completed")}
+                variant="outline"
+                size="sm"
+                className="data-[state=on]:bg-blue-500 data-[state=on]:text-white data-[state=on]:border-blue-500  ml-3"
               >
-                {isFetchingNextPage ? "Loading more..." : "Load More"}
-              </button>
+                Completed
+              </Toggle>
+              <Toggle
+                pressed={selectedStatuses.includes("active")}
+                onPressedChange={() => toggleStatus("active")}
+                variant="outline"
+                size="sm"
+                className="data-[state=on]:bg-green-500 data-[state=on]:text-white data-[state=on]:border-green-500  my-3 mx-3 "
+              >
+                Active
+              </Toggle>
+              <Toggle
+                pressed={selectedStatuses.includes("cancelled")}
+                onPressedChange={() => toggleStatus("cancelled")}
+                variant="outline"
+                size="sm"
+                className="data-[state=on]:bg-red-500 data-[state=on]:text-white data-[state=on]:border-red-500  "
+              >
+                Cancelled
+              </Toggle>
             </div>
-          )}
-        </>
-      )}
-      {activeTab === "billing" && <BillingTable rows={billingRows} />}
+            <JobListingsPage contracts={contracts} />
+            {hasNextPage && (
+              <div className="text-center mt-4">
+                <button
+                  onClick={() => fetchNextPage()}
+                  disabled={isFetchingNextPage}
+                  className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                >
+                  {isFetchingNextPage ? "Loading more..." : "Load More"}
+                </button>
+              </div>
+            )}
+          </>
+        )}
+        {activeTab === "billing" && <BillingTable rows={billingRows} />}
+      </div>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import apiClient from "../api/axiosConfig";
 import { Badge } from "../components/Badge";
 import { StatusBagde } from "../components/StatusBadge"; // Assuming you have a StatusBadge component
+import { Button } from "../components/ui/button";
 
 function ProviderCard({ provider, onOffer, onReject }) {
   return (
@@ -37,15 +38,15 @@ function ProviderCard({ provider, onOffer, onReject }) {
             </div>
           </div>
           <div>
-            <button
-              className="mr-3 w-[100px]"
-              onClick={() => onOffer(provider.id)}
+            <Button className="mr-3" onClick={() => onOffer(provider.id)}>
+              Send Offer
+            </Button>
+            <Button
+              className="bg-red-500 hover:bg-red-600"
+              onClick={() => onReject(provider.id)}
             >
-              Offer
-            </button>
-            <button className="w-[100px]" onClick={() => onReject(provider.id)}>
-              Reject
-            </button>
+              Decline application
+            </Button>
           </div>
 
           <p className="text-gray-600 my-3 line-clamp-2">

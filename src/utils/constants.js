@@ -33,6 +33,15 @@ export const SKILL_OPTIONS = [
   "Item delivery",
   "Waiting in line",
   "Travel planning",
+  "Household Services",
+  "Personal Assistant",
+  "Pet Care",
+  "Technology and Digital Assistance",
+  "Event Support",
+  "Moving and Organization",
+  "Creative and Costume Tasks",
+  "General Errands",
+  "Other",
 ];
 
 export const HOBBIES_OPTIONS = [
@@ -60,16 +69,6 @@ export const PERSONALITIES_OPTIONS = [
   "Responsible",
 ];
 
-export const CATEGORY_ENUM = [
-  "Household Services",
-  "Personal Assistant",
-  "Pet Care",
-  "Technology and Digital Assistance",
-  "Event Support",
-  "Moving and Organization",
-  "Creative and Costume Tasks",
-  "General Errands",
-  "Other",
-];
+export const CATEGORY_ENUM = [];
 
 // Add other frontend constants here as needed
