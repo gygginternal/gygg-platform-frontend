@@ -101,7 +101,7 @@ function Header() {
                 </button>
                 {isProfileOpen && (
                   <div className={styles.dropdown}>
-                    <Link to="/dashboard" className={styles.dropdownItem} onClick={() => setIsProfileOpen(false)}>
+                    <Link to="/profile" className={styles.dropdownItem} onClick={() => setIsProfileOpen(false)}>
                       <img src="/assets/user.svg" alt="" width={18} height={18} />
                       <p>Profile</p>
                     </Link>

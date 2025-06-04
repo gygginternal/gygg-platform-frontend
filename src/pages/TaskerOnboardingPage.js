@@ -113,7 +113,7 @@ function TaskerOnboardingPage() {
     setError(""); // Clear errors on navigation
     if (direction === "back") {
       if (currentStep > 1) setCurrentStep((s) => s - 1);
-      else navigate("/dashboard"); // Or wherever they came from
+      else navigate("/profile"); // Or wherever they came from
     } else {
       // 'next'
       // Add validation per step if needed before proceeding
@@ -223,7 +223,7 @@ function TaskerOnboardingPage() {
       );
       alert("Profile setup complete!");
       if (refreshUser) await refreshUser(); // Refresh user data in context
-      navigate("/dashboard"); // Or to social feed/profile page
+      navigate("/profile"); // Or to social feed/profile page
     } catch (err) {
       logger.error(
         "Error submitting onboarding data:",

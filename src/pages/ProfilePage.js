@@ -4,11 +4,11 @@ import styles from './ProfilePage.module.css'; // Ensure this CSS Module exists 
 import { useAuth } from '../context/AuthContext'; // To get logged-in user and role
 
 // Import adapted profile components (adjust paths as needed)
-import ProfileInfo from '../components/ProfileInfo'; // Covers top section, name, location, skills, hobbies
-import AboutSection from '../components/AboutSection';
-import PostsSection from '../components/PostsSection';
-import AlbumSection from '../components/AlbumSection';
-import ReviewsSection from '../components/ReviewsSection'; // Assuming this shows reviews *about* the user
+import ProfileInfo from '../components/ProfilePage/ProfileInfo'; // Covers top section, name, location, skills, hobbies
+import AboutSection from '../components/ProfilePage/AboutSection';
+import PostsSection from '../components/ProfilePage/PostsSection';
+import AlbumSection from '../components/ProfilePage/AlbumSection';
+import ReviewsSection from '../components/ProfilePage/ReviewsSection'; // Assuming this shows reviews *about* the user
 
 function ProfilePage() {
     const { user: loggedInUser, isLoading } = useAuth();

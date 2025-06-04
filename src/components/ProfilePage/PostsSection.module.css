@@ -1,0 +1,112 @@
+/* src/pages/ProfilePage.module.css (assuming this is part of the profile page) */
+
+/* Setting a base font size for rem calculations if not set globally */
+:root {
+    font-size: 16px; /* 1rem = 16px */
+}
+
+.postsCard {
+    background-color: #fff;
+    border-radius: 1rem; /* 16px */
+    margin-bottom: 1.25rem; /* 20px */
+    padding: 1.5rem; /* 24px */
+    box-sizing: border-box; /* Ensures padding is included in width */
+}
+
+.postsHeader {
+    color: #3d4d55;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem; /* 20px */
+    /* Facebook Header (profile names etc.) 16-18px.
+       Using 18px here for a prominent section header. */
+    font-size: 1.125rem; /* 18px */
+    font-weight: 700;
+    display: flex;
+}
+
+.seeAllButton {
+    color: #3d4d55;
+    cursor: pointer;
+    /* Facebook Buttons 13-14px */
+    font-size: 0.875rem; /* 14px */
+    text-decoration: none;
+    background: none;
+    border: none;
+    padding: 0.25rem 0.5rem; /* Add some padding for better click area */
+    transition: opacity 0.2s ease, color 0.2s ease;
+}
+.seeAllButton:hover {
+    opacity: 0.8;
+    color: #2c3b45; /* Darker on hover */
+}
+
+.postsGrid {
+    gap: 1.25rem; /* 20px */
+    display: flex; /* Original layout is flex, not grid. Assuming flex for the "3 cards per row" if they are flexible width. */
+    /* If these are actual grid columns, you'd use `grid-template-columns` */
+}
+
+/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+@media (max-width: 1024px) {
+    .postsCard {
+        padding: 1.25rem; /* 20px */
+        margin-bottom: 1rem; /* 16px */
+    }
+    .postsHeader {
+        font-size: 1.0625rem; /* 17px */
+        margin-bottom: 1rem; /* 16px */
+    }
+    .seeAllButton {
+        font-size: 0.8125rem; /* 13px */
+        padding: 0.2rem 0.4rem; /* 3.2px 6.4px */
+    }
+    .postsGrid {
+        gap: 1rem; /* 16px */
+    }
+}
+
+/* Original media query, adjusted to max-width for consistency */
+@media (max-width: 991px) {
+    .postsGrid {
+      flex-direction: column; /* Stack vertically on medium screens */
+    }
+}
+
+/* Responsive adjustments for screens up to 768px (Tablets) */
+@media (max-width: 768px) {
+    .postsCard {
+        padding: 1rem; /* 16px */
+        margin-bottom: 0.8rem; /* 12.8px */
+    }
+    .postsHeader {
+        font-size: 1rem; /* 16px */
+        margin-bottom: 0.8rem; /* 12.8px */
+    }
+    .seeAllButton {
+        font-size: 0.75rem; /* 12px (Facebook Timestamps) */
+        padding: 0.15rem 0.3rem; /* 2.4px 4.8px */
+    }
+    .postsGrid {
+        gap: 0.8rem; /* 12.8px */
+    }
+}
+
+/* Responsive adjustments for screens up to 480px (Mobile Phones) */
+@media (max-width: 480px) {
+    .postsCard {
+        padding: 0.75rem; /* 12px */
+        margin-bottom: 0.6rem; /* 9.6px */
+    }
+    .postsHeader {
+        font-size: 0.9375rem; /* 15px */
+        margin-bottom: 0.6rem; /* 9.6px */
+    }
+    .seeAllButton {
+        font-size: 0.6875rem; /* ~11px (slightly smaller for compact screens) */
+        padding: 0.1rem 0.2rem; /* 1.6px 3.2px */
+    }
+    .postsGrid {
+        gap: 0.6rem; /* 9.6px */
+    }
+}

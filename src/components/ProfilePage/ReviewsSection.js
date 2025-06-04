@@ -2,9 +2,9 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ReviewsSection.module.css"; // Create CSS Module
 import ReviewCard from "./ReviewCard";
-import apiClient from "../api/axiosConfig"; // Adjust path
-import { useAuth } from "../context/AuthContext"; // Adjust path
-import logger from "../utils/logger";
+import apiClient from "../../api/axiosConfig"; // Adjust path
+import { useAuth } from "../../context/AuthContext"; // Adjust path
+import logger from "../../utils/logger";
 
 function ReviewsSection() {
     const { user } = useAuth(); // Get current user to fetch reviews ABOUT them

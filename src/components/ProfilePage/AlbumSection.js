@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 import styles from "./AlbumSection.module.css";
 import AlbumCard from "./AlbumCard";
 import AddPhotoModal from "./AddPhotoModal";
-import apiClient from "../api/axiosConfig"; // Adjust path
-import logger from "../utils/logger"; // Adjust path
-import { useAuth } from "../context/AuthContext"; // To get the logged-in user
+import apiClient from "../../api/axiosConfig"; // Adjust path
+import logger from "../../utils/logger"; // Adjust path
+import { useAuth } from "../../context/AuthContext"; // To get the logged-in user
 
 // Prop to allow viewing another user's album (e.g., on a public profile page)
 function AlbumSection({ userIdToView }) {

@@ -1,11 +1,11 @@
 // src/components/ProfilePage/PostsSection.js
 import React, { useState, useEffect } from "react";
 import styles from "./PostsSection.module.css";    // Ensure this CSS Module exists
-import PostCard from "../components/PostCard";    // Import your PostCard component (adjust path if needed)
-import apiClient from "../api/axiosConfig";      // Adjust path as needed
-import { useAuth } from "../context/AuthContext";  // Adjust path as needed
+import PostCard from "./PostCard";    // Import your PostCard component (adjust path if needed)
+import apiClient from "../../api/axiosConfig";      // Adjust path as needed
+import { useAuth } from "../../context/AuthContext";  // Adjust path as needed
 import { Link } from 'react-router-dom';         // For "See all" and "Create Post" links
-import logger from "../utils/logger";          // Optional: Adjust path as needed
+import logger from "../../utils/logger";          // Optional: Adjust path as needed
 
 function PostsSection({ userIdToView }) { // Accepts userId of the profile being viewed
     const { user: loggedInUser } = useAuth(); // Get the currently logged-in user

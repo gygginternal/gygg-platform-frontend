@@ -1,9 +1,9 @@
 // src/components/ProfilePage/AboutSection.js
 import React, { useState, useEffect } from "react";
 import styles from "./AboutSection.module.css"; // Ensure this CSS Module exists
-import { useAuth } from "../context/AuthContext"; // Adjust path as needed
-import apiClient from "../api/axiosConfig"; // Adjust path as needed
-import logger from "../utils/logger"; // Adjust path as needed
+import { useAuth } from "../../context/AuthContext"; // Adjust path as needed
+import apiClient from "../../api/axiosConfig"; // Adjust path as needed
+import logger from "../../utils/logger"; // Adjust path as needed
 
 // --- Helper function to decode HTML entities ---
 const decodeHTMLEntities = (text) => {

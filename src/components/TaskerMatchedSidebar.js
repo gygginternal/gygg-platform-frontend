@@ -23,7 +23,7 @@ export function TaskerMatchedSidebar() {
               {user.fullName || `${user.firstName} ${user.lastName}`}
             </h2>
             <Link
-              to="/dashboard"
+              to="/profile"
               href="#"
               className="text-slate-600 underline text-lg"
             >

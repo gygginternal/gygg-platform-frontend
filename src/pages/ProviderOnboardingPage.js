@@ -105,7 +105,7 @@ function ProviderOnboardingPage() {
                  // but local step management is usually preferred for multi-step forms.
                  // If you want URL to change per step: navigate(`/onboarding/provider/step${currentStep - 1}`);
             } else {
-                 navigate('/dashboard'); // Or previous page
+                 navigate('/profile'); // Or previous page
             }
         } else { // 'next'
             // --- Step Validation (ensure this is complete) ---
@@ -318,7 +318,7 @@ function ProviderOnboardingPage() {
 
     if (!user) return <div className={styles.pageContainer}><p>Loading...</p></div>;
     if (!user.role?.includes('provider')) {
-        // navigate('/dashboard'); // Or appropriate non-provider page
+        // navigate('/profile'); // Or appropriate non-provider page
         return <div className={styles.pageContainer}><p>This onboarding is for Providers only. Redirecting...</p></div>;
     }
 

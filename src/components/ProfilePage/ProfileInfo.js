@@ -1,9 +1,9 @@
 // src/components/SocialPage/ProfileInfo.js
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./ProfileInfo.module.css";
-import { useAuth } from "../context/AuthContext"; // Adjust path as needed
-import apiClient from "../api/axiosConfig"; // Adjust path as needed
-import logger from "../utils/logger"; // Optional, adjust path as needed
+import { useAuth } from "../../context/AuthContext"; // Adjust path as needed
+import apiClient from "../../api/axiosConfig"; // Adjust path as needed
+import logger from "../../utils/logger"; // Optional, adjust path as needed
 
 // Helper function to decode HTML entities (if bio or other text fields might have them)
 const decodeHTMLEntities = (text) => { /* ... same as before ... */

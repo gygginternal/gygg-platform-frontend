@@ -115,7 +115,7 @@ function App() {
 
               {/* Protected Routes */}
               <Route
-                path="/dashboard"
+                path="/profile"
                 element={
                   <ProtectedRoute>
                     <ProfilePage />

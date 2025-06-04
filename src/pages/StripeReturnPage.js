@@ -18,11 +18,11 @@ function StripeReturnPage() {
             apiClient.get('/users/stripe/account-status')
                 .then(response => {
                     console.log("Fetched status after return:", response.data.data);
-                    navigate('/dashboard');
+                    navigate('/profile');
                 })
                 .catch(error => {
                     console.error("Error fetching status after return:", error);
-                    navigate('/dashboard'); // Navigate anyway
+                    navigate('/profile'); // Navigate anyway
                 });
             */
     }, 1500); // Wait 1.5 seconds

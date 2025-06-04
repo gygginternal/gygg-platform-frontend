@@ -100,7 +100,7 @@ function GigCreateOptionsPage() {
     <div className={styles.pageContainer}>
       <div className={styles.contentWrapper}>
         <header className={styles.pageHeader}>
-          <Link to="/dashboard"> {/* Or "/" if dashboard is not the immediate back step */}
+          <Link to="/profile"> {/* Or "/" if dashboard is not the immediate back step */}
             <img src="/gygg-logo.svg" alt="GYGG Logo" className={styles.logo} />
           </Link>
         </header>

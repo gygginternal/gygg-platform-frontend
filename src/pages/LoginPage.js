@@ -46,7 +46,7 @@ function LoginPage() {
           return navigate(response.data.data.redirectToOnboarding); // Navigate to onboarding path
         }
 
-        navigate("/dashboard"); // Redirect to dashboard
+        navigate("/profile"); // Redirect to dashboard
       } else {
         logger.error(
           "Login failed: Invalid response structure.",

@@ -1,0 +1,173 @@
+/* src/pages/ProfilePage.module.css or shared component styles */
+
+/* Setting a base font size for rem calculations if not set globally */
+:root {
+    font-size: 16px; /* 1rem = 16px */
+}
+
+.reviewItem {
+    width: 100%; /* Full width */
+    padding: 1rem; /* 16px */
+    background: #fff;
+    transition: transform 0.2s ease-in-out;
+    border-radius: 0.5rem; /* 8px */
+    border-bottom: 0.0625rem solid #ddd; /* 1px Light gray bottom border */
+    box-sizing: border-box; /* Ensures padding is included in width */
+}
+
+.reviewItem:last-child {
+    border-bottom: none; /* Removes border from the last review to avoid extra line */
+}  
+
+.reviewItem:hover {
+    transform: scale(1.02); /* Slight scale on hover */
+}
+
+.reviewRow {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* 8px Slightly increased gap for spacing between elements in the row */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens, especially for many small info bits */
+    margin-bottom: 0.5rem; /* Space below this row */
+}
+
+.name {
+    /* Facebook Header (profile names etc.) 16-18px */
+    font-size: 1.125rem; /* 18px */
+    font-weight: bold;
+    color: #333;
+    flex-shrink: 0; /* Prevent name from shrinking */
+    min-width: 0; /* Allow text to truncate */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.job {
+    font-weight: 500;
+    color: #777;
+    /* Facebook Comments 13-14px. This is secondary info. */
+    font-size: 0.875rem; /* 14px */
+    flex-shrink: 0;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.rating {
+    font-weight: bold;
+    color: #D99633;
+    /* Facebook Comments 13-14px */
+    font-size: 0.875rem; /* 14px */
+    flex-shrink: 0;
+}
+
+.stars {
+    color: #FFD700;
+    /* If this is a font-based star icon, size should align with 'Post action icons' (16-20px) or 'Comment/reaction icons' (16px) */
+    /* Or the same size as the rating text. Let's make it align with rating text for now. */
+    font-size: 0.875rem; /* 14px */
+    flex-shrink: 0;
+}
+
+.date {
+    font-style: italic;
+    color: #666;
+    /* Facebook Timestamps and meta info: 12px */
+    font-size: 0.75rem; /* 12px */
+    flex-shrink: 0;
+}
+
+.separator {
+    color: #777;
+    /* Small, discreet separator. Use 12px for text. */
+    font-size: 0.75rem; /* 12px */
+    line-height: 1; /* Keep it compact */
+    flex-shrink: 0;
+}
+
+.reviewText {
+    /* Facebook Post text (main body): 14-16px */
+    font-size: 0.9375rem; /* 15px (closer to 16px than 14px for main body) */
+    color: #536471;
+    line-height: 1.4;
+    margin-top: 0.5rem; /* Added space above text */
+}
+
+/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+@media (max-width: 1024px) {
+    .reviewItem {
+        padding: 0.875rem; /* 14px */
+        border-radius: 0.4rem; /* ~6.4px */
+    }
+    .reviewRow {
+        gap: 0.4rem; /* 6.4px */
+        margin-bottom: 0.4rem; /* 6.4px */
+    }
+    .name {
+        font-size: 1rem; /* 16px */
+    }
+    .job, .rating, .stars {
+        font-size: 0.8125rem; /* 13px */
+    }
+    .date, .separator {
+        font-size: 0.6875rem; /* ~11px */
+    }
+    .reviewText {
+        font-size: 0.875rem; /* 14px */
+        margin-top: 0.4rem; /* 6.4px */
+    }
+}
+
+/* Responsive adjustments for screens up to 768px (Tablets) */
+@media (max-width: 768px) {
+    .reviewItem {
+        padding: 0.75rem; /* 12px */
+        border-radius: 0.35rem; /* ~5.6px */
+    }
+    .reviewRow {
+        gap: 0.3rem; /* 4.8px */
+        margin-bottom: 0.3rem; /* 4.8px */
+        /* If many items, consider stacking. For now, keep as flex. */
+        /* flex-wrap: wrap; */
+    }
+    .name {
+        font-size: 0.9375rem; /* 15px */
+    }
+    .job, .rating, .stars {
+        font-size: 0.75rem; /* 12px */
+    }
+    .date, .separator {
+        font-size: 0.625rem; /* 10px */
+    }
+    .reviewText {
+        font-size: 0.8125rem; /* 13px */
+        margin-top: 0.3rem; /* 4.8px */
+    }
+}
+
+/* Responsive adjustments for screens up to 480px (Mobile Phones) */
+@media (max-width: 480px) {
+    .reviewItem {
+        padding: 0.625rem; /* 10px */
+        border-radius: 0.3rem; /* ~4.8px */
+    }
+    .reviewRow {
+        gap: 0.25rem; /* 4px */
+        margin-bottom: 0.25rem; /* 4px */
+    }
+    .name {
+        font-size: 0.875rem; /* 14px */
+    }
+    .job, .rating, .stars {
+        font-size: 0.6875rem; /* ~11px */
+    }
+    .date, .separator {
+        font-size: 0.5625rem; /* ~9px */
+    }
+    .reviewText {
+        font-size: 0.75rem; /* 12px */
+        margin-top: 0.25rem; /* 4px */
+    }
+}

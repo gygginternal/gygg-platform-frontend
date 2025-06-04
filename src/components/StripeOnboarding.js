@@ -1,7 +1,7 @@
 // src/components/ProfilePage/AboutSection.js
 import apiClient from "../api/axiosConfig"; // Adjust path
 import React, { useState, useEffect } from "react";
-import styles from "./AboutSection.module.css"; // Create this CSS module
+import styles from "../components/ProfilePage/AboutSection.module.css"; // Create this CSS module
 
 export function StripeOnboarding() {
   // Initialize status as potentially null, and add a specific 'notFound' state

@@ -1,0 +1,375 @@
+/* src/pages/ProfilePage.module.css */
+/* Styles for AboutCard and related Modal */
+
+/* Setting a base font size for rem calculations if not set globally */
+:root {
+    font-size: 16px; /* 1rem = 16px */
+}
+
+.aboutCard {
+  background-color: #fff;
+  border-radius: 1rem; /* 16px */
+  margin-bottom: 1.25rem; /* 20px */
+  padding: 1.5rem; /* 24px */
+  box-sizing: border-box; /* Ensures padding is included in width */
+}
+
+.aboutHeader {
+  color: #3d4d55;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.625rem; /* 10px */
+  /* Facebook Header (profile names etc.) 16-18px */
+  font-size: 1.125rem; /* 18px */
+  font-weight: 700;
+  display: flex;
+}
+
+.editIcon {
+  /* Facebook Top navbar icons 20-24px, Post action icons 16-20px */
+  height: 1.25rem; /* 20px */
+  width: 1.25rem; /* 20px */
+  cursor: pointer;
+  flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+.aboutContent {
+  color: #3d4d55;
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 1rem; /* 16px */
+  line-height: 1.6;
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem; /* Add padding for very small screens to prevent content touch edges */
+  box-sizing: border-box;
+}
+
+.modalContent {
+  position: relative;
+  background-color: #fff;
+  width: 90%; /* Responsive width */
+  max-width: 37.5rem; /* 600px */
+  border-radius: 1rem; /* 16px */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex; /* Use flex to stack header, prompt, textarea, actions */
+  flex-direction: column;
+}
+
+.closeButton {
+  position: absolute;
+  top: 0.3125rem; /* 5px (adjusted from 2.5px for better spacing) */
+  right: 0.625rem; /* 10px */
+  background: none;
+  border: none;
+  /* Facebook Top navbar icons 20-24px */
+  font-size: 1.5rem; /* 24px */
+  color: #ffffff;
+  cursor: pointer;
+  line-height: 1; /* Ensure button content doesn't affect height */
+  padding: 0.25rem; /* Make it easier to click */
+}
+
+.closeButton:hover {
+  opacity: 0.8;
+}
+
+.modalHeader {
+  display: flex;
+  border-radius: 1rem 1rem 0 0; /* 16px */
+  justify-content: space-between;
+  align-items: center;
+  /* margin-bottom removed, using padding within modalContent */
+  background-color: #00AABA;
+  padding: 0.625rem 0.625rem 0.625rem 1.25rem; /* 10px 10px 10px 20px */
+  color: #fff;
+  min-height: 2.5rem; /* Ensure minimum height */
+}
+
+.modalHeader h3 {
+  margin: 0;
+  /* Facebook Header (profile names etc.) 16-18px */
+  font-size: 1.25rem; /* 20px */
+  font-weight: 600; /* Slightly lighter than original 700 to match FB */
+}
+
+.modalPrompt {
+  color: #3d4d55;
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 1rem; /* 16px */
+  margin-bottom: 0.625rem; /* 10px */
+  padding: 1.25rem; /* 20px */
+}
+
+.textArea {
+  width: calc(100% - 2.5rem); /* 100% width minus 2*20px padding (which is 2.5rem) */
+  height: 11.25rem; /* 180px */
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 1rem; /* 16px */
+  line-height: 1.5;
+  border-radius: 0.5rem; /* 8px */
+  border: 1px solid #ddd;
+  resize: vertical; /* Allow vertical resizing */
+  display: block;
+  margin: 0 1.25rem 0.625rem; /* 0 20px 10px; Align with prompt/actions padding */
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  box-sizing: border-box; /* Crucial for width calculation */
+  padding: 0.625rem 0.75rem; /* Add internal padding for text */
+}
+
+.textArea::-webkit-scrollbar {
+  display: none;
+}
+
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.625rem; /* 10px */
+  padding: 1.25rem; /* 20px */
+}
+
+.cancelButton,
+.saveButton {
+  padding: 0.625rem 1.25rem; /* 10px 20px */
+  /* Facebook Buttons 13-14px */
+  font-size: 0.875rem; /* 14px */
+  border-radius: 0.5rem; /* 8px */
+  border: none;
+  cursor: pointer;
+  font-weight: 600; /* Slightly bolder for buttons */
+}
+
+.cancelButton {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.saveButton {
+  background-color: #3D4D55;
+  color: #fff;
+}
+
+.cancelButton:hover,
+.saveButton:hover {
+  opacity: 0.9; /* Slightly less opaque hover */
+  transform: translateY(-1px); /* Subtle lift */
+}
+.cancelButton:active,
+.saveButton:active {
+    transform: translateY(0); /* Return to original position */
+}
+
+
+.noBio {
+  text-align: center;
+  margin-top: 1.25rem; /* 20px */
+}
+
+.noBio p {
+  color: #3d4d55;
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 1rem; /* 16px */
+  margin-bottom: 0.625rem; /* 10px */
+}
+
+.addButton {
+  background-color: #3D4D55;
+  color: white;
+  border: none;
+  padding: 0.625rem 1.25rem; /* 10px 20px */
+  /* Facebook Buttons 13-14px */
+  font-size: 0.875rem; /* 14px */
+  border-radius: 0.5rem; /* 8px */
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.addButton:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+.addButton:active {
+    transform: translateY(0);
+}
+
+
+/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+@media (max-width: 1024px) {
+    .aboutCard {
+        padding: 1.25rem; /* 20px */
+        margin-bottom: 1rem; /* 16px */
+    }
+    .aboutHeader {
+        font-size: 1rem; /* 16px */
+        margin-bottom: 0.5rem; /* 8px */
+    }
+    .editIcon {
+        height: 1.125rem; /* 18px */
+        width: 1.125rem; /* 18px */
+    }
+    .aboutContent {
+        font-size: 0.9375rem; /* 15px */
+    }
+
+    .modalContent {
+        max-width: 32rem; /* ~512px */
+    }
+    .modalHeader h3 {
+        font-size: 1.125rem; /* 18px */
+    }
+    .closeButton {
+        font-size: 1.375rem; /* 22px */
+    }
+    .modalPrompt {
+        font-size: 0.9375rem; /* 15px */
+        padding: 1rem; /* 16px */
+    }
+    .textArea {
+        height: 9rem; /* 144px */
+        font-size: 0.9375rem; /* 15px */
+        width: calc(100% - 2rem); /* Adjusted for 16px padding */
+        margin: 0 1rem 0.5rem; /* 0 16px 8px */
+        padding: 0.5rem 0.625rem; /* 8px 10px */
+    }
+    .modalActions {
+        padding: 1rem; /* 16px */
+        gap: 0.5rem; /* 8px */
+    }
+    .cancelButton,
+    .saveButton,
+    .addButton {
+        font-size: 0.8125rem; /* 13px */
+        padding: 0.5rem 1rem; /* 8px 16px */
+    }
+    .noBio p {
+        font-size: 0.9375rem; /* 15px */
+    }
+}
+
+/* Responsive adjustments for screens up to 768px (Tablets) */
+@media (max-width: 768px) {
+    .aboutCard {
+        padding: 1rem; /* 16px */
+        margin-bottom: 0.8rem; /* 12.8px */
+    }
+    .aboutHeader {
+        font-size: 0.9375rem; /* 15px */
+        margin-bottom: 0.4rem; /* 6.4px */
+    }
+    .editIcon {
+        height: 1rem; /* 16px */
+        width: 1rem; /* 16px */
+    }
+    .aboutContent {
+        font-size: 0.875rem; /* 14px */
+    }
+
+    .modalContent {
+        max-width: 28rem; /* ~448px */
+        width: 95%; /* Wider on tablet */
+    }
+    .modalHeader h3 {
+        font-size: 1rem; /* 16px */
+    }
+    .closeButton {
+        font-size: 1.25rem; /* 20px */
+        top: 0.25rem; /* 4px */
+        right: 0.5rem; /* 8px */
+    }
+    .modalPrompt {
+        font-size: 0.875rem; /* 14px */
+        padding: 0.8rem; /* 12.8px */
+    }
+    .textArea {
+        height: 8rem; /* 128px */
+        font-size: 0.875rem; /* 14px */
+        width: calc(100% - 1.6rem); /* Adjusted for 12.8px padding */
+        margin: 0 0.8rem 0.4rem; /* 0 12.8px 6.4px */
+        padding: 0.4rem 0.5rem; /* 6.4px 8px */
+    }
+    .modalActions {
+        padding: 0.8rem; /* 12.8px */
+        gap: 0.4rem; /* 6.4px */
+    }
+    .cancelButton,
+    .saveButton,
+    .addButton {
+        font-size: 0.75rem; /* 12px */
+        padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
+    }
+    .noBio p {
+        font-size: 0.875rem; /* 14px */
+    }
+}
+
+/* Responsive adjustments for screens up to 480px (Mobile Phones) */
+@media (max-width: 480px) {
+    .aboutCard {
+        padding: 0.75rem; /* 12px */
+        margin-bottom: 0.6rem; /* 9.6px */
+    }
+    .aboutHeader {
+        font-size: 0.875rem; /* 14px */
+        margin-bottom: 0.3rem; /* 4.8px */
+    }
+    .editIcon {
+        height: 0.9rem; /* 14.4px */
+        width: 0.9rem; /* 14.4px */
+    }
+    .aboutContent {
+        font-size: 0.8125rem; /* 13px */
+    }
+
+    .modalContent {
+        max-width: 95%; /* Even wider on tiny screens */
+    }
+    .modalHeader {
+        padding: 0.5rem 0.5rem 0.5rem 0.75rem; /* 8px 8px 8px 12px */
+    }
+    .modalHeader h3 {
+        font-size: 0.9375rem; /* 15px */
+    }
+    .closeButton {
+        font-size: 1.125rem; /* 18px */
+        top: 0.15rem; /* 2.4px */
+        right: 0.3rem; /* 4.8px */
+    }
+    .modalPrompt {
+        font-size: 0.8125rem; /* 13px */
+        padding: 0.6rem; /* 9.6px */
+    }
+    .textArea {
+        height: 7rem; /* 112px */
+        font-size: 0.8125rem; /* 13px */
+        width: calc(100% - 1.2rem); /* Adjusted for 9.6px padding */
+        margin: 0 0.6rem 0.3rem; /* 0 9.6px 4.8px */
+        padding: 0.3rem 0.4rem; /* 4.8px 6.4px */
+    }
+    .modalActions {
+        padding: 0.6rem; /* 9.6px */
+        gap: 0.3rem; /* 4.8px */
+    }
+    .cancelButton,
+    .saveButton,
+    .addButton {
+        font-size: 0.6875rem; /* 11px */
+        padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
+    }
+    .noBio p {
+        font-size: 0.8125rem; /* 13px */
+    }
+}

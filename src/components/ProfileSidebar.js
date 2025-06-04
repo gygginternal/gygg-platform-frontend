@@ -61,7 +61,7 @@ function ProfileSidebar() {
             <h3 className={styles.profileName}>
               {user.fullName || `${user.firstName} ${user.lastName}`}
             </h3>
-            <Link to="/dashboard" className={styles.viewProfileLink}>
+            <Link to="/profile" className={styles.viewProfileLink}>
               View Profile
             </Link>
           </div>

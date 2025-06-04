@@ -1,9 +1,9 @@
 // src/components/ProfilePage/AddPhotoModal.js
 import React, { useState, useEffect } from "react"; // Added useEffect
 import styles from "./AddPhotoModal.module.css";
-import apiClient from "../api/axiosConfig"; // Adjust path
-import logger from "../utils/logger"; // Adjust path
-import { useAuth } from "../context/AuthContext"; // To get userId if needed by backend
+import apiClient from "../../api/axiosConfig"; // Adjust path
+import logger from "../../utils/logger"; // Adjust path
+import { useAuth } from "../../context/AuthContext"; // To get userId if needed by backend
 
 function AddPhotoModal({ onClose, onAddSuccess }) { // Renamed onAdd to onAddSuccess
   const { user } = useAuth(); // Get user if backend needs userId for non /me/album routes

@@ -11,7 +11,7 @@ function StripeRefreshPage() {
         <div>
             <h2>Stripe connection link expired</h2>
             <p>Your secure connection link to Stripe has expired.</p>
-            <button onClick={() => navigate('/dashboard')}>
+            <button onClick={() => navigate('/profile')}>
                 Go back to Dashboard to generate a new link
             </button>
         </div>
