@@ -32,7 +32,7 @@ import StripeReturnPage from "./pages/StripeReturnPage";
 import StripeRefreshPage from "./pages/StripeRefreshPage";
 
 // Shared
-import Header from "./components/Header";
+import Header from "./components/Shared/Header";
 import { queryClient } from "./client";
 import ContractsPage from "./pages/ContractsPage";
 

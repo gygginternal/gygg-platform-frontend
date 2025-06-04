@@ -2,10 +2,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styles from "./Feed.module.css"; // Ensure CSS Module exists
 import Post from "./Post";              // Use adapted Post component
-import Button from "./Button";  // Use shared Button component
-import apiClient from "../api/axiosConfig"; // Adjust path
-import { useAuth } from "../context/AuthContext"; // Adjust path
-import logger from "../utils/logger";   // Optional logger
+import Button from "../Button";  // Use shared Button component
+import apiClient from "../../api/axiosConfig"; // Adjust path
+import { useAuth } from "../../context/AuthContext"; // Adjust path
+import logger from "../../utils/logger";   // Optional logger
 import { Link, useNavigate } from 'react-router-dom'; // Import Link and useNavigate
 
 function Feed() {

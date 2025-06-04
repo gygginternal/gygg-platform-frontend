@@ -1,9 +1,9 @@
 // src/components/SocialPage/Post.js
 import React, { useState, useEffect } from 'react';
 import styles from './Post.module.css';
-import { useAuth } from '../context/AuthContext';
-import apiClient from '../api/axiosConfig';
-import logger from '../utils/logger';
+import { useAuth } from '../../context/AuthContext';
+import apiClient from '../../api/axiosConfig';
+import logger from '../../utils/logger';
 
 const Icon = ({ src, alt, className = "", width = 16, height = 16, onClick }) => (
   <img

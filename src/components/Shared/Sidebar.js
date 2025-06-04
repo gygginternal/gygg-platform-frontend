@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom"; // Import hooks/components
 import styles from "./Sidebar.module.css"; // Your CSS module
-import { useAuth } from "../context/AuthContext"; // Assuming useAuth provides user role
+import { useAuth } from "../../context/AuthContext"; // Assuming useAuth provides user role
 
 // Simple component just for structure, replace with real Image/SVG handling
 const Icon = ({ src, alt, className }) => (

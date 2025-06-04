@@ -1,0 +1,132 @@
+/* src/components/Sidebar/Sidebar.module.css */
+
+.sidebar {
+  background-color: #f1f1f1;
+  width: 270px; /* Default width for larger screens */
+  height: 100vh;
+  padding-top: 84px; /* Account for the fixed header height */
+  position: fixed;
+  left: 0;
+  top: 0;
+  transition: width 0.3s ease-in-out, left 0.3s ease-in-out; /* Add left to transition */
+  overflow: hidden; /* For collapsing text */
+  display: block; /* Ensures it's visible by default on desktop */
+  z-index: 99; /* Below header (100) but above main content */
+}
+
+.sidebar.collapsed {
+  width: 80px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 24px;
+  color: #3d4d55;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.navItem:hover {
+  background-color: rgba(0, 170, 186, 0.15);
+}
+
+.navItem::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+}
+
+.sidebar.collapsed .navItem {
+  justify-content: center;
+  padding: 16px;
+}
+
+.sidebar.collapsed .navItem::after {
+  content: none;
+}
+
+.navText {
+  font-size: 18px;
+  font-weight: 500;
+  white-space: nowrap; /* Prevent text wrapping */
+  transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out; /* Smooth transition */
+}
+
+.sidebar.collapsed .navText {
+  opacity: 0;
+  width: 0; /* Collapse width to truly hide text */
+  overflow: hidden;
+}
+
+.defaultIcon {
+  filter: brightness(0);
+}
+
+.navItem.selected {
+  background-color: #00aaba;
+  color: white;
+}
+
+.navItem.selected .selectedIcon {
+  filter: brightness(0) invert(1);
+}
+
+/* --- Responsive Adjustments for Sidebar --- */
+
+/* At 768px, the header and main content typically shift to full width (left: 0, margin-left: auto).
+   The sidebar should also transition to a hidden (off-screen) overlay/drawer mode at this point. */
+@media (max-width: 768px) {
+  .sidebar {
+    /* Hide the sidebar off-screen by default */
+    left: -270px; /* Moves it completely off the left edge */
+    width: 270px; /* Keep its base width for when it slides in */
+    transition: left 0.3s ease-in-out; /* Smooth transition for sliding in/out */
+    z-index: 105; /* Higher than header's 100, so it overlays correctly */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2); /* Add a subtle shadow for overlay effect */
+    /* Ensure it doesn't collapse its content visually if opened */
+    display: flex; /* Or block, depending on internal flex layout */
+    flex-direction: column; /* Or block depending on internal layout */
+  }
+
+  /* When the sidebar is 'open' (via JavaScript toggle) */
+  .sidebar.open {
+    left: 0; /* Slide it into view */
+  }
+
+  /* Ensure content within the sidebar is not 'collapsed' when it's an overlay
+     (as it might be opened via a hamburger menu on mobile, where collapsing isn't desired) */
+  .sidebar.collapsed {
+    /* When it's an overlay, it should always show full content if open */
+    width: 270px; /* The desired width for the overlay */
+  }
+
+  .sidebar.collapsed .navItem {
+      justify-content: flex-start; /* Reset icon alignment */
+      padding: 16px 24px; /* Reset padding */
+  }
+
+  .sidebar.collapsed .navText {
+      opacity: 1; /* Make text visible */
+      width: auto; /* Allow text to take full width */
+      overflow: visible;
+  }
+}
+
+/* On very small screens (e.g., mobile phones), you might want the overlay to be full width */
+@media (max-width: 640px) {
+  .sidebar {
+    left: -100vw; /* Hide completely off-screen, using viewport width */
+    width: 100vw; /* Make it full viewport width when opened */
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+}

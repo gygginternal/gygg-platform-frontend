@@ -1,41 +1,74 @@
+/* Assuming this is part of your main layout CSS, e.g., AppLayout.module.css */
+
 .pageContainer {
-    padding-top: 20px; /* Height of fixed header */
-    min-height: calc(100vh - 20px);
-  }
-  
+  /* Adjust padding-top to match the fixed header's height (84px from your header CSS) */
+  padding-top: 84px;
+  /* min-height calculation should also use the actual header height */
+  min-height: calc(100vh - 84px);
+  /* This container itself doesn't need margin-left for the fixed sidebar,
+     as that's handled by the content directly inside it, or by specific pages like ProfilePage. */
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  /* This max-width applies to the combined width of sidebarArea + mainFeedArea */
+  max-width: 1200px; 
+
+  /* To account for the global fixed sidebar (now 360px wide): */
+  /* Push the content wrapper to the right of the global sidebar */
+  margin-left: 360px; 
+  /* Center the content wrapper within the *remaining* space after the left margin */
+  margin-right: auto;
+  /* Top/bottom margins are handled by padding-top on pageContainer and content within */
+  margin-top: 0;
+  margin-bottom: 0;
+
+  padding: 10px; /* Internal padding for the content within this wrapper */
+  gap: 20px;     /* Space between the .sidebarArea and .mainFeedArea */
+  box-sizing: border-box; /* Ensure padding is included in width calculation */
+}
+
+.sidebarArea {
+  /* This is a column *inside* contentWrapper, not the global fixed sidebar. */
+  width: 360px; /* Fixed width for this internal sidebar column */
+  flex-shrink: 0; /* Prevents this column from shrinking */
+}
+
+.mainFeedArea {
+  flex: 1; /* Allows the main content area to take up the remaining space */
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
   .contentWrapper {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 360px;
+    flex-direction: column; /* Stack sidebarArea and mainFeedArea vertically */
     padding: 10px;
-    gap: 20px; 
+    /* When the global fixed sidebar likely collapses/becomes an overlay (e.g., at 768px),
+       this contentWrapper should span the full width. */
+    margin-left: auto; /* Reset fixed left margin */
+    margin-right: auto; /* Re-center the content */
+    max-width: 95%; /* Adjust max-width for better mobile aesthetics */
   }
-  
+
   .sidebarArea {
-    width: 360px;
-    flex-shrink: 0;
+    width: 100%; /* Internal sidebar takes full width when stacked */
+    margin-bottom: 20px; /* Add space below the stacked internal sidebar */
   }
-  
+
   .mainFeedArea {
-    flex: 1;
+    width: 100%; /* Main feed takes full width when stacked */
   }
-  
-  /* Responsive */
-  @media (max-width: 992px) {
+}
+
+/* Add a breakpoint for when the *global* fixed sidebar collapses/becomes an overlay.
+   Based on previous questions, this was 768px. */
+@media (max-width: 768px) {
     .contentWrapper {
-      flex-direction: column;
-      padding: 10px;
+        margin-left: auto; /* Ensure no fixed left margin from global sidebar */
+        margin-right: auto; /* Re-center in the available space */
+        max-width: 100%; /* Allow contentWrapper to take full width */
+        padding: 10px 15px; /* Adjust horizontal padding for smaller screens */
     }
-  
-    .sidebarArea {
-      width: 100%;
-      margin-bottom: 20px;
-    }
-  
-    .mainFeedArea {
-      width: 100%;
-    }
-  }
-  
+}
