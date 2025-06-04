@@ -1,3 +1,7 @@
+.viewApplianceLink {
+  text-decoration: underline;
+}
+
 .profileSidebar {
   width: 360px;
   padding: 24px;

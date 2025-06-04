@@ -62,6 +62,13 @@ const RecommendedGigs = () => {
         ) : recommendedGigs?.length > 0 ? (
           recommendedGigs.map((gig) => (
             <div key={gig.id} className={styles.personItem}>
+              <img
+                src={"/default.jpg"}
+                alt="Profile"
+                width={32}
+                height={32}
+                className={styles.profileImage}
+              />
               <div>
                 <p className={styles.personDescription}>
                   {formatGigDescription(gig)}

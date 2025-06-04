@@ -17,7 +17,9 @@ const RecommendedAppliances = () => {
     queryKey: ["recommendedAppliances"],
     queryFn: async () => {
       const response = await apiClient.get("/applications/top-match");
-      return response.data; // Assuming the API returns applications in this structure
+      console.log({ response });
+
+      return response.data.data; // Assuming the API returns applications in this structure
     },
     onError: (err) => {
       logger.error("Error fetching recommended appliances:", err);
@@ -26,21 +28,23 @@ const RecommendedAppliances = () => {
 
   // Format appliance description
   const formatApplianceDescription = (appliance) => {
-    const posterName = [appliance.poster?.firstName, appliance.poster?.lastName]
-      .filter(Boolean)
-      .join(" ");
-    const location =
-      appliance.poster?.address?.city || appliance.poster?.address?.state || "";
-    return `${posterName}${
-      location ? ` from ${location}` : ""
-    } needs help with "${appliance.title}"`;
+    return appliance.description;
   };
 
   return (
     <section className={cn(styles.appliancesSection, "mt-5")}>
       <div className={styles.sectionHeader}>
+        <div className={styles.sectionIcon}>
+          <img
+            src="/assets/profile-2user.svg"
+            alt="Lamp"
+            width={20}
+            height={20}
+          />{" "}
+          {/* Icon path */}
+        </div>
         <h4 className={styles.sectionTitleUnderlined}>
-          Top matched people applied to your gig
+          {recommendedAppliances?.length || "0"} people applied to your gig
         </h4>
       </div>
       <div className={styles.appliancesList}>
@@ -58,17 +62,17 @@ const RecommendedAppliances = () => {
                   {formatApplianceDescription(appliance)}
                 </p>
                 <Link
-                  to={`/appliances/${appliance._id}`}
+                  to={`/gigs/${appliance.gigId}`}
                   className={styles.viewApplianceLink}
                 >
-                  View appliance detail
+                  View application
                 </Link>
               </div>
             </div>
           ))
         ) : (
           <p style={{ fontSize: "0.9em", color: "#666" }}>
-            No recommended appliances found right now.
+            No recommended applications found right now.
           </p>
         )}
       </div>
