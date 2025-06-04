@@ -10,8 +10,9 @@
   min-height: 100vh;
   padding: 20px;
   background: linear-gradient(#3c4a53, #0f212d);
-  overflow: hidden; 
+  overflow-x: hidden; /* Only hide horizontal overflow */
   box-sizing: border-box;
+  font-size: 16px; /* Base font size for rem units (1rem = 16px) */
 }
 
 .logo {
@@ -19,7 +20,7 @@
   font-weight: 900;
   color: #D89362;
   text-decoration: none;
-  margin-bottom: 2rem;
+  /* margin-bottom removed as logo is absolute */
   position: absolute; /* Position at top-left */
   top: 1.5rem;
   left: 1.5rem;
@@ -28,30 +29,33 @@
 
 .logo img {
   display: block;
-  width: 150px;
+  max-width: 150px; /* Use max-width for responsiveness */
+  width: 100%; /* Allows it to scale down */
   height: auto;
 }
 
 .formContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
-  gap: 20px; 
+  gap: 1.25rem; /* ~20px gap */
   max-width: 450px;
   width: 100%;
-  padding: 30px;
+  padding: 1.875rem; /* ~30px padding */
   border-radius: 10px;
   background-color: transparent;
 }
 
 .title {
-  color: #fff;
-  font-size: 32px;
+  /* Facebook Header (profile names etc.) 16-18px.
+     This is a main page title, so a slightly larger range is acceptable for impact. */
+  font-size: clamp(1.5rem, 5vw, 2rem); /* Ranging from 24px to 32px */
   font-weight: 700;
   font-family: 'Inter', sans-serif;
   text-align: center;
-  margin-bottom: 15px; /* Adjust spacing */
+  color: #fff;
+  margin-bottom: 1.25rem; /* ~20px spacing */
 }
 
 .form {
@@ -62,31 +66,32 @@
   box-shadow: none !important;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 1.125rem; /* ~18px gap */
   width: 100%;
-  margin-bottom: 10px; 
+  margin-bottom: 0.625rem; /* ~10px */
 }
 
 .forgotPasswordWrapper {
     width: 100%;
     display: flex;
-    justify-content: flex-start; 
-    margin-bottom: 5px; 
+    justify-content: flex-start;
+    margin-bottom: 0.3125rem; /* ~5px */
   }
 
 .footer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 0.9375rem; /* ~15px */
   width: 100%;
-  margin-top: 15px; /* Space above footer */
+  margin-top: 0.9375rem; /* ~15px */
 }
 
 .forgotPassword {
+  /* Facebook Comments 13-14px */
   color: #d99633;
   cursor: pointer;
-  font-size: 16px; /* Smaller */
+  font-size: 0.875rem; /* 14px */
   text-decoration: underline;
   font-family: 'Inter', sans-serif;
   text-decoration: none;
@@ -97,16 +102,17 @@
 }
 
 .submitButton {
+  /* Facebook Buttons 13-14px */
   color: #fff;
   cursor: pointer;
   background-color: #D99633;
   border: none;
   border-radius: 12px;
   width: 100%;
-  height: 45px;
-  font-size: 15px;
+  height: 2.8125rem; /* 45px */
+  font-size: 0.875rem; /* 14px */
   font-weight: 700;
-  line-height: 14px;
+  line-height: 1; /* Adjust line-height to fit button height */
   letter-spacing: 0.14px;
   transition: background-color 0.3s ease, transform 0.1s ease;
 }
@@ -124,40 +130,119 @@
 }
 
 .error {
-  color: #ff8a8a; /* Lighter red for dark background */
-  font-size: 14px;
-  /* margin-top: -6px; -- Remove negative margin */
-  margin-bottom: 10px; /* Space below error */
+  /* Facebook Comments 13-14px */
+  color: #ff8a8a;
+  font-size: 0.875rem; /* 14px */
+  margin-bottom: 0.625rem; /* ~10px */
   font-family: 'Inter', sans-serif;
   text-align: center;
   width: 100%;
 }
 
 .signupText {
-  color: #ccc; /* Lighter text */
+  /* Facebook Comments 13-14px */
+  color: #ccc;
   text-align: center;
-  font-size: 16px;
-  margin-top: 10px; /* Space above sign up link */
+  font-size: 0.8125rem; /* 13px */
+  margin-top: 0.625rem; /* ~10px */
 }
 
 .link {
   color: #d99633;
   text-decoration: none;
   transition: color 0.3s ease;
-  font-weight: 500; /* Normal weight for inline links */
+  font-weight: 500;
 }
 
 .link:hover {
   color: #b45309;
 }
 
-/* Responsive */
+/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+@media (max-width: 1024px) {
+  .container {
+    padding: 15px; /* Slightly less padding */
+  }
+  .formContainer {
+    padding: 1.5625rem; /* ~25px padding */
+    max-width: 400px;
+  }
+  .title {
+    font-size: 1.75rem; /* 28px */
+    margin-bottom: 1rem;
+  }
+  /* Font sizes for button, error, signup text and forgot password remain optimal */
+}
+
+/* Responsive adjustments for screens up to 768px (Tablets) */
+@media (max-width: 768px) {
+  .logo {
+    top: 1rem;
+    left: 1rem;
+  }
+  .logo img {
+    max-width: 100px; /* Smaller logo for tablets */
+  }
+  .formContainer {
+    padding: 1.25rem; /* ~20px padding */
+    max-width: 90%; /* Take more width on tablet */
+    gap: 1rem; /* ~16px gap */
+  }
+  .title {
+    /* Slightly smaller for tablet, still within Header range */
+    font-size: clamp(1.25rem, 5vw, 1.5rem); /* Ranging from 20px to 24px */
+    margin-bottom: 1rem;
+  }
+  .forgotPassword {
+    font-size: 0.8125rem; /* 13px - fits Comments/Buttons */
+  }
+  .submitButton {
+    height: 2.5rem; /* 40px */
+    font-size: 0.8125rem; /* 13px - fits Buttons */
+  }
+  .error {
+    font-size: 0.8125rem; /* 13px - fits Comments */
+  }
+  .signupText {
+    font-size: 0.75rem; /* 12px - fits Timestamps/Meta */
+  }
+}
+
+/* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
-  .formContainer { padding: 20px 15px; }
-  .title { font-size: 24px; margin-bottom: 15px; }
-  .form { gap: 15px; }
-  .submitButton { height: 40px; font-size: 14px; }
-  .forgotPassword { font-size: 12px; }
-  .signupText { font-size: 13px; }
-  .logo img { width: 120px; height: 80px; } /* Adjust logo size */
+  .logo {
+    top: 0.75rem;
+    left: 0.75rem;
+  }
+  .logo img {
+    max-width: 80px; /* Even smaller logo for tiny screens */
+  }
+  .container {
+    padding: 10px; /* Minimal padding */
+  }
+  .formContainer {
+    padding: 1rem 0.75rem; /* Reduced padding */
+    max-width: 95%; /* Almost full width on very small screens */
+    gap: 0.75rem; /* ~12px gap */
+  }
+  .title {
+    /* Smallest font for mobile, still within Header range */
+    font-size: clamp(1rem, 6vw, 1.25rem); /* Ranging from 16px to 20px */
+    margin-bottom: 0.75rem;
+  }
+  .forgotPassword {
+    font-size: 0.75rem; /* 12px - fits Timestamps/Meta */
+  }
+  .submitButton {
+    height: 2.1875rem; /* 35px */
+    font-size: 0.75rem; /* 12px - fits Timestamps/Meta */
+  }
+  .error {
+    font-size: 0.75rem; /* 12px - fits Timestamps/Meta */
+    margin-bottom: 0.5rem; /* ~8px */
+  }
+  .signupText {
+    font-size: 0.75rem; /* 12px - fits Timestamps/Meta */
+    margin-top: 0.5rem; /* ~8px */
+  }
 }

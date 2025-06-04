@@ -5,6 +5,7 @@
   "dependencies": {
     "@babel/plugin-transform-class-properties": "^7.27.1",
     "@babel/plugin-transform-private-methods": "^7.27.1",
+    "@headlessui/react": "^2.2.4",
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-toggle": "^1.1.9",
     "@stripe/react-stripe-js": "^3.6.0",
@@ -20,6 +21,8 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "flowbite": "^3.1.2",
+    "flowbite-react": "^0.11.7",
     "glob": "^11.0.2",
     "i": "^0.3.7",
     "lucide-react": "^0.511.0",

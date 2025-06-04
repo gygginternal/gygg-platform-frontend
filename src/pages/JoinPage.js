@@ -19,8 +19,8 @@ const RoleCard = ({ roleName, imageSrc, title, description, selected, onClick })
             src={imageSrc}
             alt={title}
             className={styles.cardLogo}
-            height={64}
-            width={64}
+            height={64} // These fixed attributes are overridden by CSS for responsiveness
+            width={64}  // The CSS `width: 50px; height: 50px;` (and media queries) controls the actual size
         />
         <h3 className={styles.cardTitle}>{title}</h3>
         <p className={styles.cardDescription}>{description}</p>
@@ -43,10 +43,10 @@ function JoinPage() {
 
     return (
         <div className={styles.container}>
+            <Link to="/" className={styles.logo}>
+                <img src="/assets/gygg-logo.svg" alt="GYGG logo" width={100} height={60} />
+            </Link>
             <div className={styles.content}>
-                <Link to="/" className={styles.logo}>
-                     <img src="/assets/gygg-logo.svg" alt="GYGG logo" width={100} height={60} />
-                </Link>
                 <h2 className={styles.title}>Join as a Tasker or Provider</h2>
                 <div className={styles.cardContainer}>
                     <RoleCard

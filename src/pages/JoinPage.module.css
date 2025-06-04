@@ -7,11 +7,12 @@
   min-height: 100vh;
   width: 100vw;
   background: linear-gradient(to bottom, #3C4A53, #0F212D);
-  overflow-x: hidden; 
+  overflow-x: hidden;
   align-items: center;
-  position: fixed; 
+  position: fixed; /* Ensures the background covers the whole viewport */
   margin: 0;
   padding: 0;
+  font-size: 16px; /* Base font size for rem units (1rem = 16px) */
 }
 
 .content {
@@ -19,12 +20,14 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 900px; /* Slightly wider max width for cards */
+  max-width: 900px;
   margin: 0 auto;
-  padding: 4rem 2rem 3rem; /* Adjust padding */
-  /* height: 100%; -- Remove fixed height */
-  /* overflow: hidden; -- Remove */
+  padding: 4rem 2rem 3rem;
   justify-content: flex-start;
+  overflow-y: auto; /* Allows content to scroll if it exceeds viewport height */
+  -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
+  position: relative;
+  flex-grow: 1; /* Allows content to take available space */
 }
 
 .logo {
@@ -32,25 +35,29 @@
   font-weight: 900;
   color: #D89362;
   text-decoration: none;
-  margin-bottom: 2rem;
-  position: absolute; /* Position at top-left */
+  position: absolute; /* Keep it pinned to the top-left */
   top: 1.5rem;
-  left: 1.5rem;
+  left: 0; /* Changed from 1.5rem to 0 */
   z-index: 10;
 }
 
 .logo img {
   display: block;
-  width: 150px;
+  width: 100%;
+  max-width: 150px;
   height: auto;
+  padding-left: 1rem; /* Optional: adds visual padding inside */
 }
 
+
 .title {
-  font-size: clamp(1.8rem, 4vw, 2.2rem); /* Responsive title */
+  /* Facebook Header (profile names etc.) 16-18px.
+     This clamp provides responsiveness while generally aiming for this range. */
+  font-size: clamp(1.125rem, 4vw, 1.5rem); /* Ranging from 18px to 24px */
   font-family: 'Inter', sans-serif;
   font-weight: 600;
-  margin-bottom: 2rem; /* Increased space */
-  margin-top: 2rem; /* Reduced top margin */
+  margin-bottom: 2rem;
+  margin-top: 2rem;
   text-align: center;
   color: white;
 }
@@ -58,26 +65,25 @@
 .cardContainer {
   display: flex;
   justify-content: center;
-  gap: 2rem; /* Spacing between cards */
+  gap: 2rem;
   width: 100%;
-  /* max-width: 1200px; -- Use content max-width */
   margin-top: 2rem;
-  margin-bottom: 2.5rem; /* Space before button */
-  flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
 }
 
 .card {
-  background-color: rgba(255, 255, 255, 0.98); /* Slightly more opaque */
+  background-color: rgba(255, 255, 255, 0.98);
   border-radius: 12px;
-  padding: 2rem 1.5rem; /* Adjusted padding */
-  width: 100%; /* Take full width within flex container */
-  max-width: 400px; /* Limit card width */
+  padding: 2rem 1.5rem;
+  width: 100%;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align content start */
+  align-items: flex-start;
   text-align: left;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 5px solid transparent; /* Border for selection */
+  border: 5px solid transparent;
   transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 }
@@ -87,8 +93,8 @@
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
 }
 
-.card.selected { /* Style for selected card */
-  border-color: #00AABA; /* Use theme color for selection */
+.card.selected {
+  border-color: #00AABA;
   transform: translateY(-5px);
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
 }
@@ -106,42 +112,45 @@
 }
 
 .cardLogo {
-  width: 50px; /* Slightly smaller logo */
+  /* Facebook Avatar in stories: 40-60px. 50px fits well. */
+  width: 50px;
   height: 50px;
   margin-bottom: 1rem;
-  /* transition: filter 0.3s ease; -- Removed filter transition */
 }
 
 .cardTitle {
-  font-size: 1.3rem; /* Adjusted size */
+  /* Facebook Post text (main body) 14-16px. Also fits smaller Header (16-18px). */
+  font-size: 1.125rem; /* 18px */
   font-family: 'Inter', sans-serif;
   font-weight: 700;
-  margin-bottom: 0.75rem; /* Adjust spacing */
-  color: #222; /* Darker title */
+  margin-bottom: 0.75rem;
+  color: #222;
 }
 
 .cardDescription {
-  font-size: 0.95rem; /* Adjusted size */
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 0.875rem; /* 14px */
   font-family: 'Inter', sans-serif;
   color: #555;
   line-height: 1.6;
-  flex-grow: 1; /* Allow description to take space */
+  flex-grow: 1;
 }
 
-.continueButton { /* Renamed from signupButton */
+.continueButton {
   background-color: #D89362;
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 1rem 2rem; /* Adjusted padding */
-  font-size: 1.1rem; /* Adjusted size */
+  padding: 1rem 2rem;
+  /* Facebook Buttons 13-14px */
+  font-size: 0.875rem; /* 14px */
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
   margin-top: 1.5rem;
   width: auto;
-  min-width: 250px; /* Wider button */
+  min-width: 250px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -150,27 +159,29 @@
   transform: translateY(-2px);
 }
 .continueButton:disabled {
-    background-color: #a0a0a0; /* Grey out when disabled */
+    background-color: #a0a0a0;
     cursor: not-allowed;
 }
 
-.message { /* Style for the error/info message */
-  color: #ffcdd2; /* Light red for dark background */
+.message {
+  /* Facebook Timestamps and meta info 12px */
+  color: #ffcdd2;
   font-family: 'Inter', sans-serif;
   text-align: center;
   margin-top: 1rem;
-  font-size: 1rem;
+  font-size: 0.75rem; /* 12px */
   font-weight: 500;
-  height: 1.5em; /* Reserve space for message */
+  height: 1.5em;
 }
 
-.loginText { /* Style for the "Already have an account?" text */
+.loginText {
+    /* Facebook Timestamps and meta info 12px */
     color: #ccc;
     margin-top: 2rem;
-    font-size: 0.9em;
+    font-size: 0.75rem; /* 12px */
 }
 
-.link { /* Style for links within text */
+.link {
   color: #d99633;
   text-decoration: underline;
   transition: color 0.3s ease;
@@ -181,12 +192,113 @@
   color: #b45309;
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+@media (max-width: 1024px) {
+    .content {
+        padding: 3rem 1.5rem 2.5rem; /* Slightly reduced padding */
+    }
+    .title {
+        /* Align closer to 16-18px for Header */
+        font-size: 1.125rem; /* 18px */
+        margin-bottom: 1.75rem;
+    }
+    .cardContainer {
+        gap: 1.5rem; /* Reduce gap slightly */
+    }
+    .card {
+        padding: 1.75rem 1.25rem; /* Slightly reduced card padding */
+        max-width: 380px; /* Slightly reduce max-width if two cards side-by-side are too wide */
+    }
+    .cardTitle {
+        font-size: 1.0625rem; /* ~17px, still good for post text/header */
+    }
+    /* CardDescription and Button font sizes remain 14px as per guidelines. */
+}
+
+/* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
-    .content { padding: 2rem 1rem 2rem; }
-    .cardContainer { flex-direction: column; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem;}
-    .card { max-width: 90%; width: 100%; }
-    .title { font-size: clamp(1.6rem, 5vw, 2rem); margin-bottom: 1.5rem;}
-    .continueButton { padding: 0.9rem 1.5rem; font-size: 1rem; min-width: 200px; }
-    .logo { align-self: center; margin-bottom: 1.5rem; }
+    .content {
+        padding: 2rem 1rem 2rem;
+        padding-top: 4rem; /* Ensure space for absolute logo */
+    }
+    .logo {
+        top: 1rem;
+        left: 1rem;
+    }
+    .logo img {
+        max-width: 100px; /* Smaller logo for tablets */
+    }
+    .cardContainer {
+        flex-direction: column; /* Stack cards vertically */
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .card {
+        max-width: 90%; /* Take more width on tablet */
+        width: 100%;
+        padding: 1.5rem 1rem;
+    }
+    .title {
+        /* Responsive clamp still within Facebook Header range (16px to 20.8px) */
+        font-size: clamp(1rem, 5vw, 1.3rem);
+        margin-bottom: 1.5rem;
+        margin-top: 1.5rem;
+    }
+    .cardTitle {
+        font-size: 1rem; /* 16px - fits Facebook Post text */
+    }
+    .cardDescription {
+        font-size: 0.8125rem; /* 13px - fits Facebook Comments */
+    }
+    .continueButton {
+        padding: 0.9rem 1.5rem;
+        font-size: 0.8125rem; /* ~13px - fits Facebook Buttons */
+        min-width: 200px;
+    }
+}
+
+/* Responsive adjustments for screens up to 480px (Mobile Phones) */
+@media (max-width: 480px) {
+    .content {
+        padding: 1.5rem 0.75rem 1.5rem; /* Further reduced padding */
+        padding-top: 3.5rem; /* Adjust for potentially smaller logo */
+    }
+    .logo {
+        top: 0.75rem;
+        left: 0.75rem;
+    }
+    .logo img {
+        max-width: 80px; /* Even smaller logo for tiny screens */
+    }
+    .title {
+        /* Smaller font for mobile, still within Header range (14px to 18px) */
+        font-size: clamp(0.875rem, 6vw, 1.125rem); /* 14px to 18px */
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+    }
+    .cardContainer {
+        gap: 1rem; /* Even less gap between stacked cards */
+        margin-bottom: 1rem;
+    }
+    .card {
+        padding: 1rem 0.75rem; /* Significantly reduced card padding for small screens */
+        max-width: 95%; /* Make cards almost full width on very small screens */
+    }
+    .cardLogo {
+        width: 40px; /* Smaller icon for mobile, still within 40-60px avatar range */
+        height: 40px;
+        margin-bottom: 0.75rem;
+    }
+    .cardTitle {
+        font-size: 0.9375rem; /* 15px - fitting Post text */
+        margin-bottom: 0.5rem;
+    }
+    /* CardDescription remains 13px, consistent with Comments guideline */
+    .continueButton {
+        padding: 0.8rem 1.2rem; /* Reduced button padding */
+        min-width: 180px; /* Slightly smaller minimum width for button */
+        margin-top: 1rem;
+    }
+    /* Message and LoginText remain 12px, consistent with Timestamps guideline */
 }
