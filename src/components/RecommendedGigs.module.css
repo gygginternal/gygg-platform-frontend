@@ -1,19 +1,20 @@
-.container {
-  margin-top: 20px;
-}
-
-.awaitedSection {
+.gigsSection {
   width: 100%;
   padding: 24px;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 24px;
 }
 
 .sectionHeader {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.sectionIcon {
+  display: flex;
 }
 
 .sectionTitleUnderlined {
@@ -24,31 +25,34 @@
   text-decoration: underline;
 }
 
-.awaitedList {
+.gigsList {
   margin-top: 16px;
 }
 
-.awaitedItem {
+.gigItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 16px;
 }
 
-.awaitedDescription {
-  color: #3d4d55;
-  font-size: 14px;
-  font-weight: 600;
+.gigItem:last-child {
+  margin-bottom: 0;
+}
+
+.gigDescription {
+  color: #536471;
+  font-size: 12px;
   margin: 0;
 }
 
 .viewGigLink {
   color: #3d4d55;
+  margin-top: 8px;
   font-size: 14px;
   font-weight: 700;
   text-decoration: none;
   display: inline-block;
-}
-
-.underline {
-  text-decoration: underline !important;
 }
 
 .errorMessage {

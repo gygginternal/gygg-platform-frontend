@@ -1,23 +1,47 @@
 import React from 'react';
-// import { Link } from 'react-router-dom'; // Optional link
+import styles from './TaskerCard.module.css';
 
 function TaskerCard({ tasker }) {
-     if(!tasker) return null;
-    return (
-        <li className="list-item-card"> {/* Add class */}
-            <div className="flex-container">
-                <img src={tasker.profileImage || '/default.jpg'} alt={`${tasker.fullName}'s profile`} className="avatar-medium" />
-                <div>
-                    <h4>{tasker.fullName} ({tasker.rating?.toFixed(1)}⭐ <small>({tasker.ratingCount || 0})</small>)</h4>
-                    <p><i>"{tasker.peoplePreference || 'No preference specified'}"</i></p>
-                </div>
-                 <small className="text-muted margin-left-auto">(Match Score: {tasker.score?.toFixed(2)})</small>
-            </div>
-            {tasker.bio && <p style={{marginTop: '10px'}}>Bio: {tasker.bio.substring(0, 100)}...</p>}
-            {tasker.hobbies?.length > 0 && <p><small className="text-muted">Hobbies: {tasker.hobbies.join(', ')}</small></p>}
-            {/* Optional: Link to a full tasker profile page */}
-            {/* <Link to={`/users/${tasker._id}`}>View Profile</Link> */}
-        </li>
-    );
+  if (!tasker) return null;
+  return (
+    <li className={styles.listItemCard}>
+      <div className={styles.flexContainer}>
+        <img
+          src={tasker.profileImage || '/default.jpg'}
+          alt={`${tasker.fullName}'s profile`}
+          className={styles.avatarMedium}
+        />
+        <div>
+          <h4 className={styles.title}>
+            {tasker.fullName} ({tasker.rating?.toFixed(1)}⭐{' '}
+            <span className={styles.smallText}>({tasker.ratingCount || 0})</span>)
+          </h4>
+          <p className={styles.paragraph}>
+            <i>
+              "{tasker.peoplePreference || 'No preference specified'}"
+            </i>
+          </p>
+        </div>
+        <span className={`${styles.textMuted} ${styles.marginLeftAuto}`}>
+          (Match Score: {tasker.score?.toFixed(2)})
+        </span>
+      </div>
+      {tasker.bio && (
+        <p className={`${styles.paragraph} ${styles.bio}`}>
+          <span className={styles.smallText}>
+            Bio: {tasker.bio.substring(0, 100)}...
+          </span>
+        </p>
+      )}
+      {tasker.hobbies?.length > 0 && (
+        <p className={styles.paragraph}>
+          <span className={styles.textMuted}>
+            Hobbies: {tasker.hobbies.join(', ')}
+          </span>
+        </p>
+      )}
+    </li>
+  );
 }
+
 export default TaskerCard;

@@ -1,43 +1,27 @@
-// src/components/ProfilePage/AboutSection.js
-import apiClient from "../api/axiosConfig"; // Adjust path
+// src/components/StripeOnboarding.js
+import apiClient from "../api/axiosConfig";
 import React, { useState, useEffect } from "react";
-import styles from "../components/ProfilePage/AboutSection.module.css"; // Create this CSS module
+import styles from "./StripeOnboarding.module.css";
 
 export function StripeOnboarding() {
-  // Initialize status as potentially null, and add a specific 'notFound' state
   const [status, setStatus] = useState(null); // null = unknown, object = found, false = confirmed not found
-  const [loading, setLoading] = useState(true); // Start loading immediately on mount
+  const [loading, setLoading] = useState(true);
 
   const fetchStatus = async () => {
     setLoading(true);
-    setStatus(null); // Reset status while fetching
+    setStatus(null);
     try {
-      console.log("StripeOnboarding: Fetching account status...");
       const response = await apiClient.get("/users/stripe/account-status");
-      console.log({ response });
-
-      // Check if backend might return null data even on success
       if (response.data) {
         setStatus(response.data);
-        console.log("StripeOnboarding: Status received:", response.data.data);
       } else {
-        // Explicitly set status to indicate account not found after successful check
-        setStatus(false); // Use 'false' to differentiate from initial 'null' state
-        console.log(
-          "StripeOnboarding: Account status check returned no account ID."
-        );
+        setStatus(false);
       }
     } catch (err) {
-      console.error(
-        "StripeOnboarding: Error fetching status:",
-        err.response?.data || err.message
-      );
-      // If backend returns 400/404 specifically because account doesn't exist
       if (err.response?.status === 404 || err.response?.status === 400) {
-        setStatus(false); // Explicitly set status to indicate account not found
-        console.log("StripeOnboarding: Backend confirmed no account found.");
+        setStatus(false);
       } else {
-        setStatus(null); // Reset to unknown on other errors
+        setStatus(null);
       }
     } finally {
       setLoading(false);
@@ -52,51 +36,50 @@ export function StripeOnboarding() {
     !status || !status.detailsSubmitted || !status.payoutsEnabled;
 
   return (
-    <section>
+    <section className={styles.stripeCard}>
       {loading && <p>Loading...</p>}
 
       {!showOnboarding ? (
-        <span style={{ color: "green", fontWeight: "bold" }}>
+        <span className={styles.connected}>
           ✓ Connected & Active
           <br />
           <small>Your Stripe account setup is completed.</small>
         </span>
       ) : (
         <div>
-          <span style={{ color: "orange", fontWeight: "bold" }}>
+          <span className={styles.actionRequired}>
             ! Action Required: <br />
             <small>
-              Your Stripe account setup is incomplete or needs updates to enable
-              payouts.
+              Your Stripe account setup is incomplete or needs updates to enable payouts.
             </small>
           </span>
         </div>
       )}
 
       {status && (
-        <div>
+        <div className={styles.statusDetails}>
           <p>
             Payout Enabled:{" "}
             {status.payoutsEnabled ? (
-              <span style={{ color: "green" }}>Yes</span>
+              <span className={styles.statusYes}>Yes</span>
             ) : (
-              <span style={{ color: "orange" }}>No</span>
+              <span className={styles.statusNo}>No</span>
             )}
           </p>
           <p>
             Charge Enabled:{" "}
             {status.chargesEnabled ? (
-              <span style={{ color: "green" }}>Yes</span>
+              <span className={styles.statusYes}>Yes</span>
             ) : (
-              <span style={{ color: "orange" }}>No</span>
+              <span className={styles.statusNo}>No</span>
             )}
           </p>
           <p>
             Details Submitted:{" "}
             {status.detailsSubmitted ? (
-              <span style={{ color: "green" }}>Yes</span>
+              <span className={styles.statusYes}>Yes</span>
             ) : (
-              <span style={{ color: "orange" }}>No</span>
+              <span className={styles.statusNo}>No</span>
             )}
           </p>
         </div>

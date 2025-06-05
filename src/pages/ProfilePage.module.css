@@ -10,8 +10,8 @@
 
 .content {
   width: 100%;
-  /* Account for a 360px left sidebar */
-  margin-left: 360px; /* Push content to the right */
+  /* Account for a 300px left sidebar */
+  margin-left: 300px; /* Push content to the right */
   max-width: 1100px; /* Adjust max-width for profile content */
   margin-right: auto; /* Keep content centered in the remaining space */
   margin-top: 1.25rem; /* 20px */
@@ -39,7 +39,7 @@
 @media (max-width: 1024px) {
     .content {
         /* Sidebar likely still present */
-        margin-left: 360px; /* Maintain margin for sidebar */
+        margin-left: 300px; /* Maintain margin for sidebar */
         max-width: 950px; /* Slightly reduced max-width */
         margin-right: auto; /* Center in remaining space */
         margin-top: 1rem; /* 16px */

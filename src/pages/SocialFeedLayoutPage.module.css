@@ -1,38 +1,36 @@
-/* Assuming this is part of your main layout CSS, e.g., AppLayout.module.css */
+/* frontend/src/components/AppLayout.module.css */
+
+/* Setting a base font size for rem calculations */
+:root {
+  font-size: 16px; /* 1rem = 16px */
+}
 
 .pageContainer {
-  /* Adjust padding-top to match the fixed header's height (84px from your header CSS) */
-  padding-top: 84px;
-  /* min-height calculation should also use the actual header height */
-  min-height: calc(100vh - 84px);
-  /* This container itself doesn't need margin-left for the fixed sidebar,
-     as that's handled by the content directly inside it, or by specific pages like ProfilePage. */
+  /* Adjust padding-top to match the fixed header's height (84px on desktop) */
+  padding-top: 5.25rem; /* 84px */
+  /* min-height calculation ensures container fills viewport minus header */
+  min-height: calc(100vh - 5.25rem); /* 100vh - 84px */
+  box-sizing: border-box; /* Ensures padding is included in height calculation */
 }
 
 .contentWrapper {
   display: flex;
-  flex-direction: row;
+  flex-direction: row; /* Default for desktop: sidebar and main feed side-by-side */
   width: 100%;
-  /* This max-width applies to the combined width of sidebarArea + mainFeedArea */
-  max-width: 1200px; 
+  max-width: 75rem; /* 1200px */
 
-  /* To account for the global fixed sidebar (now 360px wide): */
-  /* Push the content wrapper to the right of the global sidebar */
-  margin-left: 360px; 
-  /* Center the content wrapper within the *remaining* space after the left margin */
-  margin-right: auto;
-  /* Top/bottom margins are handled by padding-top on pageContainer and content within */
-  margin-top: 0;
-  margin-bottom: 0;
-
-  padding: 10px; /* Internal padding for the content within this wrapper */
-  gap: 20px;     /* Space between the .sidebarArea and .mainFeedArea */
-  box-sizing: border-box; /* Ensure padding is included in width calculation */
+  /* To account for the global fixed sidebar (300px wide on desktop): */
+  margin-left: 18.75rem; /* 300px - Pushes content to the right of the global sidebar */
+  margin-right: auto; /* Centers the content wrapper within the *remaining* space */
+  
+  padding: 0.625rem; /* 10px - Internal padding for the content within this wrapper */
+  gap: 1.25rem;     /* 20px - Space between the .sidebarArea and .mainFeedArea */
+  box-sizing: border-box; /* Ensures padding is included in width calculation */
 }
 
 .sidebarArea {
-  /* This is a column *inside* contentWrapper, not the global fixed sidebar. */
-  width: 360px; /* Fixed width for this internal sidebar column */
+  /* This is a column *inside* contentWrapper, not the global fixed sidebar itself. */
+  width: 18.75rem; /* 300px - Fixed width for this internal sidebar column */
   flex-shrink: 0; /* Prevents this column from shrinking */
 }
 
@@ -41,20 +39,47 @@
 }
 
 /* Responsive adjustments */
+
+/* @media (max-width: 1024px) - Large Tablets / Small Laptops */
+/* At this breakpoint, the content becomes more compact, assuming the global sidebar is still fixed. */
+@media (max-width: 1024px) {
+  .pageContainer {
+    padding-top: 5rem; /* 80px - Assuming header slightly shrinks */
+    min-height: calc(100vh - 5rem);
+  }
+  .contentWrapper {
+    max-width: 60rem; /* 960px - Reduced max-width for smaller screens */
+    padding: 0.5rem; /* 8px - Slightly less internal padding */
+    gap: 1rem; /* 16px - Slightly less gap */
+    /* margin-left remains 18.75rem (300px) as the global sidebar is likely still fixed */
+  }
+  .sidebarArea {
+    width: 15rem; /* 240px - Slightly reduce internal sidebar width */
+  }
+}
+
+
+/* @media (max-width: 992px) - Global Sidebar Collapse / Stacking Point */
+/* This is the breakpoint where the global fixed sidebar is assumed to collapse or
+   become an overlay, allowing the main content to span full width.
+   The internal sidebar and main feed also stack. */
 @media (max-width: 992px) {
+  .pageContainer {
+    padding-top: 4.5rem; /* 72px - Assuming header shrinks further */
+    min-height: calc(100vh - 4.5rem);
+  }
   .contentWrapper {
     flex-direction: column; /* Stack sidebarArea and mainFeedArea vertically */
-    padding: 10px;
-    /* When the global fixed sidebar likely collapses/becomes an overlay (e.g., at 768px),
-       this contentWrapper should span the full width. */
-    margin-left: auto; /* Reset fixed left margin */
+    padding: 0.75rem; /* 12px - Adjust internal padding for stacked content */
+    margin-left: auto; /* Reset fixed left margin, content now centers */
     margin-right: auto; /* Re-center the content */
     max-width: 95%; /* Adjust max-width for better mobile aesthetics */
+    gap: 1rem; /* 16px - Space between stacked sections */
   }
 
   .sidebarArea {
     width: 100%; /* Internal sidebar takes full width when stacked */
-    margin-bottom: 20px; /* Add space below the stacked internal sidebar */
+    margin-bottom: 1.25rem; /* 20px - Add space below the stacked internal sidebar */
   }
 
   .mainFeedArea {
@@ -62,13 +87,35 @@
   }
 }
 
-/* Add a breakpoint for when the *global* fixed sidebar collapses/becomes an overlay.
-   Based on previous questions, this was 768px. */
+/* @media (max-width: 768px) - Tablets */
+/* Further reductions for tablet devices. */
 @media (max-width: 768px) {
+    .pageContainer {
+        padding-top: 4rem; /* 64px - Header likely even smaller */
+        min-height: calc(100vh - 4rem);
+    }
     .contentWrapper {
-        margin-left: auto; /* Ensure no fixed left margin from global sidebar */
-        margin-right: auto; /* Re-center in the available space */
         max-width: 100%; /* Allow contentWrapper to take full width */
-        padding: 10px 15px; /* Adjust horizontal padding for smaller screens */
+        padding: 0.625rem 0.9375rem; /* 10px top/bottom, 15px left/right */
+        gap: 0.75rem; /* 12px */
+    }
+    .sidebarArea {
+        margin-bottom: 1rem; /* 16px - Reduced space between stacked items */
+    }
+}
+
+/* @media (max-width: 480px) - Mobile Phones */
+/* Final adjustments for small mobile screens. */
+@media (max-width: 480px) {
+    .pageContainer {
+        padding-top: 3.5rem; /* 56px - Header even smaller for mobile */
+        min-height: calc(100vh - 3.5rem);
+    }
+    .contentWrapper {
+        padding: 0.5rem 0.625rem; /* 8px top/bottom, 10px left/right */
+        gap: 0.5rem; /* 8px */
+    }
+    .sidebarArea {
+        margin-bottom: 0.75rem; /* 12px - Further reduced space */
     }
 }

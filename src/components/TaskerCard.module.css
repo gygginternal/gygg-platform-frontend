@@ -1,0 +1,60 @@
+.listItemCard {
+  list-style: none;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+  transition: box-shadow 0.2s ease-in-out;
+  cursor: default;
+}
+
+.listItemCard:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.flexContainer {
+  display: flex;
+  align-items: center;
+}
+
+.avatarMedium {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 16px;
+  border: 2px solid #ddd;
+  flex-shrink: 0;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.textMuted {
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.marginLeftAuto {
+  margin-left: auto;
+}
+
+.paragraph {
+  margin: 4px 0;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.smallText {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.bio {
+  margin-top: 10px;
+}

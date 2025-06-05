@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./ReviewsSection.module.css";
-import ReviewCard from "./ReviewCard";
+import ReviewCard from "./ProfilePage/ReviewCard";
 
 const reviewsData = [
   {
@@ -37,14 +37,13 @@ const reviewsData = [
   },
 ];
 
-const ReviewsSection: React.FC = () => {
+const ReviewsSection = () => {
   return (
     <section className={styles.reviewsCard}>
       <div className={styles.reviewsHeader}>
         <h2>Reviews</h2>
       </div>
 
-      {/* Scrollable container for ReviewCards */}
       <div className={styles.reviewsGrid}>
         {reviewsData.map((review, index) => (
           <ReviewCard key={index} {...review} />

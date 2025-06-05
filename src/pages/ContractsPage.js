@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns"; // Import date-fns for formatting dates
 import apiClient from "../api/axiosConfig";
 import styles from "./ContractsPage.module.css";
-import { StatusBagde } from "../components/StatusBadge"; // Adjust the import path
+import { StatusBadge } from "../components/StatusBadge"; // Adjust the import path
 import InputField from "../components/Shared/InputField";
 import { Toggle } from "../components/Toggle"; // Import the Toggle component
 import { TabNavigation } from "../components/TabNavigation"; // Import the new TabNavigation component
@@ -52,7 +52,7 @@ function JobListingItem({ job }) {
           </div>
         </div>
         <div className="flex flex-col">
-          <StatusBagde status={job.status} />
+          <StatusBadge status={job.status} />
           <div className="mt-2">
             <span className="text-sm text-gray-500">Started</span>
             <span className="ml-2">{formattedDate}</span>

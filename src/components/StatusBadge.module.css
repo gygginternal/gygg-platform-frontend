@@ -1,0 +1,30 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid;
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500;
+  margin-left: auto;
+}
+
+/* Status-specific styles */
+.completed {
+  background-color: #eff6ff; /* blue-50 */
+  color: #1d4ed8;            /* blue-700 */
+  border-color: #bfdbfe;     /* blue-200 */
+}
+
+.active {
+  background-color: #ecfdf5; /* green-50 */
+  color: #047857;            /* green-700 */
+  border-color: #bbf7d0;     /* green-200 */
+}
+
+.cancelled,
+.rejected {
+  background-color: #fef2f2; /* red-50 */
+  color: #b91c1c;            /* red-700 */
+  border-color: #fecaca;     /* red-200 */
+}

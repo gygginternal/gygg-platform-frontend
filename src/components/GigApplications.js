@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import apiClient from "../api/axiosConfig";
 import { Badge } from "../components/Badge";
-import { StatusBagde } from "../components/StatusBadge"; // Assuming you have a StatusBadge component
+import { StatusBadge } from "../components/StatusBadge"; // Assuming you have a StatusBadge component
 import { Button } from "../components/ui/button";
 
 function ProviderCard({ provider, onOffer, onReject }) {
@@ -21,7 +21,7 @@ function ProviderCard({ provider, onOffer, onReject }) {
         <div className="flex-1 p-4">
           <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-2">
             <div>
-              <StatusBagde
+              <StatusBadge
                 className={"mb-2"}
                 status={provider.status === "rejected" ? "Rejected" : "Active"}
               />

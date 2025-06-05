@@ -1,12 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Use react-router Link
-import styles from "./ProfileSidebar.module.css"; // Your CSS module
-import { useQuery } from "@tanstack/react-query"; // Import react-query
-import apiClient from "../api/axiosConfig"; // Adjust path for API client
-import logger from "../utils/logger"; // Optional logger
+import { Link } from "react-router-dom";
+import styles from "./RecommendedGigs.module.css"; // NEW CSS MODULE
+import { useQuery } from "@tanstack/react-query";
+import apiClient from "../api/axiosConfig";
+import logger from "../utils/logger";
 
 const RecommendedGigs = () => {
-  // Fetch recommended gigs using react-query
   const {
     data: recommendedGigs,
     isLoading,
@@ -16,16 +15,13 @@ const RecommendedGigs = () => {
     queryKey: ["recommendedGigs"],
     queryFn: async () => {
       const response = await apiClient.get("/gigs/top-match");
-      console.log({ response });
-
-      return response.data; // Assuming the API returns gigs in this structure
+      return response.data;
     },
     onError: (err) => {
       logger.error("Error fetching recommended gigs:", err);
     },
   });
 
-  // Format gig description
   const formatGigDescription = (gig) => {
     const posterName = [gig.poster?.firstName, gig.poster?.lastName]
       .filter(Boolean)
@@ -38,7 +34,7 @@ const RecommendedGigs = () => {
   };
 
   return (
-    <section className={styles.peopleSection}>
+    <section className={styles.gigsSection}>
       <div className={styles.sectionHeader}>
         <div className={styles.sectionIcon}>
           <img
@@ -52,18 +48,18 @@ const RecommendedGigs = () => {
           Open Gigs You Might Like
         </h4>
       </div>
-      <div className={styles.peopleList}>
+      <div className={styles.gigsList}>
         {isLoading ? (
           <p>Loading recommended gigs...</p>
         ) : isError ? (
-          <p style={{ fontSize: "0.9em", color: "#666" }}>
+          <p className={styles.errorMessage}>
             {error?.message || "Failed to load recommended gigs."}
           </p>
         ) : recommendedGigs?.length > 0 ? (
           recommendedGigs.map((gig) => (
-            <div key={gig.id} className={styles.personItem}>
+            <div key={gig.id} className={styles.gigItem}>
               <div>
-                <p className={styles.personDescription}>
+                <p className={styles.gigDescription}>
                   {formatGigDescription(gig)}
                 </p>
                 <Link to={`/gigs/${gig._id}`} className={styles.viewGigLink}>
@@ -73,7 +69,7 @@ const RecommendedGigs = () => {
             </div>
           ))
         ) : (
-          <p style={{ fontSize: "0.9em", color: "#666" }}>
+          <p className={styles.errorMessage}>
             No recommended gigs found right now.
           </p>
         )}
