@@ -1,0 +1,239 @@
+/* src/pages/LegalPages.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Merriweather:wght@400;700&display=swap');
+
+/* Setting a base font size for rem calculations if not set globally */
+:root {
+    font-size: 16px; /* 1rem = 16px */
+}
+
+.legalPageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1.25rem; /* 20px */
+  background-color: #f9f9f9; /* Light background for readability */
+  font-family: 'Merriweather', serif; /* Serif font for legal text */
+  color: #333;
+  line-height: 1.7;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  width: 100%;
+}
+
+.logo {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  color: #D89362;
+  text-decoration: none;
+  position: absolute; /* Keep it pinned to the top-left */
+  top: 1.5rem;
+  left: 0; /* Changed from 1.5rem to 0 */
+  z-index: 10;
+}
+
+.logo img {
+  display: block;
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  padding-left: 1rem; /* Optional: adds visual padding inside */
+}
+
+.legalContent {
+  padding-top: 4.5rem;
+  max-width: 60rem; /* 800px */
+  width: 100%;
+}
+
+.legalContent h2 {
+  font-family: 'Inter', sans-serif; /* Sans-serif for headings */
+  /* Facebook Header (profile names etc.) 16-18px.
+     This is a main page section title, so a slightly larger start then scale. */
+  font-size: 1.5rem; /* 24px */
+  font-weight: 700;
+  color: #00AABA;
+  margin-top: 0;
+  margin-bottom: 1.25rem; /* 20px */
+  padding-bottom: 0.625rem; /* 10px */
+  border-bottom: 0.0625rem solid #eee; /* 1px */
+}
+
+.legalContent h3 {
+  font-family: 'Inter', sans-serif;
+  /* Facebook Header (profile names etc.) 16-18px. */
+  font-size: 1.125rem; /* 18px */
+  color: #34495e;
+  margin-top: 1.5625rem; /* 25px */
+  margin-bottom: 0.625rem; /* 10px */
+}
+
+.legalContent p,
+.legalContent li {
+  /* Facebook Post text (main body) 14-16px. */
+  font-size: 1rem; /* 16px */
+  margin-bottom: 0.75rem; /* 12px */
+  color: #454545;
+}
+
+.legalContent strong {
+  font-weight: 600; /* From Inter font if loaded with 600 */
+}
+
+.legalContent ul {
+  list-style: disc;
+  padding-left: 1.5625rem; /* 25px */
+}
+
+.legalContent a { /* Style links within the legal text */
+    color: #00AABA;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+.legalContent a:hover {
+    color: #007D87;
+}
+
+.footerLink {
+    margin-top: 1.875rem; /* 30px */
+}
+.footerLink a {
+    color: #00AABA;
+    text-decoration: none;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    /* Facebook Buttons 13-14px */
+    font-size: 0.875rem; /* 14px */
+    transition: text-decoration 0.2s ease, color 0.2s ease;
+}
+.footerLink a:hover {
+    text-decoration: underline;
+    color:#007D87;
+}
+
+
+/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+@media (max-width: 1024px) {
+    .legalPageContainer {
+        padding: 1rem; /* 16px */
+    }
+    .logoHeader {
+        max-width: 45rem; /* 720px */
+        margin-bottom: 1.5rem; /* 24px */
+    }
+    .logoImg {
+        height: 2.25rem; /* 36px */
+        max-width: 8.75rem; /* 140px */
+    }
+    .legalContent {
+        padding: 1.5rem 2rem; /* 24px 32px */
+        max-width: 45rem; /* 720px */
+    }
+    .legalContent h2 {
+        font-size: 1.3rem; /* 20.8px */
+        margin-bottom: 1rem; /* 16px */
+        padding-bottom: 0.5rem; /* 8px */
+    }
+    .legalContent h3 {
+        font-size: 1rem; /* 16px */
+        margin-top: 1.25rem; /* 20px */
+        margin-bottom: 0.5rem; /* 8px */
+    }
+    .legalContent p,
+    .legalContent li {
+        font-size: 0.9375rem; /* 15px */
+        margin-bottom: 0.625rem; /* 10px */
+    }
+    .legalContent ul {
+        padding-left: 1.25rem; /* 20px */
+    }
+    .footerLink {
+        margin-top: 1.5rem; /* 24px */
+    }
+    .footerLink a {
+        font-size: 0.8125rem; /* 13px */
+    }
+}
+
+/* Responsive adjustments for screens up to 768px (Tablets) */
+@media (max-width: 768px) {
+    .legalPageContainer {
+        padding: 0.8rem; /* 12.8px */
+    }
+    .logoHeader {
+        max-width: 95%; /* Take more width on tablet */
+        margin-bottom: 1.25rem; /* 20px */
+    }
+    .logoImg {
+        height: 2rem; /* 32px */
+        max-width: 7.5rem; /* 120px */
+    }
+    .legalContent {
+        padding: 1.25rem 1.5rem; /* 20px 24px */
+        max-width: 95%; /* Take more width on tablet */
+    }
+    .legalContent h2 {
+        font-size: 1.125rem; /* 18px */
+        margin-bottom: 0.8rem; /* 12.8px */
+        padding-bottom: 0.4rem; /* 6.4px */
+    }
+    .legalContent h3 {
+        font-size: 0.9375rem; /* 15px */
+        margin-top: 1rem; /* 16px */
+        margin-bottom: 0.4rem; /* 6.4px */
+    }
+    .legalContent p,
+    .legalContent li {
+        font-size: 0.875rem; /* 14px */
+        margin-bottom: 0.5rem; /* 8px */
+    }
+    .legalContent ul {
+        padding-left: 1rem; /* 16px */
+    }
+    .footerLink {
+        margin-top: 1.25rem; /* 20px */
+    }
+    .footerLink a {
+        font-size: 0.75rem; /* 12px */
+    }
+}
+
+/* Responsive adjustments for screens up to 480px (Mobile Phones) */
+@media (max-width: 480px) {
+    .legalPageContainer {
+        padding: 0.625rem; /* 10px */
+    }
+    .logoHeader {
+        margin-bottom: 1rem; /* 16px */
+    }
+    .logoImg {
+        height: 1.75rem; /* 28px */
+        max-width: 6.25rem; /* 100px */
+    }
+    .legalContent {
+        padding: 1rem 1rem; /* 16px 16px */
+    }
+    .legalContent h2 {
+        font-size: 1rem; /* 16px */
+        margin-bottom: 0.625rem; /* 10px */
+        padding-bottom: 0.3rem; /* 4.8px */
+    }
+    .legalContent h3 {
+        font-size: 0.875rem; /* 14px */
+        margin-top: 0.8rem; /* 12.8px */
+        margin-bottom: 0.3rem; /* 4.8px */
+    }
+    .legalContent p,
+    .legalContent li {
+        font-size: 0.8125rem; /* 13px */
+        margin-bottom: 0.4rem; /* 6.4px */
+    }
+    .legalContent ul {
+        padding-left: 0.8rem; /* 12.8px */
+    }
+    .footerLink {
+        margin-top: 1rem; /* 16px */
+    }
+    .footerLink a {
+        font-size: 0.6875rem; /* ~11px */
+    }
+}

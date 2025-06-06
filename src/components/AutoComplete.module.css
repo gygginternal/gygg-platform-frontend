@@ -3,62 +3,70 @@
   /* Class expected by InputField/FormInput if using it */
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.5rem; /* 8px */
 }
 .inputLabel {
-  font-size: 1rem;
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 0.875rem; /* 14px */
   font-weight: 500;
   color: #d1d5db;
 }
 .input {
   /* Class for the input element itself */
   width: 100%;
-  padding: 0.85rem 1rem;
-  border-radius: 0.5rem;
+  padding: 0.85rem 1rem; /* ~13.6px ~16px */
+  min-height: 2.5rem; /* 40px - Ensure a minimum height for usability */
+  border-radius: 0.5rem; /* 8px */
   background-color: white;
-  border: 1px solid #d1d5db;
-  font-size: 1rem;
+  border: 0.0625rem solid #d1d5db; /* 1px */
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 0.875rem; /* 14px */
   color: #333;
+  box-sizing: border-box; /* Crucial for width: 100% and padding */
 }
 .input:focus {
   outline: none;
   border-color: #d89362;
-  box-shadow: 0 0 0 3px rgba(217, 150, 51, 0.25);
+  box-shadow: 0 0 0 0.1875rem rgba(217, 150, 51, 0.25); /* 3px */
 }
 
 /* Styles for Hobbies Dropdown (Step 3) */
 .dropdownWrapper {
   position: relative;
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 1rem; /* 16px */
 }
 
 .tagsInput {
   display: flex;
   flex-wrap: wrap;
-  /* padding: 0.5rem; */
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
+  padding: 0.5rem; /* 8px - Added default padding */
+  border: 0.0625rem solid #d1d5db; /* 1px */
+  border-radius: 0.5rem; /* 8px */
   background-color: white;
-  gap: 0.5rem;
-  min-height: 48px;
+  gap: 0.5rem; /* 8px */
+  min-height: 3rem; /* 48px */
   align-items: center;
+  box-sizing: border-box; /* Ensure padding is included in width */
 }
 .tag {
   background-color: #d89362;
   color: white;
-  padding: 4px 10px;
-  border-radius: 16px;
-  font-size: 0.9rem;
+  padding: 0.25rem 0.625rem; /* 4px 10px */
+  border-radius: 1rem; /* 16px */
+  /* Facebook Comments 13-14px */
+  font-size: 0.8125rem; /* 13px */
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 0.25rem; /* 4px */
+  flex-shrink: 0; /* Prevent tags from shrinking */
 }
 .remove {
-  margin-left: 4px;
+  margin-left: 0.25rem; /* 4px */
   cursor: pointer;
   font-weight: bold;
-  font-size: 1rem;
+  /* Facebook Comments 13-14px */
+  font-size: 0.875rem; /* 14px */
   line-height: 1;
 }
 .remove:hover {
@@ -67,36 +75,157 @@
 .searchInput {
   border: none;
   flex: 1;
-  min-width: 120px;
-  font-size: 1rem;
+  min-width: 7.5rem; /* 120px */
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 0.875rem; /* 14px */
   outline: none;
   background-color: transparent;
   color: #333;
-  padding: 0.25rem;
+  padding: 0.25rem; /* 4px */
 }
 .dropdownList {
   position: absolute;
   list-style-type: none;
   padding: 0;
   margin: 0;
-  top: calc(100% + 4px);
+  top: calc(100% + 0.25rem); /* 4px */
   left: 0;
   right: 0;
   z-index: 10;
   background: white;
-  border: 1px solid #d1d5db;
-  border-radius: 0.5rem;
-  max-height: 180px;
+  border: 0.0625rem solid #d1d5db; /* 1px */
+  border-radius: 0.5rem; /* 8px */
+  max-height: 11.25rem; /* 180px */
   overflow-y: auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* 4px 8px */
 }
 .dropdownItem {
-  padding: 0.6rem 1rem;
+  padding: 0.6rem 1rem; /* ~9.6px ~16px */
   cursor: pointer;
   transition: background-color 0.2s;
   color: #333;
-  font-size: 0.95rem;
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 0.875rem; /* 14px */
 }
 .dropdownItem:hover {
   background-color: #f3f4f6;
+}
+
+/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+@media (max-width: 1024px) {
+    .inputGroup label, .inputGroup input {
+        font-size: 0.8125rem; /* 13px */
+    }
+    .input {
+        padding: 0.625rem 0.8rem; /* 10px 12.8px */
+        min-height: 2.25rem; /* 36px */
+    }
+    .tagsInput {
+        padding: 0.4rem; /* 6.4px */
+        gap: 0.4rem; /* 6.4px */
+        min-height: 2.75rem; /* 44px */
+    }
+    .tag {
+        font-size: 0.75rem; /* 12px */
+        padding: 0.2rem 0.5rem; /* 3.2px 8px */
+        border-radius: 0.8rem; /* 12.8px */
+    }
+    .remove {
+        font-size: 0.8125rem; /* 13px */
+        margin-left: 0.2rem; /* 3.2px */
+    }
+    .searchInput {
+        font-size: 0.8125rem; /* 13px */
+        min-width: 6.25rem; /* 100px */
+        padding: 0.2rem; /* 3.2px */
+    }
+    .dropdownList {
+        max-height: 9rem; /* 144px */
+        top: calc(100% + 0.2rem); /* 3.2px */
+    }
+    .dropdownItem {
+        padding: 0.5rem 0.8rem; /* 8px 12.8px */
+        font-size: 0.8125rem; /* 13px */
+    }
+}
+
+/* Responsive adjustments for screens up to 768px (Tablets) */
+@media (max-width: 768px) {
+    .inputGroup label, .inputGroup input {
+        font-size: 0.75rem; /* 12px */
+    }
+    .input {
+        padding: 0.5rem 0.7rem; /* 8px 11.2px */
+        min-height: 2rem; /* 32px */
+        border-radius: 0.4rem; /* 6.4px */
+    }
+    .tagsInput {
+        padding: 0.3rem; /* 4.8px */
+        gap: 0.3rem; /* 4.8px */
+        min-height: 2.5rem; /* 40px */
+        border-radius: 0.4rem; /* 6.4px */
+    }
+    .tag {
+        font-size: 0.6875rem; /* ~11px */
+        padding: 0.15rem 0.4rem; /* 2.4px 6.4px */
+        border-radius: 0.7rem; /* 11.2px */
+    }
+    .remove {
+        font-size: 0.75rem; /* 12px */
+        margin-left: 0.15rem; /* 2.4px */
+    }
+    .searchInput {
+        font-size: 0.75rem; /* 12px */
+        min-width: 5rem; /* 80px */
+        padding: 0.15rem; /* 2.4px */
+    }
+    .dropdownList {
+        max-height: 7.5rem; /* 120px */
+        top: calc(100% + 0.15rem); /* 2.4px */
+        border-radius: 0.4rem; /* 6.4px */
+    }
+    .dropdownItem {
+        padding: 0.4rem 0.6rem; /* 6.4px 9.6px */
+        font-size: 0.75rem; /* 12px */
+    }
+}
+
+/* Responsive adjustments for screens up to 480px (Mobile Phones) */
+@media (max-width: 480px) {
+    .inputGroup label, .inputGroup input {
+        font-size: 0.6875rem; /* ~11px */
+    }
+    .input {
+        padding: 0.4rem 0.5rem; /* 6.4px 8px */
+        min-height: 1.875rem; /* 30px */
+        border-radius: 0.3rem; /* 4.8px */
+    }
+    .tagsInput {
+        padding: 0.25rem; /* 4px */
+        gap: 0.25rem; /* 4px */
+        min-height: 2.25rem; /* 36px */
+        border-radius: 0.3rem; /* 4.8px */
+    }
+    .tag {
+        font-size: 0.625rem; /* 10px */
+        padding: 0.1rem 0.3rem; /* 1.6px 4.8px */
+        border-radius: 0.6rem; /* 9.6px */
+    }
+    .remove {
+        font-size: 0.6875rem; /* ~11px */
+    }
+    .searchInput {
+        font-size: 0.6875rem; /* ~11px */
+        min-width: 4rem; /* 64px */
+        padding: 0.1rem; /* 1.6px */
+    }
+    .dropdownList {
+        max-height: 6rem; /* 96px */
+        top: calc(100% + 0.1rem); /* 1.6px */
+        border-radius: 0.3rem; /* 4.8px */
+    }
+    .dropdownItem {
+        padding: 0.3rem 0.5rem; /* 4.8px 8px */
+        font-size: 0.6875rem; /* ~11px */
+    }
 }

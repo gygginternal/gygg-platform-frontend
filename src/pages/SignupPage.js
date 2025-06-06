@@ -183,7 +183,7 @@ function SignupPage() {
 
             <p className={styles.terms}>
               By registering for an account, you are consenting to our{' '}
-              <Link to="/terms" className={styles.link}> {/* Use react-router Link */}
+              <Link to="/term" className={styles.link}> {/* Use react-router Link */}
                 Terms of Use
               </Link>{' '}
               and confirming that you have reviewed and accepted the{' '}

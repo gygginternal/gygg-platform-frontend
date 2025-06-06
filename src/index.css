@@ -143,15 +143,6 @@ ul {
   padding: 0;
 }
 
-li {
-  border: 0.0625rem solid #eee; /* 1px */
-  margin-bottom: 0.9375rem; /* 15px */
-  padding: 0.9375rem; /* 15px */
-  border-radius: 0.3125rem; /* 5px */
-  background-color: #fff;
-  color: #333;
-}
-
 /* General Card Layout Utility */
 .card {
   border: 0.0625rem solid #ddd; /* 1px */

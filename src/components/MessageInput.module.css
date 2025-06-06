@@ -1,59 +1,146 @@
+/* src/components/YourComponent/InputContainer.module.css (example path) */
+
+/* Setting a base font size for rem calculations */
+:root {
+  font-size: 16px; /* 1rem = 16px */
+}
+
 .inputContainer {
-    border: 1px solid #e9e9e9;
-    border-radius: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    width: 520px;
-    margin-top: 31px;
-    padding: 23px 19px;
-  }
+  border: 0.0625rem solid #e9e9e9; /* 1px */
+  border-radius: 1rem; /* 16px */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.25rem; /* 20px */
+  width: 100%; /* Take full width of parent */
+  max-width: 32.5rem; /* 520px - Retain original max-width */
+  margin-top: 1.9375rem; /* 31px */
+  padding: 1.4375rem 1.1875rem; /* 23px 19px */
+  box-sizing: border-box; /* Ensure padding is included in width */
+}
   
-  .input {
-    color: #303030;
-    font-family:
-      Inter,
-      -apple-system,
-      Roboto,
-      Helvetica,
-      sans-serif;
-    font-size: 20px;
-    font-weight: 300;
-    border: none;
-    outline: none;
-    flex-grow: 1;
-  }
+.input {
+  color: #303030;
+  font-family:
+    Inter,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  /* Facebook Post text (main body) 14-16px. For a prominent input, 18px (1.125rem) is a good starting point. */
+  font-size: 1.125rem; /* 18px */
+  font-weight: 300;
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  background-color: transparent; /* Ensure transparent background */
+  line-height: 1.4; /* Improve readability */
+}
   
-  .input::placeholder {
-    color: #303030;
-  }
+.input::placeholder {
+  color: #303030;
+}
   
-  .actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem; /* 20px */
+  flex-shrink: 0; /* Prevent actions from shrinking */
+}
   
-  .actionButton {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-  }
+.actionButton {
+  background: none;
+  border: none;
+  padding: 0.3125rem; /* 5px - Added padding for a larger clickable area */
+  cursor: pointer;
+  display: flex; /* Ensure centering of icon */
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+.actionButton:hover {
+    opacity: 0.8;
+}
   
-  .actionIcon {
-    aspect-ratio: 1;
-    object-fit: contain;
-    object-position: center;
-    width: 34px;
-  }
-  
-  @media (width <= 991px) {
+.actionIcon {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  /* Facebook Top navbar icons 20-24px. Using 24px (1.5rem) here, scaling down. */
+  width: 1.5rem; /* 24px */
+  height: 1.5rem; /* Explicit height */
+  flex-shrink: 0;
+}
+
+/* Responsive adjustments */
+
+/* @media (max-width: 1024px) - Large Tablets / Small Laptops */
+@media (max-width: 1024px) {
     .inputContainer {
-      max-width: 100%;
-      margin-right: 7px;
-      padding-left: 20px;
+        max-width: 28rem; /* 448px */
+        margin-top: 1.5rem; /* 24px */
+        padding: 1.125rem 0.9rem; /* 18px 14.4px */
+        gap: 1rem; /* 16px */
     }
-  }
-  
+    .input {
+        font-size: 1rem; /* 16px */
+    }
+    .actions {
+        gap: 1rem; /* 16px */
+    }
+    .actionButton {
+        padding: 0.25rem; /* 4px */
+    }
+    .actionIcon {
+        width: 1.375rem; /* 22px */
+        height: 1.375rem; /* 22px */
+    }
+}
+
+/* @media (max-width: 768px) - Tablets */
+@media (max-width: 768px) {
+    .inputContainer {
+        max-width: 90%; /* Take more width on tablet */
+        margin-top: 1rem; /* 16px */
+        padding: 0.8rem 0.7rem; /* 12.8px 11.2px */
+        gap: 0.8rem; /* 12.8px */
+        border-radius: 0.8rem; /* 12.8px */
+    }
+    .input {
+        font-size: 0.9375rem; /* 15px */
+    }
+    .actions {
+        gap: 0.8rem; /* 12.8px */
+    }
+    .actionButton {
+        padding: 0.2rem; /* 3.2px */
+    }
+    .actionIcon {
+        width: 1.25rem; /* 20px */
+        height: 1.25rem; /* 20px */
+    }
+}
+
+/* @media (max-width: 480px) - Mobile Phones */
+@media (max-width: 480px) {
+    .inputContainer {
+        max-width: 100%; /* Full width on tiny screens */
+        margin-top: 0.8rem; /* 12.8px */
+        padding: 0.6rem 0.5rem; /* 9.6px 8px */
+        gap: 0.6rem; /* 9.6px */
+        border-radius: 0.6rem; /* 9.6px */
+    }
+    .input {
+        font-size: 0.875rem; /* 14px */
+    }
+    .actions {
+        gap: 0.6rem; /* 9.6px */
+    }
+    .actionButton {
+        padding: 0.15rem; /* 2.4px */
+    }
+    .actionIcon {
+        width: 1.125rem; /* 18px */
+        height: 1.125rem; /* 18px */
+    }
+}

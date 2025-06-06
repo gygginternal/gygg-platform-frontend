@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import apiClient from "../api/axiosConfig"; // Adjust path as needed
-import { format } from "date-fns"; // Import date-fns for formatting dates
+import apiClient from "../api/axiosConfig";
+import { format } from "date-fns";
 import { BillingModal } from "./BillingModal";
 import { Pagination } from "antd";
-import "./BillingTable.css"; // Import your CSS file for styling
+import styles from "./BillingTable.module.css";
 
 export const BillingTable = () => {
-  const [selectedGig, setSelectedGig] = useState(null); // State to track selected gig for modal
-  const [currentPage, setCurrentPage] = useState(1); // State to track the current page
-  const [pageSize] = useState(10); // Number of items per page
+  const [selectedGig, setSelectedGig] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize] = useState(10);
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["payments", currentPage],
@@ -17,18 +17,13 @@ export const BillingTable = () => {
       const response = await apiClient.get(
         `/payments?page=${currentPage}&limit=${pageSize}`
       );
-      return response.data; // Assuming the API returns the full pagination structure
+      return response.data;
     },
-    keepPreviousData: true, // Keep previous data while fetching new data
+    keepPreviousData: true,
   });
 
-  const handleCloseModal = () => {
-    setSelectedGig(null); // Close the modal by clearing the selected gig
-  };
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page); // Update the current page
-  };
+  const handleCloseModal = () => setSelectedGig(null);
+  const handlePageChange = (page) => setCurrentPage(page);
 
   if (isLoading) {
     return <p>Loading payments...</p>;
@@ -43,8 +38,7 @@ export const BillingTable = () => {
 
   return (
     <>
-      <div className="overflow-x-auto mt-5">
-        {/* Billing Modal */}
+      <div className={styles.container}>
         {selectedGig && (
           <BillingModal
             isOpen={!!selectedGig}
@@ -52,64 +46,52 @@ export const BillingTable = () => {
             gig={selectedGig}
           />
         )}
-        <table className="table-auto w-full border-collapse border-t border-b border-gray-300">
+        <table className={styles.billingTable}>
           <thead>
-            <tr className="bg-gray-100 text-sm font-semibold text-gray-700">
-              <th className="px-4 py-2 text-left border-b border-gray-300">
-                Hired by
-              </th>
-              <th className="px-4 py-2 text-left border-b border-gray-300">
-                Date
-              </th>
-              <th className="px-4 py-2 text-left border-b border-gray-300">
-                Contract detail
-              </th>
-              <th className="px-4 py-2 text-left border-b border-gray-300">
-                Invoice
-              </th>
+            <tr className={styles.headerRow}>
+              <th className={styles.headerCell}>Hired by</th>
+              <th className={styles.headerCell}>Date</th>
+              <th className={styles.headerCell}>Contract detail</th>
+              <th className={styles.headerCell}>Invoice</th>
             </tr>
           </thead>
           <tbody>
             {payments.length === 0 && (
               <tr>
-                <td colSpan="4" className="px-4 py-2 text-center text-gray-500">
+                <td colSpan="4" className={`${styles.bodyCell} ${styles.noPaymentsCell}`}>
                   No payments found.
                 </td>
               </tr>
             )}
-            {payments.map((row, index) => {
-              return (
-                <tr key={index} className="text-sm text-gray-700">
-                  <td className="px-4 py-2 border-b border-gray-300">
-                    {[row.payer.firstName, row.payer.lastName]
-                      .filter(Boolean)
-                      .join(" ")}
-                  </td>
-                  <td className="px-4 py-2 border-b border-gray-300">
-                    {format(new Date(row.createdAt), "MM-dd-yyyy")}
-                  </td>
-                  <td className="px-4 py-2 border-b border-gray-300">
-                    {row?.gig?.title || "N/A"}
-                  </td>
-                  <td
-                    className="px-4 py-2 border-b border-gray-300 font-medium underline cursor-pointer "
-                    onClick={() => setSelectedGig(row)} // Open modal with selected gig
-                  >
-                    View
-                  </td>
-                </tr>
-              );
-            })}
+            {payments.map((row, index) => (
+              <tr key={index}>
+                <td className={styles.bodyCell}>
+                  {[row.payer.firstName, row.payer.lastName].filter(Boolean).join(" ")}
+                </td>
+                <td className={styles.bodyCell}>
+                  {format(new Date(row.createdAt), "MM-dd-yyyy")}
+                </td>
+                <td className={styles.bodyCell}>
+                  {row?.gig?.title || "N/A"}
+                </td>
+                <td
+                  className={`${styles.bodyCell} ${styles.invoiceLink}`}
+                  onClick={() => setSelectedGig(row)}
+                >
+                  View
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
       <Pagination
-        className="mt-5"
+        className={styles.pagination}
         current={currentPage}
         pageSize={pageSize}
         total={total}
         onChange={handlePageChange}
-        showSizeChanger={false} // Disable changing page size
+        showSizeChanger={false}
       />
     </>
   );
