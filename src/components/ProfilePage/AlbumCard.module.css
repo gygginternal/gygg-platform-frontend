@@ -45,7 +45,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
-    border-radius: 50%;
+    border-radius: 16px;
     /* Facebook Top navbar icons 20-24px */
     width: 1.5rem; /* 24px */
     height: 1.5rem; /* 24px */

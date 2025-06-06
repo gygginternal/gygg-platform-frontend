@@ -94,9 +94,9 @@ function AlbumSection({ userIdToView }) {
       <div className={styles.albumHeader}>
         <h2>Album</h2>
         {/* Show Add Photo Button only if viewing own profile */}
-        {isOwnProfile && (
+        {isOwnProfile && albumData.length > 0 && (
             <button className={styles.addButton} onClick={handleAddClick} aria-label="Add photo to album">
-               <img src="/add-circle.svg" alt="Add" className={styles.addIcon} onError={handleIconError}/>
+               <img src="/assets/add-circle.svg" alt="Add" className={styles.addIcon} onError={handleIconError}/>
             </button>
         )}
       </div>

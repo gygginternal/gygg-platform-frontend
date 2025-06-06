@@ -3,7 +3,7 @@
 }
 
 .pageContainer {
-  padding-top: 2rem;
+  padding-top: 2rem; /* Matches header height */
   min-height: calc(100vh - 5.25rem);
   box-sizing: border-box;
 }
@@ -12,16 +12,16 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  max-width: 75rem;
-  margin-left: 18.75rem;
+  max-width: 75rem; /* 1200px */
+  margin-left: 18.75rem; /* 300px sidebar */
   margin-right: auto;
-  padding: 0.625rem;
-  gap: 1.25rem;
+  padding: 0.625rem; /* 10px */
+  gap: 1.25rem; /* 20px */
   box-sizing: border-box;
 }
 
 .sidebarArea {
-  width: 18.75rem;
+  width: 18.75rem; /* 300px */
   flex-shrink: 0;
   min-width: 0;
 }
@@ -32,6 +32,7 @@
 }
 
 /* Responsive Breakpoints */
+
 @media (max-width: 1024px) {
   .pageContainer {
     padding-top: 2rem;
@@ -41,12 +42,32 @@
   .contentWrapper {
     max-width: 60rem;
     padding: 0.5rem;
-    margin-left: 18.75rem;
+    margin-left: 15rem; /* Adjust for smaller sidebar */
     gap: 1rem;
   }
 
   .sidebarArea {
     width: 15rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .contentWrapper {
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 95%;
+    gap: 1rem;
+    padding: 0.75rem;
+  }
+
+  .sidebarArea {
+    width: 100%;
+    margin-bottom: 1.25rem;
+  }
+
+  .mainFeedArea {
+    width: 100%;
   }
 }
 

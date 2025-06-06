@@ -1,15 +1,38 @@
 /* src/pages/SettingsPage.module.css */
-.pageTitle {
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 25px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
+
+/* Setting a base font size for rem calculations if not set globally */
+:root {
+    font-size: 16px; /* 1rem = 16px */
 }
 
+/* Removed .pageTitle as it is not used */
+
 .settingsContainer {
-    /* Optional: add styling for the overall container if needed */
-    /* background-color: #f9f9f9; */
-    /* padding: 20px; */
-    /* border-radius: 8px; */
+   /* Add general padding to give space around the content */
+   padding: 1rem; /* 16px */
+   box-sizing: border-box; /* Ensure padding is included in width */
+   width: 100%; /* Take full width of its parent (e.g., mainFeedArea) */
+}
+
+/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+@media (max-width: 1024px) {
+    .settingsContainer {
+        padding: 0.8rem; /* 12.8px */
+        padding-left: 300px;
+    }
+}
+
+/* Responsive adjustments for screens up to 768px (Tablets) */
+@media (max-width: 768px) {
+    .settingsContainer {
+        padding: 0.6rem; /* 9.6px */
+        padding-left: 150px;
+    }
+}
+
+/* Responsive adjustments for screens up to 480px (Mobile Phones) */
+@media (max-width: 480px) {
+    .settingsContainer {
+        padding: 0.4rem; /* 6.4px */
+    }
 }

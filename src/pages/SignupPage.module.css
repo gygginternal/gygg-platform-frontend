@@ -7,10 +7,12 @@
   width: 100vw;
   align-items: center;
   min-height: 100vh;
-  padding: 20px;
+  padding: 1.25rem; /* ~20px */
   background: linear-gradient(#3c4a53, #0f212d);
-  overflow-y: hidden; 
+  overflow-y: auto; /* Allow scrolling if content exceeds viewport height */
+  -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
   overflow-x: hidden;
+  font-size: 16px; /* Base font size for rem units (1rem = 16px) */
 }
 
 .logo {
@@ -18,7 +20,7 @@
   font-weight: 900;
   color: #D89362;
   text-decoration: none;
-  margin-bottom: 2rem;
+  /* margin-bottom removed as logo is absolute */
   position: absolute; /* Position at top-left */
   top: 1.5rem;
   left: 1.5rem;
@@ -27,29 +29,33 @@
 
 .logo img {
   display: block;
-  width: 150px;
+  max-width: 150px; /* Use max-width for responsiveness */
+  width: 100%; /* Allows it to scale down */
   height: auto;
 }
 
 .formContainer {
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; -- Let content flow naturally */
   align-items: center;
   max-width: 450px;
   width: 100%;
-  /* flex: 1; -- Remove fixed flex */
-  gap: 20px; /* Spacing between title and form */
-  padding-bottom: 30px; /* Add padding at the bottom */
+  gap: 1.25rem; /* ~20px Spacing between title and form */
+  padding-bottom: 1.875rem; /* ~30px Add padding at the bottom */
+  position: relative; /* For z-index if needed */
+  flex-grow: 1; /* Allows content to take available space */
+  justify-content: center; /* Center content vertically if space allows */
 }
 
 .title {
-  color: #fff;
-  font-size: 28px;
+  /* Facebook Header (profile names etc.) 16-18px.
+     This is a main page title, so a slightly larger range is acceptable for impact. */
+  font-size: clamp(1.5rem, 5vw, 2rem); /* Ranging from 24px to 32px */
   font-weight: 700;
   font-family: 'Inter', sans-serif;
   text-align: center;
-  margin-bottom: 15px; /* Increased margin */
+  color: #fff;
+  margin-bottom: 0.9375rem; /* ~15px margin */
 }
 
 .form {
@@ -60,53 +66,54 @@
   box-shadow: none !important;
   display: flex;
   flex-direction: column;
-  gap: 12px; /* Reduced gap between form fields */
+  gap: 0.75rem; /* ~12px Reduced gap between form fields */
   width: 100%;
-  margin-bottom: 15px; /* Space before footer */
-  /* flex-grow: 1; -- Remove fixed flex */
+  margin-bottom: 0.9375rem; /* ~15px Space before footer */
 }
 
 .footer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px; /* Increased gap */
+  gap: 1.125rem; /* ~18px Increased gap */
   width: 100%;
-  margin-top: 15px; /* Space after form fields */
+  margin-top: 0.9375rem; /* ~15px Space after form fields */
 }
 
 .terms {
-  color: #ccc; /* Lighter terms text */
+  /* Facebook Timestamps and meta info 12px */
+  color: #ccc;
   text-align: center;
   font-family: 'Inter', sans-serif;
-  font-size: 12px;
+  font-size: 0.75rem; /* 12px */
   font-weight: 300;
-  line-height: 1.5; /* Improved line spacing */
+  line-height: 1.5;
   letter-spacing: 0.12px;
-  max-width: 90%; /* Prevent terms from being too wide */
+  max-width: 90%;
 }
 
 .link {
-  color: #d99633; /* Match button color */
+  color: #d99633;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .link:hover {
-  color: #b45309; /* Darker hover */
+  color: #b45309;
 }
 
 .submitButton {
+  /* Facebook Buttons 13-14px */
   color: #fff;
   cursor: pointer;
   background-color: #D99633;
   border: none;
   border-radius: 12px;
   width: 100%;
-  height: 45px; /* Slightly taller button */
-  font-size: 15px; /* Slightly larger font */
+  height: 2.8125rem; /* ~45px */
+  font-size: 0.875rem; /* 14px */
   font-weight: 700;
-  line-height: 14px; /* Adjust if needed */
+  line-height: 1; /* Adjust line-height to center text */
   letter-spacing: 0.14px;
   transition: background-color 0.3s ease, transform 0.1s ease;
 }
@@ -118,32 +125,119 @@
 .submitButton:active:not(:disabled) {
    transform: translateY(0px);
 }
-.submitButton:disabled { /* Style for disabled state */
+.submitButton:disabled {
     background-color: #777;
     cursor: not-allowed;
     opacity: 0.8;
 }
 
-
 .error {
-  color: #ff8a8a; /* Lighter red for dark background */
-  font-size: 14px;
-  /* margin-top: -6px; -- Removed negative margin */
-  margin-bottom: 10px;
+  /* Facebook Comments 13-14px */
+  color: #ff8a8a;
+  font-size: 0.875rem; /* 14px */
+  margin-bottom: 0.625rem; /* ~10px */
   font-family: 'Inter', sans-serif;
-  text-align: center; /* Center error messages */
+  text-align: center;
   width: 100%;
 }
 
-/* Removed .row styles as inputs are stacked */
+/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+@media (max-width: 1024px) {
+    .container {
+        padding: 1rem; /* Slightly reduced padding */
+        padding-top: 4rem; /* Ensure logo doesn't overlap */
+    }
+    .logo {
+        top: 1.25rem; /* Slightly adjusted logo position */
+        left: 1.25rem;
+    }
+    .formContainer {
+        padding-bottom: 1.5625rem; /* ~25px */
+        max-width: 400px;
+    }
+    .title {
+        font-size: 1.75rem; /* 28px */
+        margin-bottom: 0.8rem;
+    }
+    /* Button, error, terms font sizes remain optimal */
+}
 
+/* Responsive adjustments for screens up to 768px (Tablets) */
+@media (max-width: 768px) {
+    .container {
+        padding: 0.75rem; /* Further reduced padding */
+        padding-top: 4rem; /* Ensure logo doesn't overlap */
+    }
+    .logo {
+        top: 1rem;
+        left: 1rem;
+    }
+    .logo img {
+        max-width: 100px; /* Smaller logo for tablets */
+    }
+    .formContainer {
+        padding-bottom: 1.25rem; /* ~20px */
+        max-width: 90%; /* Take more width on tablet */
+        gap: 1rem; /* ~16px gap */
+    }
+    .title {
+        /* Align closer to 16-18px for Header */
+        font-size: clamp(1.25rem, 5vw, 1.5rem); /* Ranging from 20px to 24px */
+        margin-bottom: 0.75rem;
+    }
+    .form {
+        gap: 0.625rem; /* ~10px */
+        margin-bottom: 0.625rem; /* ~10px */
+    }
+    .terms {
+        font-size: 0.75rem; /* 12px - fits Timestamps/Meta */
+    }
+    .submitButton {
+        height: 2.5rem; /* 40px */
+        font-size: 0.8125rem; /* 13px - fits Buttons */
+    }
+    .error {
+        font-size: 0.8125rem; /* 13px - fits Comments */
+        margin-bottom: 0.5rem; /* ~8px */
+    }
+}
+
+/* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
-  .formContainer {
-    padding: 20px 10px;
-  }
-  .title { font-size: 24px; margin-bottom: 15px; }
-  .form { gap: 10px; }
-  .submitButton { height: 40px; font-size: 14px; }
-  .terms { font-size: 11px; line-height: 1.4; }
-  .logo { align-self: center; /* Center logo on small screens */ margin-bottom: 1.5rem; }
+    .container {
+        padding: 0.5rem; /* Minimal padding */
+        padding-top: 3.5rem; /* Adjust for potentially smaller logo */
+    }
+    .logo {
+        top: 0.75rem;
+        left: 0.75rem;
+    }
+    .logo img {
+        max-width: 80px; /* Even smaller logo for tiny screens */
+    }
+    .formContainer {
+        padding-bottom: 1rem; /* ~16px */
+        max-width: 95%; /* Almost full width on very small screens */
+        gap: 0.75rem; /* ~12px gap */
+    }
+    .title {
+        /* Smallest font for mobile, still within Header range */
+        font-size: clamp(1rem, 6vw, 1.25rem); /* Ranging from 16px to 20px */
+        margin-bottom: 0.5rem;
+    }
+    .form {
+        gap: 0.5rem; /* ~8px */
+        margin-bottom: 0.5rem; /* ~8px */
+    }
+    .terms {
+        font-size: 0.6875rem; /* ~11px - slightly smaller than 12px, still readable */
+    }
+    .submitButton {
+        height: 2.1875rem; /* 35px */
+        font-size: 0.75rem; /* 12px - fits Timestamps/Meta */
+    }
+    .error {
+        font-size: 0.75rem; /* 12px - fits Timestamps/Meta */
+        margin-bottom: 0.4rem; /* ~6px */
+    }
 }
