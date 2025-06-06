@@ -1,46 +1,53 @@
+/* frontend/src/index.css */
+
+/* Tailwind CSS imports - always at the top */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Google Fonts import */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* Reset and box-sizing */
-* {
+/* Basic CSS Reset & Box-Sizing */
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Force full width and no overflow */
-html, body {
+/* Global Root Font Size for REM units */
+/* This sets 1rem to 16px, making your rem values predictable. */
+html {
+  font-size: 16px;
   width: 100%;
-  overflow-x: hidden;
+  overflow-x: hidden; /* Prevent horizontal scroll for the entire page */
 }
 
+/* Base Body Styles */
 body {
-  margin: 0; /* Good to have this reset */
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
-  /* Optional: A global background color if your AppLayout doesn't cover everything */
-  /* background-color: #f4f7f6; */
+  color: #333; /* Default text color for the app */
+  background-color: #f8f8f8; /* A subtle global background for consistency */
 }
 
+/* Code Snippets */
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-/* Your existing nav styles - these are fine */
+/* Generic Navigation Styles (if used for non-Header nav) */
 nav {
-  /* padding: 1rem; */
+  /* padding: 1rem; - Commented out as per original, assuming specific nav components have padding */
   background: #eee;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 0.0625rem solid #ccc; /* 1px */
   display: flex;
-  gap: 15px;
+  gap: 0.9375rem; /* 15px */
   align-items: center;
   flex-wrap: wrap;
 }
@@ -48,15 +55,16 @@ nav {
 nav a,
 nav button {
   text-decoration: none;
-  /* color: #007bff; */
-  padding: 5px 0;
+  /* color: #007bff; - Commented out, set via specific component styles */
+  padding: 0.3125rem 0; /* 5px 0 */
+  color: inherit; /* Inherit color from parent for consistency */
 }
 
 nav button {
   background: none;
   border: none;
   cursor: pointer;
-  font: inherit;
+  font: inherit; /* Inherit font styles */
   text-decoration: underline;
 }
 
@@ -65,120 +73,118 @@ nav button:hover {
   text-decoration: underline;
 }
 
-/* --- MODIFIED/ADDED STYLES --- */
-
+/* --- Content Area Placeholder --- */
+/* The .main-content-area class seems like a remnant or placeholder.
+   Your AppLayout.module.css already handles the main content wrapper
+   and its padding/margins for desktop vs. mobile.
+   If this class is not explicitly used or has a conflicting purpose,
+   consider removing it to avoid confusion or unintended side effects. */
 .main-content-area {
-  /* The padding-top will be handled dynamically by AppLayout's inline style */
-  /* If you implement dynamic paddingLeft for a pushing sidebar,
-     this transition will make it smooth. */
-  transition: padding-left 0.3s ease-in-out;
-  width: 100%; /* Ensure it tries to take full width relative to its offset parent */
+  transition: padding-left 0.3s ease-in-out; /* For smooth sidebar push transition if implemented */
+  width: 100%;
   box-sizing: border-box;
-  /* The actual page content (like what's inside <div className="container">)
-     will determine its height. No min-height needed here typically. */
+  /* No fixed padding-top or min-height here, AppLayout handles that */
 }
 
-/* .container {
-  max-width: 1200px; 
-  margin-left: auto; 
-  margin-right: auto; 
-  padding-left: 0px;  
-  padding-right: 0px; 
-  width: 100%; 
-  box-sizing: border-box;
-} */
-
-/* --- END OF MODIFIED/ADDED STYLES --- */
-
+/* General Headings (h1-h4) */
 h1,
 h2,
 h3,
 h4 {
   margin-bottom: 0.8rem;
+  color: #3d4d55; /* A standard dark grey for headings */
 }
 
-/* Your button styles - these are fine for general buttons */
+/* General Button Styles */
 button {
-  padding: 8px 15px;
+  padding: 0.5rem 0.9375rem; /* 8px 15px */
   cursor: pointer;
-  /* background-color: #007bff; */
+  /* background-color: #007bff; - Commented out, set by specific button classes */
   color: white;
   border: none;
-  border-radius: 32px;
-  font-size: 1em;
+  border-radius: 2rem; /* 32px */
+  font-size: 1rem; /* 16px */
+  font-family: "Inter", sans-serif; /* Ensure button font is Inter */
 }
 
 button:disabled {
-  /* background-color: #ccc; */
+  /* background-color: #ccc; - Commented out, set by specific button classes */
   cursor: not-allowed;
+  opacity: 0.7; /* Standard disabled opacity */
 }
 
-/* Your form input styles - these are fine */
+/* General Form Input Styles */
 input[type="text"],
 input[type="email"],
 input[type="password"],
 select,
 textarea {
   width: 100%;
-  padding: 8px;
-  /* margin-bottom: 10px; */
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 0.5rem; /* 8px */
+  border: 0.0625rem solid #ccc; /* 1px */
+  border-radius: 0.25rem; /* 4px */
   box-sizing: border-box;
+  font-size: 1rem; /* 16px */
+  color: #333;
+  font-family: "Inter", sans-serif; /* Ensure form font is Inter */
 }
 
+/* General Label Styles */
 label {
-  margin-bottom: 5px;
+  margin-bottom: 0.3125rem; /* 5px */
   display: block;
+  font-size: 0.9375rem; /* 15px for labels */
+  color: #444;
 }
 
-/* form {
-  padding: 20px;
-  border: 1px solid #eee;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-} */
-
+/* General List Item Styles */
 ul {
   list-style: none;
   padding: 0;
 }
 
-/* Your li styles - consider making this more specific if needed */
-/* For example, for a list of gigs, you might use a class like .gig-list-item */
 li {
-  border: 1px solid #eee;
-  margin-bottom: 15px;
-  padding: 15px;
-  border-radius: 5px;
+  border: 0.0625rem solid #eee; /* 1px */
+  margin-bottom: 0.9375rem; /* 15px */
+  padding: 0.9375rem; /* 15px */
+  border-radius: 0.3125rem; /* 5px */
   background-color: #fff;
+  color: #333;
 }
 
-/* Basic card layout utility - this is good */
+/* General Card Layout Utility */
 .card {
-  border: 1px solid #ddd;
-  margin-bottom: 15px;
-  padding: 15px;
-  border-radius: 5px;
+  border: 0.0625rem solid #ddd; /* 1px */
+  margin-bottom: 0.9375rem; /* 15px */
+  padding: 0.9375rem; /* 15px */
+  border-radius: 0.3125rem; /* 5px */
   background-color: #fff;
+  box-shadow: 0 0.0625rem 0.125rem rgba(0,0,0,0.05); /* Subtle shadow */
 }
 
 .card h4 {
   margin-top: 0;
 }
 
-/* Your error/success message styles - these are fine */
+/* General Error/Success Message Styles */
 .error-message {
-  color: #dc3545;
-  margin-top: 5px;
-  font-size: 0.9em;
-  /* Consider adding padding and a light background for better visibility */
-  /* padding: 8px; background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 4px; */
+  color: #dc3545; /* Bootstrap red */
+  margin-top: 0.3125rem; /* 5px */
+  font-size: 0.875rem; /* 14px */
+  padding: 0.5rem; /* 8px */
+  background-color: #f8d7da; /* Light red background */
+  border: 0.0625rem solid #f5c6cb; /* Red border */
+  border-radius: 0.25rem; /* 4px */
+  text-align: center;
 }
 
 .success-message {
-  color: #28a745;
-  margin-top: 5px;
-  font-size: 0.9em;
-  /* padding: 8px; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 4px; */
+  color: #28a745; /* Bootstrap green */
+  margin-top: 0.3125rem; /* 5px */
+  font-size: 0.875rem; /* 14px */
+  padding: 0.5rem; /* 8px */
+  background-color: #d4edda; /* Light green background */
+  border: 0.0625rem solid #c3e6cb; /* Green border */
+  border-radius: 0.25rem; /* 4px */
+  text-align: center;
 }

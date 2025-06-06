@@ -1,21 +1,40 @@
+/* frontend/src/components/Header.module.css */
+
+/* Setting a base font size for rem calculations if not set globally */
+:root {
+    font-size: 16px; /* 1rem = 16px */
+}
+
 .header {
   z-index: 100;
   background-color: #3d4d55;
   align-items: center;
-  height: 84px;
-  padding: 0 20px;
+  height: 5.25rem; /* 84px */
+  padding: 0 1.25rem; /* 0 20px */
   display: flex;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  box-sizing: border-box; /* Include padding in height */
 }
 
 .headerLogo {
-  width: 164px;
-  height: 67px;
-  margin-left: 30px;
+  /* Facebook Profile pic thumbnails: 32-40px. Avatar in stories: 40-60px.
+     For a prominent header logo, 100px is a good balance. */
+  width: 6.25rem; /* 100px */
+  height: auto; /* Maintain aspect ratio */
+  margin-left: 1.875rem; /* 30px */
+  display: block; /* Ensure it behaves like a block element */
+  max-height: 3.5rem; /* Max height to fit within header (e.g., 56px) */
 }
+
+.logoLink { /* Added to ensure logo img doesn't have default link styles */
+  display: flex;
+  align-items: center;
+  flex-shrink: 0; /* Prevent logo from shrinking */
+}
+
 
 .menuButton {
   background: none;
@@ -24,11 +43,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0.25rem; /* 4px clickable area */
+  flex-shrink: 0;
 }
 
 .menuIcon {
-  height: 32px;
-  width: 32px;
+  /* Facebook Top navbar icons: 20-24px. Using 24px (1.5rem) here. */
+  height: 1.5rem; /* 24px */
+  width: 1.5rem; /* 24px */
 }
 
 .menuButton:hover {
@@ -37,21 +59,21 @@
 
 .searchContainer {
   flex: 1;
-  max-width: 523px;
+  max-width: 32.6875rem; /* 523px */
   margin: 0 auto;
   position: relative;
 }
 
 .searchBox {
   background-color: #fff;
-  border: 1px solid #f6f2ed;
+  border: 0.0625rem solid #f6f2ed; /* 1px */
   align-items: center;
-  height: 54px;
-  padding: 0 16px;
+  height: 3.375rem; /* 54px */
+  padding: 0 1rem; /* 0 16px */
   display: flex;
   position: relative;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
+  box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1); /* 0 2px 5px */
+  border-radius: 0.9375rem; /* 15px */
 }
 
 .searchInput {
@@ -59,8 +81,9 @@
   border: none;
   outline: none;
   flex: 1;
-  margin-left: 10px;
-  font-size: 16px;
+  margin-left: 0.625rem; /* 10px */
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 0.9375rem; /* 15px */
   padding: 0;
   height: 100%;
   background-color: transparent;
@@ -70,42 +93,70 @@
   color: #fff;
   cursor: pointer;
   background-color: #00aaba;
-  border-radius: 0 15px 15px 0;
-  height: 54px;
-  padding: 0 20px;
+  border-radius: 0 0.9375rem 0.9375rem 0; /* 0 15px 15px 0 */
+  height: 3.375rem; /* 54px */
+  padding: 0 1.25rem; /* 0 20px */
   font-weight: 700;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
-  right: -1px;
+  right: -0.0625rem; /* -1px */
   top: 0;
   transition: background-color 0.3s ease;
+  /* Facebook Buttons 13-14px */
+  font-size: 0.875rem; /* 14px */
 }
 
 .searchButton:hover {
   background-color: #008b8b;
 }
 
+/* No specific icon size for search button provided by user, keeping original 20px if exists */
 .searchButton img {
-  width: 20px;
-  height: 20px;
+  width: 1.25rem; /* 20px */
+  height: 1.25rem; /* 20px */
 }
 
 .headerControls {
-  gap: 20px;
+  gap: 1.25rem; /* 20px */
   margin-left: auto;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
+}
+
+.iconButton { /* Base style for header control buttons */
+    background: none;
+    border: none;
+    padding: 0.25rem; /* 4px clickable area */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .headerControls img {
   object-fit: contain;
   cursor: pointer;
-  width: 28px;
-  height: 28px;
+  /* Facebook Top navbar icons: 20-24px. Notifications (28px). Profile pic (36px). */
+  /* Set base sizes here, specific elements override */
+  width: 1.5rem; /* 24px default for icons */
+  height: 1.5rem; /* 24px default for icons */
+  flex-shrink: 0;
 }
+/* Specific overrides for size if different */
+.headerControls .iconButton:nth-child(1) img { /* Notification icon */
+    width: 1.5rem; /* 24px (adjust from 28px to fit FB guidelines) */
+    height: 1.5rem; /* 24px */
+}
+.headerControls .iconButton:nth-child(2) img { /* Profile icon (assuming order) */
+    /* Facebook Profile pic thumbnails: 32-40px. Using 36px (2.25rem). */
+    width: 2.25rem; /* 36px */
+    height: 2.25rem; /* 36px */
+}
+
 
 .iconWithDropdown {
   position: relative;
@@ -113,81 +164,249 @@
 
 .dropdown {
   position: absolute;
-  top: 40px;
+  top: 2.5rem; /* 40px */
   right: 0;
   background-color: #fff;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 160px;
+  padding: 0.625rem; /* 10px */
+  border-radius: 0.5rem; /* 8px */
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* 0 4px 8px */
+  width: 10rem; /* 160px */
   display: flex;
   flex-direction: column;
-  border: 1px solid #ddd;
+  border: 0.0625rem solid #ddd; /* 1px */
+  z-index: 101; /* Above header */
 }
-
-.dropdown p {
-  margin: 5px 0;
-  cursor: pointer;
-  color: #333;
-  font-size: 14px;
-}
-
-/* .dropdown p:hover {
-  background-color: #f0f0f0;
-} */
 
 .dropdownItem {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 5px 0;
+  gap: 0.625rem; /* 10px */
+  padding: 0.3125rem 0.5rem; /* 5px 8px */
   cursor: pointer;
+  text-decoration: none; /* For Link component */
+  transition: background-color 0.2s ease;
 }
 
 .dropdownItem img {
-  width: 18px;
-  height: 18px;
+  /* Facebook Comment/reaction icons: 16px. Using 1rem. */
+  width: 1rem; /* 16px */
+  height: 1rem; /* 16px */
+  object-fit: contain; /* Ensure icons look good */
+  flex-shrink: 0;
 }
 
 .dropdownItem p {
-  font-size: 14px;
+  /* Facebook Comments 13-14px */
+  font-size: 0.875rem; /* 14px */
   margin: 0;
+  color: #333; /* Default text color */
 }
 
+.dropdownItem:hover {
+  background-color: #f0f0f0;
+}
+
+
+/* Responsive Adjustments */
+
+/* @media (max-width: 1024px) - Large Tablets / Small Laptops */
+@media (max-width: 1024px) {
+  .header {
+    height: 4.5rem; /* 72px */
+    padding: 0 1rem; /* 0 16px */
+  }
+  .headerLogo {
+    width: 5.5rem; /* 88px */
+    max-height: 3rem; /* 48px */
+    margin-left: 1.5rem; /* 24px */
+  }
+  .menuIcon {
+    width: 1.375rem; /* 22px */
+    height: 1.375rem; /* 22px */
+  }
+  .searchContainer {
+    max-width: 28rem; /* 448px */
+  }
+  .searchBox {
+    height: 3rem; /* 48px */
+    padding: 0 0.8rem; /* 0 12.8px */
+    border-radius: 0.8rem; /* 12.8px */
+  }
+  .searchInput {
+    font-size: 0.875rem; /* 14px */
+    margin-left: 0.5rem; /* 8px */
+  }
+  .searchButton {
+    height: 3rem; /* 48px */
+    padding: 0 1rem; /* 0 16px */
+    font-size: 0.8125rem; /* 13px */
+    border-radius: 0 0.8rem 0.8rem 0; /* 0 12.8px 12.8px 0 */
+  }
+  .searchButton img {
+    width: 1.125rem; /* 18px */
+    height: 1.125rem; /* 18px */
+  }
+  .headerControls {
+    gap: 1rem; /* 16px */
+  }
+  .headerControls img {
+    width: 1.25rem; /* 20px */
+    height: 1.25rem; /* 20px */
+  }
+  .headerControls .iconButton:nth-child(2) img { /* Profile icon */
+    width: 2rem; /* 32px */
+    height: 2rem; /* 32px */
+  }
+  .dropdown {
+    top: 2.25rem; /* 36px */
+    width: 9rem; /* 144px */
+    padding: 0.5rem; /* 8px */
+  }
+  .dropdownItem {
+    gap: 0.5rem; /* 8px */
+    padding: 0.25rem 0.4rem; /* 4px 6.4px */
+  }
+  .dropdownItem img {
+    width: 0.9rem; /* 14.4px */
+    height: 0.9rem; /* 14.4px */
+  }
+  .dropdownItem p {
+    font-size: 0.8125rem; /* 13px */
+  }
+}
+
+/* @media (max-width: 768px) - Tablets */
+/* Existing breakpoint, refined values */
 @media (max-width: 768px) {
   .header {
-    padding: 0 10px;
+    height: 4rem; /* 64px */
+    padding: 0 0.625rem; /* 0 10px */
   }
-
   .headerLogo {
-    width: 140px;
-    height: 56px;
+    width: 4.5rem; /* 72px */
+    max-height: 2.5rem; /* 40px */
+    margin-left: 0.8rem; /* 12.8px (adjusting from original 140px) */
   }
-
+  .menuIcon {
+    width: 1.25rem; /* 20px */
+    height: 1.25rem; /* 20px */
+  }
   .searchContainer {
-    max-width: 400px;
+    max-width: 20rem; /* 320px (adjusting from original 400px) */
+    /* Often search is hidden on mobile or becomes a button. */
+    /* For now, keep it, but smaller */
   }
-
+  .searchBox {
+    height: 2.5rem; /* 40px */
+    padding: 0 0.625rem; /* 0 10px */
+    border-radius: 0.75rem; /* 12px */
+  }
+  .searchInput {
+    font-size: 0.8125rem; /* 13px */
+    margin-left: 0.4rem; /* 6.4px */
+  }
+  .searchButton {
+    height: 2.5rem; /* 40px */
+    padding: 0 0.8rem; /* 0 12.8px */
+    font-size: 0.75rem; /* 12px */
+    border-radius: 0 0.75rem 0.75rem 0; /* 0 12px 12px 0 */
+  }
+  .searchButton img {
+    width: 1rem; /* 16px */
+    height: 1rem; /* 16px */
+  }
   .headerControls {
-    gap: 15px;
+    gap: 0.8rem; /* 12.8px */
   }
-
   .headerControls img {
-    width: 32px;
-    height: 32px;
+    width: 1.125rem; /* 18px */
+    height: 1.125rem; /* 18px */
+  }
+  .headerControls .iconButton:nth-child(2) img { /* Profile icon */
+    width: 1.75rem; /* 28px (smaller for mobile) */
+    height: 1.75rem; /* 28px */
+  }
+  .dropdown {
+    top: 2rem; /* 32px */
+    width: 8rem; /* 128px */
+    padding: 0.4rem; /* 6.4px */
+  }
+  .dropdownItem {
+    gap: 0.4rem; /* 6.4px */
+    padding: 0.2rem 0.3rem; /* 3.2px 4.8px */
+  }
+  .dropdownItem img {
+    width: 0.8rem; /* 12.8px */
+    height: 0.8rem; /* 12.8px */
+  }
+  .dropdownItem p {
+    font-size: 0.75rem; /* 12px */
   }
 }
 
+/* @media (max-width: 640px) - Small Tablets / Large Phones */
+/* Existing breakpoint, refined values */
 @media (max-width: 640px) {
   .searchContainer {
-    display: none;
+    display: none; /* Hide search bar on smaller screens */
   }
-
-  .headerControls {
-    gap: 10px;
-  }
-
   .headerLogo {
-    margin-left: 10px;
+    margin-left: 0.625rem; /* 10px */
   }
+  .headerControls {
+    gap: 0.625rem; /* 10px */
+  }
+  /* Icons within headerControls might need to be slightly larger if fewer controls */
+  .headerControls img {
+    width: 1.25rem; /* 20px */
+    height: 1.25rem; /* 20px */
+  }
+  .headerControls .iconButton:nth-child(2) img { /* Profile icon */
+    width: 2rem; /* 32px */
+    height: 2rem; /* 32px */
+  }
+}
+
+/* @media (max-width: 480px) - Mobile Phones */
+@media (max-width: 480px) {
+    .header {
+        height: 3.5rem; /* 56px */
+        padding: 0 0.5rem; /* 0 8px */
+    }
+    .headerLogo {
+        width: 4rem; /* 64px */
+        max-height: 2.25rem; /* 36px */
+        margin-left: 0.5rem; /* 8px */
+    }
+    .menuIcon {
+        width: 1rem; /* 16px */
+        height: 1rem; /* 16px */
+    }
+    .headerControls {
+        gap: 0.6rem; /* 9.6px */
+    }
+    .headerControls img {
+        width: 1rem; /* 16px */
+        height: 1rem; /* 16px */
+    }
+    .headerControls .iconButton:nth-child(2) img { /* Profile icon */
+        width: 1.625rem; /* 26px */
+        height: 1.625rem; /* 26px */
+    }
+    .dropdown {
+        top: 1.75rem; /* 28px */
+        width: 7rem; /* 112px */
+        padding: 0.3rem; /* 4.8px */
+    }
+    .dropdownItem {
+        gap: 0.3rem; /* 4.8px */
+        padding: 0.15rem 0.25rem; /* 2.4px 4px */
+    }
+    .dropdownItem img {
+        width: 0.7rem; /* 11.2px */
+        height: 0.7rem; /* 11.2px */
+    }
+    .dropdownItem p {
+        font-size: 0.6875rem; /* ~11px */
+    }
 }

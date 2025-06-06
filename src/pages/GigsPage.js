@@ -1,4 +1,3 @@
-// src/pages/GigsPage.js
 import React from "react";
 import styles from "./GigsPage.module.css";
 import { TaskList } from "../components/TaskList";
@@ -12,11 +11,13 @@ export default function GigsPage() {
 
   return (
     <div className={styles.pageContainer}>
-      <div className={styles.profileSidebar}>
-        <ProfileSidebar />
-      </div>
-      <div className={styles.taskListContainer}>
-        <TaskList initialSearchTerm={searchTermFromUrl} />
+      <div className={styles.contentWrapper}>
+        <aside className={styles.sidebarArea}>
+          <ProfileSidebar />
+        </aside>
+        <main className={styles.mainFeedArea}>
+          <TaskList initialSearchTerm={searchTermFromUrl} />
+        </main>
       </div>
     </div>
   );

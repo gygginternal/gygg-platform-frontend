@@ -1,132 +1,224 @@
-/* src/components/Sidebar/Sidebar.module.css */
+/* src/components/Shared/Sidebar.module.css */
+
+/* Setting a base font size for rem calculations if not set globally */
+:root {
+    font-size: 16px; /* 1rem = 16px */
+}
 
 .sidebar {
   background-color: #f1f1f1;
-  width: 270px; /* Default width for larger screens */
-  height: 100vh;
-  padding-top: 84px; /* Account for the fixed header height */
+  width: 16.875rem; /* 270px Default width for larger screens */
+  height: 100vh; /* Covers full viewport height on desktop */
+  padding-top: 5.25rem; /* 84px - Pushes content below the header on desktop */
   position: fixed;
-  left: 0;
-  top: 0;
+  left: 0; /* Always visible on desktop */
+  top: 0; /* Starts at the very top of the viewport on desktop */
   transition: width 0.3s ease-in-out, left 0.3s ease-in-out; /* Add left to transition */
-  overflow: hidden; /* For collapsing text */
-  display: block; /* Ensures it's visible by default on desktop */
-  z-index: 99; /* Below header (100) but above main content */
+  overflow-x: hidden; /* For collapsing text */
+  overflow-y: auto; /* Allow internal scrolling if content is too long */
+  display: flex;
+  flex-direction: column;
+  z-index: 99; /* Below header (100) on desktop */
+  box-sizing: border-box; /* Include padding in height */
 }
 
+/* Desktop Collapsed State (still visible on screen) */
 .sidebar.collapsed {
-  width: 80px;
+  width: 5rem; /* 80px */
 }
 
 .navItem {
+  /* No padding here! This container will span the full width of the sidebar */
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 16px 24px;
-  color: #3d4d55;
+  justify-content: center; /* Center the navItemContent within the navItem */
+  /* gap: removed */
+  /* padding: removed */
+  color: #3d4d55; /* Default text/icon color, can be overridden by navItemContent */
   cursor: pointer;
   position: relative;
   transition: all 0.3s ease-in-out;
+  flex-shrink: 0;
+  width: 100%; /* Ensure it takes full width of the sidebar */
 }
+
+/* This is the new wrapper for the icon and text */
+.navItemContent {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem; /* 10px - Space between icon and text */
+    width: 100%; /* Important: ensures this inner div stretches */
+    padding: 1rem 1.5rem; /* 16px 24px - Original padding applied here */
+    box-sizing: border-box; /* Ensure padding is included in width */
+}
+
 
 .navItem:hover {
-  background-color: rgba(0, 170, 186, 0.15);
+  background-color: rgba(0, 170, 186, 0.15); /* Background color now covers full width */
 }
 
-.navItem::after {
+.navItem::after { /* Separator line */
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 1px;
+  height: 0.0625rem; /* 1px */
   background-color: #ccc;
 }
 
+/* Styles for collapsed nav items on desktop */
 .sidebar.collapsed .navItem {
-  justify-content: center;
-  padding: 16px;
+  /* No padding here */
+  /* justify-content: center is already on .navItem, so .navItemContent will be centered */
 }
-
-.sidebar.collapsed .navItem::after {
-  content: none;
-}
-
-.navText {
-  font-size: 18px;
-  font-weight: 500;
-  white-space: nowrap; /* Prevent text wrapping */
-  transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out; /* Smooth transition */
-}
-
-.sidebar.collapsed .navText {
-  opacity: 0;
-  width: 0; /* Collapse width to truly hide text */
-  overflow: hidden;
-}
-
-.defaultIcon {
-  filter: brightness(0);
+.sidebar.collapsed .navItemContent {
+    justify-content: center; /* Center icon when text is hidden */
+    padding: 1rem; /* 16px - Unified padding for collapsed state */
 }
 
 .navItem.selected {
   background-color: #00aaba;
-  color: white;
+  color: white; /* Applies to text and affects icons via filter */
 }
 
 .navItem.selected .selectedIcon {
   filter: brightness(0) invert(1);
 }
 
+.navText {
+  font-size: 1rem; /* 16px */
+  font-weight: 500;
+  white-space: nowrap;
+  transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+/* Styles for collapsed text on desktop */
+.sidebar.collapsed .navText {
+  opacity: 0;
+  width: 0;
+}
+
+.defaultIcon {
+  filter: brightness(0);
+  width: 1.25rem; /* 20px */
+  height: 1.25rem; /* 20px */
+  flex-shrink: 0;
+}
+
+
 /* --- Responsive Adjustments for Sidebar --- */
 
-/* At 768px, the header and main content typically shift to full width (left: 0, margin-left: auto).
-   The sidebar should also transition to a hidden (off-screen) overlay/drawer mode at this point. */
+/* @media (max-width: 1024px) - Large Tablets / Small Laptops */
+/* Header Height: 4.5rem (72px) */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 15rem; /* 240px */
+    padding-top: 4.5rem; /* 72px */
+  }
+  .sidebar.collapsed {
+    width: 4.5rem; /* 72px */
+  }
+  .navItemContent { /* Apply to inner content */
+    padding: 0.875rem 1.25rem; /* 14px 20px */
+  }
+  .sidebar.collapsed .navItemContent { /* Apply to inner content */
+    padding: 0.875rem; /* 14px */
+  }
+  .navText {
+    font-size: 0.9375rem; /* 15px */
+  }
+  .defaultIcon {
+    width: 1.125rem; /* 18px */
+    height: 1.125rem; /* 18px */
+  }
+}
+
+/* @media (max-width: 768px) - Tablets (Overlay Behavior Starts Here) */
+/* Header Height: 4rem (64px) from Header.module.css */
 @media (max-width: 768px) {
   .sidebar {
-    /* Hide the sidebar off-screen by default */
-    left: -270px; /* Moves it completely off the left edge */
-    width: 270px; /* Keep its base width for when it slides in */
-    transition: left 0.3s ease-in-out; /* Smooth transition for sliding in/out */
-    z-index: 105; /* Higher than header's 100, so it overlays correctly */
-    box-shadow: 2px 0 5px rgba(0,0,0,0.2); /* Add a subtle shadow for overlay effect */
-    /* Ensure it doesn't collapse its content visually if opened */
-    display: flex; /* Or block, depending on internal flex layout */
-    flex-direction: column; /* Or block depending on internal layout */
+    left: -15rem; /* Match the desired width of the open overlay */
+    width: 15rem; /* 240px */
+    top: 4rem; /* Starts BELOW the 64px header */
+    height: calc(100vh - 4rem); /* Fills remaining height below header */
+    padding-top: 1rem; /* Standard internal padding for mobile overlay */
   }
 
   /* When the sidebar is 'open' (via JavaScript toggle) */
   .sidebar.open {
-    left: 0; /* Slide it into view */
+    left: 0; /* Slides into view */
   }
 
-  /* Ensure content within the sidebar is not 'collapsed' when it's an overlay
-     (as it might be opened via a hamburger menu on mobile, where collapsing isn't desired) */
-  .sidebar.collapsed {
-    /* When it's an overlay, it should always show full content if open */
-    width: 270px; /* The desired width for the overlay */
+  /* Ensure content within the sidebar is always fully visible when it's open (overlay) */
+  .sidebar.collapsed { /* This ensures it stays hidden when not 'open' on mobile */
+      left: -15rem;
+      width: 15rem;
   }
-
-  .sidebar.collapsed .navItem {
+  /* IMPORTANT: Apply reset styles to the .navItemContent when sidebar is open on mobile */
+  .sidebar.open .navItemContent {
       justify-content: flex-start; /* Reset icon alignment */
-      padding: 16px 24px; /* Reset padding */
+      padding: 1rem 1.5rem; /* 16px 24px - Standard padding for mobile open state */
+  }
+  .sidebar.open .navText {
+      opacity: 1;
+      width: auto;
+      overflow: visible;
   }
 
-  .sidebar.collapsed .navText {
-      opacity: 1; /* Make text visible */
-      width: auto; /* Allow text to take full width */
-      overflow: visible;
+  /* Further size adjustments for nav items at 768px */
+  .navItemContent { /* Apply to inner content */
+    padding: 0.8rem 1.2rem; /* 12.8px 19.2px */
+  }
+  .navText {
+    font-size: 0.875rem; /* 14px */
+  }
+  .defaultIcon {
+    width: 1rem; /* 16px */
+    height: 1rem; /* 16px */
   }
 }
 
-/* On very small screens (e.g., mobile phones), you might want the overlay to be full width */
+/* @media (max-width: 640px) - Small Tablets / Large Phones */
+/* Header Height: 4rem (64px) - usually inherits from 768px */
 @media (max-width: 640px) {
   .sidebar {
-    left: -100vw; /* Hide completely off-screen, using viewport width */
-    width: 100vw; /* Make it full viewport width when opened */
+    left: -80vw; /* Hide completely off-screen */
+    width: 80vw; /* Make it 80% viewport width when opened */
+    top: 4rem; /* Still below the 64px header */
+    height: calc(100vh - 4rem); /* Fills remaining height */
   }
 
-  .sidebar.open {
-    left: 0;
+  /* Further size adjustments for nav items at 640px */
+  .navItemContent { /* Apply to inner content */
+    padding: 0.75rem 1rem; /* 12px 16px */
   }
+  .navText {
+    font-size: 0.8125rem; /* 13px */
+  }
+  .defaultIcon {
+    width: 0.9375rem; /* 15px */
+    height: 0.9375rem; /* 15px */
+  }
+}
+
+/* @media (max-width: 480px) - Mobile Phones */
+/* Header Height: 3.5rem (56px) from Header.module.css */
+@media (max-width: 480px) {
+    .sidebar {
+        top: 3.5rem; /* Starts below the 56px header */
+        height: calc(100vh - 3.5rem); /* Fills remaining height */
+        padding-top: 0.75rem; /* 12px - Standard internal padding */
+    }
+    .navItemContent { /* Apply to inner content */
+        padding: 0.625rem 0.8rem; /* 10px 12.8px */
+    }
+    .navText {
+        font-size: 0.75rem; /* 12px */
+    }
+    .defaultIcon {
+        width: 0.875rem; /* 14px */
+        height: 0.875rem; /* 14px */
+    }
 }

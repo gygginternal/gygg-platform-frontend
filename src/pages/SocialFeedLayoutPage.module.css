@@ -7,9 +7,9 @@
 
 .pageContainer {
   /* Adjust padding-top to match the fixed header's height (84px on desktop) */
-  padding-top: 5.25rem; /* 84px */
+  padding-top: 2rem; /* 84px - Matches Header height */
   /* min-height calculation ensures container fills viewport minus header */
-  min-height: calc(100vh - 5.25rem); /* 100vh - 84px */
+  min-height: calc(100vh - 2rem);
   box-sizing: border-box; /* Ensures padding is included in height calculation */
 }
 
@@ -32,41 +32,41 @@
   /* This is a column *inside* contentWrapper, not the global fixed sidebar itself. */
   width: 18.75rem; /* 300px - Fixed width for this internal sidebar column */
   flex-shrink: 0; /* Prevents this column from shrinking */
+  min-width: 0; /* Allows flex item to shrink below its content size if needed */
 }
 
 .mainFeedArea {
   flex: 1; /* Allows the main content area to take up the remaining space */
+  min-width: 0; /* Allows flex item to shrink below its content size if needed */
 }
 
 /* Responsive adjustments */
 
 /* @media (max-width: 1024px) - Large Tablets / Small Laptops */
-/* At this breakpoint, the content becomes more compact, assuming the global sidebar is still fixed. */
+/* Header Height at 1024px: 2rem (72px) from Header.module.css */
+/* Fixed Sidebar Width at 1024px: 15rem (240px) from Sidebar.module.css */
 @media (max-width: 1024px) {
   .pageContainer {
-    padding-top: 5rem; /* 80px - Assuming header slightly shrinks */
-    min-height: calc(100vh - 5rem);
+    padding-top: 2rem; /* 72px - Matches Header height */
+    min-height: calc(100vh - 2rem);
   }
   .contentWrapper {
+    margin-left: 15rem; /* 240px - Corrected to match Sidebar's width at 1024px */
     max-width: 60rem; /* 960px - Reduced max-width for smaller screens */
     padding: 0.5rem; /* 8px - Slightly less internal padding */
     gap: 1rem; /* 16px - Slightly less gap */
-    /* margin-left remains 18.75rem (300px) as the global sidebar is likely still fixed */
   }
   .sidebarArea {
     width: 15rem; /* 240px - Slightly reduce internal sidebar width */
   }
 }
 
-
 /* @media (max-width: 992px) - Global Sidebar Collapse / Stacking Point */
-/* This is the breakpoint where the global fixed sidebar is assumed to collapse or
-   become an overlay, allowing the main content to span full width.
-   The internal sidebar and main feed also stack. */
+/* Header Height at 992px: 2rem (72px) - inherits from 1024px */
 @media (max-width: 992px) {
   .pageContainer {
-    padding-top: 4.5rem; /* 72px - Assuming header shrinks further */
-    min-height: calc(100vh - 4.5rem);
+    padding-top: 2rem; /* 72px - Matches Header height */
+    min-height: calc(100vh - 2rem);
   }
   .contentWrapper {
     flex-direction: column; /* Stack sidebarArea and mainFeedArea vertically */
@@ -88,11 +88,11 @@
 }
 
 /* @media (max-width: 768px) - Tablets */
-/* Further reductions for tablet devices. */
+/* Header Height at 768px: 4rem (64px) from Header.module.css */
 @media (max-width: 768px) {
     .pageContainer {
-        padding-top: 4rem; /* 64px - Header likely even smaller */
-        min-height: calc(100vh - 4rem);
+        padding-top: 2rem; /* 64px - Matches Header height */
+        min-height: calc(100vh - 2rem);
     }
     .contentWrapper {
         max-width: 100%; /* Allow contentWrapper to take full width */
@@ -105,11 +105,11 @@
 }
 
 /* @media (max-width: 480px) - Mobile Phones */
-/* Final adjustments for small mobile screens. */
+/* Header Height at 480px: 3.5rem (56px) from Header.module.css */
 @media (max-width: 480px) {
     .pageContainer {
-        padding-top: 3.5rem; /* 56px - Header even smaller for mobile */
-        min-height: calc(100vh - 3.5rem);
+        padding-top: 2rem; /* 56px - Matches Header height */
+        min-height: calc(100vh - 2rem);
     }
     .contentWrapper {
         padding: 0.5rem 0.625rem; /* 8px top/bottom, 10px left/right */
