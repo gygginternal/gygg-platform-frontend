@@ -7,8 +7,8 @@ import logger from '../utils/logger';           // Optional: Adjust path
 
 function AuthForm({ isLogin }) {
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
+        // firstName: '',
+        // lastName: '',
         email: '',
         password: '',
         passwordConfirm: '',
@@ -61,8 +61,8 @@ function AuthForm({ isLogin }) {
                  return;
             }
             payload = {
-                firstName: formData.firstName,
-                lastName: formData.lastName,
+                // firstName: formData.firstName,
+                // lastName: formData.lastName,
                 email: formData.email,
                 password: formData.password,
                 passwordConfirm: formData.passwordConfirm,
