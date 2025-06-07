@@ -23,7 +23,7 @@ function ChatHeader({ chatPartner }) {
   }
 
   const handleImageError = (e) => {
-    e.target.src = "/default.png";
+    // e.target.src = "/default.png";
   };
   const name =
     chatPartner.fullName ||
