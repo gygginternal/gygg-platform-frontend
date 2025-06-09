@@ -1,6 +1,6 @@
 // src/pages/LoginPage.js
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Use react-router-dom
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom"; // Use react-router-dom
 import styles from "./LoginPage.module.css"; // Create this CSS Module
 import InputField from "../components/Shared/InputField"; // Adjust path if needed
 import { useAuth } from "../context/AuthContext"; // Adjust path if needed
@@ -46,7 +46,7 @@ function LoginPage() {
           return navigate(response.data.data.redirectToOnboarding); // Navigate to onboarding path
         }
 
-        navigate("/profile"); // Redirect to dashboard
+        navigate("/feed"); // Redirect to dashboard
       } else {
         logger.error(
           "Login failed: Invalid response structure.",
