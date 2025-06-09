@@ -30,8 +30,8 @@ import SocialFeedLayoutPage from "./pages/SocialFeedLayoutPage";
 import PostCreatePage from "./pages/PostCreatePage";
 import StripeReturnPage from "./pages/StripeReturnPage";
 import StripeRefreshPage from "./pages/StripeRefreshPage";
-import TermsOfUsePage from './pages/TermsOfUsePage';     
-import PrivacyPolicyPage from './pages/PrivacyPolicyPage'; 
+import TermsOfUsePage from "./pages/TermsOfUsePage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 
 // Shared
 import Header from "./components/Shared/Header";
@@ -115,8 +115,8 @@ function App() {
               <Route path="/signup" element={<SignupPage />} />
               <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
-              <Route path="/terms" element={<TermsOfUsePage />} />        
-              <Route path="/privacy" element={<PrivacyPolicyPage />} />     
+              <Route path="/terms" element={<TermsOfUsePage />} />
+              <Route path="/privacy" element={<PrivacyPolicyPage />} />
 
               {/* Protected Routes */}
               <Route
