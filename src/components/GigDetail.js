@@ -267,6 +267,9 @@ function GigDetailPage() {
       {!contractData && user?.role?.includes("provider") && (
         <GigApplications onOffer={fetchData} onReject={fetchData} />
       )}
+      {isTasker && !contractData && (
+        <GigApplySection gigId={gigId} onApplySuccess={fetchData} />
+      )}
       {isRefunding && (
         <div className="alert alert-warning">
           Gig is being canceled. Provider, Please wait for the refund process.
@@ -319,10 +322,6 @@ function GigDetailPage() {
             </Button>
           </div>
         )}
-
-      {isTasker && !contractData && (
-        <GigApplySection gigId={gigId} onApplySuccess={fetchData} />
-      )}
 
       {!isRefunding && !isPaymentDeposit && !isContractCompleted && (
         <div>

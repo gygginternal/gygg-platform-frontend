@@ -52,19 +52,15 @@ function Post({ post, onPostUpdate }) {
   // Effect to update local state when the 'post' prop changes
   useEffect(() => {
     if (post) {
-      console.log({ post });
-
       setCurrentLikeCount(post.likeCount || 0);
       setCommentCount(post.commentCount || 0);
       setComments(post.comments || []);
-      // Recalculate isLikedByCurrentUser based on the potentially updated post.likes array
       setIsLikedByCurrentUser(
         post.likes && loggedInUser
           ? post.likes.includes(loggedInUser._id)
           : false
       );
     } else {
-      // Reset state if post becomes null (e.g., parent clears it)
       setCurrentLikeCount(0);
       setCommentCount(0);
       setComments([]);
@@ -82,8 +78,7 @@ function Post({ post, onPostUpdate }) {
     );
   }
 
-  const { author, content, image, _id: postId, createdAt } = post;
-  const isSimple = !image;
+  const { author, content, media, _id: postId, createdAt } = post;
 
   const handleImageError = (e) => {
     e.currentTarget.src = "/default.jpg";
@@ -91,7 +86,6 @@ function Post({ post, onPostUpdate }) {
 
   const handleLikeToggle = async () => {
     if (!loggedInUser || isLiking) {
-      // Prevent action if not logged in or already liking
       logger.debug("Like toggle blocked: No user or isLiking is true");
       return;
     }
@@ -103,34 +97,24 @@ function Post({ post, onPostUpdate }) {
       : `/posts/${postId}/like`;
 
     try {
-      logger.info(
-        `Attempting to ${
-          isLikedByCurrentUser ? "unlike" : "like"
-        } post: ${postId} by user: ${loggedInUser._id}`
-      );
-      const response = await apiClient.patch(endpoint); // Send PATCH request
+      const response = await apiClient.patch(endpoint);
 
-      logger.debug(`Like/Unlike response for post ${postId}:`, response.data);
-
-      // Backend should return the new likeCount and the updated likes array
       if (response.data.status === "success" && response.data.data) {
         const newLikeCount = response.data.data.post.likeCount || 0;
-
         const newLikesArray =
-          response.data.data.likes || // Backend should send this
+          response.data.data.likes ||
           (isLikedByCurrentUser
             ? (post.likes || []).filter((id) => id !== loggedInUser._id)
             : [...(post.likes || []), loggedInUser._id]);
 
         setCurrentLikeCount(newLikeCount);
-        setIsLikedByCurrentUser(!isLikedByCurrentUser); // Toggle the liked state
+        setIsLikedByCurrentUser(!isLikedByCurrentUser);
 
-        // Notify parent component (Feed) about the update so it can refresh its state
         if (onPostUpdate) {
           onPostUpdate({
-            ...post, // Spread existing post data
+            ...post,
             likeCount: newLikeCount,
-            likes: newLikesArray, // Send the updated likes array
+            likes: newLikesArray,
           });
         }
       } else {
@@ -146,7 +130,6 @@ function Post({ post, onPostUpdate }) {
         err.response?.data?.message ||
           "Could not update like status. Please try again."
       );
-      // Optional: Revert UI optimistic update if API call fails, though not done here for simplicity
     } finally {
       setIsLiking(false);
     }
@@ -162,7 +145,6 @@ function Post({ post, onPostUpdate }) {
         text: newCommentText.trim(),
       });
       const updatedPostData = response.data.data.post;
-      // Update local state directly from the response
       setComments(updatedPostData.comments || []);
       setCommentCount(updatedPostData.commentCount || 0);
       setNewCommentText("");
@@ -183,11 +165,7 @@ function Post({ post, onPostUpdate }) {
 
   // --- Return JSX ---
   return (
-    <article
-      className={`${styles.postCard} ${
-        isSimple ? styles.simplePostCard : styles.postCardWithImage
-      }`}
-    >
+    <article className={styles.postCard}>
       <div className={styles.postHeader}>
         <div className={styles.userInfo}>
           <img
@@ -221,14 +199,19 @@ function Post({ post, onPostUpdate }) {
 
       <p className={styles.postContent}>{content}</p>
 
-      {!isSimple && image && (
-        <img
-          src={image}
-          alt="Post content"
-          className={styles.postImage}
-          onError={handleImageError}
-          loading="lazy"
-        />
+      {media && media.length > 0 && (
+        <div className={styles.mediaContainer}>
+          {media.map((url, index) => (
+            <img
+              key={index}
+              src={url}
+              alt={`Media ${index + 1}`}
+              className={styles.postMedia}
+              onError={handleImageError}
+              loading="lazy"
+            />
+          ))}
+        </div>
       )}
 
       {interactionError && (
@@ -314,8 +297,6 @@ function Post({ post, onPostUpdate }) {
               key={comment._id || comment.tempId}
               className={styles.commentItem}
             >
-              {" "}
-              {/* Use _id or tempId if adding optimistically */}
               <img
                 src={comment.author?.profileImage || "/default.jpg"}
                 alt={comment.author?.firstName}
