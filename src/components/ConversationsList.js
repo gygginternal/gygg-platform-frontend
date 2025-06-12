@@ -9,6 +9,8 @@ import MessageDesign from "./MessageDesign"; // Import MessageDesign component
 function ConversationsList({ onSelectConversation, selectedContractId }) {
   const { user } = useAuth();
   const [conversations, setConversations] = useState([]);
+  console.log({ conversations });
+
   const [filteredConversations, setFilteredConversations] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [loading, setLoading] = useState(true);
