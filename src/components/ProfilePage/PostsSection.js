@@ -1,109 +1,75 @@
 // src/components/ProfilePage/PostsSection.js
 import React, { useState, useEffect } from "react";
-import styles from "./PostsSection.module.css";    // Ensure this CSS Module exists
-import PostCard from "./PostCard";    // Import your PostCard component (adjust path if needed)
-import apiClient from "../../api/axiosConfig";      // Adjust path as needed
-import { useAuth } from "../../context/AuthContext";  // Adjust path as needed
-import { Link } from 'react-router-dom';         // For "See all" and "Create Post" links
-import logger from "../../utils/logger";          // Optional: Adjust path as needed
+import styles from "./PostsSection.module.css";
+import PostCard from "./PostCard"; // Assuming this is your adapted PostCard
+import apiClient from "../../api/axiosConfig";
+import { useAuth } from "../../context/AuthContext"; // To check if it's own profile
+import { Link } from 'react-router-dom';
+import logger from "../../utils/logger";
 
-function PostsSection({ userIdToView }) { // Accepts userId of the profile being viewed
-    const { user: loggedInUser } = useAuth(); // Get the currently logged-in user
+function PostsSection({ userIdToView, isOwnProfile }) { // Accept isOwnProfile
+    const { user: loggedInUser } = useAuth(); // loggedInUser can be different from userToDisplay (userIdToView)
     const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(true); // Start in loading state
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
-    // Determine whose posts to fetch. If userIdToView is provided, fetch for that user.
-    // Otherwise, (e.g., if on own dashboard and prop not passed), fetch for loggedInUser.
-    const targetUserId = userIdToView || loggedInUser?._id;
+    // If userIdToView is not passed, assume we want posts of loggedInUser (for PostsSection on own dashboard)
+    const targetUserIdForPosts = userIdToView || loggedInUser?._id;
 
     useEffect(() => {
         const fetchUserPosts = async () => {
-            if (!targetUserId) {
-                logger.info("PostsSection: No targetUserId available to fetch posts.");
-                setLoading(false); // Stop loading if no target user ID
-                setPosts([]);      // Ensure posts are cleared
-                return;
+            if (!targetUserIdForPosts) {
+                logger.info("PostsSection: No targetUserId, cannot fetch posts.");
+                setLoading(false); setPosts([]); return;
             }
-
-            setLoading(true);
-            setError('');
+            setLoading(true); setError('');
             try {
-                logger.info(`PostsSection: Fetching posts for authorId: ${targetUserId}`);
-                // API call to the general posts feed, filtered by authorId
+                logger.info(`PostsSection: Fetching posts for authorId: ${targetUserIdForPosts}`);
                 const response = await apiClient.get(`/posts`, {
-                    params: {
-                        authorId: targetUserId,
-                        limit: 5,         // Display a limited number of recent posts on the profile
-                        sort: 'recents'   // Get the newest posts first
-                    }
+                    params: { authorId: targetUserIdForPosts, limit: 5, sort: 'recents' }
                 });
-
                 setPosts(response.data.data.posts || []);
-                logger.debug("PostsSection: Fetched user posts:", response.data.data.posts);
-
             } catch (err) {
-                logger.error("PostsSection: Error fetching user posts:", err.response?.data || err.message, { targetUserId });
-                setError("Could not load recent posts for this user.");
-                setPosts([]); // Clear posts on error
-            } finally {
-                setLoading(false);
-            }
+                logger.error("PostsSection: Error fetching posts:", err);
+                setError("Could not load posts."); setPosts([]);
+            } finally { setLoading(false); }
         };
-
         fetchUserPosts();
-        // Dependency array: re-fetch if the targetUserId changes
-        // (e.g., if this component is reused and a different user's profile is loaded)
-    }, [targetUserId]);
+    }, [targetUserIdForPosts]);
 
-    // Determine if the profile being viewed is the logged-in user's own profile
-    const isOwnProfile = loggedInUser?._id === targetUserId;
+    const seeAllLink = `/feed`; // Could be /users/${targetUserIdForPosts}/posts
 
-    // "See all" link can point to a dedicated page for this user's posts or their section in the main feed
-    // For now, linking to the main feed for simplicity
-    const seeAllLink = `/feed`; // Or more advanced: `/users/${targetUserId}/posts`
-
-    // Render logic
     const renderContent = () => {
-        if (loading) {
-            return <p>Loading posts...</p>;
-        }
-        if (error) {
-            return <p className="error-message">{error}</p>; // Assuming global .error-message style
-        }
+        if (loading) return <p>Loading posts...</p>;
+        if (error) return <p className="error-message">{error}</p>;
         if (posts.length === 0) {
             return (
                 <div style={{textAlign: 'center', padding: '20px 0'}}>
                     <p>{isOwnProfile ? "You haven't made any posts yet." : "This user hasn't made any posts yet."}</p>
+                    {/* Only show create post link if it's own profile */}
                     {isOwnProfile && (
-                        <Link to="/posts/create" className={styles.createPostButton}> {/* Style this button */}
+                        <Link to="/posts/create" className={styles.createPostButton}>
                             Create Your First Post
                         </Link>
                     )}
                 </div>
             );
         }
-        return posts.map(post => (
-            // Ensure PostCard component expects a 'post' object prop
-            <PostCard key={post._id} post={post} />
-        ));
+        return posts.map(post => <PostCard key={post._id} post={post} /* Pass onPostUpdate if PostCard needs it */ />);
     };
 
     return (
-        <section className={`${styles.postsCard} card`}> {/* Use a general 'card' style if available */}
+        <section className={`${styles.postsCard} card`}>
             <div className={styles.postsHeader}>
                 <h2>Recent Posts</h2>
-                {posts.length > 0 && ( // Only show "See all" if there are posts to see
-                     <Link to={seeAllLink} className={styles.seeAllButton}> {/* Style this button/link */}
-                        See all
-                     </Link>
+                {posts.length > 0 && (
+                     <Link to={seeAllLink} className={styles.seeAllButton}>See all</Link>
                 )}
             </div>
-            <div className={styles.postsGrid}> {/* Ensure this class has layout styles (e.g., flex column, grid) */}
+            <div className={styles.postsGrid}>
                  {renderContent()}
             </div>
         </section>
     );
 }
-
 export default PostsSection;

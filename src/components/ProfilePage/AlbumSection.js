@@ -1,124 +1,119 @@
 // src/components/ProfilePage/AlbumSection.js
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react"; // Added useCallback
 import styles from "./AlbumSection.module.css";
 import AlbumCard from "./AlbumCard";
 import AddPhotoModal from "./AddPhotoModal";
-import apiClient from "../../api/axiosConfig"; // Adjust path
-import logger from "../../utils/logger"; // Adjust path
-import { useAuth } from "../../context/AuthContext"; // To get the logged-in user
+import apiClient from "../../api/axiosConfig";
+import logger from "../../utils/logger";
 
-// Prop to allow viewing another user's album (e.g., on a public profile page)
-function AlbumSection({ userIdToView }) {
-  const { user: loggedInUser } = useAuth();
+function AlbumSection({ userIdToView, isOwnProfile, onUpdate }) {
   const [albumData, setAlbumData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // Initialize loading true
   const [error, setError] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
   const [showModal, setShowModal] = useState(false);
-  const itemsPerPage = 3; // Or make this dynamic based on screen size
+  const itemsPerPage = 3;
 
-  // Determine whose album to fetch
-  const targetUserId = userIdToView || loggedInUser?._id;
-  const isOwnProfile = loggedInUser?._id === targetUserId;
+  console.log("AlbumSection rendering. userIdToView:", userIdToView, "isOwnProfile:", isOwnProfile); // For debugging
 
-  // Fetch album data
-  const fetchAlbum = async () => {
-       if (!targetUserId) {
-           logger.info("AlbumSection: No targetUserId, cannot fetch album.");
-           setLoading(false); // Stop loading if no ID
-           setAlbumData([]);   // Clear album data
+  // Memoize fetchAlbum with useCallback
+  const fetchAlbum = useCallback(async () => {
+       if (!userIdToView) {
+           logger.info("AlbumSection: No userIdToView, cannot fetch album.");
+           setLoading(false);
+           setAlbumData([]);
+           // setError("Cannot load album: User not specified."); // Optional user-facing error
            return;
        }
-       setLoading(true); setError('');
+       setLoading(true);
+       setError('');
        try {
-            logger.info(`AlbumSection: Fetching album for user: ${targetUserId}`);
-            // Determine endpoint based on whether it's own profile or another's
-            const endpoint = isOwnProfile ? '/users/me/album' : `/users/${targetUserId}/album`;
-            const response = await apiClient.get(endpoint);
+            logger.info(`AlbumSection: Fetching album for user: ${userIdToView}`);
+            const response = await apiClient.get(`/users/${userIdToView}/album`);
             setAlbumData(response.data.data.album || []);
             logger.debug("AlbumSection: Fetched album data:", response.data.data.album);
        } catch (err) {
-            logger.error("AlbumSection: Error fetching album:", err.response?.data || err.message);
+            logger.error("AlbumSection: Error fetching album:", err.response?.data || err.message, { userIdToView });
             setError("Could not load album photos.");
             setAlbumData([]);
        } finally {
             setLoading(false);
        }
-  };
+  }, [userIdToView]); // Dependency for useCallback
 
   useEffect(() => {
       fetchAlbum();
-  }, [targetUserId]); // Refetch if targetUserId changes
+  }, [fetchAlbum]); // useEffect now depends on the memoized fetchAlbum
 
+  // ... (rest of handlers: handleDotClick, handleAddClick, handlePhotoAddSuccess, handleDeletePhoto, handleIconError) ...
+  // Ensure these handlers correctly use isOwnProfile where needed.
 
   const totalPages = Math.ceil(albumData.length / itemsPerPage);
   const handleDotClick = (index) => setCurrentPage(index);
-  const handleAddClick = () => setShowModal(true);
+  const handleAddClick = () => { if (isOwnProfile) setShowModal(true); };
 
   const handlePhotoAddSuccess = (newPhotoFromBackend) => {
-    // newPhotoFromBackend is the object returned by the backend after successful upload
-    // It should contain _id, url, caption, key, etc.
-    logger.info("AlbumSection: Photo added successfully, updating local state:", newPhotoFromBackend);
-    // Option 1: Add to local state (faster UI update)
-    setAlbumData((prevData) => [...prevData, newPhotoFromBackend]);
-    // Option 2: Refetch the whole album (more robust if there are other changes)
-    // fetchAlbum();
+    logger.info("AlbumSection: Photo added successfully, refetching album.");
+    fetchAlbum();
     setShowModal(false);
+    if (onUpdate) onUpdate();
   };
 
-  // Handler for deleting a photo
   const handleDeletePhoto = async (photoIdToDelete) => {
-      if (!isOwnProfile || !photoIdToDelete) return; // Only own photos can be deleted
+      if (!isOwnProfile || !photoIdToDelete) return;
       if (!window.confirm("Are you sure you want to delete this photo?")) return;
-
       try {
           logger.info(`AlbumSection: Deleting photo ${photoIdToDelete}`);
           await apiClient.delete(`/users/me/album/${photoIdToDelete}`);
-          // Remove from local state or refetch
-          setAlbumData(prev => prev.filter(photo => photo._id !== photoIdToDelete));
           alert("Photo deleted successfully.");
+          fetchAlbum();
+          if (onUpdate) onUpdate();
       } catch (err) {
-          logger.error("AlbumSection: Error deleting photo:", err.response?.data || err.message);
+          logger.error("AlbumSection: Error deleting photo:", err);
           alert(err.response?.data?.message || "Failed to delete photo.");
       }
   };
-
-  // Image error handler for add icon
   const handleIconError = (e) => { e.target.style.display = 'none'; };
-
-  // Pass handleDelete to AlbumCard if you add delete button there
   const currentAlbumPageItems = albumData.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+
+
+  // Render logic
+  if (loading) { // Show loading indicator if loading is true
+      return (
+          <section className={`${styles.albumCard} card`}>
+              <div className={styles.albumHeader}><h2>Album</h2></div>
+              <p>Loading album...</p>
+          </section>
+      );
+  }
 
   return (
     <section className={`${styles.albumCard} card`}>
       <div className={styles.albumHeader}>
         <h2>Album</h2>
-        {/* Show Add Photo Button only if viewing own profile */}
-        {isOwnProfile && albumData.length > 0 && (
+        {isOwnProfile && ( // Add button only if it's own profile
             <button className={styles.addButton} onClick={handleAddClick} aria-label="Add photo to album">
                <img src="/assets/add-circle.svg" alt="Add" className={styles.addIcon} onError={handleIconError}/>
             </button>
         )}
       </div>
 
-       {loading && <p>Loading album...</p>}
        {error && <p className="error-message">{error}</p>}
 
-       {!loading && !error && (
+       {!error && ( // Only show content or "no photos" if no error
            albumData.length > 0 ? (
                <>
                    <div className={styles.albumGrid}>
                        {currentAlbumPageItems.map((albumItem) => (
                            <AlbumCard
-                                key={albumItem._id} // Use database ID as key
-                                image={albumItem.url} // Use URL from backend
+                                key={albumItem._id}
+                                image={albumItem.url}
                                 caption={albumItem.caption}
-                                photoId={albumItem._id} // Pass ID for potential actions
-                                onDelete={isOwnProfile ? handleDeletePhoto : undefined} // Pass delete handler if own profile
+                                photoId={albumItem._id}
+                                onDelete={isOwnProfile ? handleDeletePhoto : undefined}
                            />
                        ))}
                    </div>
-
                    {totalPages > 1 && (
                        <div className={styles.paginationDots}>
                            {Array.from({ length: totalPages }).map((_, index) => (
@@ -144,7 +139,7 @@ function AlbumSection({ userIdToView }) {
            )
        )}
 
-      {showModal && <AddPhotoModal onClose={() => setShowModal(false)} onAddSuccess={handlePhotoAddSuccess} />}
+      {isOwnProfile && showModal && <AddPhotoModal onClose={() => setShowModal(false)} onAddSuccess={handlePhotoAddSuccess} />}
     </section>
   );
 }

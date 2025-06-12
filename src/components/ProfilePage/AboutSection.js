@@ -1,40 +1,37 @@
 // src/components/ProfilePage/AboutSection.js
 import React, { useState, useEffect } from "react";
-import styles from "./AboutSection.module.css"; // Ensure this CSS Module exists
-import { useAuth } from "../../context/AuthContext"; // Adjust path as needed
-import apiClient from "../../api/axiosConfig"; // Adjust path as needed
-import logger from "../../utils/logger"; // Adjust path as needed
+import styles from "./AboutSection.module.css";
+import { useAuth } from "../../context/AuthContext"; // For loggedInUser details if needed for save
+import apiClient from "../../api/axiosConfig";
+import logger from "../../utils/logger";
 
-// --- Helper function to decode HTML entities ---
 const decodeHTMLEntities = (text) => {
-    if (typeof text !== 'string' || !text) return ""; // Return empty string if not string or empty
+    if (typeof text !== 'string' || !text) return "";
     try {
-        const element = document.createElement('div');
-        element.innerHTML = text;
+        const element = document.createElement('div'); element.innerHTML = text;
         return element.textContent || element.innerText || "";
-    } catch (e) {
-        // In case of weird errors with document.createElement (e.g., server-side rendering context without DOM)
-        logger.error("Error decoding HTML entities:", e);
-        return text; // Fallback to original text
-    }
+    } catch (e) { logger.error("Error decoding HTML entities:", e); return text; }
 };
-// --- End Helper function ---
 
-function AboutSection() {
-  const { user, refreshUser } = useAuth();
+function AboutSection({ userToDisplay, isOwnProfile, onUpdate }) { // Accept props
+  const { user: loggedInUser } = useAuth(); // Still need for auth check on save
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Local state only for the editing modal
-  // Initialize editedBio from the *decoded* user bio when the modal opens
   const [editedBio, setEditedBio] = useState('');
+  const [saveLoading, setSaveLoading] = useState(false);
 
-  // Decode the bio from the user object for display
-  const displayBio = user?.bio ? decodeHTMLEntities(user.bio) : '';
+  // Initialize displayBio and editedBio when userToDisplay changes
+  const displayBio = userToDisplay?.bio ? decodeHTMLEntities(userToDisplay.bio) : '';
+
+  useEffect(() => {
+      if (isOwnProfile && userToDisplay) { // Only set for editing own profile
+          setEditedBio(displayBio);
+      }
+  }, [userToDisplay, isOwnProfile, displayBio]); // Add displayBio to reset if it changes externally
+
 
   const openModal = () => {
-    // When opening the modal, set the textarea value to the *decoded* bio
-    // so the user edits the plain text version.
-    setEditedBio(displayBio); // Use the already decoded bio for editing
+    if (!isOwnProfile || !userToDisplay) return; // Can only edit own profile
+    setEditedBio(displayBio); // Ensure modal has current decoded bio for editing
     setIsModalOpen(true);
   };
 
@@ -42,67 +39,59 @@ function AboutSection() {
   const handleCancel = () => closeModal();
 
   const handleSave = async () => {
-     if (!user) return;
-
-     // The trimmedBio from the textarea is plain text.
-     // The backend's express-validator .escape() will handle encoding it before saving.
+     if (!isOwnProfile || !userToDisplay) return; // Should not be callable if not own profile
+     setSaveLoading(true);
      const trimmedBio = editedBio.trim();
 
-     // Optional: Check if bio actually changed from the *original decoded* bio
-     // if (trimmedBio === displayBio) {
-     //     closeModal();
-     //     return;
-     // }
-
      try {
-         logger.debug("Saving bio update:", { bio: trimmedBio });
-         // Send the plain text bio. Backend will escape it.
+         logger.debug(`AboutSection: Saving bio update for user ${loggedInUser?._id}:`, { bio: trimmedBio });
+         // API call to /users/updateMe always updates the authenticated user
          await apiClient.patch('/users/updateMe', { bio: trimmedBio });
-         logger.info("Bio updated successfully for user:", user._id);
+         logger.info(`Bio updated successfully for user: ${loggedInUser?._id}`);
          alert("Bio updated!");
          closeModal();
-         if (refreshUser) refreshUser(); // Refresh context, which will fetch the newly escaped bio
+         if (onUpdate) onUpdate(); // Notify parent page (ProfilePage or UserProfilePage) to refresh
      } catch (err) {
-         logger.error("Error saving bio:", err.response?.data || err.message, { userId: user._id });
+         logger.error("Error saving bio:", err.response?.data || err.message, { userId: loggedInUser?._id });
          alert(`Error saving bio: ${err.response?.data?.message || 'Please try again.'}`);
-         // Keep modal open on error?
+     } finally {
+         setSaveLoading(false);
      }
   };
 
-   // Image error handler for the edit icon
-   const handleImageError = (e) => {
-        // You could hide it, or replace with a text "Edit"
-        e.target.style.display = 'none';
-        // Or, if you have a parent button:
-        // const parentButton = e.target.parentElement;
-        // if (parentButton) parentButton.textContent = "Edit";
-   };
+   const handleImageError = (e) => { e.target.style.display = 'none'; };
+
+  if (!userToDisplay) {
+      return <section className={`${styles.aboutCard} card`}><p>Loading about information...</p></section>;
+  }
 
   return (
-    <section className={`${styles.aboutCard} card`}> {/* Using card class for consistency */}
+    <section className={`${styles.aboutCard} card`}>
       <div className={styles.aboutHeader}>
-        <h2>About Me</h2>
-         <button onClick={openModal} className={styles.editButton} aria-label="Edit Bio">
-             <img src="/assets/edit.svg" alt="Edit" className={styles.editIcon} onError={handleImageError} /> {/* Ensure icon in public */}
-         </button>
+        <h2>About {isOwnProfile ? "Me" : userToDisplay.firstName || "User"}</h2>
+        {/* Show Edit button only if it's the user's own profile */}
+        {isOwnProfile && (
+            <button onClick={openModal} className={styles.editButton} aria-label="Edit Bio">
+                <img src="/assets/edit.svg" alt="Edit" className={styles.editIcon} onError={handleImageError} />
+            </button>
+        )}
       </div>
 
       <div className={styles.aboutContent}>
-        {displayBio ? ( // Check the decoded bio for truthiness
-          // Render the decoded bio. React will handle safety.
+        {displayBio ? (
           <p style={{ whiteSpace: 'pre-wrap' }}>{displayBio}</p>
         ) : (
           <div className={styles.noBio}>
-            <p>Share a bit about yourself and your services to attract clients or taskers!</p>
-            <button className={styles.addButton} onClick={openModal}>
-              Add Bio
-            </button>
+            <p>{isOwnProfile ? "Share a bit about yourself..." : "This user hasn't added a bio yet."}</p>
+            {isOwnProfile && (
+                <button className={styles.addButton} onClick={openModal}>Add Bio</button>
+            )}
           </div>
         )}
       </div>
 
-      {/* Modal for Editing/Adding Bio */}
-      {isModalOpen && (
+      {/* Modal for Editing/Adding Bio - Render only if isOwnProfile and modal is open */}
+      {isOwnProfile && isModalOpen && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
             <div className={styles.modalHeader}>
@@ -110,20 +99,21 @@ function AboutSection() {
               <button className={styles.closeButton} onClick={closeModal} aria-label="Close edit bio modal">✖</button>
             </div>
              <div className={styles.modalBody}>
-                 <p className={styles.modalPrompt}>
-                     Use this space to showcase your skills, experience, and what you offer.
-                 </p>
+                 <p className={styles.modalPrompt}>Use this space to showcase your skills and experience.</p>
                  <textarea
-                    className={styles.textArea} // Ensure this class is styled
-                    value={editedBio} // Textarea shows decoded (plain) text for editing
+                    className={styles.textArea}
+                    value={editedBio}
                     onChange={(e) => setEditedBio(e.target.value)}
                     rows={8}
-                    placeholder="Tell everyone a bit about yourself and the services you offer..."
-                    maxLength={750} // Match backend schema
+                    placeholder="Tell everyone a bit about yourself..."
+                    maxLength={750}
+                    disabled={saveLoading}
                  />
                  <div className={styles.modalActions}>
-                     <button className={styles.cancelButton} onClick={handleCancel}>Cancel</button>
-                     <button className={styles.saveButton} onClick={handleSave}>Save</button>
+                     <button className={styles.cancelButton} onClick={handleCancel} disabled={saveLoading}>Cancel</button>
+                     <button className={styles.saveButton} onClick={handleSave} disabled={saveLoading}>
+                         {saveLoading ? 'Saving...' : 'Save Bio'}
+                     </button>
                  </div>
              </div>
           </div>
@@ -131,6 +121,6 @@ function AboutSection() {
       )}
     </section>
   );
-};
+}
 
 export default AboutSection;

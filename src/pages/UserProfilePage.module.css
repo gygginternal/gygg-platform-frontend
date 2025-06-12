@@ -1,0 +1,21 @@
+/* frontend/src/pages/UserProfilePage.module.css */
+.content {
+  width: 100%;
+  /* max-width: 900px; -- Handled by global .container in App.js */
+  /* margin: 20px auto; -- Handled by global .container in App.js */
+  display: flex;
+  flex-direction: column;
+  gap: 25px; /* Space between profile sections (cards) */
+  padding-bottom: 30px;
+}
+
+.pageStateContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+/* Your global .error-message and .card styles will apply */

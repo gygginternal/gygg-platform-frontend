@@ -1,73 +1,82 @@
-// src/components/SocialPage/ProfileInfo.js
+// frontend/src/components/ProfilePage/ProfileInfo.js
 import React, { useState, useEffect, useRef } from "react";
-import styles from "./ProfileInfo.module.css";
-import { useAuth } from "../../context/AuthContext"; // Adjust path as needed
-import apiClient from "../../api/axiosConfig"; // Adjust path as needed
-import logger from "../../utils/logger"; // Optional, adjust path as needed
+import styles from "./ProfileInfo.module.css"; // Ensure this CSS Module exists and is styled correctly
+import { useAuth } from "../../context/AuthContext"; // Adjust path if necessary
+import apiClient from "../../api/axiosConfig";   // Adjust path if necessary
+import logger from "../../utils/logger";       // Optional: Adjust path if necessary
 
-// Helper function to decode HTML entities (if bio or other text fields might have them)
-const decodeHTMLEntities = (text) => { /* ... same as before ... */
+// Helper function to decode HTML entities (if bio or other text fields might have them from backend)
+const decodeHTMLEntities = (text) => {
     if (typeof text !== 'string' || !text) return "";
     try {
         const element = document.createElement('div');
-        element.innerHTML = text;
+        element.innerHTML = text; // Browser decodes entities when setting innerHTML
         return element.textContent || element.innerText || "";
     } catch (e) {
+        // This might happen in non-browser environments (e.g., SSR pre-render without DOM)
+        // For client-side React, document.createElement should always be available.
         logger.error("Error decoding HTML entities:", e);
-        return text;
+        return text; // Fallback to original text
     }
 };
 
+// This component is designed to be used on the logged-in user's own profile/dashboard page.
+// If you want to display *another* user's profile, you'd create a separate component
+// or modify this one to accept a `userIdToView` prop and fetch that user's data.
 function ProfileInfo() {
-  const { user, refreshUser } = useAuth();
+  const { user, refreshUser } = useAuth(); // Get current logged-in user and refresh function
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Local state for editable fields
+  // State for editable fields within the modal
   const [editedFirstName, setEditedFirstName] = useState("");
   const [editedLastName, setEditedLastName] = useState("");
-  const [editedBio, setEditedBio] = useState(""); // For main bio/services description
-  const [editedHobbies, setEditedHobbies] = useState(""); // Comma-separated string for input
-  const [editedSkills, setEditedSkills] = useState("");   // Comma-separated string for input
-  const [editedAddress, setEditedAddress] = useState({ street: '', city: '', state: '', postalCode: '', country: '' });
-    const [profileImageFile, setProfileImageFile] = useState(null); // To store the File object
-  const [profileImagePreview, setProfileImagePreview] = useState(null); // For image preview in modal
-  const fileInputRef = useRef(null); // To trigger file input click
-  // --- End new state ---
-  const [saveLoading, setSaveLoading] = useState(false); // Loading state for save button
+  const [editedBio, setEditedBio] = useState("");
+  const [editedHobbies, setEditedHobbies] = useState(""); // Comma-separated string for textarea input
+  const [editedSkills, setEditedSkills] = useState("");   // Comma-separated string for textarea input
+  const [editedAddress, setEditedAddress] = useState({
+    street: '', city: '', state: '', postalCode: '', country: ''
+  });
+  const [profileImageFile, setProfileImageFile] = useState(null); // Stores the selected File object
+  const [profileImagePreview, setProfileImagePreview] = useState(null); // URL for image preview
+  const fileInputRef = useRef(null); // Ref to programmatically click the hidden file input
 
+  const [saveLoading, setSaveLoading] = useState(false); // Loading state for the save button
 
-  // Populate edit form state when modal opens or user data loads
+  // Populate form state with user data when the user object from context changes or on initial load
   useEffect(() => {
     if (user) {
+        logger.debug("ProfileInfo: Populating edit form with user data:", user);
         setEditedFirstName(user.firstName || '');
         setEditedLastName(user.lastName || '');
-        setEditedBio(decodeHTMLEntities(user.bio) || '');
-        setEditedHobbies(user.hobbies?.join(', ') || '');
-        setEditedSkills(user.skills?.join(', ') || '');
+        setEditedBio(decodeHTMLEntities(user.bio) || ''); // Decode for editing plain text
+        setEditedHobbies(Array.isArray(user.hobbies) ? user.hobbies.join(', ') : '');
+        setEditedSkills(Array.isArray(user.skills) ? user.skills.join(', ') : '');
         setEditedAddress(user.address ? { ...user.address } : { street: '', city: '', state: '', postalCode: '', country: '' });
-        setProfileImagePreview(user.profileImage && user.profileImage !== 'default.jpg' ? user.profileImage : null); // Show current image URL
-        setProfileImageFile(null); // Reset file input on user change or modal open
-    }
-  }, [user]);  // Re-populate if user context changes
 
-   const openModal = () => {
-    if (!user) return;
-    // Reset form fields to current user data when opening
+        // Set initial preview to current profile image if it exists and isn't the default
+        setProfileImagePreview(user.profileImage && user.profileImage !== 'default.jpg' ? user.profileImage : null);
+        setProfileImageFile(null); // Always reset the File object itself
+    }
+  }, [user]); // Re-populate if the main `user` object from context changes
+
+  const openModal = () => {
+    if (!user) return; // Should not happen if component is rendered for logged-in user
+    // Ensure form fields are current with user data from context when opening modal
     setEditedFirstName(user.firstName || '');
     setEditedLastName(user.lastName || '');
     setEditedBio(decodeHTMLEntities(user.bio) || '');
     setEditedHobbies(user.hobbies?.join(', ') || '');
     setEditedSkills(user.skills?.join(', ') || '');
     setEditedAddress(user.address ? { ...user.address } : { street: '', city: '', state: '', postalCode: '', country: '' });
-    setProfileImagePreview(user.profileImage && user.profileImage !== 'default.jpg' ? user.profileImage : null); // Reset preview to current
-    setProfileImageFile(null); // Clear any previously selected file
+    setProfileImagePreview(user.profileImage && user.profileImage !== 'default.jpg' ? user.profileImage : null);
+    setProfileImageFile(null); // Clear any previously selected file that wasn't submitted
     setIsModalOpen(true);
   };
 
   const closeModal = () => setIsModalOpen(false);
-  const handleCancel = () => closeModal();
+  const handleCancel = () => closeModal(); // Could also reset edited fields to `user` data
 
-   // --- Profile Image Handlers ---
+  // Handler for new profile image selection
   const handleProfileImageFileChange = (e) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -80,38 +89,47 @@ function ProfileInfo() {
             return;
         }
         setProfileImageFile(file); // Store the File object
-        setProfileImagePreview(URL.createObjectURL(file)); // Show local preview
+        // Create a temporary URL for client-side preview
+        if (profileImagePreview && profileImagePreview.startsWith('blob:')) {
+            URL.revokeObjectURL(profileImagePreview); // Revoke previous blob URL
+        }
+        setProfileImagePreview(URL.createObjectURL(file));
     }
   };
 
-  // Cleanup blob URL when component unmounts or preview changes
+  // Cleanup blob URL when component unmounts or if the preview URL (that is a blob) changes
   useEffect(() => {
+      let currentPreview = profileImagePreview; // Capture value for cleanup
       return () => {
-          if (profileImagePreview && profileImagePreview.startsWith('blob:')) {
-              URL.revokeObjectURL(profileImagePreview);
+          if (currentPreview && currentPreview.startsWith('blob:')) {
+              URL.revokeObjectURL(currentPreview);
+              logger.debug("Revoked blob URL for profile image preview:", currentPreview);
           }
       };
   }, [profileImagePreview]);
 
   const triggerFileInput = () => {
-      fileInputRef.current?.click();
+      fileInputRef.current?.click(); // Programmatically click the hidden file input
   };
 
   const handleSave = async () => {
-    if (!user) return;
-    setSaveLoading(true); // Set loading for save button
+    if (!user) return; // Should be caught by UI, but good check
+    setSaveLoading(true);
 
-    // --- Use FormData for multipart request if image is present ---
-    const payload = new FormData();
+    const payload = new FormData(); // Use FormData because we might send a file
 
+    // Append standard text fields
     payload.append('firstName', editedFirstName.trim());
     payload.append('lastName', editedLastName.trim());
-    payload.append('bio', editedBio.trim());
-    // Send hobbies and skills as arrays (backend should handle if they are arrays or strings)
+    payload.append('bio', editedBio.trim()); // Send plain text, backend should escape/sanitize
+
+    // Convert comma-separated strings for hobbies/skills back to arrays for backend
     editedHobbies.split(',').map(h => h.trim()).filter(h => h).forEach(hobby => payload.append('hobbies[]', hobby));
     editedSkills.split(',').map(s => s.trim()).filter(s => s).forEach(skill => payload.append('skills[]', skill));
 
-    // Address - send as a JSON string if backend expects it with FormData, or individual fields
+    // Address: Backend expects an object. If sending via FormData, stringify it or send individual fields.
+    // Let's assume backend's updateMe controller handles `address[street]`, `address[city]` etc.
+    // OR it handles a JSON string for 'address'. For simplicity with FormData and files:
     const addressObject = {
         street: editedAddress.street.trim(),
         city: editedAddress.city.trim(),
@@ -119,64 +137,65 @@ function ProfileInfo() {
         postalCode: editedAddress.postalCode.trim(),
         country: editedAddress.country.trim(),
     };
-    if (Object.values(addressObject).some(val => val)) { // Only append if address has data
-         // If backend `updateMe` expects address fields flat (e.g. address.street):
-         // Object.keys(addressObject).forEach(key => {
-         //    if (addressObject[key]) formData.append(`address[${key}]`, addressObject[key]);
-         // });
-         // If backend `updateMe` expects 'address' as a JSON string with FormData:
-         payload.append('address', JSON.stringify(addressObject));
+    // Only append address if at least one field is filled to avoid sending empty object
+    if (Object.values(addressObject).some(val => val)) {
+         payload.append('address', JSON.stringify(addressObject)); // Send as JSON string
     }
 
-
-    // Append profile image file IF a new one was selected
+    // Append profile image file IF a new one was selected by the user
     if (profileImageFile) {
         payload.append('profileImage', profileImageFile, profileImageFile.name);
     }
-    // If user wants to REMOVE profile image (set to default), backend needs to handle this.
-    // E.g., send a flag: payload.append('removeProfileImage', 'true');
-    // Or if profileImagePreview is null AND user.profileImage wasn't default, means remove.
+    // Note: The backend `updateMe` controller needs `uploadS3.single('profileImage')` middleware.
 
-    logger.debug("Saving profile updates (FormData):", Object.fromEntries(payload.entries()));
+    logger.debug("Saving profile updates with FormData:", Object.fromEntries(payload.entries())); // For debugging FormData
 
     try {
-        // Send as multipart/form-data
         await apiClient.patch('/users/updateMe', payload, {
-            headers: { 'Content-Type': 'multipart/form-data' }
+            headers: { 'Content-Type': 'multipart/form-data' } // Axios sets this for FormData, but explicit is fine
         });
         logger.info("ProfileInfo saved successfully for user:", user._id);
         alert("Profile updated successfully!");
-        setProfileImageFile(null); // Clear selected file after successful upload
+        setProfileImageFile(null); // Clear the selected file state after successful upload
         closeModal();
-        if(refreshUser) refreshUser(); // Refresh context to show updated data, including new image URL
+        if (refreshUser) refreshUser(); // Refresh user data in AuthContext
     } catch (err) {
-        logger.error("Error saving ProfileInfo:", err.response?.data || err.message, {userId: user._id});
+        logger.error("Error saving ProfileInfo:", err.response?.data || err.message, { userId: user._id });
         alert(`Error saving profile: ${err.response?.data?.message || 'Please try again.'}`);
+        // Keep modal open for user to see error and retry if desired
     } finally {
         setSaveLoading(false);
     }
   };
 
-  const handleDisplayImageError = (e) => { e.target.src = '/default.jpg'; }; // For the main display
+  // Fallback for profile images in the main display area
+  const handleDisplayImageError = (e) => { e.currentTarget.src = '/default.jpg'; };
 
+  // If user data is not yet available from context (e.g., initial load)
   if (!user) {
-    return <section className={styles.profileCard}><p>Loading profile...</p></section>;
+    return (
+        <section className={`${styles.profileCard} card`}>
+            <p>Loading profile information...</p>
+        </section>
+    );
   }
 
-  // Determine displayed values from user context
-  const displayName = user.fullName || `${user.firstName} ${user.lastName}`.trim();
-  const displayHobbiesString = user.hobbies?.join(', ') || "No hobbies listed.";
-  const displaySkillsArray = user.skills || []; // For the skills tags section
-  const displayLocation =
-    Object.values(user.address || {}).some(val => val) // Check if any address field has value
+  // Prepare values for display (using decoded bio)
+  const displayName = user.fullName || `${user.firstName || ''} ${user.lastName || ''}`.trim();
+  const displayBioInAboutSection = user.bio ? decodeHTMLEntities(user.bio) : "No bio provided yet.";
+  const displayHobbiesString = Array.isArray(user.hobbies) && user.hobbies.length > 0
+    ? user.hobbies.join(', ')
+    : "No hobbies listed yet.";
+  const displaySkillsArray = Array.isArray(user.skills) ? user.skills : [];
+
+  const displayLocation = user.address && Object.values(user.address).some(val => val)
         ? `${user.address.city || ''}${user.address.city && user.address.state ? ', ' : ''}${user.address.state || ''}${user.address.country ? ` (${user.address.country})` : ''}`.trim()
         : "Location not set";
-
 
   return (
     <section className={`${styles.profileCard} card`}>
       <div className={styles.profileHeader}>
-        <button onClick={openModal} className={styles.editButton} aria-label="Edit Profile Info">
+        <button onClick={openModal} className={styles.editButton} aria-label="Edit Profile Information">
             <img src="/assets/edit.svg" alt="Edit" className={styles.editIcon} onError={handleDisplayImageError} />
         </button>
       </div>
@@ -189,8 +208,7 @@ function ProfileInfo() {
             onError={handleDisplayImageError}
           />
         </div>
-        
-        {/* ... profileDetails and skillsContainer JSX ... */}
+
         <div className={styles.profileDetails}>
           <h1 className={styles.profileName}>{displayName}</h1>
           <p className={styles.profileServices}><strong>Hobbies:</strong> {displayHobbiesString}</p>
@@ -201,34 +219,46 @@ function ProfileInfo() {
             </div>
           )}
         </div>
+
         <div className={styles.skillsContainer}>
           <h2 className={styles.skillsTitle}>Skills</h2>
           <div className={styles.skillsList}>
             {displaySkillsArray.length > 0 ? (
-                displaySkillsArray.map((skill, index) => <span key={index} className={styles.skillTag}>{skill}</span>)
-            ) : ( <p className={styles.noSkills}>Add your skills!</p> )}
+                displaySkillsArray.map((skill, index) => (
+                    <span key={index} className={styles.skillTag}>
+                        {skill}
+                    </span>
+                ))
+            ) : (
+                 <p className={styles.noSkills}>Add your skills to get noticed!</p>
+            )}
           </div>
         </div>
-
       </div>
 
-       {/* Edit Modal */}
+      {/* Edit Profile Modal */}
       {isModalOpen && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
             <div className={styles.modalHeader}>
-              <h3>Edit Profile Info</h3>
+              <h3>Edit Profile Information</h3>
               <button className={styles.closeButton} onClick={closeModal} aria-label="Close edit modal">✖</button>
             </div>
             <div className={styles.modalBody}>
-              {/* --- Profile Image Upload in Modal --- */}
+              {/* Profile Image Upload Section */}
               <label className={styles.rowLabel}>Profile Picture:</label>
               <div className={styles.imageUploadContainerModal}>
-                <div className={styles.imagePreviewModal} onClick={triggerFileInput} role="button" tabIndex={0} onKeyPress={e => e.key === 'Enter' && triggerFileInput()}>
+                <div
+                    className={styles.imagePreviewModal}
+                    onClick={triggerFileInput}
+                    role="button" tabIndex={0}
+                    onKeyPress={e => (e.key === 'Enter' || e.key === ' ') && triggerFileInput()}
+                    aria-label="Profile image preview and uploader"
+                >
                     {profileImagePreview ? (
                         <img src={profileImagePreview} alt="Profile preview" className={styles.previewImageModal} />
                     ) : (
-                        <span className={styles.uploadPlaceholderModal}>Click to select image</span>
+                        <span className={styles.uploadPlaceholderModal}>Click or Drag to Upload</span>
                     )}
                 </div>
                 <input
@@ -240,12 +270,12 @@ function ProfileInfo() {
                     id="profileImageUploadModal"
                 />
                 <button type="button" onClick={triggerFileInput} className={styles.uploadButtonModal}>
-                    {profileImagePreview ? 'Change Image' : 'Upload Image'}
+                    {profileImageFile ? 'Change Image' : (profileImagePreview ? 'Change Image' : 'Upload Image')}
                 </button>
-                 {profileImageFile && <p className={styles.fileNameModal}>Selected: {profileImageFile.name}</p>}
+                {profileImageFile && <p className={styles.fileNameModal}>Selected: {profileImageFile.name}</p>}
               </div>
-              {/* --- End Profile Image Upload --- */}
 
+              {/* Text Fields */}
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
                   <label htmlFor="edit-firstName">First Name:</label>
@@ -259,28 +289,28 @@ function ProfileInfo() {
 
               <div className={styles.formGroup}>
                 <label htmlFor="edit-modal-bio">Bio / Services Description:</label>
-                <textarea id="edit-modal-bio" className={styles.textArea} value={editedBio} onChange={(e) => setEditedBio(e.target.value)} rows="4" placeholder="Tell us about yourself..." />
+                <textarea id="edit-modal-bio" className={styles.textArea} value={editedBio} onChange={(e) => setEditedBio(e.target.value)} rows="4" placeholder="Tell us about yourself, your services, or what you're looking for..." maxLength={750} />
               </div>
 
               <div className={styles.formGroup}>
                 <label htmlFor="edit-hobbies">Hobbies (comma-separated):</label>
-                <textarea id="edit-hobbies" className={styles.textArea} value={editedHobbies} onChange={(e) => setEditedHobbies(e.target.value)} rows="3" placeholder="e.g., Reading, Hiking"/>
+                <textarea id="edit-hobbies" className={styles.textArea} value={editedHobbies} onChange={(e) => setEditedHobbies(e.target.value)} rows="3" placeholder="e.g., Reading, Hiking, Coding"/>
               </div>
 
               <div className={styles.formGroup}>
                 <label htmlFor="edit-skills">Skills (comma-separated):</label>
-                <textarea id="edit-skills" className={styles.textArea} value={editedSkills} onChange={(e) => setEditedSkills(e.target.value)} rows="3" placeholder="e.g., Web Design, Tutoring"/>
+                <textarea id="edit-skills" className={styles.textArea} value={editedSkills} onChange={(e) => setEditedSkills(e.target.value)} rows="3" placeholder="e.g., Web Design, Tutoring, Event Planning"/>
               </div>
 
               <label className={styles.rowLabel}>Address:</label>
-              <div className={styles.formGroup}><input placeholder="Street" className={styles.inputField} value={editedAddress.street} onChange={(e) => setEditedAddress(prev => ({...prev, street: e.target.value}))} /></div>
+              <div className={styles.formGroup}><label htmlFor="edit-street">Street:</label><input id="edit-street" placeholder="Street" className={styles.inputField} value={editedAddress.street} onChange={(e) => setEditedAddress(prev => ({...prev, street: e.target.value}))} /></div>
               <div className={styles.formRow}>
-                <div className={styles.formGroup}><input placeholder="City" className={styles.inputField} value={editedAddress.city} onChange={(e) => setEditedAddress(prev => ({...prev, city: e.target.value}))} /></div>
-                <div className={styles.formGroup}><input placeholder="State/Province" className={styles.inputField} value={editedAddress.state} onChange={(e) => setEditedAddress(prev => ({...prev, state: e.target.value}))} /></div>
+                <div className={styles.formGroup}><label htmlFor="edit-city">City:</label><input id="edit-city" placeholder="City" className={styles.inputField} value={editedAddress.city} onChange={(e) => setEditedAddress(prev => ({...prev, city: e.target.value}))} /></div>
+                <div className={styles.formGroup}><label htmlFor="edit-state">State/Province:</label><input id="edit-state" placeholder="State/Province" className={styles.inputField} value={editedAddress.state} onChange={(e) => setEditedAddress(prev => ({...prev, state: e.target.value}))} /></div>
               </div>
               <div className={styles.formRow}>
-                <div className={styles.formGroup}><input placeholder="Postal Code" className={styles.inputField} value={editedAddress.postalCode} onChange={(e) => setEditedAddress(prev => ({...prev, postalCode: e.target.value}))} /></div>
-                <div className={styles.formGroup}><input placeholder="Country" className={styles.inputField} value={editedAddress.country} onChange={(e) => setEditedAddress(prev => ({...prev, country: e.target.value}))} /></div>
+                <div className={styles.formGroup}><label htmlFor="edit-postalCode">Postal Code:</label><input id="edit-postalCode" placeholder="Postal Code" className={styles.inputField} value={editedAddress.postalCode} onChange={(e) => setEditedAddress(prev => ({...prev, postalCode: e.target.value}))} /></div>
+                <div className={styles.formGroup}><label htmlFor="edit-country">Country:</label><input id="edit-country" placeholder="Country" className={styles.inputField} value={editedAddress.country} onChange={(e) => setEditedAddress(prev => ({...prev, country: e.target.value}))} /></div>
               </div>
 
               <div className={styles.modalActions}>

@@ -1,66 +1,64 @@
 // src/components/ProfilePage/ReviewsSection.js
 import React, { useState, useEffect } from "react";
-import styles from "./ReviewsSection.module.css"; // Create CSS Module
-import ReviewCard from "./ReviewCard";
-import apiClient from "../../api/axiosConfig"; // Adjust path
-import { useAuth } from "../../context/AuthContext"; // Adjust path
+import styles from "./ReviewsSection.module.css";
+import ReviewCard from "./ReviewCard"; // Assuming this is your component for displaying a single review
+import apiClient from "../../api/axiosConfig";
+import { useAuth } from "../../context/AuthContext"; // Not strictly needed if always using userIdToView
 import logger from "../../utils/logger";
 
-function ReviewsSection() {
-    const { user } = useAuth(); // Get current user to fetch reviews ABOUT them
+function ReviewsSection({ userIdToView, isOwnProfile }) { // Accept userIdToView and isOwnProfile
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const { user: loggedInUser } = useAuth();
+
+    // Determine whose reviews to fetch
+    const targetUserIdForReviews = userIdToView;
 
     useEffect(() => {
         const fetchReviews = async () => {
-             if (!user?._id) return; // Need user ID to fetch reviews about them
+             if (!targetUserIdForReviews) {
+                 logger.info("ReviewsSection: No targetUserId, cannot fetch reviews.");
+                 setLoading(false); setReviews([]); return;
+             }
              setLoading(true); setError('');
              try {
-                 logger.info(`Fetching reviews for taskerId: ${user._id}`);
-                 // Use the endpoint to get reviews where the current user is the reviewee (tasker)
-                 const response = await apiClient.get(`/reviews?taskerId=${user._id}`);
+                 logger.info(`ReviewsSection: Fetching reviews for taskerId (reviewee): ${targetUserIdForReviews}`);
+                 // Fetch reviews where the targetUserId is the reviewee (Tasker)
+                 const response = await apiClient.get(`/reviews?taskerId=${targetUserIdForReviews}`);
                  setReviews(response.data.data.reviews || []);
-                 logger.debug("Fetched reviews:", response.data.data.reviews);
              } catch (err) {
-                 logger.error("Error fetching reviews:", err);
-                 setError("Could not load reviews.");
+                 logger.error("ReviewsSection: Error fetching reviews:", err);
+                 setError("Could not load reviews."); setReviews([]);
              } finally {
                  setLoading(false);
              }
         };
-        // Fetch only if the user is a tasker, as providers don't receive reviews in this model
-        if (user?.role?.includes('tasker')) {
-             fetchReviews();
-        } else {
-            setLoading(false); // Not applicable for provider, stop loading
-        }
-    }, [user]); // Refetch if user changes
 
-     // Don't render section if user is not a tasker
-     if (!user?.role?.includes('tasker')) {
-         return null;
-     }
+        // Only fetch if a target user is specified
+        // Also, reviews are typically for taskers, so you might add that check.
+        // However, your UserProfilePage already checks if profileUser is a tasker before rendering this.
+        fetchReviews();
+    }, [targetUserIdForReviews]);
+
+    const renderContent = () => {
+        if (loading) return <p>Loading reviews...</p>;
+        if (error) return <p className="error-message">{error}</p>;
+        if (reviews.length === 0) {
+            return <p>{isOwnProfile ? "You haven't received any reviews yet." : "This user hasn't received any reviews yet."}</p>;
+        }
+        return reviews.map((review) => <ReviewCard key={review._id} review={review} />);
+    };
 
     return (
-        <section className={`${styles.reviewsCard} card`}> {/* Add card class */}
+        <section className={`${styles.reviewsCard} card`}>
             <div className={styles.reviewsHeader}>
-                <h2>Reviews About You</h2>
-                {/* Optional: Link to see all reviews page? */}
+                <h2>Reviews Received</h2>
             </div>
-
-             {loading && <p>Loading reviews...</p>}
-             {error && <p className="error-message">{error}</p>}
-
-             {/* Scrollable container for ReviewCards */}
-             <div className={styles.reviewsGrid}>
-                 {!loading && !error && reviews.length === 0 && <p>No reviews received yet.</p>}
-                 {!loading && !error && reviews.length > 0 && reviews.map((review) => (
-                     <ReviewCard key={review._id} review={review} /> // Pass review object
-                 ))}
+            <div className={styles.reviewsGrid}>
+                 {renderContent()}
             </div>
         </section>
     );
 }
-
 export default ReviewsSection;

@@ -32,6 +32,7 @@ import StripeReturnPage from "./pages/StripeReturnPage";
 import StripeRefreshPage from "./pages/StripeRefreshPage";
 import TermsOfUsePage from "./pages/TermsOfUsePage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import UserProfilePage from './pages/UserProfilePage';
 
 // Shared
 import Header from "./components/Shared/Header";
@@ -243,7 +244,8 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-
+              
+              <Route path="/users/:userId" element={<ProtectedRoute><UserProfilePage /></ProtectedRoute>} />
               {/* Catch-all */}
               <Route path="*" element={<AuthAwareRedirect />} />
             </Routes>
