@@ -88,11 +88,12 @@
   }
 
   .text {
-    font-size: clamp(1.3rem, 6vw, 1.8rem);
+    font-size: clamp(1.0rem, 6vw, 1.6rem);
+    margin-bottom: 0.5rem;
   }
 
   .imageWrapper {
-    max-width: 240px;
+    max-width: 220px;
   }
 
   .border {
@@ -102,12 +103,12 @@
 
 @media (max-width: 480px) {
   .text {
-    font-size: 1.5rem;
+    font-size: clamp(0.8rem, 4vw, 1.2rem);
     margin: 0 8% 1rem;
   }
 
   .imageWrapper {
     max-width: 200px;
-    margin-top: 0.75rem;
+    margin-top: 0.5rem;
   }
 }

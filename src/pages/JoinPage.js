@@ -52,7 +52,7 @@ function JoinPage() {
                     <RoleCard
                         roleName="tasker" // Value to pass
                         imageSrc="/assets/briefcase.svg" // Ensure this exists in public/assets
-                        title="Tasker"
+                        title="Tasker (Task Executor)"
                         description="Find flexible work that fits your skills and schedule. Help others and earn money."
                         selected={selectedRole === 'tasker'}
                         onClick={setSelectedRole}
@@ -60,7 +60,7 @@ function JoinPage() {
                     <RoleCard
                         roleName="provider" // Value to pass
                         imageSrc="/assets/user.svg" // Ensure this exists in public/assets
-                        title="Provider"
+                        title="Provider (Service Provider)"
                         description="Get help with your tasks. Find reliable taskers for anything from errands to skilled work."
                         selected={selectedRole === 'provider'}
                         onClick={setSelectedRole}

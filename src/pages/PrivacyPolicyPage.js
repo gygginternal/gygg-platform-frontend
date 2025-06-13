@@ -6,14 +6,14 @@ import { Link } from 'react-router-dom';
 function PrivacyPolicyPage() {
     const privacyContent = `
         <h2>Privacy Policy</h2>
-        <p><strong>Last Updated: [Insert Date]</strong></p>
+        <p><strong>Last Updated: June 13, 2025 </strong></p>
 
-        <p>At Gig Platform ("we", "us", "our"), we respect your privacy and are committed to protecting your personal data. This Privacy Policy will inform you as to how we look after your personal data when you visit our website or use our services (regardless of where you visit it from) and tell you about your privacy rights and how the law protects you.</p>
+        <p>At Gygg Platform ("we", "us", "our"), we respect your privacy and are committed to protecting your personal data. This Privacy Policy will inform you as to how we look after your personal data when you visit our website or use our services (regardless of where you visit it from) and tell you about your privacy rights and how the law protects you.</p>
 
         <h3>1. Important Information and Who We Are</h3>
-        <p><strong>Purpose of this Privacy Policy:</strong> This Privacy Policy aims to give you information on how Gig Platform collects and processes your personal data through your use of this platform, including any data you may provide when you sign up, post a gig, apply for a gig, or use our services.</p>
-        <p><strong>Controller:</strong> [Your Company Name] is the controller and responsible for your personal data.</p>
-        <p><strong>Contact Details:</strong> [Your Full Company Name], [Your Address], [Your Contact Email for Privacy Matters]</p>
+        <p><strong>Purpose of this Privacy Policy:</strong> This Privacy Policy aims to give you information on how Gygg Platform collects and processes your personal data through your use of this platform, including any data you may provide when you sign up, post a gig, apply for a gig, or use our services.</p>
+        <p><strong>Controller:</strong> Gygg Inc. is the controller and responsible for your personal data.</p>
+        <p><strong>Contact Details:</strong> Gygg Inc., [Your Address], hello@gygg.co</p>
 
         <h3>2. The Data We Collect About You</h3>
         <p>Personal data, or personal information, means any information about an individual from which that person can be identified. We may collect, use, store and transfer different kinds of personal data about you which we have grouped together as follows:</p>
@@ -27,7 +27,7 @@ function PrivacyPolicyPage() {
             <li><strong>Usage Data</strong> includes information about how you use our website, products, and services.</li>
             <li><strong>Marketing and Communications Data</strong> includes your preferences in receiving marketing from us and our third parties and your communication preferences.</li>
         </ul>
-        <p>We also collect, use, and share **Aggregated Data** such as statistical or demographic data for any purpose.</p>
+        <p>We also collect, use, and share "Aggregated Data" such as statistical or demographic data for any purpose.</p>
 
         <h3>3. How Your Personal Data Is Collected</h3>
         <p>We use different methods to collect data from and about you including through:</p>
@@ -45,7 +45,6 @@ function PrivacyPolicyPage() {
             <li>To enable you to participate in posting or applying for gigs.</li>
             <li>To process and deliver payments, fees, and charges.</li>
             <li>To administer and protect our business and this platform (including troubleshooting, data analysis, testing, system maintenance, support, reporting and hosting of data).</li>
-            {/* Add more uses as relevant */}
         </ul>
 
         <h3>5. Disclosures of Your Personal Data</h3>
@@ -54,7 +53,6 @@ function PrivacyPolicyPage() {
             <li>Service providers acting as processors (e.g., Stripe for payment processing, AWS for hosting).</li>
             <li>Professional advisers including lawyers, bankers, auditors, and insurers.</li>
             <li>Regulators and other authorities.</li>
-            {/* Add others as needed */}
         </ul>
 
         <h3>6. Data Security</h3>
@@ -67,10 +65,10 @@ function PrivacyPolicyPage() {
         <p>Under certain circumstances, you have rights under data protection laws in relation to your personal data, including the right to request access, correction, erasure, restriction, transfer, or to object to processing.</p>
 
         <h3>9. Changes to The Privacy Policy</h3>
-        <p>We keep our privacy policy under regular review. This version was last updated on [Insert Date].</p>
+        <p>We keep our privacy policy under regular review. This version was last updated on June 13, 2025.</p>
 
         <h3>10. Contact Us</h3>
-        <p>If you have any questions about this privacy policy or our privacy practices, please contact us at: [Your Contact Email/Support Link for Privacy]</p>
+        <p>If you have any questions about this privacy policy or our privacy practices, please contact us at: hello@gygg.co</p>
     `;
 
     return (

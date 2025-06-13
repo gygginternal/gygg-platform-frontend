@@ -217,8 +217,14 @@
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
+    .container {
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto; /* Enables vertical scroll */
+        position: relative; /* Use relative instead of fixed */
+    }
     .content {
-        padding: 2rem 1rem 2rem;
+        padding: 2rem 1rem 4rem;
         padding-top: 4rem; /* Ensure space for absolute logo */
     }
     .logo {
