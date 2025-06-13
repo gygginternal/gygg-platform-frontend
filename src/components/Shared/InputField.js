@@ -1,77 +1,101 @@
-// frontend/src/components/Shared/InputField.js
-import React, { useState, useEffect } from "react";
-import styles from "./InputField.module.css"; // Ensure this CSS Module exists and is styled
-import CountrySelect from "./CountrySelect"; // Ensure this component is correctly implemented
-import { cn } from "../../uitls/cn"; // Import the utility function for class names
+// frontend/src/components/Shared/InputField.js (UPDATED)
+import React, { useState, useEffect, useRef } from "react";
+import styles from "./InputField.module.css";
+import CountrySelect from "./CountrySelect"; // Assuming CountrySelect is correctly implemented
+import { cn } from "../../uitls/cn"; // Assuming you have this utility
 
 function InputField({
   label,
-  name, // Crucial: This 'name' is used to update the parent's formData state
+  name,
   type = "text",
   placeholder,
-  value = "", // Controlled component: value comes from parent state
-  onChange, // Parent's onChange: (fieldName: string, fieldValue: string) => void
-  icon, // 'phone' or 'password'
+  value = "", // This `value` is the FULL phone number (e.g., +1234...) from parent
+  onChange,
+  icon,
   inputMode,
-  maxLength, // Can be for text, password, or the *local part* of a phone number
+  maxLength, // This `maxLength` prop from SignupPage should be 10 for phone numbers
   required = false,
-  rows = 3, // Default rows for textarea
+  rows = 3,
   disabled = false,
   onKeyDown,
   className = "",
-  // ... any other standard input/textarea props
   ...props
 }) {
   const [showPassword, setShowPassword] = useState(false);
 
-  // --- State specifically for phone parts ---
-  // Initialize countryCode and localNumber by parsing the incoming 'value' prop IF it's a phone field
   const isPhoneInput = icon === "phone";
-  const [countryCode, setCountryCode] = useState(
-    isPhoneInput ? value?.match(/^\+\d{1,3}/)?.[0] || "+1" : "+1"
-  );
-  const [localNumber, setLocalNumber] = useState(
-    isPhoneInput
-      ? value?.substring(countryCode.length).replace(/\D/g, "") || ""
-      : ""
-  );
 
-  // Update internal phone parts if the parent's 'value' prop changes externally
+  // INTERNAL STATE: countryCode and localNumber
+  // These are derived from the `value` prop, but managed internally for display and interaction
+  const [countryCode, setCountryCode] = useState(() => {
+    // Attempt to parse country code from the value prop, default to +1
+    const match = value?.match(/^\+\d{1,4}/); // Match + followed by 1 to 4 digits
+    return isPhoneInput ? (match ? match[0] : "+1") : "+1";
+  });
+
+  const [localNumber, setLocalNumber] = useState(() => {
+    // Attempt to parse local number from the value prop, after country code
+    const initialCodeMatch = value?.match(/^\+\d{1,4}/);
+    const initialCode = initialCodeMatch ? initialCodeMatch[0] : "+1";
+    return isPhoneInput
+      ? value?.substring(initialCode.length).replace(/\D/g, "") || ""
+      : "";
+  });
+
+  // Effect to re-sync internal states if the `value` prop changes from parent
   useEffect(() => {
     if (isPhoneInput) {
-      const newCountryCode = value?.match(/^\+\d{1,3}/)?.[0] || countryCode; // Keep current code if value is empty
-      const newLocalNumber =
-        value?.substring(newCountryCode.length).replace(/\D/g, "") || "";
-      if (newCountryCode !== countryCode) setCountryCode(newCountryCode);
-      if (newLocalNumber !== localNumber) setLocalNumber(newLocalNumber);
+      const newCountryCodeMatch = value?.match(/^\+\d{1,4}/);
+      const newCountryCode = newCountryCodeMatch ? newCountryCodeMatch[0] : countryCode; // Use current if not found
+
+      const newLocalNumberRaw = value?.substring(newCountryCode.length);
+      const newLocalNumber = newLocalNumberRaw?.replace(/\D/g, "") || "";
+
+      // Update internal states only if they actually differ to prevent infinite loops
+      if (newCountryCode !== countryCode) {
+        setCountryCode(newCountryCode);
+      }
+      if (newLocalNumber !== localNumber) {
+        setLocalNumber(newLocalNumber);
+      }
+    } else {
+      // Reset for non-phone inputs if they mistakenly had phone values
+      if (localNumber !== "" || countryCode !== "+1") {
+        setLocalNumber("");
+        setCountryCode("+1");
+      }
     }
-  }, [value, isPhoneInput]); // Only re-run if value or isPhoneInput changes (though isPhoneInput shouldn't change)
+  }, [value, isPhoneInput]); // Removed countryCode, localNumber from deps to prevent infinite loops
 
-  // --- Event Handlers ---
-
-  // Handler for country code select change (passed to CountrySelect)
+  // Handler for CountrySelect component
   const handleCountryCodeChange = (e) => {
     const newCode = e.target.value;
-    setCountryCode(newCode);
+    setCountryCode(newCode); // Update internal state
+    // Notify parent with the *full* phone number (new country code + current local number)
     if (onChange) {
-      onChange(name, newCode + localNumber); // Update parent with new combined E.164 number
+      onChange(name, newCode + localNumber);
     }
   };
 
-  // Handler for the local phone number input part
+  // Handler for the local number input field
   const handleLocalNumberChange = (e) => {
-    let digits = e.target.value.replace(/\D/g, ""); // Remove non-digits
-    const effectiveMaxLength = typeof maxLength === "number" ? maxLength : 10; // Default to 10 for local phone part
-    if (digits.length > effectiveMaxLength) {
-      digits = digits.slice(0, effectiveMaxLength);
+    let digits = e.target.value.replace(/\D/g, ""); // Strip non-digits from typed value
+
+    // The maxLength prop from SignupPage is now for the LOCAL number part (e.g., 10 digits)
+    const localNumberMaxLength = typeof maxLength === "number" ? maxLength : 10;
+    
+    if (digits.length > localNumberMaxLength) {
+      digits = digits.slice(0, localNumberMaxLength);
     }
-    setLocalNumber(digits);
+    setLocalNumber(digits); // Update internal state
+
+    // Notify parent with the *full* phone number (current country code + new local number)
     if (onChange) {
-      onChange(name, countryCode + digits); // Update parent with new combined E.164 number
+      onChange(name, countryCode + digits);
     }
   };
 
-  // Handler for password field to apply maxLength specifically
+  // Other handlers remain largely the same, ensuring maxLength is respected
   const handlePasswordChange = (e) => {
     let passwordValue = e.target.value;
     if (typeof maxLength === "number" && passwordValue.length > maxLength) {
@@ -82,25 +106,24 @@ function InputField({
     }
   };
 
-  // Handler for generic inputs (text, email, date, textarea that isn't phone/password)
   const handleGenericChange = (e) => {
     if (onChange) {
       onChange(name, e.target.value);
     }
   };
 
-  // Determine which specific change handler and value to use
-  let currentDisplayValue = value; // Value for generic inputs
   let specificChangeHandler = handleGenericChange;
   let effectiveInputType = type;
-  let effectiveMaxLength = maxLength; // MaxLength for generic inputs
+  // This is the maxLength that will be passed to the HTML <input> element.
+  // For phone numbers, it should be the maxLength of the LOCAL part.
+  let effectiveHtmlMaxLength = maxLength; 
 
   if (isPhoneInput) {
-    currentDisplayValue = localNumber; // Input field only shows the local part
     specificChangeHandler = handleLocalNumberChange;
-    effectiveInputType = "tel"; // Use 'tel' for semantic phone input
-    effectiveMaxLength = typeof maxLength === "number" ? maxLength : 10; // Max length for local part
+    effectiveInputType = "tel";
     inputMode = inputMode || "tel";
+    // For phone input, force the HTML maxLength to 10 for the local number part.
+    effectiveHtmlMaxLength = 10; 
   } else if (
     icon === "password" ||
     name === "password" ||
@@ -108,41 +131,44 @@ function InputField({
     name === "currentPassword" ||
     name === "newPassword"
   ) {
-    specificChangeHandler = handlePasswordChange; // Use password specific handler for length
+    specificChangeHandler = handlePasswordChange;
     if (showPassword) effectiveInputType = "text";
-    // maxLength for password is passed via props
   } else if (type === "date") {
-    placeholder = ""; // Date inputs don't use placeholder well
-  } else if (type === "number" && name === "ratePerHour") {
-    // Ensure value is appropriate for number input
-    currentDisplayValue = value === 0 ? "" : String(value || ""); // Allow empty input for 0 rate
+    placeholder = ""; 
+  }
+
+  // The value displayed in the actual HTML <input> element
+  let displayValueForInput = value;
+  if (isPhoneInput) {
+      displayValueForInput = localNumber; // Input field only displays the local number part
   }
 
   return (
     <div className={cn(styles.fieldContainer, className)}>
       <label htmlFor={name} className={styles.label}>
         {label}
+        {required && <span className={styles.requiredIndicator}>*</span>}
       </label>
       <div className={styles.inputContainer}>
         {isPhoneInput && (
           <CountrySelect
-            value={countryCode}
-            onChange={handleCountryCodeChange} // Event from select
+            value={countryCode} // Pass current countryCode state
+            onChange={handleCountryCodeChange} // Use the new handler
           />
         )}
         {type === "textarea" ? (
           <textarea
             id={name}
             name={name}
-            className={`${styles.input} ${styles.textarea}`} // Apply both for base and specific
+            className={`${styles.input} ${styles.textarea}`}
             placeholder={placeholder}
-            value={currentDisplayValue} // The value from parent state
-            onChange={specificChangeHandler} // Generic handler works for textarea
+            value={displayValueForInput}
+            onChange={specificChangeHandler}
             rows={rows}
             required={required}
             disabled={disabled}
-            maxLength={effectiveMaxLength} // Apply maxLength to textarea
-            {...props} // Spread other props like readOnly
+            maxLength={effectiveHtmlMaxLength} // Apply the determined maxLength
+            {...props}
           />
         ) : (
           <input
@@ -151,10 +177,10 @@ function InputField({
             name={name}
             className={styles.input}
             placeholder={placeholder}
-            value={currentDisplayValue} // The value from parent state
+            value={displayValueForInput}
             onChange={specificChangeHandler}
             inputMode={inputMode}
-            maxLength={effectiveMaxLength} // Apply effective maxLength
+            maxLength={effectiveHtmlMaxLength} // Apply the determined maxLength
             required={required}
             disabled={disabled}
             autoComplete={
@@ -164,10 +190,10 @@ function InputField({
                 ? "email"
                 : "on"
             }
-            max={type === "date" ? props.max : undefined} // For date input max boundary
-            min={type === "number" ? props.min : undefined} // For number input min boundary
-            step={type === "number" ? props.step : undefined} // For number input step
-            {...props} // Spread other props
+            max={type === "date" ? props.max : undefined}
+            min={type === "number" ? props.min : undefined}
+            step={type === "number" ? props.step : undefined}
+            {...props}
           />
         )}
         {icon === "password" && (

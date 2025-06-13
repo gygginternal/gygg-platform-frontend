@@ -163,6 +163,10 @@
   .container {
     padding: 15px; /* Slightly less padding */
   }
+  .logo {
+        top: 1.25rem;
+        left: 1.25rem;
+  }
   .formContainer {
     padding: 1.5625rem; /* ~25px padding */
     max-width: 400px;
@@ -181,7 +185,7 @@
     left: 1rem;
   }
   .logo img {
-    max-width: 100px; /* Smaller logo for tablets */
+    max-width: 7.5rem; /* Smaller logo for tablets */
   }
   .formContainer {
     padding: 1.25rem; /* ~20px padding */
@@ -211,11 +215,11 @@
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
   .logo {
-    top: 0.75rem;
-    left: 0.75rem;
+    top: 1rem;
+    left: 1rem;
   }
   .logo img {
-    max-width: 80px; /* Even smaller logo for tiny screens */
+    max-width: 6.25rem;/* Even smaller logo for tiny screens */
   }
   .container {
     padding: 10px; /* Minimal padding */

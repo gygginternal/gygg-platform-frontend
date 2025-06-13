@@ -80,7 +80,7 @@ function LoginPage() {
       </Link>
 
       <section className={styles.formContainer}>
-        <h1 className={styles.title}>Log in</h1>
+        <h1 className={styles.title}>Log In</h1>
 
         <form className={styles.form} onSubmit={handleSubmit}>
           <InputField

@@ -232,7 +232,7 @@
         left: 1rem;
     }
     .logo img {
-        max-width: 100px; /* Smaller logo for tablets */
+        max-width: 7.5rem; /* Smaller logo for tablets */
     }
     .cardContainer {
         flex-direction: column; /* Stack cards vertically */
@@ -271,11 +271,11 @@
         padding-top: 3.5rem; /* Adjust for potentially smaller logo */
     }
     .logo {
-        top: 0.75rem;
-        left: 0.75rem;
+        top: 1rem;
+        left: 1rem;
     }
     .logo img {
-        max-width: 80px; /* Even smaller logo for tiny screens */
+        max-width: 6.25rem; 
     }
     .title {
         /* Smaller font for mobile, still within Header range (14px to 18px) */

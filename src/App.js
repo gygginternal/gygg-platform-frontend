@@ -14,6 +14,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import JoinPage from "./pages/JoinPage";
 import SignupPage from "./pages/SignupPage";
+import VerifyEmailPromptPage from './pages/VerifyEmailPromptPage';
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import TaskerOnboardingPage from "./pages/TaskerOnboardingPage";
 import ProviderOnboardingPage from "./pages/ProviderOnboardingPage";
@@ -114,6 +115,7 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/join" element={<JoinPage />} />
               <Route path="/signup" element={<SignupPage />} />
+              <Route path="/verify-email-prompt" element={<VerifyEmailPromptPage />} />
               <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
               <Route path="/terms" element={<TermsOfUsePage />} />

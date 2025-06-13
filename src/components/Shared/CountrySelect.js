@@ -1,7 +1,6 @@
 import React from 'react';
-import styles from './CountrySelect.module.css'; // Create this CSS module
+import styles from './CountrySelect.module.css';
 
-// Simplified: Pass value and onChange directly
 function CountrySelect({ value, onChange }) {
   const countryCodes = [
     '+1', '+7', '+20', '+27', '+30', '+31', '+32', '+33', '+34', '+36', '+39',
@@ -29,19 +28,17 @@ function CountrySelect({ value, onChange }) {
     '+1784', '+1868', '+1869', '+1876', '+1939',
   ];
 
-  // Pass the event directly to the parent's onChange handler
-  // so it can extract the value (parent needs to expect event)
   const handleSelectChange = (e) => {
-     onChange(e); // Pass the whole event
+     onChange(e);
   };
 
   return (
     <div className={styles.selectWrapper}>
       <select
-        name="countryCode" // Give it a name if needed in parent
+        name="countryCode"
         className={styles.select}
         value={value}
-        onChange={handleSelectChange} // Use handler
+        onChange={handleSelectChange}
       >
         {countryCodes.map((code) => (
           <option key={code} value={code}>

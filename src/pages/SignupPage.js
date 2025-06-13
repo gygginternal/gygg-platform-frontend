@@ -1,12 +1,10 @@
-// frontend/src/pages/SignupPage.js
+// frontend/src/pages/SignupPage.js (UPDATED)
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate, useNavigation } from 'react-router-dom'; // Use react-router-dom
-import styles from './SignupPage.module.css'; // Create this CSS Module
-import InputField from '../components/Shared/InputField'; // Adjust path
-import apiClient from '../api/axiosConfig'; // Adjust path
-import logger from '../utils/logger'; // Optional logger
-// Assuming you have the logo in public/
-// import logo from '/gygg-logo.svg'; // This won't work directly for public assets
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import styles from './SignupPage.module.css';
+import InputField from '../components/Shared/InputField';
+import apiClient from '../api/axiosConfig';
+import logger from '../utils/logger';
 
 function SignupPage() {
   const navigate = useNavigate();
@@ -15,18 +13,16 @@ function SignupPage() {
 
   const [formData, setFormData] = useState({
     email: '',
-    phoneNo: '+1', // Changed name to match backend, initialize with country code
+    phoneNo: '+1', // Initialize with a default country code
     password: '',
-    passwordConfirm: '', // Changed name to match backend/AuthForm
-    dateOfBirth: '', 
-    role: [initialRole] 
+    passwordConfirm: '',
+    dateOfBirth: '',
+    role: [initialRole]
   });
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Update role state if location state changes after initial mount (unlikely but safe)
-  
   useEffect(() => {
     const roleFromState = location.state?.selectedRole;
     if (roleFromState && roleFromState !== formData.role[0]) {
@@ -34,85 +30,115 @@ function SignupPage() {
     }
   }, [location.state, formData.role]);
 
+  // --- START: SIMPLIFIED handleChange - InputField now handles phoneNo formatting ---
   const handleChange = (name, value) => {
+    // InputField for phoneNo will now send the already formatted '+1XXXXXXXXXX' string
+    // Or just the raw value for other fields.
     setFormData((prev) => ({ ...prev, [name]: value }));
-    if (name === 'password' || name === 'passwordConfirm' || name === 'dateOfBirth' || error) {
-        setError('');
+    // Clear error immediately if user starts typing after an error
+    if (error) { 
+      setError('');
     }
   };
+  // --- END: SIMPLIFIED handleChange ---
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError(''); // Clear previous errors at the start of submission
+
+    const currentErrors = []; // Collect all frontend validation errors
 
     // --- Frontend Validation ---
     if (!formData.email || !formData.password || !formData.phoneNo || !formData.dateOfBirth) {
-        setError('Please fill in all required fields (*). Email, Password, Phone, and Date of Birth are required.');
-        return;
+      currentErrors.push('Please fill in all required fields (*). Email, Password, Phone, and Date of Birth are required.');
     }
+
     if (formData.password !== formData.passwordConfirm) {
-      setError('Passwords do not match.');
-      return;
+      currentErrors.push('Passwords do not match.');
     }
 
     // Client-side age check (UX enhancement, backend is authoritative)
     if (formData.dateOfBirth) {
-        const today = new Date();
-        const birthDate = new Date(formData.dateOfBirth);
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const m = today.getMonth() - birthDate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-        }
-        if (age < 50) { // <<< CHECK FOR 50 YEARS
-             setError('You must be at least 50 years old to sign up.');
-             return;
-        }
+      const today = new Date();
+      const birthDate = new Date(formData.dateOfBirth);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      if (age < 50) {
+        currentErrors.push('You must be at least 50 years old to sign up.');
+      }
     }
+
+    // *** Phone number validation (Frontend) - Enforce +1 and 10 digits ***
+    const fullPhoneNumber = formData.phoneNo; // This should now be the full formatted string from InputField
+
+    // Regex for +1 followed by exactly 10 digits (e.g., +12345678900)
+    const phoneRegexUSCanada = /^\+1\d{10}$/; 
+
+    if (!phoneRegexUSCanada.test(fullPhoneNumber)) {
+      currentErrors.push('Phone number must be in the format +1XXXXXXXXXX (e.g., +12345678900).');
+    }
+
+
+    // If there are any frontend validation errors, display them and stop.
+    if (currentErrors.length > 0) {
+      setError(currentErrors.join('\n')); // Join errors with a newline character
+      return;
+    }
+
     setLoading(true);
 
     // Prepare payload matching backend expectations
     const payload = {
-        email: formData.email,
-        password: formData.password,
-        passwordConfirm: formData.passwordConfirm,
-        role: formData.role,
-        dateOfBirth: formData.dateOfBirth || undefined,
+      email: formData.email,
+      password: formData.password,
+      passwordConfirm: formData.passwordConfirm,
+      role: formData.role,
+      dateOfBirth: formData.dateOfBirth,
+      phoneNo: formData.phoneNo // This is already the full E.164 string from InputField
     };
 
-    Object.keys(payload).forEach(key => payload[key] === undefined && delete payload[key]);
-
     try {
-        logger.info("Attempting signup for email:", payload.email);
-        await apiClient.post('/users/signup', payload);
-        logger.info("Signup successful on backend for:", payload.email);
-        alert("Signup successful! Please check your email to verify your account.");
-        navigate('/verify-email-prompt', { state: { email: payload.email } });
-
+      logger.info("Attempting signup for email:", payload.email);
+      console.log("Submitting payload:", payload); // Keep this for debugging!
+      await apiClient.post('/users/signup', payload);
+      logger.info("Signup successful on backend for:", payload.email);
+      
+      // Show a success alert, then navigate
+      alert("Signup successful! Please check your email to verify your account.");
+      
+      // Navigate to a dedicated page for email verification status
+      navigate('/verify-email-prompt', { state: { email: payload.email } });
     } catch (err) {
-        const errorMessage = err.response?.data?.message || 'Signup failed. Please try again.';
-        logger.error("Signup error:", err.response?.data || err.message);
-        setError(errorMessage);
+      const errorMessage = err.response?.data?.message || 'Signup failed. Please try again.';
+      logger.error("Signup error:", err.response?.data || err.message);
+      setError(errorMessage); // Backend error message is set as a single string
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
 
   const getMaxDateForDOB = () => {
-      const today = new Date();
-      const maxDate = new Date(today.getFullYear() - 50, today.getMonth(), today.getDate());
-      return maxDate.toISOString().split("T")[0];
+    const today = new Date();
+    const maxDate = new Date(today.getFullYear() - 50, today.getMonth(), today.getDate());
+    return maxDate.toISOString().split("T")[0];
+  };
+
+  const getMinDateForDOB = () => {
+    return '1900-01-01'; // January 1, 1900
   };
 
   return (
     <main className={styles.container}>
-      <Link to="/" className={styles.logo}> 
-         <img
-             src="/assets/gygg-logo.svg"
-             alt="GYGG logo"
-             width={100} 
-             height={60}
-         />
+      <Link to="/" className={styles.logo}>
+        <img
+          src="/assets/gygg-logo.svg"
+          alt="GYGG logo"
+          width={100}
+          height={60}
+        />
       </Link>
 
       <section className={styles.formContainer}>
@@ -137,14 +163,14 @@ function SignupPage() {
             placeholder="Enter password (min 8 chars)"
             value={formData.password}
             onChange={handleChange}
-            icon="password" // Enables show/hide
-            maxLength={20} // Example limit
+            icon="password"
+            maxLength={20}
             required
           />
 
           <InputField
             label="Re-enter password*"
-            name="passwordConfirm" // Correct name
+            name="passwordConfirm"
             type="password"
             placeholder="Re-enter password"
             value={formData.passwordConfirm}
@@ -156,15 +182,15 @@ function SignupPage() {
 
           <InputField
             label="Phone number*"
-            name="phoneNo" // This name matches the key in formData
-            type="tel" // Not strictly needed if icon="phone" sets it
-            value={formData.phoneNo} // Pass the full E.164 string from state
-            onChange={handleChange}
+            name="phoneNo"
+            type="tel"
+            value={formData.phoneNo} // Full E.164 value goes down to InputField
+            onChange={handleChange} // Full E.164 value comes up from InputField
             icon="phone"
-            placeholder="e.g., 123456789" // Placeholder for local part
+            placeholder="e.g., 2345678900" // Placeholder for local part
             required
-            // localNumberMaxLength={10} // Can be passed via 'maxLength' prop now
-            maxLength={10} // This will apply to the local number part for phone
+            maxLength={10} // IMPORTANT: This maxLength is for the LOCAL number part (10 digits)
+            inputMode="tel"
           />
 
           <InputField
@@ -174,20 +200,27 @@ function SignupPage() {
             value={formData.dateOfBirth}
             onChange={handleChange}
             required
-            max={getMaxDateForDOB()} 
+            max={getMaxDateForDOB()}
+            min={getMinDateForDOB()} 
           />
 
-
           <footer className={styles.footer}>
-             {error && <p className={styles.error || 'error-message'}>{error}</p>}
+            {/* Display errors, each on a new line */}
+            {error && (
+              <div className={styles.errorWrapper}>
+                {error.split('\n').map((msg, index) => (
+                  <p key={index} className={styles.errorMessage}>{msg}</p>
+                ))}
+              </div>
+            )}
 
             <p className={styles.terms}>
               By registering for an account, you are consenting to our{' '}
-              <Link to="/term" className={styles.link}> {/* Use react-router Link */}
+              <Link to="/terms" className={styles.link}>
                 Terms of Use
               </Link>{' '}
               and confirming that you have reviewed and accepted the{' '}
-              <Link to="/privacy" className={styles.link}> {/* Use react-router Link */}
+              <Link to="/privacy" className={styles.link}>
                 Privacy Policy
               </Link>
               .
