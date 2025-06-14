@@ -1,14 +1,23 @@
 /* frontend/src/components/Onboarding/FormInput.module.css */
+
+/* Setting a base font size for rem calculations if not set globally */
+:root {
+    font-size: 16px; /* 1rem = 16px */
+}
+
 .field { /* Wrapper for label + input */
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1rem; /* Consistent spacing */
+  gap: 0.5rem; /* 8px */
+  margin-bottom: 1rem; /* 16px - Consistent spacing */
   font-family: 'Inter', sans-serif;
+  box-sizing: border-box; /* Ensure padding/border are included in width */
+  width: 100%; /* Ensure it takes full width of its parent */
 }
 
 .label {
-  font-size: 1.1rem;
+  /* Facebook Post text (main body) 14-16px. Using 15px (0.9375rem). */
+  font-size: 0.9375rem; /* 15px */
   font-weight: 500;
   color: #d1d5db; /* Light text for dark background */
 }
@@ -17,17 +26,19 @@
 .textarea, /* Add if your FormInput can be a textarea */
 .select /* Add if your FormInput can be a select */ {
   width: 100%;
-  padding: 0.85rem 1rem;
-  border-radius: 0.5rem;
+  padding: 0.85rem 1rem; /* ~13.6px 16px */
+  border-radius: 0.5rem; /* 8px */
   background-color: white;
-  border: 1px solid #d1d5db;
-  font-size: 1rem;
+  border: 0.0625rem solid #d1d5db; /* 1px */
+  /* Facebook Post text (main body) 14-16px. Using 16px (1rem). */
+  font-size: 1rem; /* 16px */
   font-family: 'Inter', sans-serif;
   color: #333;
   box-sizing: border-box;
+  min-height: 2.5rem; /* 40px - Ensure a minimum height for usability */
 }
 .textarea {
-    min-height: 100px;
+    min-height: 6.25rem; /* 100px */
     resize: vertical;
 }
 
@@ -36,5 +47,73 @@
 .select:focus {
   outline: none;
   border-color: #D89362; /* Theme color for focus */
-  box-shadow: 0 0 0 3px rgba(217, 150, 51, 0.25); /* Theme shadow */
+  box-shadow: 0 0 0 0.1875rem rgba(217, 150, 51, 0.25); /* 3px */
+}
+
+/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+@media (max-width: 1024px) {
+    .field {
+        gap: 0.4rem; /* 6.4px */
+        margin-bottom: 0.8rem; /* 12.8px */
+    }
+    .label {
+        font-size: 0.875rem; /* 14px */
+    }
+    .input, .textarea, .select {
+        padding: 0.75rem 0.9rem; /* 12px 14.4px */
+        font-size: 0.9375rem; /* 15px */
+        min-height: 2.25rem; /* 36px */
+    }
+    .textarea {
+        min-height: 5.5rem; /* 88px */
+    }
+    .input:focus, .textarea:focus, .select:focus {
+        box-shadow: 0 0 0 0.15rem rgba(217, 150, 51, 0.2); /* Slightly smaller shadow */
+    }
+}
+
+/* Responsive adjustments for screens up to 768px (Tablets) */
+@media (max-width: 768px) {
+    .field {
+        gap: 0.3rem; /* 4.8px */
+        margin-bottom: 0.625rem; /* 10px */
+    }
+    .label {
+        font-size: 0.8125rem; /* 13px */
+    }
+    .input, .textarea, .select {
+        padding: 0.625rem 0.75rem; /* 10px 12px */
+        font-size: 0.875rem; /* 14px */
+        border-radius: 0.4rem; /* 6.4px */
+        min-height: 2rem; /* 32px */
+    }
+    .textarea {
+        min-height: 4.5rem; /* 72px */
+    }
+    .input:focus, .textarea:focus, .select:focus {
+        box-shadow: 0 0 0 0.125rem rgba(217, 150, 51, 0.2); /* 2px */
+    }
+}
+
+/* Responsive adjustments for screens up to 480px (Mobile Phones) */
+@media (max-width: 480px) {
+    .field {
+        gap: 0.25rem; /* 4px */
+        margin-bottom: 0.5rem; /* 8px */
+    }
+    .label {
+        font-size: 0.75rem; /* 12px */
+    }
+    .input, .textarea, .select {
+        padding: 0.5rem 0.625rem; /* 8px 10px */
+        font-size: 0.8125rem; /* 13px */
+        border-radius: 0.3rem; /* 4.8px */
+        min-height: 1.75rem; /* 28px */
+    }
+    .textarea {
+        min-height: 3.5rem; /* 56px */
+    }
+    .input:focus, .textarea:focus, .select:focus {
+        box-shadow: 0 0 0 0.1rem rgba(217, 150, 51, 0.15); /* Slightly less pronounced shadow */
+    }
 }

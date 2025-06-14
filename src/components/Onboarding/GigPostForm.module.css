@@ -1,21 +1,29 @@
 /* src/components/Onboarding/GigPostForm.module.css */
 /* Reuses some styles from general onboarding if classes match, e.g., .input, .label, .select */
+
+/* Setting a base font size for rem calculations if not set globally */
+:root {
+    font-size: 16px; /* 1rem = 16px */
+}
+
 .formSection { /* Wrapper for each gig post step's content */
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.5rem; /* 24px */
+    box-sizing: border-box; /* Ensure padding/border are included */
 }
 
 .formGroup {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem; /* Smaller margin between groups within a step */
+    gap: 0.5rem; /* 8px */
+    margin-bottom: 0.5rem; /* 8px - Smaller margin between groups within a step */
 }
 
 .label {
-    font-size: 1rem;
+    /* Facebook Post text (main body) 14-16px. Using 16px (1rem). */
+    font-size: 1rem; /* 16px */
     font-weight: 500;
     color: #d1d5db;
     font-family: 'Inter', sans-serif;
@@ -25,39 +33,51 @@
 .select,
 .textarea {
     width: 100%;
-    padding: 0.85rem 1rem;
-    border-radius: 0.5rem;
+    padding: 0.85rem 1rem; /* ~13.6px 16px */
+    border-radius: 0.5rem; /* 8px */
     background-color: white;
-    border: 1px solid #d1d5db;
-    font-size: 1rem;
+    border: 0.0625rem solid #d1d5db; /* 1px */
+    /* Facebook Post text (main body) 14-16px. Using 1rem (16px). */
+    font-size: 1rem; /* 16px */
     font-family: 'Inter', sans-serif;
     color: #333;
     box-sizing: border-box;
+    min-height: 2.5rem; /* 40px - Ensure minimum height for usability */
 }
-.textarea { min-height: 120px; resize: vertical; }
+.textarea {
+    min-height: 7.5rem; /* 120px */
+    resize: vertical;
+}
 
 .input:focus,
 .select:focus,
 .textarea:focus {
     outline: none;
     border-color: #D89362;
-    box-shadow: 0 0 0 3px rgba(217, 150, 51, 0.25);
+    box-shadow: 0 0 0 0.1875rem rgba(217, 150, 51, 0.25); /* 3px */
 }
 
 .skipButton { /* Style for the skip button */
     background: none;
-    border: 1px solid #D89362;
+    border: 0.0625rem solid #D89362; /* 1px */
     color: #D89362;
-    padding: 0.6rem 1rem;
-    border-radius: 6px;
+    padding: 0.6rem 1rem; /* ~9.6px 16px */
+    border-radius: 0.375rem; /* 6px */
     cursor: pointer;
-    margin-top: 1.5rem;
+    margin-top: 1.5rem; /* 24px */
     align-self: center; /* Center skip button */
     font-weight: 500;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    /* Facebook Buttons 13-14px. Using 14px (0.875rem). */
+    font-size: 0.875rem; /* 14px */
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+    box-sizing: border-box;
 }
 .skipButton:hover {
     background-color: rgba(217, 150, 51, 0.1);
+    transform: translateY(-0.0625rem); /* -1px */
+}
+.skipButton:active {
+    transform: translateY(0);
 }
 
 
@@ -65,49 +85,214 @@
 .reviewSection {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1rem; /* 16px */
     color: #e0e0e0; /* Light text for review details */
 }
 .reviewSubTitle {
-    font-size: 1.3rem;
+    /* Facebook Header (profile names etc.) 16-18px. Using 1.125rem (18px). */
+    font-size: 1.125rem; /* 18px */
     color: #e5e7eb;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem; /* 8px */
     font-weight: 600;
 }
 .reviewItem {
-    padding: 0.75rem 0;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 0.75rem 0; /* 12px 0 */
+    border-bottom: 0.0625rem solid rgba(255,255,255,0.1); /* 1px */
     display: flex;
     justify-content: space-between;
     align-items: flex-start; /* Align button with text start */
+    flex-wrap: wrap; /* Allow content to wrap */
+    gap: 0.5rem; /* Space between wrapped elements */
 }
 .reviewItem:last-child {
     border-bottom: none;
 }
 .reviewItem strong {
     color: #D89362; /* Theme color for labels */
-    margin-right: 8px;
+    margin-right: 0.5rem; /* 8px */
     display: block; /* Make strong take its own line for clarity */
-    margin-bottom: 4px;
+    margin-bottom: 0.25rem; /* 4px */
+    /* Facebook Post text (main body) 14-16px. Using 14px (0.875rem). */
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.3;
 }
 .reviewItem p {
     margin: 0;
-    font-size: 0.95rem;
+    /* Facebook Post text (main body) 14-16px. Using 15px (0.9375rem). */
+    font-size: 0.9375rem; /* 15px */
     color: #d1d5db;
     word-break: break-word;
+    flex: 1; /* Allow paragraph to take space */
+    min-width: 0; /* Prevents overflow */
 }
 .editStepButton {
     background: none;
-    border: 1px solid #999;
+    border: 0.0625rem solid #999; /* 1px */
     color: #ccc;
-    padding: 4px 10px;
-    font-size: 0.8rem;
-    border-radius: 4px;
+    padding: 0.25rem 0.625rem; /* 4px 10px */
+    /* Facebook Timestamps and meta info: 12px. Using 12px (0.75rem). */
+    font-size: 0.75rem; /* 12px */
+    border-radius: 0.25rem; /* 4px */
     cursor: pointer;
     margin-left: auto; /* Push to right */
     align-self: flex-start; /* Align with the top of the review item text */
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    box-sizing: border-box;
+    flex-shrink: 0; /* Prevent button from shrinking */
 }
 .editStepButton:hover {
     background-color: rgba(255,255,255,0.1);
     border-color: #D89362;
+    color: #D89362;
+}
+
+
+/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+@media (max-width: 1024px) {
+    .formSection {
+        gap: 1.25rem; /* 20px */
+    }
+    .formGroup {
+        gap: 0.4rem; /* 6.4px */
+        margin-bottom: 0.4rem; /* 6.4px */
+    }
+    .label {
+        font-size: 0.9375rem; /* 15px */
+    }
+    .input, .select, .textarea {
+        padding: 0.75rem 0.9rem; /* 12px 14.4px */
+        font-size: 0.9375rem; /* 15px */
+        min-height: 2.25rem; /* 36px */
+    }
+    .textarea {
+        min-height: 6.5rem; /* 104px */
+    }
+    .skipButton {
+        padding: 0.5rem 0.8rem; /* 8px 12.8px */
+        font-size: 0.8125rem; /* 13px */
+        margin-top: 1.25rem; /* 20px */
+    }
+    .reviewSection {
+        gap: 0.875rem; /* 14px */
+    }
+    .reviewSubTitle {
+        font-size: 1.0625rem; /* 17px */
+        margin-bottom: 0.4rem; /* 6.4px */
+    }
+    .reviewItem {
+        padding: 0.625rem 0; /* 10px 0 */
+        gap: 0.4rem; /* 6.4px */
+    }
+    .reviewItem strong {
+        font-size: 0.8125rem; /* 13px */
+        margin-right: 0.4rem; /* 6.4px */
+        margin-bottom: 0.2rem; /* 3.2px */
+    }
+    .reviewItem p {
+        font-size: 0.875rem; /* 14px */
+    }
+    .editStepButton {
+        padding: 0.2rem 0.5rem; /* 3.2px 8px */
+        font-size: 0.6875rem; /* ~11px */
+    }
+}
+
+/* Responsive adjustments for screens up to 768px (Tablets) */
+@media (max-width: 768px) {
+    .formSection {
+        gap: 1rem; /* 16px */
+    }
+    .formGroup {
+        gap: 0.3rem; /* 4.8px */
+        margin-bottom: 0.3rem; /* 4.8px */
+    }
+    .label {
+        font-size: 0.875rem; /* 14px */
+    }
+    .input, .select, .textarea {
+        padding: 0.625rem 0.75rem; /* 10px 12px */
+        font-size: 0.875rem; /* 14px */
+        min-height: 2rem; /* 32px */
+    }
+    .textarea {
+        min-height: 5.5rem; /* 88px */
+    }
+    .skipButton {
+        padding: 0.4rem 0.7rem; /* 6.4px 11.2px */
+        font-size: 0.75rem; /* 12px */
+        margin-top: 1rem; /* 16px */
+    }
+    .reviewSection {
+        gap: 0.75rem; /* 12px */
+    }
+    .reviewSubTitle {
+        font-size: 1rem; /* 16px */
+        margin-bottom: 0.3rem; /* 4.8px */
+    }
+    .reviewItem {
+        padding: 0.5rem 0; /* 8px 0 */
+        gap: 0.3rem; /* 4.8px */
+    }
+    .reviewItem strong {
+        font-size: 0.75rem; /* 12px */
+        margin-right: 0.3rem; /* 4.8px */
+        margin-bottom: 0.15rem; /* 2.4px */
+    }
+    .reviewItem p {
+        font-size: 0.8125rem; /* 13px */
+    }
+    .editStepButton {
+        padding: 0.15rem 0.4rem; /* 2.4px 6.4px */
+        font-size: 0.625rem; /* 10px */
+    }
+}
+
+/* Responsive adjustments for screens up to 480px (Mobile Phones) */
+@media (max-width: 480px) {
+    .formSection {
+        gap: 0.8rem; /* 12.8px */
+    }
+    .formGroup {
+        gap: 0.25rem; /* 4px */
+        margin-bottom: 0.25rem; /* 4px */
+    }
+    .label {
+        font-size: 0.8125rem; /* 13px */
+    }
+    .input, .select, .textarea {
+        padding: 0.5rem 0.625rem; /* 8px 10px */
+        font-size: 0.8125rem; /* 13px */
+        min-height: 1.875rem; /* 30px */
+    }
+    .textarea {
+        min-height: 4.5rem; /* 72px */
+    }
+    .skipButton {
+        padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
+        font-size: 0.6875rem; /* ~11px */
+        margin-top: 0.8rem; /* 12.8px */
+    }
+    .reviewSection {
+        gap: 0.625rem; /* 10px */
+    }
+    .reviewSubTitle {
+        font-size: 0.9375rem; /* 15px */
+        margin-bottom: 0.25rem; /* 4px */
+    }
+    .reviewItem {
+        padding: 0.4rem 0; /* 6.4px 0 */
+        gap: 0.25rem; /* 4px */
+    }
+    .reviewItem strong {
+        font-size: 0.6875rem; /* ~11px */
+        margin-right: 0.25rem; /* 4px */
+        margin-bottom: 0.1rem; /* 1.6px */
+    }
+    .reviewItem p {
+        font-size: 0.75rem; /* 12px */
+    }
+    .editStepButton {
+        padding: 0.1rem 0.3rem; /* 1.6px 4.8px */
+        font-size: 0.5625rem; /* ~9px */
+    }
 }

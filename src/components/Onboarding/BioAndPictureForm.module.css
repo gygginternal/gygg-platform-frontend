@@ -1,11 +1,17 @@
 /* frontend/src/components/Onboarding/BioAndPictureForm.module.css */
 /* Styles adapted from your profilesetup5.module.css for image upload */
 
+/* Setting a base font size for rem calculations if not set globally */
+:root {
+    font-size: 16px; /* 1rem = 16px */
+}
+
 .bioPicContainer {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem; /* Space between bio textarea and image section */
+    gap: 1.5rem; /* 24px - Space between bio textarea and image section */
     font-family: 'Inter', sans-serif;
+    box-sizing: border-box; /* Ensure padding/border are included */
 }
 
 /* Assuming FormInput component uses its own styling for the textarea */
@@ -15,18 +21,20 @@
 .imageSection {
   display: flex;
   flex-direction: column; /* Stack preview and upload on smaller screens initially */
-  gap: 1.5rem;
+  gap: 1.5rem; /* 24px */
   width: 100%;
   align-items: center;
-  margin-top: 1rem; /* Space above image section */
+  margin-top: 1rem; /* 16px - Space above image section */
   font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
 }
 
 .imagePreview {
-  width: 200px;
-  height: 200px;
-  border: 2px dashed #d1d5db; /* For dark theme */
-  border-radius: 8px;
+  /* Facebook Avatar in stories: 40-60px. Using 200px (12.5rem) might be a bit large for typical UI, scaling down. */
+  width: 10rem; /* 160px - Adjusted from 200px for better scaling */
+  height: 10rem; /* 160px */
+  border: 0.125rem dashed #d1d5db; /* 2px */
+  border-radius: 0.5rem; /* 8px */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,6 +42,7 @@
   overflow: hidden;
   position: relative;
   color: #d1d5db; /* Placeholder text color */
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
 .previewImage {
@@ -44,13 +53,14 @@
 
 .placeholder {
   color: #9ca3af;
-  font-size: 1rem;
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 0.875rem; /* 14px */
 }
 
 .imageUpload {
   width: 100%;
-  max-width: 300px;
-  min-height: 150px;
+  max-width: 18.75rem; /* 300px */
+  min-height: 9.375rem; /* 150px */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -58,11 +68,11 @@
   text-align: center;
   box-sizing: border-box;
   background-color: rgba(255,255,255,0.05);
-  border-radius: 8px;
-  border: 2px dashed #d1d5db;
+  border-radius: 0.5rem; /* 8px */
+  border: 0.125rem dashed #d1d5db; /* 2px */
   cursor: pointer;
   transition: background-color 0.2s ease, border-color 0.2s ease;
-  padding: 1rem;
+  padding: 1rem; /* 16px */
   color: #d1d5db;
 }
 
@@ -71,25 +81,34 @@
   border-color: #D89362; /* Theme color */
 }
 
-.uploadIcon { /* Style for the emoji/icon, assuming you use a span/div */
-  font-size: 1.8rem; /* Example if using emoji */
-  margin-bottom: 0.5rem;
-  color: #9ca3af;
+.uploadIcon {
+  /* Facebook Top navbar icons 20-24px. Using 1.5rem (24px) for visual prominence. */
+  width: 1.5rem; /* 24px */
+  height: 1.5rem; /* 24px */
+  display: block; /* Ensure block behavior */
+  margin-bottom: 0.5rem; /* 8px */
+  color: #9ca3af; /* Icon color */
+  object-fit: contain; /* For img/svg icons */
 }
 
 .uploadText {
-  font-size: 0.9rem;
-  margin-bottom: 0.25rem;
+  /* Facebook Timestamps and meta info: 12px. Using 14px (0.875rem). */
+  font-size: 0.875rem; /* 14px */
+  margin-bottom: 0.25rem; /* 4px */
+  line-height: 1.3;
 }
 .uploadText + small { /* Style for the format hint */
-    font-size: 0.8rem;
+    /* Facebook Timestamps and meta info: 12px. Using 12px (0.75rem). */
+    font-size: 0.75rem; /* 12px */
     color: #aaa;
+    line-height: 1.3;
 }
 
 .fileInput { /* Hidden file input */
   display: none;
 }
 
+/* Responsive adjustment for image upload section (min-width: 768px) */
 @media (min-width: 768px) {
     .imageSection {
         flex-direction: row;
@@ -97,12 +116,122 @@
         align-items: flex-start;
     }
     .imagePreview {
-        width: 220px;
-        height: 220px;
+        width: 12.5rem; /* 200px - Original 200px, but fits well here */
+        height: 12.5rem; /* 200px */
     }
     .imageUpload {
-        width: calc(100% - 220px - 2rem);
+        width: calc(100% - 12.5rem - 2rem); /* 100% - 200px - 32px (gap) */
         max-width: none;
-        min-height: 220px;
+        min-height: 12.5rem; /* 200px */
+    }
+}
+
+/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+@media (max-width: 1024px) {
+    .bioPicContainer {
+        gap: 1.25rem; /* 20px */
+    }
+    .imageSection {
+        gap: 1.25rem; /* 20px */
+        margin-top: 0.8rem; /* 12.8px */
+    }
+    .imagePreview {
+        width: 9rem; /* 144px */
+        height: 9rem; /* 144px */
+    }
+    .placeholder {
+        font-size: 0.8125rem; /* 13px */
+    }
+    .imageUpload {
+        max-width: 16rem; /* 256px */
+        min-height: 8rem; /* 128px */
+        padding: 0.8rem; /* 12.8px */
+    }
+    .uploadIcon {
+        width: 1.375rem; /* 22px */
+        height: 1.375rem; /* 22px */
+        margin-bottom: 0.4rem; /* 6.4px */
+    }
+    .uploadText {
+        font-size: 0.8125rem; /* 13px */
+    }
+    .uploadText + small {
+        font-size: 0.6875rem; /* ~11px */
+    }
+
+    /* Override for min-width 768px rule for smaller screens */
+    @media (min-width: 768px) {
+        .imageUpload {
+            width: calc(100% - 9rem - 1.25rem); /* 100% - 144px - 20px */
+            min-height: 9rem; /* 144px */
+        }
+    }
+}
+
+/* Responsive adjustments for screens up to 768px (Tablets) */
+@media (max-width: 768px) {
+    .bioPicContainer {
+        gap: 1rem; /* 16px */
+    }
+    .imageSection {
+        gap: 1rem; /* 16px */
+        margin-top: 0.625rem; /* 10px */
+        flex-direction: column; /* Revert to column stacking */
+        align-items: center; /* Center items when stacked */
+    }
+    .imagePreview {
+        width: 8rem; /* 128px */
+        height: 8rem; /* 128px */
+    }
+    .imageUpload {
+        width: 100%; /* Take full width */
+        max-width: 14rem; /* 224px */
+        min-height: 7rem; /* 112px */
+        padding: 0.7rem; /* 11.2px */
+    }
+    .uploadIcon {
+        width: 1.25rem; /* 20px */
+        height: 1.25rem; /* 20px */
+        margin-bottom: 0.3rem; /* 4.8px */
+    }
+    .uploadText {
+        font-size: 0.75rem; /* 12px */
+    }
+    .uploadText + small {
+        font-size: 0.625rem; /* 10px */
+    }
+}
+
+/* Responsive adjustments for screens up to 480px (Mobile Phones) */
+@media (max-width: 480px) {
+    .bioPicContainer {
+        gap: 0.8rem; /* 12.8px */
+    }
+    .imageSection {
+        gap: 0.8rem; /* 12.8px */
+        margin-top: 0.5rem; /* 8px */
+    }
+    .imagePreview {
+        width: 6.5rem; /* 104px */
+        height: 6.5rem; /* 104px */
+    }
+    .placeholder {
+        font-size: 0.75rem; /* 12px */
+    }
+    .imageUpload {
+        max-width: 10rem; /* 160px */
+        min-height: 5.5rem; /* 88px */
+        padding: 0.6rem; /* 9.6px */
+    }
+    .uploadIcon {
+        width: 1.125rem; /* 18px */
+        height: 1.125rem; /* 18px */
+        margin-bottom: 0.25rem; /* 4px */
+    }
+    .uploadText {
+        font-size: 0.6875rem; /* ~11px */
+    }
+    .uploadText + small {
+        font-size: 0.5625rem; /* ~9px */
     }
 }

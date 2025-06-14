@@ -1,38 +1,45 @@
 /* frontend/src/components/Onboarding/ProgressBar.module.css */
 /* Styles adapted from ProgressHeader styles for consistency */
 
+/* Setting a base font size for rem calculations if not set globally */
+:root {
+    font-size: 16px; /* 1rem = 16px */
+}
+
 .progressContainer {
     width: 100%; /* Take full width of its parent */
-    max-width: 400px; /* Optional: Constrain max width */
-    margin: 1rem auto; /* Center and provide vertical spacing */
-    padding: 0.5rem 0; /* Small vertical padding */
-    font-family: 'Inter', sans-serif; /* Assuming Inter is loaded globally */
+    max-width: 25rem; /* 400px - Optional: Constrain max width */
+    margin: 1rem auto; /* 16px auto - Center and provide vertical spacing */
+    padding: 0.5rem 0; /* 8px 0 - Small vertical padding */
+    font-family: 'Inter', sans-serif;
     color: #e5e7eb; /* Light text color for dark backgrounds */
+    box-sizing: border-box; /* Ensure padding is included */
 }
 
 .progressLabel {
-    font-size: 0.9em;
+    /* Facebook Timestamps and meta info: 12px. Using 0.8125rem (~13px). */
+    font-size: 0.8125rem; /* ~13px */
     font-weight: 500;
-    margin-bottom: 0.75rem; /* Space between label and bar */
+    margin-bottom: 0.75rem; /* 12px - Space between label and bar */
     display: block;
-    text-align: center; /* Center the label text */
-    color: #d1d5db; /* Slightly dimmer than main text */
+    text-align: center;
+    color: #d1d5db;
 }
 
 .progressBarBackground {
-    height: 10px; /* Slightly thicker bar */
-    background-color: rgba(255, 255, 255, 0.15); /* Darker, less opaque background */
-    border-radius: 5px;
-    overflow: hidden; /* Ensure foreground stays within bounds */
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1); /* Subtle inner shadow */
+    height: 0.625rem; /* 10px - Slightly thicker bar */
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 0.3125rem; /* 5px */
+    overflow: hidden;
+    box-shadow: inset 0 0.0625rem 0.125rem rgba(0,0,0,0.1); /* 0 1px 2px */
 }
 
 .progressBarForeground {
     height: 100%;
-    background-color: #D89362; /* Your theme's accent color */
-    border-radius: 5px; /* Match background radius */
-    transition: width 0.4s ease-out; /* Smooth progress transition */
-    display: flex; /* For potential future text inside bar */
+    background-color: #D89362;
+    border-radius: 0.3125rem; /* 5px - Match background radius */
+    transition: width 0.4s ease-out;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
@@ -40,6 +47,67 @@
 /* Optional: If you want to put text on the progress bar itself */
 .progressBarForeground span {
     color: white;
-    font-size: 0.75em;
+    /* Facebook Timestamps and meta info: 12px. Using 0.6875rem (~11px). */
+    font-size: 0.6875rem; /* ~11px */
     font-weight: bold;
+}
+
+/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+@media (max-width: 1024px) {
+    .progressContainer {
+        max-width: 22rem; /* 352px */
+        margin: 0.8rem auto; /* 12.8px auto */
+        padding: 0.4rem 0; /* 6.4px 0 */
+    }
+    .progressLabel {
+        font-size: 0.75rem; /* 12px */
+        margin-bottom: 0.6rem; /* 9.6px */
+    }
+    .progressBarBackground {
+        height: 0.5rem; /* 8px */
+        border-radius: 0.25rem; /* 4px */
+    }
+    .progressBarForeground span {
+        font-size: 0.625rem; /* 10px */
+    }
+}
+
+/* Responsive adjustments for screens up to 768px (Tables) */
+@media (max-width: 768px) {
+    .progressContainer {
+        max-width: 90%; /* Take more width on tablet */
+        margin: 0.6rem auto; /* 9.6px auto */
+        padding: 0.3rem 0; /* 4.8px 0 */
+    }
+    .progressLabel {
+        font-size: 0.6875rem; /* ~11px */
+        margin-bottom: 0.5rem; /* 8px */
+    }
+    .progressBarBackground {
+        height: 0.4rem; /* 6.4px */
+        border-radius: 0.2rem; /* 3.2px */
+    }
+    .progressBarForeground span {
+        font-size: 0.5625rem; /* ~9px */
+    }
+}
+
+/* Responsive adjustments for screens up to 480px (Mobile Phones) */
+@media (max-width: 480px) {
+    .progressContainer {
+        max-width: 95%; /* Take even more width on tiny screens */
+        margin: 0.5rem auto; /* 8px auto */
+        padding: 0.25rem 0; /* 4px 0 */
+    }
+    .progressLabel {
+        font-size: 0.625rem; /* 10px */
+        margin-bottom: 0.4rem; /* 6.4px */
+    }
+    .progressBarBackground {
+        height: 0.35rem; /* 5.6px */
+        border-radius: 0.15rem; /* 2.4px */
+    }
+    .progressBarForeground span {
+        font-size: 0.5rem; /* 8px */
+    }
 }

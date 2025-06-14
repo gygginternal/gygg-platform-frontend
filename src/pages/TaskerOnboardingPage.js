@@ -1,7 +1,7 @@
 // src/pages/TaskerOnboardingPage.js
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./TaskerOnboardingPage.module.css"; // Create this CSS for overall page
+import styles from "./OnboardingPages.module.css"; // Create this CSS for overall page
 import ProgressHeader from "../components/Onboarding/ProgressHeader";
 import InputField from "../components//Shared/InputField"; // Use your global InputField
 import TaskSelector from "../components/Onboarding/TaskSelector"; // Use the placeholder

@@ -94,7 +94,7 @@ button {
   padding: 0.5rem 0.9375rem; /* 8px 15px */
   cursor: pointer;
   /* background-color: #007bff; - Commented out, set by specific button classes */
-  color: white;
+  /* color: white; */
   border: none;
   border-radius: 2rem; /* 32px */
   font-size: 1rem; /* 16px */

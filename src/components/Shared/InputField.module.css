@@ -1,54 +1,65 @@
 /* frontend/src/components/InputField.module.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-.fieldContainer {
+/* Setting a base font size for rem calculations if not set globally */
+:root {
+    font-size: 16px; /* 1rem = 16px */
+}
+
+.fieldContainer { /* Wrapper for label + input */
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem; /* 8px */
   width: 100%;
-  margin-bottom: 5px; /* Reduced margin between fields */
+  margin-bottom: 0.3125rem; /* 5px - Reduced margin between fields */
+  box-sizing: border-box; /* Ensure padding/border are included */
 }
 
 .label {
-  display: block; /* ensures it starts on a new line */
+  display: block;
   text-align: left;
   color: #fff; /* Label color from signup */
-  font-size: 16px; /* Adjusted size */
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 0.9375rem; /* 15px */
   font-weight: 500;
   font-family: 'Inter', sans-serif;
+  line-height: 1.3;
 }
 
 .inputContainer {
   display: flex;
-  align-items: center; /* Vertically align items */
+  align-items: center;
   background-color: #fff;
-  border: 2px solid #ccc; /* Default border */
-  border-radius: 8px;
+  border: 0.0625rem solid #ccc; /* 1px Default border */
+  border-radius: 0.5rem; /* 8px */
   padding: 0; /* Remove padding here, apply to input/select */
-  gap: 0px; /* No gap needed if styled correctly */
-  transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Smooth transition */
+  gap: 0; /* No gap needed if styled correctly */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
   overflow: hidden; /* Clip children to rounded corners */
 }
 
 .inputContainer:focus-within { /* Style container when input inside is focused */
   border-color: #d99633; /* Use theme color */
-  box-shadow: 0 0 0 2px rgba(217, 150, 51, 0.25);
+  box-shadow: 0 0 0 0.125rem rgba(217, 150, 51, 0.25); /* 0 0 0 2px */
 }
 
 
 .input {
   flex: 1; /* Take remaining space */
   border: none;
-  font-size: 16px;
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 0.875rem; /* 14px */
   outline: none;
-  color: #333; /* Darker text */
+  color: #333;
   font-family: 'Inter', sans-serif;
   background-color: transparent;
-  padding: 10px 12px; /* Padding inside input */
-  width: 100%; /* Required for flex: 1 */
-  /* Remove spinners for number input if needed */
+  padding: 0.625rem 0.75rem; /* 10px 12px - Padding inside input */
+  width: 100%;
+  /* Remove spinners for number input */
   appearance: none;
   -moz-appearance: textfield;
+  min-height: 2.25rem; /* 36px - Ensure a minimum height */
+  box-sizing: border-box; /* Crucial for padding/width */
 }
 .input::-webkit-outer-spin-button,
 .input::-webkit-inner-spin-button {
@@ -60,23 +71,26 @@
 }
 
 .textarea {
-  min-height: 48px; /* one line default height */
+  min-height: 3rem; /* 48px - one line default height */
   line-height: 1.4;
-  padding: 10px 12px;
-  resize: vertical; /* let user resize */
+  padding: 0.625rem 0.75rem; /* 10px 12px - Matches input padding */
+  resize: vertical;
+  /* Inherits other styles from .input */
 }
 
 .togglePassword {
   background: none;
   border: none !important;
-  padding: 0 12px; /* Padding around button */
+  padding: 0 0.75rem; /* 0 12px - Padding around button */
   cursor: pointer;
-  font-size: 13px; /* Slightly smaller */
+  /* Facebook Buttons 13-14px */
+  font-size: 0.8125rem; /* 13px */
   font-weight: 500;
-  color: #d99633; /* Use theme color */
+  color: #d99633;
   font-family: 'Inter', sans-serif;
   align-self: stretch; /* Make button fill height */
   transition: background-color 0.2s ease;
+  flex-shrink: 0; /* Prevent icon/button from shrinking */
 }
 .togglePassword:hover {
     background-color: #f8f8f8;
@@ -84,7 +98,98 @@
 
 /* Adjustments when CountrySelect is present */
 .inputContainer select + .input { /* Target input immediately after select */
-    border-left: 1px solid #eee; /* Add separator */
+    border-left: 0.0625rem solid #eee; /* 1px Add separator */
     border-top-left-radius: 0; /* Flatten corner */
     border-bottom-left-radius: 0;
+}
+
+
+/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+@media (max-width: 1024px) {
+    .fieldContainer {
+        gap: 0.4rem; /* 6.4px */
+        margin-bottom: 0.4rem; /* 6.4px */
+    }
+    .label {
+        font-size: 0.875rem; /* 14px */
+    }
+    .inputContainer {
+        border-radius: 0.4rem; /* 6.4px */
+    }
+    .inputContainer:focus-within {
+        box-shadow: 0 0 0 0.1rem rgba(217, 150, 51, 0.2); /* 1.6px */
+    }
+    .input {
+        font-size: 0.8125rem; /* 13px */
+        padding: 0.5rem 0.625rem; /* 8px 10px */
+        min-height: 2rem; /* 32px */
+    }
+    .textarea {
+        padding: 0.5rem 0.625rem; /* 8px 10px */
+        min-height: 3rem; /* 48px */
+    }
+    .togglePassword {
+        padding: 0 0.625rem; /* 0 10px */
+        font-size: 0.75rem; /* 12px */
+    }
+}
+
+/* Responsive adjustments for screens up to 768px (Tablets) */
+@media (max-width: 768px) {
+    .fieldContainer {
+        gap: 0.3rem; /* 4.8px */
+        margin-bottom: 0.3rem; /* 4.8px */
+    }
+    .label {
+        font-size: 0.8125rem; /* 13px */
+    }
+    .inputContainer {
+        border-radius: 0.35rem; /* ~5.6px */
+    }
+    .inputContainer:focus-within {
+        box-shadow: 0 0 0 0.08rem rgba(217, 150, 51, 0.15); /* ~1.28px */
+    }
+    .input {
+        font-size: 0.75rem; /* 12px */
+        padding: 0.4rem 0.5rem; /* 6.4px 8px */
+        min-height: 1.875rem; /* 30px */
+    }
+    .textarea {
+        padding: 0.4rem 0.5rem; /* 6.4px 8px */
+        min-height: 2.5rem; /* 40px */
+    }
+    .togglePassword {
+        padding: 0 0.5rem; /* 0 8px */
+        font-size: 0.6875rem; /* ~11px */
+    }
+}
+
+/* Responsive adjustments for screens up to 480px (Mobile Phones) */
+@media (max-width: 480px) {
+    .fieldContainer {
+        gap: 0.25rem; /* 4px */
+        margin-bottom: 0.25rem; /* 4px */
+    }
+    .label {
+        font-size: 0.75rem; /* 12px */
+    }
+    .inputContainer {
+        border-radius: 0.3rem; /* 4.8px */
+    }
+    .inputContainer:focus-within {
+        box-shadow: 0 0 0 0.06rem rgba(217, 150, 51, 0.1); /* ~0.96px */
+    }
+    .input {
+        font-size: 0.6875rem; /* ~11px */
+        padding: 0.35rem 0.4rem; /* 5.6px 6.4px */
+        min-height: 1.75rem; /* 28px */
+    }
+    .textarea {
+        padding: 0.35rem 0.4rem; /* 5.6px 6.4px */
+        min-height: 2rem; /* 32px */
+    }
+    .togglePassword {
+        padding: 0 0.4rem; /* 0 6.4px */
+        font-size: 0.625rem; /* 10px */
+    }
 }

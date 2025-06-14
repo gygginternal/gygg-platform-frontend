@@ -1,15 +1,14 @@
 // src/pages/ProviderOnboardingPage.js
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate, Link } from 'react-router-dom'; // Link might not be needed if logo is in header
-import styles from './ProviderOnboardingPage.module.css';
-import ProgressHeader from '../components/Onboarding/ProgressHeader'; // This is YOUR ProgressHeader
+import { useNavigate } from 'react-router-dom';
+import styles from './OnboardingPages.module.css'; // 
+import ProgressHeader from '../components/Onboarding/ProgressHeader';
 import InputField from '../components/Shared/InputField';
-import PersonalityForm from '../components/Onboarding/PersonalityForm'; // Ensure this exists and is correct
-import BioAndPictureForm from '../components/Onboarding/BioAndPictureForm'; // Ensure this exists
+// PersonalityForm and BioAndPictureForm are removed as their content/styling is now managed directly/inlined.
 import GigPostTimelineCategory from '../components/Onboarding/GigPostTimelineCategory';
 import GigPostDetailsBudget from '../components/Onboarding/GigPostDetailsBudget';
 import GigPostReview from '../components/Onboarding/GigPostReview';
-import { AutoComplete } from "../components/AutoComplete";// Assuming you use this for hobbies/prefs
+import { AutoComplete } from "../components/AutoComplete";
 
 import { useAuth } from '../context/AuthContext';
 import apiClient from '../api/axiosConfig';
@@ -23,12 +22,11 @@ const initialProviderFormData = {
     firstName: "",
     lastName: "",
     address: { street: "", city: "", state: "", postalCode: "", country: "" },
-    dateOfBirth: "", // Added DOB
 
     // Personality & Preferences - Step 2
     hobbies: [], // Provider's company/personal hobbies/interests
     peoplePreference: [], // What kind of taskers they prefer (array from AutoComplete)
-    // providerBioForMatching: "", // Or use a more generic "Company/Self Description"
+    providerBioForMatching: "", // Added this to initial form data for step 2
 
     // Bio & Profile Picture - Step 3
     mainBio: "", // Main public bio for the provider
@@ -51,7 +49,8 @@ function ProviderOnboardingPage() {
     const [currentStep, setCurrentStep] = useState(1);
     const [formData, setFormData] = useState(initialProviderFormData);
     const [profileImagePreview, setProfileImagePreview] = useState(null);
-    const fileInputRef = useRef(null);
+    const fileInputRef = useRef(null); // Ref for hidden file input
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
@@ -64,11 +63,11 @@ function ProviderOnboardingPage() {
                 firstName: user.firstName || '',
                 lastName: user.lastName || '',
                 address: user.address ? { ...initialProviderFormData.address, ...user.address } : initialProviderFormData.address,
-                dateOfBirth: user.dateOfBirth ? new Date(user.dateOfBirth).toISOString().split('T')[0] : '',
                 hobbies: user.hobbies || [],
                 peoplePreference: user.peoplePreference || [],
                 mainBio: user.bio || '',
-                // Don't populate gig fields from user profile
+                providerBioForMatching: user.providerBioForMatching || '', // Assuming this might exist
+                // Don't populate gig fields from user profile as they are for a new gig
             }));
             if (user.profileImage && user.profileImage !== 'default.jpg') {
                 setProfileImagePreview(user.profileImage);
@@ -76,6 +75,14 @@ function ProviderOnboardingPage() {
         }
     }, [user]);
 
+    // Cleanup blob URL when component unmounts or preview changes
+    useEffect(() => {
+        return () => {
+            if (profileImagePreview && profileImagePreview.startsWith("blob:")) {
+                URL.revokeObjectURL(profileImagePreview);
+            }
+        };
+    }, [profileImagePreview]);
 
     // --- Input Handlers ---
     const handleInputChange = (name, value) => {
@@ -84,15 +91,43 @@ function ProviderOnboardingPage() {
     const handleAddressChange = (fieldName, value) => {
         setFormData(prev => ({ ...prev, address: { ...prev.address, [fieldName]: value } })); setError('');
     };
-    const handleHobbiesChange = (newHobbies) => { setFormData(prev => ({ ...prev, hobbies: newHobbies })); };
-    const handlePeoplePreferenceChange = (newPreferences) => { setFormData(prev => ({ ...prev, peoplePreference: newPreferences })); };
-    const handleProfileImageChange = (file) => { setFormData(prev => ({ ...prev, profileImageFile: file })); };
+    // The AutoComplete components handle their own change events, so these are just wrappers
+    const handleHobbiesChange = (newHobbies) => { setFormData(prev => ({ ...prev, hobbies: newHobbies })); setError(''); };
+    const handlePeoplePreferenceChange = (newPreferences) => { setFormData(prev => ({ ...prev, peoplePreference: newPreferences })); setError(''); };
 
-    // For direct event.target changes (e.g., basic inputs not wrapped by custom onChange)
-    const handleDirectEventChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
-        setError('');
+    // Handler for image file input (similar to TaskerOnboardingPage)
+    const handleProfileImageFileChange = (e) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            if (file.size > 5 * 1024 * 1024) { // 5MB limit example
+                setError("Profile image must be less than 5MB.");
+                return;
+            }
+            setFormData((prev) => ({ ...prev, profileImageFile: file }));
+            setProfileImagePreview(URL.createObjectURL(file)); // Show preview
+            setError('');
+        }
+    };
+
+    const handleUploadAreaClick = () => fileInputRef.current?.click();
+    // Drag and drop handlers (basic)
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    };
+    const handleDrop = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const file = e.dataTransfer.files?.[0];
+        if (file) {
+            if (file.size > 5 * 1024 * 1024) {
+                setError("Profile image must be less than 5MB.");
+                return;
+            }
+            setFormData((prev) => ({ ...prev, profileImageFile: file }));
+            setProfileImagePreview(URL.createObjectURL(file));
+            setError('');
+        }
     };
 
     // --- Navigation & Submission ---
@@ -101,19 +136,16 @@ function ProviderOnboardingPage() {
         if (direction === 'back') {
             if (currentStep > 1) {
                  setCurrentStep(s => s - 1);
-                 // Your ProgressHeader example had router.push for back,
-                 // but local step management is usually preferred for multi-step forms.
-                 // If you want URL to change per step: navigate(`/onboarding/provider/step${currentStep - 1}`);
             } else {
                  navigate('/profile'); // Or previous page
             }
         } else { // 'next'
-            // --- Step Validation (ensure this is complete) ---
+            // --- Step Validation ---
             let canProceed = true;
             if (currentStep === 1 && (!formData.firstName.trim() || !formData.lastName.trim() || !formData.address.postalCode.trim() || !formData.dateOfBirth)) {
                  setError("First name, last name, postal code, and date of birth are required."); canProceed = false;
-            } else if (currentStep === 2 && (formData.hobbies.length === 0 || formData.peoplePreference.length === 0)) {
-                 setError("Please describe your interests and ideal Tasker preferences."); canProceed = false;
+            } else if (currentStep === 2 && (formData.hobbies.length === 0 || formData.peoplePreference.length === 0 || !formData.providerBioForMatching.trim())) {
+                 setError("Please describe your interests, ideal Tasker preferences, and company/project needs."); canProceed = false;
             } else if (currentStep === 3 && !formData.mainBio.trim()) {
                  setError("Your main bio is required."); canProceed = false;
             } else if (currentStep === 4 && (!formData.gigTitle.trim() || !formData.gigCategory)) {
@@ -129,7 +161,6 @@ function ProviderOnboardingPage() {
 
             if (currentStep < TOTAL_PROVIDER_STEPS) {
                 setCurrentStep(s => s + 1);
-                // If you want URL to change per step: navigate(`/onboarding/provider/step${currentStep + 1}`);
             } else { // On last step (Gig Review), "Next" button in ProgressHeader triggers this
                 handleSubmitOnboardingAndGig();
             }
@@ -142,28 +173,29 @@ function ProviderOnboardingPage() {
         const profilePayload = new FormData();
         profilePayload.append('firstName', formData.firstName);
         profilePayload.append('lastName', formData.lastName);
-        profilePayload.append('dateOfBirth', formData.dateOfBirth);
         if (formData.address) profilePayload.append('address', JSON.stringify(formData.address));
         (formData.hobbies || []).forEach(hobby => profilePayload.append('hobbies[]', hobby));
         (formData.peoplePreference || []).forEach(pref => profilePayload.append('peoplePreference[]', pref));
         profilePayload.append('bio', formData.mainBio);
+        profilePayload.append('providerBioForMatching', formData.providerBioForMatching); // Save this bio as well
+
         if (formData.profileImageFile) {
-            profilePayload.append('profileImage', formData.profileImageFile, formData.profileImageFile.name); // Corrected
-        }
-        if (formData.profileImageFile) {
-        profilePayload.append('profileImage', formData.profileImageFile, formData.profileImageFile.name); // Use profilePayload
+            profilePayload.append('profileImage', formData.profileImageFile, formData.profileImageFile.name);
         }
 
         profilePayload.append('isProviderOnboardingComplete', 'true');
-
 
         try {
             await apiClient.patch('/users/updateMe', profilePayload, { headers: { 'Content-Type': 'multipart/form-data' } });
             alert("Provider profile setup complete!");
             if (refreshUser) await refreshUser();
             navigate('/feed');
-        } catch (err) { setError(err.response?.data?.message || 'Failed to save profile setup.'); }
-        finally { setLoading(false); }
+        } catch (err) {
+            setError(err.response?.data?.message || 'Failed to save profile setup.');
+            logger.error("Error skipping gig post and saving profile:", err.response?.data || err.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleSubmitOnboardingAndGig = async () => {
@@ -173,12 +205,15 @@ function ProviderOnboardingPage() {
         const profilePayload = new FormData();
         profilePayload.append('firstName', formData.firstName);
         profilePayload.append('lastName', formData.lastName);
-        profilePayload.append('dateOfBirth', formData.dateOfBirth);
         if (formData.address) profilePayload.append('address', JSON.stringify(formData.address));
         (formData.hobbies || []).forEach(hobby => profilePayload.append('hobbies[]', hobby));
         (formData.peoplePreference || []).forEach(pref => profilePayload.append('peoplePreference[]', pref));
         profilePayload.append('bio', formData.mainBio);
-        if (formData.profileImageFile) profilePayload.append('profileImage', formData.profileImageFile);
+        profilePayload.append('providerBioForMatching', formData.providerBioForMatching); // Save this bio as well
+
+        if (formData.profileImageFile) {
+            profilePayload.append('profileImage', formData.profileImageFile, formData.profileImageFile.name);
+        }
         profilePayload.append('isProviderOnboardingComplete', 'true');
 
         try {
@@ -192,10 +227,8 @@ function ProviderOnboardingPage() {
                 title: formData.gigTitle.trim(),
                 description: formData.gigDescription.trim(),
                 category: formData.gigCategory,
-                // timeline: formData.gigTimeline, // Backend may infer from cost/rate
                 cost: formData.gigPaymentType === 'fixed' ? parseFloat(formData.gigCost) : undefined,
                 ratePerHour: formData.gigPaymentType === 'hourly' ? parseFloat(formData.gigRatePerHour) : undefined,
-                // Add other gig fields from formData: location, isRemote, skillsRequired etc.
             };
             Object.keys(gigPayload).forEach(key => gigPayload[key] === undefined && delete gigPayload[key]);
 
@@ -204,8 +237,12 @@ function ProviderOnboardingPage() {
             alert("Profile setup complete and your first gig has been posted!");
             navigate(`/gigs/${gigResponse.data.data.gig._id}`);
 
-        } catch (err) { setError(err.response?.data?.message || 'Failed to save setup and post gig.'); logger.error("Error during provider onboarding & gig post:", err); }
-        finally { setLoading(false); }
+        } catch (err) {
+            setError(err.response?.data?.message || 'Failed to save setup and post gig.');
+            logger.error("Error during provider onboarding & gig post:", err.response?.data || err.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleEditGigStep = (stepNumber) => setCurrentStep(stepNumber);
@@ -216,54 +253,45 @@ function ProviderOnboardingPage() {
             case 1: // Basic Info
                 return (
                     <>
-                        {/* Use styles.title, styles.formGrid, etc. */}
-                        <h1 className={styles.title}>Provider Profile (1/{TOTAL_PROVIDER_STEPS})</h1>
-                        <p className={styles.subtitle}>Let's start with your basic information.</p>
-                        <div className={styles.grid}> {/* Example usage of styles */}
-                            <InputField label="First name*" name="firstName" value={formData.firstName} onChange={handleInputChange} required />
-                            <InputField label="Last name*" name="lastName" value={formData.lastName} onChange={handleInputChange} required />
-                        </div>
-                        <InputField label="Date of Birth*" type="date" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleInputChange} required />
-                        <h3 className={styles.subTitle}>Your Address</h3> {/* Example */}
-                        <InputField label="Street Address" name="street" value={formData.address.street} onChange={(name,val)=>handleAddressChange("street",val)} />
+                        <h1 className={styles.title}>Tell us about yourself</h1>
+                        <p className={styles.subtitle}>That will help us better account setup for you.</p>
                         <div className={styles.grid}>
-                            <InputField label="City" name="city" value={formData.address.city} onChange={(name,val)=>handleAddressChange("city",val)} />
-                            <InputField label="Province/State" name="state" value={formData.address.state} onChange={(name,val)=>handleAddressChange("state",val)} />
+                            <InputField label="First name" type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} required />
+                            <InputField label="Last name" type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} required />
+                        </div>
+                        <h3 className={styles.subTitle}>Your Address</h3> {/* Using new subTitle class */}
+                        <InputField label="Street Address" type="text" name="street" value={formData.address.street} onChange={(name,val)=>handleAddressChange("street",val)} />
+                        <div className={styles.grid}>
+                            <InputField label="City" type="text" name="city" value={formData.address.city} onChange={(name,val)=>handleAddressChange("city",val)} />
+                            <InputField label="Province/State" type="text" name="state" value={formData.address.state} onChange={(name,val)=>handleAddressChange("state",val)} />
                         </div>
                         <div className={styles.grid}>
-                            <InputField label="Postal code*" name="postalCode" value={formData.address.postalCode} onChange={(name,val)=>handleAddressChange("postalCode",val)} required />
-                            <InputField label="Country" name="country" value={formData.address.country} onChange={(name,val)=>handleAddressChange("country",val)} />
+                            <InputField label="Postal code*" type="text" name="postalCode" value={formData.address.postalCode} onChange={(name,val)=>handleAddressChange("postalCode",val)} required />
+                            <InputField label="Country" type="text" name="country" value={formData.address.country} onChange={(name,val)=>handleAddressChange("country",val)} />
                         </div>
                     </>
                 );
             case 2: // Personality/Preferences
                 return (
                     <>
-                        <h1 className={styles.title}>Interests & Tasker Preferences (2/{TOTAL_PROVIDER_STEPS})</h1>
-                        <p className={styles.subtitle}>Tell us more about you and what you're looking for.</p>
-                        {/* Assuming PersonalityForm is structured to take individual props and use InputField/AutoComplete internally */}
-                        {/* OR pass formData directly if PersonalityForm handles its own sub-fields */}
-                        <div className={styles.inputField}>
-                            <AutoComplete // Example for Hobbies
-                                label="Your Hobbies/Company Interests"
-                                options={HOBBIES_OPTIONS}
-                                values={formData.hobbies}
-                                onChange={(newHobbies) => handleInputChange('hobbies', newHobbies)}
-                                placeholder="Add hobbies..."
-                            />
-                        </div>
-                        <div className={styles.inputField}>
-                             <AutoComplete // Example for People Preferences
-                                label="What kind of Taskers do you prefer?"
-                                options={PERSONALITIES_OPTIONS} // Assuming you have this in constants
-                                values={formData.peoplePreference}
-                                onChange={(newPrefs) => handleInputChange('peoplePreference', newPrefs)}
-                                placeholder="e.g., Detail-oriented..."
-                            />
-                        </div>
-                        {/* If providerBioForMatching is a simple textarea: */}
+                        <h1 className={styles.title}>Personality and Interests</h1>
+                        <p className={styles.subtitle}>That will help us better account setup for you.</p>
+                        <AutoComplete
+                            label="What are your hobbies?"
+                            options={HOBBIES_OPTIONS}
+                            values={formData.hobbies}
+                            onChange={handleHobbiesChange}
+                            placeholder="Add hobbies..."
+                        />
+                        <AutoComplete
+                            label="How would you describe yourself?"
+                            options={PERSONALITIES_OPTIONS}
+                            values={formData.peoplePreference}
+                            onChange={handlePeoplePreferenceChange}
+                            placeholder="e.g., Detail-oriented..."
+                        />
                         <InputField
-                            label="Briefly describe your company or project needs"
+                            label="What kind of people do you enjoy spending time with?"
                             name="providerBioForMatching"
                             type="textarea"
                             value={formData.providerBioForMatching}
@@ -272,17 +300,56 @@ function ProviderOnboardingPage() {
                         />
                     </>
                 );
-            case 3: // Main Bio and Profile Picture
+            case 3: // Main Bio and Profile Picture (Inlined from TaskerOnboardingPage.js Step 5)
                 return (
                     <>
-                        <h1 className={styles.title}>Your Public Profile (3/{TOTAL_PROVIDER_STEPS})</h1>
-                        <BioAndPictureForm
-                            bio={formData.mainBio}
-                            onBioChange={(name, value) => handleInputChange('mainBio', value)} // Ensure BioAndPictureForm calls onChange with ('mainBio', value) or just (value)
-                            profileImageFile={formData.profileImageFile}
-                            onProfileImageChange={handleProfileImageChange}
-                            currentImageUrl={profileImagePreview || user?.profileImage}
+                        <h1 className={styles.title}>Profile Picture and Bio</h1>
+                        <p className={styles.subtitle}>That will help us better account setup for you.</p>
+                        <InputField
+                            label="Tell us a little more about yourself? What do you enjoy most about helping others? (This will show on your profile bio on you page)"
+                            name="mainBio"
+                            type="textarea"
+                            value={formData.mainBio}
+                            onChange={handleInputChange}
+                            rows={6}
                         />
+                        <div className={styles.imageRow}> {/* Using imageRow from Tasker CSS */}
+                            <div
+                                className={styles.imagePreview}
+                                onDrop={handleDrop}
+                                onDragOver={handleDragOver}
+                            >
+                                {profileImagePreview ? (
+                                    <img
+                                        src={profileImagePreview}
+                                        alt="Profile preview"
+                                        className={styles.previewImage}
+                                    />
+                                ) : (
+                                    <div className={styles.placeholder}>No image selected</div>
+                                )}
+                            </div>
+
+                            <div
+                                className={styles.imageUpload}
+                                onClick={handleUploadAreaClick}
+                                role="button"
+                                tabIndex={0}
+                                onKeyPress={(e) => {
+                                    if (e.key === "Enter") handleUploadAreaClick();
+                                }}
+                            >
+                                <img src="/assets/upload.svg" alt="Upload" className={styles.uploadIcon} width={32} height={32} />
+                                <p className={styles.uploadText}>Drag and Drop Thumbnail or Browse</p>
+                                <input
+                                    type="file"
+                                    ref={fileInputRef}
+                                    onChange={handleProfileImageFileChange}
+                                    accept="image/*"
+                                    className={styles.fileInput}
+                                />
+                            </div>
+                        </div>
                     </>
                 );
             case 4: // Gig Post: Timeline, Title, Category
@@ -316,16 +383,15 @@ function ProviderOnboardingPage() {
         }
     };
 
-    if (!user) return <div className={styles.pageContainer}><p>Loading...</p></div>;
+    if (!user) return <div className={styles.container}><p>Loading...</p></div>;
     if (!user.role?.includes('provider')) {
-        // navigate('/profile'); // Or appropriate non-provider page
-        return <div className={styles.pageContainer}><p>This onboarding is for Providers only. Redirecting...</p></div>;
+        return <div className={styles.container}><p>This onboarding is for Providers only. Redirecting...</p></div>;
     }
 
     let canGoNextForCurrentStep = true;
     if (currentStep === 1 && (!formData.firstName.trim() || !formData.lastName.trim() || !formData.address.postalCode.trim() || !formData.dateOfBirth)) {
         canGoNextForCurrentStep = false;
-    } else if (currentStep === 2 && (formData.hobbies.length === 0 || formData.peoplePreference.length === 0)) {
+    } else if (currentStep === 2 && (formData.hobbies.length === 0 || formData.peoplePreference.length === 0 || !formData.providerBioForMatching.trim())) {
         canGoNextForCurrentStep = false;
     } else if (currentStep === 3 && !formData.mainBio.trim()) {
         canGoNextForCurrentStep = false;
@@ -338,29 +404,20 @@ function ProviderOnboardingPage() {
     }
 
     return (
-        <div className={styles.container}> {/* Use .container from your profilesetupX.module.css */}
-            {/*
-              Your ProgressHeader has its own logo element positioned absolutely.
-              So, the .logoTop div is not strictly needed here unless ProgressHeader is nested differently.
-              If ProgressHeader is meant to be at the very top, it will handle its own logo.
-            */}
-            {/* <div className={styles.logoTop}><Link to="/"><img src="/gygg-logo.svg" alt="GYGG Logo" width={120}/></Link></div> */}
-
+        <div className={styles.container}>
             <ProgressHeader
                 step={currentStep}
                 totalSteps={TOTAL_PROVIDER_STEPS}
                 onNavigate={handleStepNavigation}
                 canGoNext={loading ? false : canGoNextForCurrentStep}
-                canGoBack={currentStep > 1} // Pass canGoBack explicitly
-                // The title "Profile set up" is inside your ProgressHeader's JSX
+                canGoBack={currentStep > 1}
             />
-            <main className={styles.formContainer}> {/* .formContainer from your profilesetupX.module.css */}
-                <div className={styles.form}> {/* .form from your profilesetupX.module.css */}
+            <main className={styles.formContainer}>
+                <div className={styles.form}> {/* Using .form from Tasker CSS */}
                     {error && <p className="error-message" style={{textAlign: 'center', marginBottom: '1rem'}}>{error}</p>}
                     {renderStepContent()}
                 </div>
             </main>
-            {/* --- NavigationButtons component is NOT USED HERE because ProgressHeader handles it --- */}
         </div>
     );
 }
