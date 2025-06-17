@@ -1,7 +1,7 @@
 // src/pages/LoginPage.js
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom"; // Use react-router-dom
-import styles from "./LoginPage.module.css"; // Create this CSS Module
+import styles from '../components/LoginPage/LoginPage.module.css'; // Create this CSS Module
 import InputField from "../components/Shared/InputField"; // Adjust path if needed
 import { useAuth } from "../context/AuthContext"; // Adjust path if needed
 import apiClient from "../api/axiosConfig"; // Adjust path if needed

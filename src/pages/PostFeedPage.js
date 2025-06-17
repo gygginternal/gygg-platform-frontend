@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import apiClient from '../api/axiosConfig';
 import PostCard from '../components/PostCard'; // Assuming you have this component
+import styles from './PostFeedPage.module.css'; // Import CSS Modules
 
 function PostFeedPage() {
     const [posts, setPosts] = useState([]);
@@ -147,39 +148,39 @@ function PostFeedPage() {
      };
 
     return (
-        <div>
-            <h2>Social Feed</h2>
+        <div className={styles.container}>
+            <h2 className={styles.title}>Social Feed</h2>
 
             {/* Sorting Controls */}
-            <div style={{ marginBottom: '20px', padding: '10px', background: '#f8f9fa', border: '1px solid #eee', borderRadius: '5px' }}>
-                <span>Sort by: </span>
-                <button onClick={() => handleSortChange('recents')} disabled={loading || sortOrder === 'recents'} style={{marginLeft: '5px'}}>Recents</button>
-                <button onClick={() => handleSortChange('trending')} disabled={loading || sortOrder === 'trending'} style={{marginLeft: '5px'}}>Trending</button>
-                <button onClick={() => handleSortChange('near_me')} disabled={loading || sortOrder === 'near_me'} style={{marginLeft: '5px'}}>Near Me</button>
+            <div className={styles.sortControls}>
+                <span className={styles.sortLabel}>Sort by: </span>
+                <button onClick={() => handleSortChange('recents')} disabled={loading || sortOrder === 'recents'} className={`${styles.sortButton} ${sortOrder === 'recents' ? styles.sortButtonActive : ''}`}>Recents</button>
+                <button onClick={() => handleSortChange('trending')} disabled={loading || sortOrder === 'trending'} className={`${styles.sortButton} ${sortOrder === 'trending' ? styles.sortButtonActive : ''}`}>Trending</button>
+                <button onClick={() => handleSortChange('near_me')} disabled={loading || sortOrder === 'near_me'} className={`${styles.sortButton} ${sortOrder === 'near_me' ? styles.sortButtonActive : ''}`}>Near Me</button>
                 {/* Show location error specific to Near Me */}
-                {sortOrder === 'near_me' && locationError && <span className="error-message" style={{marginLeft: '10px'}}>{locationError}</span>}
+                {sortOrder === 'near_me' && locationError && <span className={styles.errorMessageLocation}>{locationError}</span>}
             </div>
 
             {/* General Error Display */}
-             {error && <p className="error-message">{error}</p>}
+             {error && <p className={styles.errorMessage}>{error}</p>}
 
              {/* Post List */}
              {posts.length > 0 ? (
                 // Use the PostCard component to render each post
-                posts.map(post => <PostCard key={post._id || post.id} post={post} />)
+                posts.map(post => <PostCard key={post._id || post.id} post={post} onPostUpdate={handleSinglePostUpdate}/>)
              ) : (
-                  !loading && <p>No posts found matching the criteria.</p> // Show only if not loading
+                  !loading && <p className={styles.noPostsMessage}>No posts found matching the criteria.</p> // Show only if not loading
              )}
 
             {/* Loading Indicators */}
-            {loading && <p style={{textAlign: 'center', padding: '20px'}}>Loading posts...</p>}
-            {isLoadingMore && <p style={{textAlign: 'center', padding: '10px'}}>Loading more...</p>}
+            {loading && <p className={styles.loadingMessage}>Loading posts...</p>}
+            {isLoadingMore && <p className={styles.loadingMoreMessage}>Loading more...</p>}
 
             {/* Load More Button */}
             {hasMore && !loading && !isLoadingMore && (
-                 <button onClick={loadMore} style={{ display: 'block', margin: '20px auto' }}>Load More Posts</button>
+                 <button onClick={loadMore} className={styles.loadMoreButton}>Load More Posts</button>
             )}
-            {!hasMore && posts.length > 0 && <p style={{textAlign: 'center', marginTop: '20px', color: '#888'}}>You've reached the end!</p>}
+            {!hasMore && posts.length > 0 && <p className={styles.endMessage}>You've reached the end!</p>}
 
         </div>
     );

@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import styles from './App.module.css'; // Import CSS Modules
 
 // Pages
 import HomePage from "./pages/HomePage";
@@ -34,18 +35,22 @@ import StripeRefreshPage from "./pages/StripeRefreshPage";
 import TermsOfUsePage from "./pages/TermsOfUsePage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import UserProfilePage from './pages/UserProfilePage';
+import GigHelperPage from "./pages/GigHelperPage";
 
 // Shared
 import Header from "./components/Shared/Header";
 import { queryClient } from "./client";
 import ContractsPage from "./pages/ContractsPage";
 
+// Import the new components
+import ConversationsList from './components/ConversationsList';
+
 // -------------------- ProtectedRoute HOC --------------------
 function ProtectedRoute({ children }) {
   const { authToken, isLoading } = useAuth();
   if (isLoading) {
     return (
-      <div style={{ padding: "2rem", textAlign: "center" }}>
+      <div className={styles.authenticatingUser}>
         Authenticating User...
       </div>
     );
@@ -71,12 +76,7 @@ function AppLayout({ children }) {
   if (isLoading && !authToken) {
     return (
       <div
-        style={{
-          height: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+        className={styles.loadingApplication}
       >
         Loading Application...
       </div>
@@ -87,9 +87,9 @@ function AppLayout({ children }) {
     <>
       {showHeader && <Header />}
       {showHeader && (
-        <hr style={{ border: 0, borderTop: "1px solid #ccc", margin: 0 }} />
+        <hr className={styles.headerSeparator} />
       )}
-      <main className="container" style={mainStyle}>
+      <main className={`${styles.container} ${showHeader ? styles.containerWithHeaderPadding : ''}`}>
         {children}
       </main>
     </>
@@ -140,6 +140,14 @@ function App() {
               />
               <Route
                 path="/messages"
+                element={
+                  <ProtectedRoute>
+                    <ConversationsList />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/messages/:userId"
                 element={
                   <ProtectedRoute>
                     <ChatPage />
@@ -247,7 +255,15 @@ function App() {
                 }
               />
               
-              <Route path="/users/:userId" element={<ProtectedRoute><UserProfilePage /></ProtectedRoute>} />
+              <Route path="/user-profile/:userId" element={<ProtectedRoute><UserProfilePage /></ProtectedRoute>} />
+              <Route
+                path="/gig-helper"
+                element={
+                  <ProtectedRoute>
+                    <GigHelperPage />
+                  </ProtectedRoute>
+                }
+              />
               {/* Catch-all */}
               <Route path="*" element={<AuthAwareRedirect />} />
             </Routes>

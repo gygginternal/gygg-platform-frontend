@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext'; // Adjust path if needed
 import apiClient from '../api/axiosConfig';     // Adjust path if needed
-import { useNavigate } from 'react-router-dom'; // For React Router v6+
+import { useNavigate, Link } from 'react-router-dom'; // For React Router v6+
 import styles from './AuthForm.module.css';     // Assuming you have this CSS module
 import logger from '../utils/logger';           // Optional: Adjust path
 
@@ -111,54 +111,54 @@ function AuthForm({ isLogin }) {
     };
 
     return (
-        <form onSubmit={handleSubmit} className={styles.formContainer || 'auth-form'}> {/* Fallback class */}
-            <h2>{isLogin ? 'Login' : 'Sign Up'}</h2>
+        <form onSubmit={handleSubmit} className={styles.formContainer}>
+            <h2 className={styles.formTitle}>{isLogin ? 'Login' : 'Sign Up'}</h2>
             {!isLogin && (
                 <>
-                    <div>
-                        <label htmlFor="firstName">First Name*</label>
-                        <input id="firstName" type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
+                    <div className={styles.formGroup}>
+                        <label htmlFor="firstName" className={styles.label}>First Name*</label>
+                        <input id="firstName" type="text" name="firstName" value={formData.firstName} onChange={handleChange} required className={styles.input} />
                     </div>
-                    <div>
-                        <label htmlFor="lastName">Last Name*</label>
-                        <input id="lastName" type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
+                    <div className={styles.formGroup}>
+                        <label htmlFor="lastName" className={styles.label}>Last Name*</label>
+                        <input id="lastName" type="text" name="lastName" value={formData.lastName} onChange={handleChange} required className={styles.input} />
                     </div>
-                    <div>
-                        <label htmlFor="role">Sign up as:</label>
-                        <select id="role" name="role" value={formData.role[0]} onChange={handleChange}>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="role" className={styles.label}>Sign up as:</label>
+                        <select id="role" name="role" value={formData.role[0]} onChange={handleChange} className={styles.select}>
                             <option value="tasker">Tasker</option>
                             <option value="provider">Provider</option>
                         </select>
                     </div>
                 </>
             )}
-            <div>
-                <label htmlFor="email">Email*</label>
-                <input id="email" type="email" name="email" value={formData.email} onChange={handleChange} required />
+            <div className={styles.formGroup}>
+                <label htmlFor="email" className={styles.label}>Email*</label>
+                <input id="email" type="email" name="email" value={formData.email} onChange={handleChange} required className={styles.input} />
             </div>
-            <div>
-                <label htmlFor="password">Password*</label>
-                <input id="password" type="password" name="password" value={formData.password} onChange={handleChange} required />
+            <div className={styles.formGroup}>
+                <label htmlFor="password" className={styles.label}>Password*</label>
+                <input id="password" type="password" name="password" value={formData.password} onChange={handleChange} required className={styles.input} />
             </div>
             {!isLogin && (
-                <div>
-                    <label htmlFor="passwordConfirm">Confirm Password*</label>
-                    <input id="passwordConfirm" type="password" name="passwordConfirm" value={formData.passwordConfirm} onChange={handleChange} required />
+                <div className={styles.formGroup}>
+                    <label htmlFor="passwordConfirm" className={styles.label}>Confirm Password*</label>
+                    <input id="passwordConfirm" type="password" name="passwordConfirm" value={formData.passwordConfirm} onChange={handleChange} required className={styles.input} />
                 </div>
             )}
-            {error && <p className={styles.errorMessage || 'error-message'}>{error}</p>} {/* Fallback class */}
-            <button type="submit" className={styles.submitBtn || 'submit-button'} disabled={loading}>
+            {error && <p className={styles.errorMessage}>{error}</p>}
+            <button type="submit" className={styles.submitBtn} disabled={loading}>
                 {loading ? 'Processing...' : (isLogin ? 'Login' : 'Sign Up')}
             </button>
             {/* Links for forgot password or switch to signup/login */}
             {isLogin && (
-                <p style={{textAlign: 'center', marginTop: '15px'}}>
-                    <Link to="/forgot-password">Forgot Password?</Link> | Don't have an account? <Link to="/join">Sign Up</Link>
+                <p className={styles.loginLinks}>
+                    <Link to="/forgot-password" className={styles.link}>Forgot Password?</Link> | Don't have an account? <Link to="/join" className={styles.link}>Sign Up</Link>
                 </p>
             )}
             {!isLogin && (
-                 <p style={{textAlign: 'center', marginTop: '15px'}}>
-                     Already have an account? <Link to="/login">Log In</Link>
+                 <p className={styles.signupLinks}>
+                     Already have an account? <Link to="/login" className={styles.link}>Log In</Link>
                  </p>
             )}
         </form>

@@ -155,8 +155,20 @@
     /* Facebook Profile pic thumbnails: 32-40px. Using 36px (2.25rem). */
     width: 2.25rem; /* 36px */
     height: 2.25rem; /* 36px */
+    border-radius: 50%; /* Added for profile image */
 }
 
+/* Notification Dot */
+.notificationDot {
+  position: absolute;
+  top: 0.25rem; /* 4px */
+  right: 0.25rem; /* 4px */
+  width: 0.625rem; /* 10px */
+  height: 0.625rem; /* 10px */
+  background-color: #e0245e; /* Red */
+  border-radius: 50%;
+  border: 0.0625rem solid #fff; /* 1px white border */
+}
 
 .iconWithDropdown {
   position: relative;

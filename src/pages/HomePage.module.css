@@ -9,6 +9,15 @@
   flex-wrap: wrap; /* Allows stacking on smaller screens */
 }
 
+.loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Occupy full viewport height */
+    width: 100vw; /* Occupy full viewport width */
+    font-size: 1.5em;
+    color: #555;
+}
 
 /* Auth Links for Logged Out Users */
 .authLinks {

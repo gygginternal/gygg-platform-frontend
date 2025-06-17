@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import styles from './CheckoutForm.module.css';
 
-function CheckoutForm({ clientSecret, onPaymentSuccess, onPaymentError }) {
+function CheckoutForm({ clientSecret, onPaymentSuccess, onPaymentError, paymentData }) {
     const stripe = useStripe();
     const elements = useElements();
     const [message, setMessage] = useState(null);
@@ -33,13 +34,24 @@ function CheckoutForm({ clientSecret, onPaymentSuccess, onPaymentError }) {
     };
 
     return (
-        <form id="payment-form" onSubmit={handleSubmit}>
-            <h4 style={{ marginBottom: '20px'}}>Enter Payment Details:</h4>
+        <form id="payment-form" onSubmit={handleSubmit} className={styles.paymentForm}>
+            {paymentData && (
+                <div className={styles.paymentBreakdown}>
+                    <h4 className={styles.breakdownTitle}>Payment Breakdown</h4>
+                    <div className={styles.breakdownDetails}>
+                        <div><strong>Total:</strong> ${((paymentData.amount || 0) / 100).toFixed(2)}</div>
+                        <div><strong>Tax (13%):</strong> ${((paymentData.taxAmount || 0) / 100).toFixed(2)}</div>
+                        <div><strong>Platform Fee ($5 + 5%):</strong> ${((paymentData.applicationFeeAmount || 0) / 100).toFixed(2)}</div>
+                        <div><strong>Payout to Tasker:</strong> ${((paymentData.amountReceivedByPayee || 0) / 100).toFixed(2)}</div>
+                    </div>
+                </div>
+            )}
+            <h4 className={styles.paymentDetailsTitle}>Enter Payment Details:</h4>
             <PaymentElement id="payment-element" />
-            <button disabled={isLoading || !stripe || !elements} id="submit" style={{ marginTop: '24px', width: '100%' }}>
+            <button disabled={isLoading || !stripe || !elements} id="submit" className={styles.submitButton}>
                 <span>{isLoading ? 'Processing...' : 'Pay now'}</span>
             </button>
-            {message && <div id="payment-message" style={{ marginTop: '15px', textAlign: 'center', color: message.includes('success') ? 'green' : 'red' }}>{message}</div>}
+            {message && <div id="payment-message" className={`${styles.paymentMessage} ${message.includes('success') ? styles.paymentSuccess : styles.paymentError}`}>{message}</div>}
         </form>
     );
 }

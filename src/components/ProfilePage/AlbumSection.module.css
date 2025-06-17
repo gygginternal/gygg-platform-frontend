@@ -8,16 +8,23 @@
 .albumCard {
   background-color: #fff;
   border-radius: 1rem; /* 16px */
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1); /* 0 4px 12px */
   margin-bottom: 1.25rem; /* 20px */
   padding: 1.5rem; /* 24px */
   box-sizing: border-box; /* Ensures padding is included in width */
+}
+
+.errorMessage {
+  color: red;
+  text-align: center;
+  margin-bottom: 1rem; /* Space below the error message */
 }
 
 .albumHeader {
   color: #3d4d55;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.25rem; /* 20px */
+  margin-bottom: 1.5rem; /* 24px */
   /* Facebook Header (profile names etc.) 16-18px.
      This is a section header, so 18px is a good fit. */
   font-size: 1.125rem; /* 18px */

@@ -1,6 +1,6 @@
-// frontend/src/pages/VerifyEmailPromptPage.js (New or enhanced page)
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import styles from '../components/VerifyEmailPromptPage/VerifyEmailPromptPage.module.css';
 import apiClient from '../api/axiosConfig';
 import logger from '../utils/logger';
 
@@ -27,39 +27,42 @@ function VerifyEmailPromptPage() {
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '600px', margin: '50px auto', textAlign: 'center' }}>
-      <h1>Verify Your Email</h1>
-      <p>A verification email has been sent to <strong>{email}</strong>.</p>
-      <p>Please check your inbox (and spam/junk folder!) to verify your account.</p>
-
-      <div style={{ marginTop: '30px' }}>
-        <h3>Didn't receive the email yet?</h3>
-        <p>
-          It might take a few minutes to arrive. Also, please check your spam or junk folder.
-          If you still can't find it, you can request another one.
+    <main className={styles.container}>
+      <Link to="/" className={styles.logo}>
+        <img src="/assets/gygg-logo.svg" alt="GYGG logo" width={100} height={60}/>
+      </Link>
+      <section className={styles.formContainer}>
+        <h1 className={styles.title}>Verify Your Email</h1>
+        <div className={styles.iconContainer}>
+          <img src="/assets/mail-notification.svg" alt="Mail Notification" width={80} height={80}/>
+        </div>
+        <p className={styles.instructionText}>
+          A verification email has been sent to <strong>{email}</strong><br/>
+          Please check your inbox (and spam/junk folder!) to verify your account.
         </p>
-        <button 
-          onClick={handleResendEmail} 
-          disabled={resendLoading}
-          style={{ 
-            padding: '10px 20px', 
-            fontSize: '16px', 
-            backgroundColor: '#007bff', 
-            color: 'white', 
-            border: 'none', 
-            borderRadius: '5px', 
-            cursor: 'pointer' 
-          }}
-        >
-          {resendLoading ? 'Sending...' : 'Resend Verification Email'}
-        </button>
-        {resendStatus && <p style={{ marginTop: '10px', color: resendStatus.startsWith('Error') ? 'red' : 'green' }}>{resendStatus}</p>}
-      </div>
-
-      <p style={{ marginTop: '50px' }}>
-        Already verified? <a href="/login">Login here</a>.
-      </p>
-    </div>
+        <div className={styles.form}>
+          <button
+            onClick={handleResendEmail}
+            disabled={resendLoading}
+            className={styles.submitButton}
+          >
+            {resendLoading ? 'Sending...' : 'Resend Verification Email'}
+          </button>
+          {resendStatus && (
+            <p className={resendStatus.startsWith('Error') ? styles.error : styles.infoMessage}>
+              {resendStatus}
+            </p>
+          )}
+        </div>
+        <p className={styles.retryText}>
+          Didn't get an email?{' '}
+          <span onClick={handleResendEmail} className={styles.retryLink}>
+            Resend email
+          </span>
+          . You can also <Link className={styles.link} to="/login">Log In</Link> or <Link className={styles.link} to="/join">Sign Up</Link>.
+        </p>
+      </section>
+    </main>
   );
 }
 

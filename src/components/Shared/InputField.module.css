@@ -43,6 +43,13 @@
   box-shadow: 0 0 0 0.125rem rgba(217, 150, 51, 0.25); /* 0 0 0 2px */
 }
 
+/* Add styles for country select container */
+.inputContainer > div:first-child {
+  width: 20%; /* Set width to 20% of container */
+  min-width: 80px; /* Ensure it doesn't get too small */
+  max-width: 120px; /* Ensure it doesn't get too large */
+  border-right: 0.0625rem solid #eee; /* Add separator */
+}
 
 .input {
   flex: 1; /* Take remaining space */

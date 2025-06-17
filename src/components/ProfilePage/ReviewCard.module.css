@@ -95,6 +95,11 @@
     margin-top: 0.5rem; /* Added space above text */
 }
 
+.starRating {
+    color: gold;
+    font-size: 0.875rem; /* 14px */
+}
+
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
     .reviewItem {

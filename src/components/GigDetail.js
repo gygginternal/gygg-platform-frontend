@@ -13,10 +13,12 @@ import {
   PaymentElement,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import "./GigDetails.css"; // Assuming you have a CSS file for styling
+// import "./GigDetails.css"; // Assuming you have a CSS file for styling
+import styles from './GigDetail.module.css'; // Import CSS Modules
 import { GigApplications } from "./GigApplications";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { GigApplySection } from "./GigApplySection";
+import ReviewSection from './ReviewSection';
 
 const stripePromise = loadStripe(
   "pk_test_51RRrQ2Q5bv7DRpKKkdum0wirsfQWdEid1PgmxjDvnY63M7wCbbRiH9mgitk4wpj37RTmTkgC3xYHEQhJOF9hUvXS00Z6OvQMz4"
@@ -51,7 +53,7 @@ const ConfirmButton = ({ clientSecret }) => {
     <div>
       <PaymentElement />
       <Button
-        className="mt-5 w-full bg-primary-500 hover:bg-primary-600 text-white"
+        className={styles.confirmPaymentButton}
         onClick={handleConfirmPayment}
         disabled={!stripe || !elements}
       >
@@ -80,6 +82,8 @@ function GigDetailPage() {
   const hasPayment = Boolean(paymentData);
   const isProvider = user?.role?.includes("provider");
   const isTasker = !isProvider;
+
+  const queryClient = useQueryClient();
 
   const fetchReleasableStatus = async (contractId) => {
     try {
@@ -258,127 +262,180 @@ function GigDetailPage() {
     },
   });
 
+  const acceptContractMutation = useMutation({
+    mutationFn: (contractId) => apiClient.put(`/contracts/${contractId}/accept`),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['gig', gigData._id]);
+    }
+  });
+
+  const releaseFundsMutation = useMutation({
+    mutationFn: (contractId) => apiClient.put(`/contracts/${contractId}/release`),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['gig', gigData._id]);
+    }
+  });
+
+  const completeContractMutation = useMutation({
+    mutationFn: (contractId) => apiClient.put(`/contracts/${contractId}/complete`),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['gig', gigData._id]);
+    }
+  });
+
   if (!gigData && !loading) {
     return <div>No gig found with ID: {gigId || "None"}.</div>;
   }
 
   return (
-    <div>
-      {!contractData && user?.role?.includes("provider") && (
-        <GigApplications onOffer={fetchData} onReject={fetchData} />
-      )}
-      {isTasker && !contractData && (
-        <GigApplySection gigId={gigId} onApplySuccess={fetchData} />
-      )}
-      {isRefunding && (
-        <div className="alert alert-warning">
-          Gig is being canceled. Provider, Please wait for the refund process.
-        </div>
-      )}
-      {/* {isPaymentCanceled && <div>Contract canceled</div>}
-      {isPaymentDeposit && <div>Gig Payment Released</div>}
-      {isPaymentPending && <div>Gig Payment Releasing</div>}
-      {isPaymentCanceling && <div>Gig Payment Canceling</div>} */}
+    <div className={styles.gigDetailPageContainer}>
+      {loading ? (
+        <div className={styles.loadingMessage}>Loading gig details...</div>
+      ) : error ? (
+        <div className={styles.errorMessage}>{error}</div>
+      ) : (
+        <div className={styles.gigContent}>
+          <div className={styles.gigDetailsSection}>
+            {/* Gig Info */}
+            <h1 className={styles.gigTitle}>{gigData.title}</h1>
+            <p className={styles.gigDescription}>{gigData.description}</p>
+            <p className={styles.gigLocation}><strong>Location:</strong> {gigData.location}</p>
+            <p className={styles.gigBudget}><strong>Budget:</strong> ${gigData.budget.toFixed(2)}</p>
+            <p className={styles.gigCategory}><strong>Category:</strong> {gigData.category}</p>
 
-      {hasPayment &&
-        isPaymentDeposit &&
-        isProvider &&
-        !isRefunding &&
-        !isContractCompleted && (
-          <div className="flex gap-3 pt-4">
-            <Button
-              className="flex-1 bg-primary-500 hover:bg-primary-600 text-white"
-              onClick={() => {
-                apiClient
-                  .post(`/payments/contracts/${contractData._id}/release`)
-                  .then((response) => {
-                    console.log("Funds released:", response.data);
-                    handlePaymentSuccess();
-                  })
-                  .catch((error) => {
-                    console.error("Error releasing funds:", error);
-                  });
-              }}
-              // disabled={!isReleasable} // Disable button if not releasable
-            >
-              Release Funds
-            </Button>
+            {/* Payment Breakdown */}
+            {paymentData && (
+                <div className={styles.paymentBreakdown}>
+                    <h3 className={styles.paymentBreakdownTitle}>Payment Breakdown</h3>
+                    <div className={styles.breakdownItem}><strong>Total:</strong> ${((paymentData.amount || 0) / 100).toFixed(2)}</div>
+                    <div className={styles.breakdownItem}><strong>Tax (13%):</strong> ${((paymentData.taxAmount || 0) / 100).toFixed(2)}</div>
+                    <div className={styles.breakdownItem}><strong>Platform Fee ($5 + 5%):</strong> ${((paymentData.applicationFeeAmount || 0) / 100).toFixed(2)}</div>
+                    <div className={styles.breakdownItem}><strong>Payout to Tasker:</strong> ${((paymentData.amountReceivedByPayee || 0) / 100).toFixed(2)}</div>
+                </div>
+            )}
 
-            <Button
-              className="flex-1 bg-red-500 hover:bg-red-600 text-white"
-              onClick={() => {
-                apiClient
-                  .post(`/payments/contracts/${contractData._id}/refund`)
-                  .then((response) => {
-                    console.log("Funds refunded:", response.data);
-                    handlePaymentSuccess();
-                  })
-                  .catch((error) => {
-                    console.error("Error refunding funds:", error);
-                  });
-              }}
-            >
-              Refund
-            </Button>
-          </div>
-        )}
+            {/* ... other sections ... */}
+            {hasPayment && isProvider && !isPaymentDeposit && (
+              <div className={styles.paymentSection}>
+                <h3 className={styles.paymentSectionTitle}>Payment Deposit</h3>
+                <Elements stripe={stripePromise} options={options}>
+                  <ConfirmButton clientSecret={paymentIntent?.client_secret} />
+                </Elements>
+              </div>
+            )}
 
-      {!isRefunding && !isPaymentDeposit && !isContractCompleted && (
-        <div>
-          {isProvider && contractData && !paymentData && (
-            <div className="flex gap-3 pt-4">
-              {!paymentData && (
-                <Button
-                  className="flex-1 bg-primary-500 hover:bg-primary-600 text-white"
-                  onClick={() => {
-                    apiClient
-                      .post(
-                        `/payments/contracts/${contractData._id}/create-payment-intent`
-                      )
-                      .then((response) => {
-                        console.log("Payment intent created:", response.data);
-                        handleAcceptSuccess();
-                      })
-                      .catch((error) => {
-                        console.error("Error creating payment intent:", error);
-                      });
-                  }}
-                >
-                  Deposit
-                </Button>
-              )}
+             {contractData && contractData.status === 'pending' && isTasker && gigData?.assignedTo?._id === user?._id && (
+                <div className={styles.sectionCard}>
+                    <h3 className={styles.sectionTitle}>Contract Pending Acceptance</h3>
+                    <p className={styles.sectionText}>Awaiting your acceptance of the contract for this gig.</p>
+                    <button 
+                        onClick={() => acceptContractMutation.mutate(contractData._id)}
+                        disabled={acceptContractMutation.isLoading}
+                        className={styles.primaryButton}
+                    >
+                        {acceptContractMutation.isLoading ? 'Accepting...' : 'Accept Contract'}
+                    </button>
+                     <button
+                        onClick={() => cancelContractMutation.mutate(contractData._id)}
+                        disabled={cancelContractMutation.isLoading}
+                        className={styles.secondaryButton}
+                    >
+                        {cancelContractMutation.isLoading ? 'Cancelling...' : 'Cancel Contract'}
+                    </button>
+                </div>
+            )}
 
-              <Button
-                className="flex-1 bg-red-500 hover:bg-red-600 text-white"
-                onClick={() => {
-                  cancelContractMutation.mutate(contractData._id);
-                }}
-                disabled={cancelContractMutation.isLoading}
-              >
-                {cancelContractMutation.isLoading
-                  ? "Canceling..."
-                  : "End Contract"}
-              </Button>
-            </div>
-          )}
+            {/* Release Funds Section */}
+            {isProvider && isContractCompleted && paymentData?.status === 'succeeded' && !paymentData?.releasedToTasker && isReleasable && (
+                <div className={styles.sectionCard}>
+                    <h3 className={styles.sectionTitle}>Release Funds to Tasker</h3>
+                    <p className={styles.sectionText}>The gig is completed and funds are ready to be released to the tasker.</p>
+                    <button
+                        onClick={() => releaseFundsMutation.mutate(paymentData.contract)}
+                        disabled={releaseFundsMutation.isLoading}
+                        className={styles.primaryButton}
+                    >
+                        {releaseFundsMutation.isLoading ? 'Releasing...' : 'Release Funds'}
+                    </button>
+                </div>
+            )}
 
-          {isProvider && contractData && (
-            <Elements stripe={stripePromise} options={options}>
-              <ConfirmButton clientSecret={paymentData?.clientSecret} />
-            </Elements>
-          )}
-        </div>
-      )}
-      {!loading && (
-        <Button
-          className="w-full"
-          onClick={fetchData}
-          style={{ marginTop: "15px" }}
-        >
-          Refresh Details
-        </Button>
+            {isProvider && isContractCompleted && paymentData?.releasedToTasker && (
+                <div className={styles.infoCard}>
+                    <p className={styles.infoText}>Funds have been successfully released to the tasker.</p>
+                </div>
+            )}
+
+            {isProvider && isContractCompleted && paymentData?.status === 'succeeded' && !paymentData?.releasedToTasker && !isReleasable && (
+                <div className={styles.warningCard}>
+                    <p className={styles.warningText}>Funds cannot be released yet. The tasker needs to connect their Stripe account and verify their identity.</p>
+                </div>
+            )}
+
+            {isTasker && isContractCompleted && paymentData?.status === 'succeeded' && !paymentData?.releasedToTasker && (
+                <div className={styles.infoCard}>
+                    <p className={styles.infoText}>The gig is completed. Funds are awaiting release from the provider.</p>
+                </div>
+            )}
+
+            {isRefunding && (
+                <div className={styles.warningCard}>
+                    <p className={styles.warningText}>This payment is currently being refunded. Status: {paymentData.status}</p>
+                </div>
+            )}
+
+            {/* Gig Application Section */}
+            {!contractData && isTasker && gigData?.status === 'open' && (
+                <GigApplySection gigId={gigId} onApplySuccess={fetchData} />
+            )}
+
+            {/* Tasker Applications (for Provider) */}
+            {isProvider && !contractData && gigData?.status === 'open' && (
+                <GigApplications gigId={gigId} onApplicationUpdate={fetchData} />
+            )}
+
+            {/* Contract Management for Provider */}
+            {contractData && isProvider && !isContractCompleted && (
+                <div className={styles.sectionCard}>
+                    <h3 className={styles.sectionTitle}>Contract Management</h3>
+                    <p className={styles.sectionText}>Current Status: {contractData.status}</p>
+                    {contractData.status === 'accepted' && (
+                        <button
+                            onClick={() => completeContractMutation.mutate(contractData._id)}
+                            disabled={completeContractMutation.isLoading}
+                            className={styles.primaryButton}
+                        >
+                            {completeContractMutation.isLoading ? 'Completing...' : 'Mark Contract as Completed'}
+                        </button>
+                    )}
+                     {contractData.status === 'accepted' && (
+                        <button
+                            onClick={() => cancelContractMutation.mutate(contractData._id)}
+                            disabled={cancelContractMutation.isLoading}
+                            className={styles.secondaryButton}
+                        >
+                            {cancelContractMutation.isLoading ? 'Cancelling...' : 'Cancel Contract'}
+                        </button>
+                    )}
+                </div>
+            )}
+
+             {/* Review Section */}
+            {contractData && isContractCompleted && (gigData?.provider?._id === user?._id || gigData?.assignedTo?._id === user?._id) && (
+                <ReviewSection
+                    gigId={gigId}
+                    contractId={contractData._id}
+                    reviewerId={user._id}
+                    reviewedUserId={user._id === gigData.provider._id ? gigData.assignedTo._id : gigData.provider._id}
+                    onReviewSubmitted={fetchData}
+                />
+            )}
+
+          </div> {/* End gigDetailsSection */}
+        </div> /* End gigContent */
       )}
     </div>
   );
 }
+
 export default GigDetailPage;

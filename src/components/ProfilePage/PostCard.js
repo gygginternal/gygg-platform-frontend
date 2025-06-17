@@ -6,8 +6,8 @@ import styles from './PostCard.module.css'; // Assuming postCard styles are here
 // Re-defining Icon component (ensure it's imported or defined somewhere accessible)
 const Icon = ({ src, alt, className = "", width = 16, height = 16, onClick }) => (
   <img
-    src={src} alt={alt} className={className} width={width} height={height}
-    onClick={onClick} style={onClick ? { cursor: 'pointer' } : {}}
+    src={src} alt={alt} className={`${className} ${onClick ? styles.clickableIcon : ""}`} width={width} height={height}
+    onClick={onClick}
     onError={(e) => { e.currentTarget.style.display = 'none'; }}
   />
 );

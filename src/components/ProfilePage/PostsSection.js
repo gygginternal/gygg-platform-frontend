@@ -25,8 +25,8 @@ function PostsSection({ userIdToView, isOwnProfile }) { // Accept isOwnProfile
             setLoading(true); setError('');
             try {
                 logger.info(`PostsSection: Fetching posts for authorId: ${targetUserIdForPosts}`);
-                const response = await apiClient.get(`/posts`, {
-                    params: { authorId: targetUserIdForPosts, limit: 5, sort: 'recents' }
+                const response = await apiClient.get(`/posts/user/${targetUserIdForPosts}`, {
+                    params: { limit: 5, sort: 'recents' }
                 });
                 setPosts(response.data.data.posts || []);
             } catch (err) {
@@ -41,10 +41,10 @@ function PostsSection({ userIdToView, isOwnProfile }) { // Accept isOwnProfile
 
     const renderContent = () => {
         if (loading) return <p>Loading posts...</p>;
-        if (error) return <p className="error-message">{error}</p>;
+        if (error) return <p className={styles.errorMessage}>{error}</p>;
         if (posts.length === 0) {
             return (
-                <div style={{textAlign: 'center', padding: '20px 0'}}>
+                <div className={styles.noPostsMessage}>
                     <p>{isOwnProfile ? "You haven't made any posts yet." : "This user hasn't made any posts yet."}</p>
                     {/* Only show create post link if it's own profile */}
                     {isOwnProfile && (
@@ -59,7 +59,7 @@ function PostsSection({ userIdToView, isOwnProfile }) { // Accept isOwnProfile
     };
 
     return (
-        <section className={`${styles.postsCard} card`}>
+        <section className={styles.postsCard}>
             <div className={styles.postsHeader}>
                 <h2>Recent Posts</h2>
                 {posts.length > 0 && (

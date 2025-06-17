@@ -1,0 +1,26 @@
+/* frontend/src/pages/GigHistoryPage.module.css */
+
+.container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 50px auto;
+    text-align: center;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.title {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.message {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.5;
+} 

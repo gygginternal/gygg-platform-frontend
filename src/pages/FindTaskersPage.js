@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import apiClient from "../api/axiosConfig"; // Adjust path
 import { ServiceProviderListing } from "../components/TaskerMatchedSection";
 import { TaskerMatchedSidebar } from "../components/TaskerMatchedSidebar";
-import styles from "./MatchedTaskersPage.module.css";
+import styles from "./FindTaskersPage.module.css";
 
 export const FindTaskersPage = () => {
   const [gigHelpers, setGigHelpers] = useState([]);
@@ -55,31 +55,29 @@ export const FindTaskersPage = () => {
           <TaskerMatchedSidebar />
         </aside>
         <main className={styles.mainFeedArea}>
-          <h2>Find Matching Taskers</h2>
-          <p>
+          <h2 className={styles.title}>Find Matching Taskers</h2>
+          <p className={styles.subtitle}>
             Showing taskers based on similarities in your profile's hobbies and
             people preferences.
           </p>
           <button
             onClick={() => fetchGigHelpers(1)}
             disabled={loading}
-            style={{ marginBottom: "20px" }}
+            className={styles.refreshButton}
           >
             Refresh Matches
           </button>
 
-          {error && <p className="error-message">{error}</p>}
+          {error && <p className={styles.errorMessage}>{error}</p>}
           <ServiceProviderListing gigHelpers={gigHelpers} />
-          {loading && <p>Loading...</p>}
+          {loading && currentPage === 1 && <p className={styles.loadingMessage}>Loading...</p>}
           {hasMore && !loading && (
-            <button onClick={loadMore} style={{ marginTop: "10px" }}>
+            <button onClick={loadMore} className={styles.loadMoreButton}>
               Load More Taskers
             </button>
           )}
           {!hasMore && gigHelpers.length > 0 && (
-            <p
-              style={{ textAlign: "center", marginTop: "20px", color: "#888" }}
-            >
+            <p className={styles.endMessage}>
               End of results.
             </p>
           )}

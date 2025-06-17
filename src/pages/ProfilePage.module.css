@@ -8,31 +8,30 @@
     font-size: 16px;
 }
 
-.content {
-  width: 100%;
-  /* Account for a 300px left sidebar */
-  margin-left: 300px; /* Push content to the right */
-  max-width: 1100px; /* Adjust max-width for profile content */
-  margin-right: auto; /* Keep content centered in the remaining space */
-  margin-top: 1.25rem; /* 20px */
-  margin-bottom: 1.875rem; /* 30px */
-  display: flex;
-  flex-direction: column;
-  gap: 1.5625rem; /* 25px Space between profile sections */
-  padding-bottom: 1.875rem; /* 30px */
-  box-sizing: border-box; /* Include padding in width calculation */
-}
-
-.pageStateContainer { /* For loading/error messages if page content can't render */
+.profilePageContainer {
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 18.75rem; /* 300px Give it some height */
-    /* Facebook Header (profile names etc.) 16-18px */
-    font-size: 1.125rem; /* 18px */
-    color: #555;
-    text-align: center;
-    padding: 1rem; /* Add padding to prevent text touching edges */
+    padding: 2.5rem 1.25rem; /* 40px 20px */
+    background-color: #f7f7f7;
+    min-height: calc(100vh - 4rem); /* Adjust based on header/footer height */
+    box-sizing: border-box;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem; /* 20px */
+    max-width: 56.25rem; /* 900px */
+    width: 100%;
+}
+
+.pageStateContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px; /* Or whatever height makes sense for loading/error messages */
+  font-size: 1.1rem;
+  color: #555;
 }
 
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */

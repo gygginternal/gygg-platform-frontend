@@ -91,6 +91,10 @@
   object-fit: contain; /* For img/svg icons */
 }
 
+.uploadEmoji {
+    font-size: 1.5rem;
+}
+
 .uploadText {
   /* Facebook Timestamps and meta info: 12px. Using 14px (0.875rem). */
   font-size: 0.875rem; /* 14px */

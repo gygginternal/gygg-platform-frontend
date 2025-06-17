@@ -15,7 +15,7 @@ function HomePage() {
 
     // If still loading auth state, show loading indicator
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <div className={pageStyles.loadingContainer}>Loading...</div>;
     }
 
     // If NOT loading and user IS authenticated, redirect to feed

@@ -4,7 +4,6 @@ import styles from "./AwaitedPostedGigs.module.css"; // Single CSS module
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "../api/axiosConfig";
 import logger from "../utils/logger";
-import cn from "classnames";
 
 const AwaitedPostedGigs = () => {
   const {
@@ -24,7 +23,7 @@ const AwaitedPostedGigs = () => {
   });
 
   return (
-    <section className={cn(styles.awaitedSection, styles.container)}>
+    <section className={`${styles.awaitedSection} ${styles.container}`}>
       <div className={styles.sectionHeader}>
         <h4 className={styles.sectionTitleUnderlined}>Awaited Posted Gigs</h4>
       </div>
@@ -41,7 +40,7 @@ const AwaitedPostedGigs = () => {
               <div>
                 <Link
                   to={`/gigs/${gig._id}`}
-                  className={cn(styles.viewGigLink, styles.underline)}
+                  className={`${styles.viewGigLink} ${styles.underline}`}
                 >
                   <p className={styles.awaitedDescription}>{gig.title}</p>
                 </Link>

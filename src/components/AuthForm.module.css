@@ -6,188 +6,182 @@
 }
 
 .formContainer {
-  max-width: 25rem; /* 400px */
-  margin: 2.5rem auto; /* 40px auto */
-  padding: 1.5rem; /* 24px */
-  background-color: #f9f9f9;
-  border-radius: 0.625rem; /* 10px */
-  box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1); /* 0 2px 10px */
-  box-sizing: border-box; /* Ensures padding is included in width */
-  width: 100%; /* Ensure it takes full width within its parent */
+    background-color: #fff;
+    padding: 2.5rem; /* 40px */
+    border-radius: 0.75rem; /* 12px */
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1); /* Shadow */
+    width: 100%;
+    max-width: 25rem; /* 400px */
+    box-sizing: border-box;
 }
-  
-.formContainer h2 {
-  text-align: center;
-  margin-bottom: 1.25rem; /* 20px */
-  /* Facebook Header (profile names etc.) 16-18px.
-     This is a main title within a form, so slightly larger is fine, scaling down. */
-  font-size: 1.25rem; /* 20px */
-  color: #333;
-  font-weight: 700;
+
+.formTitle {
+    font-size: 2rem; /* 32px */
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1.5rem; /* 24px */
+    text-align: center;
 }
-  
-.inputGroup {
-  margin-bottom: 0.9375rem; /* 15px */
-  display: flex;
-  flex-direction: column;
+
+.formGroup {
+    margin-bottom: 1.25rem; /* 20px */
 }
-  
-.inputGroup label {
-  font-weight: 600;
-  margin-bottom: 0.375rem; /* 6px */
-  /* Facebook Post text (main body) 14-16px */
-  font-size: 0.9375rem; /* 15px */
-  color: #333;
+
+.label {
+    display: block;
+    font-size: 0.9375rem; /* 15px */
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 0.5rem; /* 8px */
 }
-  
-.inputGroup input,
-.inputGroup select {
-  padding: 0.625rem; /* 10px */
-  border: 0.0625rem solid #ccc; /* 1px */
-  border-radius: 0.375rem; /* 6px */
-  /* Facebook Post text (main body) 14-16px */
-  font-size: 0.875rem; /* 14px */
-  box-sizing: border-box; /* Crucial for width: 100% */
-  color: #333;
+
+.input,
+.select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0.375rem; /* 6px */
+    font-size: 1rem; /* 16px */
+    color: #333;
+    box-sizing: border-box;
 }
-.inputGroup input:focus,
-.inputGroup select:focus {
+
+.input:focus,
+.select:focus {
     outline: none;
-    border-color: #007bff; /* Example focus color */
-    box-shadow: 0 0 0 0.125rem rgba(0, 123, 255, 0.25); /* 0 0 0 2px */
+    border-color: #D99633;
+    box-shadow: 0 0 0 3px rgba(217, 150, 51, 0.25);
 }
-  
+
+.select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236B7280'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3Csvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1.2em 1.2em;
+    padding-right: 2.5rem;
+}
+
 .errorMessage {
-  color: red;
-  margin-top: 0.625rem; /* 10px */
-  text-align: center;
-  /* Facebook Comments 13-14px */
-  font-size: 0.875rem; /* 14px */
+    color: red;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 0.9375rem; /* 15px */
 }
-  
+
 .submitBtn {
-  width: 100%;
-  padding: 0.75rem; /* 12px */
-  background-color: #007bff;
-  border: none;
-  color: white;
-  /* Facebook Buttons 13-14px */
-  font-size: 0.9375rem; /* 15px */
-  border-radius: 0.375rem; /* 6px */
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-  font-weight: 600;
+    background-color: #D99633;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    margin-top: 1.5rem; /* 24px */
 }
-  
-.submitBtn:disabled {
-  background-color: #a4c6f0;
-  cursor: not-allowed;
-  opacity: 0.7;
-}
+
 .submitBtn:hover:not(:disabled) {
-    background-color: #0056b3;
-    transform: translateY(-0.0625rem); /* -1px */
-}
-.submitBtn:active:not(:disabled) {
-    transform: translateY(0);
+    background-color: #b45309;
 }
 
-
-/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
-@media (max-width: 1024px) {
-    .formContainer {
-        max-width: 22rem; /* 352px */
-        margin: 2rem auto; /* 32px auto */
-        padding: 1.25rem; /* 20px */
-    }
-    .formContainer h2 {
-        font-size: 1.125rem; /* 18px */
-        margin-bottom: 1rem; /* 16px */
-    }
-    .inputGroup {
-        margin-bottom: 0.8rem; /* 12.8px */
-    }
-    .inputGroup label {
-        font-size: 0.875rem; /* 14px */
-        margin-bottom: 0.3rem; /* 4.8px */
-    }
-    .inputGroup input,
-    .inputGroup select {
-        padding: 0.5rem; /* 8px */
-        font-size: 0.8125rem; /* 13px */
-    }
-    .errorMessage {
-        font-size: 0.8125rem; /* 13px */
-        margin-top: 0.5rem; /* 8px */
-    }
-    .submitBtn {
-        padding: 0.625rem; /* 10px */
-        font-size: 0.875rem; /* 14px */
-    }
+.submitBtn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
 }
 
-/* Responsive adjustments for screens up to 768px (Tablets) */
+.loginLinks,
+.signupLinks {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9375rem; /* 15px */
+    color: #666;
+}
+
+.link {
+    color: #007bff;
+    text-decoration: none;
+    transition: text-decoration 0.2s ease;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
     .formContainer {
-        max-width: 90%; /* Take more width on tablet */
-        margin: 1.5rem auto; /* 24px auto */
-        padding: 1rem; /* 16px */
+        padding: 1.5rem;
+        max-width: 90%;
     }
-    .formContainer h2 {
-        font-size: 1rem; /* 16px */
-        margin-bottom: 0.8rem; /* 12.8px */
+    .formTitle {
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
     }
-    .inputGroup {
-        margin-bottom: 0.625rem; /* 10px */
+    .formGroup {
+        margin-bottom: 1rem;
     }
-    .inputGroup label {
-        font-size: 0.8125rem; /* 13px */
-        margin-bottom: 0.25rem; /* 4px */
+    .label {
+        font-size: 0.875rem;
     }
-    .inputGroup input,
-    .inputGroup select {
-        padding: 0.4rem; /* 6.4px */
-        font-size: 0.75rem; /* 12px */
+    .input,
+    .select {
+        padding: 0.6rem;
+        font-size: 0.9rem;
     }
     .errorMessage {
-        font-size: 0.75rem; /* 12px */
-        margin-top: 0.4rem; /* 6.4px */
+        font-size: 0.875rem;
+        margin-top: 0.8rem;
+        margin-bottom: 0.8rem;
     }
     .submitBtn {
-        padding: 0.5rem; /* 8px */
-        font-size: 0.8125rem; /* 13px */
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+        margin-top: 1rem;
+    }
+    .loginLinks,
+    .signupLinks {
+        font-size: 0.875rem;
+        margin-top: 10px;
     }
 }
 
-/* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
     .formContainer {
-        max-width: 95%; /* Even wider on tiny screens */
-        margin: 1rem auto; /* 16px auto */
-        padding: 0.8rem; /* 12.8px */
+        padding: 1rem;
     }
-    .formContainer h2 {
-        font-size: 0.9375rem; /* 15px */
-        margin-bottom: 0.625rem; /* 10px */
+    .formTitle {
+        font-size: 1.5rem;
+        margin-bottom: 0.8rem;
     }
-    .inputGroup {
-        margin-bottom: 0.5rem; /* 8px */
+    .formGroup {
+        margin-bottom: 0.8rem;
     }
-    .inputGroup label {
-        font-size: 0.75rem; /* 12px */
-        margin-bottom: 0.2rem; /* 3.2px */
+    .label {
+        font-size: 0.8125rem;
     }
-    .inputGroup input,
-    .inputGroup select {
-        padding: 0.3rem; /* 4.8px */
-        font-size: 0.6875rem; /* ~11px */
+    .input,
+    .select {
+        padding: 0.5rem;
+        font-size: 0.8rem;
     }
     .errorMessage {
-        font-size: 0.6875rem; /* ~11px */
-        margin-top: 0.3rem; /* 4.8px */
+        font-size: 0.8125rem;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
     }
     .submitBtn {
-        padding: 0.4rem; /* 6.4px */
-        font-size: 0.75rem; /* 12px */
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        margin-top: 0.8rem;
+    }
+    .loginLinks,
+    .signupLinks {
+        font-size: 0.8125rem;
+        margin-top: 8px;
     }
 }

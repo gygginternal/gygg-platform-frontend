@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./ReviewsSection.module.css";
+import styles from './ReviewSection.module.css';
 import ReviewCard from "./ProfilePage/ReviewCard";
 
 const reviewsData = [

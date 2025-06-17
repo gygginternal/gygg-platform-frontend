@@ -1,0 +1,96 @@
+/* frontend/src/pages/MatchedGigsPage.module.css */
+
+.container {
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    font-family: 'Inter', sans-serif;
+    color: #333;
+}
+
+.title {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+}
+
+.subtitle {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.refreshButton {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.refreshButton:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.refreshButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.errorMessage {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.gigList {
+    padding: 0;
+    list-style: none;
+}
+
+.noGigsMessage {
+    text-align: center;
+    color: #666;
+    margin-top: 20px;
+    font-size: 1.1em;
+}
+
+.loadingMoreMessage {
+    text-align: center;
+    color: #666;
+    margin-top: 20px;
+}
+
+.loadMoreButton {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.loadMoreButton:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.loadMoreButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.endMessage {
+    text-align: center;
+    margin-top: 20px;
+    color: #888;
+} 

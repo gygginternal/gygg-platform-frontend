@@ -1,0 +1,81 @@
+/* frontend/src/components/GigApplySection.module.css */
+
+.offerCard {
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.offerCardContent {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 640px) {
+    .offerCardContent {
+        flex-direction: row;
+    }
+}
+
+.button {
+    border: none;
+    border-radius: 0.25rem; /* Equivalent to rounded */
+    padding: 0.5rem 1rem; /* Equivalent to px-4 py-2 */
+    font-weight: 500; /* Equivalent to font-medium */
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.acceptButton {
+    margin-right: 0.75rem;
+    width: 100%;
+    background-color: #3b82f6; /* Equivalent to bg-blue-500 */
+    color: #fff; /* Equivalent to text-white */
+}
+
+.acceptButton:hover {
+    background-color: #2563eb; /* Equivalent to hover:bg-blue-600 */
+}
+
+.declineButton {
+    background-color: #ef4444;
+    color: #fff;
+    width: 100%;
+}
+
+.declineButton:hover {
+    background-color: #dc2626;
+}
+
+.stripeStatusMessage {
+    color: #f97316;
+}
+
+.stripeSetupLink {
+    text-decoration: underline;
+}
+
+.applicationRejectedMessage {
+    color: #dc2626;
+}
+
+.applyButton {
+    width: 100%;
+    flex: 1;
+    background-color: #3b82f6;
+    color: #fff;
+}
+
+.applyButton:hover {
+    background-color: #2563eb;
+}
+
+.cancelButton {
+    width: 100%;
+    flex: 1;
+    background-color: #ef4444;
+    color: #fff;
+}
+
+.cancelButton:hover {
+    background-color: #dc2626;
+} 

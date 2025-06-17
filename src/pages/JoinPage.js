@@ -1,7 +1,7 @@
 // src/pages/JoinPage.js
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'; // Use react-router-dom hooks/components
-import styles from './JoinPage.module.css'; // Create this CSS module
+import styles from '../components/JoinPage/JoinPage.module.css'; // Create this CSS module
 // Assuming you have the logo in public/
 // import logo from '/gygg-logo.svg';
 

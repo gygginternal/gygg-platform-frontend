@@ -1,0 +1,313 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+    font-size: 16px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1.25rem;
+  background: linear-gradient(#3c4a53, #0f212d);
+  overflow-y: auto;
+  box-sizing: border-box;
+  width: 100vw;
+}
+
+.logo {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  color: #D89362;
+  text-decoration: none;
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 10;
+}
+
+.logo img {
+  display: block;
+  max-width: 9.375rem;
+  width: 100%;
+  height: auto;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5625rem;
+  max-width: 30rem;
+  width: 100%;
+  text-align: center;
+  background-color: transparent;
+  padding: 2.1875rem;
+  border-radius: 0.625rem;
+}
+
+.title {
+  color: #fff;
+  font-size: clamp(1.125rem, 4vw, 1.5rem);
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 0;
+}
+
+.instructionText {
+    color: #eee;
+    font-size: 0.9375rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+    max-width: 90%;
+}
+
+.iconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.625rem;
+}
+.iconContainer img {
+    width: 4rem;
+    height: 4rem;
+    opacity: 0.8;
+}
+
+.form {
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+  width: 100%;
+  margin-bottom: 0.625rem;
+}
+
+.submitButton {
+  color: #fff;
+  cursor: pointer;
+  background-color: #D99633;
+  border: none;
+  border-radius: 0.75rem;
+  width: 100%;
+  height: 2.8125rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.14px;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  margin-top: 0.625rem;
+}
+.submitButton:hover:not(:disabled) { background-color: #b45309; transform: translateY(-0.0625rem); }
+.submitButton:active:not(:disabled) { transform: translateY(0px); }
+.submitButton:disabled { background-color: #777; cursor: not-allowed; opacity: 0.8; }
+
+.retryText {
+  color: #bbb;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+  margin-top: 1.25rem;
+  line-height: 2.4;
+}
+
+.retryLink {
+  color: #D99633;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.retryLink:hover {
+  color: #b45309;
+}
+
+.error {
+  color: #ff8a8a;
+  font-size: 0.875rem;
+  margin-top: 0.3125rem;
+  margin-bottom: 0.625rem;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+  width: 100%;
+}
+
+.infoMessage {
+    color: #e0f2f7;
+    font-size: 1rem;
+    text-align: center;
+    padding: 0.9375rem;
+    background-color: rgba(0, 100, 120, 0.3);
+    border-radius: 0.3125rem;
+    width: 100%;
+    line-height: 1.5;
+}
+
+.link {
+  color: #d99633;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+
+.link:hover {
+  color: #b45309;
+}
+
+/* Responsive adjustments for screens up to 1024px */
+@media (max-width: 1024px) {
+    .container {
+        padding: 1rem;
+    }
+    .logo {
+        top: 1.25rem;
+        left: 1.25rem;
+    }
+    .formContainer {
+        gap: 1.25rem;
+        max-width: 28rem;
+        padding: 1.875rem;
+    }
+    .title {
+        font-size: clamp(1rem, 4.5vw, 1.3rem);
+    }
+    .instructionText {
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+    }
+    .iconContainer img {
+        width: 3rem;
+        height: 3rem;
+    }
+    .form {
+        gap: 1rem;
+    }
+    .submitButton {
+        height: 2.5rem;
+        font-size: 0.8125rem;
+        margin-top: 0.75rem;
+    }
+    .retryText {
+        font-size: 0.75rem;
+        margin-top: 1rem;
+    }
+    .error {
+        font-size: 0.8125rem;
+        margin-top: 0.4rem;
+        margin-bottom: 0.5rem;
+    }
+    .infoMessage {
+        font-size: 0.9375rem;
+        padding: 0.75rem;
+    }
+}
+
+/* Responsive adjustments for screens up to 768px */
+@media (max-width: 768px) {
+    .container {
+        padding: 0.8rem;
+    }
+    .logo {
+        top: 1rem;
+        left: 1rem;
+    }
+    .logo img {
+        max-width: 7.5rem;
+    }
+    .formContainer {
+        gap: 1rem;
+        max-width: 90%;
+        padding: 1.5rem;
+    }
+    .title {
+        font-size: clamp(0.9375rem, 5vw, 1.25rem);
+    }
+    .instructionText {
+        font-size: 0.8125rem;
+        margin-bottom: 0.8rem;
+    }
+    .iconContainer img {
+        width: 2.4rem;
+        height: 2.4rem;
+    }
+    .form {
+        gap: 0.8rem;
+    }
+    .submitButton {
+        height: 2.25rem;
+        font-size: 0.75rem;
+        margin-top: 0.625rem;
+    }
+    .retryText {
+        font-size: 0.6875rem;
+        margin-top: 0.8rem;
+    }
+    .error {
+        font-size: 0.75rem;
+        margin-top: 0.3rem;
+        margin-bottom: 0.4rem;
+    }
+    .infoMessage {
+        font-size: 0.875rem;
+        padding: 0.6rem;
+    }
+}
+
+/* Responsive adjustments for screens up to 480px */
+@media (max-width: 480px) {
+  .container {
+        padding: 0.625rem;
+    }
+    .logo {
+        top: 1rem;
+        left: 1rem;
+    }
+    .logo img {
+        max-width: 6.25rem;
+    }
+    .formContainer {
+        padding: 1.25rem 0.9375rem;
+        gap: 1.25rem;
+    }
+    .title {
+        font-size: clamp(0.875rem, 6vw, 1.125rem);
+    }
+    .instructionText {
+        font-size: 0.8125rem;
+        margin-bottom: 0.625rem;
+    }
+    .iconContainer img {
+        width: 1.8rem;
+        height: 1.8rem;
+    }
+    .form {
+        gap: 0.625rem;
+    }
+    .submitButton {
+        height: 2.5rem;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+    }
+    .retryText {
+        font-size: 0.75rem;
+        margin-top: 0.8rem;
+    }
+    .error {
+        font-size: 0.8125rem;
+        margin-top: 0.25rem;
+        margin-bottom: 0.3rem;
+    }
+    .infoMessage {
+        font-size: 0.8125rem;
+        padding: 0.5rem;
+    }
+}

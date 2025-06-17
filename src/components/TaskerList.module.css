@@ -1,0 +1,112 @@
+.taskerList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.loadMoreButton,
+.retryButton {
+  width: 100%;
+  margin: 1rem 0;
+  padding: 0.75rem;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  text-align: center;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 1rem;
+}
+
+.loadMoreButton:hover,
+.retryButton:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.loadMoreButton:disabled {
+  background-color: var(--gray-400);
+  cursor: not-allowed;
+}
+
+.retryButton {
+  max-width: 200px;
+  margin: 1rem auto;
+  background-color: var(--error-color);
+}
+
+.retryButton:hover {
+  background-color: var(--error-color-dark, #c53030);
+}
+
+.loadingMessage,
+.endOfResults,
+.errorMessage {
+  text-align: center;
+  color: var(--gray-600);
+  padding: 2rem;
+  font-size: 1.1rem;
+}
+
+.errorMessage {
+  color: var(--error-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.errorMessage p {
+  margin: 0;
+}
+
+/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+@media (max-width: 1024px) {
+  .taskerList {
+    gap: 1rem;
+  }
+}
+
+/* Responsive adjustments for screens up to 768px (Tablets) */
+@media (max-width: 768px) {
+  .taskerList {
+    gap: 0.875rem;
+  }
+
+  .loadMoreButton,
+  .retryButton {
+    margin: 0.75rem 0;
+    padding: 0.625rem;
+    font-size: 0.95rem;
+  }
+
+  .loadingMessage,
+  .endOfResults,
+  .errorMessage {
+    padding: 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Responsive adjustments for screens up to 480px (Mobile Phones) */
+@media (max-width: 480px) {
+  .taskerList {
+    gap: 0.75rem;
+  }
+
+  .loadMoreButton,
+  .retryButton {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .loadingMessage,
+  .endOfResults,
+  .errorMessage {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+} 

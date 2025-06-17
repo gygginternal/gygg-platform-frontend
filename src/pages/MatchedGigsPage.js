@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import apiClient from '../api/axiosConfig';
 import MatchedGigCard from '../components/MatchedGigCard'; // Assuming you have this component
+import styles from '../components/MatchedGigsPage/MatchedGigsPage.module.css'; // Import CSS Modules
 
 function MatchedGigsPage() {
     const [matchedGigs, setMatchedGigs] = useState([]);
@@ -52,33 +53,33 @@ function MatchedGigsPage() {
     };
 
     return (
-       <div>
-            <h2>Gigs Matching Your Profile</h2>
-            <p>Showing open gigs posted by providers with similar hobbies or people preferences to yours.</p>
-            <button onClick={() => fetchMatchedGigs(1)} disabled={loading} style={{ marginBottom: '20px' }}>
+       <div className={styles.container}>
+            <h2 className={styles.title}>Gigs Matching Your Profile</h2>
+            <p className={styles.subtitle}>Showing open gigs posted by providers with similar hobbies or people preferences to yours.</p>
+            <button onClick={() => fetchMatchedGigs(1)} disabled={loading} className={styles.refreshButton}>
                 {loading && currentPage === 1 ? 'Loading...' : 'Refresh Matches'}
             </button>
 
-            {error && <p className="error-message">{error}</p>}
+            {error && <p className={styles.errorMessage}>{error}</p>}
 
             {/* Display the list of matched gigs */}
              {matchedGigs.length > 0 ? (
-                <ul style={{ padding: 0 }}>
+                <ul className={styles.gigList}>
                     {/* Use the MatchedGigCard component to render each gig */}
                     {matchedGigs.map(gig => <MatchedGigCard key={gig._id} gig={gig} />)}
                 </ul>
             ) : (
-                 !loading && <p>No matching open gigs found based on your profile preferences.</p>
+                 !loading && <p className={styles.noGigsMessage}>No matching open gigs found based on your profile preferences.</p>
             )}
 
              {/* Loading indicator */}
-             {loading && currentPage > 1 && <p>Loading more gigs...</p>}
+             {loading && currentPage > 1 && <p className={styles.loadingMoreMessage}>Loading more gigs...</p>}
 
              {/* Load More Button */}
              {hasMore && !loading && (
-                 <button onClick={loadMore} style={{ marginTop: '20px', width: '100%' }}>Load More Gigs</button>
+                 <button onClick={loadMore} className={styles.loadMoreButton}>Load More Gigs</button>
              )}
-             {!hasMore && matchedGigs.length > 0 && <p style={{ textAlign: 'center', marginTop: '20px', color: '#888' }}>You've reached the end!</p>}
+             {!hasMore && matchedGigs.length > 0 && <p className={styles.endMessage}>You've reached the end!</p>}
         </div>
      );
 }

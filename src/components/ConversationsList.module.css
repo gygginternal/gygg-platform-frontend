@@ -1,294 +1,128 @@
-/* src/components/Chat/ChatSidebar.module.css (example path) */
-
-/* Setting a base font size for rem calculations */
-:root {
-  font-size: 16px; /* 1rem = 16px */
-}
+/* frontend/src/components/ConversationsList.module.css */
 
 .sidebar {
-    flex-direction: column;
-    align-items: stretch;
-    width: 27%; /* Percentage for desktop layout */
-    margin-left: 1.25rem; /* 20px */
-    line-height: normal;
+    width: 200px;
+    background-color: #f0f2f5;
+    padding: 20px;
+    border-right: 1px solid #ddd;
     display: flex;
-    box-sizing: border-box; /* Ensures padding/border are included in width */
-    min-width: 0; /* Allows flex item to shrink below content minimum */
+    flex-direction: column;
+    min-height: calc(100vh - 80px); /* Adjust based on header height */
 }
-  
-.searchBox {
-    background-color: #fff;
-    border: 0.0625rem solid #e9e9e9; /* 1px */
-    border-radius: 0.9375rem; /* 15px */
-    flex-direction: column; /* Or row, depending on internal search input/icon layout */
+
+.header {
+    margin-bottom: 20px;
+}
+
+.header h3 {
+    font-size: 1.5em;
+    color: #333;
+}
+
+.loadingMessage,
+.errorMessage {
+    text-align: center;
+    padding: 20px;
+    color: #555;
+}
+
+.errorMessage {
+    color: red;
+}
+
+.searchInputContainer {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    width: 100%; /* Take full width of its container */
-    max-width: 17.5rem; /* 280px - Max width before it stops growing */
-    padding: 0.5625rem 0.75rem; /* 9px 12px */
-    display: flex;
-    box-sizing: border-box;
-}
-  
-.searchIcon {
-    aspect-ratio: 0.92;
-    object-fit: contain;
-    object-position: center;
-    /* Facebook Top navbar icons 20-24px. Using 22px (1.375rem). */
-    width: 1.375rem; /* 22px */
-    flex-shrink: 0;
-}
-  
-.conversationsList {
-    background-color: #fff;
-    border-radius: 1rem; /* 16px */
+    padding: 10px 12px;
+    max-width: 280px;
     width: 100%;
-    margin-top: 7.875rem; /* 126px */
-    padding: 1.125rem 1.75rem 1.75rem 0.4375rem; /* 18px 28px 28px 7px */
-    box-sizing: border-box;
+    background-color: white;
+    border-radius: 16px;
+    border: 1px solid #e0e0e0;
+    margin-right: 6px; /* max-md:mr-1.5 */
 }
-  
-.conversation {
+
+.searchInputWrapper {
+    position: relative;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1.25rem; /* 20px */
-    margin-top: 1.9375rem; /* 31px */
+    align-items: center;
+    width: 100%;
 }
-  
-.avatar {
-    aspect-ratio: 1;
-    object-fit: cover; /* Changed to cover for profile images */
-    object-position: center;
-    border-radius: 50%; /* Changed to 50% for perfect circle */
-    flex-shrink: 0;
-    /* Facebook Avatar in stories: 40-60px. Using 54px (3.375rem). */
-    width: 3.375rem; /* 54px */
-    height: 3.375rem; /* Make height explicit for square images */
-}
-  
-.messagePreview {
-    flex-direction: column;
-    align-self: flex-start;
-    flex-grow: 1;
-    min-width: 0; /* Allows text to truncate/wrap */
-}
-  
-.userName {
-    color: #3d4d55;
-    font-family:
-      Inter,
-      -apple-system,
-      Roboto,
-      Helvetica,
-      sans-serif;
-    /* Facebook Post text (main body) 14-16px. Using 16px (1rem). */
-    font-size: 1rem; /* 16px */
-    font-weight: 600;
-    margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-  
-.lastMessage {
-    color: #303030;
-    margin-top: 0.75rem; /* 12px */
-    font-family:
-      Roboto,
-      -apple-system,
-      Helvetica,
-      sans-serif;
-    /* Facebook Comments 13-14px. Using 14px (0.875rem). */
-    font-size: 0.875rem; /* 14px */
-    font-weight: 300;
-    margin-bottom: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-  
-.messageInfo {
-    color: #7c7c7c;
-    letter-spacing: 0.0075rem; /* 0.12px */
-    flex-direction: column;
-    align-items: stretch;
-    font-family:
-      Inter,
-      -apple-system,
-      Roboto,
-      Helvetica,
-      sans-serif;
-    /* Facebook Timestamps and meta info: 12px. Using 12px (0.75rem). */
-    font-size: 0.75rem; /* 12px */
-    font-weight: 300;
-    display: flex;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-  
-.timestamp {
-    color: #7c7c7c;
-    letter-spacing: 0.0075rem; /* 0.12px */
-    /* Facebook Timestamps and meta info: 12px. Using 12px (0.75rem). */
-    font-size: 0.75rem; /* 12px */
-    font-weight: 300;
-}
-  
-.moreIcon {
-    aspect-ratio: 1;
+
+.searchIcon {
     object-fit: contain;
-    object-position: center;
-    align-self: flex-end; /* Corrected to flex-end */
-    /* Facebook Post action icons 16-20px. Using 20px (1.25rem). */
-    width: 1.25rem; /* 20px */
-    margin-top: 0.6875rem; /* 11px */
-    flex-shrink: 0;
+    aspect-ratio: 0.92;
+    width: 22px;
+    margin-right: 12px; /* mr-3 */
 }
-  
-.divider {
-    border: 0.0625rem solid #e9e9e9; /* 1px */
-    width: 100%; /* Take full width of parent */
-    max-width: 17.5rem; /* 280px - Max width before it stops growing */
-    height: 0.0625rem; /* 1px */
-    margin: 0.5625rem 0; /* 9px 0 */
+
+.inputField {
+    width: 100%;
+    color: #4a4a4a; /* text-gray-700 */
+    background-color: transparent;
+    border: none;
+    outline: none;
+    /* focus:outline-none focus:ring-0 are handled by `outline: none` */
+}
+
+.inputField::placeholder {
+    color: #a0a0a0;
 }
 
 /* Responsive adjustments */
-
-/* @media (max-width: 1024px) - Large Tablets / Small Laptops */
-@media (max-width: 1024px) {
+@media (max-width: 991px) {
     .sidebar {
-        width: 32%; /* Take more width */
-        margin-left: 1rem; /* 16px */
+        width: 100%;
+        min-height: auto;
+        padding: 15px;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
     }
-    .searchBox {
-        max-width: 15rem; /* 240px */
-        padding: 0.5rem 0.6rem; /* 8px 9.6px */
+    .header {
+        text-align: center;
     }
-    .searchIcon {
-        width: 1.25rem; /* 20px */
-    }
-    .conversationsList {
-        margin-top: 6rem; /* 96px - Adjusted */
-        padding: 1rem 1.4rem 1.4rem 0.3rem; /* 16px 22.4px 22.4px 4.8px */
-    }
-    .conversation {
-        gap: 1rem; /* 16px */
-        margin-top: 1.5rem; /* 24px */
-    }
-    .avatar {
-        width: 3rem; /* 48px */
-        height: 3rem; /* 48px */
-    }
-    .userName {
-        font-size: 0.9375rem; /* 15px */
-    }
-    .lastMessage {
-        font-size: 0.8125rem; /* 13px */
-        margin-top: 0.6rem; /* 9.6px */
-    }
-    .messageInfo, .timestamp {
-        font-size: 0.6875rem; /* ~11px */
-    }
-    .moreIcon {
-        width: 1.125rem; /* 18px */
-        margin-top: 0.5rem; /* 8px */
-    }
-    .divider {
-        max-width: 15rem; /* 240px */
-        margin: 0.5rem 0; /* 8px 0 */
+    .searchInputContainer {
+        max-width: 100%;
+        margin-right: 0;
     }
 }
 
-/* @media (max-width: 768px) - Tablets (Sidebar usually becomes full width) */
 @media (max-width: 768px) {
     .sidebar {
-        width: 100%; /* Take full width */
-        margin-left: auto; /* Center horizontally */
-        margin-right: auto;
-        padding: 0 0.8rem; /* Add horizontal padding for mobile */
+        padding: 10px;
     }
-    .searchBox {
-        max-width: 90%; /* Still limit width for design */
-        padding: 0.4rem 0.5rem; /* 6.4px 8px */
+    .header h3 {
+        font-size: 1.3em;
+    }
+    .searchInputContainer {
+        padding: 8px 10px;
     }
     .searchIcon {
-        width: 1rem; /* 16px */
+        width: 18px;
+        margin-right: 8px;
     }
-    .conversationsList {
-        margin-top: 1rem; /* 16px */
-        padding: 0.8rem 1rem 1rem 0.3rem; /* 12.8px 16px 16px 4.8px */
-    }
-    .conversation {
-        gap: 0.8rem; /* 12.8px */
-        margin-top: 1.2rem; /* 19.2px */
-    }
-    .avatar {
-        width: 2.5rem; /* 40px */
-        height: 2.5rem; /* 40px */
-    }
-    .userName {
-        font-size: 0.875rem; /* 14px */
-    }
-    .lastMessage {
-        font-size: 0.75rem; /* 12px */
-        margin-top: 0.5rem; /* 8px */
-    }
-    .messageInfo, .timestamp {
-        font-size: 0.625rem; /* 10px */
-    }
-    .moreIcon {
-        width: 1rem; /* 16px */
-        margin-top: 0.4rem; /* 6.4px */
-    }
-    .divider {
-        max-width: 90%; /* Match searchBox max-width */
-        margin: 0.4rem 0; /* 6.4px 0 */
+    .inputField {
+        font-size: 0.9em;
     }
 }
 
-/* @media (max-width: 480px) - Mobile Phones */
 @media (max-width: 480px) {
     .sidebar {
-        padding: 0 0.6rem; /* Reduced horizontal padding */
+        padding: 8px;
     }
-    .searchBox {
-        max-width: 100%; /* Full width on smallest screens */
-        padding: 0.3rem 0.4rem; /* 4.8px 6.4px */
+    .header h3 {
+        font-size: 1.1em;
+    }
+    .searchInputContainer {
+        padding: 6px 8px;
     }
     .searchIcon {
-        width: 0.9375rem; /* 15px */
+        width: 16px;
+        margin-right: 6px;
     }
-    .conversationsList {
-        margin-top: 0.625rem; /* 10px */
-        padding: 0.625rem 0.8rem 0.8rem 0.25rem; /* 10px 12.8px 12.8px 4px */
-    }
-    .conversation {
-        gap: 0.625rem; /* 10px */
-        margin-top: 1rem; /* 16px */
-    }
-    .avatar {
-        width: 2rem; /* 32px */
-        height: 2rem; /* 32px */
-    }
-    .userName {
-        font-size: 0.8125rem; /* 13px */
-    }
-    .lastMessage {
-        font-size: 0.6875rem; /* ~11px */
-        margin-top: 0.4rem; /* 6.4px */
-    }
-    .messageInfo, .timestamp {
-        font-size: 0.5625rem; /* ~9px */
-    }
-    .moreIcon {
-        width: 0.9375rem; /* 15px */
-        margin-top: 0.3rem; /* 4.8px */
-    }
-    .divider {
-        max-width: 100%; /* Full width */
-        margin: 0.3rem 0; /* 4.8px 0 */
+    .inputField {
+        font-size: 0.8em;
     }
 }

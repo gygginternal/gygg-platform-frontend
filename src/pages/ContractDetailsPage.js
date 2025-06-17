@@ -2,6 +2,7 @@ import { MapPin, User, ArrowLeft } from "lucide-react";
 import { Card, CardContent, CardHeader } from "../components/ui/card";
 import { Link } from "react-router-dom";
 import { format } from "date-fns"; // Import date-fns for formatting dates
+import styles from '../components/ContractDetailsPage/ContractDetailsPage.module.css'; // Import CSS Modules
 
 export function ContractDetailsPage({ gig, children }) {
   if (!gig) return;
@@ -9,32 +10,32 @@ export function ContractDetailsPage({ gig, children }) {
     ? format(new Date(gig.createdAt), "MM-dd-yyyy")
     : "N/A";
   return (
-    <div className="mx-auto p-4 ml-[200px]">
+    <div className={styles.pageContainer}>
       <Link
-        variant="ghost"
-        className="mb-4 p-2 h-auto text-gray-600 hover:text-gray-900 bg-white flex items-center"
+        // variant="ghost" // This is a prop, not a classname
+        className={styles.backButton}
         to={{
           pathname: "/contracts",
         }}
       >
-        <ArrowLeft className="w-4 h-4 mr-2" />
+        <ArrowLeft className={styles.backButtonIcon} />
         Back to contract list
       </Link>
-      <Card className="w-full">
-        <CardHeader className="pb-4">
-          <div className="flex items-start justify-between">
-            <h1 className="text-lg font-semibold text-gray-900 leading-tight">
+      <Card className={styles.card}>
+        <CardHeader className={styles.cardHeader}>
+          <div className={styles.cardHeaderContent}>
+            <h1 className={styles.gigTitle}>
               {gig.title}
             </h1>
           </div>
         </CardHeader>
 
-        <CardContent className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <User className="w-4 h-4 text-gray-500" />
-              <span className="text-sm text-gray-600">Hired by</span>
-              <span className="text-sm font-medium text-blue-600">
+        <CardContent className={styles.cardContent}>
+          <div className={styles.detailRow}>
+            <div className={styles.detailItem}>
+              <User className={styles.detailIcon} />
+              <span className={styles.detailLabel}>Hired by</span>
+              <span className={styles.providerName}>
                 {[gig.postedBy?.firstName, gig.postedBy?.lastName]
                   .filter(Boolean)
                   .join(" ")}
@@ -42,19 +43,19 @@ export function ContractDetailsPage({ gig, children }) {
             </div>
           </div>
 
-          <div className="text-sm text-gray-700 leading-relaxed">
+          <div className={styles.gigDescription}>
             <em>{gig.title}</em>
           </div>
 
-          <div className="space-y-3 pt-2">
-            <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-600">Started</span>
-              <span className="text-sm font-medium">{formattedDate}</span>
+          <div className={styles.infoSection}>
+            <div className={styles.infoRow}>
+              <span className={styles.infoLabel}>Started</span>
+              <span className={styles.infoValue}>{formattedDate}</span>
             </div>
 
-            <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-600">Fee</span>
-              <span className="text-sm font-medium text-orange-600">
+            <div className={styles.infoRow}>
+              <span className={styles.infoLabel}>Fee</span>
+              <span className={styles.feeValue}>
                 ${gig.cost}
               </span>
             </div>

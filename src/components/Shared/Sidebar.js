@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 import { useAuth } from "../../context/AuthContext";
+import io from 'socket.io-client';
+import apiClient from '../../api/axiosConfig';
 
 const Icon = ({ src, alt, className }) => (
   <img
@@ -19,6 +21,40 @@ function Sidebar({ isOpen, toggleSidebar }) {
   const location = useLocation();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const [unreadMessageCount, setUnreadMessageCount] = useState(0);
+
+  // Socket.io connection (singleton)
+  const socket = React.useMemo(() => {
+    if (user) {
+      return io(process.env.REACT_APP_BACKEND_URL, { path: '/socketio' });
+    }
+    return null;
+  }, [user]);
+
+  React.useEffect(() => {
+    if (!user) return;
+    // Fetch unread count on mount
+    const fetchUnreadCount = async () => {
+      try {
+        const unreadResponse = await apiClient.get('/api/v1/chat/unread-count');
+        setUnreadMessageCount(unreadResponse.data.data.unreadCount);
+      } catch (error) {
+        console.error('Error fetching unread count:', error);
+        setUnreadMessageCount(0);
+      }
+    };
+    fetchUnreadCount();
+    if (socket) {
+      socket.emit('subscribeToNotifications', { userId: user._id });
+      socket.on('chat:newMessage', fetchUnreadCount);
+      socket.on('chat:unreadCountUpdated', fetchUnreadCount);
+      return () => {
+        socket.emit('unsubscribeFromNotifications', { userId: user._id });
+        socket.off('chat:newMessage', fetchUnreadCount);
+        socket.off('chat:unreadCountUpdated', fetchUnreadCount);
+      };
+    }
+  }, [user, socket]);
 
   const getSelectedItem = (path) => {
     if (path === location.pathname) return true;
@@ -28,7 +64,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
 
   const navItems = [
     { key: "home", path: "/feed", icon: "/assets/home.svg", text: "Home" },
-    { key: "messages", path: "/messages", icon: "/assets/messages.svg", text: "Messages" },
+    { key: "messages", path: "/messages", icon: "/assets/messages.svg", text: "Messages", unread: unreadMessageCount > 0 },
     { key: "contracts", path: "/contracts", icon: "/assets/receipt-edit.svg", text: "Contracts" },
   ];
 
@@ -37,7 +73,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
   }
 
   if (user?.role.includes("provider")) {
-    navItems.push({ key: "gig helpers", path: "/find-taskers", icon: "/assets/briefcase.svg", text: "Gig Helpers" });
+    navItems.push({ key: "gig helpers", path: "/gig-helper", icon: "/assets/briefcase.svg", text: "Gig Helpers" });
   }
 
   const handleNavigation = (path) => {
@@ -72,6 +108,17 @@ function Sidebar({ isOpen, toggleSidebar }) {
                 src={item.icon}
                 alt={item.text}
               />
+              {item.unread && (
+                <span style={{
+                  display: 'inline-block',
+                  background: '#ff3b30',
+                  borderRadius: '50%',
+                  width: 10,
+                  height: 10,
+                  marginLeft: 4,
+                  verticalAlign: 'middle',
+                }}></span>
+              )}
               {/* Text is hidden via CSS when collapsed (desktop only) */}
               {isOpen && <span className={styles.navText}>{item.text}</span>}
             </div>

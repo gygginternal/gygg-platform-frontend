@@ -18,4 +18,33 @@
     color: #555;
 }
 
+.errorMessage {
+    color: red; /* Standard error color */
+    font-weight: bold;
+}
+
+.sendMessageCard {
+    margin-top: 20px;
+    text-align: center;
+    background-color: #f8f8f8; /* Light background similar to a card */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.sendMessageCard button {
+    background-color: #007bff; /* Example button color */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.sendMessageCard button:hover {
+    background-color: #0056b3;
+}
+
 /* Your global .error-message and .card styles will apply */

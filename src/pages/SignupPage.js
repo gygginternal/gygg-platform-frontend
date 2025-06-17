@@ -1,7 +1,7 @@
 // frontend/src/pages/SignupPage.js (UPDATED)
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import styles from './SignupPage.module.css';
+import styles from '../components/SignupPage/SignupPage.module.css';
 import InputField from '../components/Shared/InputField';
 import apiClient from '../api/axiosConfig';
 import logger from '../utils/logger';
@@ -71,16 +71,15 @@ function SignupPage() {
       }
     }
 
-    // *** Phone number validation (Frontend) - Enforce +1 and 10 digits ***
+    // *** Phone number validation (Frontend) - Enforce E.164 format (international) ***
     const fullPhoneNumber = formData.phoneNo; // This should now be the full formatted string from InputField
 
-    // Regex for +1 followed by exactly 10 digits (e.g., +12345678900)
-    const phoneRegexUSCanada = /^\+1\d{10}$/; 
+    // Regex for E.164: + followed by 8 to 15 digits
+    const phoneRegexE164 = /^\+\d{8,15}$/;
 
-    if (!phoneRegexUSCanada.test(fullPhoneNumber)) {
-      currentErrors.push('Phone number must be in the format +1XXXXXXXXXX (e.g., +12345678900).');
+    if (!phoneRegexE164.test(fullPhoneNumber)) {
+      currentErrors.push('Phone number must be in international format (e.g., +441234567890, +919876543210, +12345678900).');
     }
-
 
     // If there are any frontend validation errors, display them and stop.
     if (currentErrors.length > 0) {
@@ -147,7 +146,7 @@ function SignupPage() {
         <form className={styles.form} onSubmit={handleSubmit}>
 
           <InputField
-            label="Email*"
+            label="Email"
             name="email"
             type="email"
             placeholder="ex. email@domain.com"
@@ -157,7 +156,7 @@ function SignupPage() {
           />
 
           <InputField
-            label="Pick a password*"
+            label="Pick a password"
             name="password"
             type="password"
             placeholder="Enter password (min 8 chars)"
@@ -169,7 +168,7 @@ function SignupPage() {
           />
 
           <InputField
-            label="Re-enter password*"
+            label="Re-enter password"
             name="passwordConfirm"
             type="password"
             placeholder="Re-enter password"
@@ -181,7 +180,7 @@ function SignupPage() {
           />
 
           <InputField
-            label="Phone number*"
+            label="Phone number"
             name="phoneNo"
             type="tel"
             value={formData.phoneNo} // Full E.164 value goes down to InputField
@@ -194,7 +193,7 @@ function SignupPage() {
           />
 
           <InputField
-            label="Date of Birth*"
+            label="Date of Birth"
             name="dateOfBirth"
             type="date"
             value={formData.dateOfBirth}

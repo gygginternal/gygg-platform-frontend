@@ -6,26 +6,47 @@
 }
 
 .chatWindow {
-    flex-direction: column;
-    align-items: stretch;
-    width: 52%; /* Remains percentage for desktop layout */
-    margin-left: 1.25rem; /* 20px */
-    line-height: normal;
+    flex: 1;
     display: flex;
-    box-sizing: border-box; /* Ensures padding/border are included in width */
-    min-width: 0; /* Allows flex item to shrink below content minimum */
+    flex-direction: column;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin-right: 20px; /* Adjust as needed for layout */
 }
-  
+
 .container {
-    flex-direction: column;
-    align-self: stretch;
-    align-items: stretch;
-    margin-top: auto;
-    margin-bottom: auto;
     display: flex;
-    box-sizing: border-box;
+    flex-direction: column;
+    height: 100%;
 }
-  
+
+.chatContent {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden; /* Ensure content inside can scroll */
+}
+
+.errorMessage {
+    padding: 10px;
+    color: red;
+    text-align: center;
+    font-weight: bold;
+}
+
+.loadingMessageContainer,
+.noConversationSelectedContainer {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+    color: #777;
+}
+
 .searchPlaceholder {
     background-color: #fff;
     border: 0.0625rem solid #f6f2ed; /* 1px */
@@ -39,18 +60,6 @@
     /* Font size for search input if it were here, typically 14-16px */
     font-size: 0.9375rem; /* 15px */
     padding: 0 1rem; /* Adjust internal padding if necessary */
-}
-  
-.chatContent {
-    background-color: #fff;
-    border-radius: 1rem; /* 16px */
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-    margin-top: 2.5625rem; /* 41px */
-    padding: 1rem 0.4375rem; /* 16px 7px */
-    display: flex;
-    box-sizing: border-box;
 }
 
 /* Responsive adjustments */
@@ -81,6 +90,8 @@
         margin-left: auto; /* Center horizontally (or align left if desired) */
         margin-right: auto;
         padding: 0 0.8rem; /* Add horizontal padding for a better mobile experience */
+        margin-top: 15px;
+        border-radius: 4px;
     }
     .searchPlaceholder {
         max-width: 90%; /* Still limit max-width if parent isn't strict */
@@ -94,12 +105,22 @@
         padding: 0.75rem 0.3rem; /* 12px 4.8px */
         border-radius: 0.75rem; /* 12px */
     }
+    .errorMessage {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+    .loadingMessageContainer,
+    .noConversationSelectedContainer {
+        padding: 15px;
+        font-size: 0.9em;
+    }
 }
 
 /* @media (max-width: 480px) - Mobile Phones */
 @media (max-width: 480px) {
     .chatWindow {
         padding: 0 0.6rem; /* Reduced horizontal padding for smaller screens */
+        margin-top: 10px;
     }
     .searchPlaceholder {
         max-width: 100%; /* Take full width on smallest screens */
@@ -113,4 +134,14 @@
         padding: 0.625rem 0.25rem; /* 10px 4px */
         border-radius: 0.6rem; /* 9.6px */
     }
+    .errorMessage {
+        padding: 5px;
+        font-size: 0.8em;
+    }
+    .loadingMessageContainer,
+    .noConversationSelectedContainer {
+        padding: 10px;
+        font-size: 0.8em;
+    }
 }
+

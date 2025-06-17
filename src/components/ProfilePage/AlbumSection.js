@@ -80,7 +80,7 @@ function AlbumSection({ userIdToView, isOwnProfile, onUpdate }) {
   // Render logic
   if (loading) { // Show loading indicator if loading is true
       return (
-          <section className={`${styles.albumCard} card`}>
+          <section className={styles.albumCard}>
               <div className={styles.albumHeader}><h2>Album</h2></div>
               <p>Loading album...</p>
           </section>
@@ -88,7 +88,7 @@ function AlbumSection({ userIdToView, isOwnProfile, onUpdate }) {
   }
 
   return (
-    <section className={`${styles.albumCard} card`}>
+    <section className={styles.albumCard}>
       <div className={styles.albumHeader}>
         <h2>Album</h2>
         {isOwnProfile && ( // Add button only if it's own profile
@@ -98,7 +98,7 @@ function AlbumSection({ userIdToView, isOwnProfile, onUpdate }) {
         )}
       </div>
 
-       {error && <p className="error-message">{error}</p>}
+       {error && <p className={styles.errorMessage}>{error}</p>}
 
        {!error && ( // Only show content or "no photos" if no error
            albumData.length > 0 ? (

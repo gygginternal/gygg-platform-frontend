@@ -16,11 +16,10 @@ const Icon = ({
   <img
     src={src}
     alt={alt}
-    className={className}
+    className={`${className} ${onClick ? styles.clickableIcon : ''}`.trim()}
     width={width}
     height={height}
     onClick={onClick}
-    style={onClick ? { cursor: "pointer" } : {}}
     onError={(e) => {
       e.currentTarget.style.display = "none";
     }}
@@ -45,6 +44,7 @@ function Post({ post, onPostUpdate }) {
   const [commentCount, setCommentCount] = useState(post?.commentCount || 0);
   const [newCommentText, setNewCommentText] = useState("");
   const [showCommentInput, setShowCommentInput] = useState(false);
+  const [showAllComments, setShowAllComments] = useState(false);
   const [isLiking, setIsLiking] = useState(false);
   const [isCommenting, setIsCommenting] = useState(false);
   const [interactionError, setInteractionError] = useState("");
@@ -60,6 +60,7 @@ function Post({ post, onPostUpdate }) {
           ? post.likes.includes(loggedInUser._id)
           : false
       );
+      setShowAllComments(false);
     } else {
       setCurrentLikeCount(0);
       setCommentCount(0);
@@ -149,6 +150,7 @@ function Post({ post, onPostUpdate }) {
       setCommentCount(updatedPostData.commentCount || 0);
       setNewCommentText("");
       setShowCommentInput(false);
+      setShowAllComments(true);
       if (onPostUpdate) onPostUpdate(updatedPostData);
     } catch (err) {
       setInteractionError(
@@ -156,6 +158,38 @@ function Post({ post, onPostUpdate }) {
       );
     } finally {
       setIsCommenting(false);
+    }
+  };
+
+  const handleDeleteComment = async (commentIdToDelete) => {
+    if (!loggedInUser) return;
+    if (!window.confirm("Are you sure you want to delete this comment?")) return;
+
+    setInteractionError("");
+
+    try {
+      await apiClient.delete(
+        `/posts/${postId}/comments/${commentIdToDelete}`
+      );
+      const updatedComments = comments.filter(
+        (comment) => comment._id !== commentIdToDelete
+      );
+      setComments(updatedComments);
+      setCommentCount(updatedComments.length);
+
+      if (onPostUpdate) {
+        onPostUpdate({
+          ...post,
+          comments: updatedComments,
+          commentCount: updatedComments.length,
+        });
+      }
+      logger.info(`Comment ${commentIdToDelete} deleted from post ${postId}`);
+    } catch (err) {
+      setInteractionError(
+        err.response?.data?.message || "Could not delete comment."
+      );
+      logger.error("Error deleting comment:", err.response?.data || err.message);
     }
   };
 
@@ -291,8 +325,8 @@ function Post({ post, onPostUpdate }) {
       )}
 
       {comments && comments.length > 0 && (
-        <div className={styles.commentsPreview}>
-          {comments.slice(0, 2).map((comment) => (
+        <div className={styles.commentsSection}>
+          {comments.slice(0, showAllComments ? comments.length : 2).map((comment) => (
             <div
               key={comment._id || comment.tempId}
               className={styles.commentItem}
@@ -301,19 +335,38 @@ function Post({ post, onPostUpdate }) {
                 src={comment.author?.profileImage || "/default.jpg"}
                 alt={comment.author?.firstName}
                 className={styles.commentAuthorImage}
+                onError={handleImageError}
               />
-              <div>
+              <div className={styles.commentContentWrapper}>
                 <strong>{comment.author?.firstName || "User"}</strong>:{" "}
-                <p style={{ display: "inline" }}>{comment.text}</p>
+                <p className={styles.commentText}>{comment.text}</p>
+                {(loggedInUser?._id === comment.author?._id ||
+                  loggedInUser?.role.includes("admin")) && (
+                  <button
+                    className={styles.deleteCommentButton}
+                    onClick={() => handleDeleteComment(comment._id)}
+                    aria-label="Delete comment"
+                  >
+                    Delete
+                  </button>
+                )}
               </div>
             </div>
           ))}
-          {comments.length > 2 && (
+          {commentCount > 2 && !showAllComments && (
             <button
-              onClick={() => console.log("View all comments for:", postId)}
+              onClick={() => setShowAllComments(true)}
               className={styles.viewAllComments}
             >
               View all {commentCount} comments
+            </button>
+          )}
+          {showAllComments && (
+            <button
+              onClick={() => setShowAllComments(false)}
+              className={styles.hideComments}
+            >
+              Hide comments
             </button>
           )}
         </div>

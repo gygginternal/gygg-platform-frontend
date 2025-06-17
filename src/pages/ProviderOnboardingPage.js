@@ -2,13 +2,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './OnboardingPages.module.css'; // 
-import ProgressHeader from '../components/Onboarding/ProgressHeader';
-import InputField from '../components/Shared/InputField';
+import ProgressHeader from "../components/Shared/ProgressHeader";
+import InputField from "../components/Shared/InputField";
+import AddressInput from "../components/Shared/AddressInput";
 // PersonalityForm and BioAndPictureForm are removed as their content/styling is now managed directly/inlined.
-import GigPostTimelineCategory from '../components/Onboarding/GigPostTimelineCategory';
-import GigPostDetailsBudget from '../components/Onboarding/GigPostDetailsBudget';
-import GigPostReview from '../components/Onboarding/GigPostReview';
-import { AutoComplete } from "../components/AutoComplete";
+import { AutoComplete } from '../components/AutoComplete';
+import GigPostTimelineCategory from "../components/ProviderOnboarding/GigPostTimelineCategory";
+import GigPostDetailsBudget from "../components/ProviderOnboarding/GigPostDetailsBudget";
+import GigPostReview from "../components/ProviderOnboarding/GigPostReview";
 
 import { useAuth } from '../context/AuthContext';
 import apiClient from '../api/axiosConfig';
@@ -88,8 +89,9 @@ function ProviderOnboardingPage() {
     const handleInputChange = (name, value) => {
         setFormData(prev => ({ ...prev, [name]: value })); setError('');
     };
-    const handleAddressChange = (fieldName, value) => {
-        setFormData(prev => ({ ...prev, address: { ...prev.address, [fieldName]: value } })); setError('');
+    const handleAddressChange = (newAddress) => {
+        setFormData(prev => ({ ...prev, address: newAddress }));
+        setError('');
     };
     // The AutoComplete components handle their own change events, so these are just wrappers
     const handleHobbiesChange = (newHobbies) => { setFormData(prev => ({ ...prev, hobbies: newHobbies })); setError(''); };
@@ -142,26 +144,41 @@ function ProviderOnboardingPage() {
         } else { // 'next'
             // --- Step Validation ---
             let canProceed = true;
-            if (currentStep === 1 && (!formData.firstName.trim() || !formData.lastName.trim() || !formData.address.postalCode.trim() || !formData.dateOfBirth)) {
-                 setError("First name, last name, postal code, and date of birth are required."); canProceed = false;
-            } else if (currentStep === 2 && (formData.hobbies.length === 0 || formData.peoplePreference.length === 0 || !formData.providerBioForMatching.trim())) {
-                 setError("Please describe your interests, ideal Tasker preferences, and company/project needs."); canProceed = false;
+            if (currentStep === 1) {
+                // Check basic info
+                if (!formData.firstName.trim() || !formData.lastName.trim()) {
+                    setError("First name and last name are required.");
+                    canProceed = false;
+                }
+                // Check address fields
+                else if (!formData.address.street.trim() || 
+                         !formData.address.city.trim() || 
+                         !formData.address.state.trim() || 
+                         !formData.address.postalCode.trim()) {
+                    setError("All address fields are required.");
+                    canProceed = false;
+                }
+            } else if (currentStep === 2 && (formData.hobbies.length === 0 || formData.peoplePreference.length === 0)) {
+                setError("Please select your hobbies and people preferences.");
+                canProceed = false;
             } else if (currentStep === 3 && !formData.mainBio.trim()) {
-                 setError("Your main bio is required."); canProceed = false;
+                setError("Your main bio is required.");
+                canProceed = false;
             } else if (currentStep === 4 && (!formData.gigTitle.trim() || !formData.gigCategory)) {
-                 setError("Gig title and category are required."); canProceed = false;
+                setError("Gig title and category are required.");
+                canProceed = false;
             } else if (currentStep === 5 && (!formData.gigDescription.trim() ||
                 (formData.gigPaymentType === 'fixed' && (!formData.gigCost || parseFloat(formData.gigCost) <= 0)) ||
                 (formData.gigPaymentType === 'hourly' && (!formData.gigRatePerHour || parseFloat(formData.gigRatePerHour) <= 0)))) {
-                 setError("Gig description and valid budget details are required."); canProceed = false;
+                setError("Gig description and valid budget details are required.");
+                canProceed = false;
             }
-            // No specific validation for step 6 (review) as it's a display step before submit
 
             if (!canProceed) return;
 
             if (currentStep < TOTAL_PROVIDER_STEPS) {
                 setCurrentStep(s => s + 1);
-            } else { // On last step (Gig Review), "Next" button in ProgressHeader triggers this
+            } else {
                 handleSubmitOnboardingAndGig();
             }
         }
@@ -259,16 +276,11 @@ function ProviderOnboardingPage() {
                             <InputField label="First name" type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} required />
                             <InputField label="Last name" type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} required />
                         </div>
-                        <h3 className={styles.subTitle}>Your Address</h3> {/* Using new subTitle class */}
-                        <InputField label="Street Address" type="text" name="street" value={formData.address.street} onChange={(name,val)=>handleAddressChange("street",val)} />
-                        <div className={styles.grid}>
-                            <InputField label="City" type="text" name="city" value={formData.address.city} onChange={(name,val)=>handleAddressChange("city",val)} />
-                            <InputField label="Province/State" type="text" name="state" value={formData.address.state} onChange={(name,val)=>handleAddressChange("state",val)} />
-                        </div>
-                        <div className={styles.grid}>
-                            <InputField label="Postal code*" type="text" name="postalCode" value={formData.address.postalCode} onChange={(name,val)=>handleAddressChange("postalCode",val)} required />
-                            <InputField label="Country" type="text" name="country" value={formData.address.country} onChange={(name,val)=>handleAddressChange("country",val)} />
-                        </div>
+                        <AddressInput
+                            value={formData.address}
+                            onChange={handleAddressChange}
+                            required={true}
+                        />
                     </>
                 );
             case 2: // Personality/Preferences
@@ -289,14 +301,6 @@ function ProviderOnboardingPage() {
                             values={formData.peoplePreference}
                             onChange={handlePeoplePreferenceChange}
                             placeholder="e.g., Detail-oriented..."
-                        />
-                        <InputField
-                            label="What kind of people do you enjoy spending time with?"
-                            name="providerBioForMatching"
-                            type="textarea"
-                            value={formData.providerBioForMatching}
-                            onChange={handleInputChange}
-                            rows={4}
                         />
                     </>
                 );
@@ -389,9 +393,19 @@ function ProviderOnboardingPage() {
     }
 
     let canGoNextForCurrentStep = true;
-    if (currentStep === 1 && (!formData.firstName.trim() || !formData.lastName.trim() || !formData.address.postalCode.trim() || !formData.dateOfBirth)) {
-        canGoNextForCurrentStep = false;
-    } else if (currentStep === 2 && (formData.hobbies.length === 0 || formData.peoplePreference.length === 0 || !formData.providerBioForMatching.trim())) {
+    if (currentStep === 1) {
+        // Check basic info
+        if (!formData.firstName.trim() || !formData.lastName.trim()) {
+            canGoNextForCurrentStep = false;
+        }
+        // Check address fields
+        else if (!formData.address.street.trim() || 
+                 !formData.address.city.trim() || 
+                 !formData.address.state.trim() || 
+                 !formData.address.postalCode.trim()) {
+            canGoNextForCurrentStep = false;
+        }
+    } else if (currentStep === 2 && (formData.hobbies.length === 0 || formData.peoplePreference.length === 0)) {
         canGoNextForCurrentStep = false;
     } else if (currentStep === 3 && !formData.mainBio.trim()) {
         canGoNextForCurrentStep = false;
@@ -414,7 +428,7 @@ function ProviderOnboardingPage() {
             />
             <main className={styles.formContainer}>
                 <div className={styles.form}> {/* Using .form from Tasker CSS */}
-                    {error && <p className="error-message" style={{textAlign: 'center', marginBottom: '1rem'}}>{error}</p>}
+                    {error && <p className={styles.errorMessage}>{error}</p>}
                     {renderStepContent()}
                 </div>
             </main>

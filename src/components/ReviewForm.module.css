@@ -1,0 +1,86 @@
+.reviewFormCard {
+  background-color: #fff;
+  border-radius: 1rem; /* 16px */
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1); /* 0 4px 12px */
+  padding: 1.5rem; /* 24px */
+  margin-top: 1.25rem; /* 20px */
+  border: 1px solid darkseagreen; /* Added based on original inline style */
+}
+
+.successMessage {
+  color: green;
+  text-align: center;
+  padding: 1rem;
+  border: 1px solid green;
+  background-color: #e6ffe6;
+  border-radius: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.errorMessage {
+  color: red;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.formGroup {
+  margin-bottom: 0.9375rem; /* 15px */
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.3125rem; /* 5px */
+  font-weight: 600;
+  color: #3d4d55;
+}
+
+.textArea {
+  width: 100%;
+  margin-top: 0.3125rem; /* 5px */
+  padding: 0.625rem; /* 10px */
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  box-sizing: border-box; /* Include padding in width */
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 0.75rem 1.25rem; /* 12px 20px */
+  background-color: #3d4d55;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submitButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: #2a353c;
+}
+
+.starRatingContainer {
+  margin-bottom: 0.9375rem; /* 15px */
+}
+
+.star {
+  cursor: pointer;
+  font-size: 1.75rem; /* 28px */
+  margin-right: 0.1875rem; /* 3px */
+}
+
+.starSelected {
+  color: gold;
+}
+
+.starUnselected {
+  color: #ccc;
+} 

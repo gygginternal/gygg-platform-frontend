@@ -1,6 +1,6 @@
 // src/pages/PrivacyPolicyPage.js
 import React from 'react';
-import styles from './LegalPages.module.css'; // Shared CSS
+import styles from '../components/Legal/LegalPages.module.css'; // Shared CSS
 import { Link } from 'react-router-dom';
 
 function PrivacyPolicyPage() {

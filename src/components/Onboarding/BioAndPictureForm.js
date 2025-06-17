@@ -53,7 +53,7 @@ function BioAndPictureForm({ bio, onBioChange, profileImageFile, onProfileImageC
           {preview ? ( <img src={preview} alt="Profile preview" className={styles.previewImage} /> ) : (<div className={styles.placeholder}>No image</div>)}
         </div>
         <div className={styles.imageUpload} onClick={handleUploadAreaClick} role="button">
-          {/* <FaUpload className={styles.uploadIcon} /> */} <span style={{fontSize: '1.5rem'}}>⬆️</span>
+          {/* <FaUpload className={styles.uploadIcon} /> */} <span className={styles.uploadEmoji}>⬆️</span>
           <p className={styles.uploadText}>Upload Profile Picture</p>
           <input type="file" ref={fileInputRef} onChange={handleFileChange} accept="image/*" className={styles.fileInput} />
         </div>

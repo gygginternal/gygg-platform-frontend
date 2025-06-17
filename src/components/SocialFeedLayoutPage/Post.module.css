@@ -137,6 +137,10 @@
     opacity: 1;
 }
 
+.clickableIcon {
+    cursor: pointer;
+}
+
 .actionButton.liked img { /* Style for when post is liked */
     opacity: 1;
     /* You might use filter for SVGs or swap image source for PNGs */
@@ -657,5 +661,178 @@
     .viewAllComments {
         font-size: 0.5625rem; /* ~9px */
         padding: 0.2rem 0; /* 3.2px 0 */
+    }
+}
+
+/* Adjustments when CountrySelect is present */
+.inputContainer select + .input { /* Target input immediately after select */
+    border-left: 0.0625rem solid #eee; /* 1px Add separator */
+    border-top-left-radius: 0; /* Flatten corner */
+    border-bottom-left-radius: 0;
+}
+
+/* New styles for Comments Section */
+.commentsSection {
+    margin-top: 1rem; /* 16px */
+    padding-top: 1rem; /* 16px */
+    border-top: 0.0625rem solid #eff3f4; /* 1px */
+}
+
+.commentItem {
+    display: flex;
+    align-items: flex-start; /* Align avatar to top of comment text */
+    gap: 0.5rem; /* 8px */
+    margin-bottom: 0.75rem; /* 12px between comments */
+}
+
+.commentAuthorImage {
+    width: 2rem; /* 32px */
+    height: 2rem; /* 32px */
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.commentContentWrapper {
+    flex: 1; /* Take up remaining space */
+    background-color: #f0f2f5; /* Light grey background for comments */
+    padding: 0.625rem 0.75rem; /* 10px 12px */
+    border-radius: 0.75rem; /* 12px */
+    display: flex;
+    flex-direction: column;
+    position: relative; /* For delete button positioning */
+}
+
+.commentContentWrapper strong {
+    font-size: 0.875rem; /* 14px */
+    font-weight: 600;
+    color: #0f1419;
+    margin-right: 0.25rem; /* 4px */
+}
+
+.commentText {
+    font-size: 0.875rem; /* 14px */
+    color: #0f1419;
+    line-height: 1.4;
+    margin: 0.25rem 0 0; /* Small top margin for text after name */
+    word-wrap: break-word;
+}
+
+.deleteCommentButton {
+    background: none;
+    border: none;
+    color: #e0245e; /* Red color for delete action */
+    font-size: 0.75rem; /* 12px */
+    cursor: pointer;
+    align-self: flex-end; /* Align to the right/bottom of the wrapper */
+    padding: 0;
+    margin-top: 0.25rem;
+    text-decoration: underline;
+}
+
+.deleteCommentButton:hover {
+    color: #c00;
+}
+
+.viewAllComments,
+.hideComments {
+    background: none;
+    border: none;
+    color: #536471;
+    font-size: 0.8125rem; /* 13px */
+    cursor: pointer;
+    padding: 0.5rem 0;
+    text-align: left;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.viewAllComments:hover,
+.hideComments:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .commentsSection {
+        padding-top: 0.8rem;
+        margin-top: 0.8rem;
+    }
+    .commentItem {
+        margin-bottom: 0.6rem;
+    }
+    .commentAuthorImage {
+        width: 1.8rem;
+        height: 1.8rem;
+    }
+    .commentContentWrapper {
+        padding: 0.5rem 0.6rem;
+    }
+    .commentContentWrapper strong,
+    .commentText {
+        font-size: 0.8rem;
+    }
+    .deleteCommentButton {
+        font-size: 0.7rem;
+    }
+    .viewAllComments,
+    .hideComments {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .commentsSection {
+        padding-top: 0.6rem;
+        margin-top: 0.6rem;
+    }
+    .commentItem {
+        margin-bottom: 0.5rem;
+    }
+    .commentAuthorImage {
+        width: 1.6rem;
+        height: 1.6rem;
+    }
+    .commentContentWrapper {
+        padding: 0.4rem 0.5rem;
+    }
+    .commentContentWrapper strong,
+    .commentText {
+        font-size: 0.75rem;
+    }
+    .deleteCommentButton {
+        font-size: 0.65rem;
+    }
+    .viewAllComments,
+    .hideComments {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .commentsSection {
+        padding-top: 0.5rem;
+        margin-top: 0.5rem;
+    }
+    .commentItem {
+        margin-bottom: 0.4rem;
+    }
+    .commentAuthorImage {
+        width: 1.4rem;
+        height: 1.4rem;
+    }
+    .commentContentWrapper {
+        padding: 0.3rem 0.4rem;
+    }
+    .commentContentWrapper strong,
+    .commentText {
+        font-size: 0.7rem;
+    }
+    .deleteCommentButton {
+        font-size: 0.6rem;
+    }
+    .viewAllComments,
+    .hideComments {
+        font-size: 0.65rem;
     }
 }

@@ -25,7 +25,6 @@ function ProfilePage() {
 
     return (
          <div className={styles.content}>
-              <div className={styles.content}>
             <ProfileInfo
                 userToDisplay={loggedInUser}
                 isOwnProfile={true}
@@ -44,7 +43,6 @@ function ProfilePage() {
                 onUpdate={refreshUser}        // <<< PASS refreshUser directly
             />
             {isTaskerProfile && <ReviewsSection userIdToView={loggedInUser._id} isOwnProfile={true} />}
-        </div>
         </div>
     );
 }

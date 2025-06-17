@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiClient from "../api/axiosConfig"; // If triggering status check automatically
+import styles from '../components/StripeReturnPage/StripeReturnPage.module.css'; // Import CSS Modules
 
 function StripeReturnPage() {
   const navigate = useNavigate();
@@ -31,12 +32,14 @@ function StripeReturnPage() {
   }, [navigate]);
 
   return (
-    <div>
-      <h2>Returning from Stripe...</h2>
-      <p>You will be redirected to your dashboard shortly.</p>
-      <p>
+    <div className={styles.container}>
+      <h2 className={styles.title}>Returning from Stripe...</h2>
+      <p className={styles.message}>
+        You will be redirected to your dashboard shortly.
+      </p>
+      <p className={styles.redirectPrompt}>
         If redirection doesn't happen,{" "}
-        <Link to="/settings?activeTab=withdraw">
+        <Link to="/settings?activeTab=withdraw" className={styles.link}>
           click here to go to your Dashboard
         </Link>{" "}
         and check your Stripe status.

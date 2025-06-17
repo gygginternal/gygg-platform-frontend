@@ -43,7 +43,7 @@ function ReviewsSection({ userIdToView, isOwnProfile }) { // Accept userIdToView
 
     const renderContent = () => {
         if (loading) return <p>Loading reviews...</p>;
-        if (error) return <p className="error-message">{error}</p>;
+        if (error) return <p className={styles.errorMessage}>{error}</p>;
         if (reviews.length === 0) {
             return <p>{isOwnProfile ? "You haven't received any reviews yet." : "This user hasn't received any reviews yet."}</p>;
         }
@@ -51,7 +51,7 @@ function ReviewsSection({ userIdToView, isOwnProfile }) { // Accept userIdToView
     };
 
     return (
-        <section className={`${styles.reviewsCard} card`}>
+        <section className={styles.reviewsCard}>
             <div className={styles.reviewsHeader}>
                 <h2>Reviews Received</h2>
             </div>

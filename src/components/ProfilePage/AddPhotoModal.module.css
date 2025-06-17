@@ -165,6 +165,11 @@
     transform: translateY(0);
 }
 
+.errorMessage {
+    color: red;
+    text-align: center;
+    margin-bottom: 1rem;
+}
 
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
@@ -296,4 +301,8 @@
         font-size: 0.625rem; /* 10px */
         padding: 0.3rem 0.6rem; /* ~4.8px ~9.6px */
     }
+}
+
+.hiddenFileInput {
+    display: none;
 }

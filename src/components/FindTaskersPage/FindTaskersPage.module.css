@@ -1,0 +1,177 @@
+/* frontend/src/pages/FindTaskersPage.module.css */
+
+/* Base styles for the overall page container */
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f0f2f5; /* Light grey background */
+    font-family: 'Inter', sans-serif;
+}
+
+.contentWrapper {
+    display: flex;
+    flex: 1;
+    padding-top: 84px; /* Adjust based on Header height */
+}
+
+.sidebarArea {
+    width: 300px; /* Fixed width for the sidebar */
+    flex-shrink: 0;
+}
+
+.mainFeedArea {
+    flex-grow: 1;
+    padding: 1.5rem; /* p-6 */
+    max-width: 900px; /* Equivalent to max-w-4xl */
+    margin-right: auto; /* mx-auto, but considering sidebar */
+    padding-bottom: 3rem; /* pb-12 */
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-left: 1.25rem; /* ml-5 */
+}
+
+.title {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+    padding-top: 1.5rem;
+}
+
+.subtitle {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 0 1.5rem;
+}
+
+.refreshButton {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.refreshButton:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.refreshButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.errorMessage {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.loadingMessage {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+.loadMoreButton {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.loadMoreButton:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.loadMoreButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.endMessage {
+    text-align: center;
+    margin-top: 20px;
+    color: #888;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .mainFeedArea {
+        padding: 1rem;
+    }
+    .sidebarArea {
+        width: 250px;
+    }
+    .mainFeedAreaMarginLeft {
+        margin-left: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .contentWrapper {
+        flex-direction: column;
+        padding-top: 0; /* Header is likely handled differently on mobile */
+    }
+    .sidebarArea {
+        width: 100%;
+        height: auto; /* Allow sidebar to take natural height */
+        /* Potentially hide or collapse sidebar here */
+    }
+    .mainFeedArea {
+        margin-left: auto; /* Center content */
+        max-width: 100%;
+        padding: 1rem;
+    }
+    .title {
+        font-size: 1.5em;
+    }
+    .subtitle {
+        font-size: 0.9em;
+    }
+    .refreshButton {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+    .loadMoreButton {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mainFeedArea {
+        padding: 0.75rem;
+    }
+    .title {
+        font-size: 1.2em;
+    }
+    .subtitle {
+        font-size: 0.8em;
+    }
+    .refreshButton {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    .loadMoreButton {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+} 

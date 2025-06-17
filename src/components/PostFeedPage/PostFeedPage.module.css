@@ -1,0 +1,118 @@
+/* frontend/src/pages/PostFeedPage.module.css */
+
+.container {
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    font-family: 'Inter', sans-serif;
+    color: #333;
+}
+
+.title {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.sortControls {
+    margin-bottom: 20px;
+    padding: 10px;
+    background: #f8f9fa;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    text-align: center; /* Center the sort controls */
+}
+
+.sortLabel {
+    font-size: 1em;
+    color: #555;
+    margin-right: 5px;
+}
+
+.sortButton {
+    margin-left: 5px;
+    padding: 8px 15px;
+    font-size: 0.9em;
+    background-color: #e9ecef;
+    color: #333;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.sortButton:hover:not(:disabled) {
+    background-color: #dae0e5;
+    border-color: #c6cfda;
+}
+
+.sortButtonActive {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.sortButton:disabled {
+    background-color: #f0f0f0;
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+.errorMessage {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.errorMessageLocation {
+    color: orange; /* Distinct color for location errors */
+    margin-left: 10px;
+    font-size: 0.9em;
+}
+
+.noPostsMessage {
+    text-align: center;
+    color: #666;
+    margin-top: 20px;
+}
+
+.loadingMessage {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+.loadingMoreMessage {
+    text-align: center;
+    padding: 10px;
+    color: #666;
+}
+
+.loadMoreButton {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.loadMoreButton:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.loadMoreButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.endMessage {
+    text-align: center;
+    margin-top: 20px;
+    color: #888;
+} 

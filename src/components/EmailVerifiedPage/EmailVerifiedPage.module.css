@@ -1,0 +1,169 @@
+/* frontend/src/pages/EmailVerifiedPage.module.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1.25rem; /* 20px */
+    background: linear-gradient(#3c4a53, #0f212d);
+    overflow-y: auto;
+    box-sizing: border-box;
+    width: 100vw; /* Ensure full width on very small screens */
+    font-family: 'Inter', sans-serif;
+    color: #e0e0e0;
+}
+
+.logo {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    color: #D89362;
+    text-decoration: none;
+    position: absolute; /* Position at top-left */
+    top: 1.5rem;
+    left: 1.5rem;
+    z-index: 10;
+}
+
+.logo img {
+    display: block;
+    max-width: 9.375rem; /* 150px - Use max-width for responsiveness */
+    width: 100%; /* Allows it to scale down */
+    height: auto;
+}
+
+.promptBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1; /* Allows it to take available space and center vertically */
+    max-width: 30rem; /* 480px */
+    width: 100%;
+    text-align: center;
+    background-color: transparent;
+    padding: 2.1875rem; /* 35px */
+    border-radius: 0.625rem; /* 10px */
+}
+
+.title {
+    font-size: clamp(1.5rem, 5vw, 2rem); /* Ranging from 24px to 32px */
+    font-weight: 700;
+    margin-bottom: 1.25rem; /* 20px */
+    color: #fff;
+}
+
+.instruction {
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.6;
+    margin-bottom: 1.5rem; /* 24px */
+    color: #e0e0e0;
+}
+
+.failedInstruction {
+    color: #ff8a8a; /* Red for failed messages */
+}
+
+.successInstruction {
+    color: #a5d6a7; /* Green for success messages */
+}
+
+.verifyingInstruction {
+    color: #e0e0e0; /* Default/light grey for verifying messages */
+}
+
+.button {
+    margin-top: 1.25rem; /* 20px */
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    background-color: #D99633; /* Primary button color */
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    text-decoration: none; /* Remove underline for Link */
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #b45309; /* Darker shade on hover */
+}
+
+.note {
+    margin-top: 0.9375rem; /* 15px */
+    font-size: 0.875rem; /* 14px */
+    color: #ccc;
+    line-height: 1.5;
+}
+
+.link {
+    color: #D89362;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.link:hover {
+    text-decoration: underline;
+    color: #b45309;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    .logo {
+        top: 1rem;
+        left: 1rem;
+    }
+    .logo img {
+        max-width: 7.5rem;
+    }
+    .promptBox {
+        padding: 1.5rem;
+        max-width: 90%;
+    }
+    .title {
+        font-size: clamp(1.25rem, 5vw, 1.75rem);
+    }
+    .instruction {
+        font-size: 1rem;
+    }
+    .button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+    .note {
+        font-size: 0.8125rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0.75rem;
+    }
+    .logo {
+        top: 0.75rem;
+        left: 0.75rem;
+    }
+    .logo img {
+        max-width: 6rem;
+    }
+    .promptBox {
+        padding: 1rem;
+        max-width: 95%;
+    }
+    .title {
+        font-size: clamp(1rem, 6vw, 1.5rem);
+    }
+    .instruction {
+        font-size: 0.9375rem;
+    }
+    .button {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+    }
+    .note {
+        font-size: 0.75rem;
+    }
+} 

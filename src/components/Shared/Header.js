@@ -3,11 +3,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from "./Header.module.css";
 import Sidebar from "./Sidebar";
 import { useAuth } from '../../context/AuthContext';
+import apiClient from "../../api/axiosConfig";
+import io from 'socket.io-client';
+
+const socket = io(process.env.REACT_APP_BACKEND_URL, { path: '/socketio' });
 
 function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [unreadMessageCount, setUnreadMessageCount] = useState(0);
 
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -27,6 +32,70 @@ function Header() {
     navigate(route);
     setIsProfileOpen(false);
   };
+
+  const fetchUnreadCount = async () => {
+    if (!user) {
+      setUnreadMessageCount(0);
+      return;
+    }
+    try {
+      const response = await apiClient.get('/chats/unreadCount');
+      setUnreadMessageCount(response.data.data.unreadCount);
+    } catch (error) {
+      console.error("Failed to fetch unread message count:", error);
+      setUnreadMessageCount(0);
+    }
+  };
+
+  useEffect(() => {
+    fetchUnreadCount();
+
+    const pollInterval = setInterval(fetchUnreadCount, 30000);
+
+    if (user) {
+      socket.disconnect();
+      socket.connect();
+
+      socket.on('connect', () => {
+        console.log('Connected to WebSocket for notifications.');
+        socket.emit('subscribeToNotifications', { userId: user._id });
+      });
+
+      socket.on('notification:newMessage', (data) => {
+        console.log('New chat message notification received:', data);
+        if (data.receiverId === user._id) {
+          setUnreadMessageCount(prevCount => prevCount + 1);
+        }
+      });
+
+      // Listen for unread count updates (e.g., when messages are marked as read)
+      socket.on('notification:unreadCountUpdated', () => {
+        console.log('Unread count update notification received. Refreshing count...');
+        fetchUnreadCount(); // Re-fetch the count immediately
+      });
+
+      socket.on('disconnect', () => {
+        console.log('Disconnected from WebSocket.');
+      });
+
+      socket.on('error', (err) => {
+        console.error('WebSocket error:', err);
+      });
+    }
+
+    return () => {
+      clearInterval(pollInterval);
+      socket.off('notification:newMessage');
+      socket.off('notification:unreadCountUpdated');
+      socket.off('connect');
+      socket.off('disconnect');
+      socket.off('error');
+      if (user) {
+        socket.emit('unsubscribeFromNotifications', { userId: user._id });
+        socket.disconnect();
+      }
+    };
+  }, [user]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -48,7 +117,17 @@ function Header() {
   const handleSearchSubmit = (event) => {
     event.preventDefault();
     const trimmed = searchTerm.trim();
-    navigate(trimmed ? `/gigs?search=${encodeURIComponent(trimmed)}` : '/gigs');
+    
+    if (!trimmed) return;
+
+    if (user?.role.includes("provider")) {
+      // For providers, search for taskers with specific skills
+      navigate(`/gig-helper?search=${encodeURIComponent(trimmed)}`);
+    } else if (user?.role.includes("tasker")) {
+      // For taskers, search for gigs
+      navigate(`/gigs?search=${encodeURIComponent(trimmed)}`);
+    }
+    
     setSearchTerm("");
   };
 
@@ -68,7 +147,7 @@ function Header() {
             <img src="/assets/search-outline.svg" alt="Search" width={20} height={20} />
             <input
               type="text"
-              placeholder="Search Tasks"
+              placeholder={user?.role.includes("provider") ? "Search Taskers" : "Search Gigs"}
               className={styles.searchInput}
               value={searchTerm}
               onChange={handleSearchInputChange}
@@ -82,6 +161,9 @@ function Header() {
             <>
               <button className={styles.iconButton} aria-label="Notifications">
                 <img src="/assets/notification.svg" alt="Notification" width={28} height={28} />
+                {unreadMessageCount > 0 && (
+                  <span className={styles.notificationDot}></span>
+                )}
               </button>
 
               <div className={styles.iconWithDropdown} ref={profileDropdownRef}>
@@ -95,7 +177,6 @@ function Header() {
                     alt="Profile"
                     width={36}
                     height={36}
-                    style={{ borderRadius: '50%' }}
                   />
                 </button>
                 {isProfileOpen && (

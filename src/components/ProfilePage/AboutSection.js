@@ -62,11 +62,11 @@ function AboutSection({ userToDisplay, isOwnProfile, onUpdate }) { // Accept pro
    const handleImageError = (e) => { e.target.style.display = 'none'; };
 
   if (!userToDisplay) {
-      return <section className={`${styles.aboutCard} card`}><p>Loading about information...</p></section>;
+      return <section className={styles.aboutCard}><p>Loading about information...</p></section>;
   }
 
   return (
-    <section className={`${styles.aboutCard} card`}>
+    <section className={styles.aboutCard}>
       <div className={styles.aboutHeader}>
         <h2>About {isOwnProfile ? "Me" : userToDisplay.firstName || "User"}</h2>
         {/* Show Edit button only if it's the user's own profile */}
@@ -79,7 +79,7 @@ function AboutSection({ userToDisplay, isOwnProfile, onUpdate }) { // Accept pro
 
       <div className={styles.aboutContent}>
         {displayBio ? (
-          <p style={{ whiteSpace: 'pre-wrap' }}>{displayBio}</p>
+          <p className={styles.bioContent}>{displayBio}</p>
         ) : (
           <div className={styles.noBio}>
             <p>{isOwnProfile ? "Share a bit about yourself..." : "This user hasn't added a bio yet."}</p>

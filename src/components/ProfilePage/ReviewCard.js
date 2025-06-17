@@ -5,7 +5,7 @@ import styles from "./ReviewCard.module.css"; // Create CSS Module
 // Reusable Star Display Component (or import from ReviewItem)
 const DisplayRating = ({ rating }) => {
      const stars = Math.round(rating || 0); // Round to nearest star for simple display
-     return ( <span style={{ color: 'gold', fontSize: '14px' }}> {'★'.repeat(stars)}{'☆'.repeat(Math.max(0, 5 - stars))} </span> );
+     return ( <span className={styles.starRating}> {'★'.repeat(stars)}{'☆'.repeat(Math.max(0, 5 - stars))} </span> );
 };
 
 function ReviewCard({ review }) { // Accept full review object

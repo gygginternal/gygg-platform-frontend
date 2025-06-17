@@ -116,19 +116,10 @@ function ChatWindow({ selectedContractId, chatPartner }) {
         <div className={styles.chatContent}>
           <ChatHeader chatPartner={chatPartner} />
           {error && (
-            <p className="error-message" style={{ padding: "10px" }}>
-              {error}
-            </p>
+            <p className={styles.errorMessage}>{error}</p>
           )}
           {loadingMessages ? (
-            <div
-              style={{
-                flexGrow: 1,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
+            <div className={styles.loadingMessageContainer}>
               <p>Loading messages...</p>
             </div>
           ) : selectedContractId ? (
@@ -140,15 +131,7 @@ function ChatWindow({ selectedContractId, chatPartner }) {
               />
             </>
           ) : (
-            <div
-              style={{
-                flexGrow: 1,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#777",
-              }}
-            >
+            <div className={styles.noConversationSelectedContainer}>
               <p>Select a conversation to start chatting.</p>
             </div>
           )}

@@ -2,13 +2,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./OnboardingPages.module.css"; // Create this CSS for overall page
-import ProgressHeader from "../components/Onboarding/ProgressHeader";
-import InputField from "../components//Shared/InputField"; // Use your global InputField
-import TaskSelector from "../components/Onboarding/TaskSelector"; // Use the placeholder
+import ProgressHeader from "../components/Shared/ProgressHeader";
+import InputField from "../components/Shared/InputField";
+import TaskSelector from "../components/TaskerOnboarding/TaskSelector";
+import { AutoComplete } from '../components/AutoComplete';
 import { useAuth } from "../context/AuthContext";
 import apiClient from "../api/axiosConfig";
 import logger from "../utils/logger";
-import { AutoComplete } from "../components/AutoComplete";
 import {
   HOBBIES_OPTIONS,
   PERSONALITIES_OPTIONS,
@@ -244,11 +244,11 @@ function TaskerOnboardingPage() {
           <>
             <h1 className={styles.title}>Tell us about yourself</h1>
             <p className={styles.subtitle}>
-              This will help us set up your account better.
+              That will help us better account setup for you.
             </p>
             <div className={styles.grid}>
               <InputField
-                label="First name*"
+                label="First name"
                 type="text"
                 name="firstName"
                 value={formData.firstName}
@@ -256,7 +256,7 @@ function TaskerOnboardingPage() {
                 required
               />
               <InputField
-                label="Last name*"
+                label="Last name"
                 type="text"
                 name="lastName"
                 value={formData.lastName}
@@ -273,10 +273,10 @@ function TaskerOnboardingPage() {
           <>
             <h1 className={styles.title}>Skills and Task Preferences</h1>
             <p className={styles.subtitle}>
-              Select categories and specific tasks you can help with.
+              That will help us better account setup for you.
             </p>
             <AutoComplete
-              label="Select categories and specific tasks you can help with."
+              label="What type of tasks can you help with?"
               options={SKILL_OPTIONS}
               values={formData.skills}
               onChange={handleSkillsChange}
@@ -288,7 +288,7 @@ function TaskerOnboardingPage() {
         return (
           <>
             <h1 className={styles.title}>Personality and Interests</h1>
-            <p className={styles.subtitle}>Share a bit about yourself.</p>
+            <p className={styles.subtitle}>That will help us better account setup for you.</p>
             <AutoComplete
               label="What are your hobbies?"
               options={HOBBIES_OPTIONS}
@@ -297,7 +297,7 @@ function TaskerOnboardingPage() {
             />
 
             <AutoComplete
-              label="What kind of people do you enjoy spending time/working with?"
+              label="What kind of people do you enjoy spending time with?"
               options={PERSONALITIES_OPTIONS}
               values={formData.peoplePreference}
               onChange={(newPeoplePreference) =>
@@ -309,46 +309,32 @@ function TaskerOnboardingPage() {
       case 4: // Availability and Rate
         const rateRanges = [];
         for (let start = 15; start < 100; start += 5) {
-          rateRanges.push(`${start}-${start + 5}`);
+          rateRanges.push({ value: start, label: `${start}-${start + 5}` });
         }
-        rateRanges.push("100+");
+        rateRanges.push({ value: 100, label: "100+" });
         return (
           <>
             <h1 className={styles.title}>Availability and Rate</h1>
             <p className={styles.subtitle}>
-              Let clients know when you're available and your hourly rate.
+              That will help us better account setup for you.
             </p>
             <div className={styles.inputField}>
               <label className={styles.inputLabel}>
-                What is your approximate hourly rate? ($)
+                What is your task rate range ($)? We recommend picking a reasonable rate so you can get hired.
               </label>
-              {/* <input
-                className={styles.input}
-                type="number"
-                name="ratePerHour"
-                value={formData.ratePerHour}
-                onChange={handleDirectEventChange}
-                min="0"
-                step="1"
-                placeholder="e.g., 25"
-              /> */}
               <select className={styles.inputDropdown} name="ratePerHour" value={formData.ratePerHour} onChange={handleDirectEventChange}>
                 <option value="">Select rate range</option>
-                  {rateRanges.map(range => <option key={range} value={range}>${range}/hr</option>)}
+                  {rateRanges.map(range => <option key={range.label} value={range.value}>${range.label}/hr</option>)}
               </select>
             </div>
             <div className={styles.inputField}>
               <label className={styles.inputLabel}>
-                Your general availability:
+                How often are you available for tasks?
               </label>
               {Object.keys(initialFormData.availability).map((day) => (
                 <div
                   key={day}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: "5px",
-                  }}
+                  className={styles.availabilityRow}
                 >
                   <input
                     type="checkbox"
@@ -358,15 +344,11 @@ function TaskerOnboardingPage() {
                     onChange={(e) =>
                       handleAvailabilityChange(day, e.target.checked)
                     }
-                    style={{ marginRight: "10px" }}
+                    className={styles.availabilityCheckbox}
                   />
                   <label
                     htmlFor={`avail-${day}`}
-                    style={{
-                      color: "#e0e0e0",
-                      fontWeight: "normal",
-                      fontSize: "1rem",
-                    }}
+                    className={styles.availabilityLabel}
                   >
                     {day.charAt(0).toUpperCase() + day.slice(1)}
                   </label>
@@ -381,10 +363,10 @@ function TaskerOnboardingPage() {
           <>
             <h1 className={styles.title}>Profile Picture and Final Bio</h1>
             <p className={styles.subtitle}>
-              Almost there! Add a profile picture and confirm your bio.
+              That will help us better account setup for you.
             </p>
             <InputField
-              label="Confirm or refine your bio (This will show on your profile)"
+              label="Tell us a little more about yourself? What do you enjoy most about helping others? (This will show on your profile bio on you page)"
               name="bioStep5"
               type="textarea"
               value={formData.bioStep5}
@@ -419,6 +401,7 @@ function TaskerOnboardingPage() {
               <img src="/assets/upload.svg" alt="Upload" className={styles.uploadIcon} width={32} height={32} />
                 
               <p className={styles.uploadText}>Drag and Drop Thumbnail or Browse</p>
+              <p className={styles.uploadText}>Max 10 MB files are allowed</p>
                 <input
                   type="file"
                   ref={fileInputRef}

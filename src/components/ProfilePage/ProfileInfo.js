@@ -1,7 +1,6 @@
 // frontend/src/components/ProfilePage/ProfileInfo.js
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./ProfileInfo.module.css"; // Ensure this CSS Module exists and is styled correctly
-import { useAuth } from "../../context/AuthContext"; // Adjust path if necessary
 import apiClient from "../../api/axiosConfig";   // Adjust path if necessary
 import logger from "../../utils/logger";       // Optional: Adjust path if necessary
 
@@ -23,53 +22,46 @@ const decodeHTMLEntities = (text) => {
 // This component is designed to be used on the logged-in user's own profile/dashboard page.
 // If you want to display *another* user's profile, you'd create a separate component
 // or modify this one to accept a `userIdToView` prop and fetch that user's data.
-function ProfileInfo() {
-  const { user, refreshUser } = useAuth(); // Get current logged-in user and refresh function
+function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // State for editable fields within the modal
   const [editedFirstName, setEditedFirstName] = useState("");
   const [editedLastName, setEditedLastName] = useState("");
   const [editedBio, setEditedBio] = useState("");
-  const [editedHobbies, setEditedHobbies] = useState(""); // Comma-separated string for textarea input
-  const [editedSkills, setEditedSkills] = useState("");   // Comma-separated string for textarea input
-  const [editedAddress, setEditedAddress] = useState({
-    street: '', city: '', state: '', postalCode: '', country: ''
-  });
-  const [profileImageFile, setProfileImageFile] = useState(null); // Stores the selected File object
-  const [profileImagePreview, setProfileImagePreview] = useState(null); // URL for image preview
-  const fileInputRef = useRef(null); // Ref to programmatically click the hidden file input
+  const [editedHobbies, setEditedHobbies] = useState("");
+  const [editedSkills, setEditedSkills] = useState("");
+  const [editedAddress, setEditedAddress] = useState({ street: '', city: '', state: '', postalCode: '', country: '' });
+  const [profileImageFile, setProfileImageFile] = useState(null);
+  const [profileImagePreview, setProfileImagePreview] = useState(null);
+  const fileInputRef = useRef(null);
+  const [saveLoading, setSaveLoading] = useState(false);
 
-  const [saveLoading, setSaveLoading] = useState(false); // Loading state for the save button
-
-  // Populate form state with user data when the user object from context changes or on initial load
+  // Populate form state with user data when the userToDisplay prop changes
   useEffect(() => {
-    if (user) {
-        logger.debug("ProfileInfo: Populating edit form with user data:", user);
-        setEditedFirstName(user.firstName || '');
-        setEditedLastName(user.lastName || '');
-        setEditedBio(decodeHTMLEntities(user.bio) || ''); // Decode for editing plain text
-        setEditedHobbies(Array.isArray(user.hobbies) ? user.hobbies.join(', ') : '');
-        setEditedSkills(Array.isArray(user.skills) ? user.skills.join(', ') : '');
-        setEditedAddress(user.address ? { ...user.address } : { street: '', city: '', state: '', postalCode: '', country: '' });
-
-        // Set initial preview to current profile image if it exists and isn't the default
-        setProfileImagePreview(user.profileImage && user.profileImage !== 'default.jpg' ? user.profileImage : null);
-        setProfileImageFile(null); // Always reset the File object itself
+    if (userToDisplay) {
+      logger.debug("ProfileInfo: Populating edit form with user data:", userToDisplay);
+      setEditedFirstName(userToDisplay.firstName || '');
+      setEditedLastName(userToDisplay.lastName || '');
+      setEditedBio(decodeHTMLEntities(userToDisplay.bio) || '');
+      setEditedHobbies(Array.isArray(userToDisplay.hobbies) ? userToDisplay.hobbies.join(', ') : '');
+      setEditedSkills(Array.isArray(userToDisplay.skills) ? userToDisplay.skills.join(', ') : '');
+      setEditedAddress(userToDisplay.address ? { ...userToDisplay.address } : { street: '', city: '', state: '', postalCode: '', country: '' });
+      setProfileImagePreview(userToDisplay.profileImage && userToDisplay.profileImage !== 'default.jpg' ? userToDisplay.profileImage : null);
+      setProfileImageFile(null);
     }
-  }, [user]); // Re-populate if the main `user` object from context changes
+  }, [userToDisplay]);
 
   const openModal = () => {
-    if (!user) return; // Should not happen if component is rendered for logged-in user
-    // Ensure form fields are current with user data from context when opening modal
-    setEditedFirstName(user.firstName || '');
-    setEditedLastName(user.lastName || '');
-    setEditedBio(decodeHTMLEntities(user.bio) || '');
-    setEditedHobbies(user.hobbies?.join(', ') || '');
-    setEditedSkills(user.skills?.join(', ') || '');
-    setEditedAddress(user.address ? { ...user.address } : { street: '', city: '', state: '', postalCode: '', country: '' });
-    setProfileImagePreview(user.profileImage && user.profileImage !== 'default.jpg' ? user.profileImage : null);
-    setProfileImageFile(null); // Clear any previously selected file that wasn't submitted
+    if (!isOwnProfile || !userToDisplay) return;
+    setEditedFirstName(userToDisplay.firstName || '');
+    setEditedLastName(userToDisplay.lastName || '');
+    setEditedBio(decodeHTMLEntities(userToDisplay.bio) || '');
+    setEditedHobbies(userToDisplay.hobbies?.join(', ') || '');
+    setEditedSkills(userToDisplay.skills?.join(', ') || '');
+    setEditedAddress(userToDisplay.address ? { ...userToDisplay.address } : { street: '', city: '', state: '', postalCode: '', country: '' });
+    setProfileImagePreview(userToDisplay.profileImage && userToDisplay.profileImage !== 'default.jpg' ? userToDisplay.profileImage : null);
+    setProfileImageFile(null);
     setIsModalOpen(true);
   };
 
@@ -113,7 +105,7 @@ function ProfileInfo() {
   };
 
   const handleSave = async () => {
-    if (!user) return; // Should be caught by UI, but good check
+    if (!userToDisplay) return; // Should be caught by UI, but good check
     setSaveLoading(true);
 
     const payload = new FormData(); // Use FormData because we might send a file
@@ -154,13 +146,13 @@ function ProfileInfo() {
         await apiClient.patch('/users/updateMe', payload, {
             headers: { 'Content-Type': 'multipart/form-data' } // Axios sets this for FormData, but explicit is fine
         });
-        logger.info("ProfileInfo saved successfully for user:", user._id);
+        logger.info("ProfileInfo saved successfully for user:", userToDisplay._id);
         alert("Profile updated successfully!");
         setProfileImageFile(null); // Clear the selected file state after successful upload
         closeModal();
-        if (refreshUser) refreshUser(); // Refresh user data in AuthContext
+        if (onProfileUpdate) onProfileUpdate(); // Refresh user data in AuthContext
     } catch (err) {
-        logger.error("Error saving ProfileInfo:", err.response?.data || err.message, { userId: user._id });
+        logger.error("Error saving ProfileInfo:", err.response?.data || err.message, { userId: userToDisplay._id });
         alert(`Error saving profile: ${err.response?.data?.message || 'Please try again.'}`);
         // Keep modal open for user to see error and retry if desired
     } finally {
@@ -172,37 +164,39 @@ function ProfileInfo() {
   const handleDisplayImageError = (e) => { e.currentTarget.src = '/default.jpg'; };
 
   // If user data is not yet available from context (e.g., initial load)
-  if (!user) {
+  if (!userToDisplay) {
     return (
-        <section className={`${styles.profileCard} card`}>
+        <section className={styles.profileCard}>
             <p>Loading profile information...</p>
         </section>
     );
   }
 
   // Prepare values for display (using decoded bio)
-  const displayName = user.fullName || `${user.firstName || ''} ${user.lastName || ''}`.trim();
-  const displayBioInAboutSection = user.bio ? decodeHTMLEntities(user.bio) : "No bio provided yet.";
-  const displayHobbiesString = Array.isArray(user.hobbies) && user.hobbies.length > 0
-    ? user.hobbies.join(', ')
+  const displayName = userToDisplay.fullName || `${userToDisplay.firstName || ''} ${userToDisplay.lastName || ''}`.trim();
+  const displayBioInAboutSection = userToDisplay.bio ? decodeHTMLEntities(userToDisplay.bio) : "No bio provided yet.";
+  const displayHobbiesString = Array.isArray(userToDisplay.hobbies) && userToDisplay.hobbies.length > 0
+    ? userToDisplay.hobbies.join(', ')
     : "No hobbies listed yet.";
-  const displaySkillsArray = Array.isArray(user.skills) ? user.skills : [];
+  const displaySkillsArray = Array.isArray(userToDisplay.skills) ? userToDisplay.skills : [];
 
-  const displayLocation = user.address && Object.values(user.address).some(val => val)
-        ? `${user.address.city || ''}${user.address.city && user.address.state ? ', ' : ''}${user.address.state || ''}${user.address.country ? ` (${user.address.country})` : ''}`.trim()
+  const displayLocation = userToDisplay.address && Object.values(userToDisplay.address).some(val => val)
+        ? `${userToDisplay.address.city || ''}${userToDisplay.address.city && userToDisplay.address.state ? ', ' : ''}${userToDisplay.address.state || ''}${userToDisplay.address.country ? ` (${userToDisplay.address.country})` : ''}`.trim()
         : "Location not set";
 
   return (
-    <section className={`${styles.profileCard} card`}>
+    <section className={styles.profileCard}>
       <div className={styles.profileHeader}>
-        <button onClick={openModal} className={styles.editButton} aria-label="Edit Profile Information">
-            <img src="/assets/edit.svg" alt="Edit" className={styles.editIcon} onError={handleDisplayImageError} />
-        </button>
+        {isOwnProfile && (
+          <button onClick={openModal} className={styles.editButton} aria-label="Edit Profile Information">
+              <img src="/assets/edit.svg" alt="Edit" className={styles.editIcon} onError={handleDisplayImageError} />
+          </button>
+        )}
       </div>
       <div className={styles.profileContent}>
         <div className={styles.profileImageContainer}>
           <img
-            src={user.profileImage && user.profileImage !== 'default.jpg' ? user.profileImage : '/default.jpg'}
+            src={userToDisplay.profileImage && userToDisplay.profileImage !== 'default.jpg' ? userToDisplay.profileImage : '/default.jpg'}
             alt={`${displayName}'s profile`}
             className={styles.profileImage}
             onError={handleDisplayImageError}
@@ -237,7 +231,7 @@ function ProfileInfo() {
       </div>
 
       {/* Edit Profile Modal */}
-      {isModalOpen && (
+      {isOwnProfile && isModalOpen && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
             <div className={styles.modalHeader}>
@@ -248,77 +242,170 @@ function ProfileInfo() {
               {/* Profile Image Upload Section */}
               <label className={styles.rowLabel}>Profile Picture:</label>
               <div className={styles.imageUploadContainerModal}>
-                <div
-                    className={styles.imagePreviewModal}
-                    onClick={triggerFileInput}
-                    role="button" tabIndex={0}
-                    onKeyPress={e => (e.key === 'Enter' || e.key === ' ') && triggerFileInput()}
-                    aria-label="Profile image preview and uploader"
-                >
-                    {profileImagePreview ? (
-                        <img src={profileImagePreview} alt="Profile preview" className={styles.previewImageModal} />
-                    ) : (
-                        <span className={styles.uploadPlaceholderModal}>Click or Drag to Upload</span>
-                    )}
-                </div>
+                {profileImagePreview ? (
+                  <img
+                    src={profileImagePreview}
+                    alt="Profile Preview"n                    className={styles.profileImagePreview}
+                  />
+                ) : (
+                  <div className={styles.imagePlaceholder}>No Image Selected</div>
+                )}
                 <input
-                    type="file"
-                    ref={fileInputRef}
-                    onChange={handleProfileImageFileChange}
-                    accept="image/jpeg, image/png, image/webp"
-                    style={{ display: 'none' }}
-                    id="profileImageUploadModal"
+                  type="file"
+                  ref={fileInputRef}
+                  style={{ display: 'none' }} // Hide the actual input
+                  onChange={handleProfileImageFileChange}
+                  accept="image/jpeg,image/png,image/webp"
                 />
-                <button type="button" onClick={triggerFileInput} className={styles.uploadButtonModal}>
-                    {profileImageFile ? 'Change Image' : (profileImagePreview ? 'Change Image' : 'Upload Image')}
+                <button onClick={triggerFileInput} className={styles.chooseImageButton} disabled={saveLoading}>
+                  Choose Image
                 </button>
-                {profileImageFile && <p className={styles.fileNameModal}>Selected: {profileImageFile.name}</p>}
+                {profileImagePreview && (
+                    <button
+                        onClick={() => { setProfileImagePreview(null); setProfileImageFile(null); }}
+                        className={styles.removeImageButton}
+                        disabled={saveLoading}
+                    >
+                        Remove Image
+                    </button>
+                )}
               </div>
 
-              {/* Text Fields */}
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}>
-                  <label htmlFor="edit-firstName">First Name:</label>
-                  <input id="edit-firstName" type="text" className={styles.inputField} value={editedFirstName} onChange={(e) => setEditedFirstName(e.target.value)} />
-                </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor="edit-lastName">Last Name:</label>
-                  <input id="edit-lastName" type="text" className={styles.inputField} value={editedLastName} onChange={(e) => setEditedLastName(e.target.value)} />
-                </div>
+              {/* Editable Fields */}
+              <div className={styles.formGroup}>
+                <label htmlFor="firstName" className={styles.rowLabel}>First Name:</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  className={styles.textInput}
+                  value={editedFirstName}
+                  onChange={(e) => setEditedFirstName(e.target.value)}
+                  placeholder="First Name"
+                  disabled={saveLoading}
+                />
               </div>
 
               <div className={styles.formGroup}>
-                <label htmlFor="edit-modal-bio">Bio / Services Description:</label>
-                <textarea id="edit-modal-bio" className={styles.textArea} value={editedBio} onChange={(e) => setEditedBio(e.target.value)} rows="4" placeholder="Tell us about yourself, your services, or what you're looking for..." maxLength={750} />
+                <label htmlFor="lastName" className={styles.rowLabel}>Last Name:</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  className={styles.textInput}
+                  value={editedLastName}
+                  onChange={(e) => setEditedLastName(e.target.value)}
+                  placeholder="Last Name"
+                  disabled={saveLoading}
+                />
               </div>
 
               <div className={styles.formGroup}>
-                <label htmlFor="edit-hobbies">Hobbies (comma-separated):</label>
-                <textarea id="edit-hobbies" className={styles.textArea} value={editedHobbies} onChange={(e) => setEditedHobbies(e.target.value)} rows="3" placeholder="e.g., Reading, Hiking, Coding"/>
+                <label htmlFor="bio" className={styles.rowLabel}>Bio:</label>
+                <textarea
+                  id="bio"
+                  className={`${styles.textInput} ${styles.textarea}`}
+                  value={editedBio}
+                  onChange={(e) => setEditedBio(e.target.value)}
+                  placeholder="Tell us about yourself..."
+                  rows="4"
+                  disabled={saveLoading}
+                ></textarea>
               </div>
 
               <div className={styles.formGroup}>
-                <label htmlFor="edit-skills">Skills (comma-separated):</label>
-                <textarea id="edit-skills" className={styles.textArea} value={editedSkills} onChange={(e) => setEditedSkills(e.target.value)} rows="3" placeholder="e.g., Web Design, Tutoring, Event Planning"/>
+                <label htmlFor="hobbies" className={styles.rowLabel}>Hobbies (comma-separated):</label>
+                <input
+                  type="text"
+                  id="hobbies"
+                  className={styles.textInput}
+                  value={editedHobbies}
+                  onChange={(e) => setEditedHobbies(e.target.value)}
+                  placeholder="e.g., Reading, Hiking, Cooking"
+                  disabled={saveLoading}
+                />
               </div>
 
-              <label className={styles.rowLabel}>Address:</label>
-              <div className={styles.formGroup}><label htmlFor="edit-street">Street:</label><input id="edit-street" placeholder="Street" className={styles.inputField} value={editedAddress.street} onChange={(e) => setEditedAddress(prev => ({...prev, street: e.target.value}))} /></div>
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}><label htmlFor="edit-city">City:</label><input id="edit-city" placeholder="City" className={styles.inputField} value={editedAddress.city} onChange={(e) => setEditedAddress(prev => ({...prev, city: e.target.value}))} /></div>
-                <div className={styles.formGroup}><label htmlFor="edit-state">State/Province:</label><input id="edit-state" placeholder="State/Province" className={styles.inputField} value={editedAddress.state} onChange={(e) => setEditedAddress(prev => ({...prev, state: e.target.value}))} /></div>
-              </div>
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}><label htmlFor="edit-postalCode">Postal Code:</label><input id="edit-postalCode" placeholder="Postal Code" className={styles.inputField} value={editedAddress.postalCode} onChange={(e) => setEditedAddress(prev => ({...prev, postalCode: e.target.value}))} /></div>
-                <div className={styles.formGroup}><label htmlFor="edit-country">Country:</label><input id="edit-country" placeholder="Country" className={styles.inputField} value={editedAddress.country} onChange={(e) => setEditedAddress(prev => ({...prev, country: e.target.value}))} /></div>
+              <div className={styles.formGroup}>
+                <label htmlFor="skills" className={styles.rowLabel}>Skills (comma-separated):</label>
+                <input
+                  type="text"
+                  id="skills"
+                  className={styles.textInput}
+                  value={editedSkills}
+                  onChange={(e) => setEditedSkills(e.target.value)}
+                  placeholder="e.g., Web Development, Graphic Design, Project Management"
+                  disabled={saveLoading}
+                />
               </div>
 
-              <div className={styles.modalActions}>
-                <button type="button" className={styles.cancelButton} onClick={handleCancel} disabled={saveLoading}>Cancel</button>
-                <button type="button" className={styles.saveButton} onClick={handleSave} disabled={saveLoading}>
-                    {saveLoading ? 'Saving...' : 'Save Changes'}
-                </button>
+              {/* Address Fields */}
+              <h4 className={styles.addressSectionTitle}>Address Information</h4>
+              <div className={styles.formGroup}>
+                <label htmlFor="street" className={styles.rowLabel}>Street:</label>
+                <input
+                  type="text"
+                  id="street"
+                  className={styles.textInput}
+                  value={editedAddress.street}
+                  onChange={(e) => setEditedAddress({ ...editedAddress, street: e.target.value })}
+                  placeholder="Street Address"
+                  disabled={saveLoading}
+                />
               </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="city" className={styles.rowLabel}>City:</label>
+                <input
+                  type="text"
+                  id="city"
+                  className={styles.textInput}
+                  value={editedAddress.city}
+                  onChange={(e) => setEditedAddress({ ...editedAddress, city: e.target.value })}
+                  placeholder="City"
+                  disabled={saveLoading}
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="state" className={styles.rowLabel}>State/Province:</label>
+                <input
+                  type="text"
+                  id="state"
+                  className={styles.textInput}
+                  value={editedAddress.state}
+                  onChange={(e) => setEditedAddress({ ...editedAddress, state: e.target.value })}
+                  placeholder="State/Province"
+                  disabled={saveLoading}
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="postalCode" className={styles.rowLabel}>Postal Code:</label>
+                <input
+                  type="text"
+                  id="postalCode"
+                  className={styles.textInput}
+                  value={editedAddress.postalCode}
+                  onChange={(e) => setEditedAddress({ ...editedAddress, postalCode: e.target.value })}
+                  placeholder="Postal Code"
+                  disabled={saveLoading}
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="country" className={styles.rowLabel}>Country:</label>
+                <input
+                  type="text"
+                  id="country"
+                  className={styles.textInput}
+                  value={editedAddress.country}
+                  onChange={(e) => setEditedAddress({ ...editedAddress, country: e.target.value })}
+                  placeholder="Country"
+                  disabled={saveLoading}
+                />
+              </div>
+
+            </div>
+            <div className={styles.modalFooter}>
+              <button onClick={handleCancel} className={styles.cancelButton} disabled={saveLoading}>Cancel</button>
+              <button onClick={handleSave} className={styles.saveButton} disabled={saveLoading}>
+                {saveLoading ? 'Saving...' : 'Save Changes'}
+              </button>
             </div>
           </div>
         </div>

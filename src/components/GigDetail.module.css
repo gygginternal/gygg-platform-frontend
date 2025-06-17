@@ -1,0 +1,222 @@
+/* frontend/src/components/GigDetail.module.css */
+
+.gigDetailPageContainer {
+    padding: 1.5rem; /* Equivalent to p-6 */
+    max-width: 1200px; /* Equivalent to max-w-6xl */
+    margin: 0 auto; /* Equivalent to mx-auto */
+    font-family: 'Inter', sans-serif;
+}
+
+.loadingMessage,
+.errorMessage {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.25rem; /* text-xl */
+    color: #666; /* Adjust color as needed */
+}
+
+.errorMessage {
+    color: #dc3545; /* Red for errors */
+}
+
+.gigContent {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; /* gap-8 */
+}
+
+.gigDetailsSection,
+.sectionCard,
+.infoCard,
+.warningCard {
+    background-color: #1a1a1a; /* bg-gray-800 */
+    padding: 1.5rem; /* p-6 */
+    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+    color: #f0f0f0; /* text-gray-200 */
+}
+
+.gigTitle {
+    font-size: 2.25rem; /* text-4xl */
+    font-weight: 700; /* font-bold */
+    margin-bottom: 1rem; /* mb-4 */
+    color: #D89362; /* text-primary-400 */
+}
+
+.gigDescription {
+    font-size: 1.125rem; /* text-lg */
+    line-height: 1.6;
+    margin-bottom: 1.5rem; /* mb-6 */
+}
+
+.gigLocation,
+.gigBudget,
+.gigCategory {
+    font-size: 1rem; /* text-base */
+    margin-bottom: 0.5rem; /* mb-2 */
+    color: #ccc; /* text-gray-400 */
+}
+
+.gigLocation strong,
+.gigBudget strong,
+.gigCategory strong {
+    color: #D89362; /* text-primary-400 */
+}
+
+.paymentBreakdown {
+    margin-top: 1.5rem; /* mt-6 */
+    padding: 1rem; /* p-4 */
+    background-color: #2a2a2a; /* bg-gray-700 */
+    border-radius: 0.5rem; /* rounded-lg */
+    border: 1px solid #444; /* border border-gray-600 */
+    color: #f0f0f0;
+}
+
+.paymentBreakdownTitle {
+    font-size: 1.25rem; /* text-xl */
+    font-weight: 600; /* font-semibold */
+    margin-bottom: 0.75rem; /* mb-3 */
+    color: #D89362;
+}
+
+.breakdownItem {
+    font-size: 0.95rem; /* text-base (slightly smaller for breakdown) */
+    margin-bottom: 0.25rem; /* mb-1 */
+    color: #ddd;
+}
+
+.paymentSection {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: #2a2a2a;
+    border-radius: 0.5rem;
+    border: 1px solid #444;
+    color: #f0f0f0;
+}
+
+.paymentSectionTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #D89362;
+}
+
+.confirmPaymentButton {
+    margin-top: 1.25rem; /* mt-5 */
+    width: 100%; /* w-full */
+    background-color: #D99633; /* bg-primary-500 */
+    color: #fff; /* text-white */
+    padding: 0.75rem 1.5rem; /* py-3 px-6 */
+    border-radius: 0.5rem; /* rounded-lg */
+    font-weight: 600; /* font-semibold */
+    transition: background-color 0.3s ease;
+}
+
+.confirmPaymentButton:hover {
+    background-color: #b45309; /* hover:bg-primary-600 */
+}
+
+.sectionTitle {
+    font-size: 1.5rem; /* text-2xl */
+    font-weight: 700; /* font-bold */
+    margin-bottom: 1rem; /* mb-4 */
+    color: #D89362;
+}
+
+.sectionText {
+    font-size: 1rem;
+    color: #ccc;
+    margin-bottom: 1rem;
+}
+
+.primaryButton {
+    background-color: #D99633; /* bg-primary-500 */
+    color: #fff; /* text-white */
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 0.5rem; /* Space from text above */
+}
+
+.primaryButton:hover:not(:disabled) {
+    background-color: #b45309; /* hover:bg-primary-600 */
+}
+
+.primaryButton:disabled {
+    background-color: #777;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.secondaryButton {
+    background-color: #444; /* bg-gray-600 */
+    color: #fff; /* text-white */
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.secondaryButton:hover:not(:disabled) {
+    background-color: #555; /* hover:bg-gray-700 */
+}
+
+.secondaryButton:disabled {
+    background-color: #777;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.infoCard {
+    background-color: #212B36; /* Similar to blue-100 or info-bg */
+    border-left: 5px solid #2065D1; /* info-border */
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-top: 1.5rem; /* mt-6 */
+}
+
+.infoText {
+    color: #DDE7F0; /* info-text */
+    font-size: 0.95rem;
+}
+
+.warningCard {
+    background-color: #7A0916; /* Similar to red-100 or warning-bg */
+    border-left: 5px solid #ff4842; /* warning-border */
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-top: 1.5rem; /* mt-6 */
+}
+
+.warningText {
+    color: #FFB3A7; /* warning-text */
+    font-size: 0.95rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .gigDetailPageContainer {
+        padding: 1rem;
+    }
+    .gigTitle {
+        font-size: 1.75rem;
+    }
+    .gigDescription {
+        font-size: 1rem;
+    }
+    .sectionTitle {
+        font-size: 1.25rem;
+    }
+    .primaryButton, .secondaryButton, .confirmPaymentButton {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+} 

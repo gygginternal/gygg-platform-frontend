@@ -1,7 +1,7 @@
 // src/pages/ForgotPasswordPage.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; // Use react-router-dom Link
-import styles from './ForgotPasswordPage.module.css'; // Create this CSS module
+import styles from '../components/ForgotPasswordPage/ForgotPasswordPage.module.css'; // Create this CSS module
 import InputField from '../components/Shared/InputField'; // Adjust path
 import apiClient from '../api/axiosConfig'; // Adjust path
 import logger from '../utils/logger'; // Optional logger

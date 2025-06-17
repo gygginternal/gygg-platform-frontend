@@ -1,7 +1,7 @@
 // src/pages/GigCreatePage.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from './GigCreatePage.module.css'; // CSS for the page layout
+import styles from '../components/GigCreatePage/GigCreatePage.module.css'; // CSS for the page layout
 // Header and main navigation Sidebar are assumed to be part of App.js global layout
 // import Header from '../components/Shared/Header';
 import ProfileSidebar from "../components/ProfileSidebar"; // The static info sidebar

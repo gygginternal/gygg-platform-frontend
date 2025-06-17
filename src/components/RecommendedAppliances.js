@@ -1,5 +1,5 @@
 import React from "react";
-import cn from "classnames";
+// import cn from "classnames"; // Removed
 import { Link } from "react-router-dom";
 import styles from "./RecommendedAppliances.module.css";
 import { useQuery } from "@tanstack/react-query";
@@ -15,7 +15,7 @@ const RecommendedAppliances = () => {
   } = useQuery({
     queryKey: ["recommendedAppliances"],
     queryFn: async () => {
-      const response = await apiClient.get("/applications/top-match");
+      const response = await apiClient.get("/applicances/top-match");
       return response.data;
     },
     onError: (err) => {
@@ -35,7 +35,7 @@ const RecommendedAppliances = () => {
   };
 
   return (
-    <section className={cn(styles.appliancesSection, styles.mt5)}>
+    <section className={styles.appliancesSection} style={{ marginTop: '1.25rem' }}>
       <div className={styles.sectionHeader}>
         <h4 className={styles.sectionTitleUnderlined}>
           Top matched people applied to your gig

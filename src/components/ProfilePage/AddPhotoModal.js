@@ -85,9 +85,9 @@ function AddPhotoModal({ onClose, onAddSuccess }) { // Renamed onAdd to onAddSuc
         </div>
         <div className={styles.modalBody}>
           <p>Showcase your work by adding a gig-related photo.</p>
-          {error && <p className="error-message">{error}</p>}
+          {error && <p className={styles.errorMessage}>{error}</p>}
           <div className={styles.uploadBox}>
-            <input type="file" id="photoUpload" accept="image/jpeg, image/png, image/webp, image/gif" onChange={handleFileChange} style={{ display: 'none' }} />
+            <input type="file" id="photoUpload" accept="image/jpeg, image/png, image/webp, image/gif" onChange={handleFileChange} className={styles.hiddenFileInput} />
             <label htmlFor="photoUpload" className={styles.uploadLabel}>
               {previewUrl && <img src={previewUrl} alt="Preview" className={styles.previewImage} />}
               {!previewUrl && (selectedFile ? selectedFile.name : "Click or Drag to Upload")}

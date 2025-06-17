@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext"; // To get userId if needed by backend
-import { Button } from "../components/ui/button";
+// import { Button } from "../components/ui/button"; // Removed as we'll use a local button or convert it
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import apiClient from "../api/axiosConfig";
+import styles from "./GigApplySection.module.css"; // Import CSS module
 
 export function OfferCard({
   offer,
@@ -15,19 +16,19 @@ export function OfferCard({
   console.log({ provider });
 
   return (
-    <div className="bg-white overflow-hidden">
-      <div className="flex flex-col sm:flex-row">
+    <div className={styles.offerCard}>
+      <div className={styles.offerCardContent}>
         {" "}
         <>
-          <Button className="mr-3 w-full" onClick={() => onAccept(offer._id)}>
+          <button className={`${styles.acceptButton} ${styles.button}`} onClick={() => onAccept(offer._id)}>
             Accept Offer
-          </Button>
-          <Button
-            className="bg-red-500 hover:bg-red-600 w-full"
+          </button>
+          <button
+            className={`${styles.declineButton} ${styles.button}`}
             onClick={() => onDecline(offer._id)}
           >
             Decline Offer
-          </Button>
+          </button>
         </>
       </div>
     </div>
@@ -180,39 +181,39 @@ export const GigApplySection = ({ gigId, onApplySuccess }) => {
       ) : (
         <div>
           {!isStripeIntegrted && (
-            <p className="text-orange-500">
+            <p className={styles.stripeStatusMessage}>
               You need to set up your Stripe account to apply for gigs.{" "}
-              <a className="underline" href="/settings?tab=withdraw">
+              <a className={styles.stripeSetupLink} href="/settings?tab=withdraw">
                 Set up Stripe
               </a>
             </p>
           )}
           {application?.applicationStatus === "rejected" && (
-            <div className="text-red-600">Your application was rejected.</div>
+            <div className={styles.applicationRejectedMessage}>Your application was rejected.</div>
           )}
 
           {(!application || application.applicationStatus === "cancelled") &&
             isStripeIntegrted && (
-              <Button
-                className="w-full flex-1 bg-blue-500 hover:bg-blue-600 text-white"
+              <button
+                className={`${styles.applyButton} ${styles.button}`}
                 onClick={() => applyMutation.mutate()}
                 disabled={applyMutation.isLoading}
               >
                 {applyMutation.isLoading ? "Applying..." : "Apply"}
-              </Button>
+              </button>
             )}
 
           {application?.applicationStatus === "pending" && (
             <div>
-              <Button
-                className="w-full flex-1 bg-red-500 hover:bg-red-600 text-white"
+              <button
+                className={`${styles.cancelButton} ${styles.button}`}
                 onClick={() => cancelMutation.mutate(application.id)}
                 disabled={cancelMutation.isLoading}
               >
                 {cancelMutation.isLoading
                   ? "Canceling..."
                   : "Cancel Application"}
-              </Button>
+              </button>
             </div>
           )}
         </div>

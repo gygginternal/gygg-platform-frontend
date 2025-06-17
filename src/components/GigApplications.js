@@ -3,70 +3,71 @@ import { MapPin } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import apiClient from "../api/axiosConfig";
-import { Badge } from "../components/Badge";
+import Badge from '../components/Badge';
 import { StatusBadge } from "../components/StatusBadge"; // Assuming you have a StatusBadge component
 import { useAuth } from "../context/AuthContext";
-import { Button } from "../components/ui/button";
+// import { Button } from "../components/ui/button"; // Removed
+import styles from "./GigApplications.module.css"; // Import CSS module
 
 function OfferCard({ offer, onDelete, onAccept, onDecline, isProvider }) {
   const provider = offer.provider || {}; // Assuming offer has a provider object
 
   return (
-    <div className="bg-white overflow-hidden">
-      <div className="flex flex-col sm:flex-row">
-        <div className="w-full sm:w-48 h-48 relative">
+    <div className={styles.offerCard}>
+      <div className={styles.offerCardContent}>
+        <div className={styles.offerCardImageContainer}>
           <img
             src={offer.image || "/placeholder.svg"}
             alt={`${offer.name}'s profile picture`}
-            className="w-full h-full object-cover"
+            className={styles.offerCardImage}
           />
         </div>
-        <div className="flex-1 p-4">
-          <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-2">
+        <div className={styles.offerCardDetails}>
+          <div className={styles.offerCardHeader}>
             <div>
-              <h2 className="text-xl font-semibold">{offer.name}</h2>
-              <p className="text-amber-500 font-semibold">{offer.rate}</p>
+              <h2 className={styles.offerCardTitle}>{offer.name}</h2>
+              <p className={styles.offerCardRate}>{offer.rate}</p>
               {provider.location &&
                 provider.location.trim().split(",").filter(Boolean).length >
                   0 && (
-                  <div className="flex items-center text-gray-500 mt-1">
-                    <MapPin className="h-4 w-4 mr-1" />
+                  <div className={styles.location}>
+                    <MapPin className={styles.locationIcon} />
                     <span>{provider.location}</span>
                   </div>
                 )}
             </div>
           </div>
-          <div>
+          <div className={styles.buttonGroup}>
             {isProvider ? (
-              <Button
-                className="bg-red-500 hover:bg-red-600"
+              <button
+                className={`${styles.deleteOfferButton} ${styles.button}`}
                 onClick={() => onDelete(offer._id)}
               >
                 Delete Offer
-              </Button>
+              </button>
             ) : (
               <>
-                <Button className="mr-3" onClick={() => onAccept(offer._id)}>
+                <button className={`${styles.acceptButton} ${styles.button}`} onClick={() => onAccept(offer._id)}>
                   Accept Offer
-                </Button>
-                <Button
-                  className="bg-red-500 hover:bg-red-600"
+                </button>
+                <button
+                  className={`${styles.declineButton} ${styles.button}`}
                   onClick={() => onDecline(offer._id)}
                 >
                   Decline Offer
-                </Button>
+                </button>
               </>
             )}
           </div>
 
-          <p className="text-gray-600 my-3 line-clamp-2">{offer.description}</p>
+          <p className={styles.offerCardDescription}>{offer.description}</p>
 
-          <div className="flex flex-wrap gap-2 mt-2">
+          <div className={styles.skillsContainer}>
             {provider.skills.map((service) => (
               <Badge
                 key={service}
                 variant="outline"
-                className="hover:bg-amber-200 border-amber-200 rounded-full px-4 py-1"
+                className={styles.badge}
               >
                 {service}
               </Badge>
@@ -80,55 +81,55 @@ function OfferCard({ offer, onDelete, onAccept, onDecline, isProvider }) {
 
 function ProviderCard({ provider, onOffer, onReject }) {
   return (
-    <div className="bg-white overflow-hidden">
-      <div className="flex flex-col sm:flex-row">
-        <div className="w-full sm:w-48 h-48 relative">
+    <div className={styles.offerCard}>
+      <div className={styles.offerCardContent}>
+        <div className={styles.offerCardImageContainer}>
           <img
             src={provider.image || "/placeholder.svg"}
             alt={`${provider.name}'s profile picture`}
-            className="w-full h-full object-cover"
+            className={styles.offerCardImage}
           />
         </div>
-        <div className="flex-1 p-4">
-          <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-2">
+        <div className={styles.offerCardDetails}>
+          <div className={styles.offerCardHeader}>
             <div>
               <StatusBadge
-                className={"mb-2"}
+                className={styles.statusBadgeMargin}
                 status={provider.status === "rejected" ? "Rejected" : "Active"}
               />
-              <h2 className="text-xl font-semibold">{provider.name}</h2>
-              <p className="text-amber-500 font-semibold">{provider.rate}</p>
+              <h2 className={styles.offerCardTitle}>{provider.name}</h2>
+              <p className={styles.offerCardRate}>{provider.rate}</p>
               {provider.location &&
                 provider.location.trim().split(",").filter(Boolean).length >
                   0 && (
-                  <div className="flex items-center text-gray-500 mt-1">
-                    <MapPin className="h-4 w-4 mr-1" />
+                  <div className={styles.location}>
+                    <MapPin className={styles.locationIcon} />
                     <span>{provider.location}</span>
                   </div>
                 )}
             </div>
           </div>
-          <div className="flex flex-wrap gap-2  mb-5">
+          <div className={styles.providerServicesGap}>
             {provider.services.map((service) => (
               <Badge
                 key={service}
                 variant="outline"
-                className="hover:bg-amber-200 border-amber-200 rounded-full px-4 py-1"
+                className={styles.badge}
               >
                 {service}
               </Badge>
             ))}
           </div>
-          <div>
-            <Button className="mr-3" onClick={() => onOffer(provider.id)}>
+          <div className={styles.buttonGroup}>
+            <button className={`${styles.sendOfferButton} ${styles.button}`} onClick={() => onOffer(provider.id)}>
               Send Offer
-            </Button>
-            <Button
-              className="bg-red-500 hover:bg-red-600"
+            </button>
+            <button
+              className={`${styles.rejectApplicationButton} ${styles.button}`}
               onClick={() => onReject(provider.id)}
             >
               Decline application
-            </Button>
+            </button>
           </div>
         </div>
       </div>
@@ -138,6 +139,7 @@ function ProviderCard({ provider, onOffer, onReject }) {
 
 export const GigApplications = ({ onOffer, onReject }) => {
   const { gigId } = useParams(); // Get the gigId from the URL
+  const { user } = useAuth();
 
   const queryClient = useQueryClient(); // React Query client for invalidating queries
   const [currentPage, setCurrentPage] = useState(1); // State for the current page
@@ -261,7 +263,6 @@ export const GigApplications = ({ onOffer, onReject }) => {
 
   const handleDeleteOffer = async (offerId) => {
     await deleteOfferMutation.mutateAsync(offerId);
-    onOffer && onOffer(); // Call the external onOffer handler if provided
   };
 
   const handleAcceptOffer = async (offerId) => {
@@ -279,75 +280,68 @@ export const GigApplications = ({ onOffer, onReject }) => {
   };
 
   const handleOffer = async (applicationId) => {
-    await offerMutation.mutateAsync(applicationId); // Default behavior
-    if (onOffer) {
-      onOffer(applicationId); // Call the external onOffer handler
-    }
+    await offerMutation.mutateAsync(applicationId);
   };
 
   const handleReject = async (applicationId) => {
-    rejectMutation.mutate(applicationId); // Default behavior
-    setApplications((prevApplications) =>
-      prevApplications.map((application) =>
-        application.id === applicationId
-          ? { ...application, status: "rejected" }
-          : application
-      )
-    );
+    await rejectMutation.mutateAsync(applicationId);
   };
 
-  const { user } = useAuth();
-  const isProvider = user?.role?.includes("provider");
-
-  if (isLoading && isOfferLoading && currentPage === 1) {
+  if (isLoading || isOfferLoading) {
     return <p>Loading applications...</p>;
   }
 
-  if (isError) {
-    return (
-      <p className="error-message">
-        {error?.message || "Failed to load applications."}
-      </p>
-    );
+  if (isError || isOfferError) {
+    return <p>Error loading applications or offers.</p>;
   }
 
-  if (applications.length === 0 && !offerData) {
-    return <p>No applications or offers found.</p>;
-  }
+  const isProviderUser = user?.role === "provider"; // Determine if the user is a provider
 
   return (
-    <div>
-      {!offerData && <h1>Gig Applications</h1>}
-      <ul>
-        {!offerData &&
-          applications.map((application) => (
-            <li key={application.id}>
-              <ProviderCard
-                provider={application}
-                onOffer={handleOffer}
-                onReject={handleReject}
-              />
-            </li>
-          ))}
-      </ul>
-      {hasMore && (
-        <button onClick={handleLoadMore} disabled={isLoading}>
-          {isLoading ? "Loading..." : "Load More"}
-        </button>
-      )}
+    <div className={styles.container}>
+      <h1 className={styles.heading}>Applications & Offers</h1>
 
-      {offerData && (
-        <>
-          <h1>Gig Offers</h1>
+      {isProviderUser && offerData && (
+        <div className={styles.section}>
+          <h2 className={styles.subheading}>Your Offer</h2>
           <OfferCard
             offer={offerData}
             onDelete={handleDeleteOffer}
             onAccept={handleAcceptOffer}
             onDecline={handleDeclineOffer}
-            isProvider={isProvider} // Dynamically determine if the user is the provider
+            isProvider={true} // As this is "Your Offer" section for a provider
           />
-        </>
+        </div>
       )}
+
+      <div className={styles.section}>
+        <h2 className={styles.subheading}>
+          {isProviderUser ? "Received Applications" : "Your Offers"}
+        </h2>
+        {applications.length > 0 ? (
+          <div className={styles.cardList}>
+            {applications.map((application) => (
+              <ProviderCard
+                key={application._id}
+                provider={application.applicant}
+                onOffer={handleOffer}
+                onReject={handleReject}
+              />
+            ))}
+          </div>
+        ) : (
+          <p className={styles.noApplicationsMessage}>No applications yet.</p>
+        )}
+        {hasMore && (
+          <button
+            onClick={handleLoadMore}
+            disabled={isLoading}
+            className={styles.loadMoreButton}
+          >
+            {isLoading ? "Loading more..." : "Load More"}
+          </button>
+        )}
+      </div>
     </div>
   );
 };

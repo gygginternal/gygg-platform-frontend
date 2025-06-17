@@ -1,7 +1,7 @@
 // src/pages/GigCreateOptionsPage.js
 import React, { useState } from "react";
 import { useNavigate, Link } from 'react-router-dom';
-import styles from "./GigCreateOptionsPage.module.css"; 
+import styles from '../components/GigCreateOptionsPage/GigCreateOptionsPage.module.css'; 
 import { CATEGORY_ENUM } from '../utils/constants'; // Assuming categories are here
 import apiClient from '../api/axiosConfig'; // Adjust path if needed
 import logger from '../utils/logger';

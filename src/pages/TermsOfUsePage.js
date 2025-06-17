@@ -1,6 +1,6 @@
 // src/pages/TermsOfUsePage.js
 import React from 'react';
-import styles from './LegalPages.module.css'; // Shared CSS for legal pages
+import styles from '../components/Legal/LegalPages.module.css'; // Shared CSS for legal pages
 import { Link } from 'react-router-dom';
 
 function TermsOfUsePage() {

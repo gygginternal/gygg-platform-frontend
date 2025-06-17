@@ -2,11 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './GigCreateForm.module.css'; // CREATE THIS CSS MODULE
-import ProgressBar from '../Onboarding/ProgressBar'; // Assuming reusable
-import NavigationButtons from '../Onboarding/NavigationButtons'; // Assuming reusable
-import GigPostTimelineCategory from '../Onboarding/GigPostTimelineCategory';
-import GigPostDetailsBudget from '../Onboarding/GigPostDetailsBudget';
-import GigPostReview from '../Onboarding/GigPostReview';
+import ProgressBar from '../ProviderOnboarding/ProgressBar';
+import NavigationButtons from '../ProviderOnboarding/NavigationButtons';
+import GigPostTimelineCategory from '../ProviderOnboarding/GigPostTimelineCategory';
+import GigPostDetailsBudget from '../ProviderOnboarding/GigPostDetailsBudget';
+import GigPostReview from '../ProviderOnboarding/GigPostReview';
 import InputField from '../Shared/InputField'; // Your global InputField
 import { useAuth } from '../../context/AuthContext'; // Relative path
 import apiClient from '../../api/axiosConfig';      // Relative path
@@ -140,7 +140,7 @@ function GigCreateForm({ onGigCreated }) { // Callback for when gig is successfu
         <div className={styles.gigCreateFormContainer}> {/* Main wrapper for this component */}
             <ProgressBar current={currentStep} total={TOTAL_GIG_CREATE_STEPS} label="Create New Gig" />
             <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
-                {error && <p className="error-message" style={{ textAlign: 'center', marginBottom: '1rem' }}>{error}</p>}
+                {error && <p className={styles.errorMessage}>{error}</p>}
                 {renderStepContent()}
             </form>
             <NavigationButtons

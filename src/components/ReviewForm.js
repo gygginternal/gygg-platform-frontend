@@ -2,20 +2,16 @@
 
 import React, { useState } from 'react';
 import apiClient from '../api/axiosConfig'; // Assuming you use axios for API calls
+import styles from './ReviewForm.module.css';
 
 // Simple reusable Star Rating Component
 const StarRatingInput = ({ rating, setRating, disabled = false }) => {
     return (
-        <div>
+        <div className={styles.starRatingContainer}>
             {[1, 2, 3, 4, 5].map((star) => (
                 <span
                     key={star}
-                    style={{
-                        cursor: disabled ? 'default' : 'pointer',
-                        color: star <= rating ? 'gold' : '#ccc', // Use grey for unselected stars
-                        fontSize: '28px', // Make stars a bit larger
-                        marginRight: '3px'
-                    }}
+                    className={`${styles.star} ${star <= rating ? styles.starSelected : styles.starUnselected}`}
                     onClick={() => !disabled && setRating(star)}
                     onMouseEnter={() => !disabled} // Could add hover effect here
                     onMouseLeave={() => !disabled}
@@ -74,31 +70,31 @@ function ReviewForm({ contractId, onSubmitSuccess }) {
 
     // Prevent form resubmission if successful
     if (successMessage) {
-        return <p className="success-message">{successMessage}</p>;
+        return <p className={styles.successMessage}>{successMessage}</p>;
     }
 
     return (
         // Apply card styling or custom styling as needed
-        <form onSubmit={handleSubmit} className="card" style={{ marginTop: '20px', borderColor: 'darkseagreen' }}>
+        <form onSubmit={handleSubmit} className={styles.reviewFormCard}>
             <h4>Leave a Review for the Tasker</h4>
-             {error && <p className="error-message">{error}</p>} {/* Use className for styling */}
-            <div style={{ marginBottom: '15px' }}> {/* Add margin */}
-                <label style={{ display: 'block', marginBottom: '5px' }}>Rating:*</label>
+             {error && <p className={styles.errorMessage}>{error}</p>} {/* Use className for styling */}
+            <div className={styles.formGroup}> {/* Add margin */}
+                <label className={styles.label}>Rating:*</label>
                 <StarRatingInput rating={rating} setRating={setRating} disabled={loading} />
             </div>
-            <div style={{ marginBottom: '15px' }}> {/* Add margin */}
-                <label htmlFor={`comment-${contractId}`}>Comment (Optional):</label>
+            <div className={styles.formGroup}> {/* Add margin */}
+                <label htmlFor={`comment-${contractId}`} className={styles.label}>Comment (Optional):</label>
                 <textarea
                     id={`comment-${contractId}`}
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                     rows="4" // Slightly more rows
-                    style={{ width: '100%', marginTop: '5px' }} // Ensure width consistency
+                    className={styles.textArea} // Ensure width consistency
                     maxLength="1000"
                     disabled={loading}
                 />
             </div>
-            <button type="submit" disabled={loading} style={{ width: '100%'}}>
+            <button type="submit" disabled={loading} className={styles.submitButton}>
                 {loading ? 'Submitting...' : 'Submit Review'}
             </button>
         </form>

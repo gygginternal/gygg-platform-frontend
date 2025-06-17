@@ -1,24 +1,24 @@
 import React, { useState } from "react";
-import cn from "classnames";
+// import cn from "classnames"; // No longer needed
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { format } from "date-fns"; // Import date-fns for formatting dates
 import apiClient from "../api/axiosConfig";
-import styles from "./SocialFeedLayoutPage.module.css"; // Reuse styles from SocialFeedLayoutPage
+import styles from '../components/ContractsPage/ContractsPage.module.css';
 import ProfileSidebar from "../components/ProfileSidebar";
 import { TabNavigation } from "../components/TabNavigation"; // Import the TabNavigation component
 import InputField from "../components/Shared/InputField";
-import { Toggle } from "../components/Toggle"; // Import the Toggle component
-import { BillingTable } from "../components/BillingTable"; // Import the BillingTable component
+import Toggle from '../components/Toggle';
+import BillingTable from '../components/Billing/BillingTable';
 import { StatusBadge } from "../components/StatusBadge"; // Adjust the import path
 
 function JobListingsPage({ contracts }) {
   return (
-    <div className="space-y-4">
+    <div className={styles.jobListingsContainer}>
       {contracts.map((job, index) => (
         <div key={index}>
           <JobListingItem job={job} />
-          <hr className="mt-2" />
+          <hr className={styles.jobSeparator} />
         </div>
       ))}
     </div>
@@ -35,26 +35,26 @@ function JobListingItem({ job }) {
     <div>
       <Link
         to={`/gigs/${job.gigId}`}
-        className="text-lg underline font-medium text-gray-800 hover:underline cursor-pointer"
+        className={styles.jobTitleLink}
       >
         {job.gigTitle}
       </Link>
-      <div className="flex justify-between items-center mt-2">
+      <div className={styles.jobDetailsRow}>
         <div>
-          <div className="flex items-center">
-            <span className="text-sm text-gray-500">Hired by</span>
-            <div className="font-semibold ml-2">{job.provider}</div>
+          <div className={styles.jobDetailItem}>
+            <span className={styles.jobDetailLabel}>Hired by</span>
+            <div className={styles.jobDetailValue}>{job.provider}</div>
           </div>
-          <div className="flex items-center mt-5">
-            <span className="text-sm text-gray-500">Contract ID</span>
-            <div className="font-medium ml-2">{job.id}</div>
+          <div className={styles.jobDetailItem + " " + styles.jobDetailItemMarginTop}>
+            <span className={styles.jobDetailLabel}>Contract ID</span>
+            <div className={styles.jobDetailValue}>{job.id}</div>
           </div>
         </div>
-        <div className="flex flex-col">
+        <div className={styles.jobStatusContainer}>
           <StatusBadge status={job.status} />
-          <div className="mt-2">
-            <span className="text-sm text-gray-500">Started</span>
-            <span className="ml-2">{formattedDate}</span>
+          <div className={styles.jobDetailItem + " " + styles.jobDetailItemMarginTop}>
+            <span className={styles.jobDetailLabel}>Started</span>
+            <span className={styles.jobDetailValue}>{formattedDate}</span>
           </div>
         </div>
       </div>
@@ -114,11 +114,11 @@ function ContractsPage() {
   };
 
   if (isLoading) {
-    return <p>Loading contracts...</p>;
+    return <p className={styles.loadingMessage}>Loading contracts...</p>;
   }
 
   if (isError) {
-    return <p>Error loading contracts: {error?.message || "Unknown error"}</p>;
+    return <p className={styles.errorMessage}>Error loading contracts: {error?.message || "Unknown error"}</p>;
   }
 
   const contracts = data.pages.flatMap((page) => page.contracts); // Combine all pages of contracts
@@ -145,7 +145,7 @@ function ContractsPage() {
         <aside className={styles.sidebarArea}>
           <ProfileSidebar />
         </aside>
-        <main className={cn(styles.mainFeedArea, "ml-5")}>
+        <main className={`${styles.mainFeedArea} ${styles.mainFeedAreaMarginLeft}`}>
           <TabNavigation
             activeTab={activeTab}
             onTabChange={setActiveTab}
@@ -156,7 +156,7 @@ function ContractsPage() {
           />
           {activeTab === "all" && (
             <>
-              <div className="mt-5 mb-0">
+              <div className={styles.filterSection}>
                 <InputField
                   name="search"
                   type="text"
@@ -171,7 +171,7 @@ function ContractsPage() {
                   onPressedChange={() => toggleStatus("completed")}
                   variant="outline"
                   size="sm"
-                  className="data-[state=on]:bg-blue-500 data-[state=on]:text-white data-[state=on]:border-blue-500  ml-3"
+                  className={styles.toggleButton + " " + styles.toggleButtonCompleted}
                 >
                   Completed
                 </Toggle>
@@ -180,7 +180,7 @@ function ContractsPage() {
                   onPressedChange={() => toggleStatus("active")}
                   variant="outline"
                   size="sm"
-                  className="data-[state=on]:bg-green-500 data-[state=on]:text-white data-[state=on]:border-green-500  my-3 mx-3 "
+                  className={styles.toggleButton + " " + styles.toggleButtonActive}
                 >
                   Active
                 </Toggle>
@@ -189,18 +189,18 @@ function ContractsPage() {
                   onPressedChange={() => toggleStatus("cancelled")}
                   variant="outline"
                   size="sm"
-                  className="data-[state=on]:bg-red-500 data-[state=on]:text-white data-[state=on]:border-red-500  "
+                  className={styles.toggleButton + " " + styles.toggleButtonCancelled}
                 >
                   Cancelled
                 </Toggle>
               </div>
               <JobListingsPage contracts={contracts} />
               {hasNextPage && (
-                <div className="text-center mt-4">
+                <div className={styles.loadMoreContainer}>
                   <button
                     onClick={() => fetchNextPage()}
                     disabled={isFetchingNextPage}
-                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    className={styles.loadMoreButton}
                   >
                     {isFetchingNextPage ? "Loading more..." : "Load More"}
                   </button>

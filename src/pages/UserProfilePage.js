@@ -20,8 +20,8 @@ function UserProfilePage() {
     const [pageLoading, setPageLoading] = useState(true);
     const [pageError, setPageError] = useState('');
 
-    // Determine the target user ID primarily from URL params, fallback to loggedInUser if no param (for own profile view case)
-    const targetUserId = viewedUserIdFromParams || loggedInUser?._id;
+    // Always use the userId from the URL for public profiles. Only fall back to loggedInUser for /profile route.
+    const targetUserId = viewedUserIdFromParams !== undefined ? viewedUserIdFromParams : loggedInUser?._id;
     // isOwnProfile will be determined *after* profileUser is fetched
 
     const fetchUserProfileData = useCallback(async () => {
@@ -38,7 +38,7 @@ function UserProfilePage() {
         setPageError('');
         try {
             logger.info(`UserProfilePage: Fetching profile for user ID: ${targetUserId}`);
-            const response = await apiClient.get(`/users/${targetUserId}`);
+            const response = await apiClient.get(`/users/public/${targetUserId}`);
             setProfileUser(response.data.data.user);
         } catch (err) {
             logger.error("UserProfilePage: Error fetching user profile:", err.response?.data || err.message);
@@ -62,7 +62,7 @@ function UserProfilePage() {
     }
 
     if (pageError) {
-        return <div className={styles.pageStateContainer}><p className="error-message">{pageError}</p></div>;
+        return <div className={styles.pageStateContainer}><p className={styles.errorMessage}>{pageError}</p></div>;
     }
 
     if (!profileUser) {
@@ -100,7 +100,7 @@ function UserProfilePage() {
             {isTaskerProfile && <ReviewsSection userIdToView={profileUser._id} isOwnProfile={isOwnProfile} />}
 
             {!isOwnProfile && loggedInUser && (
-                <div className="card" style={{marginTop: '20px', textAlign: 'center'}}>
+                <div className={styles.sendMessageCard}>
                     <button onClick={() => alert(`TODO: Start chat with ${profileUser.firstName}`)}>
                         Send Message to {profileUser.firstName}
                     </button>

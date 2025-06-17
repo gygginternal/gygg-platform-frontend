@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./InputField.module.css";
 import CountrySelect from "./CountrySelect"; // Assuming CountrySelect is correctly implemented
-import { cn } from "../../uitls/cn"; // Assuming you have this utility
+// import { cn } from "../../uitls/cn"; // Assuming you have this utility
 
 function InputField({
   label,
@@ -122,8 +122,8 @@ function InputField({
     specificChangeHandler = handleLocalNumberChange;
     effectiveInputType = "tel";
     inputMode = inputMode || "tel";
-    // For phone input, force the HTML maxLength to 10 for the local number part.
-    effectiveHtmlMaxLength = 10; 
+    // For phone input, allow up to 15 digits for the local number (E.164 max)
+    effectiveHtmlMaxLength = 15;
   } else if (
     icon === "password" ||
     name === "password" ||
@@ -144,7 +144,7 @@ function InputField({
   }
 
   return (
-    <div className={cn(styles.fieldContainer, className)}>
+    <div className={`${styles.fieldContainer} ${className}`.trim()}>
       <label htmlFor={name} className={styles.label}>
         {label}
         {required && <span className={styles.requiredIndicator}>*</span>}
@@ -152,8 +152,8 @@ function InputField({
       <div className={styles.inputContainer}>
         {isPhoneInput && (
           <CountrySelect
-            value={countryCode} // Pass current countryCode state
-            onChange={handleCountryCodeChange} // Use the new handler
+            value={countryCode}
+            onChange={handleCountryCodeChange}
           />
         )}
         {type === "textarea" ? (
@@ -167,7 +167,7 @@ function InputField({
             rows={rows}
             required={required}
             disabled={disabled}
-            maxLength={effectiveHtmlMaxLength} // Apply the determined maxLength
+            maxLength={effectiveHtmlMaxLength}
             {...props}
           />
         ) : (
@@ -180,7 +180,7 @@ function InputField({
             value={displayValueForInput}
             onChange={specificChangeHandler}
             inputMode={inputMode}
-            maxLength={effectiveHtmlMaxLength} // Apply the determined maxLength
+            maxLength={effectiveHtmlMaxLength}
             required={required}
             disabled={disabled}
             autoComplete={

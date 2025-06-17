@@ -96,6 +96,9 @@
   color: #0f1419; /* Darker on hover */
 }
 
+.clickableIcon {
+  cursor: pointer;
+}
 
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {

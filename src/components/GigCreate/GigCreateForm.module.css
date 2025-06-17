@@ -81,6 +81,19 @@
   font-size: 0.9em;
 }
 
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* 8px */
+    margin-bottom: 0.5rem; /* 8px - Smaller margin between groups within a step */
+}
+
+.errorMessage {
+  color: red;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
 /* Ensure InputField.module.css, ProgressBar.module.css, NavigationButtons.module.css are styled */
 /* And GigPostTimelineCategory.module.css, GigPostDetailsBudget.module.css, GigPostForm.module.css (for review) */
 /* Styles for elements inside GigPost... components should come from their own modules */

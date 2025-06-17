@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import apiClient from '../api/axiosConfig';
 import logger from '../utils/logger';
-import styles from './VerifyEmailPromptPage.module.css'; // Reuse styles or create new
+// import styles from './VerifyEmailPromptPage.module.css'; // Reuse styles or create new
+import styles from './EmailVerifiedPage.module.css'; // New dedicated styles
 
 function EmailVerifiedPage() {
     const [searchParams] = useSearchParams();
@@ -54,18 +55,16 @@ function EmailVerifiedPage() {
                     {verificationStatus === 'failed' && 'Verification Failed'}
                     {verificationStatus === 'verifying' && 'Verifying Your Email...'}
                 </h1>
-                <p className={styles.instruction} style={{
-                     color: verificationStatus === 'failed' ? '#ff8a8a' : (verificationStatus === 'success' ? '#a5d6a7' : '#e0e0e0')
-                }}>
+                <p className={`${styles.instruction} ${verificationStatus === 'failed' ? styles.failedInstruction : (verificationStatus === 'success' ? styles.successInstruction : styles.verifyingInstruction)}`}>
                     {message}
                 </p>
                 {(verificationStatus === 'success' || verificationStatus === 'failed') && !message.toLowerCase().includes("redirecting") && (
-                    <Link to="/login" className={styles.button} style={{marginTop: '20px', textDecoration:'none'}}>
+                    <Link to="/login" className={styles.button}>
                         Go to Login
                     </Link>
                 )}
                 {verificationStatus === 'failed' && (
-                     <p className={styles.note} style={{marginTop:'15px'}}>
+                     <p className={styles.note}>
                          If issues persist, try <Link to="/join" className={styles.link}>signing up again</Link> or contact support.
                      </p>
                 )}
