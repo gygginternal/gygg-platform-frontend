@@ -188,9 +188,9 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
     <section className={styles.profileCard}>
       <div className={styles.profileHeader}>
         {isOwnProfile && (
-          <button onClick={openModal} className={styles.editButton} aria-label="Edit Profile Information">
-              <img src="/assets/edit.svg" alt="Edit" className={styles.editIcon} onError={handleDisplayImageError} />
-          </button>
+        <button onClick={openModal} className={styles.editButton} aria-label="Edit Profile Information">
+            <img src="/assets/edit.svg" alt="Edit" className={styles.editIcon} onError={handleDisplayImageError} />
+        </button>
         )}
       </div>
       <div className={styles.profileContent}>

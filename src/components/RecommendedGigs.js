@@ -15,7 +15,7 @@ const RecommendedGigs = () => {
     queryKey: ["recommendedGigs"],
     queryFn: async () => {
       const response = await apiClient.get("/gigs/top-match");
-      return response.data;
+      return response.data.data;
     },
     onError: (err) => {
       logger.error("Error fetching recommended gigs:", err);
@@ -44,7 +44,7 @@ const RecommendedGigs = () => {
             height={20}
           />
         </div>
-        <h4 className={styles.sectionTitleUnderlined}>
+        <h4 className={styles.sectionTitle}>
           Open Gigs You Might Like
         </h4>
       </div>
@@ -55,10 +55,10 @@ const RecommendedGigs = () => {
           <p className={styles.errorMessage}>
             {error?.message || "Failed to load recommended gigs."}
           </p>
-        ) : recommendedGigs?.length > 0 ? (
-          recommendedGigs.map((gig) => (
-            <div key={gig.id} className={styles.gigItem}>
-              <div>
+        ) : recommendedGigs && recommendedGigs.length > 0 ? (
+          recommendedGigs.slice(0, 3).map((gig) => (
+            <div key={gig._id} className={styles.gigItem}>
+              <div className={styles.gigContent}>
                 <p className={styles.gigDescription}>
                   {formatGigDescription(gig)}
                 </p>

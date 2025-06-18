@@ -71,34 +71,29 @@
     flex-shrink: 0;
 }
 
-
-.gigDescription {
-  color: #536471;
-  /* Facebook Timestamps and meta info: 12px. */
-  font-size: 0.75rem; /* 12px */
-  margin: 0;
-  line-height: 1.4;
-  flex: 1; /* Allow description to take available space */
-  min-width: 0; /* Prevents overflow */
+.gigContent {
+  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap; /* Keep on single line */
+  white-space: nowrap;
+}
+
+.gigDescription {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  color: #333;
 }
 
 .viewGigLink {
-  color: #3d4d55;
-  margin-top: 0.5rem; /* 8px */
-  /* Facebook Buttons 13-14px. Using 14px. */
-  font-size: 0.875rem; /* 14px */
-  font-weight: 700;
-  text-decoration: none;
   display: inline-block;
-  transition: color 0.2s ease, text-decoration 0.2s ease;
-  flex-shrink: 0; /* Prevent link from shrinking */
+  margin-top: 5px;
+  color: #007bff;
+  text-decoration: none;
 }
+
 .viewGigLink:hover {
-    color: #536471;
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .errorMessage {

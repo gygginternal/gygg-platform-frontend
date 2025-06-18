@@ -36,7 +36,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
     // Fetch unread count on mount
     const fetchUnreadCount = async () => {
       try {
-        const unreadResponse = await apiClient.get('/api/v1/chat/unread-count');
+        const unreadResponse = await apiClient.get('/chat/unread-count');
         setUnreadMessageCount(unreadResponse.data.data.unreadCount);
       } catch (error) {
         console.error('Error fetching unread count:', error);

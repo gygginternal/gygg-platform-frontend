@@ -34,16 +34,11 @@ function Header() {
   };
 
   const fetchUnreadCount = async () => {
-    if (!user) {
-      setUnreadMessageCount(0);
-      return;
-    }
     try {
-      const response = await apiClient.get('/chats/unreadCount');
+      const response = await apiClient.get('/chat/unread-count');
       setUnreadMessageCount(response.data.data.unreadCount);
     } catch (error) {
-      console.error("Failed to fetch unread message count:", error);
-      setUnreadMessageCount(0);
+      console.error('Error fetching unread count:', error);
     }
   };
 

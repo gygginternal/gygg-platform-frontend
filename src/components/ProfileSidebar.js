@@ -6,12 +6,24 @@ import { useAuth } from "../context/AuthContext"; // Adjust path
 import RecommendedGigs from "./RecommendedGigs"; // Import the new component
 import RecommendedAppliances from "./RecommendedAppliances";
 import AwaitedPostedGigs from "./AwaitedPostedGigs"; // Import the AwaitedPostedGigs component
+import { useQuery } from "@tanstack/react-query";
+import apiClient from "../api/axiosConfig";
 
 function ProfileSidebar() {
   const { user } = useAuth(); // Get logged-in user data
 
   // User's skills/gigs they offer - should come from user profile
   const userSkills = user?.skills || ["Pet Sitting", "Gardening"]; // Example fallback
+
+  // Fetch top 3 matching gigs for taskers
+  const { data: topMatchedGigs, isLoading: isLoadingTopGigs } = useQuery({
+    queryKey: ["topMatchedGigs"],
+    queryFn: async () => {
+      const response = await apiClient.get("/gigs/top-match");
+      return response.data.data;
+    },
+    enabled: user?.role?.includes("tasker"), // Only fetch if user is a tasker
+  });
 
   if (!user) {
     return (
@@ -45,6 +57,36 @@ function ProfileSidebar() {
     </section>
   );
 
+  // New section for top 3 matching gigs for taskers
+  const topMatchingGigs = (
+    <section className={styles.gigsSection}>
+      <div className={styles.sectionHeader}>
+        <div className={styles.sectionIcon}>
+          <img src="/assets/star.svg" alt="Star" width={20} height={20} />
+        </div>
+        <h4 className={styles.sectionTitle}>Top Matching Gigs</h4>
+      </div>
+      {isLoadingTopGigs ? (
+        <p>Loading top matching gigs...</p>
+      ) : topMatchedGigs && topMatchedGigs.length > 0 ? (
+        <ul className={styles.gigList}>
+          {topMatchedGigs.map((gig) => (
+            <li key={gig._id} className={styles.gigItem}>
+              <Link to={`/gigs/${gig._id}`} className={styles.gigLink}>
+                {gig.title}
+              </Link>
+              <p>Category: {gig.category}</p>
+              <p>Cost: ${gig.cost}</p>
+              <p>Match Score: {gig.matchScore?.toFixed(2)}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No matching gigs found.</p>
+      )}
+    </section>
+  );
+
   return (
     <aside className={styles.profileSidebar}>
       {/* Profile Card */}
@@ -67,7 +109,7 @@ function ProfileSidebar() {
           </div>
         </div>
 
-        {/* Render Recommended Gigs Section if user is a tasker */}
+        {/* Render Recommended Gigs Section if user is a provider */}
         {user.role?.includes("provider") && (
           <>
             <AwaitedPostedGigs />

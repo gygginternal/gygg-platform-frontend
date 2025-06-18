@@ -403,7 +403,7 @@ function ProviderOnboardingPage() {
                  !formData.address.city.trim() || 
                  !formData.address.state.trim() || 
                  !formData.address.postalCode.trim()) {
-            canGoNextForCurrentStep = false;
+        canGoNextForCurrentStep = false;
         }
     } else if (currentStep === 2 && (formData.hobbies.length === 0 || formData.peoplePreference.length === 0)) {
         canGoNextForCurrentStep = false;
