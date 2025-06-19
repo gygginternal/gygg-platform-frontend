@@ -1,0 +1,38 @@
+.partiesSection {
+  display: flex;
+  gap: 2.5rem;
+  margin-bottom: 2.5rem;
+  background: #f8fafb;
+  border-radius: 1rem;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 2px 8px rgba(16,179,198,0.04);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+.party {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex: 1;
+}
+.party:not(:last-child) {
+  border-right: 1px solid #e5e7eb;
+  padding-right: 2rem;
+}
+.party img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e6f8fa;
+}
+.partyRole {
+  font-size: 0.95rem;
+  color: #10b3c6;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+}
+.partyName {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #222;
+} 

@@ -1,0 +1,37 @@
+.timelineSection {
+  margin-bottom: 2.5rem;
+  background: #f8fafb;
+  border-radius: 1rem;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 2px 8px rgba(16,179,198,0.04);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+.timelineSection h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #10b3c6;
+}
+.timelineSection ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.timelineSection li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.05rem;
+  color: #333;
+}
+.timelineSection li:before {
+  content: '';
+  position: absolute;
+  left: 0.3rem;
+  top: 0.5rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  background: #10b3c6;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #e6f8fa;
+} 

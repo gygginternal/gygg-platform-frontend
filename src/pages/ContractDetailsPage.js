@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { format } from 'date-fns'; // Import date-fns for formatting dates
 import styles from '../components/ContractDetailsPage/ContractDetailsPage.module.css'; // Import CSS Modules
 
-export function ContractDetailsPage({ gig, children }) {
-  if (!gig) return;
+export default function ContractDetailsPage({ gig, children }) {
+  if (!gig) return null;
   const formattedDate = gig.createdAt
     ? format(new Date(gig.createdAt), 'MM-dd-yyyy')
     : 'N/A';

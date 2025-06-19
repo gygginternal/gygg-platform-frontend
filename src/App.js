@@ -30,7 +30,6 @@ import GigsPage from './pages/GigsPage';
 import GigCreatePage from './pages/GigCreatePage';
 import GigDetailPage from './pages/GigDetailPage';
 import MatchedGigsPage from './pages/MatchedGigsPage';
-import { ContractDetailsPage } from './pages/ContractDetailsPage';
 import ProfilePage from './pages/ProfilePage';
 import SettingsPage from './pages/SettingsPage';
 import ChatPage from './pages/ChatPage';

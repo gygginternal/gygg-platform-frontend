@@ -1,0 +1,52 @@
+.headerSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 2.5rem;
+}
+.headerSection h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+.status {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #10b3c6;
+  background: #e6f8fa;
+  border-radius: 999px;
+  padding: 0.25em 1em;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.02em;
+}
+.actions {
+  margin-top: 1.2rem;
+  display: flex;
+  gap: 1rem;
+}
+.actions button {
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 0.5em 1.5em;
+  border: none;
+  background: #10b3c6;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(16,179,198,0.08);
+}
+.actions button:hover {
+  background: #0e8fa3;
+}
+.actions button:last-child {
+  background: #fff;
+  color: #10b3c6;
+  border: 2px solid #10b3c6;
+}
+.actions button:last-child:hover {
+  background: #e6f8fa;
+} 

@@ -1,14 +1,18 @@
 .tableContainer {
   width: 100%;
   overflow-x: auto;
-  margin: 1rem 0;
+  margin: 1.5rem 0;
+  background: #fff;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  padding: 1.5rem 1rem;
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
-  background-color: white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: transparent;
 }
 
 .table th,
@@ -16,25 +20,35 @@
   padding: 1rem;
   text-align: left;
   border-bottom: 1px solid #e5e7eb;
+  font-size: 1rem;
 }
 
 .table th {
   background-color: #f9fafb;
-  font-weight: 600;
-  color: #374151;
+  font-weight: 700;
+  color: #10b3c6;
+  border-top: none;
+  font-size: 1.05rem;
+}
+
+.table tr:hover:not(.skeletonRow) {
+  background: #f0f6ff;
+  transition: background 0.2s;
 }
 
 .amount {
   font-family: monospace;
-  font-weight: 500;
+  font-weight: 600;
+  color: #222;
 }
 
 .status {
   display: inline-block;
-  padding: 0.25rem 0.75rem;
+  padding: 0.25rem 0.9rem;
   border-radius: 9999px;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
 .completed {
@@ -50,4 +64,29 @@
 .failed {
   background-color: #fee2e2;
   color: #991b1b;
+}
+
+.skeletonRow td {
+  padding: 1.2rem 0;
+  background: transparent;
+  border-bottom: none;
+}
+.skeleton {
+  height: 24px;
+  width: 100%;
+  background: linear-gradient(90deg, #f0f6ff 25%, #e6f8fa 50%, #f0f6ff 75%);
+  border-radius: 0.5rem;
+  animation: skeleton-loading 1.2s infinite linear;
+}
+@keyframes skeleton-loading {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.7; }
+}
+
+.emptyState {
+  text-align: center;
+  color: #b0b8c1;
+  font-size: 1.1rem;
+  padding: 2.5rem 0;
 }

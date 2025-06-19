@@ -5,7 +5,7 @@ import apiClient from '../api/axiosConfig';
 import { useAuth } from '../context/AuthContext';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { ContractDetailsPage } from './ContractDetailsPage';
+import ContractDetailsPage from './ContractDetailsPage';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 

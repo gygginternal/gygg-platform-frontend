@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from 'react';
+import React, { useState, createContext, useContext, useEffect } from 'react';
 // import cn from "classnames"; // No longer needed
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
@@ -11,21 +11,101 @@ import InputField from '../components/Shared/InputField';
 import Toggle from '../components/Toggle';
 import BillingTable from '../components/Billing/BillingTable';
 import { StatusBadge } from '../components/StatusBadge'; // Adjust the import path
+import './ContractsList.module.css';
+import BillingAndPayment from "./BillingAndPayment";
+import ContractCard from '../components/ContractsPage/ContractCard';
 
 export const ContractsContext = createContext();
 export function useContracts() {
   return useContext(ContractsContext);
 }
 
+const statusClass = {
+  Active: styles.active,
+  'Offer waiting': styles.offerWaiting,
+  Ended: styles.ended,
+};
+
 function JobListingsPage({ contracts }) {
+  const [expandedId, setExpandedId] = useState(null);
+
+  const handleExpand = id => {
+    setExpandedId(expandedId === id ? null : id);
+  };
+
   return (
-    <div className={styles.jobListingsContainer}>
-      {contracts.map((job, index) => (
-        <div key={index}>
-          <JobListingItem job={job} />
-          <hr className={styles.jobSeparator} />
-        </div>
-      ))}
+    <div className={styles.contractsCard}>
+      <div className={styles.contractsList}>
+        {contracts.length === 0 ? (
+          <div className={styles.emptyState}>No contracts found.</div>
+        ) : (
+          contracts.map((job, index) => (
+            <div
+              key={job.id}
+              className={styles.contractRow}
+              onClick={() => handleExpand(job.id)}
+              onKeyDown={e => {
+                if (e.key === 'Enter' || e.key === ' ') handleExpand(job.id);
+              }}
+              tabIndex={0}
+              role="button"
+              aria-expanded={expandedId === job.id}
+            >
+              <div className={styles.contractMain}>
+                <div className={styles.contractTitle}>{job.gigTitle}</div>
+                <div className={styles.contractDetailsRow}>
+                  <span className={styles.contractDetailLabel}>
+                    Hired by <b>{job.provider}</b>
+                  </span>
+                  <span className={styles.contractDetailLabel}>
+                    Rate <span className={styles.contractRate}>{job.rate}</span>
+                  </span>
+                  <span
+                    className={`${styles.contractStatusBadge} ${statusClass[job.status] || ''}`}
+                  >
+                    {job.status}
+                  </span>
+                </div>
+                <div className={styles.contractDetailsRow}>
+                  <span className={styles.contractDetailLabel}>
+                    Contract ID {job.contractId}
+                  </span>
+                  <span className={styles.contractDetailLabel}>
+                    Earned{' '}
+                    <span className={styles.contractEarned}>{job.earned}</span>
+                  </span>
+                  <span className={styles.contractStarted}>
+                    Started {job.started}
+                  </span>
+                </div>
+              </div>
+              {expandedId === job.id && (
+                <div className={styles.details}>
+                  <p className={styles.description}>{job.description}</p>
+                  <div className={styles.detailRow}>
+                    <span>
+                      <b>Location</b>{' '}
+                      <span className={styles.locationIcon}>📍</span>
+                      {job.location}
+                    </span>
+                  </div>
+                  <div className={styles.buttonRow}>
+                    <button className={styles.primaryBtn}>
+                      Submit as Complete
+                    </button>
+                    <button className={styles.secondaryBtn}>
+                      End Contract
+                    </button>
+                  </div>
+                </div>
+              )}
+              {index !== contracts.length - 1 && (
+                <div className={styles.contractDivider} />
+              )}
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }
@@ -51,7 +131,7 @@ function JobListingItem({ job }) {
             className={`${styles.jobDetailItem} ${styles.jobDetailItemMarginTop}`}
           >
             <span className={styles.jobDetailLabel}>Contract ID</span>
-            <div className={styles.jobDetailValue}>{job.id}</div>
+            <div className={styles.jobDetailValue}>{job.contractId}</div>
           </div>
         </div>
         <div className={styles.jobStatusContainer}>
@@ -69,45 +149,54 @@ function JobListingItem({ job }) {
 }
 
 function ContractsPage() {
-  const [searchQuery, setSearchQuery] = useState(''); // State for input value
-  const [searchValue, setSearchValue] = useState(''); // State for actual search query
+  const [contracts, setContracts] = useState([]);
+  const [search, setSearch] = useState('');
   const [selectedStatuses, setSelectedStatuses] = useState([]); // State for selected statuses
-  const [activeTab, setActiveTab] = useState('all'); // State for active tab
+  const [activeTab, setActiveTab] = useState('contracts'); // State for active tab
   const [newContracts, setNewContracts] = useState([]); // For newly added contracts
+  const [expandedId, setExpandedId] = useState(null);
 
-  // Fetch contracts using React Query's useInfiniteQuery
-  const {
-    data,
-    isLoading,
-    isError,
-    error,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useInfiniteQuery({
-    queryKey: ['contracts', searchValue, selectedStatuses],
-    queryFn: async ({ pageParam = 0 }) => {
-      const response = await apiClient.get(
-        `/contracts/my-contracts?page=${pageParam}&search=${searchValue}&status=${selectedStatuses.join(
-          ','
-        )}`
-      );
-      return {
-        contracts: response.data.data.contracts,
-        nextPage: pageParam + 1,
-        totalPages: response.data.data.totalPages,
-      };
-    },
-    getNextPageParam: (lastPage, allPages) => {
-      return allPages.length < lastPage.totalPages
-        ? lastPage.nextPage
-        : undefined;
-    },
-  });
+  const tabOptions = [
+    { id: 'contracts', label: 'All Contracts' },
+    { id: 'billing', label: 'Billing and payment' },
+  ];
+
+  useEffect(() => {
+    async function fetchContracts() {
+      const res = await apiClient.get('/contracts/my-contracts');
+      const mapped = res.data.data.contracts.map(c => ({
+        id: c.id || c.contractId || Math.random(),
+        title: c.gigTitle || c.title || 'Contract',
+        hiredBy: c.provider || c.hiredBy || '',
+        contractId: c.id || c.contractId || '',
+        status: c.status || 'Active',
+        description:
+          c.description ||
+          'Looking for a reliable dog sitter to take care of my baby Mia (Puppy Poodle) while I am away for work. Details can be discussed in messages.',
+        started: c.createdAt
+          ? new Date(c.createdAt).toLocaleDateString('en-US', {
+              month: 'long',
+              day: '2-digit',
+              year: 'numeric',
+            })
+          : '',
+        location: c.location || 'Thornhill',
+        rate: c.rate || '$23/hr',
+        duration: c.duration || '4 hours',
+        earned: c.earned || '$96',
+      }));
+      setContracts(mapped);
+    }
+    fetchContracts();
+  }, []);
+
+  const filteredContracts = contracts.filter(c =>
+    c.title.toLowerCase().includes(search.toLowerCase())
+  );
 
   const handleSearch = e => {
     if (e.key === 'Enter') {
-      setSearchValue(searchQuery); // Update the actual search query
+      setSearch(e.target.value); // Update the actual search query
     }
   };
 
@@ -120,22 +209,9 @@ function ContractsPage() {
     );
   };
 
-  if (isLoading) {
-    return <p className={styles.loadingMessage}>Loading contracts...</p>;
-  }
-
-  if (isError) {
-    return (
-      <p className={styles.errorMessage}>
-        Error loading contracts: {error?.message || 'Unknown error'}
-      </p>
-    );
-  }
-
-  const contracts = [
-    ...newContracts,
-    ...data.pages.flatMap(page => page.contracts),
-  ];
+  const handleExpand = id => {
+    setExpandedId(expandedId === id ? null : id);
+  };
 
   // Example rows for the BillingTable
   const billingRows = [
@@ -170,20 +246,17 @@ function ContractsPage() {
             <TabNavigation
               activeTab={activeTab}
               onTabChange={setActiveTab}
-              tabs={[
-                { id: 'all', label: 'All Contracts' },
-                { id: 'billing', label: 'Billing and Payment' },
-              ]}
+              tabs={tabOptions}
             />
-            {activeTab === 'all' && (
+            {activeTab === 'contracts' && (
               <>
                 <div className={styles.filterSection}>
                   <InputField
                     name="search"
                     type="text"
                     placeholder="Search existing contract..."
-                    value={searchQuery}
-                    onChange={e => setSearchQuery(e.target.value)}
+                    value={search}
+                    onChange={e => setSearch(e.target.value)}
                     onKeyDown={handleSearch}
                   />
                   Filter by Status:
@@ -215,21 +288,20 @@ function ContractsPage() {
                     Cancelled
                   </Toggle>
                 </div>
-                <JobListingsPage contracts={contracts} />
-                {hasNextPage && (
-                  <div className={styles.loadMoreContainer}>
-                    <button
-                      onClick={() => fetchNextPage()}
-                      disabled={isFetchingNextPage}
-                      className={styles.loadMoreButton}
-                    >
-                      {isFetchingNextPage ? 'Loading more...' : 'Load More'}
-                    </button>
+                <div className={styles.contractsCard}>
+                  <div className={styles.contractsList}>
+                    {filteredContracts.length === 0 ? (
+                      <div className={styles.emptyState}>No contracts found.</div>
+                    ) : (
+                      filteredContracts.map(contract => (
+                        <ContractCard key={contract.id} contract={contract} />
+                      ))
+                    )}
                   </div>
-                )}
+                </div>
               </>
             )}
-            {activeTab === 'billing' && <BillingTable rows={billingRows} />}
+            {activeTab === 'billing' && <BillingAndPayment />}
           </main>
         </div>
       </div>

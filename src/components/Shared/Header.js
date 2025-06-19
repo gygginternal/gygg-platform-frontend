@@ -298,7 +298,10 @@ function Header() {
                               type="button"
                               className={styles.notificationItemBtn}
                               onClick={() => {
-                                if (n.data && n.data.link) {
+                                if (n.link) {
+                                  navigate(n.link);
+                                  setShowNotifications(false);
+                                } else if (n.data && n.data.link) {
                                   navigate(n.data.link);
                                   setShowNotifications(false);
                                 } else if (
@@ -321,7 +324,10 @@ function Header() {
                               }}
                               onKeyDown={e => {
                                 if (e.key === 'Enter' || e.key === ' ') {
-                                  if (n.data && n.data.link) {
+                                  if (n.link) {
+                                    navigate(n.link);
+                                    setShowNotifications(false);
+                                  } else if (n.data && n.data.link) {
                                     navigate(n.data.link);
                                     setShowNotifications(false);
                                   } else if (
@@ -346,9 +352,20 @@ function Header() {
                               tabIndex={0}
                               aria-label={n.message}
                             >
-                              {/* Optional: Add icon per type */}
-                              {/* <img src={`/assets/notification-types/${n.type}.svg`} alt={n.type} style={{ marginRight: 8 }} /> */}
-                              <div>{n.message}</div>
+                              {/* Show icon if present */}
+                              {n.icon && (
+                                <img
+                                  src={`/assets/${n.icon}`}
+                                  alt="Notification Icon"
+                                  style={{
+                                    width: 24,
+                                    height: 24,
+                                    marginRight: 8,
+                                    verticalAlign: 'middle',
+                                  }}
+                                />
+                              )}
+                              <span>{n.message}</span>
                               <div className={styles.notificationTime}>
                                 {new Date(n.createdAt).toLocaleString()}
                               </div>
