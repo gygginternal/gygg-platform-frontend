@@ -2,7 +2,7 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-    font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
 .albumCard {
@@ -76,11 +76,13 @@
   cursor: pointer;
   border: none;
   padding: 0;
-  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  transition:
+    background-color 0.2s ease-in-out,
+    transform 0.2s ease-in-out;
 }
 
 .activeDot {
-  background-color: #D89362;
+  background-color: #d89362;
   transform: scale(1.3); /* Slightly larger for active dot */
 }
 
@@ -123,98 +125,101 @@
 
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
-    .albumCard {
-        padding: 1.25rem; /* 20px */
-        margin-bottom: 1rem; /* 16px */
-    }
-    .albumHeader {
-        font-size: 1.0625rem; /* 17px */
-        margin-bottom: 1rem; /* 16px */
-    }
-    .addButton {
-        width: 1.75rem; /* 28px */
-        height: 1.75rem; /* 28px */
-    }
-    /* AlbumGrid is already handled by the user's media query below 991px */
-    .albumGrid {
-        gap: 1rem; /* 16px */
-    }
-    .paginationDots {
-        margin-top: 1rem; /* 16px */
-        padding: 0.5rem 0; /* 8px 0 */
-    }
-    .dot {
-        width: 0.375rem; /* 6px */
-        height: 0.375rem; /* 6px */
-        margin: 0 0.2rem; /* 3.2px */
-    }
-    .activeDot {
-        transform: scale(1.25); /* Slightly less pronounced scaling */
-    }
-    .noAlbums {
-        height: 4.5rem; /* 72px */
-    }
-    .noAlbums p {
-        font-size: 0.9375rem; /* 15px */
-        margin-bottom: 1rem; /* 16px */
-        max-width: 17rem; /* 272px */
-    }
-    .addTaskButton {
-        font-size: 0.8125rem; /* 13px */
-        padding: 0.5rem 0.9rem; /* 8px 14.4px */
-        margin-bottom: 1rem; /* 16px */
-    }
+  .albumCard {
+    padding: 1.25rem; /* 20px */
+    margin-bottom: 1rem; /* 16px */
+  }
+  .albumHeader {
+    font-size: 1.0625rem; /* 17px */
+    margin-bottom: 1rem; /* 16px */
+  }
+  .addButton {
+    width: 1.75rem; /* 28px */
+    height: 1.75rem; /* 28px */
+  }
+  /* AlbumGrid is already handled by the user's media query below 991px */
+  .albumGrid {
+    gap: 1rem; /* 16px */
+  }
+  .paginationDots {
+    margin-top: 1rem; /* 16px */
+    padding: 0.5rem 0; /* 8px 0 */
+  }
+  .dot {
+    width: 0.375rem; /* 6px */
+    height: 0.375rem; /* 6px */
+    margin: 0 0.2rem; /* 3.2px */
+  }
+  .activeDot {
+    transform: scale(1.25); /* Slightly less pronounced scaling */
+  }
+  .noAlbums {
+    height: 4.5rem; /* 72px */
+  }
+  .noAlbums p {
+    font-size: 0.9375rem; /* 15px */
+    margin-bottom: 1rem; /* 16px */
+    max-width: 17rem; /* 272px */
+  }
+  .addTaskButton {
+    font-size: 0.8125rem; /* 13px */
+    padding: 0.5rem 0.9rem; /* 8px 14.4px */
+    margin-bottom: 1rem; /* 16px */
+  }
 }
 
 /* Original media query, adjusted values for consistency */
 @media (max-width: 991px) {
   .albumGrid {
-    grid-template-columns: repeat(2, 1fr); /* 2 cards per row on medium screens */
+    grid-template-columns: repeat(
+      2,
+      1fr
+    ); /* 2 cards per row on medium screens */
   }
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
-    .albumCard {
-        padding: 1rem; /* 16px */
-        margin-bottom: 0.8rem; /* 12.8px */
-    }
-    .albumHeader {
-        font-size: 1rem; /* 16px */
-        margin-bottom: 0.8rem; /* 12.8px */
-    }
-    .addButton {
-        width: 1.5rem; /* 24px */
-        height: 1.5rem; /* 24px */
-    }
-    .albumGrid {
-        gap: 0.8rem; /* 12.8px */
-    }
-    .paginationDots {
-        margin-top: 0.8rem; /* 12.8px */
-        padding: 0.4rem 0; /* 6.4px 0 */
-    }
-    .dot {
-        width: 0.3125rem; /* 5px */
-        height: 0.3125rem; /* 5px */
-        margin: 0 0.15rem; /* 2.4px */
-    }
-    .activeDot {
-        transform: scale(1.2);
-    }
-    .noAlbums {
-        height: 3.5rem; /* 56px */
-    }
-    .noAlbums p {
-        font-size: 0.875rem; /* 14px */
-        margin-bottom: 0.8rem; /* 12.8px */
-        max-width: 15rem; /* 240px */
-    }
-    .addTaskButton {
-        font-size: 0.75rem; /* 12px */
-        padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
-        margin-bottom: 0.8rem; /* 12.8px */
-    }
+  .albumCard {
+    padding: 1rem; /* 16px */
+    margin-bottom: 0.8rem; /* 12.8px */
+  }
+  .albumHeader {
+    font-size: 1rem; /* 16px */
+    margin-bottom: 0.8rem; /* 12.8px */
+  }
+  .addButton {
+    width: 1.5rem; /* 24px */
+    height: 1.5rem; /* 24px */
+  }
+  .albumGrid {
+    gap: 0.8rem; /* 12.8px */
+  }
+  .paginationDots {
+    margin-top: 0.8rem; /* 12.8px */
+    padding: 0.4rem 0; /* 6.4px 0 */
+  }
+  .dot {
+    width: 0.3125rem; /* 5px */
+    height: 0.3125rem; /* 5px */
+    margin: 0 0.15rem; /* 2.4px */
+  }
+  .activeDot {
+    transform: scale(1.2);
+  }
+  .noAlbums {
+    height: 3.5rem; /* 56px */
+  }
+  .noAlbums p {
+    font-size: 0.875rem; /* 14px */
+    margin-bottom: 0.8rem; /* 12.8px */
+    max-width: 15rem; /* 240px */
+  }
+  .addTaskButton {
+    font-size: 0.75rem; /* 12px */
+    padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
+    margin-bottom: 0.8rem; /* 12.8px */
+  }
 }
 
 /* Original media query, adjusted values for consistency */
@@ -226,44 +231,44 @@
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
-    .albumCard {
-        padding: 0.75rem; /* 12px */
-        margin-bottom: 0.6rem; /* 9.6px */
-    }
-    .albumHeader {
-        font-size: 0.9375rem; /* 15px */
-        margin-bottom: 0.6rem; /* 9.6px */
-    }
-    .addButton {
-        width: 1.3rem; /* 20.8px, still prominent */
-        height: 1.3rem; /* 20.8px */
-    }
-    .albumGrid {
-        gap: 0.6rem; /* 9.6px */
-    }
-    .paginationDots {
-        margin-top: 0.6rem; /* 9.6px */
-        padding: 0.3rem 0; /* 4.8px 0 */
-    }
-    .dot {
-        width: 0.25rem; /* 4px */
-        height: 0.25rem; /* 4px */
-        margin: 0 0.125rem; /* 2px */
-    }
-    .activeDot {
-        transform: scale(1.15);
-    }
-    .noAlbums {
-        height: 3rem; /* 48px */
-    }
-    .noAlbums p {
-        font-size: 0.8125rem; /* 13px */
-        margin-bottom: 0.6rem; /* 9.6px */
-        max-width: 12rem; /* 192px */
-    }
-    .addTaskButton {
-        font-size: 0.6875rem; /* ~11px */
-        padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
-        margin-bottom: 0.6rem; /* 9.6px */
-    }
+  .albumCard {
+    padding: 0.75rem; /* 12px */
+    margin-bottom: 0.6rem; /* 9.6px */
+  }
+  .albumHeader {
+    font-size: 0.9375rem; /* 15px */
+    margin-bottom: 0.6rem; /* 9.6px */
+  }
+  .addButton {
+    width: 1.3rem; /* 20.8px, still prominent */
+    height: 1.3rem; /* 20.8px */
+  }
+  .albumGrid {
+    gap: 0.6rem; /* 9.6px */
+  }
+  .paginationDots {
+    margin-top: 0.6rem; /* 9.6px */
+    padding: 0.3rem 0; /* 4.8px 0 */
+  }
+  .dot {
+    width: 0.25rem; /* 4px */
+    height: 0.25rem; /* 4px */
+    margin: 0 0.125rem; /* 2px */
+  }
+  .activeDot {
+    transform: scale(1.15);
+  }
+  .noAlbums {
+    height: 3rem; /* 48px */
+  }
+  .noAlbums p {
+    font-size: 0.8125rem; /* 13px */
+    margin-bottom: 0.6rem; /* 9.6px */
+    max-width: 12rem; /* 192px */
+  }
+  .addTaskButton {
+    font-size: 0.6875rem; /* ~11px */
+    padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
+    margin-bottom: 0.6rem; /* 9.6px */
+  }
 }

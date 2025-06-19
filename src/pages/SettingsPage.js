@@ -5,15 +5,14 @@ import PersonalInfoForm from '../components/PersonalInfoForm'; // Adjust path
 // Import other settings components like NotificationSettings, SecuritySettings later
 
 function SettingsPage() {
-
-    return (
-        <div className={styles.settingsContainer}>
-                <PersonalInfoForm />
-                {/* Add other settings sections here */}
-                {/* <NotificationSettings /> */}
-                {/* <SecuritySettings /> */}
-        </div>
-    );
+  return (
+    <div className={styles.settingsContainer}>
+      <PersonalInfoForm />
+      {/* Add other settings sections here */}
+      {/* <NotificationSettings /> */}
+      {/* <SecuritySettings /> */}
+    </div>
+  );
 }
 
 export default SettingsPage;

@@ -1,30 +1,58 @@
 // src/components/SocialPage/Post.js
-import React, { useState, useEffect } from "react";
-import styles from "./Post.module.css";
-import { useAuth } from "../../context/AuthContext";
-import apiClient from "../../api/axiosConfig";
-import logger from "../../utils/logger";
+import React, { useState, useEffect } from 'react';
+import styles from './Post.module.css';
+import { useAuth } from '../../context/AuthContext';
+import apiClient from '../../api/axiosConfig';
+import logger from '../../utils/logger';
 
 const Icon = ({
   src,
   alt,
-  className = "",
+  className = '',
   width = 16,
   height = 16,
   onClick,
-}) => (
-  <img
-    src={src}
-    alt={alt}
-    className={`${className} ${onClick ? styles.clickableIcon : ''}`.trim()}
-    width={width}
-    height={height}
-    onClick={onClick}
-    onError={(e) => {
-      e.currentTarget.style.display = "none";
-    }}
-  />
-);
+}) => {
+  if (onClick) {
+    return (
+      <button
+        type="button"
+        className={`${styles.iconButton} ${className}`.trim()}
+        onClick={onClick}
+        tabIndex={0}
+        aria-label={alt}
+        onKeyDown={e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onClick(e);
+          }
+        }}
+      >
+        <img
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          onError={e => {
+            e.currentTarget.style.display = 'none';
+          }}
+        />
+      </button>
+    );
+  }
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={className}
+      width={width}
+      height={height}
+      onError={e => {
+        e.currentTarget.style.display = 'none';
+      }}
+    />
+  );
+};
 
 function Post({ post, onPostUpdate }) {
   const { user: loggedInUser } = useAuth();
@@ -42,12 +70,15 @@ function Post({ post, onPostUpdate }) {
   );
   const [comments, setComments] = useState(post?.comments || []);
   const [commentCount, setCommentCount] = useState(post?.commentCount || 0);
-  const [newCommentText, setNewCommentText] = useState("");
-  const [showCommentInput, setShowCommentInput] = useState(false);
+  const [newCommentText, setNewCommentText] = useState('');
+  const [showComments, setShowComments] = useState(false);
   const [showAllComments, setShowAllComments] = useState(false);
   const [isLiking, setIsLiking] = useState(false);
   const [isCommenting, setIsCommenting] = useState(false);
-  const [interactionError, setInteractionError] = useState("");
+  const [interactionError, setInteractionError] = useState('');
+  const [visibleCommentsCount, setVisibleCommentsCount] = useState(3);
+  const [showPostMenu, setShowPostMenu] = useState(false);
+  const [openCommentMenuId, setOpenCommentMenuId] = useState(null);
 
   // Effect to update local state when the 'post' prop changes
   useEffect(() => {
@@ -69,9 +100,14 @@ function Post({ post, onPostUpdate }) {
     }
   }, [post, loggedInUser]);
 
+  // Reset visible comments when post or comments change
+  useEffect(() => {
+    setVisibleCommentsCount(3);
+  }, [post, comments]);
+
   // --- Early return if essential data is missing AFTER hooks are called ---
   if (!post || !post.author || !post._id) {
-    logger.warn("Post component: Invalid or missing post data prop:", post);
+    logger.warn('Post component: Invalid or missing post data prop:', post);
     return (
       <article className={styles.postCard}>
         <p>Post data unavailable...</p>
@@ -81,17 +117,17 @@ function Post({ post, onPostUpdate }) {
 
   const { author, content, media, _id: postId, createdAt } = post;
 
-  const handleImageError = (e) => {
-    e.currentTarget.src = "/default.jpg";
+  const handleImageError = e => {
+    e.currentTarget.src = '/default.jpg';
   };
 
   const handleLikeToggle = async () => {
     if (!loggedInUser || isLiking) {
-      logger.debug("Like toggle blocked: No user or isLiking is true");
+      logger.debug('Like toggle blocked: No user or isLiking is true');
       return;
     }
     setIsLiking(true);
-    setInteractionError("");
+    setInteractionError('');
 
     const endpoint = isLikedByCurrentUser
       ? `/posts/${postId}/unlike`
@@ -100,12 +136,12 @@ function Post({ post, onPostUpdate }) {
     try {
       const response = await apiClient.patch(endpoint);
 
-      if (response.data.status === "success" && response.data.data) {
+      if (response.data.status === 'success' && response.data.data) {
         const newLikeCount = response.data.data.post.likeCount || 0;
         const newLikesArray =
           response.data.data.likes ||
           (isLikedByCurrentUser
-            ? (post.likes || []).filter((id) => id !== loggedInUser._id)
+            ? (post.likes || []).filter(id => id !== loggedInUser._id)
             : [...(post.likes || []), loggedInUser._id]);
 
         setCurrentLikeCount(newLikeCount);
@@ -120,27 +156,27 @@ function Post({ post, onPostUpdate }) {
         }
       } else {
         throw new Error(
-          response.data.message || "Failed to update like status from server."
+          response.data.message || 'Failed to update like status from server.'
         );
       }
     } catch (err) {
-      logger.error("Error toggling like:", err.response?.data || err.message, {
+      logger.error('Error toggling like:', err.response?.data || err.message, {
         postId,
       });
       setInteractionError(
         err.response?.data?.message ||
-          "Could not update like status. Please try again."
+          'Could not update like status. Please try again.'
       );
     } finally {
       setIsLiking(false);
     }
   };
 
-  const handleCommentSubmit = async (e) => {
+  const handleCommentSubmit = async e => {
     e.preventDefault();
     if (!newCommentText.trim() || !loggedInUser || isCommenting) return;
     setIsCommenting(true);
-    setInteractionError("");
+    setInteractionError('');
     try {
       const response = await apiClient.post(`/posts/${postId}/comments`, {
         text: newCommentText.trim(),
@@ -148,31 +184,30 @@ function Post({ post, onPostUpdate }) {
       const updatedPostData = response.data.data.post;
       setComments(updatedPostData.comments || []);
       setCommentCount(updatedPostData.commentCount || 0);
-      setNewCommentText("");
-      setShowCommentInput(false);
+      setNewCommentText('');
+      setShowComments(false);
       setShowAllComments(true);
       if (onPostUpdate) onPostUpdate(updatedPostData);
     } catch (err) {
       setInteractionError(
-        err.response?.data?.message || "Could not add comment."
+        err.response?.data?.message || 'Could not add comment.'
       );
     } finally {
       setIsCommenting(false);
     }
   };
 
-  const handleDeleteComment = async (commentIdToDelete) => {
+  const handleDeleteComment = async commentIdToDelete => {
     if (!loggedInUser) return;
-    if (!window.confirm("Are you sure you want to delete this comment?")) return;
+    if (!window.confirm('Are you sure you want to delete this comment?'))
+      return;
 
-    setInteractionError("");
+    setInteractionError('');
 
     try {
-      await apiClient.delete(
-        `/posts/${postId}/comments/${commentIdToDelete}`
-      );
+      await apiClient.delete(`/posts/${postId}/comments/${commentIdToDelete}`);
       const updatedComments = comments.filter(
-        (comment) => comment._id !== commentIdToDelete
+        comment => comment._id !== commentIdToDelete
       );
       setComments(updatedComments);
       setCommentCount(updatedComments.length);
@@ -187,15 +222,33 @@ function Post({ post, onPostUpdate }) {
       logger.info(`Comment ${commentIdToDelete} deleted from post ${postId}`);
     } catch (err) {
       setInteractionError(
-        err.response?.data?.message || "Could not delete comment."
+        err.response?.data?.message || 'Could not delete comment.'
       );
-      logger.error("Error deleting comment:", err.response?.data || err.message);
+      logger.error(
+        'Error deleting comment:',
+        err.response?.data || err.message
+      );
     }
   };
 
   const handleMoreClick = () => {
-    console.log("More options clicked for post:", postId);
+    console.log('More options clicked for post:', postId);
   };
+
+  // Handler to show more comments
+  const handleSeeMoreComments = () => {
+    setVisibleCommentsCount(prev => prev + 10);
+  };
+
+  // Handler for toggling post menu
+  const handlePostMenuToggle = () => setShowPostMenu(prev => !prev);
+  const handleClosePostMenu = () => setShowPostMenu(false);
+
+  // Handler for toggling comment menu
+  const handleCommentMenuToggle = commentId => {
+    setOpenCommentMenuId(prev => (prev === commentId ? null : commentId));
+  };
+  const handleCloseCommentMenu = () => setOpenCommentMenuId(null);
 
   // --- Return JSX ---
   return (
@@ -203,8 +256,8 @@ function Post({ post, onPostUpdate }) {
       <div className={styles.postHeader}>
         <div className={styles.userInfo}>
           <img
-            src={author.profileImage || "/default.jpg"}
-            alt={author.fullName || author.firstName || "User profile"}
+            src={author.profileImage || '/default.jpg'}
+            alt={author.fullName || author.firstName || 'User profile'}
             className={styles.profileImage}
             onError={handleImageError}
           />
@@ -213,10 +266,10 @@ function Post({ post, onPostUpdate }) {
               {author.fullName || `${author.firstName} ${author.lastName}`}
             </h3>
             <p className={styles.userHandle}>
-              @{author.firstName?.toLowerCase() || "user"}
+              @{author.firstName?.toLowerCase() || 'user'}
               {author._id?.slice(-4)}
               <span className={styles.postTimestamp}>
-                {" "}
+                {' '}
                 · {new Date(createdAt).toLocaleDateString()}
               </span>
             </p>
@@ -224,11 +277,29 @@ function Post({ post, onPostUpdate }) {
         </div>
         <button
           className={styles.moreIcon}
-          onClick={handleMoreClick}
+          onClick={handlePostMenuToggle}
           aria-label="More options"
+          type="button"
         >
           <Icon src="/assets/more.svg" alt="more" />
         </button>
+        {showPostMenu &&
+          (loggedInUser?._id === author._id ||
+            loggedInUser?.role.includes('admin')) && (
+            <div
+              className={styles.menuDropdown}
+              onMouseLeave={handleClosePostMenu}
+            >
+              <button
+                className={styles.menuItem}
+                onClick={() => {
+                  /* call delete post logic here */
+                }}
+              >
+                Delete Post
+              </button>
+            </div>
+          )}
       </div>
 
       <p className={styles.postContent}>{content}</p>
@@ -251,7 +322,7 @@ function Post({ post, onPostUpdate }) {
       {interactionError && (
         <p
           className="error-message"
-          style={{ fontSize: "0.8em", margin: "8px 0" }}
+          style={{ fontSize: '0.8em', margin: '8px 0' }}
         >
           {interactionError}
         </p>
@@ -261,7 +332,7 @@ function Post({ post, onPostUpdate }) {
         <div className={styles.actionButtons}>
           <button
             className={`${styles.actionButton} ${
-              isLikedByCurrentUser ? styles.liked : ""
+              isLikedByCurrentUser ? styles.liked : ''
             }`}
             onClick={handleLikeToggle}
             disabled={isLiking || !loggedInUser}
@@ -270,8 +341,8 @@ function Post({ post, onPostUpdate }) {
             <Icon
               src={
                 isLikedByCurrentUser
-                  ? "/assets/heart-filled.svg"
-                  : "/assets/heart.svg"
+                  ? '/assets/heart-filled.svg'
+                  : '/assets/heart.svg'
               }
               alt="like"
             />
@@ -279,8 +350,10 @@ function Post({ post, onPostUpdate }) {
           </button>
           <button
             className={styles.actionButton}
-            onClick={() => setShowCommentInput(!showCommentInput)}
+            onClick={() => setShowComments(prev => !prev)}
             disabled={!loggedInUser}
+            aria-pressed={showComments}
+            aria-label={showComments ? 'Hide comments' : 'Show comments'}
           >
             <Icon src="/assets/comment.svg" alt="comment" />
             <span className={styles.actionCount}>{commentCount}</span>
@@ -288,88 +361,107 @@ function Post({ post, onPostUpdate }) {
         </div>
         <button
           className={styles.bookmarkIcon}
-          onClick={() => console.log("Bookmark clicked for:", postId)}
+          onClick={() => console.log('Bookmark clicked for:', postId)}
           disabled={!loggedInUser}
         >
           <Icon src="/assets/bookmark.svg" alt="bookmark" />
         </button>
       </div>
 
-      {showCommentInput && loggedInUser && (
-        <form
-          onSubmit={handleCommentSubmit}
-          className={styles.commentInputSection}
-        >
-          <img
-            src={loggedInUser.profileImage || "/default.jpg"}
-            alt="Your profile"
-            className={styles.commentProfileImage}
-            onError={handleImageError}
-          />
-          <input
-            type="text"
-            value={newCommentText}
-            onChange={(e) => setNewCommentText(e.target.value)}
-            placeholder="Write a comment..."
-            className={styles.commentInput}
-            disabled={isCommenting}
-          />
-          <button
-            type="submit"
-            className={styles.commentSubmitButton}
-            disabled={isCommenting || !newCommentText.trim()}
+      {/* Toggleable comment section */}
+      {showComments && loggedInUser && (
+        <>
+          <form
+            onSubmit={handleCommentSubmit}
+            className={styles.commentInputSection}
           >
-            {isCommenting ? "..." : "Post"}
-          </button>
-        </form>
-      )}
+            <img
+              src={loggedInUser.profileImage || '/default.jpg'}
+              alt="Your profile"
+              className={styles.commentProfileImage}
+              onError={handleImageError}
+            />
+            <input
+              type="text"
+              value={newCommentText}
+              onChange={e => setNewCommentText(e.target.value)}
+              placeholder="Write a comment..."
+              className={styles.commentInput}
+              disabled={isCommenting}
+            />
+            <button
+              type="submit"
+              className={styles.commentSubmitButton}
+              disabled={isCommenting || !newCommentText.trim()}
+            >
+              {isCommenting ? '...' : 'Post'}
+            </button>
+          </form>
 
-      {comments && comments.length > 0 && (
-        <div className={styles.commentsSection}>
-          {comments.slice(0, showAllComments ? comments.length : 2).map((comment) => (
-            <div
-              key={comment._id || comment.tempId}
-              className={styles.commentItem}
-            >
-              <img
-                src={comment.author?.profileImage || "/default.jpg"}
-                alt={comment.author?.firstName}
-                className={styles.commentAuthorImage}
-                onError={handleImageError}
-              />
-              <div className={styles.commentContentWrapper}>
-                <strong>{comment.author?.firstName || "User"}</strong>:{" "}
-                <p className={styles.commentText}>{comment.text}</p>
-                {(loggedInUser?._id === comment.author?._id ||
-                  loggedInUser?.role.includes("admin")) && (
-                  <button
-                    className={styles.deleteCommentButton}
-                    onClick={() => handleDeleteComment(comment._id)}
-                    aria-label="Delete comment"
-                  >
-                    Delete
-                  </button>
-                )}
-              </div>
+          {comments && comments.length > 0 && (
+            <div className={styles.commentsSection}>
+              {comments.slice(-visibleCommentsCount).map(comment => (
+                <div
+                  key={comment._id || comment.tempId}
+                  className={styles.commentItem}
+                >
+                  <img
+                    src={comment.author?.profileImage || '/default.jpg'}
+                    alt={comment.author?.firstName}
+                    className={styles.commentAuthorImage}
+                    onError={handleImageError}
+                  />
+                  <div className={styles.commentContentWrapper}>
+                    <div className={styles.commentHeaderRow}>
+                      <strong>{comment.author?.firstName || 'User'}</strong>
+                      <span className={styles.commentTimestamp}>
+                        ·{' '}
+                        {comment.createdAt
+                          ? new Date(comment.createdAt).toLocaleString()
+                          : ''}
+                      </span>
+                    </div>
+                    <p className={styles.commentText}>{comment.text}</p>
+                    {(loggedInUser?._id === comment.author?._id ||
+                      loggedInUser?.role.includes('admin')) && (
+                      <div className={styles.commentMenuWrapper}>
+                        <button
+                          className={styles.moreIcon}
+                          onClick={() => handleCommentMenuToggle(comment._id)}
+                          aria-label="More options"
+                          type="button"
+                        >
+                          <Icon src="/assets/more.svg" alt="more" />
+                        </button>
+                        {openCommentMenuId === comment._id && (
+                          <div
+                            className={styles.menuDropdown}
+                            onMouseLeave={handleCloseCommentMenu}
+                          >
+                            <button
+                              className={styles.menuItem}
+                              onClick={() => handleDeleteComment(comment._id)}
+                            >
+                              Delete Comment
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+              {visibleCommentsCount < comments.length && (
+                <button
+                  onClick={handleSeeMoreComments}
+                  className={styles.viewAllComments}
+                >
+                  See more comments
+                </button>
+              )}
             </div>
-          ))}
-          {commentCount > 2 && !showAllComments && (
-            <button
-              onClick={() => setShowAllComments(true)}
-              className={styles.viewAllComments}
-            >
-              View all {commentCount} comments
-            </button>
           )}
-          {showAllComments && (
-            <button
-              onClick={() => setShowAllComments(false)}
-              className={styles.hideComments}
-            >
-              Hide comments
-            </button>
-          )}
-        </div>
+        </>
       )}
     </article>
   );

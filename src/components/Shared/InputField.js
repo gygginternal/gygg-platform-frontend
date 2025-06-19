@@ -1,15 +1,15 @@
 // frontend/src/components/Shared/InputField.js (UPDATED)
-import React, { useState, useEffect, useRef } from "react";
-import styles from "./InputField.module.css";
-import CountrySelect from "./CountrySelect"; // Assuming CountrySelect is correctly implemented
+import React, { useState, useEffect, useRef } from 'react';
+import styles from './InputField.module.css';
+import CountrySelect from './CountrySelect'; // Assuming CountrySelect is correctly implemented
 // import { cn } from "../../uitls/cn"; // Assuming you have this utility
 
 function InputField({
   label,
   name,
-  type = "text",
+  type = 'text',
   placeholder,
-  value = "", // This `value` is the FULL phone number (e.g., +1234...) from parent
+  value = '', // This `value` is the FULL phone number (e.g., +1234...) from parent
   onChange,
   icon,
   inputMode,
@@ -18,38 +18,40 @@ function InputField({
   rows = 3,
   disabled = false,
   onKeyDown,
-  className = "",
+  className = '',
   ...props
 }) {
   const [showPassword, setShowPassword] = useState(false);
 
-  const isPhoneInput = icon === "phone";
+  const isPhoneInput = icon === 'phone';
 
   // INTERNAL STATE: countryCode and localNumber
   // These are derived from the `value` prop, but managed internally for display and interaction
   const [countryCode, setCountryCode] = useState(() => {
     // Attempt to parse country code from the value prop, default to +1
     const match = value?.match(/^\+\d{1,4}/); // Match + followed by 1 to 4 digits
-    return isPhoneInput ? (match ? match[0] : "+1") : "+1";
+    return isPhoneInput ? (match ? match[0] : '+1') : '+1';
   });
 
   const [localNumber, setLocalNumber] = useState(() => {
     // Attempt to parse local number from the value prop, after country code
     const initialCodeMatch = value?.match(/^\+\d{1,4}/);
-    const initialCode = initialCodeMatch ? initialCodeMatch[0] : "+1";
+    const initialCode = initialCodeMatch ? initialCodeMatch[0] : '+1';
     return isPhoneInput
-      ? value?.substring(initialCode.length).replace(/\D/g, "") || ""
-      : "";
+      ? value?.substring(initialCode.length).replace(/\D/g, '') || ''
+      : '';
   });
 
   // Effect to re-sync internal states if the `value` prop changes from parent
   useEffect(() => {
     if (isPhoneInput) {
       const newCountryCodeMatch = value?.match(/^\+\d{1,4}/);
-      const newCountryCode = newCountryCodeMatch ? newCountryCodeMatch[0] : countryCode; // Use current if not found
+      const newCountryCode = newCountryCodeMatch
+        ? newCountryCodeMatch[0]
+        : countryCode; // Use current if not found
 
       const newLocalNumberRaw = value?.substring(newCountryCode.length);
-      const newLocalNumber = newLocalNumberRaw?.replace(/\D/g, "") || "";
+      const newLocalNumber = newLocalNumberRaw?.replace(/\D/g, '') || '';
 
       // Update internal states only if they actually differ to prevent infinite loops
       if (newCountryCode !== countryCode) {
@@ -60,15 +62,15 @@ function InputField({
       }
     } else {
       // Reset for non-phone inputs if they mistakenly had phone values
-      if (localNumber !== "" || countryCode !== "+1") {
-        setLocalNumber("");
-        setCountryCode("+1");
+      if (localNumber !== '' || countryCode !== '+1') {
+        setLocalNumber('');
+        setCountryCode('+1');
       }
     }
   }, [value, isPhoneInput]); // Removed countryCode, localNumber from deps to prevent infinite loops
 
   // Handler for CountrySelect component
-  const handleCountryCodeChange = (e) => {
+  const handleCountryCodeChange = e => {
     const newCode = e.target.value;
     setCountryCode(newCode); // Update internal state
     // Notify parent with the *full* phone number (new country code + current local number)
@@ -78,12 +80,12 @@ function InputField({
   };
 
   // Handler for the local number input field
-  const handleLocalNumberChange = (e) => {
-    let digits = e.target.value.replace(/\D/g, ""); // Strip non-digits from typed value
+  const handleLocalNumberChange = e => {
+    let digits = e.target.value.replace(/\D/g, ''); // Strip non-digits from typed value
 
     // The maxLength prop from SignupPage is now for the LOCAL number part (e.g., 10 digits)
-    const localNumberMaxLength = typeof maxLength === "number" ? maxLength : 10;
-    
+    const localNumberMaxLength = typeof maxLength === 'number' ? maxLength : 10;
+
     if (digits.length > localNumberMaxLength) {
       digits = digits.slice(0, localNumberMaxLength);
     }
@@ -96,9 +98,9 @@ function InputField({
   };
 
   // Other handlers remain largely the same, ensuring maxLength is respected
-  const handlePasswordChange = (e) => {
+  const handlePasswordChange = e => {
     let passwordValue = e.target.value;
-    if (typeof maxLength === "number" && passwordValue.length > maxLength) {
+    if (typeof maxLength === 'number' && passwordValue.length > maxLength) {
       passwordValue = passwordValue.slice(0, maxLength);
     }
     if (onChange) {
@@ -106,7 +108,7 @@ function InputField({
     }
   };
 
-  const handleGenericChange = (e) => {
+  const handleGenericChange = e => {
     if (onChange) {
       onChange(name, e.target.value);
     }
@@ -116,31 +118,31 @@ function InputField({
   let effectiveInputType = type;
   // This is the maxLength that will be passed to the HTML <input> element.
   // For phone numbers, it should be the maxLength of the LOCAL part.
-  let effectiveHtmlMaxLength = maxLength; 
+  let effectiveHtmlMaxLength = maxLength;
 
   if (isPhoneInput) {
     specificChangeHandler = handleLocalNumberChange;
-    effectiveInputType = "tel";
-    inputMode = inputMode || "tel";
+    effectiveInputType = 'tel';
+    inputMode = inputMode || 'tel';
     // For phone input, allow up to 15 digits for the local number (E.164 max)
     effectiveHtmlMaxLength = 15;
   } else if (
-    icon === "password" ||
-    name === "password" ||
-    name === "passwordConfirm" ||
-    name === "currentPassword" ||
-    name === "newPassword"
+    icon === 'password' ||
+    name === 'password' ||
+    name === 'passwordConfirm' ||
+    name === 'currentPassword' ||
+    name === 'newPassword'
   ) {
     specificChangeHandler = handlePasswordChange;
-    if (showPassword) effectiveInputType = "text";
-  } else if (type === "date") {
-    placeholder = ""; 
+    if (showPassword) effectiveInputType = 'text';
+  } else if (type === 'date') {
+    placeholder = '';
   }
 
   // The value displayed in the actual HTML <input> element
   let displayValueForInput = value;
   if (isPhoneInput) {
-      displayValueForInput = localNumber; // Input field only displays the local number part
+    displayValueForInput = localNumber; // Input field only displays the local number part
   }
 
   return (
@@ -156,7 +158,7 @@ function InputField({
             onChange={handleCountryCodeChange}
           />
         )}
-        {type === "textarea" ? (
+        {type === 'textarea' ? (
           <textarea
             id={name}
             name={name}
@@ -184,27 +186,27 @@ function InputField({
             required={required}
             disabled={disabled}
             autoComplete={
-              name.includes("password")
-                ? "new-password"
-                : type === "email"
-                ? "email"
-                : "on"
+              name.includes('password')
+                ? 'new-password'
+                : type === 'email'
+                  ? 'email'
+                  : 'on'
             }
-            max={type === "date" ? props.max : undefined}
-            min={type === "number" ? props.min : undefined}
-            step={type === "number" ? props.step : undefined}
+            max={type === 'date' ? props.max : undefined}
+            min={type === 'number' ? props.min : undefined}
+            step={type === 'number' ? props.step : undefined}
             {...props}
           />
         )}
-        {icon === "password" && (
+        {icon === 'password' && (
           <button
             type="button"
             className={styles.togglePassword}
             onClick={() => setShowPassword(!showPassword)}
-            aria-label={showPassword ? "Hide password" : "Show password"}
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
             disabled={disabled}
           >
-            {showPassword ? "Hide" : "Show"}
+            {showPassword ? 'Hide' : 'Show'}
           </button>
         )}
       </div>

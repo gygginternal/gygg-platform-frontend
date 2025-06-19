@@ -2,254 +2,255 @@
 
 /* Base styles for the overall page container */
 .pageContainer {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: #f0f2f5; /* Light grey background */
-    font-family: 'Inter', sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f0f2f5; /* Light grey background */
+  font-family: 'Inter', sans-serif;
 }
 
 .contentWrapper {
-    display: flex;
-    flex: 1;
-    padding-top: 84px; /* Adjust based on Header height */
+  display: flex;
+  flex: 1;
+  padding-top: 84px; /* Adjust based on Header height */
 }
 
 .sidebarArea {
-    width: 300px; /* Fixed width for the sidebar */
-    flex-shrink: 0;
+  width: 300px; /* Fixed width for the sidebar */
+  flex-shrink: 0;
 }
 
 .mainFeedArea {
-    flex-grow: 1;
-    padding: 1.5rem; /* p-6 */
-    max-width: 900px; /* Equivalent to max-w-4xl */
-    margin-right: auto; /* mx-auto, but considering sidebar */
-    padding-bottom: 3rem; /* pb-12 */
+  flex-grow: 1;
+  padding: 1.5rem; /* p-6 */
+  max-width: 900px; /* Equivalent to max-w-4xl */
+  margin-right: auto; /* mx-auto, but considering sidebar */
+  padding-bottom: 3rem; /* pb-12 */
 }
 
 .mainFeedAreaMarginLeft {
-    margin-left: 1.25rem; /* ml-5 */
+  margin-left: 1.25rem; /* ml-5 */
 }
 
 /* Job Listings styles (from JobListingsPage and JobListingItem) */
 .jobListingsContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem; /* space-y-4 */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* space-y-4 */
 }
 
 .jobSeparator {
-    margin-top: 0.5rem; /* mt-2 */
-    border: 0;
-    border-top: 1px solid #eee;
+  margin-top: 0.5rem; /* mt-2 */
+  border: 0;
+  border-top: 1px solid #eee;
 }
 
 .jobTitleLink {
-    font-size: 1.125rem; /* text-lg */
-    text-decoration: underline;
-    font-weight: 500; /* font-medium */
-    color: #333; /* text-gray-800 */
-    cursor: pointer;
-    transition: text-decoration 0.2s ease;
+  font-size: 1.125rem; /* text-lg */
+  text-decoration: underline;
+  font-weight: 500; /* font-medium */
+  color: #333; /* text-gray-800 */
+  cursor: pointer;
+  transition: text-decoration 0.2s ease;
 }
 
 .jobTitleLink:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .jobDetailsRow {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 0.5rem; /* mt-2 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem; /* mt-2 */
 }
 
 .jobDetailItem {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .jobDetailItemMarginTop {
-    margin-top: 1.25rem; /* mt-5 */
+  margin-top: 1.25rem; /* mt-5 */
 }
 
 .jobDetailLabel {
-    font-size: 0.875rem; /* text-sm */
-    color: #6b7280; /* text-gray-500 */
+  font-size: 0.875rem; /* text-sm */
+  color: #6b7280; /* text-gray-500 */
 }
 
 .jobDetailValue {
-    font-weight: 600; /* font-semibold */
-    margin-left: 0.5rem; /* ml-2 */
-    color: #333;
+  font-weight: 600; /* font-semibold */
+  margin-left: 0.5rem; /* ml-2 */
+  color: #333;
 }
 
 .jobStatusContainer {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .loadingMessage,
 .errorMessage {
-    text-align: center;
-    padding: 2rem;
-    font-size: 1.125rem; /* text-lg */
-    color: #555;
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.125rem; /* text-lg */
+  color: #555;
 }
 
 .errorMessage {
-    color: #dc3545; /* Red for errors */
+  color: #dc3545; /* Red for errors */
 }
 
 /* Filter Section styles */
 .filterSection {
-    margin-top: 1.25rem; /* mt-5 */
-    margin-bottom: 0; /* mb-0 */
-    padding: 1rem; /* Added padding for better visual spacing */
-    background-color: #fff;
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-top: 1.25rem; /* mt-5 */
+  margin-bottom: 0; /* mb-0 */
+  padding: 1rem; /* Added padding for better visual spacing */
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .toggleButton {
-    /* Base styles for the Toggle component */
-    padding: 0.5rem 1rem; /* px-4 py-2 */
-    border-radius: 0.375rem; /* rounded */
-    font-size: 0.875rem; /* text-sm */
-    font-weight: 500;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    color: #333;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    margin-left: 0.75rem; /* ml-3 */
+  /* Base styles for the Toggle component */
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  border-radius: 0.375rem; /* rounded */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: 0.75rem; /* ml-3 */
 }
 
 .toggleButtonCompleted.data-state-on {
-    background-color: #3b82f6; /* bg-blue-500 */
-    color: white;
-    border-color: #3b82f6; /* border-blue-500 */
+  background-color: #3b82f6; /* bg-blue-500 */
+  color: white;
+  border-color: #3b82f6; /* border-blue-500 */
 }
 
 .toggleButtonActive.data-state-on {
-    background-color: #22c55e; /* bg-green-500 */
-    color: white;
-    border-color: #22c55e; /* border-green-500 */
+  background-color: #22c55e; /* bg-green-500 */
+  color: white;
+  border-color: #22c55e; /* border-green-500 */
 }
 
 .toggleButtonCancelled.data-state-on {
-    background-color: #ef4444; /* bg-red-500 */
-    color: white;
-    border-color: #ef4444; /* border-red-500 */
+  background-color: #ef4444; /* bg-red-500 */
+  color: white;
+  border-color: #ef4444; /* border-red-500 */
 }
 
-.toggleButton + .toggleButton { /* For spacing between toggle buttons */
-    margin-left: 0.75rem; /* mx-3 */
-    margin-top: 0.75rem; /* my-3 on small screens if they wrap */
+.toggleButton + .toggleButton {
+  /* For spacing between toggle buttons */
+  margin-left: 0.75rem; /* mx-3 */
+  margin-top: 0.75rem; /* my-3 on small screens if they wrap */
 }
 
 /* Load More button styles */
 .loadMoreContainer {
-    text-align: center;
-    margin-top: 1rem; /* mt-4 */
+  text-align: center;
+  margin-top: 1rem; /* mt-4 */
 }
 
 .loadMoreButton {
-    padding: 0.5rem 1rem; /* px-4 py-2 */
-    background-color: #3b82f6; /* bg-blue-500 */
-    color: white;
-    border-radius: 0.375rem; /* rounded */
-    transition: background-color 0.2s ease;
-    border: none;
-    cursor: pointer;
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  background-color: #3b82f6; /* bg-blue-500 */
+  color: white;
+  border-radius: 0.375rem; /* rounded */
+  transition: background-color 0.2s ease;
+  border: none;
+  cursor: pointer;
 }
 
 .loadMoreButton:hover {
-    background-color: #2563eb; /* hover:bg-blue-600 */
+  background-color: #2563eb; /* hover:bg-blue-600 */
 }
 
 .loadMoreButton:disabled {
-    background-color: #9ca3af; /* bg-gray-400 */
-    cursor: not-allowed;
-    opacity: 0.7;
+  background-color: #9ca3af; /* bg-gray-400 */
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
-    .mainFeedArea {
-        padding: 1rem;
-    }
-    .sidebarArea {
-        width: 250px;
-    }
-    .mainFeedAreaMarginLeft {
-        margin-left: 1rem;
-    }
+  .mainFeedArea {
+    padding: 1rem;
+  }
+  .sidebarArea {
+    width: 250px;
+  }
+  .mainFeedAreaMarginLeft {
+    margin-left: 1rem;
+  }
 }
 
 @media (max-width: 768px) {
-    .contentWrapper {
-        flex-direction: column;
-        padding-top: 0; /* Header is likely handled differently on mobile */
-    }
-    .sidebarArea {
-        width: 100%;
-        height: auto; /* Allow sidebar to take natural height */
-        /* Potentially hide or collapse sidebar here */
-    }
-    .mainFeedArea {
-        margin-left: auto; /* Center content */
-        max-width: 100%;
-        padding: 1rem;
-    }
-    .mainFeedAreaMarginLeft {
-        margin-left: 0; /* Remove margin-left when stacked */
-    }
-    .jobTitleLink {
-        font-size: 1rem;
-    }
-    .jobDetailLabel,
-    .jobDetailValue {
-        font-size: 0.8125rem; /* text-xs */
-    }
-    .toggleButton {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.8125rem;
-        margin-left: 0.5rem;
-    }
-    .toggleButton + .toggleButton {
-        margin-left: 0.5rem;
-        margin-top: 0.5rem;
-    }
-    .loadMoreButton {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.8125rem;
-    }
+  .contentWrapper {
+    flex-direction: column;
+    padding-top: 0; /* Header is likely handled differently on mobile */
+  }
+  .sidebarArea {
+    width: 100%;
+    height: auto; /* Allow sidebar to take natural height */
+    /* Potentially hide or collapse sidebar here */
+  }
+  .mainFeedArea {
+    margin-left: auto; /* Center content */
+    max-width: 100%;
+    padding: 1rem;
+  }
+  .mainFeedAreaMarginLeft {
+    margin-left: 0; /* Remove margin-left when stacked */
+  }
+  .jobTitleLink {
+    font-size: 1rem;
+  }
+  .jobDetailLabel,
+  .jobDetailValue {
+    font-size: 0.8125rem; /* text-xs */
+  }
+  .toggleButton {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8125rem;
+    margin-left: 0.5rem;
+  }
+  .toggleButton + .toggleButton {
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .loadMoreButton {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8125rem;
+  }
 }
 
 @media (max-width: 480px) {
-    .mainFeedArea {
-        padding: 0.75rem;
-    }
-    .jobTitleLink {
-        font-size: 0.9375rem;
-    }
-    .jobDetailLabel,
-    .jobDetailValue {
-        font-size: 0.75rem;
-    }
-    .toggleButton {
-        padding: 0.3rem 0.6rem;
-        font-size: 0.75rem;
-        margin-left: 0.4rem;
-    }
-    .toggleButton + .toggleButton {
-        margin-left: 0.4rem;
-        margin-top: 0.4rem;
-    }
-    .loadMoreButton {
-        padding: 0.3rem 0.6rem;
-        font-size: 0.75rem;
-    }
+  .mainFeedArea {
+    padding: 0.75rem;
+  }
+  .jobTitleLink {
+    font-size: 0.9375rem;
+  }
+  .jobDetailLabel,
+  .jobDetailValue {
+    font-size: 0.75rem;
+  }
+  .toggleButton {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+    margin-left: 0.4rem;
+  }
+  .toggleButton + .toggleButton {
+    margin-left: 0.4rem;
+    margin-top: 0.4rem;
+  }
+  .loadMoreButton {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+  }
 }

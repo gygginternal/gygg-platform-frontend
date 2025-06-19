@@ -1,39 +1,42 @@
-import React from "react";
+import React from 'react';
 import styles from './ReviewSection.module.css';
-import ReviewCard from "./ProfilePage/ReviewCard";
+import ReviewCard from './ProfilePage/ReviewCard';
 
 const reviewsData = [
   {
-    name: "Alice Johnson",
-    job: "Software Engineer",
+    name: 'Alice Johnson',
+    job: 'Software Engineer',
     rating: 4.8,
     stars: 5,
-    date: "March 10, 2025",
-    review: "Amazing service! The experience was seamless and exceeded my expectations.",
+    date: 'March 10, 2025',
+    review:
+      'Amazing service! The experience was seamless and exceeded my expectations.',
   },
   {
-    name: "Mark Spencer",
-    job: "Product Manager",
+    name: 'Mark Spencer',
+    job: 'Product Manager',
     rating: 4.5,
     stars: 4,
-    date: "March 12, 2025",
-    review: "Great experience overall. Would definitely recommend it to others.",
+    date: 'March 12, 2025',
+    review:
+      'Great experience overall. Would definitely recommend it to others.',
   },
   {
-    name: "Sophia Lee",
-    job: "UX Designer",
+    name: 'Sophia Lee',
+    job: 'UX Designer',
     rating: 4.2,
     stars: 4,
-    date: "March 14, 2025",
-    review: "Good service but there is room for improvement in user experience.",
+    date: 'March 14, 2025',
+    review:
+      'Good service but there is room for improvement in user experience.',
   },
   {
-    name: "David Kim",
-    job: "Marketing Specialist",
+    name: 'David Kim',
+    job: 'Marketing Specialist',
     rating: 5.0,
     stars: 5,
-    date: "March 15, 2025",
-    review: "Absolutely loved it! Everything was top-notch and well-organized.",
+    date: 'March 15, 2025',
+    review: 'Absolutely loved it! Everything was top-notch and well-organized.',
   },
 ];
 

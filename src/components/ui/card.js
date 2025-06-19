@@ -1,32 +1,20 @@
-import * as React from "react";
-import styles from "./card.module.css";
+import * as React from 'react';
+import styles from './card.module.css';
 
 const Card = React.forwardRef(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={`${styles.card} ${className}`}
-    {...props}
-  />
+  <div ref={ref} className={`${styles.card} ${className}`} {...props} />
 ));
-Card.displayName = "Card";
+Card.displayName = 'Card';
 
 const CardHeader = React.forwardRef(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={`${styles.cardHeader} ${className}`}
-    {...props}
-  />
+  <div ref={ref} className={`${styles.cardHeader} ${className}`} {...props} />
 ));
-CardHeader.displayName = "CardHeader";
+CardHeader.displayName = 'CardHeader';
 
 const CardTitle = React.forwardRef(({ className, ...props }, ref) => (
-  <h3
-    ref={ref}
-    className={`${styles.cardTitle} ${className}`}
-    {...props}
-  />
+  <h3 ref={ref} className={`${styles.cardTitle} ${className}`} {...props} />
 ));
-CardTitle.displayName = "CardTitle";
+CardTitle.displayName = 'CardTitle';
 
 const CardDescription = React.forwardRef(({ className, ...props }, ref) => (
   <p
@@ -35,21 +23,17 @@ const CardDescription = React.forwardRef(({ className, ...props }, ref) => (
     {...props}
   />
 ));
-CardDescription.displayName = "CardDescription";
+CardDescription.displayName = 'CardDescription';
 
 const CardContent = React.forwardRef(({ className, ...props }, ref) => (
   <div ref={ref} className={`${styles.cardContent} ${className}`} {...props} />
 ));
-CardContent.displayName = "CardContent";
+CardContent.displayName = 'CardContent';
 
 const CardFooter = React.forwardRef(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={`${styles.cardFooter} ${className}`}
-    {...props}
-  />
+  <div ref={ref} className={`${styles.cardFooter} ${className}`} {...props} />
 ));
-CardFooter.displayName = "CardFooter";
+CardFooter.displayName = 'CardFooter';
 
 export {
   Card,

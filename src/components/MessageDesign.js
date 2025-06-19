@@ -1,7 +1,15 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './MessageDesign.module.css';
 
 const MessageDesign = ({ messages, onClick }) => {
+  const handleActionClick = message => {
+    // Handle action click - you can customize this based on your needs
+    if (onClick) {
+      onClick(message);
+    }
+  };
+
   return (
     <div className={styles.outerContainer}>
       <div className={styles.flexWrapper}>
@@ -15,15 +23,19 @@ const MessageDesign = ({ messages, onClick }) => {
                 >
                   <div className={styles.messageContentLeft}>
                     <img
-                      src={message.profileImage || "/default.jpg"}
+                      src={message.profileImage || '/default.jpg'}
                       className={styles.profileImage}
                       alt="Profile"
                     />
                     <div className={styles.messageTextGroup}>
-                      <div className={`${styles.messageName} ${message.unreadCount > 0 ? styles.messageNameUnread : ''}`}>
+                      <div
+                        className={`${styles.messageName} ${message.unreadCount > 0 ? styles.messageNameUnread : ''}`}
+                      >
                         {message.name}
                       </div>
-                      <div className={`${styles.messageText} ${message.unreadCount > 0 ? styles.messageTextUnread : ''}`}>
+                      <div
+                        className={`${styles.messageText} ${message.unreadCount > 0 ? styles.messageTextUnread : ''}`}
+                      >
                         {message.text}
                       </div>
                     </div>
@@ -32,7 +44,7 @@ const MessageDesign = ({ messages, onClick }) => {
                     <div className={styles.timestamp}>{message.timestamp}</div>
                     {message.statusIcon && (
                       <img
-                        src={message.statusIcon || "/default-status-icon.jpg"}
+                        src={message.statusIcon || '/default-status-icon.jpg'}
                         className={styles.statusIcon}
                         alt="Status"
                       />
@@ -42,6 +54,19 @@ const MessageDesign = ({ messages, onClick }) => {
                 {index < messages.length - 1 && (
                   <div className={styles.messageSeparator} />
                 )}
+                <div
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => handleActionClick(message)}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter' || e.key === ' ')
+                      handleActionClick(message);
+                  }}
+                  className={styles.action}
+                  aria-label={`Perform action on message from ${message.sender}`}
+                >
+                  {/* Action icon/content */}
+                </div>
               </React.Fragment>
             ))}
           </div>
@@ -49,6 +74,21 @@ const MessageDesign = ({ messages, onClick }) => {
       </div>
     </div>
   );
+};
+
+MessageDesign.propTypes = {
+  messages: PropTypes.arrayOf(
+    PropTypes.shape({
+      profileImage: PropTypes.string,
+      name: PropTypes.string,
+      text: PropTypes.string,
+      timestamp: PropTypes.string,
+      statusIcon: PropTypes.string,
+      unreadCount: PropTypes.number,
+      sender: PropTypes.string,
+    })
+  ).isRequired,
+  onClick: PropTypes.func,
 };
 
 export default MessageDesign;

@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import apiClient from "../api/axiosConfig"; // If triggering status check automatically
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import apiClient from '../api/axiosConfig'; // If triggering status check automatically
 import styles from '../components/StripeReturnPage/StripeReturnPage.module.css'; // Import CSS Modules
 
 function StripeReturnPage() {
@@ -8,11 +8,11 @@ function StripeReturnPage() {
 
   // Optional: Automatically trigger a status check on return
   useEffect(() => {
-    console.log("Returned from Stripe onboarding flow.");
+    console.log('Returned from Stripe onboarding flow.');
     // Give Stripe webhook a moment, then navigate or trigger check
     const timer = setTimeout(() => {
       // Option 1: Just navigate to dashboard, user can refresh status there
-      navigate("/settings?activeTab=withdraw");
+      navigate('/settings?activeTab=withdraw');
 
       // Option 2: Try fetching status here (might be too soon for webhook)
       /*
@@ -38,10 +38,10 @@ function StripeReturnPage() {
         You will be redirected to your dashboard shortly.
       </p>
       <p className={styles.redirectPrompt}>
-        If redirection doesn't happen,{" "}
+        If redirection doesn't happen,{' '}
         <Link to="/settings?activeTab=withdraw" className={styles.link}>
           click here to go to your Dashboard
-        </Link>{" "}
+        </Link>{' '}
         and check your Stripe status.
       </p>
     </div>

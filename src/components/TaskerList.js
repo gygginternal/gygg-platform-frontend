@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import styles from "./TaskerList.module.css";
-import TaskerCard from "./TaskerCard";
-import apiClient from "../api/axiosConfig";
-import logger from "../utils/logger";
-import { useAuth } from "../context/AuthContext";
-import GigHelperCard from "./GigHelperCard";
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import styles from './TaskerList.module.css';
+import TaskerCard from './TaskerCard';
+import apiClient from '../api/axiosConfig';
+import logger from '../utils/logger';
+import { useAuth } from '../context/AuthContext';
+import GigHelperCard from './GigHelperCard';
 
 const TaskerList = () => {
   const [taskers, setTaskers] = useState([]);
@@ -18,12 +18,19 @@ const TaskerList = () => {
         setLoading(true);
         setError(null);
         const response = await apiClient.get('/applicances/top-match');
-        if (!response.data || !response.data.data || !response.data.data.matches) {
+        if (
+          !response.data ||
+          !response.data.data ||
+          !response.data.data.matches
+        ) {
           throw new Error('Invalid response from server');
         }
         setTaskers(response.data.data.matches);
       } catch (err) {
-        setError(err.response?.data?.message || 'Failed to fetch taskers. Please try again.');
+        setError(
+          err.response?.data?.message ||
+            'Failed to fetch taskers. Please try again.'
+        );
       } finally {
         setLoading(false);
       }
@@ -35,7 +42,12 @@ const TaskerList = () => {
     return (
       <div className={styles.errorMessage}>
         <p>{error}</p>
-        <button className={styles.retryButton} onClick={() => window.location.reload()}>Retry</button>
+        <button
+          className={styles.retryButton}
+          onClick={() => window.location.reload()}
+        >
+          Retry
+        </button>
       </div>
     );
   }
@@ -54,16 +66,24 @@ const TaskerList = () => {
         <GigHelperCard
           key={tasker._id}
           userId={tasker._id}
-          profileImage={tasker.profileImage || "/default.jpg"}
-          name={`${tasker.firstName}${tasker.lastName ? ". " + tasker.lastName[0] : ""}`}
-          rate={tasker.ratePerHour ? `$${tasker.ratePerHour}/hr` : (tasker.rateRange ? `$${tasker.rateRange}/hr` : "")}
-          location={tasker.address?.city || tasker.address?.state || ""}
-          bio={tasker.bio || "No bio provided."}
-          onMessage={() => {/* TODO: handle message */}}
+          profileImage={tasker.profileImage || '/default.jpg'}
+          name={`${tasker.firstName}${tasker.lastName ? `. ${tasker.lastName[0]}` : ''}`}
+          rate={
+            tasker.ratePerHour
+              ? `$${tasker.ratePerHour}/hr`
+              : tasker.rateRange
+                ? `$${tasker.rateRange}/hr`
+                : ''
+          }
+          location={tasker.address?.city || tasker.address?.state || ''}
+          bio={tasker.bio || 'No bio provided.'}
+          onMessage={() => {
+            /* TODO: handle message */
+          }}
         />
       ))}
     </div>
   );
 };
 
-export default TaskerList; 
+export default TaskerList;

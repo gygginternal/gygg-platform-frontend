@@ -1,10 +1,11 @@
-import React from "react";
+import React from 'react';
 // import cn from "classnames"; // Removed
-import { Link } from "react-router-dom";
-import styles from "./RecommendedAppliances.module.css";
-import { useQuery } from "@tanstack/react-query";
-import apiClient from "../api/axiosConfig";
-import logger from "../utils/logger";
+import { Link } from 'react-router-dom';
+import styles from './RecommendedAppliances.module.css';
+import { useQuery } from '@tanstack/react-query';
+import apiClient from '../api/axiosConfig';
+import logger from '../utils/logger';
+import PropTypes from 'prop-types';
 
 const RecommendedAppliances = () => {
   const {
@@ -13,29 +14,32 @@ const RecommendedAppliances = () => {
     isError,
     error,
   } = useQuery({
-    queryKey: ["recommendedAppliances"],
+    queryKey: ['recommendedAppliances'],
     queryFn: async () => {
-      const response = await apiClient.get("/applicances/top-match");
+      const response = await apiClient.get('/applicances/top-match');
       return response.data;
     },
-    onError: (err) => {
-      logger.error("Error fetching recommended appliances:", err);
+    onError: err => {
+      logger.error('Error fetching recommended appliances:', err);
     },
   });
 
-  const formatApplianceDescription = (appliance) => {
+  const formatApplianceDescription = appliance => {
     const posterName = [appliance.poster?.firstName, appliance.poster?.lastName]
       .filter(Boolean)
-      .join(" ");
+      .join(' ');
     const location =
-      appliance.poster?.address?.city || appliance.poster?.address?.state || "";
+      appliance.poster?.address?.city || appliance.poster?.address?.state || '';
     return `${posterName}${
-      location ? ` from ${location}` : ""
+      location ? ` from ${location}` : ''
     } needs help with "${appliance.title}"`;
   };
 
   return (
-    <section className={styles.appliancesSection} style={{ marginTop: '1.25rem' }}>
+    <section
+      className={styles.appliancesSection}
+      style={{ marginTop: '1.25rem' }}
+    >
       <div className={styles.sectionHeader}>
         <h4 className={styles.sectionTitleUnderlined}>
           Top matched people applied to your gig
@@ -46,10 +50,10 @@ const RecommendedAppliances = () => {
           <p>Loading recommended applications...</p>
         ) : isError ? (
           <p className={styles.errorMessage}>
-            {error?.message || "Failed to load recommended appliances."}
+            {error?.message || 'Failed to load recommended appliances.'}
           </p>
         ) : recommendedAppliances?.length > 0 ? (
-          recommendedAppliances.map((appliance) => (
+          recommendedAppliances.map(appliance => (
             <div key={appliance.id} className={styles.applianceItem}>
               <div>
                 <p className={styles.applianceDescription}>
@@ -72,6 +76,10 @@ const RecommendedAppliances = () => {
       </div>
     </section>
   );
+};
+
+RecommendedAppliances.propTypes = {
+  // No props to add PropTypes for, but ensure accessibility and remove unused imports if any.
 };
 
 export default RecommendedAppliances;

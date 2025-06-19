@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 // import cn from "classnames"; // No longer needed
-import styles from "./ConversationsList.module.css"; // Your CSS Module
-import apiClient from "../api/axiosConfig"; // Adjust path
-import logger from "../utils/logger"; // Optional, adjust path
-import { useAuth } from "../context/AuthContext"; // Adjust path
-import MessageDesign from "./MessageDesign"; // Import MessageDesign component
+import styles from './ConversationsList.module.css'; // Your CSS Module
+import apiClient from '../api/axiosConfig'; // Adjust path
+import logger from '../utils/logger'; // Optional, adjust path
+import { useAuth } from '../context/AuthContext'; // Adjust path
+import MessageDesign from './MessageDesign'; // Import MessageDesign component
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const ConversationsList = () => {
+const ConversationsList = ({ onSelect }) => {
   const [conversations, setConversations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -30,8 +31,13 @@ const ConversationsList = () => {
     }
   };
 
-  const handleConversationClick = (userId) => {
-    navigate(`/messages/${userId}`);
+  const handleConversationClick = conversation => {
+    if (onSelect) {
+      // Pass contractId and chat partner object to parent
+      onSelect(conversation._id, conversation.otherParty);
+    } else {
+      navigate(`/messages/${conversation._id}`);
+    }
   };
 
   if (loading) {
@@ -46,19 +52,26 @@ const ConversationsList = () => {
     <div className={styles.container}>
       <h2 className={styles.title}>Messages</h2>
       {conversations.length === 0 ? (
-        <div className={styles.emptyState}>
-          No conversations yet
-        </div>
+        <div className={styles.emptyState}>No conversations yet</div>
       ) : (
         <div className={styles.conversationsList}>
-          {conversations.map((conversation) => (
+          {conversations.map(conversation => (
             <div
               key={conversation._id}
+              role="button"
+              tabIndex={0}
+              onClick={() => handleConversationClick(conversation)}
+              onKeyDown={e => {
+                if (e.key === 'Enter' || e.key === ' ')
+                  handleConversationClick(conversation);
+              }}
               className={styles.conversationItem}
-              onClick={() => handleConversationClick(conversation._id)}
+              aria-label={`Open conversation with ${conversation.otherParty.firstName} ${conversation.otherParty.lastName}`}
             >
               <img
-                src={conversation.otherParty.profileImage || '/default-avatar.png'}
+                src={
+                  conversation.otherParty.profileImage || '/default-avatar.png'
+                }
                 alt={`${conversation.otherParty.firstName}'s profile`}
                 className={styles.profileImage}
               />
@@ -66,7 +79,9 @@ const ConversationsList = () => {
                 <div className={styles.nameAndTime}>
                   <h3>{`${conversation.otherParty.firstName} ${conversation.otherParty.lastName}`}</h3>
                   <span className={styles.timestamp}>
-                    {new Date(conversation.lastMessage.timestamp).toLocaleTimeString()}
+                    {new Date(
+                      conversation.lastMessage.timestamp
+                    ).toLocaleTimeString()}
                   </span>
                 </div>
                 <div className={styles.lastMessage}>
@@ -90,6 +105,10 @@ const ConversationsList = () => {
       )}
     </div>
   );
+};
+
+ConversationsList.propTypes = {
+  onSelect: PropTypes.func,
 };
 
 export default ConversationsList;

@@ -2,7 +2,7 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-    font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
 .listItemCard {
@@ -11,7 +11,7 @@
   border-radius: 0.5rem; /* 8px */
   padding: 1rem; /* 16px */
   margin-bottom: 1rem; /* 16px */
-  box-shadow: 0 0.0625rem 0.375rem rgba(0,0,0,0.1); /* 0 1px 6px */
+  box-shadow: 0 0.0625rem 0.375rem rgba(0, 0, 0, 0.1); /* 0 1px 6px */
   transition: box-shadow 0.2s ease-in-out;
   cursor: default;
   box-sizing: border-box; /* Ensure padding/border included in width */
@@ -19,7 +19,7 @@
 }
 
 .listItemCard:hover {
-  box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,0.15); /* 0 4px 12px */
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15); /* 0 4px 12px */
 }
 
 .flexContainer {
@@ -92,103 +92,103 @@
 
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
-    .listItemCard {
-        padding: 0.875rem; /* 14px */
-        border-radius: 0.4rem; /* 6.4px */
-        margin-bottom: 0.875rem; /* 14px */
-    }
-    .flexContainer {
-        gap: 0.5rem; /* 8px */
-    }
-    .avatarMedium {
-        width: 3rem; /* 48px */
-        height: 3rem; /* 48px */
-        margin-right: 0.875rem; /* 14px */
-    }
-    .title {
-        font-size: 1rem; /* 16px */
-    }
-    .textMuted {
-        font-size: 0.8125rem; /* 13px */
-    }
-    .paragraph {
-        font-size: 0.8125rem; /* 13px */
-        margin: 0.2rem 0; /* 3.2px 0 */
-    }
-    .smallText {
-        font-size: 0.6875rem; /* ~11px */
-    }
-    .bio {
-        margin-top: 0.5rem; /* 8px */
-    }
+  .listItemCard {
+    padding: 0.875rem; /* 14px */
+    border-radius: 0.4rem; /* 6.4px */
+    margin-bottom: 0.875rem; /* 14px */
+  }
+  .flexContainer {
+    gap: 0.5rem; /* 8px */
+  }
+  .avatarMedium {
+    width: 3rem; /* 48px */
+    height: 3rem; /* 48px */
+    margin-right: 0.875rem; /* 14px */
+  }
+  .title {
+    font-size: 1rem; /* 16px */
+  }
+  .textMuted {
+    font-size: 0.8125rem; /* 13px */
+  }
+  .paragraph {
+    font-size: 0.8125rem; /* 13px */
+    margin: 0.2rem 0; /* 3.2px 0 */
+  }
+  .smallText {
+    font-size: 0.6875rem; /* ~11px */
+  }
+  .bio {
+    margin-top: 0.5rem; /* 8px */
+  }
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
-    .listItemCard {
-        padding: 0.75rem; /* 12px */
-        border-radius: 0.35rem; /* 5.6px */
-        margin-bottom: 0.75rem; /* 12px */
-    }
-    .flexContainer {
-        /* When items stack, avatar might need to be at top, and text below. */
-        /* If content wraps, you might want to set flex-direction: column here conditionally. */
-        /* For now, keep as row, let wrap handle. */
-        gap: 0.4rem; /* 6.4px */
-    }
-    .avatarMedium {
-        width: 2.5rem; /* 40px */
-        height: 2.5rem; /* 40px */
-        margin-right: 0.75rem; /* 12px */
-    }
-    .title {
-        font-size: 0.9375rem; /* 15px */
-    }
-    .textMuted {
-        font-size: 0.75rem; /* 12px */
-    }
-    .paragraph {
-        font-size: 0.75rem; /* 12px */
-        margin: 0.15rem 0; /* 2.4px 0 */
-    }
-    .smallText {
-        font-size: 0.625rem; /* 10px */
-    }
-    .bio {
-        margin-top: 0.4rem; /* 6.4px */
-    }
+  .listItemCard {
+    padding: 0.75rem; /* 12px */
+    border-radius: 0.35rem; /* 5.6px */
+    margin-bottom: 0.75rem; /* 12px */
+  }
+  .flexContainer {
+    /* When items stack, avatar might need to be at top, and text below. */
+    /* If content wraps, you might want to set flex-direction: column here conditionally. */
+    /* For now, keep as row, let wrap handle. */
+    gap: 0.4rem; /* 6.4px */
+  }
+  .avatarMedium {
+    width: 2.5rem; /* 40px */
+    height: 2.5rem; /* 40px */
+    margin-right: 0.75rem; /* 12px */
+  }
+  .title {
+    font-size: 0.9375rem; /* 15px */
+  }
+  .textMuted {
+    font-size: 0.75rem; /* 12px */
+  }
+  .paragraph {
+    font-size: 0.75rem; /* 12px */
+    margin: 0.15rem 0; /* 2.4px 0 */
+  }
+  .smallText {
+    font-size: 0.625rem; /* 10px */
+  }
+  .bio {
+    margin-top: 0.4rem; /* 6.4px */
+  }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
-    .listItemCard {
-        padding: 0.625rem; /* 10px */
-        border-radius: 0.3rem; /* 4.8px */
-        margin-bottom: 0.625rem; /* 10px */
-    }
-    .flexContainer {
-        gap: 0.3rem; /* 4.8px */
-        align-items: flex-start; /* Align top when potentially wrapping a lot */
-    }
-    .avatarMedium {
-        width: 2.25rem; /* 36px */
-        height: 2.25rem; /* 36px */
-        margin-right: 0.625rem; /* 10px */
-    }
-    .title {
-        font-size: 0.875rem; /* 14px */
-    }
-    .textMuted {
-        font-size: 0.6875rem; /* ~11px */
-    }
-    .paragraph {
-        font-size: 0.6875rem; /* ~11px */
-        margin: 0.1rem 0; /* 1.6px 0 */
-    }
-    .smallText {
-        font-size: 0.5625rem; /* ~9px */
-    }
-    .bio {
-        margin-top: 0.3rem; /* 4.8px */
-    }
+  .listItemCard {
+    padding: 0.625rem; /* 10px */
+    border-radius: 0.3rem; /* 4.8px */
+    margin-bottom: 0.625rem; /* 10px */
+  }
+  .flexContainer {
+    gap: 0.3rem; /* 4.8px */
+    align-items: flex-start; /* Align top when potentially wrapping a lot */
+  }
+  .avatarMedium {
+    width: 2.25rem; /* 36px */
+    height: 2.25rem; /* 36px */
+    margin-right: 0.625rem; /* 10px */
+  }
+  .title {
+    font-size: 0.875rem; /* 14px */
+  }
+  .textMuted {
+    font-size: 0.6875rem; /* ~11px */
+  }
+  .paragraph {
+    font-size: 0.6875rem; /* ~11px */
+    margin: 0.1rem 0; /* 1.6px 0 */
+  }
+  .smallText {
+    font-size: 0.5625rem; /* ~9px */
+  }
+  .bio {
+    margin-top: 0.3rem; /* 4.8px */
+  }
 }

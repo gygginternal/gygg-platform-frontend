@@ -1,7 +1,7 @@
-import { LampDesk } from "lucide-react";
-import { Link } from "react-router-dom"; // Use react-router Link
-import { useAuth } from "../context/AuthContext"; // Adjust path
-import styles from "./TaskerMatchedSidebar.module.css"; // Import CSS module
+import { LampDesk } from 'lucide-react';
+import { Link } from 'react-router-dom'; // Use react-router Link
+import { useAuth } from '../context/AuthContext'; // Adjust path
+import styles from './TaskerMatchedSidebar.module.css'; // Import CSS module
 
 export function TaskerMatchedSidebar() {
   const { user } = useAuth(); // Get logged-in user data
@@ -23,11 +23,7 @@ export function TaskerMatchedSidebar() {
             <h2 className={styles.profileName}>
               {user.fullName || `${user.firstName} ${user.lastName}`}
             </h2>
-            <Link
-              to="/profile"
-              href="#"
-              className={styles.viewProfileLink}
-            >
+            <Link to="/profile" href="#" className={styles.viewProfileLink}>
               View Profile
             </Link>
           </div>

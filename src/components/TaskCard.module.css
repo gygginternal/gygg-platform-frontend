@@ -2,605 +2,858 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-    font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
 /* Task Card Component */
 .taskCard {
-    background-color: #fff;
-    border-radius: 1rem; /* 16px */
-    width: 100%; /* Take full width of its container */
-    max-width: 40.9375rem; /* 655px - Retain original max-width for desktop */
-    height: auto; /* Allow height to adjust to content */
-    display: flex;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    box-sizing: border-box; /* Ensure padding/border included in width */
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+  text-decoration: none;
+  color: inherit;
 }
-  
+
+.taskCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.taskHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: var(--surface-color-light);
+}
+
+.categoryTag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background: var(--primary-color-light);
+  border-radius: 16px;
+  font-size: 0.875rem;
+  color: var(--primary-color);
+}
+
+.categoryIcon {
+  font-family: 'Material Icons';
+  font-size: 1rem;
+}
+
+.statusBadge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.statusBadge.open {
+  background: var(--success-color-light);
+  color: var(--success-color);
+}
+
+.statusBadge.in_progress {
+  background: var(--warning-color-light);
+  color: var(--warning-color);
+}
+
+.statusBadge.completed {
+  background: var(--info-color-light);
+  color: var(--info-color);
+}
+
+.taskImageContainer {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
 .taskImage {
-    object-fit: cover;
-    width: 9.6875rem; /* 155px - Fixed width part of card, scaled down later */
-    height: 11.375rem; /* 182px - Fixed height part of card, scaled down later */
-    flex-shrink: 0; /* Prevent shrinking */
-    aspect-ratio: 155 / 182; /* Maintain aspect ratio */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
-  
+
 .taskContent {
-    flex: 1; /* Takes remaining space */
-    padding: 1.25rem; /* 20px */
-    display: flex; /* Use flex to stack content */
-    flex-direction: column;
-    justify-content: space-between; /* Distribute content vertically */
-    min-width: 0; /* Allows text to truncate */
+  padding: 1rem;
 }
-  
-.taskAuthor {
-    color: #3d4d55;
-    margin-bottom: 0.25rem; /* 4px */
-    font-family: 'Inter', sans-serif;
-    /* Facebook Post text (main body) 14-16px. Using 15px (0.9375rem). */
-    font-size: 0.9375rem; /* 15px */
-    line-height: 1.3;
-}
-  
+
 .taskTitle {
-    color: #3d4d55;
-    margin-bottom: 1.125rem; /* 18px */
-    font-family: 'Inter', sans-serif;
-    /* Facebook Post text (main body) 14-16px. Using 16px (1rem). */
-    font-size: 1rem; /* 16px */
-    font-weight: 600;
-    text-decoration: underline;
-    display: block;
-    line-height: 1.3;
-    overflow: hidden; /* Truncate if long */
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
 }
-  
-.taskRate {
-    color: #d99633;
-    margin-bottom: 1.125rem; /* 18px */
-    font-family: 'Inter', sans-serif;
-    /* Facebook Buttons 13-14px. Using 14px (0.875rem). */
-    font-size: 0.875rem; /* 14px */
-    font-weight: 700;
-    line-height: 1.3;
+
+.taskDescription {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
-  
+
 .taskDetails {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap; /* Allow details to wrap */
-    gap: 0.5rem; /* Space between wrapped items */
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: var(--surface-color-light);
+  border-top: 1px solid var(--border-color);
 }
-  
-.taskLocation {
-    color: #3d4d55;
-    align-items: center;
-    font-family: 'Inter', sans-serif;
-    /* Facebook Buttons 13-14px. Using 14px (0.875rem). */
-    font-size: 0.875rem; /* 14px */
-    display: flex;
-    flex-shrink: 0;
-    min-width: 0; /* Allows text to truncate */
+
+.location,
+.price {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
 }
-  
-.locationIcon {
-    margin-right: 0.375rem; /* 6px */
-    /* Facebook Post action icons 16-20px. Using 1rem (16px). */
-    width: 1rem; /* 16px */
-    height: 1rem; /* 16px */
-    object-fit: contain;
-    flex-shrink: 0;
-    color: #3d4d55; /* Default icon color if SVG */
+
+.icon {
+  font-family: 'Material Icons';
+  font-size: 1.125rem;
+  color: var(--text-secondary);
 }
-  
-.taskTime {
-    color: #536471;
-    font-family: 'Inter', sans-serif;
-    /* Facebook Buttons 13-14px. Using 14px (0.875rem). */
-    font-size: 0.875rem; /* 14px */
-    margin-left: 1.5rem; /* 24px */
-    flex-shrink: 0;
-    min-width: 0; /* Allows text to truncate */
+
+.taskFooter {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: var(--surface-color);
+  border-top: 1px solid var(--border-color);
 }
-  
+
+.providerInfo,
+.postedTime {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
 /* Modal Styling */
 .modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    padding: 1rem; /* Add padding for very small screens */
-    box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.18);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-  
+
 .modalContent {
-    background: white;
-    border-radius: 1rem; /* 16px */
-    width: 90%; /* Responsive width */
-    max-width: 34.375rem; /* 550px - Original max-width */
-    height: auto; /* Allow height to adjust to content */
-    max-height: 90vh; /* Limit max height for tall screens */
-    position: relative;
-    box-shadow: 0.0625rem 0.625rem 1.875rem rgba(0, 0, 0, 0.2); /* 0px 10px 30px */
-    box-sizing: border-box;
-    display: flex; /* To manage internal layout */
-    flex-direction: column;
-    overflow-y: auto; /* Enable scrolling for content if it exceeds max-height */
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.18);
+  max-width: 540px;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: modalIn 0.18s cubic-bezier(0.4, 0, 0.2, 1);
 }
-  
+
+@keyframes modalIn {
+  from {
+    transform: translateY(40px) scale(0.98);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
 .modalHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem; /* 16px */
-    padding: 0.75rem 1rem; /* 12px 16px */
-    background-color: #00bcd4; /* Cyan background */
-    border-radius: 0.75rem 0.75rem 0 0; /* 12px */
-    flex-shrink: 0; /* Prevent header from shrinking */
-}
-  
-.modalHeader h2 {
-    /* Facebook Header (profile names etc.) 16-18px. Using 1.125rem (18px) for modal header. */
-    font-size: 1.125rem; /* 18px */
-    font-family: 'Inter', sans-serif;
-    color: white;
-    font-weight: 700;
-    margin: 0;
-    flex: 1; /* Allow title to take space */
-    min-width: 0; /* Allow title to truncate */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-  
-.closeButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: white;
-    padding: 0.25rem; /* 4px clickable area */
-    flex-shrink: 0;
-    font-size: 1.25rem; /* Icon size if it's text */
-}
-  
-.closeIcon {
-    /* Facebook Top navbar icons 20-24px. Using 1.125rem (18px). */
-    width: 1.125rem; /* 18px */
-    height: 1.125rem; /* 18px */
-    object-fit: contain;
-    color: white; /* For SVG or font icons */
-}
-  
-.mainContent{
-    margin: 0.6rem 0.375rem; /* 9.6px 6px */
-    padding: 0 1rem; /* Add horizontal padding for clarity */
-    flex: 1; /* Allows main content to grow */
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-}
-  
-/* This .taskTitle is duplicated from above, assuming it's for modal's title.
-   I'll keep it separate if you have different styling needs. */
-.mainContent .taskTitle { /* Added .mainContent to differentiate */
-    font-weight: 500;
-    /* Facebook Post text (main body) 14-16px. Using 16px. */
-    font-size: 1rem; /* 16px */
-    padding: 0.125rem 0.375rem 0; /* 2px 6px 0px */
-    color: #3d4d55; /* Default color for task title in modal */
-    text-decoration: none; /* No underline in modal title */
-    display: block; /* Ensure it behaves as a block */
-    margin-bottom: 0.5rem; /* Space below title */
-}
-  
-/* Top Row with name and time */
-.profileTopRow {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.25rem; /* 4px */
-    padding: 0.375rem; /* 6px */
-    flex-wrap: wrap; /* Allow wrapping */
-    gap: 0.5rem; /* Space between wrapped items */
-}
-  
-/* Profile Left (Name and View Profile) */
-.profileLeft {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.3rem; /* Small gap between name/link */
-}
-  
-.mainContent .taskAuthor { /* Added .mainContent to differentiate */
-    /* Facebook Post text (main body) 14-16px. Using 15px. */
-    font-size: 0.9375rem; /* 15px */
-    margin-right: 0.625rem; /* 10px - Add space between author and "View Profile" */
-    color: #3d4d55;
-    white-space: nowrap;
-}
-.mainContent .taskTime { /* Added .mainContent to differentiate */
-    /* Facebook Timestamps and meta info 12px. */
-    font-size: 0.75rem; /* 12px */
-    color: #536471;
-    white-space: nowrap;
-}
-  
-.viewProfile {
-    margin-top: 0.375rem; /* 6px */
-    color: #536471;
-    text-decoration: underline;
-    /* Facebook Buttons 13-14px. Using 14px. */
-    font-size: 0.875rem; /* 14px */
-    font-weight: 600;
-    display: inline-block;
-    transition: color 0.2s ease;
-}
-  
-.viewProfile:hover {
-    color: #3d4d55;
-}
-  
-/* Description */
-.description {
-    /* Facebook Post text (main body) 14-16px. Using 14px. */
-    font-size: 0.875rem; /* 14px */
-    color: #3d4d55;
-    font-family: 'Inter', sans-serif;
-    margin-bottom: 0.625rem; /* 10px */
-    padding: 0.375rem; /* 6px */
-    line-height: 1.5;
-}
-  
-/* Task Row (Location, Rate) */
-.taskRow {
-    display: flex; /* Use flex to ensure they stay on same line */
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 0.75rem; /* 12px */
-    padding: 0.625rem 0.25rem; /* 10px 4px */
-    flex-wrap: wrap; /* Allow wrapping if items are too wide */
-    gap: 0.5rem; /* Space between items in row */
-}
-.taskRow .taskLocation,
-.taskRow .taskRate {
-    flex-basis: auto; /* Remove default flex-basis to allow wrapping */
-    flex-shrink: 0; /* Prevent individual items from shrinking */
-    min-width: 0; /* Allow text ellipsis if needed */
+  background: #10b3c6;
+  color: #fff;
+  padding: 1.1rem 1.5rem 0.7rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-/* Line above Apply */
-.line {
-    margin-top: 0.625rem; /* 10px */
-    margin-bottom: 0.625rem; /* 10px */
-    height: 0.0625rem; /* 1px */
-    background-color: #ddd;
-    width: 100%; /* Ensure it spans full width */
-}
-  
-/* Apply Button */
-.applyButton {
-    background-color: #3D4D55;
-    color: white;
-    padding: 0.625rem 1rem; /* 10px 16px */
-    border: none;
-    border-radius: 0.5rem; /* 8px */
-    cursor: pointer;
-    /* Facebook Buttons 13-14px. Using 14px. */
-    font-size: 0.875rem; /* 14px */
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-    position: absolute; /* Position relative to modalContent */
-    bottom: 1rem; /* 16px */
-    right: 1rem; /* 16px */
-    transition: background 0.2s ease-in-out, transform 0.1s ease;
-    box-sizing: border-box;
-}
-.applyButton:hover {
-    background-color: #2c3e3d; /* Slightly darker shade of the original color */
-    transform: translateY(-0.0625rem); /* -1px */
-}
-.applyButton:active {
-    transform: translateY(0);
+.modalTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
 }
 
+.modalClose {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+.modalSubHeader {
+  padding: 0.5rem 1.5rem 0 1.5rem;
+}
+
+.modalGigLink {
+  color: #222;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.modalProviderRow {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 1.5rem 0.2rem 1.5rem;
+}
+
+.modalProfileImage {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.modalProviderName {
+  font-weight: 600;
+  color: #222;
+}
+
+.modalViewProfile {
+  color: #1a73e8;
+  font-size: 0.98rem;
+  margin-left: 0.5rem;
+  text-decoration: underline;
+}
+
+.modalViewProfileBlack {
+  color: #222;
+  font-size: 0.98rem;
+  margin-left: 0.5rem;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.modalViewProfileBlack:hover {
+  text-decoration: underline;
+}
+
+.modalPostedTime {
+  margin-left: auto;
+  color: #888;
+  font-size: 0.95rem;
+}
+
+.modalDescription {
+  padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+  color: #222;
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.modalDetailsRow {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+  color: #888;
+  font-size: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.modalLocation {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.modalPay {
+  color: #222;
+  font-weight: 500;
+}
+
+.modalPayValue {
+  color: #e48a1f;
+  font-weight: 600;
+  margin-left: 0.2rem;
+}
+
+.modalHours {
+  color: #222;
+  font-weight: 500;
+}
+
+.modalHoursValue {
+  color: #1a73e8;
+  font-weight: 600;
+  margin-left: 0.2rem;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1rem 1.5rem 1.2rem 1.5rem;
+  background: #fff;
+}
+
+.modalCloseButton {
+  background: #fff;
+  color: #222;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.15s;
+}
+
+.modalCloseButton:hover {
+  background: #f5f5f5;
+}
+
+.modalApplyButton {
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.15s;
+}
+
+.modalApplyButton:hover {
+  background: #10b3c6;
+}
+
+.modalFeedback {
+  color: #1a73e8;
+  font-size: 1rem;
+  padding: 0.5rem 1.5rem 0 1.5rem;
+  font-weight: 500;
+}
+
+.modalGigTitle {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 0.2rem;
+  margin-top: 0.2rem;
+  text-align: left;
+}
 
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
-    .taskCard {
-        max-width: 35rem; /* 560px */
-        border-radius: 0.875rem; /* 14px */
-    }
-    .taskImage {
-        width: 8.75rem; /* 140px */
-        height: 10.25rem; /* 164px */
-    }
-    .taskContent {
-        padding: 1rem; /* 16px */
-    }
-    .taskAuthor {
-        font-size: 0.875rem; /* 14px */
-    }
-    .taskTitle {
-        font-size: 0.9375rem; /* 15px */
-        margin-bottom: 1rem; /* 16px */
-    }
-    .taskRate {
-        font-size: 0.8125rem; /* 13px */
-        margin-bottom: 1rem; /* 16px */
-    }
-    .taskLocation, .taskTime {
-        font-size: 0.8125rem; /* 13px */
-    }
-    .taskTime {
-        margin-left: 1.25rem; /* 20px */
-    }
-    .locationIcon {
-        width: 0.9375rem; /* 15px */
-        height: 0.9375rem; /* 15px */
-    }
+  .taskCard {
+    max-width: 35rem; /* 560px */
+    border-radius: 0.875rem; /* 14px */
+  }
+  .taskImageContainer {
+    width: 8.75rem; /* 140px */
+    height: 10.25rem; /* 164px */
+  }
+  .taskContent {
+    padding: 1rem; /* 16px */
+  }
+  .taskAuthor {
+    font-size: 0.875rem; /* 14px */
+  }
+  .taskTitle {
+    font-size: 0.9375rem; /* 15px */
+    margin-bottom: 1rem; /* 16px */
+  }
+  .taskRate {
+    font-size: 0.8125rem; /* 13px */
+    margin-bottom: 1rem; /* 16px */
+  }
+  .taskLocation,
+  .taskTime {
+    font-size: 0.8125rem; /* 13px */
+  }
+  .taskTime {
+    margin-left: 1.25rem; /* 20px */
+  }
+  .locationIcon {
+    width: 0.9375rem; /* 15px */
+    height: 0.9375rem; /* 15px */
+  }
 
-    /* Modal */
-    .modalContent {
-        max-width: 30rem; /* 480px */
-        border-radius: 1rem; /* 16px */
-    }
-    .modalHeader {
-        padding: 0.625rem 0.875rem; /* 10px 14px */
-        margin-bottom: 0.875rem; /* 14px */
-        border-radius: 0.875rem 0.875rem 0 0; /* 14px */
-    }
-    .modalHeader h2 {
-        font-size: 1rem; /* 16px */
-    }
-    .closeButton {
-        padding: 0.2rem; /* 3.2px */
-    }
-    .closeIcon {
-        width: 1rem; /* 16px */
-        height: 1rem; /* 16px */
-    }
-    .mainContent {
-        margin: 0.5rem 0.3rem; /* 8px 4.8px */
-        padding: 0 0.8rem; /* 12.8px */
-    }
-    .mainContent .taskTitle {
-        font-size: 0.9375rem; /* 15px */
-    }
-    .mainContent .taskAuthor {
-        font-size: 0.875rem; /* 14px */
-        margin-right: 0.5rem; /* 8px */
-    }
-    .mainContent .taskTime {
-        font-size: 0.6875rem; /* ~11px */
-    }
-    .viewProfile {
-        font-size: 0.8125rem; /* 13px */
-        margin-top: 0.3rem; /* 4.8px */
-    }
-    .description {
-        font-size: 0.8125rem; /* 13px */
-        margin-bottom: 0.5rem; /* 8px */
-        padding: 0.3rem; /* 4.8px */
-    }
-    .taskRow {
-        margin-top: 0.625rem; /* 10px */
-        padding: 0.5rem 0.25rem; /* 8px 4px */
-    }
-    .line {
-        margin-top: 0.5rem; /* 8px */
-        margin-bottom: 0.5rem; /* 8px */
-    }
-    .applyButton {
-        padding: 0.5rem 0.875rem; /* 8px 14px */
-        font-size: 0.8125rem; /* 13px */
-        bottom: 0.8rem; /* 12.8px */
-        right: 0.8rem; /* 12.8px */
-    }
+  /* Modal */
+  .modalContent {
+    max-width: 30rem; /* 480px */
+    border-radius: 1rem; /* 16px */
+  }
+  .modalHeader {
+    padding: 0.625rem 0.875rem; /* 10px 14px */
+    margin-bottom: 0.875rem; /* 14px */
+    border-radius: 0.875rem 0.875rem 0 0; /* 14px */
+  }
+  .modalHeader h2 {
+    font-size: 1rem; /* 16px */
+  }
+  .closeButton {
+    padding: 0.2rem; /* 3.2px */
+  }
+  .closeIcon {
+    width: 1rem; /* 16px */
+    height: 1rem; /* 16px */
+  }
+  .mainContent {
+    margin: 0.5rem 0.3rem; /* 8px 4.8px */
+    padding: 0 0.8rem; /* 12.8px */
+  }
+  .mainContent .taskTitle {
+    font-size: 0.9375rem; /* 15px */
+  }
+  .mainContent .taskAuthor {
+    font-size: 0.875rem; /* 14px */
+    margin-right: 0.5rem; /* 8px */
+  }
+  .mainContent .taskTime {
+    font-size: 0.6875rem; /* ~11px */
+  }
+  .viewProfile {
+    font-size: 0.8125rem; /* 13px */
+    margin-top: 0.3rem; /* 4.8px */
+  }
+  .description {
+    font-size: 0.8125rem; /* 13px */
+    margin-bottom: 0.5rem; /* 8px */
+    padding: 0.3rem; /* 4.8px */
+  }
+  .taskRow {
+    margin-top: 0.625rem; /* 10px */
+    padding: 0.5rem 0.25rem; /* 8px 4px */
+  }
+  .line {
+    margin-top: 0.5rem; /* 8px */
+    margin-bottom: 0.5rem; /* 8px */
+  }
+  .applyButton {
+    padding: 0.5rem 0.875rem; /* 8px 14px */
+    font-size: 0.8125rem; /* 13px */
+    bottom: 0.8rem; /* 12.8px */
+    right: 0.8rem; /* 12.8px */
+  }
 }
 
 /* @media (max-width: 768px) - Tablets */
 @media (max-width: 768px) {
-    .taskCard {
-        max-width: 95%; /* Wider on tablet */
-        border-radius: 0.75rem; /* 12px */
-        flex-direction: column; /* Stack image and content */
-        height: auto; /* Ensure height is auto when stacked */
-    }
-    .taskImage {
-        width: 100%; /* Image takes full width when stacked */
-        height: 9rem; /* 144px - Fixed height for stacked image */
-        border-radius: 0.75rem 0.75rem 0 0; /* Rounded top corners */
-    }
-    .taskContent {
-        padding: 0.8rem; /* 12.8px */
-    }
-    .taskAuthor {
-        font-size: 0.8125rem; /* 13px */
-    }
-    .taskTitle {
-        font-size: 0.875rem; /* 14px */
-        margin-bottom: 0.8rem; /* 12.8px */
-    }
-    .taskRate {
-        font-size: 0.75rem; /* 12px */
-        margin-bottom: 0.8rem; /* 12.8px */
-    }
-    .taskLocation, .taskTime {
-        font-size: 0.75rem; /* 12px */
-    }
-    .taskTime {
-        margin-left: 1rem; /* 16px */
-    }
-    .locationIcon {
-        width: 0.875rem; /* 14px */
-        height: 0.875rem; /* 14px */
-    }
+  .taskCard {
+    max-width: 95%; /* Wider on tablet */
+    border-radius: 0.75rem; /* 12px */
+    flex-direction: column; /* Stack image and content */
+    height: auto; /* Ensure height is auto when stacked */
+  }
+  .taskImageContainer {
+    width: 100%; /* Image takes full width when stacked */
+    height: 160px; /* 160px - Fixed height for stacked image */
+    border-radius: 0.75rem 0.75rem 0 0; /* Rounded top corners */
+  }
+  .taskContent {
+    padding: 0.8rem; /* 12.8px */
+  }
+  .taskAuthor {
+    font-size: 0.8125rem; /* 13px */
+  }
+  .taskTitle {
+    font-size: 1.125rem; /* 18px */
+    margin-bottom: 0.8rem; /* 12.8px */
+  }
+  .taskRate {
+    font-size: 0.75rem; /* 12px */
+    margin-bottom: 0.8rem; /* 12.8px */
+  }
+  .taskLocation,
+  .taskTime {
+    font-size: 0.75rem; /* 12px */
+  }
+  .taskTime {
+    margin-left: 1rem; /* 16px */
+  }
+  .locationIcon {
+    width: 0.875rem; /* 14px */
+    height: 0.875rem; /* 14px */
+  }
 
-    /* Modal */
-    .modalContent {
-        max-width: 95%; /* Wider on tablet */
-        border-radius: 0.8rem; /* 12.8px */
-    }
-    .modalHeader {
-        padding: 0.5rem 0.75rem; /* 8px 12px */
-        margin-bottom: 0.75rem; /* 12px */
-        border-radius: 0.75rem 0.75rem 0 0; /* 12px */
-    }
-    .modalHeader h2 {
-        font-size: 0.9375rem; /* 15px */
-    }
-    .closeButton {
-        padding: 0.15rem; /* 2.4px */
-    }
-    .closeIcon {
-        width: 0.9375rem; /* 15px */
-        height: 0.9375rem; /* 15px */
-    }
-    .mainContent {
-        margin: 0.4rem 0.25rem; /* 6.4px 4px */
-        padding: 0 0.625rem; /* 10px */
-    }
-    .mainContent .taskTitle {
-        font-size: 0.875rem; /* 14px */
-        margin-bottom: 0.4rem; /* 6.4px */
-    }
-    .mainContent .taskAuthor {
-        font-size: 0.8125rem; /* 13px */
-        margin-right: 0.4rem; /* 6.4px */
-    }
-    .mainContent .taskTime {
-        font-size: 0.625rem; /* 10px */
-    }
-    .viewProfile {
-        font-size: 0.75rem; /* 12px */
-        margin-top: 0.25rem; /* 4px */
-    }
-    .description {
-        font-size: 0.75rem; /* 12px */
-        margin-bottom: 0.4rem; /* 6.4px */
-        padding: 0.25rem; /* 4px */
-    }
-    .taskRow {
-        margin-top: 0.5rem; /* 8px */
-        padding: 0.4rem 0.2rem; /* 6.4px 3.2px */
-    }
-    .line {
-        margin-top: 0.4rem; /* 6.4px */
-        margin-bottom: 0.4rem; /* 6.4px */
-    }
-    .applyButton {
-        padding: 0.4rem 0.7rem; /* 6.4px 11.2px */
-        font-size: 0.75rem; /* 12px */
-        bottom: 0.6rem; /* 9.6px */
-        right: 0.6rem; /* 9.6px */
-    }
+  /* Modal */
+  .modalContent {
+    max-width: 95%; /* Wider on tablet */
+    border-radius: 0.8rem; /* 12.8px */
+  }
+  .modalHeader {
+    padding: 0.5rem 0.75rem; /* 8px 12px */
+    margin-bottom: 0.75rem; /* 12px */
+    border-radius: 0.75rem 0.75rem 0 0; /* 12px */
+  }
+  .modalHeader h2 {
+    font-size: 0.9375rem; /* 15px */
+  }
+  .closeButton {
+    padding: 0.15rem; /* 2.4px */
+  }
+  .closeIcon {
+    width: 0.9375rem; /* 15px */
+    height: 0.9375rem; /* 15px */
+  }
+  .mainContent {
+    margin: 0.4rem 0.25rem; /* 6.4px 4px */
+    padding: 0 0.625rem; /* 10px */
+  }
+  .mainContent .taskTitle {
+    font-size: 0.875rem; /* 14px */
+    margin-bottom: 0.4rem; /* 6.4px */
+  }
+  .mainContent .taskAuthor {
+    font-size: 0.8125rem; /* 13px */
+    margin-right: 0.4rem; /* 6.4px */
+  }
+  .mainContent .taskTime {
+    font-size: 0.625rem; /* 10px */
+  }
+  .viewProfile {
+    font-size: 0.75rem; /* 12px */
+    margin-top: 0.25rem; /* 4px */
+  }
+  .description {
+    font-size: 0.75rem; /* 12px */
+    margin-bottom: 0.4rem; /* 6.4px */
+    padding: 0.25rem; /* 4px */
+  }
+  .taskRow {
+    margin-top: 0.5rem; /* 8px */
+    padding: 0.4rem 0.2rem; /* 6.4px 3.2px */
+  }
+  .line {
+    margin-top: 0.4rem; /* 6.4px */
+    margin-bottom: 0.4rem; /* 6.4px */
+  }
+  .applyButton {
+    padding: 0.4rem 0.7rem; /* 6.4px 11.2px */
+    font-size: 0.75rem; /* 12px */
+    bottom: 0.6rem; /* 9.6px */
+    right: 0.6rem; /* 9.6px */
+  }
 }
 
 /* @media (max-width: 480px) - Mobile Phones */
 @media (max-width: 480px) {
-    .taskCard {
-        max-width: 100%; /* Full width */
-        border-radius: 0.625rem; /* 10px */
-    }
-    .taskImage {
-        height: 7rem; /* 112px */
-        border-radius: 0.625rem 0.625rem 0 0; /* Rounded top corners */
-    }
-    .taskContent {
-        padding: 0.6rem; /* 9.6px */
-    }
-    .taskAuthor {
-        font-size: 0.75rem; /* 12px */
-    }
-    .taskTitle {
-        font-size: 0.8125rem; /* 13px */
-        margin-bottom: 0.6rem; /* 9.6px */
-    }
-    .taskRate {
-        font-size: 0.6875rem; /* ~11px */
-        margin-bottom: 0.6rem; /* 9.6px */
-    }
-    .taskLocation, .taskTime {
-        font-size: 0.6875rem; /* ~11px */
-    }
-    .taskTime {
-        margin-left: 0.8rem; /* 12.8px */
-    }
-    .locationIcon {
-        width: 0.8125rem; /* 13px */
-        height: 0.8125rem; /* 13px */
-    }
+  .taskCard {
+    max-width: 100%; /* Full width */
+    border-radius: 0.625rem; /* 10px */
+  }
+  .taskImageContainer {
+    height: 7rem; /* 112px */
+    border-radius: 0.625rem 0.625rem 0 0; /* Rounded top corners */
+  }
+  .taskContent {
+    padding: 0.6rem; /* 9.6px */
+  }
+  .taskAuthor {
+    font-size: 0.75rem; /* 12px */
+  }
+  .taskTitle {
+    font-size: 0.8125rem; /* 13px */
+    margin-bottom: 0.6rem; /* 9.6px */
+  }
+  .taskRate {
+    font-size: 0.6875rem; /* ~11px */
+    margin-bottom: 0.6rem; /* 9.6px */
+  }
+  .taskLocation,
+  .taskTime {
+    font-size: 0.6875rem; /* ~11px */
+  }
+  .taskTime {
+    margin-left: 0.8rem; /* 12.8px */
+  }
+  .locationIcon {
+    width: 0.8125rem; /* 13px */
+    height: 0.8125rem; /* 13px */
+  }
 
-    /* Modal */
-    .modalContent {
-        max-width: 95%; /* Wider on tiny screens */
-        border-radius: 0.625rem; /* 10px */
-    }
-    .modalHeader {
-        padding: 0.4rem 0.625rem; /* 6.4px 10px */
-        margin-bottom: 0.625rem; /* 10px */
-        border-radius: 0.625rem 0.625rem 0 0; /* 10px */
-    }
-    .modalHeader h2 {
-        font-size: 0.875rem; /* 14px */
-    }
-    .closeButton {
-        padding: 0.1rem; /* 1.6px */
-    }
-    .closeIcon {
-        width: 0.875rem; /* 14px */
-        height: 0.875rem; /* 14px */
-    }
-    .mainContent {
-        margin: 0.3rem 0.15rem; /* 4.8px 2.4px */
-        padding: 0 0.5rem; /* 8px */
-    }
-    .mainContent .taskTitle {
-        font-size: 0.8125rem; /* 13px */
-        margin-bottom: 0.3rem; /* 4.8px */
-    }
-    .mainContent .taskAuthor {
-        font-size: 0.75rem; /* 12px */
-        margin-right: 0.3rem; /* 4.8px */
-    }
-    .mainContent .taskTime {
-        font-size: 0.5625rem; /* ~9px */
-    }
-    .viewProfile {
-        font-size: 0.6875rem; /* ~11px */
-        margin-top: 0.2rem; /* 3.2px */
-    }
-    .description {
-        font-size: 0.6875rem; /* ~11px */
-        margin-bottom: 0.3rem; /* 4.8px */
-        padding: 0.2rem; /* 3.2px */
-    }
-    .taskRow {
-        margin-top: 0.4rem; /* 6.4px */
-        padding: 0.3rem 0.15rem; /* 4.8px 2.4px */
-    }
-    .line {
-        margin-top: 0.3rem; /* 4.8px */
-        margin-bottom: 0.3rem; /* 4.8px */
-    }
-    .applyButton {
-        padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
-        font-size: 0.6875rem; /* ~11px */
-        bottom: 0.5rem; /* 8px */
-        right: 0.5rem; /* 8px */
-    }
+  /* Modal */
+  .modalContent {
+    max-width: 95%; /* Wider on tiny screens */
+    border-radius: 0.625rem; /* 10px */
+  }
+  .modalHeader {
+    padding: 0.4rem 0.625rem; /* 6.4px 10px */
+    margin-bottom: 0.625rem; /* 10px */
+    border-radius: 0.625rem 0.625rem 0 0; /* 10px */
+  }
+  .modalHeader h2 {
+    font-size: 0.875rem; /* 14px */
+  }
+  .closeButton {
+    padding: 0.1rem; /* 1.6px */
+  }
+  .closeIcon {
+    width: 0.875rem; /* 14px */
+    height: 0.875rem; /* 14px */
+  }
+  .mainContent {
+    margin: 0.3rem 0.15rem; /* 4.8px 2.4px */
+    padding: 0 0.5rem; /* 8px */
+  }
+  .mainContent .taskTitle {
+    font-size: 0.8125rem; /* 13px */
+    margin-bottom: 0.3rem; /* 4.8px */
+  }
+  .mainContent .taskAuthor {
+    font-size: 0.75rem; /* 12px */
+    margin-right: 0.3rem; /* 4.8px */
+  }
+  .mainContent .taskTime {
+    font-size: 0.5625rem; /* ~9px */
+  }
+  .viewProfile {
+    font-size: 0.6875rem; /* ~11px */
+    margin-top: 0.2rem; /* 3.2px */
+  }
+  .description {
+    font-size: 0.6875rem; /* ~11px */
+    margin-bottom: 0.3rem; /* 4.8px */
+    padding: 0.2rem; /* 3.2px */
+  }
+  .taskRow {
+    margin-top: 0.4rem; /* 6.4px */
+    padding: 0.3rem 0.15rem; /* 4.8px 2.4px */
+  }
+  .line {
+    margin-top: 0.3rem; /* 4.8px */
+    margin-bottom: 0.3rem; /* 4.8px */
+  }
+  .applyButton {
+    padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
+    font-size: 0.6875rem; /* ~11px */
+    bottom: 0.5rem; /* 8px */
+    right: 0.5rem; /* 8px */
+  }
+}
+
+.card {
+  display: flex;
+  align-items: flex-start;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+  gap: 1.25rem;
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s;
+  cursor: pointer;
+}
+.card:hover {
+  box-shadow:
+    0 6px 24px rgba(16, 179, 198, 0.18),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px) scale(1.015);
+}
+
+.cardTitle {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #222;
+  margin-bottom: 0.25rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.floatingLink {
+  position: fixed;
+  left: 50%;
+  bottom: 12vh;
+  transform: translateX(-50%) scale(1);
+  background: #222;
+  color: #fff;
+  padding: 0.75rem 2.5rem;
+  border-radius: 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  box-shadow:
+    0 8px 32px rgba(16, 179, 198, 0.18),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 2000;
+  opacity: 1;
+  animation: floatingLinkIn 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    background 0.18s,
+    color 0.18s,
+    transform 0.18s;
+  cursor: pointer;
+}
+.floatingLink:hover {
+  background: #10b3c6;
+  color: #fff;
+  transform: translateX(-50%) scale(1.04);
+}
+@keyframes floatingLinkIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.98) translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+.profileImage {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.name {
+  font-weight: 600;
+  color: #222;
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #1a73e8;
+  text-decoration: underline;
+  margin-bottom: 0.25rem;
+}
+
+.rate {
+  color: #e48a1f;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  color: #888;
+  font-size: 0.95rem;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.icon {
+  font-size: 1rem;
+}
+
+.time {
+  margin-left: auto;
+}
+
+/* Responsive: 1024px */
+@media (max-width: 1024px) {
+  .card {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .profileImage {
+    width: 56px;
+    height: 56px;
+  }
+  .title {
+    font-size: 1rem;
+  }
+}
+
+/* Responsive: 768px */
+@media (max-width: 768px) {
+  .card {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+  .profileImage {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 0.5rem auto;
+  }
+  .content {
+    gap: 0.15rem;
+  }
+  .title {
+    font-size: 0.98rem;
+  }
+  .meta {
+    font-size: 0.9rem;
+    gap: 1rem;
+  }
+}
+
+/* Responsive: 480px */
+@media (max-width: 480px) {
+  .card {
+    padding: 0.5rem;
+    gap: 0.5rem;
+    border-radius: 10px;
+  }
+  .profileImage {
+    width: 40px;
+    height: 40px;
+  }
+  .title {
+    font-size: 0.92rem;
+  }
+  .rate {
+    font-size: 0.95rem;
+  }
+  .meta {
+    font-size: 0.85rem;
+    gap: 0.5rem;
+  }
+}
+
+.gigLink {
+  color: #222;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+.gigLink:hover {
+  text-decoration: underline;
 }

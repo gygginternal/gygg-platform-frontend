@@ -2,7 +2,7 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-    font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
 .badge {
@@ -21,46 +21,46 @@
 /* Status-specific styles */
 .completed {
   background-color: #eff6ff; /* blue-50 */
-  color: #1d4ed8;            /* blue-700 */
-  border-color: #bfdbfe;     /* blue-200 */
+  color: #1d4ed8; /* blue-700 */
+  border-color: #bfdbfe; /* blue-200 */
 }
 
 .active {
   background-color: #ecfdf5; /* green-50 */
-  color: #047857;            /* green-700 */
-  border-color: #bbf7d0;     /* green-200 */
+  color: #047857; /* green-700 */
+  border-color: #bbf7d0; /* green-200 */
 }
 
 .cancelled,
 .rejected {
   background-color: #fef2f2; /* red-50 */
-  color: #b91c1c;            /* red-700 */
-  border-color: #fecaca;     /* red-200 */
+  color: #b91c1c; /* red-700 */
+  border-color: #fecaca; /* red-200 */
 }
 
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
-    .badge {
-        padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
-        border-radius: 0.4rem; /* 6.4px */
-        font-size: 0.8125rem; /* 13px */
-    }
+  .badge {
+    padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
+    border-radius: 0.4rem; /* 6.4px */
+    font-size: 0.8125rem; /* 13px */
+  }
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
-    .badge {
-        padding: 0.35rem 0.7rem; /* 5.6px 11.2px */
-        border-radius: 0.35rem; /* 5.6px */
-        font-size: 0.75rem; /* 12px */
-    }
+  .badge {
+    padding: 0.35rem 0.7rem; /* 5.6px 11.2px */
+    border-radius: 0.35rem; /* 5.6px */
+    font-size: 0.75rem; /* 12px */
+  }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
-    .badge {
-        padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
-        border-radius: 0.3rem; /* 4.8px */
-        font-size: 0.6875rem; /* ~11px */
-    }
+  .badge {
+    padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
+    border-radius: 0.3rem; /* 4.8px */
+    font-size: 0.6875rem; /* ~11px */
+  }
 }

@@ -5,86 +5,76 @@
 /* This can be set on body or a top-level container.
    For this specific module, applying it here makes sense. */
 :root {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 .profilePageContainer {
-    display: flex;
-    justify-content: center;
-    padding: 2.5rem 1.25rem; /* 40px 20px */
-    background-color: #f7f7f7;
-    min-height: calc(100vh - 4rem); /* Adjust based on header/footer height */
-    box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  padding-top: 5.25rem; /* 84px - Account for fixed header */
+  min-height: calc(100vh - 5.25rem);
+  background-color: #f7f7f7;
+  box-sizing: border-box;
 }
 
 .content {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem; /* 20px */
-    max-width: 56.25rem; /* 900px */
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 56.25rem; /* 900px */
+  width: 100%;
+  padding: 1.25rem;
+  margin: 0 auto;
 }
 
 .pageStateContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 200px; /* Or whatever height makes sense for loading/error messages */
+  min-height: 200px;
   font-size: 1.1rem;
   color: #555;
 }
 
-/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+/* Responsive adjustments */
 @media (max-width: 1024px) {
-    .content {
-        /* Sidebar likely still present */
-        margin-left: 300px; /* Maintain margin for sidebar */
-        max-width: 950px; /* Slightly reduced max-width */
-        margin-right: auto; /* Center in remaining space */
-        margin-top: 1rem; /* 16px */
-        margin-bottom: 1.5rem; /* 24px */
-        gap: 1.25rem; /* 20px */
-        padding: 0 1rem; /* 16px horizontal padding */
-        padding-bottom: 1.5rem; /* 24px */
-    }
-    .pageStateContainer {
-        /* Keep header size within range */
-        font-size: 1.0625rem; /* 17px */
-        min-height: 15rem; /* 240px */
-    }
+  .profilePageContainer {
+    padding-top: 4.5rem; /* 72px */
+    min-height: calc(100vh - 4.5rem);
+  }
+
+  .content {
+    max-width: 950px;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .pageStateContainer {
+    font-size: 1.0625rem;
+    min-height: 15rem;
+  }
 }
 
-/* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
-    .content {
-        /* At this breakpoint, sidebar might collapse or move. */
-        /* Remove fixed margin-left to allow content to take full width */
-        margin-left: auto; /* Reset margin-left */
-        max-width: 100%; /* Take full width */
-        margin: 0.75rem auto; /* 12px auto */
-        gap: 1rem; /* 16px */
-        padding: 0 0.9375rem; /* 15px horizontal padding (from original) */
-        padding-bottom: 1.25rem; /* 20px */
-    }
-    .pageStateContainer {
-        /* Facebook Post text (main body) 14-16px */
-        font-size: 0.9375rem; /* 15px */
-        min-height: 12.5rem; /* 200px */
-    }
+  .profilePageContainer {
+    padding-top: 4rem; /* 64px */
+    min-height: calc(100vh - 4rem);
+  }
+
+  .content {
+    padding: 0.875rem;
+    gap: 0.875rem;
+  }
 }
 
-/* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
-    .content {
-        margin: 0.5rem auto; /* 8px auto */
-        gap: 0.75rem; /* 12px */
-        padding: 0 0.625rem; /* 10px horizontal padding */
-        padding-bottom: 1rem; /* 16px */
-    }
-    .pageStateContainer {
-        /* Facebook Comments 13-14px */
-        font-size: 0.875rem; /* 14px */
-        min-height: 9.375rem; /* 150px */
-        padding: 0.75rem; /* 12px */
-    }
+  .profilePageContainer {
+    padding-top: 3.5rem; /* 56px */
+    min-height: calc(100vh - 3.5rem);
+  }
+
+  .content {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
 }

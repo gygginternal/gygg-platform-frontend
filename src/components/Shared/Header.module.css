@@ -2,7 +2,7 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-    font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
 .header {
@@ -29,12 +29,12 @@
   max-height: 3.5rem; /* Max height to fit within header (e.g., 56px) */
 }
 
-.logoLink { /* Added to ensure logo img doesn't have default link styles */
+.logoLink {
+  /* Added to ensure logo img doesn't have default link styles */
   display: flex;
   align-items: center;
   flex-shrink: 0; /* Prevent logo from shrinking */
 }
-
 
 .menuButton {
   background: none;
@@ -127,14 +127,15 @@
   flex-shrink: 0;
 }
 
-.iconButton { /* Base style for header control buttons */
-    background: none;
-    border: none;
-    padding: 0.25rem; /* 4px clickable area */
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.iconButton {
+  /* Base style for header control buttons */
+  background: none;
+  border: none;
+  padding: 0.25rem; /* 4px clickable area */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .headerControls img {
@@ -147,15 +148,17 @@
   flex-shrink: 0;
 }
 /* Specific overrides for size if different */
-.headerControls .iconButton:nth-child(1) img { /* Notification icon */
-    width: 1.5rem; /* 24px (adjust from 28px to fit FB guidelines) */
-    height: 1.5rem; /* 24px */
+.headerControls .iconButton:nth-child(1) img {
+  /* Notification icon */
+  width: 1.5rem; /* 24px (adjust from 28px to fit FB guidelines) */
+  height: 1.5rem; /* 24px */
 }
-.headerControls .iconButton:nth-child(2) img { /* Profile icon (assuming order) */
-    /* Facebook Profile pic thumbnails: 32-40px. Using 36px (2.25rem). */
-    width: 2.25rem; /* 36px */
-    height: 2.25rem; /* 36px */
-    border-radius: 50%; /* Added for profile image */
+.headerControls .iconButton:nth-child(2) img {
+  /* Profile icon (assuming order) */
+  /* Facebook Profile pic thumbnails: 32-40px. Using 36px (2.25rem). */
+  width: 2.25rem; /* 36px */
+  height: 2.25rem; /* 36px */
+  border-radius: 50%; /* Added for profile image */
 }
 
 /* Notification Dot */
@@ -174,50 +177,82 @@
   position: relative;
 }
 
-.dropdown {
+.notificationDropdown {
   position: absolute;
-  top: 2.5rem; /* 40px */
+  top: 2.5rem;
   right: 0;
-  background-color: #fff;
-  padding: 0.625rem; /* 10px */
-  border-radius: 0.5rem; /* 8px */
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* 0 4px 8px */
-  width: 10rem; /* 160px */
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  width: 22rem;
+  max-width: 90vw;
+  z-index: 101;
+  padding: 0;
+  border: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
-  border: 0.0625rem solid #ddd; /* 1px */
-  z-index: 101; /* Above header */
 }
-
-.dropdownItem {
-  display: flex;
-  align-items: center;
-  gap: 0.625rem; /* 10px */
-  padding: 0.3125rem 0.5rem; /* 5px 8px */
-  cursor: pointer;
-  text-decoration: none; /* For Link component */
-  transition: background-color 0.2s ease;
+.notificationHeader {
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 1rem 1.5rem 0.5rem 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+  background: #fafbfc;
 }
-
-.dropdownItem img {
-  /* Facebook Comment/reaction icons: 16px. Using 1rem. */
-  width: 1rem; /* 16px */
-  height: 1rem; /* 16px */
-  object-fit: contain; /* Ensure icons look good */
-  flex-shrink: 0;
-}
-
-.dropdownItem p {
-  /* Facebook Comments 13-14px */
-  font-size: 0.875rem; /* 14px */
+.notificationList {
+  max-height: 350px;
+  overflow-y: auto;
+  padding: 0;
   margin: 0;
-  color: #333; /* Default text color */
+  list-style: none;
 }
-
-.dropdownItem:hover {
-  background-color: #f0f0f0;
+.notificationUnread {
+  background: #f0f6ff;
+  font-weight: 600;
 }
-
+.notificationRead {
+  background: #fff;
+  color: #888;
+}
+.notificationList li {
+  padding: 0.9rem 1.5rem 0.7rem 1.5rem;
+  border-bottom: 1px solid #f5f5f5;
+  cursor: pointer;
+  transition: background 0.18s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.notificationList li:last-child {
+  border-bottom: none;
+}
+.notificationList li:hover {
+  background: #eaf3ff;
+}
+.notificationTime {
+  font-size: 0.8rem;
+  color: #b0b8c1;
+  margin-top: 0.1rem;
+}
+.notificationEmpty {
+  padding: 2rem 1.5rem;
+  color: #b0b8c1;
+  text-align: center;
+}
+.markAllReadBtn {
+  background: none;
+  border: none;
+  color: #00aaba;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.18s;
+}
+.markAllReadBtn:hover {
+  color: #008b8b;
+}
 
 /* Responsive Adjustments */
 
@@ -265,7 +300,8 @@
     width: 1.25rem; /* 20px */
     height: 1.25rem; /* 20px */
   }
-  .headerControls .iconButton:nth-child(2) img { /* Profile icon */
+  .headerControls .iconButton:nth-child(2) img {
+    /* Profile icon */
     width: 2rem; /* 32px */
     height: 2rem; /* 32px */
   }
@@ -334,7 +370,8 @@
     width: 1.125rem; /* 18px */
     height: 1.125rem; /* 18px */
   }
-  .headerControls .iconButton:nth-child(2) img { /* Profile icon */
+  .headerControls .iconButton:nth-child(2) img {
+    /* Profile icon */
     width: 1.75rem; /* 28px (smaller for mobile) */
     height: 1.75rem; /* 28px */
   }
@@ -373,7 +410,8 @@
     width: 1.25rem; /* 20px */
     height: 1.25rem; /* 20px */
   }
-  .headerControls .iconButton:nth-child(2) img { /* Profile icon */
+  .headerControls .iconButton:nth-child(2) img {
+    /* Profile icon */
     width: 2rem; /* 32px */
     height: 2rem; /* 32px */
   }
@@ -381,44 +419,45 @@
 
 /* @media (max-width: 480px) - Mobile Phones */
 @media (max-width: 480px) {
-    .header {
-        height: 3.5rem; /* 56px */
-        padding: 0 0.5rem; /* 0 8px */
-    }
-    .headerLogo {
-        width: 4rem; /* 64px */
-        max-height: 2.25rem; /* 36px */
-        margin-left: 0.5rem; /* 8px */
-    }
-    .menuIcon {
-        width: 1rem; /* 16px */
-        height: 1rem; /* 16px */
-    }
-    .headerControls {
-        gap: 0.6rem; /* 9.6px */
-    }
-    .headerControls img {
-        width: 1rem; /* 16px */
-        height: 1rem; /* 16px */
-    }
-    .headerControls .iconButton:nth-child(2) img { /* Profile icon */
-        width: 1.625rem; /* 26px */
-        height: 1.625rem; /* 26px */
-    }
-    .dropdown {
-        top: 1.75rem; /* 28px */
-        width: 7rem; /* 112px */
-        padding: 0.3rem; /* 4.8px */
-    }
-    .dropdownItem {
-        gap: 0.3rem; /* 4.8px */
-        padding: 0.15rem 0.25rem; /* 2.4px 4px */
-    }
-    .dropdownItem img {
-        width: 0.7rem; /* 11.2px */
-        height: 0.7rem; /* 11.2px */
-    }
-    .dropdownItem p {
-        font-size: 0.6875rem; /* ~11px */
-    }
+  .header {
+    height: 3.5rem; /* 56px */
+    padding: 0 0.5rem; /* 0 8px */
+  }
+  .headerLogo {
+    width: 4rem; /* 64px */
+    max-height: 2.25rem; /* 36px */
+    margin-left: 0.5rem; /* 8px */
+  }
+  .menuIcon {
+    width: 1rem; /* 16px */
+    height: 1rem; /* 16px */
+  }
+  .headerControls {
+    gap: 0.6rem; /* 9.6px */
+  }
+  .headerControls img {
+    width: 1rem; /* 16px */
+    height: 1rem; /* 16px */
+  }
+  .headerControls .iconButton:nth-child(2) img {
+    /* Profile icon */
+    width: 1.625rem; /* 26px */
+    height: 1.625rem; /* 26px */
+  }
+  .dropdown {
+    top: 1.75rem; /* 28px */
+    width: 7rem; /* 112px */
+    padding: 0.3rem; /* 4.8px */
+  }
+  .dropdownItem {
+    gap: 0.3rem; /* 4.8px */
+    padding: 0.15rem 0.25rem; /* 2.4px 4px */
+  }
+  .dropdownItem img {
+    width: 0.7rem; /* 11.2px */
+    height: 0.7rem; /* 11.2px */
+  }
+  .dropdownItem p {
+    font-size: 0.6875rem; /* ~11px */
+  }
 }

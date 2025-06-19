@@ -15,14 +15,15 @@ const LandingActions = () => {
           <button className={actionsStyles.login}>Log In</button>
         </Link>
         <p className={actionsStyles.terms}>
-          By Signing Up you agree to our{" "}
+          By Signing Up you agree to our{' '}
           <Link to="/terms" className={actionsStyles.link}>
             Terms of Use
-          </Link>{" "}
-          and{" "}
+          </Link>{' '}
+          and{' '}
           <Link to="/privacy" className={actionsStyles.link}>
             Privacy Policy
-          </Link>.
+          </Link>
+          .
         </p>
       </div>
     </div>

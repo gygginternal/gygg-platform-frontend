@@ -2,7 +2,7 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-    font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
 .postCard {
@@ -102,93 +102,93 @@
 
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
-    .postCard {
-        padding: 0.875rem; /* 14px */
-        border-radius: 0.875rem; /* 14px */
-    }
-    .postProfileImg {
-        width: 2.25rem; /* 36px */
-        height: 2.25rem; /* 36px */
-    }
-    .postAuthorName {
-        font-size: 0.9375rem; /* 15px */
-    }
-    .postDate {
-        font-size: 0.6875rem; /* ~11px */
-    }
-    .postContent {
-        font-size: 0.9375rem; /* 15px */
-        margin-bottom: 0.875rem; /* 14px */
-    }
-    .postActions {
-        gap: 1.25rem; /* 20px */
-    }
-    .actionItem {
-        font-size: 0.6875rem; /* ~11px */
-    }
-    /* Bookmark icon size (if applicable) for this breakpoint could be ~18px */
+  .postCard {
+    padding: 0.875rem; /* 14px */
+    border-radius: 0.875rem; /* 14px */
+  }
+  .postProfileImg {
+    width: 2.25rem; /* 36px */
+    height: 2.25rem; /* 36px */
+  }
+  .postAuthorName {
+    font-size: 0.9375rem; /* 15px */
+  }
+  .postDate {
+    font-size: 0.6875rem; /* ~11px */
+  }
+  .postContent {
+    font-size: 0.9375rem; /* 15px */
+    margin-bottom: 0.875rem; /* 14px */
+  }
+  .postActions {
+    gap: 1.25rem; /* 20px */
+  }
+  .actionItem {
+    font-size: 0.6875rem; /* ~11px */
+  }
+  /* Bookmark icon size (if applicable) for this breakpoint could be ~18px */
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
-    .postCard {
-        padding: 0.75rem; /* 12px */
-        border-radius: 0.75rem; /* 12px */
-    }
-    .postProfileImg {
-        width: 2rem; /* 32px - lowest end of FB guideline */
-        height: 2rem; /* 32px */
-    }
-    .postHeader {
-        gap: 0.4rem; /* 6.4px */
-        margin-bottom: 0.8rem; /* 12.8px */
-    }
-    .postAuthorName {
-        font-size: 0.875rem; /* 14px - aligns with FB Post text */
-    }
-    .postDate {
-        font-size: 0.625rem; /* 10px - smaller for tight spaces */
-    }
-    .postContent {
-        font-size: 0.875rem; /* 14px */
-        margin-bottom: 0.75rem; /* 12px */
-    }
-    .postActions {
-        gap: 1rem; /* 16px */
-    }
-    .actionItem {
-        gap: 0.4rem; /* 6.4px */
-        font-size: 0.625rem; /* 10px */
-    }
-    /* Bookmark icon size (if applicable) for this breakpoint could be ~16px */
+  .postCard {
+    padding: 0.75rem; /* 12px */
+    border-radius: 0.75rem; /* 12px */
+  }
+  .postProfileImg {
+    width: 2rem; /* 32px - lowest end of FB guideline */
+    height: 2rem; /* 32px */
+  }
+  .postHeader {
+    gap: 0.4rem; /* 6.4px */
+    margin-bottom: 0.8rem; /* 12.8px */
+  }
+  .postAuthorName {
+    font-size: 0.875rem; /* 14px - aligns with FB Post text */
+  }
+  .postDate {
+    font-size: 0.625rem; /* 10px - smaller for tight spaces */
+  }
+  .postContent {
+    font-size: 0.875rem; /* 14px */
+    margin-bottom: 0.75rem; /* 12px */
+  }
+  .postActions {
+    gap: 1rem; /* 16px */
+  }
+  .actionItem {
+    gap: 0.4rem; /* 6.4px */
+    font-size: 0.625rem; /* 10px */
+  }
+  /* Bookmark icon size (if applicable) for this breakpoint could be ~16px */
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
-    .postCard {
-        padding: 0.625rem; /* 10px */
-        border-radius: 0.625rem; /* 10px */
-    }
-    /* Profile image size remains 32px */
-    .postHeader {
-        gap: 0.3rem; /* 4.8px */
-        margin-bottom: 0.625rem; /* 10px */
-    }
-    .postAuthorName {
-        font-size: 0.8125rem; /* 13px - aligns with FB Comments */
-    }
-    .postDate {
-        font-size: 0.5625rem; /* ~9px */
-    }
-    .postContent {
-        font-size: 0.8125rem; /* 13px */
-        margin-bottom: 0.625rem; /* 10px */
-    }
-    .postActions {
-        gap: 0.75rem; /* 12px */
-    }
-    .actionItem {
-        font-size: 0.5625rem; /* ~9px */
-    }
-    /* Bookmark icon size (if applicable) could be ~16px still or slightly smaller */
+  .postCard {
+    padding: 0.625rem; /* 10px */
+    border-radius: 0.625rem; /* 10px */
+  }
+  /* Profile image size remains 32px */
+  .postHeader {
+    gap: 0.3rem; /* 4.8px */
+    margin-bottom: 0.625rem; /* 10px */
+  }
+  .postAuthorName {
+    font-size: 0.8125rem; /* 13px - aligns with FB Comments */
+  }
+  .postDate {
+    font-size: 0.5625rem; /* ~9px */
+  }
+  .postContent {
+    font-size: 0.8125rem; /* 13px */
+    margin-bottom: 0.625rem; /* 10px */
+  }
+  .postActions {
+    gap: 0.75rem; /* 12px */
+  }
+  .actionItem {
+    font-size: 0.5625rem; /* ~9px */
+  }
+  /* Bookmark icon size (if applicable) could be ~16px still or slightly smaller */
 }

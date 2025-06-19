@@ -1,21 +1,21 @@
-import { MapPin, User, ArrowLeft } from "lucide-react";
-import { Card, CardContent, CardHeader } from "../components/ui/card";
-import { Link } from "react-router-dom";
-import { format } from "date-fns"; // Import date-fns for formatting dates
+import { MapPin, User, ArrowLeft } from 'lucide-react';
+import { Card, CardContent, CardHeader } from '../components/ui/card';
+import { Link } from 'react-router-dom';
+import { format } from 'date-fns'; // Import date-fns for formatting dates
 import styles from '../components/ContractDetailsPage/ContractDetailsPage.module.css'; // Import CSS Modules
 
 export function ContractDetailsPage({ gig, children }) {
   if (!gig) return;
   const formattedDate = gig.createdAt
-    ? format(new Date(gig.createdAt), "MM-dd-yyyy")
-    : "N/A";
+    ? format(new Date(gig.createdAt), 'MM-dd-yyyy')
+    : 'N/A';
   return (
     <div className={styles.pageContainer}>
       <Link
         // variant="ghost" // This is a prop, not a classname
         className={styles.backButton}
         to={{
-          pathname: "/contracts",
+          pathname: '/contracts',
         }}
       >
         <ArrowLeft className={styles.backButtonIcon} />
@@ -24,9 +24,7 @@ export function ContractDetailsPage({ gig, children }) {
       <Card className={styles.card}>
         <CardHeader className={styles.cardHeader}>
           <div className={styles.cardHeaderContent}>
-            <h1 className={styles.gigTitle}>
-              {gig.title}
-            </h1>
+            <h1 className={styles.gigTitle}>{gig.title}</h1>
           </div>
         </CardHeader>
 
@@ -38,7 +36,7 @@ export function ContractDetailsPage({ gig, children }) {
               <span className={styles.providerName}>
                 {[gig.postedBy?.firstName, gig.postedBy?.lastName]
                   .filter(Boolean)
-                  .join(" ")}
+                  .join(' ')}
               </span>
             </div>
           </div>
@@ -55,9 +53,7 @@ export function ContractDetailsPage({ gig, children }) {
 
             <div className={styles.infoRow}>
               <span className={styles.infoLabel}>Fee</span>
-              <span className={styles.feeValue}>
-                ${gig.cost}
-              </span>
+              <span className={styles.feeValue}>${gig.cost}</span>
             </div>
 
             {/* <div className="flex justify-between items-center">

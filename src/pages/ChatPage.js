@@ -1,18 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import apiClient from '../api/axiosConfig';
-import styles from '../styles/ChatPage.module.css';
+import styles from './ChatPage.module.css';
+import appStyles from '../App.module.css';
+import socket from '../socket';
 
 const ChatPage = () => {
   const { userId } = useParams();
   const { user } = useAuth();
   const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
+  const [input, setInput] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const messagesEndRef = useRef(null);
   const [otherUser, setOtherUser] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const messagesEndRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   // Fetch chat history
   const fetchMessages = async () => {
@@ -20,10 +24,10 @@ const ChatPage = () => {
       setLoading(true);
       const response = await apiClient.get(`/chat/history?userId=${userId}`);
       setMessages(response.data.data.messages);
-
       if (response.data.data.messages.length > 0) {
         const message = response.data.data.messages[0];
-        const otherUserInfo = message.sender._id === user.id ? message.receiver : message.sender;
+        const otherUserInfo =
+          message.sender._id === user.id ? message.receiver : message.sender;
         setOtherUser(otherUserInfo);
       } else {
         const userResponse = await apiClient.get(`/users/public/${userId}`);
@@ -37,120 +41,191 @@ const ChatPage = () => {
   };
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
-  useEffect(() => {
     fetchMessages();
     // eslint-disable-next-line
   }, [userId]);
 
-  const handleSendMessage = async (e) => {
-    e.preventDefault();
-    if (!newMessage.trim()) return;
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
+  // Real-time: join room and listen for new messages
+  useEffect(() => {
+    if (!user || !userId) return;
+
+    // Join user's personal channel for notifications
+    socket.emit('subscribeToNotifications', { userId: user.id });
+
+    // Join the specific chat channel
+    const chatChannel = `chat:${user.id}:${userId}`;
+    socket.emit('join', chatChannel);
+
+    const handleNewMessage = msg => {
+      setMessages(prev => [...prev, msg]);
+    };
+
+    const handleNotification = notification => {
+      // Handle new message notification
+      console.log('New message notification:', notification);
+    };
+
+    const handleUnreadCountUpdate = data => {
+      // Handle unread count update
+      console.log('Unread count updated:', data);
+    };
+
+    // Listen for new messages in the chat channel
+    socket.on('newChatMessage', handleNewMessage);
+
+    // Listen for notifications
+    socket.on('notification:newMessage', handleNotification);
+    socket.on('notification:unreadCountUpdated', handleUnreadCountUpdate);
+
+    return () => {
+      socket.emit('unsubscribeFromNotifications', { userId: user.id });
+      socket.emit('leave', chatChannel);
+      socket.off('newChatMessage', handleNewMessage);
+      socket.off('notification:newMessage', handleNotification);
+      socket.off('notification:unreadCountUpdated', handleUnreadCountUpdate);
+    };
+  }, [user, userId]);
+
+  const handleSend = async e => {
+    e.preventDefault();
+    if (!input.trim() || uploading) return;
     try {
       const response = await apiClient.post('/chat/send', {
-        message: newMessage,
-        receiverId: userId
+        message: input,
+        receiverId: userId,
       });
-
       setMessages(prev => [...prev, response.data.data.message]);
-      setNewMessage('');
+      setInput('');
+      // No need to emit via socket - backend will handle this
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to send message');
     }
   };
 
-  if (loading) {
-    return <div className={styles.loading}>Loading messages...</div>;
-  }
+  // Image upload handler
+  const handleImageChange = async e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploading(true);
+    setError(null);
+    try {
+      const formData = new FormData();
+      formData.append('image', file);
+      const res = await apiClient.post('/chat/upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      const imageUrl = res.data.data.url;
+      // Send image as a message
+      const response = await apiClient.post('/chat/send', {
+        message: imageUrl,
+        receiverId: userId,
+        type: 'image',
+      });
+      setMessages(prev => [...prev, response.data.data.message]);
+      // No need to emit via socket - backend will handle this
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to upload image');
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
 
-  if (error) {
-    return <div className={styles.error}>{error}</div>;
-  }
+  if (loading)
+    return <div className={styles.messages}>Loading messages...</div>;
+  if (error) return <div className={styles.messages}>{error}</div>;
 
   return (
-    <div className={styles.chatContainer}>
-      <div className={styles.chatCard}>
-        {/* Chat Header */}
-        <div className={styles.chatHeader}>
+    <div className={appStyles.container}>
+      <div className={styles.chatContainer}>
+        <div className={styles.header}>
           <img
+            className={styles.avatar}
             src={otherUser?.profileImage || '/default-avatar.png'}
-            alt={`${otherUser?.firstName}'s profile`}
-            className={styles.profileImage}
+            alt={otherUser?.firstName || 'User'}
+            width={48}
+            height={48}
           />
-          <div className={styles.userInfo}>
-            <h2>{`${otherUser?.firstName || ''} ${otherUser?.lastName || ''}`}</h2>
-            <span className={styles.onlineStatus}>● Online</span>
+          <div>
+            <div className={styles.username}>
+              {`${otherUser?.firstName || ''} ${otherUser?.lastName || ''}`}
+            </div>
+            <div className={styles.status}>Online</div>
           </div>
-          <button className={styles.menuButton} title="More">
-            &#x22EE;
-          </button>
         </div>
-
-        {/* Messages Container */}
-        <div className={styles.messagesContainer}>
-          {messages.map((message) => {
-            const isSent = message.sender._id === user.id;
+        <div className={styles.messages}>
+          {messages.map(msg => {
+            const isSelf = msg.sender._id === user.id;
+            const isImage =
+              typeof msg.content === 'string' &&
+              msg.content.match(/\.(jpeg|jpg|gif|png|webp|svg)$/i);
             return (
-              <div key={message._id} className={styles.messageRow}>
-                <img
-                  src={
-                    (isSent ? user.profileImage : otherUser?.profileImage) ||
-                    '/default-avatar.png'
-                  }
-                  alt="profile"
-                  className={styles.messageProfile}
-                />
-                <div style={{ flex: 1 }}>
-                  <div className={styles.messageMeta}>
-                    <span className={styles.senderName}>
-                      {isSent ? 'You' : `${otherUser?.firstName || ''} ${otherUser?.lastName || ''}`}
-                    </span>
-                    <span className={styles.timestamp}>
-                      {new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                    </span>
+              <div
+                key={msg._id}
+                className={isSelf ? styles.selfMessage : styles.otherMessage}
+              >
+                {isImage ? (
+                  <div className={styles.imageMessageWrapper}>
+                    <div className={styles.imageContainer}>
+                      <img
+                        src={msg.content}
+                        alt="message"
+                        className={styles.messageImage}
+                      />
+                    </div>
                   </div>
-                  <div className={styles.messageContent}>
-                    {message.type === 'offer' && (
-                      <div className={styles.specialHeader}>
-                        You got an application!
-                      </div>
-                    )}
-                    {message.type === 'text' ? (
-                      <p>{message.content}</p>
-                    ) : message.type === 'image' ? (
-                      <img src={message.attachment} alt="Shared" className={styles.messageImage} />
-                    ) : (
-                      <a href={message.attachment} target="_blank" rel="noopener noreferrer">
-                        Download File
-                      </a>
-                    )}
-                  </div>
+                ) : (
+                  <div className={styles.messageText}>{msg.content}</div>
+                )}
+                <div className={styles.messageTime}>
+                  {new Date(msg.timestamp).toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })}
                 </div>
               </div>
             );
           })}
           <div ref={messagesEndRef} />
         </div>
-
-        {/* Message Input */}
-        <form onSubmit={handleSendMessage} className={styles.inputContainer}>
-          <button type="button" className={styles.inputIcon} title="Emoji">
-            <span role="img" aria-label="emoji">😊</span>
-          </button>
+        <form className={styles.inputArea} onSubmit={handleSend}>
           <input
+            className={styles.input}
             type="text"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            placeholder="Type your message here..."
-            className={styles.messageInput}
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            placeholder={
+              uploading ? 'Uploading image...' : 'Type your message here...'
+            }
+            disabled={uploading}
           />
-          <button type="button" className={styles.inputIcon} title="Attach">
-            <span role="img" aria-label="attach">📎</span>
+          <input
+            type="file"
+            accept="image/*"
+            style={{ display: 'none' }}
+            ref={fileInputRef}
+            onChange={handleImageChange}
+            disabled={uploading}
+          />
+          <button
+            className={styles.sendButton}
+            type="button"
+            onClick={() => fileInputRef.current && fileInputRef.current.click()}
+            disabled={uploading}
+            style={{ marginRight: 8 }}
+            title="Send image"
+          >
+            📷
           </button>
-          <button type="submit" className={styles.sendButton}>
+          <button
+            className={styles.sendButton}
+            type="submit"
+            disabled={uploading || !input.trim()}
+          >
             Send
           </button>
         </form>

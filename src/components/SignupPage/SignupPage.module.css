@@ -3,7 +3,7 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-    font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
 .container {
@@ -23,7 +23,7 @@
 .logo {
   font-family: 'Inter', sans-serif;
   font-weight: 900;
-  color: #D89362;
+  color: #d89362;
   text-decoration: none;
   position: absolute; /* Position at top-left */
   top: 1.5rem;
@@ -110,7 +110,7 @@
 .submitButton {
   color: #fff;
   cursor: pointer;
-  background-color: #D99633;
+  background-color: #d99633;
   border: none;
   border-radius: 0.75rem; /* 12px */
   width: 100%;
@@ -120,20 +120,22 @@
   font-weight: 700;
   line-height: 1; /* Adjust line-height to center text */
   letter-spacing: 0.00875rem; /* 0.14px */
-  transition: background-color 0.3s ease, transform 0.1s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.1s ease;
 }
 
 .submitButton:hover:not(:disabled) {
   background-color: #b45309;
-   transform: translateY(-0.0625rem); /* -1px */
+  transform: translateY(-0.0625rem); /* -1px */
 }
 .submitButton:active:not(:disabled) {
-   transform: translateY(0px);
+  transform: translateY(0px);
 }
 .submitButton:disabled {
-    background-color: #777;
-    cursor: not-allowed;
-    opacity: 0.8;
+  background-color: #777;
+  cursor: not-allowed;
+  opacity: 0.8;
 }
 
 /* Error message styling for multiple lines */
@@ -164,131 +166,130 @@
   margin-bottom: 0.5rem; /* 8px - Space after separator */
 }
 
-
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
-    .container {
-        padding: 1rem; /* 16px */
-        padding-top: 4rem; /* Ensure logo doesn't overlap */
-    }
-    .logo {
-        top: 1.25rem; /* Slightly adjusted logo position */
-        left: 1.25rem;
-    }
-    .formContainer {
-        padding-bottom: 1.5625rem; /* ~25px */
-        max-width: 25rem; /* 400px */
-    }
-    .title {
-        font-size: clamp(1.75rem, 4.5vw, 1.9rem); /* Ranging from 28px to 30.4px */
-        margin-bottom: 0.8rem;
-    }
-    .errorWrapper {
-        margin-top: 0.8rem; /* 12.8px */
-        padding: 0.625rem 0.8rem; /* 10px 12.8px */
-    }
-    .errorMessage {
-        font-size: 0.8125rem; /* 13px */
-        padding: 0.2rem 0; /* 3.2px 0 */
-    }
-    .errorMessage:not(:last-child) {
-        padding-bottom: 0.4rem; /* 6.4px */
-        margin-bottom: 0.4rem; /* 6.4px */
-    }
+  .container {
+    padding: 1rem; /* 16px */
+    padding-top: 4rem; /* Ensure logo doesn't overlap */
+  }
+  .logo {
+    top: 1.25rem; /* Slightly adjusted logo position */
+    left: 1.25rem;
+  }
+  .formContainer {
+    padding-bottom: 1.5625rem; /* ~25px */
+    max-width: 25rem; /* 400px */
+  }
+  .title {
+    font-size: clamp(1.75rem, 4.5vw, 1.9rem); /* Ranging from 28px to 30.4px */
+    margin-bottom: 0.8rem;
+  }
+  .errorWrapper {
+    margin-top: 0.8rem; /* 12.8px */
+    padding: 0.625rem 0.8rem; /* 10px 12.8px */
+  }
+  .errorMessage {
+    font-size: 0.8125rem; /* 13px */
+    padding: 0.2rem 0; /* 3.2px 0 */
+  }
+  .errorMessage:not(:last-child) {
+    padding-bottom: 0.4rem; /* 6.4px */
+    margin-bottom: 0.4rem; /* 6.4px */
+  }
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
-    .container {
-        padding: 0.75rem; /* Further reduced padding */
-        padding-top: 4rem; /* Ensure logo doesn't overlap */
-    }
-    .logo {
-        top: 1rem;
-        left: 1rem;
-    }
-    .logo img {
-        max-width: 7.5rem; /* 100px */
-    }
-    .formContainer {
-        padding-bottom: 1.25rem; /* ~20px */
-        max-width: 90%; /* Take more width on tablet */
-        gap: 1rem; /* ~16px gap */
-    }
-    .title {
-        font-size: clamp(1.25rem, 5vw, 1.5rem); /* Ranging from 20px to 24px */
-        margin-bottom: 0.75rem;
-    }
-    .form {
-        gap: 0.625rem; /* ~10px */
-        margin-bottom: 0.625rem; /* ~10px */
-    }
-    .terms {
-        font-size: 0.75rem; /* 12px - fits Timestamps/Meta */
-    }
-    .submitButton {
-        height: 2.5rem; /* 40px */
-        font-size: 0.8125rem; /* 13px - fits Buttons */
-    }
-    .errorWrapper {
-        margin-top: 0.75rem; /* 12px */
-        padding: 0.5rem 0.75rem; /* 8px 12px */
-        border-radius: 0.4rem; /* 6.4px */
-    }
-    .errorMessage {
-        font-size: 0.75rem; /* 12px - fits Timestamps/Meta */
-        padding: 0.15rem 0; /* 2.4px 0 */
-    }
-    .errorMessage:not(:last-child) {
-        padding-bottom: 0.3rem; /* 4.8px */
-        margin-bottom: 0.3rem; /* 4.8px */
-    }
+  .container {
+    padding: 0.75rem; /* Further reduced padding */
+    padding-top: 4rem; /* Ensure logo doesn't overlap */
+  }
+  .logo {
+    top: 1rem;
+    left: 1rem;
+  }
+  .logo img {
+    max-width: 7.5rem; /* 100px */
+  }
+  .formContainer {
+    padding-bottom: 1.25rem; /* ~20px */
+    max-width: 90%; /* Take more width on tablet */
+    gap: 1rem; /* ~16px gap */
+  }
+  .title {
+    font-size: clamp(1.25rem, 5vw, 1.5rem); /* Ranging from 20px to 24px */
+    margin-bottom: 0.75rem;
+  }
+  .form {
+    gap: 0.625rem; /* ~10px */
+    margin-bottom: 0.625rem; /* ~10px */
+  }
+  .terms {
+    font-size: 0.75rem; /* 12px - fits Timestamps/Meta */
+  }
+  .submitButton {
+    height: 2.5rem; /* 40px */
+    font-size: 0.8125rem; /* 13px - fits Buttons */
+  }
+  .errorWrapper {
+    margin-top: 0.75rem; /* 12px */
+    padding: 0.5rem 0.75rem; /* 8px 12px */
+    border-radius: 0.4rem; /* 6.4px */
+  }
+  .errorMessage {
+    font-size: 0.75rem; /* 12px - fits Timestamps/Meta */
+    padding: 0.15rem 0; /* 2.4px 0 */
+  }
+  .errorMessage:not(:last-child) {
+    padding-bottom: 0.3rem; /* 4.8px */
+    margin-bottom: 0.3rem; /* 4.8px */
+  }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
-    .container {
-        padding: 0.5rem; /* Minimal padding */
-        padding-top: 3.5rem; /* Adjust for potentially smaller logo */
-    }
-    .logo {
-        top: 1rem;
-        left: 1rem;
-    }
-    .logo img {
-        max-width: 6.25rem; 
-    }
-    .formContainer {
-        padding-bottom: 1rem; /* ~16px */
-        max-width: 95%; /* Almost full width on very small screens */
-        gap: 0.75rem; /* ~12px gap */
-    }
-    .title {
-        font-size: clamp(1rem, 6vw, 1.25rem); /* Ranging from 16px to 20px */
-        margin-bottom: 0.5rem;
-    }
-    .form {
-        gap: 0.5rem; /* ~8px */
-        margin-bottom: 0.5rem; /* ~8px */
-    }
-    .terms {
-        font-size: 0.6875rem; /* ~11px - slightly smaller than 12px, still readable */
-    }
-    .submitButton {
-        height: 2.1875rem; /* 35px */
-        font-size: 0.75rem; /* 12px - fits Timestamps/Meta */
-    }
-    .errorWrapper {
-        margin-top: 0.625rem; /* 10px */
-        padding: 0.4rem 0.625rem; /* 6.4px 10px */
-        border-radius: 0.3rem; /* 4.8px */
-    }
-    .errorMessage {
-        font-size: 0.6875rem; /* ~11px */
-        padding: 0.1rem 0; /* 1.6px 0 */
-    }
-    .errorMessage:not(:last-child) {
-        padding-bottom: 0.25rem; /* 4px */
-        margin-bottom: 0.25rem; /* 4px */
-    }
+  .container {
+    padding: 0.5rem; /* Minimal padding */
+    padding-top: 3.5rem; /* Adjust for potentially smaller logo */
+  }
+  .logo {
+    top: 1rem;
+    left: 1rem;
+  }
+  .logo img {
+    max-width: 6.25rem;
+  }
+  .formContainer {
+    padding-bottom: 1rem; /* ~16px */
+    max-width: 95%; /* Almost full width on very small screens */
+    gap: 0.75rem; /* ~12px gap */
+  }
+  .title {
+    font-size: clamp(1rem, 6vw, 1.25rem); /* Ranging from 16px to 20px */
+    margin-bottom: 0.5rem;
+  }
+  .form {
+    gap: 0.5rem; /* ~8px */
+    margin-bottom: 0.5rem; /* ~8px */
+  }
+  .terms {
+    font-size: 0.6875rem; /* ~11px - slightly smaller than 12px, still readable */
+  }
+  .submitButton {
+    height: 2.1875rem; /* 35px */
+    font-size: 0.75rem; /* 12px - fits Timestamps/Meta */
+  }
+  .errorWrapper {
+    margin-top: 0.625rem; /* 10px */
+    padding: 0.4rem 0.625rem; /* 6.4px 10px */
+    border-radius: 0.3rem; /* 4.8px */
+  }
+  .errorMessage {
+    font-size: 0.6875rem; /* ~11px */
+    padding: 0.1rem 0; /* 1.6px 0 */
+  }
+  .errorMessage:not(:last-child) {
+    padding-bottom: 0.25rem; /* 4px */
+    margin-bottom: 0.25rem; /* 4px */
+  }
 }

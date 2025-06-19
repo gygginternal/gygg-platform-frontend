@@ -1,10 +1,9 @@
 // src/components/Onboarding/GigPostDetailsBudget.js
-import React from "react";
+import React from 'react';
 import styles from '../Onboarding/GigPostForm.module.css'; // Use common or specific styles
 
 function GigPostDetailsBudget({ formData, onInputChange }) {
-  const handleSelectChange = (e) =>
-    onInputChange(e.target.name, e.target.value);
+  const handleSelectChange = e => onInputChange(e.target.name, e.target.value);
   return (
     <>
       <div className={styles.formGroup}>
@@ -22,7 +21,7 @@ function GigPostDetailsBudget({ formData, onInputChange }) {
           <option value="fixed">One Fixed Payment</option>
         </select>
       </div>
-      {formData.gigPaymentType === "fixed" && (
+      {formData.gigPaymentType === 'fixed' && (
         <div className={styles.formGroup}>
           <label htmlFor="gigCost" className={styles.label}>
             Total Project Budget ($)*
@@ -40,7 +39,7 @@ function GigPostDetailsBudget({ formData, onInputChange }) {
           />
         </div>
       )}
-      {formData.gigPaymentType === "hourly" && (
+      {formData.gigPaymentType === 'hourly' && (
         <div className={styles.formGroup}>
           <label htmlFor="gigRatePerHour" className={styles.label}>
             Your Hourly Rate Budget ($/hr)*

@@ -2,7 +2,7 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-    font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
 .iconButton {
@@ -14,35 +14,37 @@
   justify-content: center;
   padding: 0.5rem; /* 8px */
   border-radius: 50%; /* Already responsive */
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
   box-sizing: border-box; /* Ensure padding is included */
 }
-  
+
 .iconButton:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
-  
+
 .iconButton:active {
   transform: scale(0.95);
 }
 
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
-    .iconButton {
-        padding: 0.45rem; /* 7.2px */
-    }
+  .iconButton {
+    padding: 0.45rem; /* 7.2px */
+  }
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
-    .iconButton {
-        padding: 0.4rem; /* 6.4px */
-    }
+  .iconButton {
+    padding: 0.4rem; /* 6.4px */
+  }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
-    .iconButton {
-        padding: 0.35rem; /* 5.6px */
-    }
+  .iconButton {
+    padding: 0.35rem; /* 5.6px */
+  }
 }

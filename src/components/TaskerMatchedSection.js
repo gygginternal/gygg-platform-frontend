@@ -1,12 +1,13 @@
-import { MapPin } from "lucide-react";
-import { Badge } from "../components/Badge";
+import { MapPin } from 'lucide-react';
+import { Badge } from '../components/Badge';
+import PropTypes from 'prop-types';
 
 export function ServiceProviderListing({ gigHelpers }) {
   return (
     <div className="container mx-auto py-8 px-4">
       <div className="space-y-4">
         {gigHelpers.length > 0 ? (
-          gigHelpers.map((provider) => (
+          gigHelpers.map(provider => (
             <ProviderCard key={provider.id} provider={provider} />
           ))
         ) : (
@@ -17,14 +18,18 @@ export function ServiceProviderListing({ gigHelpers }) {
   );
 }
 
+ServiceProviderListing.propTypes = {
+  gigHelpers: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
 export function ProviderCard({ provider }) {
   return (
     <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
       <div className="flex flex-col sm:flex-row">
         <div className="w-full sm:w-48 h-48 relative">
           <img
-            src={provider.image || "/placeholder.svg"}
-            alt={`${provider.name}'s profile picture`}
+            src={provider.image || '/placeholder.svg'}
+            alt={provider.name}
             className="w-full h-full object-cover"
           />
         </div>
@@ -47,7 +52,7 @@ export function ProviderCard({ provider }) {
           </p>
 
           <div className="flex flex-wrap gap-2 mt-2">
-            {provider.services.map((service) => (
+            {provider.services.map(service => (
               <Badge
                 key={service}
                 variant="outline"
@@ -62,3 +67,15 @@ export function ProviderCard({ provider }) {
     </div>
   );
 }
+
+ProviderCard.propTypes = {
+  provider: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    image: PropTypes.string,
+    name: PropTypes.string,
+    rate: PropTypes.string,
+    location: PropTypes.string,
+    description: PropTypes.string,
+    services: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
+};

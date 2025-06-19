@@ -1,9 +1,9 @@
 // src/components/Onboarding/PersonalityForm.js
-import React from "react";
-import styles from "./PersonalityForm.module.css"; // Create this
-import FormInput from "./FormInput"; // Or your global InputField
-import { AutoComplete } from "../AutoComplete";
-import { HOBBIES_OPTIONS, PERSONALITIES_OPTIONS } from "../../utils/constants";
+import React from 'react';
+import styles from './PersonalityForm.module.css'; // Create this
+import FormInput from './FormInput'; // Or your global InputField
+import { AutoComplete } from '../AutoComplete';
+import { HOBBIES_OPTIONS, PERSONALITIES_OPTIONS } from '../../utils/constants';
 
 function PersonalityForm({
   peoplePreference,

@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useParams } from "react-router-dom";
-import GigDetail from "../components/GigDetail"; // The component rendering details and actions
-import apiClient from "../api/axiosConfig";
-import { useAuth } from "../context/AuthContext";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import { ContractDetailsPage } from "./ContractDetailsPage";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
+import GigDetail from '../components/GigDetail'; // The component rendering details and actions
+import apiClient from '../api/axiosConfig';
+import { useAuth } from '../context/AuthContext';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import { ContractDetailsPage } from './ContractDetailsPage';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
@@ -15,13 +15,13 @@ function GigDetailPage() {
   const [gigData, setGigData] = useState(null);
   const [contractData, setContractData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   // Use useCallback to memoize fetch function if passed down
   const fetchData = useCallback(async () => {
     if (!gigId) return;
     setLoading(true);
-    setError("");
+    setError('');
     try {
       // Fetch Gig Details
       const gigResponse = await apiClient.get(`/gigs/${gigId}`);
@@ -33,30 +33,20 @@ function GigDetailPage() {
           `/contracts?gigId=${gigId}`
         );
         setContractData(contractResponse.data.data.contract); // Will be null if no contract found
-        console.log("Contract data:", contractResponse.data.data.contract);
       } catch (contractError) {
         // Handle cases where the contract endpoint might 404 or 403 specifically
         if (
           contractError.response?.status === 404 ||
           contractError.response?.status === 403
         ) {
-          console.log("No accessible contract found for this gig.");
           setContractData(null); // Explicitly set to null
         } else {
-          console.error(
-            "Error fetching contract:",
-            contractError.response?.data || contractError.message
-          );
           // You might set a general error or ignore contract error if gig loaded
-          setError("Error loading associated contract details.");
+          setError('Error loading associated contract details.');
         }
       }
     } catch (err) {
-      console.error(
-        "Error fetching gig details:",
-        err.response?.data || err.message
-      );
-      setError(err.response?.data?.message || "Failed to load gig details.");
+      setError(err.response?.data?.message || 'Failed to load gig details.');
       setGigData(null); // Clear gig data on error
       setContractData(null); // Clear contract data on error
     } finally {
@@ -69,8 +59,7 @@ function GigDetailPage() {
   }, [fetchData]); // Fetch data when component mounts or fetchData changes
 
   // Callback function to update state after successful gig acceptance
-  const handleAcceptSuccess = (data) => {
-    console.log("Gig accepted, updating state:", data);
+  const handleAcceptSuccess = data => {
     // Refetch data to get the latest gig and contract status
     fetchData();
     // Or update state directly if response contains enough info
@@ -80,7 +69,6 @@ function GigDetailPage() {
 
   // Callback for when payment is initiated (to potentially show loading or message)
   const handlePaymentInitiated = () => {
-    console.log("Payment process initiated by user.");
     // Maybe disable other actions while payment form is shown
   };
 

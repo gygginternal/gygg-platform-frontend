@@ -22,9 +22,9 @@
   /* To account for the global fixed sidebar (300px wide on desktop): */
   margin-left: 18.75rem; /* 300px - Pushes content to the right of the global sidebar */
   margin-right: auto; /* Centers the content wrapper within the *remaining* space */
-  
+
   padding: 0.625rem; /* 10px - Internal padding for the content within this wrapper */
-  gap: 1.25rem;     /* 20px - Space between the .sidebarArea and .mainFeedArea */
+  gap: 1.25rem; /* 20px - Space between the .sidebarArea and .mainFeedArea */
   box-sizing: border-box; /* Ensures padding is included in width calculation */
 }
 
@@ -90,32 +90,32 @@
 /* @media (max-width: 768px) - Tablets */
 /* Header Height at 768px: 4rem (64px) from Header.module.css */
 @media (max-width: 768px) {
-    .pageContainer {
-        padding-top: 2rem; /* 64px - Matches Header height */
-        min-height: calc(100vh - 2rem);
-    }
-    .contentWrapper {
-        max-width: 100%; /* Allow contentWrapper to take full width */
-        padding: 0.625rem 0.9375rem; /* 10px top/bottom, 15px left/right */
-        gap: 0.75rem; /* 12px */
-    }
-    .sidebarArea {
-        margin-bottom: 1rem; /* 16px - Reduced space between stacked items */
-    }
+  .pageContainer {
+    padding-top: 2rem; /* 64px - Matches Header height */
+    min-height: calc(100vh - 2rem);
+  }
+  .contentWrapper {
+    max-width: 100%; /* Allow contentWrapper to take full width */
+    padding: 0.625rem 0.9375rem; /* 10px top/bottom, 15px left/right */
+    gap: 0.75rem; /* 12px */
+  }
+  .sidebarArea {
+    margin-bottom: 1rem; /* 16px - Reduced space between stacked items */
+  }
 }
 
 /* @media (max-width: 480px) - Mobile Phones */
 /* Header Height at 480px: 3.5rem (56px) from Header.module.css */
 @media (max-width: 480px) {
-    .pageContainer {
-        padding-top: 2rem; /* 56px - Matches Header height */
-        min-height: calc(100vh - 2rem);
-    }
-    .contentWrapper {
-        padding: 0.5rem 0.625rem; /* 8px top/bottom, 10px left/right */
-        gap: 0.5rem; /* 8px */
-    }
-    .sidebarArea {
-        margin-bottom: 0.75rem; /* 12px - Further reduced space */
-    }
+  .pageContainer {
+    padding-top: 2rem; /* 56px - Matches Header height */
+    min-height: calc(100vh - 2rem);
+  }
+  .contentWrapper {
+    padding: 0.5rem 0.625rem; /* 8px top/bottom, 10px left/right */
+    gap: 0.5rem; /* 8px */
+  }
+  .sidebarArea {
+    margin-bottom: 0.75rem; /* 12px - Further reduced space */
+  }
 }

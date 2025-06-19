@@ -2,7 +2,7 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-    font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
 .reviewsCard {
@@ -42,57 +42,57 @@
 
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
-    .reviewsCard {
-        padding: 1.25rem; /* 20px */
-        margin-bottom: 1rem; /* 16px */
-        height: 75vh; /* Slightly reduced height */
-    }
-    .reviewsHeader {
-        font-size: 1.125rem; /* 18px */
-        margin-bottom: 0.875rem; /* 14px */
-    }
-    .reviewsGrid {
-        gap: 0.875rem; /* 14px */
-    }
+  .reviewsCard {
+    padding: 1.25rem; /* 20px */
+    margin-bottom: 1rem; /* 16px */
+    height: 75vh; /* Slightly reduced height */
+  }
+  .reviewsHeader {
+    font-size: 1.125rem; /* 18px */
+    margin-bottom: 0.875rem; /* 14px */
+  }
+  .reviewsGrid {
+    gap: 0.875rem; /* 14px */
+  }
 }
 
 /* Original media query, adjusted values for consistency */
 @media (max-width: 640px) {
-    .reviewsCard {
-        height: 70vh; /* Adjust the height for small screens */
-    }
+  .reviewsCard {
+    height: 70vh; /* Adjust the height for small screens */
+  }
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
-    .reviewsCard {
-        padding: 1rem; /* 16px */
-        margin-bottom: 0.8rem; /* 12.8px */
-        border-radius: 0.8rem; /* 12.8px */
-        height: 65vh; /* Further reduced height for tablets */
-    }
-    .reviewsHeader {
-        font-size: 1rem; /* 16px */
-        margin-bottom: 0.75rem; /* 12px */
-    }
-    .reviewsGrid {
-        gap: 0.75rem; /* 12px */
-    }
+  .reviewsCard {
+    padding: 1rem; /* 16px */
+    margin-bottom: 0.8rem; /* 12.8px */
+    border-radius: 0.8rem; /* 12.8px */
+    height: 65vh; /* Further reduced height for tablets */
+  }
+  .reviewsHeader {
+    font-size: 1rem; /* 16px */
+    margin-bottom: 0.75rem; /* 12px */
+  }
+  .reviewsGrid {
+    gap: 0.75rem; /* 12px */
+  }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
-    .reviewsCard {
-        padding: 0.75rem; /* 12px */
-        margin-bottom: 0.6rem; /* 9.6px */
-        border-radius: 0.6rem; /* 9.6px */
-        height: 60vh; /* Further reduced height for mobiles */
-    }
-    .reviewsHeader {
-        font-size: 0.9375rem; /* 15px */
-        margin-bottom: 0.6rem; /* 9.6px */
-    }
-    .reviewsGrid {
-        gap: 0.6rem; /* 9.6px */
-    }
+  .reviewsCard {
+    padding: 0.75rem; /* 12px */
+    margin-bottom: 0.6rem; /* 9.6px */
+    border-radius: 0.6rem; /* 9.6px */
+    height: 60vh; /* Further reduced height for mobiles */
+  }
+  .reviewsHeader {
+    font-size: 0.9375rem; /* 15px */
+    margin-bottom: 0.6rem; /* 9.6px */
+  }
+  .reviewsGrid {
+    gap: 0.6rem; /* 9.6px */
+  }
 }

@@ -18,7 +18,7 @@
 .logo {
   font-family: 'Inter', sans-serif;
   font-weight: 900;
-  color: #D89362;
+  color: #d89362;
   text-decoration: none;
   /* margin-bottom removed as logo is absolute */
   position: absolute; /* Position at top-left */
@@ -72,11 +72,11 @@
 }
 
 .forgotPasswordWrapper {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    margin-bottom: 0.3125rem; /* ~5px */
-  }
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 0.3125rem; /* ~5px */
+}
 
 .footer {
   display: flex;
@@ -105,7 +105,7 @@
   /* Facebook Buttons 13-14px */
   color: #fff;
   cursor: pointer;
-  background-color: #D99633;
+  background-color: #d99633;
   border: none;
   border-radius: 12px;
   width: 100%;
@@ -114,19 +114,21 @@
   font-weight: 700;
   line-height: 1; /* Adjust line-height to fit button height */
   letter-spacing: 0.14px;
-  transition: background-color 0.3s ease, transform 0.1s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.1s ease;
 }
 .submitButton:hover:not(:disabled) {
   background-color: #b45309;
-   transform: translateY(-1px);
+  transform: translateY(-1px);
 }
 .submitButton:active:not(:disabled) {
-   transform: translateY(0px);
+  transform: translateY(0px);
 }
 .submitButton:disabled {
-    background-color: #777;
-    cursor: not-allowed;
-    opacity: 0.8;
+  background-color: #777;
+  cursor: not-allowed;
+  opacity: 0.8;
 }
 
 .error {
@@ -164,8 +166,8 @@
     padding: 15px; /* Slightly less padding */
   }
   .logo {
-        top: 1.25rem;
-        left: 1.25rem;
+    top: 1.25rem;
+    left: 1.25rem;
   }
   .formContainer {
     padding: 1.5625rem; /* ~25px padding */
@@ -219,7 +221,7 @@
     left: 1rem;
   }
   .logo img {
-    max-width: 6.25rem;/* Even smaller logo for tiny screens */
+    max-width: 6.25rem; /* Even smaller logo for tiny screens */
   }
   .container {
     padding: 10px; /* Minimal padding */

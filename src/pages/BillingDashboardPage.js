@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "./BillingDashboardPage.module.css";
+import React from 'react';
+import styles from './BillingDashboardPage.module.css';
 import BillingTable from '../components/BillingDashboardPage/BillingTable';
 import BillingModal from '../components/BillingDashboardPage/BillingModal';
 
@@ -17,9 +17,7 @@ const BillingDashboardPage = () => {
               />
               <div className={styles.searchText}>Search Tasks</div>
             </div>
-            <button className={styles.searchButton}>
-              Search
-            </button>
+            <button className={styles.searchButton}>Search</button>
           </div>
         </div>
         <div className={styles.heroSection}>
@@ -59,14 +57,10 @@ const BillingDashboardPage = () => {
                 />
                 <div className={styles.profileInfo}>
                   <div className={styles.profileName}>Michelle Baskin</div>
-                  <div className={styles.viewProfileLink}>
-                    View Profile
-                  </div>
+                  <div className={styles.viewProfileLink}>View Profile</div>
                 </div>
               </div>
-              <div className={styles.gigsTitle}>
-                Gyggs I can help with
-              </div>
+              <div className={styles.gigsTitle}>Gyggs I can help with</div>
               <div className={styles.skillsRow}>
                 <div className={styles.skillBadge}>Pet Sitting</div>
                 <div className={styles.skillBadge}>Gardening</div>
@@ -97,7 +91,9 @@ const BillingDashboardPage = () => {
                   />
                 </div>
                 <div className={styles.requestDetailsColumn}>
-                  <div className={styles.requestText}>Ariana. A from Thornhill needs a dog sitter</div>
+                  <div className={styles.requestText}>
+                    Ariana. A from Thornhill needs a dog sitter
+                  </div>
                   <div className={styles.viewTaskDetailLink}>
                     View task detail
                   </div>
@@ -119,7 +115,7 @@ const BillingDashboardPage = () => {
           </div>
           <div className={styles.rightColumn}>
             <div className={styles.searchBarPlaceholder} />
-            
+
             <div className={styles.billingSection}>
               <div className={styles.filterSortRow}>
                 <div className={styles.filterButtonWrapper}>
@@ -138,25 +134,21 @@ const BillingDashboardPage = () => {
               <div className={styles.summaryRow}>
                 <div className={styles.summaryItem}>
                   <div className={styles.summaryLabel}>In Progress</div>
-                  <div className={styles.summaryValue}>
-                    $435.24
-                  </div>
+                  <div className={styles.summaryValue}>$435.24</div>
                 </div>
                 <div className={styles.summaryItemAlt}>
                   <div className={styles.summaryLabel}>Available</div>
-                  <div className={styles.summaryValue}>
-                    $586.12
-                  </div>
+                  <div className={styles.summaryValue}>$586.12</div>
                 </div>
-                <button className={styles.withdrawButton}>
-                  Withdraw
-                </button>
+                <button className={styles.withdrawButton}>Withdraw</button>
               </div>
               <div className={styles.billingSeparator} />
               <div className={styles.tableHeader}>
                 <div className={styles.tableHeaderItem}>Hired by</div>
                 <div className={styles.tableHeaderItem}>Date</div>
-                <div className={styles.tableHeaderItemDetail}>Contract detail</div>
+                <div className={styles.tableHeaderItemDetail}>
+                  Contract detail
+                </div>
                 <div className={styles.tableHeaderItem}>Invoice</div>
               </div>
               <div className={styles.billingSeparatorAlt} />

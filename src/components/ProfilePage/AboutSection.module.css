@@ -3,7 +3,7 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-    font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
 .aboutCard {
@@ -96,7 +96,7 @@
   justify-content: space-between;
   align-items: center;
   /* margin-bottom removed, using padding within modalContent */
-  background-color: #00AABA;
+  background-color: #00aaba;
   padding: 0.625rem 0.625rem 0.625rem 1.25rem; /* 10px 10px 10px 20px */
   color: #fff;
   min-height: 2.5rem; /* Ensure minimum height */
@@ -118,7 +118,9 @@
 }
 
 .textArea {
-  width: calc(100% - 2.5rem); /* 100% width minus 2*20px padding (which is 2.5rem) */
+  width: calc(
+    100% - 2.5rem
+  ); /* 100% width minus 2*20px padding (which is 2.5rem) */
   height: 11.25rem; /* 180px */
   /* Facebook Post text (main body) 14-16px */
   font-size: 1rem; /* 16px */
@@ -138,7 +140,6 @@
 .textArea::-webkit-scrollbar {
   display: none;
 }
-
 
 .modalActions {
   display: flex;
@@ -164,7 +165,7 @@
 }
 
 .saveButton {
-  background-color: #3D4D55;
+  background-color: #3d4d55;
   color: #fff;
 }
 
@@ -175,9 +176,8 @@
 }
 .cancelButton:active,
 .saveButton:active {
-    transform: translateY(0); /* Return to original position */
+  transform: translateY(0); /* Return to original position */
 }
-
 
 .noBio {
   text-align: center;
@@ -192,7 +192,7 @@
 }
 
 .addButton {
-  background-color: #3D4D55;
+  background-color: #3d4d55;
   color: white;
   border: none;
   padding: 0.625rem 1.25rem; /* 10px 20px */
@@ -208,173 +208,172 @@
   transform: translateY(-1px);
 }
 .addButton:active {
-    transform: translateY(0);
+  transform: translateY(0);
 }
-
 
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
-    .aboutCard {
-        padding: 1.25rem; /* 20px */
-        margin-bottom: 1rem; /* 16px */
-    }
-    .aboutHeader {
-        font-size: 1rem; /* 16px */
-        margin-bottom: 0.5rem; /* 8px */
-    }
-    .editIcon {
-        height: 1.125rem; /* 18px */
-        width: 1.125rem; /* 18px */
-    }
-    .aboutContent {
-        font-size: 0.9375rem; /* 15px */
-    }
+  .aboutCard {
+    padding: 1.25rem; /* 20px */
+    margin-bottom: 1rem; /* 16px */
+  }
+  .aboutHeader {
+    font-size: 1rem; /* 16px */
+    margin-bottom: 0.5rem; /* 8px */
+  }
+  .editIcon {
+    height: 1.125rem; /* 18px */
+    width: 1.125rem; /* 18px */
+  }
+  .aboutContent {
+    font-size: 0.9375rem; /* 15px */
+  }
 
-    .modalContent {
-        max-width: 32rem; /* ~512px */
-    }
-    .modalHeader h3 {
-        font-size: 1.125rem; /* 18px */
-    }
-    .closeButton {
-        font-size: 1.375rem; /* 22px */
-    }
-    .modalPrompt {
-        font-size: 0.9375rem; /* 15px */
-        padding: 1rem; /* 16px */
-    }
-    .textArea {
-        height: 9rem; /* 144px */
-        font-size: 0.9375rem; /* 15px */
-        width: calc(100% - 2rem); /* Adjusted for 16px padding */
-        margin: 0 1rem 0.5rem; /* 0 16px 8px */
-        padding: 0.5rem 0.625rem; /* 8px 10px */
-    }
-    .modalActions {
-        padding: 1rem; /* 16px */
-        gap: 0.5rem; /* 8px */
-    }
-    .cancelButton,
-    .saveButton,
-    .addButton {
-        font-size: 0.8125rem; /* 13px */
-        padding: 0.5rem 1rem; /* 8px 16px */
-    }
-    .noBio p {
-        font-size: 0.9375rem; /* 15px */
-    }
+  .modalContent {
+    max-width: 32rem; /* ~512px */
+  }
+  .modalHeader h3 {
+    font-size: 1.125rem; /* 18px */
+  }
+  .closeButton {
+    font-size: 1.375rem; /* 22px */
+  }
+  .modalPrompt {
+    font-size: 0.9375rem; /* 15px */
+    padding: 1rem; /* 16px */
+  }
+  .textArea {
+    height: 9rem; /* 144px */
+    font-size: 0.9375rem; /* 15px */
+    width: calc(100% - 2rem); /* Adjusted for 16px padding */
+    margin: 0 1rem 0.5rem; /* 0 16px 8px */
+    padding: 0.5rem 0.625rem; /* 8px 10px */
+  }
+  .modalActions {
+    padding: 1rem; /* 16px */
+    gap: 0.5rem; /* 8px */
+  }
+  .cancelButton,
+  .saveButton,
+  .addButton {
+    font-size: 0.8125rem; /* 13px */
+    padding: 0.5rem 1rem; /* 8px 16px */
+  }
+  .noBio p {
+    font-size: 0.9375rem; /* 15px */
+  }
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
-    .aboutCard {
-        padding: 1rem; /* 16px */
-        margin-bottom: 0.8rem; /* 12.8px */
-    }
-    .aboutHeader {
-        font-size: 0.9375rem; /* 15px */
-        margin-bottom: 0.4rem; /* 6.4px */
-    }
-    .editIcon {
-        height: 1rem; /* 16px */
-        width: 1rem; /* 16px */
-    }
-    .aboutContent {
-        font-size: 0.875rem; /* 14px */
-    }
+  .aboutCard {
+    padding: 1rem; /* 16px */
+    margin-bottom: 0.8rem; /* 12.8px */
+  }
+  .aboutHeader {
+    font-size: 0.9375rem; /* 15px */
+    margin-bottom: 0.4rem; /* 6.4px */
+  }
+  .editIcon {
+    height: 1rem; /* 16px */
+    width: 1rem; /* 16px */
+  }
+  .aboutContent {
+    font-size: 0.875rem; /* 14px */
+  }
 
-    .modalContent {
-        max-width: 28rem; /* ~448px */
-        width: 95%; /* Wider on tablet */
-    }
-    .modalHeader h3 {
-        font-size: 1rem; /* 16px */
-    }
-    .closeButton {
-        font-size: 1.25rem; /* 20px */
-        top: 0.25rem; /* 4px */
-        right: 0.5rem; /* 8px */
-    }
-    .modalPrompt {
-        font-size: 0.875rem; /* 14px */
-        padding: 0.8rem; /* 12.8px */
-    }
-    .textArea {
-        height: 8rem; /* 128px */
-        font-size: 0.875rem; /* 14px */
-        width: calc(100% - 1.6rem); /* Adjusted for 12.8px padding */
-        margin: 0 0.8rem 0.4rem; /* 0 12.8px 6.4px */
-        padding: 0.4rem 0.5rem; /* 6.4px 8px */
-    }
-    .modalActions {
-        padding: 0.8rem; /* 12.8px */
-        gap: 0.4rem; /* 6.4px */
-    }
-    .cancelButton,
-    .saveButton,
-    .addButton {
-        font-size: 0.75rem; /* 12px */
-        padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
-    }
-    .noBio p {
-        font-size: 0.875rem; /* 14px */
-    }
+  .modalContent {
+    max-width: 28rem; /* ~448px */
+    width: 95%; /* Wider on tablet */
+  }
+  .modalHeader h3 {
+    font-size: 1rem; /* 16px */
+  }
+  .closeButton {
+    font-size: 1.25rem; /* 20px */
+    top: 0.25rem; /* 4px */
+    right: 0.5rem; /* 8px */
+  }
+  .modalPrompt {
+    font-size: 0.875rem; /* 14px */
+    padding: 0.8rem; /* 12.8px */
+  }
+  .textArea {
+    height: 8rem; /* 128px */
+    font-size: 0.875rem; /* 14px */
+    width: calc(100% - 1.6rem); /* Adjusted for 12.8px padding */
+    margin: 0 0.8rem 0.4rem; /* 0 12.8px 6.4px */
+    padding: 0.4rem 0.5rem; /* 6.4px 8px */
+  }
+  .modalActions {
+    padding: 0.8rem; /* 12.8px */
+    gap: 0.4rem; /* 6.4px */
+  }
+  .cancelButton,
+  .saveButton,
+  .addButton {
+    font-size: 0.75rem; /* 12px */
+    padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
+  }
+  .noBio p {
+    font-size: 0.875rem; /* 14px */
+  }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
-    .aboutCard {
-        padding: 0.75rem; /* 12px */
-        margin-bottom: 0.6rem; /* 9.6px */
-    }
-    .aboutHeader {
-        font-size: 0.875rem; /* 14px */
-        margin-bottom: 0.3rem; /* 4.8px */
-    }
-    .editIcon {
-        height: 0.9rem; /* 14.4px */
-        width: 0.9rem; /* 14.4px */
-    }
-    .aboutContent {
-        font-size: 0.8125rem; /* 13px */
-    }
+  .aboutCard {
+    padding: 0.75rem; /* 12px */
+    margin-bottom: 0.6rem; /* 9.6px */
+  }
+  .aboutHeader {
+    font-size: 0.875rem; /* 14px */
+    margin-bottom: 0.3rem; /* 4.8px */
+  }
+  .editIcon {
+    height: 0.9rem; /* 14.4px */
+    width: 0.9rem; /* 14.4px */
+  }
+  .aboutContent {
+    font-size: 0.8125rem; /* 13px */
+  }
 
-    .modalContent {
-        max-width: 95%; /* Even wider on tiny screens */
-    }
-    .modalHeader {
-        padding: 0.5rem 0.5rem 0.5rem 0.75rem; /* 8px 8px 8px 12px */
-    }
-    .modalHeader h3 {
-        font-size: 0.9375rem; /* 15px */
-    }
-    .closeButton {
-        font-size: 1.125rem; /* 18px */
-        top: 0.15rem; /* 2.4px */
-        right: 0.3rem; /* 4.8px */
-    }
-    .modalPrompt {
-        font-size: 0.8125rem; /* 13px */
-        padding: 0.6rem; /* 9.6px */
-    }
-    .textArea {
-        height: 7rem; /* 112px */
-        font-size: 0.8125rem; /* 13px */
-        width: calc(100% - 1.2rem); /* Adjusted for 9.6px padding */
-        margin: 0 0.6rem 0.3rem; /* 0 9.6px 4.8px */
-        padding: 0.3rem 0.4rem; /* 4.8px 6.4px */
-    }
-    .modalActions {
-        padding: 0.6rem; /* 9.6px */
-        gap: 0.3rem; /* 4.8px */
-    }
-    .cancelButton,
-    .saveButton,
-    .addButton {
-        font-size: 0.6875rem; /* 11px */
-        padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
-    }
-    .noBio p {
-        font-size: 0.8125rem; /* 13px */
-    }
+  .modalContent {
+    max-width: 95%; /* Even wider on tiny screens */
+  }
+  .modalHeader {
+    padding: 0.5rem 0.5rem 0.5rem 0.75rem; /* 8px 8px 8px 12px */
+  }
+  .modalHeader h3 {
+    font-size: 0.9375rem; /* 15px */
+  }
+  .closeButton {
+    font-size: 1.125rem; /* 18px */
+    top: 0.15rem; /* 2.4px */
+    right: 0.3rem; /* 4.8px */
+  }
+  .modalPrompt {
+    font-size: 0.8125rem; /* 13px */
+    padding: 0.6rem; /* 9.6px */
+  }
+  .textArea {
+    height: 7rem; /* 112px */
+    font-size: 0.8125rem; /* 13px */
+    width: calc(100% - 1.2rem); /* Adjusted for 9.6px padding */
+    margin: 0 0.6rem 0.3rem; /* 0 9.6px 4.8px */
+    padding: 0.3rem 0.4rem; /* 4.8px 6.4px */
+  }
+  .modalActions {
+    padding: 0.6rem; /* 9.6px */
+    gap: 0.3rem; /* 4.8px */
+  }
+  .cancelButton,
+  .saveButton,
+  .addButton {
+    font-size: 0.6875rem; /* 11px */
+    padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
+  }
+  .noBio p {
+    font-size: 0.8125rem; /* 13px */
+  }
 }

@@ -2,163 +2,215 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-    font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
 .taskList {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem; /* 20px */
-  margin-top: 0;
+  gap: 1rem;
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
-@media (min-width: 640px) {
-  .taskList {
-    width: auto; /* Reverts to auto width above 640px if needed */
+.loadingState,
+.errorState,
+.noResults {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: 2rem;
+  background: var(--surface-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
-.loadMoreButton {
-  width: 100%;
-  margin-top: 1.25rem; /* 20px */
-  padding: 0.75rem; /* 12px */
-  background-color: #3D4D55;
-  color: white;
-  font-weight: 600;
+.errorMessage {
+  color: var(--error-color);
   text-align: center;
-  border: none;
-  border-radius: 0.375rem; /* 6px */
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-  /* Facebook Buttons 13-14px */
-  font-size: 0.875rem; /* 14px */
+  margin-bottom: 1rem;
 }
 
-.loadMoreButton:hover {
-  background-color: #2c3a41;
+.retryButton {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.retryButton:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.noResults p {
+  text-align: center;
+  color: var(--text-secondary);
+  line-height: 1.5;
 }
 
 .loadingMore {
-  text-align: center;
-  padding: 0.9375rem; /* 15px */
-  color: #555;
-  /* Facebook Timestamps and meta info 12px */
-  font-size: 0.75rem; /* 12px */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.loadingMore .loadingSpinner {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 0.5rem;
+}
+
+.loadMoreButton {
+  align-self: center;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  margin: 1rem 0;
+}
+
+.loadMoreButton:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.loadMoreButton:disabled {
+  background-color: var(--border-color);
+  cursor: not-allowed;
 }
 
 .endOfResults {
   text-align: center;
-  color: #777;
-  margin-top: 1.25rem; /* 20px */
-  /* Facebook Timestamps and meta info 12px */
-  font-size: 0.75rem; /* 12px */
+  color: var(--text-secondary);
+  padding: 1rem;
+  font-style: italic;
 }
 
-.errorMessage {
-  color: red;
-  text-align: center;
-  padding: 0.75rem; /* 12px */
-  font-weight: 500;
-  /* Facebook Comments 13-14px */
-  font-size: 0.875rem; /* 14px */
+@media (max-width: 768px) {
+  .taskList {
+    padding: 0.5rem;
+  }
+
+  .loadingState,
+  .errorState,
+  .noResults {
+    min-height: 150px;
+    padding: 1rem;
+  }
+
+  .loadMoreButton {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
 }
 
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
-    .taskList {
-        gap: 1rem; /* 16px */
-    }
-    .loadMoreButton {
-        margin-top: 1rem; /* 16px */
-        padding: 0.625rem; /* 10px */
-        font-size: 0.8125rem; /* 13px */
-    }
-    .loadingMore {
-        padding: 0.75rem; /* 12px */
-    }
-    .endOfResults {
-        margin-top: 1rem; /* 16px */
-    }
-    .errorMessage {
-        padding: 0.625rem; /* 10px */
-        font-size: 0.8125rem; /* 13px */
-    }
-}
-
-/* Responsive adjustments for screens up to 768px (Tablets) */
-@media (max-width: 768px) {
-    .taskList {
-        gap: 0.8rem; /* 12.8px */
-    }
-    .loadMoreButton {
-        margin-top: 0.8rem; /* 12.8px */
-        padding: 0.5rem; /* 8px */
-        font-size: 0.75rem; /* 12px */
-    }
-    .loadingMore {
-        padding: 0.6rem; /* 9.6px */
-        font-size: 0.6875rem; /* ~11px */
-    }
-    .endOfResults {
-        margin-top: 0.8rem; /* 12.8px */
-        font-size: 0.6875rem; /* ~11px */
-    }
-    .errorMessage {
-        padding: 0.5rem; /* 8px */
-        font-size: 0.75rem; /* 12px */
-    }
+  .taskList {
+    gap: 1rem; /* 16px */
+  }
+  .noResults {
+    padding: 1.5rem;
+    font-size: 0.8125rem;
+  }
+  .loadMoreButton {
+    margin-top: 1rem; /* 16px */
+    padding: 0.625rem; /* 10px */
+    font-size: 0.8125rem; /* 13px */
+  }
+  .loadingMore {
+    padding: 0.75rem; /* 12px */
+  }
+  .endOfResults {
+    margin-top: 1rem; /* 16px */
+  }
+  .errorMessage {
+    padding: 0.625rem; /* 10px */
+    font-size: 0.8125rem; /* 13px */
+  }
 }
 
 /* Responsive adjustments for screens up to 640px (Small Tablets / Large Phones) */
 /* The existing `min-width: 640px` rule already handles a large part.
    This `max-width` rule refines sizes for smaller screens. */
 @media (max-width: 640px) {
-    .taskList {
-        gap: 0.75rem; /* 12px */
-    }
-    /* `width: auto` is applied from the `min-width: 640px` breakpoint, which is fine. */
-    .loadMoreButton {
-        margin-top: 0.75rem; /* 12px */
-        padding: 0.45rem; /* 7.2px */
-        font-size: 0.6875rem; /* ~11px */
-        border-radius: 0.3125rem; /* 5px */
-    }
-    .loadingMore {
-        padding: 0.5rem; /* 8px */
-        font-size: 0.625rem; /* 10px */
-    }
-    .endOfResults {
-        margin-top: 0.75rem; /* 12px */
-        font-size: 0.625rem; /* 10px */
-    }
-    .errorMessage {
-        padding: 0.45rem; /* 7.2px */
-        font-size: 0.6875rem; /* ~11px */
-    }
+  .taskList {
+    gap: 0.75rem; /* 12px */
+  }
+  /* `width: auto` is applied from the `min-width: 640px` breakpoint, which is fine. */
+  .loadMoreButton {
+    margin-top: 0.75rem; /* 12px */
+    padding: 0.45rem; /* 7.2px */
+    font-size: 0.6875rem; /* ~11px */
+    border-radius: 0.3125rem; /* 5px */
+  }
+  .loadingMore {
+    padding: 0.5rem; /* 8px */
+    font-size: 0.625rem; /* 10px */
+  }
+  .endOfResults {
+    margin-top: 0.75rem; /* 12px */
+    font-size: 0.625rem; /* 10px */
+  }
+  .errorMessage {
+    padding: 0.45rem; /* 7.2px */
+    font-size: 0.6875rem; /* ~11px */
+  }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
-    .taskList {
-        gap: 0.625rem; /* 10px */
-    }
-    .loadMoreButton {
-        margin-top: 0.625rem; /* 10px */
-        padding: 0.4rem; /* 6.4px */
-        font-size: 0.625rem; /* 10px */
-        border-radius: 0.25rem; /* 4px */
-    }
-    .loadingMore {
-        padding: 0.4rem; /* 6.4px */
-        font-size: 0.5625rem; /* ~9px */
-    }
-    .endOfResults {
-        margin-top: 0.625rem; /* 10px */
-        font-size: 0.5625rem; /* ~9px */
-    }
-    .errorMessage {
-        padding: 0.4rem; /* 6.4px */
-        font-size: 0.625rem; /* 10px */
-    }
+  .taskList {
+    gap: 0.75rem; /* 10px */
+  }
+  .noResults {
+    padding: 1rem;
+    font-size: 0.6875rem;
+  }
+  .loadMoreButton {
+    margin-top: 0.5rem; /* 10px */
+    padding: 0.5rem; /* 8px */
+    font-size: 0.9rem; /* 14px */
+    border-radius: 0.25rem; /* 4px */
+  }
+  .loadingMore {
+    padding: 0.5rem; /* 8px */
+    font-size: 0.625rem; /* 10px */
+  }
+  .endOfResults {
+    margin-top: 0.5rem; /* 10px */
+    font-size: 0.5625rem; /* ~9px */
+  }
+  .errorMessage {
+    padding: 0.45rem; /* 7.2px */
+    font-size: 0.6875rem; /* ~11px */
+  }
 }

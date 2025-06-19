@@ -1,150 +1,164 @@
 // src/components/GigsPage/TaskCard.js
-import React, { useState } from "react";
-import styles from "./TaskCard.module.css"; // Your CSS module
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import styles from './TaskCard.module.css';
+import { useNavigate } from 'react-router-dom';
+import { formatCategoryName, getCategoryIcon } from '../constants/categories';
+import GigDetailsModal from './GigDetailsModal';
+import PropTypes from 'prop-types';
 
-// Simple Icon component for reusability
-const Icon = ({ src, alt, className = "", width = 16, height = 16 }) => (
-  <img
-    src={src} // Assumes src is like "/assets/location.svg" (pointing to public folder)
-    alt={alt}
-    className={className}
-    width={width}
-    height={height}
-    onError={(e) => {
-      // Fallback if icon is missing - hide or show text
-      e.currentTarget.style.display = 'none';
-      // Or: e.currentTarget.outerHTML = `<span>${alt || ''}</span>`;
-    }}
-  />
-);
+// Utility to format "time ago"
+const timeAgo = date => {
+  const diff = Math.floor((Date.now() - new Date(date)) / 1000);
+  if (diff < 60) return 'just now';
+  if (diff < 3600) return `Posted ${Math.floor(diff / 60)} minutes ago`;
+  if (diff < 86400) return `Posted ${Math.floor(diff / 3600)} hours ago`;
+  return `Posted ${Math.floor(diff / 86400)} days ago`;
+};
 
-function TaskCard({ gig }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const TaskCard = ({ gig }) => {
+  const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
+  const {
+    _id,
+    title,
+    location,
+    cost,
+    ratePerHour,
+    duration,
+    price,
+    minPrice,
+    maxPrice,
+    createdAt,
+    provider,
+    postedBy,
+  } = gig;
 
-  // Defensive checks for essential data
-  if (!gig || !gig._id) {
-    return (
-      <article className={styles.taskCard} style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <p>Gig data is unavailable.</p>
-      </article>
-    );
+  // Use provider if present, otherwise postedBy
+  const user = provider || postedBy || {};
+
+  // Provider name logic
+  const name =
+    user.name ||
+    user.fullName ||
+    (user.firstName && user.lastName
+      ? `${user.firstName} ${user.lastName}`
+      : 'Anonymous');
+
+  // Profile image fallback
+  const profileImage =
+    user.profileImage && user.profileImage !== 'default.jpg'
+      ? user.profileImage
+      : '/default-profile.png';
+
+  // Format price/cost/rate
+  let rate = '';
+  if (
+    typeof cost === 'number' &&
+    !isNaN(cost) &&
+    (typeof ratePerHour !== 'number' || isNaN(ratePerHour)) &&
+    (typeof duration !== 'number' || isNaN(duration))
+  ) {
+    rate = `$${cost} (fixed)`;
+  } else if (
+    typeof ratePerHour === 'number' &&
+    !isNaN(ratePerHour) &&
+    typeof duration === 'number' &&
+    !isNaN(duration)
+  ) {
+    rate = `$${ratePerHour}/hr · ${duration} hrs`;
+  } else if (minPrice && maxPrice && minPrice !== maxPrice) {
+    rate = `$${minPrice}-${maxPrice}/hr`;
+  } else if (price) {
+    rate = `$${price}/hr`;
+  } else if (minPrice) {
+    rate = `$${minPrice}/hr`;
+  } else {
+    rate = '—';
   }
 
-  // --- Data Mapping with Fallbacks ---
-  const postedBy = gig.postedBy || {}; // Ensure postedBy object exists
-  const profileImage = (postedBy.profileImage && postedBy.profileImage !== 'default.jpg')
-    ? postedBy.profileImage // Assuming this is a full URL from S3/Cloudinary
-    : "/assets/default-profile.png"; // Generic fallback in public/assets/
-  const author = postedBy.fullName || `${postedBy.firstName || 'Unknown'} ${postedBy.lastName || 'User'}`.trim();
-  const title = gig.title || "Untitled Gig";
-
-  let rate = "Rate N/A";
-  if (gig.ratePerHour && gig.ratePerHour > 0) {
-    rate = `$${parseFloat(gig.ratePerHour).toFixed(2)}/hr`;
-  } else if (gig.cost && gig.cost > 0) {
-    rate = `$${parseFloat(gig.cost).toFixed(2)} (fixed)`;
-  }
-
-  const location = gig.location?.city || gig.location?.address || (gig.isRemote ? "Remote" : "Location not specified");
-  const postedTime = gig.createdAt
-    ? `Posted ${new Date(gig.createdAt).toLocaleDateString()}` // Simple date
-    : "Posted recently";
-
-  // --- Event Handlers ---
-  const handleImageError = (e) => { e.currentTarget.src = "/assets/default-profile.png"; };
-
-  const handleViewAndApply = (e) => {
-    e.stopPropagation(); // Prevent card click if button inside modal is clicked
-    navigate(`/gigs/${gig._id}`); // Navigate to full detail page
-    setIsModalOpen(false); // Close modal
+  // Format location
+  const formatLocation = loc => {
+    if (!loc) return 'Location not specified';
+    if (typeof loc === 'string') return loc;
+    const parts = [];
+    if (loc.city) parts.push(loc.city);
+    if (loc.state) parts.push(loc.state);
+    if (loc.country) parts.push(loc.country);
+    return parts.length > 0 ? parts.join(', ') : 'Location not specified';
   };
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = (e) => { if (e.target === e.currentTarget) setIsModalOpen(false); }; // Close on overlay click
-  const closeWithButton = (e) => { e.stopPropagation(); setIsModalOpen(false); };
+  const handleCardClick = e => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => setModalOpen(false);
+  const handleApply = () => {
+    setModalOpen(false);
+  };
 
   return (
     <>
-      {/* Task Card - Click to open modal */}
-      <article
-        className={styles.taskCard}
-        onClick={openModal}
-        onKeyPress={(e) => (e.key === 'Enter' || e.key === ' ') && openModal()} // Accessibility
+      <div
         role="button"
         tabIndex={0}
-        aria-label={`View details for gig: ${title}`}
+        onClick={() => handleCardClick(gig)}
+        onKeyDown={e => {
+          if (e.key === 'Enter' || e.key === ' ') handleCardClick(gig);
+        }}
+        className={styles.card}
+        aria-label={`View details for ${gig.title}`}
       >
-        <img
-          src={profileImage}
-          alt={`${author}'s profile`}
-          className={styles.taskImage}
-          // width={155} // Let CSS handle fixed dimensions if needed
-          // height={182}
-          onError={handleImageError}
-          loading="lazy"
-        />
-        <div className={styles.taskContent}>
-          <p className={styles.taskAuthor}>{author}</p>
-          {/* Title is a link to the full detail page, also stops modal propagation */}
-          <Link
-            to={`/gigs/${gig._id}`}
-            className={styles.taskTitle}
-            onClick={(e) => e.stopPropagation()} // Don't open modal if title link clicked
-          >
-            {title}
-          </Link>
-          <p className={styles.taskRate}>{rate}</p>
-          <div className={styles.taskDetails}>
-            <div className={styles.taskLocation}>
-              <Icon src="/assets/location.svg" className={styles.locationIcon} alt="Location icon" />
-              <span>{location}</span>
-            </div>
-            <span className={styles.taskTime}>{postedTime}</span>
+        <img src={profileImage} alt={name} className={styles.profileImage} />
+        <div className={styles.content}>
+          <div className={styles.header}>
+            <span className={styles.name}>{name}</span>
+            <span className={styles.cardTitle}>{title}</span>
+          </div>
+          <div className={styles.rate}>{rate}</div>
+          <div className={styles.meta}>
+            <span className={styles.location}>
+              <span className={styles.icon}>📍</span>
+              {formatLocation(location)}
+            </span>
+            <span className={styles.time}>{timeAgo(createdAt)}</span>
           </div>
         </div>
-      </article>
-
-      {/* Modal (Popup) for Quick View */}
-      {isModalOpen && (
-        <div className={styles.modalOverlay} onClick={closeModal} role="dialog" aria-modal="true" aria-labelledby={`modal-title-${gig._id}`}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()} role="document">
-            <div className={styles.modalHeader}>
-              <h2 id={`modal-title-${gig._id}`}>Gig Details</h2>
-              <button className={styles.closeButton} onClick={closeWithButton} aria-label="Close gig details modal">
-                <Icon src="/assets/close.svg" alt="Close" className={styles.closeIcon} width={18} height={18} />
-              </button>
-            </div>
-
-            <div className={styles.mainContent}>
-              <h3 className={styles.modalGigTitle}>{title}</h3>
-              <div className={styles.profileTopRow}>
-                <div className={styles.profileLeft}>
-                  <span className={styles.taskAuthor}>{author}</span>
-                  <Link to={`/users/${gig.postedBy._id}`} className={styles.viewProfile} onClick={(e) => e.stopPropagation()}>View Profile</Link>
-                </div>
-                <span className={styles.taskTime}>{postedTime}</span>
-              </div>
-              <p className={styles.description}>{gig.description || "No detailed description provided."}</p>
-              <div className={styles.taskRow}>
-                <div className={styles.taskLocation}>
-                  <Icon src="/assets/location.svg" className={styles.locationIcon} alt="Location icon" />
-                  <span>{location}</span>
-                </div>
-                <p className={styles.taskTime}>Pay <span className={styles.taskRate}>{rate}</span></p>
-                {gig.duration && <span className={styles.taskTime}>Est. <span className={styles.taskRate}>{gig.duration}hr</span></span>}
-              </div>
-              <div className={styles.line}></div>
-              <button className={styles.applyButton} onClick={handleViewAndApply}>
-                Apply
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      </div>
+      <GigDetailsModal
+        gig={gig}
+        open={modalOpen}
+        onClose={handleCloseModal}
+        onApply={handleApply}
+      />
     </>
   );
-}
+};
+
+TaskCard.propTypes = {
+  gig: PropTypes.shape({
+    _id: PropTypes.string,
+    title: PropTypes.string,
+    location: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.shape({
+        city: PropTypes.string,
+        state: PropTypes.string,
+        country: PropTypes.string,
+      }),
+    ]),
+    cost: PropTypes.number,
+    ratePerHour: PropTypes.number,
+    duration: PropTypes.number,
+    price: PropTypes.number,
+    minPrice: PropTypes.number,
+    maxPrice: PropTypes.number,
+    createdAt: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date),
+    ]),
+    provider: PropTypes.object,
+    postedBy: PropTypes.object,
+  }).isRequired,
+};
 
 export default TaskCard;

@@ -2,7 +2,7 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-    font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
 .container {
@@ -36,11 +36,12 @@
   height: 1.25rem; /* 20px */
   flex-shrink: 0;
 }
-.sectionIcon img { /* Style the actual img tag if it's the icon */
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    color: #3d4d55; /* Default icon color if SVG */
+.sectionIcon img {
+  /* Style the actual img tag if it's the icon */
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  color: #3d4d55; /* Default icon color if SVG */
 }
 
 .sectionTitleUnderlined {
@@ -81,11 +82,13 @@
   text-decoration: none;
   display: inline-block;
   margin-top: 0.25rem; /* Space below description */
-  transition: color 0.2s ease, text-decoration 0.2s ease;
+  transition:
+    color 0.2s ease,
+    text-decoration 0.2s ease;
 }
 .viewGigLink:hover {
-    color: #536471;
-    text-decoration: underline;
+  color: #536471;
+  text-decoration: underline;
 }
 
 .underline {
@@ -104,114 +107,113 @@
   border: 0.0625rem solid #ffc0c0; /* Light red border */
 }
 
-
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
-    .container {
-        margin-top: 1rem; /* 16px */
-    }
-    .awaitedSection {
-        padding: 1.25rem; /* 20px */
-        border-radius: 0.875rem; /* 14px */
-    }
-    .sectionHeader {
-        gap: 0.4rem; /* 6.4px */
-        margin-bottom: 0.75rem; /* 12px */
-    }
-    .sectionIcon {
-        width: 1rem; /* 16px */
-        height: 1rem; /* 16px */
-    }
-    .sectionTitleUnderlined {
-        font-size: 0.9375rem; /* 15px */
-    }
-    .awaitedList {
-        margin-top: 0.875rem; /* 14px */
-        gap: 0.875rem; /* 14px */
-    }
-    .awaitedDescription {
-        font-size: 0.8125rem; /* 13px */
-    }
-    .viewGigLink {
-        font-size: 0.8125rem; /* 13px */
-        margin-top: 0.2rem; /* 3.2px */
-    }
-    .errorMessage {
-        font-size: 0.8125rem; /* 13px */
-        padding: 0.4rem; /* 6.4px */
-    }
+  .container {
+    margin-top: 1rem; /* 16px */
+  }
+  .awaitedSection {
+    padding: 1.25rem; /* 20px */
+    border-radius: 0.875rem; /* 14px */
+  }
+  .sectionHeader {
+    gap: 0.4rem; /* 6.4px */
+    margin-bottom: 0.75rem; /* 12px */
+  }
+  .sectionIcon {
+    width: 1rem; /* 16px */
+    height: 1rem; /* 16px */
+  }
+  .sectionTitleUnderlined {
+    font-size: 0.9375rem; /* 15px */
+  }
+  .awaitedList {
+    margin-top: 0.875rem; /* 14px */
+    gap: 0.875rem; /* 14px */
+  }
+  .awaitedDescription {
+    font-size: 0.8125rem; /* 13px */
+  }
+  .viewGigLink {
+    font-size: 0.8125rem; /* 13px */
+    margin-top: 0.2rem; /* 3.2px */
+  }
+  .errorMessage {
+    font-size: 0.8125rem; /* 13px */
+    padding: 0.4rem; /* 6.4px */
+  }
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
-    .container {
-        margin-top: 0.8rem; /* 12.8px */
-    }
-    .awaitedSection {
-        padding: 1rem; /* 16px */
-        border-radius: 0.75rem; /* 12px */
-    }
-    .sectionHeader {
-        gap: 0.3rem; /* 4.8px */
-        margin-bottom: 0.6rem; /* 9.6px */
-    }
-    .sectionIcon {
-        width: 0.9375rem; /* 15px */
-        height: 0.9375rem; /* 15px */
-    }
-    .sectionTitleUnderlined {
-        font-size: 0.875rem; /* 14px */
-    }
-    .awaitedList {
-        margin-top: 0.75rem; /* 12px */
-        gap: 0.75rem; /* 12px */
-    }
-    .awaitedDescription {
-        font-size: 0.75rem; /* 12px */
-    }
-    .viewGigLink {
-        font-size: 0.75rem; /* 12px */
-        margin-top: 0.15rem; /* 2.4px */
-    }
-    .errorMessage {
-        font-size: 0.75rem; /* 12px */
-        padding: 0.3rem; /* 4.8px */
-    }
+  .container {
+    margin-top: 0.8rem; /* 12.8px */
+  }
+  .awaitedSection {
+    padding: 1rem; /* 16px */
+    border-radius: 0.75rem; /* 12px */
+  }
+  .sectionHeader {
+    gap: 0.3rem; /* 4.8px */
+    margin-bottom: 0.6rem; /* 9.6px */
+  }
+  .sectionIcon {
+    width: 0.9375rem; /* 15px */
+    height: 0.9375rem; /* 15px */
+  }
+  .sectionTitleUnderlined {
+    font-size: 0.875rem; /* 14px */
+  }
+  .awaitedList {
+    margin-top: 0.75rem; /* 12px */
+    gap: 0.75rem; /* 12px */
+  }
+  .awaitedDescription {
+    font-size: 0.75rem; /* 12px */
+  }
+  .viewGigLink {
+    font-size: 0.75rem; /* 12px */
+    margin-top: 0.15rem; /* 2.4px */
+  }
+  .errorMessage {
+    font-size: 0.75rem; /* 12px */
+    padding: 0.3rem; /* 4.8px */
+  }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
-    .container {
-        margin-top: 0.625rem; /* 10px */
-    }
-    .awaitedSection {
-        padding: 0.8rem; /* 12.8px */
-        border-radius: 0.6rem; /* 9.6px */
-    }
-    .sectionHeader {
-        gap: 0.25rem; /* 4px */
-        margin-bottom: 0.5rem; /* 8px */
-    }
-    .sectionIcon {
-        width: 0.875rem; /* 14px */
-        height: 0.875rem; /* 14px */
-    }
-    .sectionTitleUnderlined {
-        font-size: 0.8125rem; /* 13px */
-    }
-    .awaitedList {
-        margin-top: 0.625rem; /* 10px */
-        gap: 0.625rem; /* 10px */
-    }
-    .awaitedDescription {
-        font-size: 0.6875rem; /* ~11px */
-    }
-    .viewGigLink {
-        font-size: 0.6875rem; /* ~11px */
-        margin-top: 0.1rem; /* 1.6px */
-    }
-    .errorMessage {
-        font-size: 0.6875rem; /* ~11px */
-        padding: 0.25rem; /* 4px */
-    }
+  .container {
+    margin-top: 0.625rem; /* 10px */
+  }
+  .awaitedSection {
+    padding: 0.8rem; /* 12.8px */
+    border-radius: 0.6rem; /* 9.6px */
+  }
+  .sectionHeader {
+    gap: 0.25rem; /* 4px */
+    margin-bottom: 0.5rem; /* 8px */
+  }
+  .sectionIcon {
+    width: 0.875rem; /* 14px */
+    height: 0.875rem; /* 14px */
+  }
+  .sectionTitleUnderlined {
+    font-size: 0.8125rem; /* 13px */
+  }
+  .awaitedList {
+    margin-top: 0.625rem; /* 10px */
+    gap: 0.625rem; /* 10px */
+  }
+  .awaitedDescription {
+    font-size: 0.6875rem; /* ~11px */
+  }
+  .viewGigLink {
+    font-size: 0.6875rem; /* ~11px */
+    margin-top: 0.1rem; /* 1.6px */
+  }
+  .errorMessage {
+    font-size: 0.6875rem; /* ~11px */
+    padding: 0.25rem; /* 4px */
+  }
 }

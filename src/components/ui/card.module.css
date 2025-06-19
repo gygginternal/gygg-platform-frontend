@@ -5,7 +5,9 @@
   border: 1px solid #e2e8f0; /* border */
   background-color: #ffffff; /* bg-card */
   color: #0f172a; /* text-card-foreground */
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-sm */
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-sm */
 }
 
 .cardHeader {
@@ -37,4 +39,4 @@
   align-items: center;
   padding: 1.5rem; /* p-6 */
   padding-top: 0; /* pt-0 */
-} 
+}

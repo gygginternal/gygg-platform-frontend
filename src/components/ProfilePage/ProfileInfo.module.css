@@ -3,7 +3,7 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-    font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
 .profileCard {
@@ -23,15 +23,15 @@
 }
 
 .editButton {
-    background: none;
-    border: none;
-    padding: 0.3125rem; /* 5px */
-    cursor: pointer;
-    line-height: 0;
-    transition: opacity 0.2s ease; /* Transition for hover effect */
+  background: none;
+  border: none;
+  padding: 0.3125rem; /* 5px */
+  cursor: pointer;
+  line-height: 0;
+  transition: opacity 0.2s ease; /* Transition for hover effect */
 }
 .editButton:hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 .editIcon {
@@ -86,7 +86,8 @@
   line-height: 1.2;
 }
 
-.profileServices { /* For Hobbies */
+.profileServices {
+  /* For Hobbies */
   color: #536471;
   margin-bottom: 0.75rem; /* 12px */
   /* Facebook Post text (main body) 14-16px */
@@ -94,8 +95,8 @@
   line-height: 1.5;
 }
 .profileServices strong {
-    font-weight: 600;
-    color: #444;
+  font-weight: 600;
+  color: #444;
 }
 
 .profileLocation {
@@ -107,11 +108,11 @@
   display: flex;
 }
 .locationIcon {
-    /* Facebook Post action icons 16-20px */
-    width: 1rem; /* 16px */
-    height: 1rem; /* 16px */
-    opacity: 0.7;
-    flex-shrink: 0;
+  /* Facebook Post action icons 16-20px */
+  width: 1rem; /* 16px */
+  height: 1rem; /* 16px */
+  opacity: 0.7;
+  flex-shrink: 0;
 }
 
 .skillsContainer {
@@ -136,10 +137,10 @@
   gap: 0.5rem; /* 8px Reduced gap for tags */
 }
 .noSkills {
-    font-style: italic;
-    color: #777;
-    /* Facebook Comments 13-14px */
-    font-size: 0.8125rem; /* 13px */
+  font-style: italic;
+  color: #777;
+  /* Facebook Comments 13-14px */
+  font-size: 0.8125rem; /* 13px */
 }
 
 .skillTag {
@@ -150,7 +151,7 @@
   /* Facebook Timestamps and meta info 12px */
   font-size: 0.75rem; /* 12px */
   font-weight: 500;
-  box-shadow: 0 0.0625rem 0.125rem rgba(0,0,0,0.1); /* 0 1px 2px */
+  box-shadow: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.1); /* 0 1px 2px */
   flex-shrink: 0; /* Prevent tags from shrinking */
 }
 
@@ -186,17 +187,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #00AABA;
+  background-color: #00aaba;
   color: #fff;
   padding: 0.75rem 1.25rem; /* 12px 20px */
   border-radius: 0.75rem 0.75rem 0 0; /* 12px */
   flex-shrink: 0; /* Prevent header from shrinking */
 }
 .modalHeader h3 {
-    margin: 0;
-    /* Facebook Header (profile names etc.) 16-18px */
-    font-size: 1.25rem; /* 20px */
-    font-weight: 600;
+  margin: 0;
+  /* Facebook Header (profile names etc.) 16-18px */
+  font-size: 1.25rem; /* 20px */
+  font-weight: 600;
 }
 
 .closeButton {
@@ -211,7 +212,7 @@
   flex-shrink: 0;
 }
 .closeButton:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 .modalBody {
@@ -241,22 +242,23 @@
   flex-direction: column;
 }
 .formGroup label {
-    margin-bottom: 0.375rem; /* 6px */
-    /* Facebook Comments 13-14px */
-    font-size: 0.8125rem; /* 13px */
-    color: #444;
-    font-weight: 500;
+  margin-bottom: 0.375rem; /* 6px */
+  /* Facebook Comments 13-14px */
+  font-size: 0.8125rem; /* 13px */
+  color: #444;
+  font-weight: 500;
 }
 .rowLabel {
-    margin-bottom: 0.5rem; /* 8px */
-    /* Facebook Post text (main body) 14-16px */
-    font-size: 0.9375rem; /* 15px */
-    color: #333;
-    font-weight: 600;
-    display: block;
+  margin-bottom: 0.5rem; /* 8px */
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 0.9375rem; /* 15px */
+  color: #333;
+  font-weight: 600;
+  display: block;
 }
 
-.inputField, .textArea {
+.inputField,
+.textArea {
   width: 100%;
   padding: 0.625rem 0.75rem; /* 10px 12px */
   /* Facebook Post text (main body) 14-16px */
@@ -267,13 +269,14 @@
   font-family: 'Inter', sans-serif;
 }
 .textArea {
-    resize: vertical;
-    min-height: 5rem; /* 80px */
+  resize: vertical;
+  min-height: 5rem; /* 80px */
 }
-.inputField:focus, .textArea:focus {
-    border-color: #00AABA;
-    outline: none;
-    box-shadow: 0 0 0 0.125rem rgba(0, 170, 186, 0.2); /* 0 0 0 2px */
+.inputField:focus,
+.textArea:focus {
+  border-color: #00aaba;
+  outline: none;
+  box-shadow: 0 0 0 0.125rem rgba(0, 170, 186, 0.2); /* 0 0 0 2px */
 }
 
 .modalActions {
@@ -286,7 +289,8 @@
   flex-shrink: 0; /* Prevent actions from shrinking */
 }
 
-.cancelButton, .saveButton {
+.cancelButton,
+.saveButton {
   padding: 0.5625rem 1.125rem; /* 9px 18px */
   /* Facebook Buttons 13-14px */
   font-size: 0.9375rem; /* 15px (slightly larger than 14px for prominence) */
@@ -294,16 +298,18 @@
   border: none;
   cursor: pointer;
   font-weight: 500;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
 }
 
 .saveButton {
-  background-color: #3D4D55;
+  background-color: #3d4d55;
   color: #fff;
 }
 .saveButton:hover {
-    background-color: #2c3a40;
-    transform: translateY(-0.0625rem); /* -1px */
+  background-color: #2c3a40;
+  transform: translateY(-0.0625rem); /* -1px */
 }
 
 .cancelButton {
@@ -312,432 +318,440 @@
   border: 0.0625rem solid #dee2e6;
 }
 .cancelButton:hover {
-    background-color: #ced4da;
-    transform: translateY(-0.0625rem); /* -1px */
+  background-color: #ced4da;
+  transform: translateY(-0.0625rem); /* -1px */
 }
-.cancelButton:active, .saveButton:active {
-    transform: translateY(0);
+.cancelButton:active,
+.saveButton:active {
+  transform: translateY(0);
 }
 
 .imageUploadContainerModal {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.625rem; /* 10px */
-    margin-bottom: 0.9375rem; /* 15px */
-    padding: 0.625rem; /* 10px */
-    border: 0.0625rem solid #eee; /* 1px */
-    border-radius: 0.5rem; /* 8px */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem; /* 10px */
+  margin-bottom: 0.9375rem; /* 15px */
+  padding: 0.625rem; /* 10px */
+  border: 0.0625rem solid #eee; /* 1px */
+  border-radius: 0.5rem; /* 8px */
 }
 
 .imagePreviewModal {
-    /* Facebook Profile pic thumbnails: 32-40px. This is for modal, so maybe 100px is good. */
-    width: 6.25rem; /* 100px */
-    height: 6.25rem; /* 100px */
-    border: 0.125rem dashed #ccc; /* 2px */
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f8f8f8;
-    overflow: hidden;
-    cursor: pointer;
-    margin-bottom: 0.625rem; /* 10px */
-    flex-shrink: 0;
+  /* Facebook Profile pic thumbnails: 32-40px. This is for modal, so maybe 100px is good. */
+  width: 6.25rem; /* 100px */
+  height: 6.25rem; /* 100px */
+  border: 0.125rem dashed #ccc; /* 2px */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f8f8;
+  overflow: hidden;
+  cursor: pointer;
+  margin-bottom: 0.625rem; /* 10px */
+  flex-shrink: 0;
 }
 .imagePreviewModal:hover {
-    border-color: #00AABA;
+  border-color: #00aaba;
 }
 
 .previewImageModal {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .uploadPlaceholderModal {
-    color: #888;
-    /* Facebook Comments 13-14px */
-    font-size: 0.8125rem; /* 13px */
-    text-align: center;
+  color: #888;
+  /* Facebook Comments 13-14px */
+  font-size: 0.8125rem; /* 13px */
+  text-align: center;
 }
 
 .uploadButtonModal {
-    padding: 0.5rem 0.9375rem; /* 8px 15px */
-    /* Facebook Buttons 13-14px */
-    font-size: 0.8125rem; /* 13px */
-    background-color: #f0f0f0;
-    color: #333;
-    border: 0.0625rem solid #ccc; /* 1px */
-    border-radius: 0.25rem; /* 4px */
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+  padding: 0.5rem 0.9375rem; /* 8px 15px */
+  /* Facebook Buttons 13-14px */
+  font-size: 0.8125rem; /* 13px */
+  background-color: #f0f0f0;
+  color: #333;
+  border: 0.0625rem solid #ccc; /* 1px */
+  border-radius: 0.25rem; /* 4px */
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 .uploadButtonModal:hover {
-    background-color: #e0e0e0;
+  background-color: #e0e0e0;
 }
 
 .fileNameModal {
-    /* Facebook Timestamps and meta info 12px */
-    font-size: 0.75rem; /* 12px */
-    color: #555;
-    margin-top: 0.3125rem; /* 5px */
-    text-align: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 12.5rem; /* 200px */
+  /* Facebook Timestamps and meta info 12px */
+  font-size: 0.75rem; /* 12px */
+  color: #555;
+  margin-top: 0.3125rem; /* 5px */
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 12.5rem; /* 200px */
 }
 
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
-    .profileCard {
-        padding: 1rem; /* 16px */
-        margin-bottom: 1rem; /* 16px */
-    }
-    .profileHeader {
-        margin-bottom: 0.75rem; /* 12px */
-    }
-    .editIcon {
-        height: 1rem; /* 16px */
-        width: 1rem; /* 16px */
-    }
-    .profileContent {
-        gap: 1rem; /* 16px */
-    }
-    .profileImageContainer {
-        width: 8.75rem; /* 140px */
-        height: 8.75rem; /* 140px */
-        margin-bottom: 0.75rem; /* Space if it wraps */
-    }
-    .profileName {
-        font-size: 1.375rem; /* 22px */
-        margin-bottom: 0.4rem; /* 6.4px */
-    }
-    .profileServices,
-    .profileLocation {
-        font-size: 0.875rem; /* 14px */
-        margin-bottom: 0.625rem; /* 10px */
-    }
-    .locationIcon {
-        width: 0.9375rem; /* 15px */
-        height: 0.9375rem; /* 15px */
-    }
-    .skillsContainer {
-        min-width: 10rem; /* 160px */
-        margin-top: 0;
-        margin-bottom: 0.75rem; /* 12px */
-    }
-    .skillsTitle {
-        font-size: 1rem; /* 16px */
-        margin-bottom: 0.625rem; /* 10px */
-    }
-    .noSkills {
-        font-size: 0.75rem; /* 12px */
-    }
-    .skillTag {
-        font-size: 0.6875rem; /* ~11px */
-        padding: 0.25rem 0.625rem; /* 4px 10px */
-    }
+  .profileCard {
+    padding: 1rem; /* 16px */
+    margin-bottom: 1rem; /* 16px */
+  }
+  .profileHeader {
+    margin-bottom: 0.75rem; /* 12px */
+  }
+  .editIcon {
+    height: 1rem; /* 16px */
+    width: 1rem; /* 16px */
+  }
+  .profileContent {
+    gap: 1rem; /* 16px */
+  }
+  .profileImageContainer {
+    width: 8.75rem; /* 140px */
+    height: 8.75rem; /* 140px */
+    margin-bottom: 0.75rem; /* Space if it wraps */
+  }
+  .profileName {
+    font-size: 1.375rem; /* 22px */
+    margin-bottom: 0.4rem; /* 6.4px */
+  }
+  .profileServices,
+  .profileLocation {
+    font-size: 0.875rem; /* 14px */
+    margin-bottom: 0.625rem; /* 10px */
+  }
+  .locationIcon {
+    width: 0.9375rem; /* 15px */
+    height: 0.9375rem; /* 15px */
+  }
+  .skillsContainer {
+    min-width: 10rem; /* 160px */
+    margin-top: 0;
+    margin-bottom: 0.75rem; /* 12px */
+  }
+  .skillsTitle {
+    font-size: 1rem; /* 16px */
+    margin-bottom: 0.625rem; /* 10px */
+  }
+  .noSkills {
+    font-size: 0.75rem; /* 12px */
+  }
+  .skillTag {
+    font-size: 0.6875rem; /* ~11px */
+    padding: 0.25rem 0.625rem; /* 4px 10px */
+  }
 
-    /* Modal */
-    .modalContent {
-        max-width: 32rem; /* 512px */
-    }
-    .modalHeader {
-        padding: 0.625rem 1rem; /* 10px 16px */
-    }
-    .modalHeader h3 {
-        font-size: 1.125rem; /* 18px */
-    }
-    .closeButton {
-        font-size: 1.375rem; /* 22px */
-    }
-    .modalBody {
-        padding: 1rem 1.25rem; /* 16px 20px */
-        gap: 0.75rem; /* 12px */
-    }
-    .formGroup label {
-        font-size: 0.75rem; /* 12px */
-        margin-bottom: 0.3rem; /* 4.8px */
-    }
-    .rowLabel {
-        font-size: 0.875rem; /* 14px */
-        margin-bottom: 0.4rem; /* 6.4px */
-    }
-    .inputField, .textArea {
-        font-size: 0.9375rem; /* 15px */
-        padding: 0.5rem 0.625rem; /* 8px 10px */
-    }
-    .textArea {
-        min-height: 4.5rem; /* 72px */
-    }
-    .modalActions {
-        padding: 0.75rem; /* 12px */
-        margin-top: 0.75rem; /* 12px */
-        padding-top: 0.75rem; /* 12px */
-    }
-    .cancelButton, .saveButton {
-        font-size: 0.875rem; /* 14px */
-        padding: 0.5rem 1rem; /* 8px 16px */
-    }
-    .imageUploadContainerModal {
-        gap: 0.5rem; /* 8px */
-        margin-bottom: 0.75rem; /* 12px */
-        padding: 0.5rem; /* 8px */
-    }
-    .imagePreviewModal {
-        width: 5.5rem; /* 88px */
-        height: 5.5rem; /* 88px */
-        margin-bottom: 0.5rem; /* 8px */
-    }
-    .uploadPlaceholderModal {
-        font-size: 0.75rem; /* 12px */
-    }
-    .uploadButtonModal {
-        font-size: 0.75rem; /* 12px */
-        padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
-    }
-    .fileNameModal {
-        font-size: 0.6875rem; /* ~11px */
-    }
+  /* Modal */
+  .modalContent {
+    max-width: 32rem; /* 512px */
+  }
+  .modalHeader {
+    padding: 0.625rem 1rem; /* 10px 16px */
+  }
+  .modalHeader h3 {
+    font-size: 1.125rem; /* 18px */
+  }
+  .closeButton {
+    font-size: 1.375rem; /* 22px */
+  }
+  .modalBody {
+    padding: 1rem 1.25rem; /* 16px 20px */
+    gap: 0.75rem; /* 12px */
+  }
+  .formGroup label {
+    font-size: 0.75rem; /* 12px */
+    margin-bottom: 0.3rem; /* 4.8px */
+  }
+  .rowLabel {
+    font-size: 0.875rem; /* 14px */
+    margin-bottom: 0.4rem; /* 6.4px */
+  }
+  .inputField,
+  .textArea {
+    font-size: 0.9375rem; /* 15px */
+    padding: 0.5rem 0.625rem; /* 8px 10px */
+  }
+  .textArea {
+    min-height: 4.5rem; /* 72px */
+  }
+  .modalActions {
+    padding: 0.75rem; /* 12px */
+    margin-top: 0.75rem; /* 12px */
+    padding-top: 0.75rem; /* 12px */
+  }
+  .cancelButton,
+  .saveButton {
+    font-size: 0.875rem; /* 14px */
+    padding: 0.5rem 1rem; /* 8px 16px */
+  }
+  .imageUploadContainerModal {
+    gap: 0.5rem; /* 8px */
+    margin-bottom: 0.75rem; /* 12px */
+    padding: 0.5rem; /* 8px */
+  }
+  .imagePreviewModal {
+    width: 5.5rem; /* 88px */
+    height: 5.5rem; /* 88px */
+    margin-bottom: 0.5rem; /* 8px */
+  }
+  .uploadPlaceholderModal {
+    font-size: 0.75rem; /* 12px */
+  }
+  .uploadButtonModal {
+    font-size: 0.75rem; /* 12px */
+    padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
+  }
+  .fileNameModal {
+    font-size: 0.6875rem; /* ~11px */
+  }
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
-    .profileCard {
-        padding: 0.8rem; /* 12.8px */
-        margin-bottom: 0.8rem; /* 12.8px */
-    }
-    .profileHeader {
-        margin-bottom: 0.6rem; /* 9.6px */
-    }
-    .editIcon {
-        height: 0.9375rem; /* 15px */
-        width: 0.9375rem; /* 15px */
-    }
-    .profileContent {
-        gap: 0.8rem; /* 12.8px */
-    }
-    .profileImageContainer {
-        width: 7.5rem; /* 120px */
-        height: 7.5rem; /* 120px */
-        margin-bottom: 0.6rem; /* 9.6px */
-    }
-    .profileName {
-        font-size: 1.25rem; /* 20px */
-        margin-bottom: 0.3rem; /* 4.8px */
-    }
-    .profileServices,
-    .profileLocation {
-        font-size: 0.8125rem; /* 13px */
-        margin-bottom: 0.5rem; /* 8px */
-    }
-    .locationIcon {
-        width: 0.875rem; /* 14px */
-        height: 0.875rem; /* 14px */
-    }
-    .skillsContainer {
-        min-width: 8rem; /* 128px */
-        margin-bottom: 0.6rem; /* 9.6px */
-    }
-    .skillsTitle {
-        font-size: 0.9375rem; /* 15px */
-        margin-bottom: 0.5rem; /* 8px */
-    }
-    .noSkills {
-        font-size: 0.6875rem; /* ~11px */
-    }
-    .skillTag {
-        font-size: 0.625rem; /* 10px */
-        padding: 0.2rem 0.5rem; /* 3.2px 8px */
-    }
+  .profileCard {
+    padding: 0.8rem; /* 12.8px */
+    margin-bottom: 0.8rem; /* 12.8px */
+  }
+  .profileHeader {
+    margin-bottom: 0.6rem; /* 9.6px */
+  }
+  .editIcon {
+    height: 0.9375rem; /* 15px */
+    width: 0.9375rem; /* 15px */
+  }
+  .profileContent {
+    gap: 0.8rem; /* 12.8px */
+  }
+  .profileImageContainer {
+    width: 7.5rem; /* 120px */
+    height: 7.5rem; /* 120px */
+    margin-bottom: 0.6rem; /* 9.6px */
+  }
+  .profileName {
+    font-size: 1.25rem; /* 20px */
+    margin-bottom: 0.3rem; /* 4.8px */
+  }
+  .profileServices,
+  .profileLocation {
+    font-size: 0.8125rem; /* 13px */
+    margin-bottom: 0.5rem; /* 8px */
+  }
+  .locationIcon {
+    width: 0.875rem; /* 14px */
+    height: 0.875rem; /* 14px */
+  }
+  .skillsContainer {
+    min-width: 8rem; /* 128px */
+    margin-bottom: 0.6rem; /* 9.6px */
+  }
+  .skillsTitle {
+    font-size: 0.9375rem; /* 15px */
+    margin-bottom: 0.5rem; /* 8px */
+  }
+  .noSkills {
+    font-size: 0.6875rem; /* ~11px */
+  }
+  .skillTag {
+    font-size: 0.625rem; /* 10px */
+    padding: 0.2rem 0.5rem; /* 3.2px 8px */
+  }
 
-    /* Modal */
-    .modalContent {
-        max-width: 28rem; /* 448px */
-    }
-    .modalHeader {
-        padding: 0.5rem 0.8rem; /* 8px 12.8px */
-    }
-    .modalHeader h3 {
-        font-size: 1rem; /* 16px */
-    }
-    .closeButton {
-        font-size: 1.25rem; /* 20px */
-    }
-    .modalBody {
-        padding: 0.8rem 1rem; /* 12.8px 16px */
-        gap: 0.625rem; /* 10px */
-    }
-    .formGroup label {
-        font-size: 0.6875rem; /* ~11px */
-        margin-bottom: 0.25rem; /* 4px */
-    }
-    .rowLabel {
-        font-size: 0.8125rem; /* 13px */
-        margin-bottom: 0.3rem; /* 4.8px */
-    }
-    .inputField, .textArea {
-        font-size: 0.875rem; /* 14px */
-        padding: 0.4rem 0.5rem; /* 6.4px 8px */
-    }
-    .textArea {
-        min-height: 4rem; /* 64px */
-    }
-    .modalActions {
-        padding: 0.6rem; /* 9.6px */
-        margin-top: 0.6rem; /* 9.6px */
-        padding-top: 0.6rem; /* 9.6px */
-    }
-    .cancelButton, .saveButton {
-        font-size: 0.75rem; /* 12px */
-        padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
-    }
-    .imageUploadContainerModal {
-        gap: 0.4rem; /* 6.4px */
-        margin-bottom: 0.6rem; /* 9.6px */
-        padding: 0.4rem; /* 6.4px */
-    }
-    .imagePreviewModal {
-        width: 4.5rem; /* 72px */
-        height: 4.5rem; /* 72px */
-        margin-bottom: 0.4rem; /* 6.4px */
-    }
-    .uploadPlaceholderModal {
-        font-size: 0.6875rem; /* ~11px */
-    }
-    .uploadButtonModal {
-        font-size: 0.6875rem; /* ~11px */
-        padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
-    }
-    .fileNameModal {
-        font-size: 0.625rem; /* 10px */
-    }
+  /* Modal */
+  .modalContent {
+    max-width: 28rem; /* 448px */
+  }
+  .modalHeader {
+    padding: 0.5rem 0.8rem; /* 8px 12.8px */
+  }
+  .modalHeader h3 {
+    font-size: 1rem; /* 16px */
+  }
+  .closeButton {
+    font-size: 1.25rem; /* 20px */
+  }
+  .modalBody {
+    padding: 0.8rem 1rem; /* 12.8px 16px */
+    gap: 0.625rem; /* 10px */
+  }
+  .formGroup label {
+    font-size: 0.6875rem; /* ~11px */
+    margin-bottom: 0.25rem; /* 4px */
+  }
+  .rowLabel {
+    font-size: 0.8125rem; /* 13px */
+    margin-bottom: 0.3rem; /* 4.8px */
+  }
+  .inputField,
+  .textArea {
+    font-size: 0.875rem; /* 14px */
+    padding: 0.4rem 0.5rem; /* 6.4px 8px */
+  }
+  .textArea {
+    min-height: 4rem; /* 64px */
+  }
+  .modalActions {
+    padding: 0.6rem; /* 9.6px */
+    margin-top: 0.6rem; /* 9.6px */
+    padding-top: 0.6rem; /* 9.6px */
+  }
+  .cancelButton,
+  .saveButton {
+    font-size: 0.75rem; /* 12px */
+    padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
+  }
+  .imageUploadContainerModal {
+    gap: 0.4rem; /* 6.4px */
+    margin-bottom: 0.6rem; /* 9.6px */
+    padding: 0.4rem; /* 6.4px */
+  }
+  .imagePreviewModal {
+    width: 4.5rem; /* 72px */
+    height: 4.5rem; /* 72px */
+    margin-bottom: 0.4rem; /* 6.4px */
+  }
+  .uploadPlaceholderModal {
+    font-size: 0.6875rem; /* ~11px */
+  }
+  .uploadButtonModal {
+    font-size: 0.6875rem; /* ~11px */
+    padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
+  }
+  .fileNameModal {
+    font-size: 0.625rem; /* 10px */
+  }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
-    .profileCard {
-        padding: 0.6rem; /* 9.6px */
-        margin-bottom: 0.6rem; /* 9.6px */
-    }
-    .profileHeader {
-        margin-bottom: 0.4rem; /* 6.4px */
-    }
-    .editIcon {
-        height: 0.8125rem; /* 13px */
-        width: 0.8125rem; /* 13px */
-    }
-    .profileContent {
-        gap: 0.6rem; /* 9.6px */
-        flex-direction: column; /* Stack all items */
-        align-items: center; /* Center items when stacked */
-    }
-    .profileImageContainer {
-        width: 6.25rem; /* 100px */
-        height: 6.25rem; /* 100px */
-        margin-bottom: 0.5rem; /* 8px */
-    }
-    .profileDetails, .skillsContainer {
-        min-width: unset; /* Remove min-width to allow full flexibility */
-        width: 100%; /* Take full width when stacked */
-        text-align: center; /* Center text for stacked elements */
-        margin-bottom: 0.625rem; /* 10px */
-    }
-    .profileName {
-        font-size: 1.125rem; /* 18px */
-        margin-bottom: 0.2rem; /* 3.2px */
-    }
-    .profileServices,
-    .profileLocation {
-        font-size: 0.75rem; /* 12px */
-        margin-bottom: 0.4rem; /* 6.4px */
-        justify-content: center; /* Center location icon/text */
-    }
-    .locationIcon {
-        width: 0.8125rem; /* 13px */
-        height: 0.8125rem; /* 13px */
-    }
-    .skillsTitle {
-        font-size: 0.875rem; /* 14px */
-        margin-bottom: 0.4rem; /* 6.4px */
-    }
-    .skillsList {
-        justify-content: center; /* Center skill tags */
-        gap: 0.4rem; /* 6.4px */
-    }
-    .noSkills {
-        font-size: 0.625rem; /* 10px */
-    }
-    .skillTag {
-        font-size: 0.5625rem; /* ~9px */
-        padding: 0.15rem 0.4rem; /* 2.4px 6.4px */
-    }
+  .profileCard {
+    padding: 0.6rem; /* 9.6px */
+    margin-bottom: 0.6rem; /* 9.6px */
+  }
+  .profileHeader {
+    margin-bottom: 0.4rem; /* 6.4px */
+  }
+  .editIcon {
+    height: 0.8125rem; /* 13px */
+    width: 0.8125rem; /* 13px */
+  }
+  .profileContent {
+    gap: 0.6rem; /* 9.6px */
+    flex-direction: column; /* Stack all items */
+    align-items: center; /* Center items when stacked */
+  }
+  .profileImageContainer {
+    width: 6.25rem; /* 100px */
+    height: 6.25rem; /* 100px */
+    margin-bottom: 0.5rem; /* 8px */
+  }
+  .profileDetails,
+  .skillsContainer {
+    min-width: unset; /* Remove min-width to allow full flexibility */
+    width: 100%; /* Take full width when stacked */
+    text-align: center; /* Center text for stacked elements */
+    margin-bottom: 0.625rem; /* 10px */
+  }
+  .profileName {
+    font-size: 1.125rem; /* 18px */
+    margin-bottom: 0.2rem; /* 3.2px */
+  }
+  .profileServices,
+  .profileLocation {
+    font-size: 0.75rem; /* 12px */
+    margin-bottom: 0.4rem; /* 6.4px */
+    justify-content: center; /* Center location icon/text */
+  }
+  .locationIcon {
+    width: 0.8125rem; /* 13px */
+    height: 0.8125rem; /* 13px */
+  }
+  .skillsTitle {
+    font-size: 0.875rem; /* 14px */
+    margin-bottom: 0.4rem; /* 6.4px */
+  }
+  .skillsList {
+    justify-content: center; /* Center skill tags */
+    gap: 0.4rem; /* 6.4px */
+  }
+  .noSkills {
+    font-size: 0.625rem; /* 10px */
+  }
+  .skillTag {
+    font-size: 0.5625rem; /* ~9px */
+    padding: 0.15rem 0.4rem; /* 2.4px 6.4px */
+  }
 
-    /* Modal */
-    .modalContent {
-        max-width: 95%; /* Make it fill almost the whole screen */
-    }
-    .modalHeader {
-        padding: 0.4rem 0.6rem; /* 6.4px 9.6px */
-    }
-    .modalHeader h3 {
-        font-size: 0.9375rem; /* 15px */
-    }
-    .closeButton {
-        font-size: 1.125rem; /* 18px */
-    }
-    .modalBody {
-        padding: 0.6rem 0.8rem; /* 9.6px 12.8px */
-        gap: 0.5rem; /* 8px */
-    }
-    .formRow {
-        flex-direction: column; /* Stack form rows */
-        gap: 0.5rem; /* 8px */
-    }
-    .formGroup label {
-        font-size: 0.625rem; /* 10px */
-        margin-bottom: 0.2rem; /* 3.2px */
-    }
-    .rowLabel {
-        font-size: 0.75rem; /* 12px */
-        margin-bottom: 0.25rem; /* 4px */
-    }
-    .inputField, .textArea {
-        font-size: 0.8125rem; /* 13px */
-        padding: 0.3rem 0.4rem; /* 4.8px 6.4px */
-    }
-    .textArea {
-        min-height: 3.5rem; /* 56px */
-    }
-    .modalActions {
-        padding: 0.5rem; /* 8px */
-        margin-top: 0.5rem; /* 8px */
-        padding-top: 0.5rem; /* 8px */
-    }
-    .cancelButton, .saveButton {
-        font-size: 0.6875rem; /* ~11px */
-        padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
-    }
-    .imageUploadContainerModal {
-        gap: 0.3rem; /* 4.8px */
-        margin-bottom: 0.5rem; /* 8px */
-        padding: 0.3rem; /* 4.8px */
-    }
-    .imagePreviewModal {
-        width: 3.5rem; /* 56px */
-        height: 3.5rem; /* 56px */
-        margin-bottom: 0.3rem; /* 4.8px */
-    }
-    .uploadPlaceholderModal {
-        font-size: 0.625rem; /* 10px */
-    }
-    .uploadButtonModal {
-        font-size: 0.625rem; /* 10px */
-        padding: 0.25rem 0.5rem; /* 4px 8px */
-    }
-    .fileNameModal {
-        font-size: 0.5625rem; /* ~9px */
-    }
+  /* Modal */
+  .modalContent {
+    max-width: 95%; /* Make it fill almost the whole screen */
+  }
+  .modalHeader {
+    padding: 0.4rem 0.6rem; /* 6.4px 9.6px */
+  }
+  .modalHeader h3 {
+    font-size: 0.9375rem; /* 15px */
+  }
+  .closeButton {
+    font-size: 1.125rem; /* 18px */
+  }
+  .modalBody {
+    padding: 0.6rem 0.8rem; /* 9.6px 12.8px */
+    gap: 0.5rem; /* 8px */
+  }
+  .formRow {
+    flex-direction: column; /* Stack form rows */
+    gap: 0.5rem; /* 8px */
+  }
+  .formGroup label {
+    font-size: 0.625rem; /* 10px */
+    margin-bottom: 0.2rem; /* 3.2px */
+  }
+  .rowLabel {
+    font-size: 0.75rem; /* 12px */
+    margin-bottom: 0.25rem; /* 4px */
+  }
+  .inputField,
+  .textArea {
+    font-size: 0.8125rem; /* 13px */
+    padding: 0.3rem 0.4rem; /* 4.8px 6.4px */
+  }
+  .textArea {
+    min-height: 3.5rem; /* 56px */
+  }
+  .modalActions {
+    padding: 0.5rem; /* 8px */
+    margin-top: 0.5rem; /* 8px */
+    padding-top: 0.5rem; /* 8px */
+  }
+  .cancelButton,
+  .saveButton {
+    font-size: 0.6875rem; /* ~11px */
+    padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
+  }
+  .imageUploadContainerModal {
+    gap: 0.3rem; /* 4.8px */
+    margin-bottom: 0.5rem; /* 8px */
+    padding: 0.3rem; /* 4.8px */
+  }
+  .imagePreviewModal {
+    width: 3.5rem; /* 56px */
+    height: 3.5rem; /* 56px */
+    margin-bottom: 0.3rem; /* 4.8px */
+  }
+  .uploadPlaceholderModal {
+    font-size: 0.625rem; /* 10px */
+  }
+  .uploadButtonModal {
+    font-size: 0.625rem; /* 10px */
+    padding: 0.25rem 0.5rem; /* 4px 8px */
+  }
+  .fileNameModal {
+    font-size: 0.5625rem; /* ~9px */
+  }
 }

@@ -1,9 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styles from "./RecommendedGigs.module.css"; // NEW CSS MODULE
-import { useQuery } from "@tanstack/react-query";
-import apiClient from "../api/axiosConfig";
-import logger from "../utils/logger";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styles from './RecommendedGigs.module.css'; // NEW CSS MODULE
+import { useQuery } from '@tanstack/react-query';
+import apiClient from '../api/axiosConfig';
+import logger from '../utils/logger';
+import PropTypes from 'prop-types';
 
 const RecommendedGigs = () => {
   const {
@@ -12,24 +13,24 @@ const RecommendedGigs = () => {
     isError,
     error,
   } = useQuery({
-    queryKey: ["recommendedGigs"],
+    queryKey: ['recommendedGigs'],
     queryFn: async () => {
-      const response = await apiClient.get("/gigs/top-match");
+      const response = await apiClient.get('/gigs/top-match');
       return response.data.data;
     },
-    onError: (err) => {
-      logger.error("Error fetching recommended gigs:", err);
+    onError: err => {
+      logger.error('Error fetching recommended gigs:', err);
     },
   });
 
-  const formatGigDescription = (gig) => {
+  const formatGigDescription = gig => {
     const posterName = [gig.poster?.firstName, gig.poster?.lastName]
       .filter(Boolean)
-      .join(" ");
+      .join(' ');
     const location =
-      gig.poster?.address?.city || gig.poster?.address?.state || "";
+      gig.poster?.address?.city || gig.poster?.address?.state || '';
     return `${posterName}${
-      location ? ` from ${location}` : ""
+      location ? ` from ${location}` : ''
     } needs help with "${gig.title}"`;
   };
 
@@ -44,19 +45,17 @@ const RecommendedGigs = () => {
             height={20}
           />
         </div>
-        <h4 className={styles.sectionTitle}>
-          Open Gigs You Might Like
-        </h4>
+        <h4 className={styles.sectionTitle}>Open Gigs You Might Like</h4>
       </div>
       <div className={styles.gigsList}>
         {isLoading ? (
           <p>Loading recommended gigs...</p>
         ) : isError ? (
           <p className={styles.errorMessage}>
-            {error?.message || "Failed to load recommended gigs."}
+            {error?.message || 'Failed to load recommended gigs.'}
           </p>
         ) : recommendedGigs && recommendedGigs.length > 0 ? (
-          recommendedGigs.slice(0, 3).map((gig) => (
+          recommendedGigs.slice(0, 3).map(gig => (
             <div key={gig._id} className={styles.gigItem}>
               <div className={styles.gigContent}>
                 <p className={styles.gigDescription}>
@@ -76,6 +75,10 @@ const RecommendedGigs = () => {
       </div>
     </section>
   );
+};
+
+RecommendedGigs.propTypes = {
+  // No props to add PropTypes for, but ensure accessibility and remove unused imports if any.
 };
 
 export default RecommendedGigs;

@@ -2,7 +2,7 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-    font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
 .container {
@@ -36,11 +36,12 @@
   height: 1.25rem; /* 20px */
   flex-shrink: 0;
 }
-.sectionIcon img { /* Style the actual img tag if it's the icon */
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    color: #3d4d55; /* Default icon color if SVG */
+.sectionIcon img {
+  /* Style the actual img tag if it's the icon */
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  color: #3d4d55; /* Default icon color if SVG */
 }
 
 .sectionTitleUnderlined {
@@ -83,11 +84,13 @@
   font-weight: 700;
   text-decoration: none;
   display: inline-block;
-  transition: color 0.2s ease, text-decoration 0.2s ease;
+  transition:
+    color 0.2s ease,
+    text-decoration 0.2s ease;
 }
 .viewApplianceLink:hover {
-    color: #536471;
-    text-decoration: underline;
+  color: #536471;
+  text-decoration: underline;
 }
 
 .errorMessage {
@@ -102,120 +105,119 @@
   border: 0.0625rem solid #ffc0c0; /* Light red border */
 }
 
-
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
-    .container {
-        margin-top: 1rem; /* 16px */
-    }
-    .appliancesSection {
-        padding: 1.25rem; /* 20px */
-        border-radius: 0.875rem; /* 14px */
-    }
-    .sectionHeader {
-        gap: 0.4rem; /* 6.4px */
-        margin-bottom: 0.75rem; /* 12px */
-    }
-    .sectionIcon {
-        width: 1rem; /* 16px */
-        height: 1rem; /* 16px */
-    }
-    .sectionTitleUnderlined {
-        font-size: 0.9375rem; /* 15px */
-    }
-    .appliancesList {
-        margin-top: 0.875rem; /* 14px */
-    }
-    .applianceItem {
-        margin-bottom: 0.875rem; /* 14px */
-    }
-    .applianceDescription {
-        font-size: 0.8125rem; /* 13px */
-    }
-    .viewApplianceLink {
-        font-size: 0.8125rem; /* 13px */
-        margin-top: 0.2rem; /* 3.2px */
-    }
-    .errorMessage {
-        font-size: 0.8125rem; /* 13px */
-        padding: 0.4rem; /* 6.4px */
-    }
+  .container {
+    margin-top: 1rem; /* 16px */
+  }
+  .appliancesSection {
+    padding: 1.25rem; /* 20px */
+    border-radius: 0.875rem; /* 14px */
+  }
+  .sectionHeader {
+    gap: 0.4rem; /* 6.4px */
+    margin-bottom: 0.75rem; /* 12px */
+  }
+  .sectionIcon {
+    width: 1rem; /* 16px */
+    height: 1rem; /* 16px */
+  }
+  .sectionTitleUnderlined {
+    font-size: 0.9375rem; /* 15px */
+  }
+  .appliancesList {
+    margin-top: 0.875rem; /* 14px */
+  }
+  .applianceItem {
+    margin-bottom: 0.875rem; /* 14px */
+  }
+  .applianceDescription {
+    font-size: 0.8125rem; /* 13px */
+  }
+  .viewApplianceLink {
+    font-size: 0.8125rem; /* 13px */
+    margin-top: 0.2rem; /* 3.2px */
+  }
+  .errorMessage {
+    font-size: 0.8125rem; /* 13px */
+    padding: 0.4rem; /* 6.4px */
+  }
 }
 
 /* Responsive adjustments for screens up to 768px (Tables) */
 @media (max-width: 768px) {
-    .container {
-        margin-top: 0.8rem; /* 12.8px */
-    }
-    .appliancesSection {
-        padding: 1rem; /* 16px */
-        border-radius: 0.75rem; /* 12px */
-    }
-    .sectionHeader {
-        gap: 0.3rem; /* 4.8px */
-        margin-bottom: 0.6rem; /* 9.6px */
-    }
-    .sectionIcon {
-        width: 0.9375rem; /* 15px */
-        height: 0.9375rem; /* 15px */
-    }
-    .sectionTitleUnderlined {
-        font-size: 0.875rem; /* 14px */
-    }
-    .appliancesList {
-        margin-top: 0.75rem; /* 12px */
-    }
-    .applianceItem {
-        margin-bottom: 0.75rem; /* 12px */
-    }
-    .applianceDescription {
-        font-size: 0.75rem; /* 12px */
-    }
-    .viewApplianceLink {
-        font-size: 0.75rem; /* 12px */
-        margin-top: 0.15rem; /* 2.4px */
-    }
-    .errorMessage {
-        font-size: 0.75rem; /* 12px */
-        padding: 0.3rem; /* 4.8px */
-    }
+  .container {
+    margin-top: 0.8rem; /* 12.8px */
+  }
+  .appliancesSection {
+    padding: 1rem; /* 16px */
+    border-radius: 0.75rem; /* 12px */
+  }
+  .sectionHeader {
+    gap: 0.3rem; /* 4.8px */
+    margin-bottom: 0.6rem; /* 9.6px */
+  }
+  .sectionIcon {
+    width: 0.9375rem; /* 15px */
+    height: 0.9375rem; /* 15px */
+  }
+  .sectionTitleUnderlined {
+    font-size: 0.875rem; /* 14px */
+  }
+  .appliancesList {
+    margin-top: 0.75rem; /* 12px */
+  }
+  .applianceItem {
+    margin-bottom: 0.75rem; /* 12px */
+  }
+  .applianceDescription {
+    font-size: 0.75rem; /* 12px */
+  }
+  .viewApplianceLink {
+    font-size: 0.75rem; /* 12px */
+    margin-top: 0.15rem; /* 2.4px */
+  }
+  .errorMessage {
+    font-size: 0.75rem; /* 12px */
+    padding: 0.3rem; /* 4.8px */
+  }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
-    .container {
-        margin-top: 0.625rem; /* 10px */
-    }
-    .appliancesSection {
-        padding: 0.8rem; /* 12.8px */
-        border-radius: 0.6rem; /* 9.6px */
-    }
-    .sectionHeader {
-        gap: 0.25rem; /* 4px */
-        margin-bottom: 0.5rem; /* 8px */
-    }
-    .sectionIcon {
-        width: 0.875rem; /* 14px */
-        height: 0.875rem; /* 14px */
-    }
-    .sectionTitleUnderlined {
-        font-size: 0.8125rem; /* 13px */
-    }
-    .appliancesList {
-        margin-top: 0.625rem; /* 10px */
-    }
-    .applianceItem {
-        margin-bottom: 0.625rem; /* 10px */
-    }
-    .applianceDescription {
-        font-size: 0.6875rem; /* ~11px */
-    }
-    .viewApplianceLink {
-        font-size: 0.6875rem; /* ~11px */
-        margin-top: 0.1rem; /* 1.6px */
-    }
-    .errorMessage {
-        font-size: 0.6875rem; /* ~11px */
-        padding: 0.25rem; /* 4px */
-    }
+  .container {
+    margin-top: 0.625rem; /* 10px */
+  }
+  .appliancesSection {
+    padding: 0.8rem; /* 12.8px */
+    border-radius: 0.6rem; /* 9.6px */
+  }
+  .sectionHeader {
+    gap: 0.25rem; /* 4px */
+    margin-bottom: 0.5rem; /* 8px */
+  }
+  .sectionIcon {
+    width: 0.875rem; /* 14px */
+    height: 0.875rem; /* 14px */
+  }
+  .sectionTitleUnderlined {
+    font-size: 0.8125rem; /* 13px */
+  }
+  .appliancesList {
+    margin-top: 0.625rem; /* 10px */
+  }
+  .applianceItem {
+    margin-bottom: 0.625rem; /* 10px */
+  }
+  .applianceDescription {
+    font-size: 0.6875rem; /* ~11px */
+  }
+  .viewApplianceLink {
+    font-size: 0.6875rem; /* ~11px */
+    margin-top: 0.1rem; /* 1.6px */
+  }
+  .errorMessage {
+    font-size: 0.6875rem; /* ~11px */
+    padding: 0.25rem; /* 4px */
+  }
 }

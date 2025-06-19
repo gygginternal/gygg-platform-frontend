@@ -14,7 +14,7 @@ const BillingTable = ({ transactions }) => {
           </tr>
         </thead>
         <tbody>
-          {transactions.map((transaction) => (
+          {transactions.map(transaction => (
             <tr key={transaction._id}>
               <td>{new Date(transaction.date).toLocaleDateString()}</td>
               <td>{transaction.description}</td>
@@ -22,7 +22,9 @@ const BillingTable = ({ transactions }) => {
                 ${transaction.amount.toFixed(2)}
               </td>
               <td>
-                <span className={`${styles.status} ${styles[transaction.status.toLowerCase()]}`}>
+                <span
+                  className={`${styles.status} ${styles[transaction.status.toLowerCase()]}`}
+                >
                   {transaction.status}
                 </span>
               </td>
@@ -34,4 +36,4 @@ const BillingTable = ({ transactions }) => {
   );
 };
 
-export default BillingTable; 
+export default BillingTable;

@@ -10,104 +10,78 @@
   padding-top: 5.25rem; /* 84px */
   /* min-height calculation ensures container fills viewport minus header */
   min-height: calc(100vh - 5.25rem);
-  box-sizing: border-box; /* Ensures padding is included in height calculation */
-  width: 100%; /* Ensure it takes full width of its parent */
-  /* Optional: Add a background or other page-level styles here */
-  background-color: #f8f8f8; /* Example light background */
+  box-sizing: border-box;
+  width: 100%;
+  background-color: #f8f8f8;
 }
 
 .contentWrapper {
   display: flex;
-  flex-direction: row; /* Default for desktop: sidebar and main feed side-by-side */
+  flex-direction: row;
   width: 100%;
   max-width: 75rem; /* 1200px */
-  margin: 0 auto; /* Centers the content wrapper horizontally */
-  
-  padding: 1.25rem; /* 20px - Internal padding for the content within this wrapper */
-  gap: 1.25rem;     /* 20px - Space between the .sidebarArea and .mainFeedArea */
-  box-sizing: border-box; /* Ensures padding is included in width calculation */
+  margin: 0 auto;
+  padding: 1.25rem;
+  gap: 1.25rem;
+  box-sizing: border-box;
 }
 
 .sidebarArea {
-  width: 18rem; /* 288px - Fixed width for this internal sidebar column */
-  flex-shrink: 0; /* Prevents this column from shrinking */
-  min-width: 0; /* Allows flex item to shrink below its content size if needed */
+  width: 18rem; /* 288px */
+  flex-shrink: 0;
+  min-width: 0;
 }
 
 .mainFeedArea {
-  flex: 1; /* Allows the main content area to take up the remaining space */
-  min-width: 0; /* Allows flex item to shrink below its content size if needed */
+  flex: 1;
+  min-width: 0;
 }
 
 /* Responsive adjustments */
-
-/* @media (max-width: 1024px) - Large Tablets / Small Laptops */
 @media (max-width: 1024px) {
   .pageContainer {
-    padding-top: 4.5rem; /* 72px - Matches Header height at 1024px */
-    min-height: calc(100vh - 4.5rem);
+    padding-top: 4.5rem; /* 72px */
   }
+  
   .contentWrapper {
-    max-width: 60rem; /* 960px - Reduced max-width for smaller screens */
-    padding: 1rem; /* 16px - Slightly less internal padding */
-    gap: 1rem; /* 16px - Slightly less gap */
+    padding: 1rem;
+    gap: 1rem;
   }
+  
   .sidebarArea {
-    width: 15rem; /* 240px - Reduced internal sidebar width */
+    width: 16rem; /* 256px */
   }
 }
 
-/* @media (max-width: 992px) - Stacking breakpoint for this layout */
-/* This breakpoint is chosen to stack the sidebar and main feed vertically. */
-@media (max-width: 992px) {
-  .pageContainer {
-    padding-top: 4.5rem; /* Inherits Header height from 1024px */
-    min-height: calc(100vh - 4.5rem);
-  }
-  .contentWrapper {
-    flex-direction: column; /* Stack sidebarArea and mainFeedArea vertically */
-    padding: 0.75rem; /* 12px - Adjust internal padding for stacked content */
-    max-width: 95%; /* Adjust max-width for better mobile aesthetics */
-    gap: 1rem; /* 16px - Space between stacked sections */
-  }
-
-  .sidebarArea {
-    width: 100%; /* Internal sidebar takes full width when stacked */
-    margin-bottom: 1.25rem; /* 20px - Add space below the stacked internal sidebar */
-  }
-
-  .mainFeedArea {
-    width: 100%; /* Main feed takes full width when stacked */
-  }
-}
-
-/* @media (max-width: 768px) - Tablets */
 @media (max-width: 768px) {
-    .pageContainer {
-        padding-top: 4rem; /* 64px - Matches Header height at 768px */
-        min-height: calc(100vh - 4rem);
-    }
-    .contentWrapper {
-        max-width: 100%; /* Allow contentWrapper to take full width */
-        padding: 0.625rem 0.9375rem; /* 10px top/bottom, 15px left/right */
-        gap: 0.75rem; /* 12px */
-    }
-    .sidebarArea {
-        margin-bottom: 1rem; /* 16px - Reduced space between stacked items */
-    }
+  .pageContainer {
+    padding-top: 4rem; /* 64px */
+  }
+  
+  .contentWrapper {
+    flex-direction: column;
+    padding: 0.875rem;
+    gap: 0.875rem;
+  }
+  
+  .sidebarArea {
+    width: 100%;
+    order: 2;
+  }
+  
+  .mainFeedArea {
+    order: 1;
+  }
 }
 
-/* @media (max-width: 480px) - Mobile Phones */
 @media (max-width: 480px) {
-    .pageContainer {
-        padding-top: 3.5rem; /* 56px - Matches Header height at 480px */
-        min-height: calc(100vh - 3.5rem);
-    }
-    .contentWrapper {
-        padding: 0.5rem 0.625rem; /* 8px top/bottom, 10px left/right */
-        gap: 0.5rem; /* 8px */
-    }
-    .sidebarArea {
-        margin-bottom: 0.75rem; /* 12px - Further reduced space */
-    }
+  .pageContainer {
+    padding-top: 3.5rem; /* 56px */
+  }
+  
+  .contentWrapper {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+}
 }

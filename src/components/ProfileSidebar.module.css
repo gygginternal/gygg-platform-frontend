@@ -67,11 +67,12 @@
   height: 1.125rem; /* 18px */
   flex-shrink: 0;
 }
-.sectionIcon img { /* Style the img tag if it's the icon */
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    color: #3d4d55; /* Default icon color if SVG */
+.sectionIcon img {
+  /* Style the img tag if it's the icon */
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  color: #3d4d55; /* Default icon color if SVG */
 }
 
 .sectionTitle {
@@ -108,159 +109,159 @@
 /* @media (max-width: 1024px) - Large Tablets / Small Laptops */
 /* Matches `sidebarArea` width in AppLayout.module.css */
 @media (max-width: 1024px) {
-    .profileSidebar {
-        width: 15rem; /* 240px - Matches sidebarArea width */
-        box-shadow: none; /* Remove shadow on smaller screen to reduce visual clutter */
-    }
-    .profileCard {
-        padding: 1.25rem; /* 20px */
-    }
-    .profileImage {
-        height: 3rem; /* 48px */
-        width: 3rem; /* 48px */
-    }
-    .profileName {
-        font-size: 1rem; /* 16px */
-    }
-    .viewProfileLink {
-        font-size: 0.8125rem; /* 13px */
-        margin-top: 0.4rem; /* 6.4px */
-    }
-    .gigsSection {
-        margin-top: 1.25rem; /* 20px */
-    }
-    .sectionIcon {
-        width: 1rem; /* 16px */
-        height: 1rem; /* 16px */
-    }
-    .sectionTitle {
-        font-size: 0.9375rem; /* 15px */
-    }
-    .gigTags {
-        gap: 0.4rem; /* 6.4px */
-        margin-top: 0.8rem; /* 12.8px */
-    }
-    .skillTag {
-        font-size: 0.8125rem; /* 13px */
-        padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
-        border-radius: 0.8rem; /* 12.8px */
-    }
+  .profileSidebar {
+    width: 15rem; /* 240px - Matches sidebarArea width */
+    box-shadow: none; /* Remove shadow on smaller screen to reduce visual clutter */
+  }
+  .profileCard {
+    padding: 1.25rem; /* 20px */
+  }
+  .profileImage {
+    height: 3rem; /* 48px */
+    width: 3rem; /* 48px */
+  }
+  .profileName {
+    font-size: 1rem; /* 16px */
+  }
+  .viewProfileLink {
+    font-size: 0.8125rem; /* 13px */
+    margin-top: 0.4rem; /* 6.4px */
+  }
+  .gigsSection {
+    margin-top: 1.25rem; /* 20px */
+  }
+  .sectionIcon {
+    width: 1rem; /* 16px */
+    height: 1rem; /* 16px */
+  }
+  .sectionTitle {
+    font-size: 0.9375rem; /* 15px */
+  }
+  .gigTags {
+    gap: 0.4rem; /* 6.4px */
+    margin-top: 0.8rem; /* 12.8px */
+  }
+  .skillTag {
+    font-size: 0.8125rem; /* 13px */
+    padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
+    border-radius: 0.8rem; /* 12.8px */
+  }
 }
 
 /* @media (max-width: 992px) - Global Sidebar Collapse (ProfileSidebar is now 100% width) */
 @media (max-width: 992px) {
-    .profileSidebar {
-        width: 100%; /* Take full width of sidebarArea */
-        margin-bottom: 0; /* Parent (sidebarArea) handles margin-bottom */
-        box-shadow: 0 0.125rem 0.3125rem rgba(0,0,0,0.05); /* Restore subtle shadow */
-    }
-    .profileCard {
-        padding: 1rem; /* 16px */
-    }
-    .profileHeader {
-        align-items: center; /* Center vertically when stacked */
-        gap: 0.625rem; /* 10px */
-    }
-    .profileImage {
-        height: 2.75rem; /* 44px */
-        width: 2.75rem; /* 44px */
-    }
-    .profileName {
-        font-size: 0.9375rem; /* 15px */
-    }
-    .viewProfileLink {
-        font-size: 0.75rem; /* 12px */
-        margin-top: 0.25rem; /* 4px */
-    }
-    .gigsSection {
-        margin-top: 1rem; /* 16px */
-    }
-    .sectionIcon {
-        width: 0.9375rem; /* 15px */
-        height: 0.9375rem; /* 15px */
-    }
-    .sectionTitle {
-        font-size: 0.875rem; /* 14px */
-    }
-    .gigTags {
-        gap: 0.3rem; /* 4.8px */
-        margin-top: 0.6rem; /* 9.6px */
-    }
-    .skillTag {
-        font-size: 0.75rem; /* 12px */
-        padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
-        border-radius: 0.75rem; /* 12px */
-    }
+  .profileSidebar {
+    width: 100%; /* Take full width of sidebarArea */
+    margin-bottom: 0; /* Parent (sidebarArea) handles margin-bottom */
+    box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.05); /* Restore subtle shadow */
+  }
+  .profileCard {
+    padding: 1rem; /* 16px */
+  }
+  .profileHeader {
+    align-items: center; /* Center vertically when stacked */
+    gap: 0.625rem; /* 10px */
+  }
+  .profileImage {
+    height: 2.75rem; /* 44px */
+    width: 2.75rem; /* 44px */
+  }
+  .profileName {
+    font-size: 0.9375rem; /* 15px */
+  }
+  .viewProfileLink {
+    font-size: 0.75rem; /* 12px */
+    margin-top: 0.25rem; /* 4px */
+  }
+  .gigsSection {
+    margin-top: 1rem; /* 16px */
+  }
+  .sectionIcon {
+    width: 0.9375rem; /* 15px */
+    height: 0.9375rem; /* 15px */
+  }
+  .sectionTitle {
+    font-size: 0.875rem; /* 14px */
+  }
+  .gigTags {
+    gap: 0.3rem; /* 4.8px */
+    margin-top: 0.6rem; /* 9.6px */
+  }
+  .skillTag {
+    font-size: 0.75rem; /* 12px */
+    padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
+    border-radius: 0.75rem; /* 12px */
+  }
 }
 
 /* @media (max-width: 768px) - Tablets */
 @media (max-width: 768px) {
-    .profileCard {
-        padding: 0.8rem; /* 12.8px */
-    }
-    .profileImage {
-        height: 2.5rem; /* 40px */
-        width: 2.5rem; /* 40px */
-    }
-    .profileName {
-        font-size: 0.875rem; /* 14px */
-    }
-    .viewProfileLink {
-        font-size: 0.6875rem; /* ~11px */
-    }
-    .gigsSection {
-        margin-top: 0.8rem; /* 12.8px */
-    }
-    .sectionIcon {
-        width: 0.875rem; /* 14px */
-        height: 0.875rem; /* 14px */
-    }
-    .sectionTitle {
-        font-size: 0.8125rem; /* 13px */
-    }
-    .gigTags {
-        gap: 0.25rem; /* 4px */
-        margin-top: 0.5rem; /* 8px */
-    }
-    .skillTag {
-        font-size: 0.6875rem; /* ~11px */
-        padding: 0.25rem 0.5rem; /* 4px 8px */
-        border-radius: 0.6rem; /* 9.6px */
-    }
+  .profileCard {
+    padding: 0.8rem; /* 12.8px */
+  }
+  .profileImage {
+    height: 2.5rem; /* 40px */
+    width: 2.5rem; /* 40px */
+  }
+  .profileName {
+    font-size: 0.875rem; /* 14px */
+  }
+  .viewProfileLink {
+    font-size: 0.6875rem; /* ~11px */
+  }
+  .gigsSection {
+    margin-top: 0.8rem; /* 12.8px */
+  }
+  .sectionIcon {
+    width: 0.875rem; /* 14px */
+    height: 0.875rem; /* 14px */
+  }
+  .sectionTitle {
+    font-size: 0.8125rem; /* 13px */
+  }
+  .gigTags {
+    gap: 0.25rem; /* 4px */
+    margin-top: 0.5rem; /* 8px */
+  }
+  .skillTag {
+    font-size: 0.6875rem; /* ~11px */
+    padding: 0.25rem 0.5rem; /* 4px 8px */
+    border-radius: 0.6rem; /* 9.6px */
+  }
 }
 
 /* @media (max-width: 480px) - Mobile Phones */
 @media (max-width: 480px) {
-    .profileCard {
-        padding: 0.6rem; /* 9.6px */
-    }
-    .profileImage {
-        height: 2.25rem; /* 36px */
-        width: 2.25rem; /* 36px */
-    }
-    .profileName {
-        font-size: 0.8125rem; /* 13px */
-    }
-    .viewProfileLink {
-        font-size: 0.625rem; /* 10px */
-    }
-    .gigsSection {
-        margin-top: 0.6rem; /* 9.6px */
-    }
-    .sectionIcon {
-        width: 0.8125rem; /* 13px */
-        height: 0.8125rem; /* 13px */
-    }
-    .sectionTitle {
-        font-size: 0.75rem; /* 12px */
-    }
-    .gigTags {
-        gap: 0.2rem; /* 3.2px */
-        margin-top: 0.4rem; /* 6.4px */
-    }
-    .skillTag {
-        font-size: 0.625rem; /* 10px */
-        padding: 0.2rem 0.4rem; /* 3.2px 6.4px */
-        border-radius: 0.5rem; /* 8px */
-    }
+  .profileCard {
+    padding: 0.6rem; /* 9.6px */
+  }
+  .profileImage {
+    height: 2.25rem; /* 36px */
+    width: 2.25rem; /* 36px */
+  }
+  .profileName {
+    font-size: 0.8125rem; /* 13px */
+  }
+  .viewProfileLink {
+    font-size: 0.625rem; /* 10px */
+  }
+  .gigsSection {
+    margin-top: 0.6rem; /* 9.6px */
+  }
+  .sectionIcon {
+    width: 0.8125rem; /* 13px */
+    height: 0.8125rem; /* 13px */
+  }
+  .sectionTitle {
+    font-size: 0.75rem; /* 12px */
+  }
+  .gigTags {
+    gap: 0.2rem; /* 3.2px */
+    margin-top: 0.4rem; /* 6.4px */
+  }
+  .skillTag {
+    font-size: 0.625rem; /* 10px */
+    padding: 0.2rem 0.4rem; /* 3.2px 6.4px */
+    border-radius: 0.5rem; /* 8px */
+  }
 }

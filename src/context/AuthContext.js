@@ -4,16 +4,16 @@ import React, {
   useEffect,
   useContext,
   useCallback,
-} from "react";
-import apiClient from "../api/axiosConfig"; // Adjust path if needed
-import logger from "../utils/logger"; // Adjust path if needed, and ensure logger is imported
+} from 'react';
+import apiClient from '../api/axiosConfig'; // Adjust path if needed
+import logger from '../utils/logger'; // Adjust path if needed, and ensure logger is imported
 
 const AuthContext = createContext(undefined); // Initialize with undefined for stricter type checking with useAuth
 
 export const AuthProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("authToken");
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('authToken');
     }
     return null;
   });
@@ -21,9 +21,9 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true); // Start true to fetch user on initial load
 
   const logout = useCallback(() => {
-    logger.info("AuthContext: Logging out...");
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("authToken");
+    logger.info('AuthContext: Logging out...');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('authToken');
     }
     setAuthToken(null);
     setUser(null);
@@ -33,38 +33,38 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUser = useCallback(async () => {
     let currentToken = null;
-    if (typeof window !== "undefined") {
-      currentToken = localStorage.getItem("authToken");
+    if (typeof window !== 'undefined') {
+      currentToken = localStorage.getItem('authToken');
     }
 
     if (
       currentToken &&
-      currentToken !== "null" &&
-      currentToken !== "undefined"
+      currentToken !== 'null' &&
+      currentToken !== 'undefined'
     ) {
-      logger.debug("AuthContext: Token found, attempting to fetch user...");
+      logger.debug('AuthContext: Token found, attempting to fetch user...');
       try {
         // apiClient includes token via interceptor
-        const response = await apiClient.get("/users/me");
+        const response = await apiClient.get('/users/me');
         console.log({ response });
 
         if (response.data?.data?.user) {
           setUser(response.data.data.user);
           setAuthToken(currentToken); // Ensure token state is also up-to-date
           logger.debug(
-            "AuthContext: User fetched successfully:",
+            'AuthContext: User fetched successfully:',
             response.data.data.user?._id
           );
           return response.data.data.user; // Return the fetched user data
         } else {
           logger.warn(
-            "AuthContext: Fetched user data missing in response from /users/me."
+            'AuthContext: Fetched user data missing in response from /users/me.'
           );
           logout(); // Call stable logout
         }
       } catch (error) {
         logger.error(
-          "AuthContext: Failed to fetch user with stored token:",
+          'AuthContext: Failed to fetch user with stored token:',
           error.response?.data || error.message
         );
         // The axios interceptor might already handle global 401 by redirecting to login.
@@ -75,7 +75,7 @@ export const AuthProvider = ({ children }) => {
         // For other errors, user remains null, token might still be considered invalid by this point
       }
     } else {
-      logger.debug("AuthContext: No valid token found in local storage.");
+      logger.debug('AuthContext: No valid token found in local storage.');
       // Ensure state is cleared if no token
       setAuthToken(null);
       setUser(null);
@@ -84,29 +84,29 @@ export const AuthProvider = ({ children }) => {
   }, [logout]); // <<< ADD logout as a dependency
 
   useEffect(() => {
-    logger.debug("AuthContext: Initializing, attempting to fetch user...");
+    logger.debug('AuthContext: Initializing, attempting to fetch user...');
     setIsLoading(true);
     fetchUser().finally(() => {
       setIsLoading(false);
-      logger.debug("AuthContext: Initial user fetch complete.");
+      logger.debug('AuthContext: Initial user fetch complete.');
     });
   }, [fetchUser]); // Run on mount and if fetchUser identity changes (it shouldn't often due to useCallback)
 
   const login = (token, userData) => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("authToken", token);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('authToken', token);
     }
     setAuthToken(token);
     setUser(userData);
-    logger.info("AuthContext: User logged in:", userData?._id);
+    logger.info('AuthContext: User logged in:', userData?._id);
   };
 
   const refreshUser = useCallback(async () => {
-    logger.debug("AuthContext: Refreshing user data...");
+    logger.debug('AuthContext: Refreshing user data...');
     setIsLoading(true); // Show loading during refresh
     const refreshedUserData = await fetchUser();
     setIsLoading(false);
-    logger.debug("AuthContext: User data refresh complete.");
+    logger.debug('AuthContext: User data refresh complete.');
     return refreshedUserData;
   }, [fetchUser]);
 
@@ -135,7 +135,7 @@ export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error(
-      "useAuth must be used within an AuthProvider. Make sure your component tree is wrapped."
+      'useAuth must be used within an AuthProvider. Make sure your component tree is wrapped.'
     );
   }
   return context;

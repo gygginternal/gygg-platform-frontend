@@ -4,8 +4,8 @@ import styles from '../components/Legal/LegalPages.module.css'; // Shared CSS fo
 import { Link } from 'react-router-dom';
 
 function TermsOfUsePage() {
-    // Replace this with your actual Terms of Use content
-    const termsContent = `
+  // Replace this with your actual Terms of Use content
+  const termsContent = `
         <h2>Terms of Use</h2>
         <p><strong>Last Updated: June 13, 2025 </strong></p>
 
@@ -53,19 +53,27 @@ function TermsOfUsePage() {
         <p>If you have any questions about these Terms, please contact us at: hello@gygg.co</p>
     `;
 
-    return (
-        <div className={styles.legalPageContainer}>
-            <div className={styles.logo}>
-                <Link to="/">
-                    <img src="/assets/gygg-logo.svg" alt="GYGG Logo" width={100} height={60}/>
-                </Link>
-            </div>
-            <article className={styles.legalContent} dangerouslySetInnerHTML={{ __html: termsContent }} />
-            <div className={styles.footerLink}>
-                <Link to="/">Back to Home</Link>
-            </div>
-        </div>
-    );
+  return (
+    <div className={styles.legalPageContainer}>
+      <div className={styles.logo}>
+        <Link to="/">
+          <img
+            src="/assets/gygg-logo.svg"
+            alt="GYGG Logo"
+            width={100}
+            height={60}
+          />
+        </Link>
+      </div>
+      <article
+        className={styles.legalContent}
+        dangerouslySetInnerHTML={{ __html: termsContent }}
+      />
+      <div className={styles.footerLink}>
+        <Link to="/">Back to Home</Link>
+      </div>
+    </div>
+  );
 }
 
 export default TermsOfUsePage;

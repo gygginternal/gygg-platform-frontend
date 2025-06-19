@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
 
 :root {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 .legalPageContainer {
@@ -22,7 +22,7 @@
 .logo {
   font-family: 'Inter', sans-serif;
   font-weight: 900;
-  color: #D89362;
+  color: #d89362;
   text-decoration: none;
   position: absolute;
   top: 1.5rem;
@@ -48,7 +48,7 @@
   font-family: 'Inter', sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #00AABA;
+  color: #00aaba;
   margin-top: 0;
   margin-bottom: 1.25rem;
   padding-bottom: 0.625rem;
@@ -81,152 +81,154 @@
 }
 
 .legalContent a {
-    color: #00AABA;
-    text-decoration: underline;
-    transition: color 0.2s ease;
+  color: #00aaba;
+  text-decoration: underline;
+  transition: color 0.2s ease;
 }
 .legalContent a:hover {
-    color: #007D87;
+  color: #007d87;
 }
 
 .footerLink {
-    margin-top: 1.875rem;
+  margin-top: 1.875rem;
 }
 .footerLink a {
-    font-family: 'Inter', sans-serif;
-    color: #00AABA;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.875rem;
-    transition: text-decoration 0.2s ease, color 0.2s ease;
+  font-family: 'Inter', sans-serif;
+  color: #00aaba;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition:
+    text-decoration 0.2s ease,
+    color 0.2s ease;
 }
 .footerLink a:hover {
-    text-decoration: underline;
-    color:#007D87;
+  text-decoration: underline;
+  color: #007d87;
 }
 
 /* Media Queries remain unchanged; ensure fallback styles inherit Inter font */
 @media (max-width: 1024px) {
-    .legalPageContainer {
-        padding: 1rem;
-    }
-    .logoHeader {
-        max-width: 45rem;
-        margin-bottom: 1.5rem;
-    }
-    .logoImg {
-        height: 2.25rem;
-        max-width: 8.75rem;
-    }
-    .legalContent {
-        padding: 1.5rem 2rem;
-        max-width: 45rem;
-        margin-top: 2rem;
-    }
-    .legalContent h2 {
-        font-size: 1.3rem;
-        margin-bottom: 1rem;
-        padding-bottom: 0.5rem;
-    }
-    .legalContent h3 {
-        font-size: 1rem;
-        margin-top: 1.25rem;
-        margin-bottom: 0.5rem;
-    }
-    .legalContent p,
-    .legalContent li {
-        font-size: 0.9375rem;
-        margin-bottom: 0.625rem;
-    }
-    .legalContent ul {
-        padding-left: 1.25rem;
-    }
-    .footerLink {
-        margin-top: 1.5rem;
-    }
-    .footerLink a {
-        font-size: 0.8125rem;
-    }
+  .legalPageContainer {
+    padding: 1rem;
+  }
+  .logoHeader {
+    max-width: 45rem;
+    margin-bottom: 1.5rem;
+  }
+  .logoImg {
+    height: 2.25rem;
+    max-width: 8.75rem;
+  }
+  .legalContent {
+    padding: 1.5rem 2rem;
+    max-width: 45rem;
+    margin-top: 2rem;
+  }
+  .legalContent h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+  }
+  .legalContent h3 {
+    font-size: 1rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  .legalContent p,
+  .legalContent li {
+    font-size: 0.9375rem;
+    margin-bottom: 0.625rem;
+  }
+  .legalContent ul {
+    padding-left: 1.25rem;
+  }
+  .footerLink {
+    margin-top: 1.5rem;
+  }
+  .footerLink a {
+    font-size: 0.8125rem;
+  }
 }
 
 @media (max-width: 768px) {
-    .legalPageContainer {
-        padding: 0.8rem;
-    }
-    .logoHeader {
-        max-width: 95%;
-        margin-bottom: 1.25rem;
-    }
-    .logoImg {
-        height: 2rem;
-        max-width: 7.5rem;
-    }
-    .legalContent {
-        padding: 1.25rem 1.5rem;
-        max-width: 95%;
-    }
-    .legalContent h2 {
-        font-size: 1.125rem;
-        margin-bottom: 0.8rem;
-        padding-bottom: 0.4rem;
-    }
-    .legalContent h3 {
-        font-size: 0.9375rem;
-        margin-top: 1rem;
-        margin-bottom: 0.4rem;
-    }
-    .legalContent p,
-    .legalContent li {
-        font-size: 0.875rem;
-        margin-bottom: 0.5rem;
-    }
-    .legalContent ul {
-        padding-left: 1rem;
-    }
-    .footerLink {
-        margin-top: 1.25rem;
-    }
-    .footerLink a {
-        font-size: 0.75rem;
-    }
+  .legalPageContainer {
+    padding: 0.8rem;
+  }
+  .logoHeader {
+    max-width: 95%;
+    margin-bottom: 1.25rem;
+  }
+  .logoImg {
+    height: 2rem;
+    max-width: 7.5rem;
+  }
+  .legalContent {
+    padding: 1.25rem 1.5rem;
+    max-width: 95%;
+  }
+  .legalContent h2 {
+    font-size: 1.125rem;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.4rem;
+  }
+  .legalContent h3 {
+    font-size: 0.9375rem;
+    margin-top: 1rem;
+    margin-bottom: 0.4rem;
+  }
+  .legalContent p,
+  .legalContent li {
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+  }
+  .legalContent ul {
+    padding-left: 1rem;
+  }
+  .footerLink {
+    margin-top: 1.25rem;
+  }
+  .footerLink a {
+    font-size: 0.75rem;
+  }
 }
 
 @media (max-width: 480px) {
-    .legalPageContainer {
-        padding: 0.625rem;
-    }
-    .logoHeader {
-        margin-bottom: 1rem;
-    }
-    .logoImg {
-        height: 1.75rem;
-        max-width: 6.25rem;
-    }
-    .legalContent {
-        padding: 1rem 1rem;
-    }
-    .legalContent h2 {
-        font-size: 1rem;
-        margin-bottom: 0.625rem;
-        padding-bottom: 0.3rem;
-    }
-    .legalContent h3 {
-        font-size: 0.875rem;
-        margin-top: 0.8rem;
-        margin-bottom: 0.3rem;
-    }
-    .legalContent p,
-    .legalContent li {
-        font-size: 0.8125rem;
-        margin-bottom: 0.4rem;
-    }
-    .legalContent ul {
-        padding-left: 0.8rem;
-    }
-    .footerLink {
-        margin-top: 1rem;
-    }
-    .footerLink a {
-        font-size: 0.6875rem;
-    }
+  .legalPageContainer {
+    padding: 0.625rem;
+  }
+  .logoHeader {
+    margin-bottom: 1rem;
+  }
+  .logoImg {
+    height: 1.75rem;
+    max-width: 6.25rem;
+  }
+  .legalContent {
+    padding: 1rem 1rem;
+  }
+  .legalContent h2 {
+    font-size: 1rem;
+    margin-bottom: 0.625rem;
+    padding-bottom: 0.3rem;
+  }
+  .legalContent h3 {
+    font-size: 0.875rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.3rem;
+  }
+  .legalContent p,
+  .legalContent li {
+    font-size: 0.8125rem;
+    margin-bottom: 0.4rem;
+  }
+  .legalContent ul {
+    padding-left: 0.8rem;
+  }
+  .footerLink {
+    margin-top: 1rem;
+  }
+  .footerLink a {
+    font-size: 0.6875rem;
+  }
 }

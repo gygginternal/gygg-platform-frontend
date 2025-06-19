@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
-import apiClient from "../api/axiosConfig"; // Adjust path
-import { ServiceProviderListing } from "../components/TaskerMatchedSection";
-import { TaskerMatchedSidebar } from "../components/TaskerMatchedSidebar";
-import styles from "./FindTaskersPage.module.css";
+import { useState, useEffect } from 'react';
+import apiClient from '../api/axiosConfig'; // Adjust path
+import { ServiceProviderListing } from '../components/TaskerMatchedSection';
+import { TaskerMatchedSidebar } from '../components/TaskerMatchedSidebar';
+import styles from './FindTaskersPage.module.css';
 
 export const FindTaskersPage = () => {
   const [gigHelpers, setGigHelpers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
@@ -18,20 +18,19 @@ export const FindTaskersPage = () => {
       setHasMore(true); // Reset pagination state
     }
     setLoading(true);
-    setError("");
+    setError('');
     try {
       const response = await apiClient.get(
         `/taskers/matched?page=${page}&limit=10`
       );
       const newHelpers = response.data;
-      setGigHelpers((prev) =>
+      setGigHelpers(prev =>
         isFirstPage ? newHelpers : [...prev, ...newHelpers]
       );
       setHasMore(newHelpers.length === 10); // Assume more results if the limit is reached
       setCurrentPage(page);
     } catch (err) {
-      console.error("Error fetching gig helpers:", err);
-      setError(err.response?.data?.message || "Failed to load gig helpers.");
+      setError(err.response?.data?.message || 'Failed to load gig helpers.');
       setHasMore(false);
     } finally {
       setLoading(false);
@@ -70,16 +69,16 @@ export const FindTaskersPage = () => {
 
           {error && <p className={styles.errorMessage}>{error}</p>}
           <ServiceProviderListing gigHelpers={gigHelpers} />
-          {loading && currentPage === 1 && <p className={styles.loadingMessage}>Loading...</p>}
+          {loading && currentPage === 1 && (
+            <p className={styles.loadingMessage}>Loading...</p>
+          )}
           {hasMore && !loading && (
             <button onClick={loadMore} className={styles.loadMoreButton}>
               Load More Taskers
             </button>
           )}
           {!hasMore && gigHelpers.length > 0 && (
-            <p className={styles.endMessage}>
-              End of results.
-            </p>
+            <p className={styles.endMessage}>End of results.</p>
           )}
         </main>
       </div>

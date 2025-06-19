@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useAuth } from "../context/AuthContext"; // To get userId if needed by backend
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext'; // To get userId if needed by backend
 // import { Button } from "../components/ui/button"; // Removed as we'll use a local button or convert it
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import apiClient from "../api/axiosConfig";
-import styles from "./GigApplySection.module.css"; // Import CSS module
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import apiClient from '../api/axiosConfig';
+import styles from './GigApplySection.module.css'; // Import CSS module
+import PropTypes from 'prop-types';
 
 export function OfferCard({
   offer,
@@ -13,14 +14,16 @@ export function OfferCard({
   isProvider,
 }) {
   const provider = offer.provider || {}; // Assuming offer has a provider object
-  console.log({ provider });
 
   return (
     <div className={styles.offerCard}>
       <div className={styles.offerCardContent}>
-        {" "}
+        {' '}
         <>
-          <button className={`${styles.acceptButton} ${styles.button}`} onClick={() => onAccept(offer._id)}>
+          <button
+            className={`${styles.acceptButton} ${styles.button}`}
+            onClick={() => onAccept(offer._id)}
+          >
             Accept Offer
           </button>
           <button
@@ -35,6 +38,14 @@ export function OfferCard({
   );
 }
 
+OfferCard.propTypes = {
+  offer: PropTypes.object.isRequired,
+  onDelete: PropTypes.func,
+  onAccept: PropTypes.func.isRequired,
+  onDecline: PropTypes.func.isRequired,
+  isProvider: PropTypes.bool,
+};
+
 export const GigApplySection = ({ gigId, onApplySuccess }) => {
   const { user } = useAuth(); // Get user if backend needs userId for non /me/album routes
   const [stripeStatus, setStripeStatus] = useState(null); // State for Stripe account status
@@ -45,13 +56,9 @@ export const GigApplySection = ({ gigId, onApplySuccess }) => {
     const fetchStripeStatus = async () => {
       setLoadingStripeStatus(true);
       try {
-        const response = await apiClient.get("/users/stripe/account-status");
+        const response = await apiClient.get('/users/stripe/account-status');
         setStripeStatus(response.data);
       } catch (err) {
-        console.error(
-          "Error fetching Stripe account status:",
-          err.response?.data || err.message
-        );
         setStripeStatus(null); // Reset to null on error
       } finally {
         setLoadingStripeStatus(false);
@@ -75,7 +82,7 @@ export const GigApplySection = ({ gigId, onApplySuccess }) => {
     isError,
     refetch: refetchApp,
   } = useQuery({
-    queryKey: ["myApplication", gigId],
+    queryKey: ['myApplication', gigId],
     queryFn: async () => {
       const response = await apiClient.get(`/gigs/${gigId}/my-application`);
       return response.data.data;
@@ -90,7 +97,7 @@ export const GigApplySection = ({ gigId, onApplySuccess }) => {
     isError: isOfferError,
     error: offerError,
   } = useQuery({
-    queryKey: ["gigOffer", gigId],
+    queryKey: ['gigOffer', gigId],
     queryFn: async () => {
       const response = await apiClient.get(`/gigs/${gigId}/offer`);
       return response.data.data.offer; // Return the single offer
@@ -104,56 +111,42 @@ export const GigApplySection = ({ gigId, onApplySuccess }) => {
       const response = await apiClient.post(`/gigs/${gigId}/apply`);
       return response.data;
     },
-    onSuccess: (data) => {
-      console.log("Gig applied successfully:", data);
+    onSuccess: data => {
       refetchApp();
       if (onApplySuccess) {
         onApplySuccess(); // Notify parent component to refresh data
       }
     },
-    onError: (err) => {
-      console.error(
-        "Error applying to gig:",
-        err.response?.data || err.message
-      );
-    },
+    onError: err => {},
   });
 
   // Mutation for canceling the application
   const cancelMutation = useMutation({
-    mutationFn: async (applicationId) => {
+    mutationFn: async applicationId => {
       await apiClient.patch(`/applications/${applicationId}/cancel`);
     },
     onSuccess: () => {
-      console.log("Application canceled successfully.");
       refetchApp();
       if (onApplySuccess) {
         onApplySuccess(); // Notify parent component to refresh data
       }
     },
-    onError: (err) => {
-      console.error(
-        "Error canceling application:",
-        err.response?.data || err.message
-      );
-    },
+    onError: err => {},
   });
 
-  const handleAcceptOffer = async (offerId) => {
+  const handleAcceptOffer = async offerId => {
     await apiClient.patch(`/offers/${offerId}/accept`);
-    queryClient.invalidateQueries(["gigOffers", gigId]); // Refresh offers
+    queryClient.invalidateQueries(['gigOffers', gigId]); // Refresh offers
     if (onApplySuccess) {
       onApplySuccess(); // Notify parent component to refresh data
     }
-    console.log("Offer accepted successfully.");
   };
 
   const queryClient = useQueryClient(); // React Query client for invalidating queries
 
-  const handleDeclineOffer = async (offerId) => {
+  const handleDeclineOffer = async offerId => {
     await apiClient.delete(`/offers/${offerId}`);
-    queryClient.invalidateQueries(["gigOffers", gigId]); // Refresh offers
-    console.log("Offer declined successfully.");
+    queryClient.invalidateQueries(['gigOffers', gigId]); // Refresh offers
   };
 
   if (isApplicationLoading || loadingStripeStatus || isOfferLoading) {
@@ -164,7 +157,7 @@ export const GigApplySection = ({ gigId, onApplySuccess }) => {
     return <p>Error loading application or offer status.</p>;
   }
 
-  const isProvider = user?.role === "provider"; // Determine if the user is a provider
+  const isProvider = user?.role === 'provider'; // Determine if the user is a provider
 
   return (
     <div>
@@ -182,28 +175,33 @@ export const GigApplySection = ({ gigId, onApplySuccess }) => {
         <div>
           {!isStripeIntegrted && (
             <p className={styles.stripeStatusMessage}>
-              You need to set up your Stripe account to apply for gigs.{" "}
-              <a className={styles.stripeSetupLink} href="/settings?tab=withdraw">
+              You need to set up your Stripe account to apply for gigs.{' '}
+              <a
+                className={styles.stripeSetupLink}
+                href="/settings?tab=withdraw"
+              >
                 Set up Stripe
               </a>
             </p>
           )}
-          {application?.applicationStatus === "rejected" && (
-            <div className={styles.applicationRejectedMessage}>Your application was rejected.</div>
+          {application?.applicationStatus === 'rejected' && (
+            <div className={styles.applicationRejectedMessage}>
+              Your application was rejected.
+            </div>
           )}
 
-          {(!application || application.applicationStatus === "cancelled") &&
+          {(!application || application.applicationStatus === 'cancelled') &&
             isStripeIntegrted && (
               <button
                 className={`${styles.applyButton} ${styles.button}`}
                 onClick={() => applyMutation.mutate()}
                 disabled={applyMutation.isLoading}
               >
-                {applyMutation.isLoading ? "Applying..." : "Apply"}
+                {applyMutation.isLoading ? 'Applying...' : 'Apply'}
               </button>
             )}
 
-          {application?.applicationStatus === "pending" && (
+          {application?.applicationStatus === 'pending' && (
             <div>
               <button
                 className={`${styles.cancelButton} ${styles.button}`}
@@ -211,8 +209,8 @@ export const GigApplySection = ({ gigId, onApplySuccess }) => {
                 disabled={cancelMutation.isLoading}
               >
                 {cancelMutation.isLoading
-                  ? "Canceling..."
-                  : "Cancel Application"}
+                  ? 'Canceling...'
+                  : 'Cancel Application'}
               </button>
             </div>
           )}
@@ -220,4 +218,9 @@ export const GigApplySection = ({ gigId, onApplySuccess }) => {
       )}
     </div>
   );
+};
+
+GigApplySection.propTypes = {
+  gigId: PropTypes.string.isRequired,
+  onApplySuccess: PropTypes.func,
 };

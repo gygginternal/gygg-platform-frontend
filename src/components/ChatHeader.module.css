@@ -2,7 +2,7 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-    font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
 .header {
@@ -18,7 +18,7 @@
     sans-serif;
   display: flex;
 }
-  
+
 .avatar {
   aspect-ratio: 1;
   object-fit: cover; /* Changed to cover for profile images */
@@ -30,7 +30,7 @@
   width: 4.75rem; /* 76px */
   height: 4.75rem; /* Make height explicit for square images */
 }
-  
+
 .userInfo {
   flex-direction: column;
   align-items: stretch;
@@ -39,7 +39,7 @@
   display: flex;
   min-width: 0; /* Allows text to truncate/wrap within available space */
 }
-  
+
 .userName {
   color: #3d4d55;
   align-self: flex-start; /* Corrected to flex-start */
@@ -51,7 +51,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-  
+
 .status {
   color: #303030;
   letter-spacing: 0.00875rem; /* 0.14px */
@@ -66,7 +66,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-  
+
 .statusIndicator {
   background-color: #00ae11;
   border-radius: 50%;
@@ -76,74 +76,121 @@
   height: 0.75rem; /* 12px */
 }
 
+.backButton {
+  background: none;
+  border: none;
+  padding: 0.25rem 0.5rem 0.25rem 0;
+  margin-right: 0.5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.15s;
+}
+.backButton:focus,
+.backButton:hover {
+  background: #f5f7fa;
+  border-radius: 8px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 0.5rem;
+}
+
+.actionButton {
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.actionButton:focus,
+.actionButton:hover {
+  background: #f5f7fa;
+}
+
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
-    .header {
-        gap: 1rem; /* 16px */
-        margin-left: 0.8rem; /* 12.8px */
-    }
-    .avatar {
-        width: 4rem; /* 64px */
-        height: 4rem; /* 64px */
-    }
-    .userName {
-        font-size: 1.125rem; /* 18px */
-    }
-    .status {
-        font-size: 0.8125rem; /* 13px */
-        gap: 0.5rem; /* 8px */
-        margin-top: 0.5rem; /* 8px */
-    }
-    .statusIndicator {
-        width: 0.625rem; /* 10px */
-        height: 0.625rem; /* 10px */
-    }
+  .header {
+    gap: 1rem; /* 16px */
+    margin-left: 0.8rem; /* 12.8px */
+  }
+  .avatar {
+    width: 4rem; /* 64px */
+    height: 4rem; /* 64px */
+  }
+  .userName {
+    font-size: 1.125rem; /* 18px */
+  }
+  .status {
+    font-size: 0.8125rem; /* 13px */
+    gap: 0.5rem; /* 8px */
+    margin-top: 0.5rem; /* 8px */
+  }
+  .statusIndicator {
+    width: 0.625rem; /* 10px */
+    height: 0.625rem; /* 10px */
+  }
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
-    .header {
-        gap: 0.8rem; /* 12.8px */
-        margin-left: 0.6rem; /* 9.6px */
-    }
-    .avatar {
-        width: 3.5rem; /* 56px */
-        height: 3.5rem; /* 56px */
-    }
-    .userName {
-        font-size: 1rem; /* 16px */
-    }
-    .status {
-        font-size: 0.75rem; /* 12px */
-        gap: 0.4rem; /* 6.4px */
-        margin-top: 0.4rem; /* 6.4px */
-    }
-    .statusIndicator {
-        width: 0.5rem; /* 8px */
-        height: 0.5rem; /* 8px */
-    }
+  .header {
+    gap: 0.5rem;
+    margin-left: 0.2rem;
+    padding: 0.5rem 0.5rem 0.5rem 0.2rem;
+  }
+  .actions {
+    gap: 0.25rem;
+  }
+  .avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  .userName {
+    font-size: 1rem; /* 16px */
+  }
+  .status {
+    font-size: 0.75rem; /* 12px */
+    gap: 0.4rem; /* 6.4px */
+    margin-top: 0.4rem; /* 6.4px */
+  }
+  .statusIndicator {
+    width: 0.5rem; /* 8px */
+    height: 0.5rem; /* 8px */
+  }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
-    .header {
-        gap: 0.625rem; /* 10px */
-        margin-left: 0.5rem; /* 8px */
-    }
-    .avatar {
-        width: 3rem; /* 48px */
-        height: 3rem; /* 48px */
-    }
-    .userName {
-        font-size: 0.9375rem; /* 15px */
-    }
-    .status {
-        font-size: 0.6875rem; /* ~11px */
-        gap: 0.3rem; /* 4.8px */
-        margin-top: 0.3rem; /* 4.8px */
-    }
-    .statusIndicator {
-        width: 0.4rem; /* 6.4px */
-        height: 0.4rem; /* 6.4px */
-    }
+  .header {
+    gap: 0.25rem;
+    margin-left: 0;
+    padding: 0.25rem 0.25rem 0.25rem 0;
+  }
+  .actions {
+    gap: 0.15rem;
+  }
+  .avatar {
+    width: 2rem;
+    height: 2rem;
+  }
+  .userName {
+    font-size: 0.9375rem; /* 15px */
+  }
+  .status {
+    font-size: 0.6875rem; /* ~11px */
+    gap: 0.3rem; /* 4.8px */
+    margin-top: 0.3rem; /* 4.8px */
+  }
+  .statusIndicator {
+    width: 0.4rem; /* 6.4px */
+    height: 0.4rem; /* 6.4px */
+  }
 }

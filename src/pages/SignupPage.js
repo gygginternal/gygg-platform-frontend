@@ -5,10 +5,12 @@ import styles from '../components/SignupPage/SignupPage.module.css';
 import InputField from '../components/Shared/InputField';
 import apiClient from '../api/axiosConfig';
 import logger from '../utils/logger';
+import { useToast } from '../context/ToastContext';
 
 function SignupPage() {
   const navigate = useNavigate();
   const location = useLocation();
+  const showToast = useToast();
   const initialRole = location.state?.selectedRole || 'tasker';
 
   const [formData, setFormData] = useState({
@@ -17,7 +19,7 @@ function SignupPage() {
     password: '',
     passwordConfirm: '',
     dateOfBirth: '',
-    role: [initialRole]
+    role: [initialRole],
   });
 
   const [error, setError] = useState('');
@@ -34,23 +36,31 @@ function SignupPage() {
   const handleChange = (name, value) => {
     // InputField for phoneNo will now send the already formatted '+1XXXXXXXXXX' string
     // Or just the raw value for other fields.
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData(prev => ({ ...prev, [name]: value }));
     // Clear error immediately if user starts typing after an error
-    if (error) { 
+    if (error) {
       setError('');
     }
   };
   // --- END: SIMPLIFIED handleChange ---
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    setError(''); // Clear previous errors at the start of submission
+    setLoading(true);
+    setError('');
 
     const currentErrors = []; // Collect all frontend validation errors
 
     // --- Frontend Validation ---
-    if (!formData.email || !formData.password || !formData.phoneNo || !formData.dateOfBirth) {
-      currentErrors.push('Please fill in all required fields (*). Email, Password, Phone, and Date of Birth are required.');
+    if (
+      !formData.email ||
+      !formData.password ||
+      !formData.phoneNo ||
+      !formData.dateOfBirth
+    ) {
+      currentErrors.push(
+        'Please fill in all required fields (*). Email, Password, Phone, and Date of Birth are required.'
+      );
     }
 
     if (formData.password !== formData.passwordConfirm) {
@@ -78,7 +88,9 @@ function SignupPage() {
     const phoneRegexE164 = /^\+\d{8,15}$/;
 
     if (!phoneRegexE164.test(fullPhoneNumber)) {
-      currentErrors.push('Phone number must be in international format (e.g., +441234567890, +919876543210, +12345678900).');
+      currentErrors.push(
+        'Phone number must be in international format (e.g., +441234567890, +919876543210, +12345678900).'
+      );
     }
 
     // If there are any frontend validation errors, display them and stop.
@@ -87,33 +99,30 @@ function SignupPage() {
       return;
     }
 
-    setLoading(true);
-
-    // Prepare payload matching backend expectations
     const payload = {
       email: formData.email,
       password: formData.password,
       passwordConfirm: formData.passwordConfirm,
       role: formData.role,
       dateOfBirth: formData.dateOfBirth,
-      phoneNo: formData.phoneNo // This is already the full E.164 string from InputField
+      phoneNo: formData.phoneNo,
     };
 
     try {
-      logger.info("Attempting signup for email:", payload.email);
-      console.log("Submitting payload:", payload); // Keep this for debugging!
+      logger.info('Attempting signup for email:', payload.email);
       await apiClient.post('/users/signup', payload);
-      logger.info("Signup successful on backend for:", payload.email);
-      
-      // Show a success alert, then navigate
-      alert("Signup successful! Please check your email to verify your account.");
-      
-      // Navigate to a dedicated page for email verification status
+      logger.info('Signup successful on backend for:', payload.email);
+      showToast(
+        'Signup successful! Please check your email to verify your account.',
+        { type: 'success' }
+      );
       navigate('/verify-email-prompt', { state: { email: payload.email } });
     } catch (err) {
-      const errorMessage = err.response?.data?.message || 'Signup failed. Please try again.';
-      logger.error("Signup error:", err.response?.data || err.message);
-      setError(errorMessage); // Backend error message is set as a single string
+      const errorMessage =
+        err.response?.data?.message || 'Signup failed. Please try again.';
+      logger.error('Signup error:', err.response?.data || err.message);
+      showToast(errorMessage, { type: 'error' });
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -121,8 +130,12 @@ function SignupPage() {
 
   const getMaxDateForDOB = () => {
     const today = new Date();
-    const maxDate = new Date(today.getFullYear() - 50, today.getMonth(), today.getDate());
-    return maxDate.toISOString().split("T")[0];
+    const maxDate = new Date(
+      today.getFullYear() - 50,
+      today.getMonth(),
+      today.getDate()
+    );
+    return maxDate.toISOString().split('T')[0];
   };
 
   const getMinDateForDOB = () => {
@@ -141,10 +154,11 @@ function SignupPage() {
       </Link>
 
       <section className={styles.formContainer}>
-        <h1 className={styles.title}>Sign up as {formData.role[0] === 'tasker' ? 'a Tasker' : 'a Provider'}</h1>
+        <h1 className={styles.title}>
+          Sign up as {formData.role[0] === 'tasker' ? 'a Tasker' : 'a Provider'}
+        </h1>
 
         <form className={styles.form} onSubmit={handleSubmit}>
-
           <InputField
             label="Email"
             name="email"
@@ -200,7 +214,7 @@ function SignupPage() {
             onChange={handleChange}
             required
             max={getMaxDateForDOB()}
-            min={getMinDateForDOB()} 
+            min={getMinDateForDOB()}
           />
 
           <footer className={styles.footer}>
@@ -208,7 +222,9 @@ function SignupPage() {
             {error && (
               <div className={styles.errorWrapper}>
                 {error.split('\n').map((msg, index) => (
-                  <p key={index} className={styles.errorMessage}>{msg}</p>
+                  <p key={index} className={styles.errorMessage}>
+                    {msg}
+                  </p>
                 ))}
               </div>
             )}
@@ -225,12 +241,20 @@ function SignupPage() {
               .
             </p>
 
-            <button type="submit" className={styles.submitButton} disabled={loading}>
+            <button
+              type="submit"
+              className={styles.submitButton}
+              disabled={loading}
+            >
               {loading ? 'Signing up...' : 'Sign up'}
             </button>
           </footer>
-          <p className={styles.terms}>Already have an account? <Link to="/login" className={styles.link}>Log In</Link></p>
-
+          <p className={styles.terms}>
+            Already have an account?{' '}
+            <Link to="/login" className={styles.link}>
+              Log In
+            </Link>
+          </p>
         </form>
       </section>
     </main>

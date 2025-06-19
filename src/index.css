@@ -3,10 +3,73 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 /* Basic CSS Reset & Box-Sizing */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* Global Image Reset */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Image Container Base Styles */
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Profile Image Sizes */
+.profile-image-small {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.profile-image-medium {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.profile-image-large {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+
+/* Post Image Styles */
+.post-image {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Album Image Styles */
+.album-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Chat Message Images */
+.messageContent img {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  margin: 4px 0;
+  object-fit: cover;
 }
 
 /* Global Root Font Size for REM units */
@@ -19,8 +82,18 @@ html {
 
 /* Base Body Styles */
 body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Roboto',
+    'Oxygen',
+    'Ubuntu',
+    'Cantarell',
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -31,8 +104,8 @@ body {
 
 /* Code Snippets */
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 /* Generic Navigation Styles (if used for non-Header nav) */
@@ -98,7 +171,7 @@ button {
   border: none;
   border-radius: 2rem; /* 32px */
   font-size: 1rem; /* 16px */
-  font-family: "Inter", sans-serif; /* Ensure button font is Inter */
+  font-family: 'Inter', sans-serif; /* Ensure button font is Inter */
 }
 
 button:disabled {
@@ -108,9 +181,9 @@ button:disabled {
 }
 
 /* General Form Input Styles */
-input[type="text"],
-input[type="email"],
-input[type="password"],
+input[type='text'],
+input[type='email'],
+input[type='password'],
 select,
 textarea {
   width: 100%;
@@ -120,7 +193,7 @@ textarea {
   box-sizing: border-box;
   font-size: 1rem; /* 16px */
   color: #333;
-  font-family: "Inter", sans-serif; /* Ensure form font is Inter */
+  font-family: 'Inter', sans-serif; /* Ensure form font is Inter */
 }
 
 /* General Label Styles */
@@ -144,7 +217,7 @@ ul {
   padding: 0.9375rem; /* 15px */
   border-radius: 0.3125rem; /* 5px */
   background-color: #fff;
-  box-shadow: 0 0.0625rem 0.125rem rgba(0,0,0,0.05); /* Subtle shadow */
+  box-shadow: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.05); /* Subtle shadow */
 }
 
 .card h4 {
@@ -172,4 +245,35 @@ ul {
   border: 0.0625rem solid #c3e6cb; /* Green border */
   border-radius: 0.25rem; /* 4px */
   text-align: center;
+}
+
+/* Responsive Image Adjustments */
+@media (max-width: 768px) {
+  .profile-image-large {
+    width: 48px;
+    height: 48px;
+  }
+
+  .post-image {
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-image-medium {
+    width: 40px;
+    height: 40px;
+  }
+
+  .post-image {
+    max-height: 200px;
+  }
+}
+
+a {
+  color: #222;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }

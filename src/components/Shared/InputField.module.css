@@ -3,10 +3,11 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-    font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
-.fieldContainer { /* Wrapper for label + input */
+.fieldContainer {
+  /* Wrapper for label + input */
   display: flex;
   flex-direction: column;
   gap: 0.5rem; /* 8px */
@@ -34,11 +35,14 @@
   border-radius: 0.5rem; /* 8px */
   padding: 0; /* Remove padding here, apply to input/select */
   gap: 0; /* No gap needed if styled correctly */
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
   overflow: hidden; /* Clip children to rounded corners */
 }
 
-.inputContainer:focus-within { /* Style container when input inside is focused */
+.inputContainer:focus-within {
+  /* Style container when input inside is focused */
   border-color: #d99633; /* Use theme color */
   box-shadow: 0 0 0 0.125rem rgba(217, 150, 51, 0.25); /* 0 0 0 2px */
 }
@@ -73,8 +77,9 @@
   -webkit-appearance: none;
   margin: 0;
 }
-.input::placeholder { /* Style placeholder */
-    color: #aaa;
+.input::placeholder {
+  /* Style placeholder */
+  color: #aaa;
 }
 
 .textarea {
@@ -100,103 +105,103 @@
   flex-shrink: 0; /* Prevent icon/button from shrinking */
 }
 .togglePassword:hover {
-    background-color: #f8f8f8;
+  background-color: #f8f8f8;
 }
 
 /* Adjustments when CountrySelect is present */
-.inputContainer select + .input { /* Target input immediately after select */
-    border-left: 0.0625rem solid #eee; /* 1px Add separator */
-    border-top-left-radius: 0; /* Flatten corner */
-    border-bottom-left-radius: 0;
+.inputContainer select + .input {
+  /* Target input immediately after select */
+  border-left: 0.0625rem solid #eee; /* 1px Add separator */
+  border-top-left-radius: 0; /* Flatten corner */
+  border-bottom-left-radius: 0;
 }
-
 
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
-    .fieldContainer {
-        gap: 0.4rem; /* 6.4px */
-        margin-bottom: 0.4rem; /* 6.4px */
-    }
-    .label {
-        font-size: 0.875rem; /* 14px */
-    }
-    .inputContainer {
-        border-radius: 0.4rem; /* 6.4px */
-    }
-    .inputContainer:focus-within {
-        box-shadow: 0 0 0 0.1rem rgba(217, 150, 51, 0.2); /* 1.6px */
-    }
-    .input {
-        font-size: 0.8125rem; /* 13px */
-        padding: 0.5rem 0.625rem; /* 8px 10px */
-        min-height: 2rem; /* 32px */
-    }
-    .textarea {
-        padding: 0.5rem 0.625rem; /* 8px 10px */
-        min-height: 3rem; /* 48px */
-    }
-    .togglePassword {
-        padding: 0 0.625rem; /* 0 10px */
-        font-size: 0.75rem; /* 12px */
-    }
+  .fieldContainer {
+    gap: 0.4rem; /* 6.4px */
+    margin-bottom: 0.4rem; /* 6.4px */
+  }
+  .label {
+    font-size: 0.875rem; /* 14px */
+  }
+  .inputContainer {
+    border-radius: 0.4rem; /* 6.4px */
+  }
+  .inputContainer:focus-within {
+    box-shadow: 0 0 0 0.1rem rgba(217, 150, 51, 0.2); /* 1.6px */
+  }
+  .input {
+    font-size: 0.8125rem; /* 13px */
+    padding: 0.5rem 0.625rem; /* 8px 10px */
+    min-height: 2rem; /* 32px */
+  }
+  .textarea {
+    padding: 0.5rem 0.625rem; /* 8px 10px */
+    min-height: 3rem; /* 48px */
+  }
+  .togglePassword {
+    padding: 0 0.625rem; /* 0 10px */
+    font-size: 0.75rem; /* 12px */
+  }
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
-    .fieldContainer {
-        gap: 0.3rem; /* 4.8px */
-        margin-bottom: 0.3rem; /* 4.8px */
-    }
-    .label {
-        font-size: 0.8125rem; /* 13px */
-    }
-    .inputContainer {
-        border-radius: 0.35rem; /* ~5.6px */
-    }
-    .inputContainer:focus-within {
-        box-shadow: 0 0 0 0.08rem rgba(217, 150, 51, 0.15); /* ~1.28px */
-    }
-    .input {
-        font-size: 0.75rem; /* 12px */
-        padding: 0.4rem 0.5rem; /* 6.4px 8px */
-        min-height: 1.875rem; /* 30px */
-    }
-    .textarea {
-        padding: 0.4rem 0.5rem; /* 6.4px 8px */
-        min-height: 2.5rem; /* 40px */
-    }
-    .togglePassword {
-        padding: 0 0.5rem; /* 0 8px */
-        font-size: 0.6875rem; /* ~11px */
-    }
+  .fieldContainer {
+    gap: 0.3rem; /* 4.8px */
+    margin-bottom: 0.3rem; /* 4.8px */
+  }
+  .label {
+    font-size: 0.8125rem; /* 13px */
+  }
+  .inputContainer {
+    border-radius: 0.35rem; /* ~5.6px */
+  }
+  .inputContainer:focus-within {
+    box-shadow: 0 0 0 0.08rem rgba(217, 150, 51, 0.15); /* ~1.28px */
+  }
+  .input {
+    font-size: 0.75rem; /* 12px */
+    padding: 0.4rem 0.5rem; /* 6.4px 8px */
+    min-height: 1.875rem; /* 30px */
+  }
+  .textarea {
+    padding: 0.4rem 0.5rem; /* 6.4px 8px */
+    min-height: 2.5rem; /* 40px */
+  }
+  .togglePassword {
+    padding: 0 0.5rem; /* 0 8px */
+    font-size: 0.6875rem; /* ~11px */
+  }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
-    .fieldContainer {
-        gap: 0.25rem; /* 4px */
-        margin-bottom: 0.25rem; /* 4px */
-    }
-    .label {
-        font-size: 0.75rem; /* 12px */
-    }
-    .inputContainer {
-        border-radius: 0.3rem; /* 4.8px */
-    }
-    .inputContainer:focus-within {
-        box-shadow: 0 0 0 0.06rem rgba(217, 150, 51, 0.1); /* ~0.96px */
-    }
-    .input {
-        font-size: 0.6875rem; /* ~11px */
-        padding: 0.35rem 0.4rem; /* 5.6px 6.4px */
-        min-height: 1.75rem; /* 28px */
-    }
-    .textarea {
-        padding: 0.35rem 0.4rem; /* 5.6px 6.4px */
-        min-height: 2rem; /* 32px */
-    }
-    .togglePassword {
-        padding: 0 0.4rem; /* 0 6.4px */
-        font-size: 0.625rem; /* 10px */
-    }
+  .fieldContainer {
+    gap: 0.25rem; /* 4px */
+    margin-bottom: 0.25rem; /* 4px */
+  }
+  .label {
+    font-size: 0.75rem; /* 12px */
+  }
+  .inputContainer {
+    border-radius: 0.3rem; /* 4.8px */
+  }
+  .inputContainer:focus-within {
+    box-shadow: 0 0 0 0.06rem rgba(217, 150, 51, 0.1); /* ~0.96px */
+  }
+  .input {
+    font-size: 0.6875rem; /* ~11px */
+    padding: 0.35rem 0.4rem; /* 5.6px 6.4px */
+    min-height: 1.75rem; /* 28px */
+  }
+  .textarea {
+    padding: 0.35rem 0.4rem; /* 5.6px 6.4px */
+    min-height: 2rem; /* 32px */
+  }
+  .togglePassword {
+    padding: 0 0.4rem; /* 0 6.4px */
+    font-size: 0.625rem; /* 10px */
+  }
 }

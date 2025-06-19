@@ -2,375 +2,388 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-    font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
 .container {
-    max-width: 50rem; /* 800px */
-    min-height: 25rem; /* 400px */
-    position: relative;
-    margin: 1.25rem auto; /* 20px auto */
-    background: #fff;
-    padding: 1.5625rem 1.875rem; /* 25px 30px */
-    border-radius: 0.625rem; /* 10px */
-    box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.08); /* 0 2px 10px */
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box; /* Ensures padding is included in width */
+  max-width: 50rem; /* 800px */
+  min-height: 25rem; /* 400px */
+  position: relative;
+  margin: 1.25rem auto; /* 20px auto */
+  background: #fff;
+  padding: 1.5625rem 1.875rem; /* 25px 30px */
+  border-radius: 0.625rem; /* 10px */
+  box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.08); /* 0 2px 10px */
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box; /* Ensures padding is included in width */
 }
 
 .tabs {
-    display: flex;
-    gap: 1.5625rem; /* 25px */
-    margin-bottom: 1.5625rem; /* 25px */
-    border-bottom: 0.0625rem solid #eee; /* 1px */
-    flex-shrink: 0;
-    flex-wrap: wrap; /* Allow tabs to wrap */
+  display: flex;
+  gap: 1.5625rem; /* 25px */
+  margin-bottom: 1.5625rem; /* 25px */
+  border-bottom: 0.0625rem solid #eee; /* 1px */
+  flex-shrink: 0;
+  flex-wrap: wrap; /* Allow tabs to wrap */
 }
 
 .activeTab,
 .inactiveTab {
-    /* Facebook Side menu / nav labels: 14-16px */
-    font-size: 0.9375rem; /* 15px */
-    padding-bottom: 0.625rem; /* 10px */
-    cursor: pointer;
-    white-space: nowrap; /* Prevent tab text from wrapping */
+  /* Facebook Side menu / nav labels: 14-16px */
+  font-size: 0.9375rem; /* 15px */
+  padding-bottom: 0.625rem; /* 10px */
+  cursor: pointer;
+  white-space: nowrap; /* Prevent tab text from wrapping */
 }
 
 .activeTab {
-    font-weight: 600;
-    border-bottom: 0.1875rem solid #00AABA; /* 3px */
-    color: #00AABA;
-    margin-bottom: -0.0625rem; /* -1px Align with border */
+  font-weight: 600;
+  border-bottom: 0.1875rem solid #00aaba; /* 3px */
+  color: #00aaba;
+  margin-bottom: -0.0625rem; /* -1px Align with border */
 }
 
 .inactiveTab {
-    color: #666;
-    border-bottom: 0.1875rem solid transparent; /* 3px */
+  color: #666;
+  border-bottom: 0.1875rem solid transparent; /* 3px */
 }
 
 .inactiveTab:hover {
-    color: #3D4D55;
-    border-bottom-color: #ddd;
+  color: #3d4d55;
+  border-bottom-color: #ddd;
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .tabContent {
-    padding-top: 0.9375rem; /* 15px */
-    display: flex;
-    flex-direction: column;
-    gap: 0.9375rem; /* 15px */
-    flex-grow: 1;
+  padding-top: 0.9375rem; /* 15px */
+  display: flex;
+  flex-direction: column;
+  gap: 0.9375rem; /* 15px */
+  flex-grow: 1;
 }
 
 .row {
-    display: flex;
-    gap: 1.25rem; /* 20px */
-    flex-wrap: wrap; /* Allow items in row to wrap */
+  display: flex;
+  gap: 1.25rem; /* 20px */
+  flex-wrap: wrap; /* Allow items in row to wrap */
 }
 
 .inputGroup {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-width: 10rem; /* Ensure inputs don't get too narrow before wrapping */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 10rem; /* Ensure inputs don't get too narrow before wrapping */
 }
 
 .inputGroup label {
-    font-weight: 500;
-    margin-bottom: 0.375rem; /* 6px */
-    /* Facebook Post text (main body) 14-16px */
-    font-size: 0.875rem; /* 14px */
-    color: #333;
+  font-weight: 500;
+  margin-bottom: 0.375rem; /* 6px */
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 0.875rem; /* 14px */
+  color: #333;
 }
 
 .inputGroup input {
-    padding: 0.625rem 0.75rem; /* 10px 12px */
-    border: 0.0625rem solid #ccc; /* 1px */
-    border-radius: 0.375rem; /* 6px */
-    /* Facebook Post text (main body) 14-16px */
-    font-size: 0.875rem; /* 14px */
+  padding: 0.625rem 0.75rem; /* 10px 12px */
+  border: 0.0625rem solid #ccc; /* 1px */
+  border-radius: 0.375rem; /* 6px */
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 0.875rem; /* 14px */
 }
 
 .inputGroup input:focus {
-    border-color: #00AABA;
-    outline: none;
-    box-shadow: 0 0 0 0.125rem rgba(0, 170, 186, 0.2); /* 0 0 0 2px */
+  border-color: #00aaba;
+  outline: none;
+  box-shadow: 0 0 0 0.125rem rgba(0, 170, 186, 0.2); /* 0 0 0 2px */
 }
 
 .saveButton {
-    padding: 0.625rem 1.5625rem; /* 10px 25px */
-    background: #3D4D55;
-    color: white;
-    border: none;
-    border-radius: 0.375rem; /* 6px */
-    /* Facebook Buttons 13-14px */
-    font-size: 0.875rem; /* 14px */
-    cursor: pointer;
-    margin-top: 1.5625rem; /* 25px */
-    align-self: flex-end;
-    transition: background-color 0.2s ease;
+  padding: 0.625rem 1.5625rem; /* 10px 25px */
+  background: #3d4d55;
+  color: white;
+  border: none;
+  border-radius: 0.375rem; /* 6px */
+  /* Facebook Buttons 13-14px */
+  font-size: 0.875rem; /* 14px */
+  cursor: pointer;
+  margin-top: 1.5625rem; /* 25px */
+  align-self: flex-end;
+  transition: background-color 0.2s ease;
 }
 
 .saveButton:hover:not(:disabled) {
-    background: #2c3a40;
+  background: #2c3a40;
 }
 .saveButton:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 .subheading {
-    /* Facebook Header (profile names etc.) 16-18px */
-    font-size: 1.125rem; /* 18px */
-    font-weight: 600;
-    color: #444;
-    margin-top: 1.25rem; /* 20px */
-    margin-bottom: 0.9375rem; /* 15px */
-    padding-bottom: 0.5rem; /* 8px */
-    border-bottom: 0.0625rem solid #f0f0f0; /* 1px */
+  /* Facebook Header (profile names etc.) 16-18px */
+  font-size: 1.125rem; /* 18px */
+  font-weight: 600;
+  color: #444;
+  margin-top: 1.25rem; /* 20px */
+  margin-bottom: 0.9375rem; /* 15px */
+  padding-bottom: 0.5rem; /* 8px */
+  border-bottom: 0.0625rem solid #f0f0f0; /* 1px */
 }
 
 .stripeSection {
-    padding: 1.25rem; /* 20px */
-    border: 0.0625rem solid #e9ecef; /* 1px */
-    border-radius: 0.5rem; /* 8px */
-    margin-top: 0.9375rem; /* 15px */
-    background-color: #f8f9fa;
+  padding: 1.25rem; /* 20px */
+  border: 0.0625rem solid #e9ecef; /* 1px */
+  border-radius: 0.5rem; /* 8px */
+  margin-top: 0.9375rem; /* 15px */
+  background-color: #f8f9fa;
 }
 
 .stripeSection p {
-    margin-bottom: 0.75rem; /* 12px */
-    line-height: 1.6;
-    /* Facebook Post text (main body) 14-16px */
-    font-size: 0.9375rem; /* 15px */
-    color: #495057;
+  margin-bottom: 0.75rem; /* 12px */
+  line-height: 1.6;
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 0.9375rem; /* 15px */
+  color: #495057;
 }
 .stripeSection code {
-    background-color: #e9ecef;
-    padding: 0.125rem 0.3125rem; /* 2px 5px */
-    border-radius: 0.1875rem; /* 3px */
-    /* Facebook Comments 13-14px */
-    font-size: 0.8125rem; /* 13px */
-    color: #343a40;
+  background-color: #e9ecef;
+  padding: 0.125rem 0.3125rem; /* 2px 5px */
+  border-radius: 0.1875rem; /* 3px */
+  /* Facebook Comments 13-14px */
+  font-size: 0.8125rem; /* 13px */
+  color: #343a40;
 }
 .stripeSection button {
-    margin-right: 0.625rem; /* 10px */
-    margin-bottom: 0.3125rem; /* 5px */
+  margin-right: 0.625rem; /* 10px */
+  margin-bottom: 0.3125rem; /* 5px */
 }
 
 /* Error/Success messages (if not handled globally by index.css) */
 /* Assuming these are `p` tags with the classes */
-.error-message, .success-message {
-    padding: 0.625rem; /* 10px */
-    border-radius: 0.25rem; /* 4px */
-    margin: 0.625rem 0; /* 10px 0 */
-    /* Facebook Comments 13-14px */
-    font-size: 0.875rem; /* 14px */
-    text-align: center;
+.error-message,
+.success-message {
+  padding: 0.625rem; /* 10px */
+  border-radius: 0.25rem; /* 4px */
+  margin: 0.625rem 0; /* 10px 0 */
+  /* Facebook Comments 13-14px */
+  font-size: 0.875rem; /* 14px */
+  text-align: center;
 }
 .error-message {
-    color: #dc3545; background-color: #f8d7da; border: 0.0625rem solid #f5c6cb;
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 0.0625rem solid #f5c6cb;
 }
 .success-message {
-    color: #155724; background-color: #d4edda; border: 0.0625rem solid #c3e6cb;
+  color: #155724;
+  background-color: #d4edda;
+  border: 0.0625rem solid #c3e6cb;
 }
 
 /* Ensure inputs fill their group width if groups are in a row (already set up) */
 .row .inputGroup input {
-    width: 100%;
-    box-sizing: border-box;
+  width: 100%;
+  box-sizing: border-box;
 }
-
 
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
-    .container {
-        max-width: 45rem; /* 720px */
-        padding: 1.25rem 1.5rem; /* 20px 24px */
-        margin: 1rem auto; /* 16px auto */
-    }
-    .tabs {
-        gap: 1.25rem; /* 20px */
-        margin-bottom: 1.25rem; /* 20px */
-    }
-    .activeTab, .inactiveTab {
-        font-size: 0.875rem; /* 14px */
-        padding-bottom: 0.5rem; /* 8px */
-    }
-    .tabContent {
-        padding-top: 0.75rem; /* 12px */
-        gap: 0.75rem; /* 12px */
-    }
-    .row {
-        gap: 1rem; /* 16px */
-    }
-    .inputGroup label, .inputGroup input {
-        font-size: 0.8125rem; /* 13px */
-    }
-    .inputGroup input {
-        padding: 0.5rem 0.625rem; /* 8px 10px */
-    }
-    .saveButton {
-        padding: 0.5rem 1.25rem; /* 8px 20px */
-        font-size: 0.8125rem; /* 13px */
-        margin-top: 1.25rem; /* 20px */
-    }
-    .subheading {
-        font-size: 1rem; /* 16px */
-        margin-top: 1rem; /* 16px */
-        margin-bottom: 0.75rem; /* 12px */
-        padding-bottom: 0.4rem; /* 6.4px */
-    }
-    .stripeSection {
-        padding: 1rem; /* 16px */
-        margin-top: 0.75rem; /* 12px */
-    }
-    .stripeSection p {
-        font-size: 0.875rem; /* 14px */
-        margin-bottom: 0.625rem; /* 10px */
-    }
-    .stripeSection code {
-        font-size: 0.75rem; /* 12px */
-    }
-    .stripeSection button {
-        margin-right: 0.5rem; /* 8px */
-    }
-    .error-message, .success-message {
-        font-size: 0.8125rem; /* 13px */
-        padding: 0.5rem; /* 8px */
-        margin: 0.5rem 0; /* 8px 0 */
-    }
+  .container {
+    max-width: 45rem; /* 720px */
+    padding: 1.25rem 1.5rem; /* 20px 24px */
+    margin: 1rem auto; /* 16px auto */
+  }
+  .tabs {
+    gap: 1.25rem; /* 20px */
+    margin-bottom: 1.25rem; /* 20px */
+  }
+  .activeTab,
+  .inactiveTab {
+    font-size: 0.875rem; /* 14px */
+    padding-bottom: 0.5rem; /* 8px */
+  }
+  .tabContent {
+    padding-top: 0.75rem; /* 12px */
+    gap: 0.75rem; /* 12px */
+  }
+  .row {
+    gap: 1rem; /* 16px */
+  }
+  .inputGroup label,
+  .inputGroup input {
+    font-size: 0.8125rem; /* 13px */
+  }
+  .inputGroup input {
+    padding: 0.5rem 0.625rem; /* 8px 10px */
+  }
+  .saveButton {
+    padding: 0.5rem 1.25rem; /* 8px 20px */
+    font-size: 0.8125rem; /* 13px */
+    margin-top: 1.25rem; /* 20px */
+  }
+  .subheading {
+    font-size: 1rem; /* 16px */
+    margin-top: 1rem; /* 16px */
+    margin-bottom: 0.75rem; /* 12px */
+    padding-bottom: 0.4rem; /* 6.4px */
+  }
+  .stripeSection {
+    padding: 1rem; /* 16px */
+    margin-top: 0.75rem; /* 12px */
+  }
+  .stripeSection p {
+    font-size: 0.875rem; /* 14px */
+    margin-bottom: 0.625rem; /* 10px */
+  }
+  .stripeSection code {
+    font-size: 0.75rem; /* 12px */
+  }
+  .stripeSection button {
+    margin-right: 0.5rem; /* 8px */
+  }
+  .error-message,
+  .success-message {
+    font-size: 0.8125rem; /* 13px */
+    padding: 0.5rem; /* 8px */
+    margin: 0.5rem 0; /* 8px 0 */
+  }
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
-    .container {
-        max-width: 95%; /* Take more width on tablet */
-        padding: 1rem 1.25rem; /* 16px 20px */
-        margin: 0.8rem auto; /* 12.8px auto */
-        min-height: 20rem; /* 320px */
-    }
-    .tabs {
-        gap: 0.9375rem; /* 15px */
-        margin-bottom: 1rem; /* 16px */
-        justify-content: center; /* Center tabs if they wrap */
-    }
-    .activeTab, .inactiveTab {
-        font-size: 0.8125rem; /* 13px */
-        padding-bottom: 0.4rem; /* 6.4px */
-    }
-    .tabContent {
-        padding-top: 0.625rem; /* 10px */
-        gap: 0.625rem; /* 10px */
-    }
-    .row {
-        gap: 0.8rem; /* 12.8px */
-        flex-direction: column; /* Stack input groups vertically */
-    }
-    .inputGroup {
-        min-width: auto; /* Allow full flexibility when stacked */
-    }
-    .inputGroup label, .inputGroup input {
-        font-size: 0.75rem; /* 12px */
-    }
-    .inputGroup input {
-        padding: 0.4rem 0.5rem; /* 6.4px 8px */
-    }
-    .saveButton {
-        padding: 0.4rem 1rem; /* 6.4px 16px */
-        font-size: 0.75rem; /* 12px */
-        margin-top: 1rem; /* 16px */
-    }
-    .subheading {
-        font-size: 0.9375rem; /* 15px */
-        margin-top: 0.8rem; /* 12.8px */
-        margin-bottom: 0.6rem; /* 9.6px */
-        padding-bottom: 0.3rem; /* 4.8px */
-    }
-    .stripeSection {
-        padding: 0.8rem; /* 12.8px */
-        margin-top: 0.6rem; /* 9.6px */
-    }
-    .stripeSection p {
-        font-size: 0.8125rem; /* 13px */
-        margin-bottom: 0.5rem; /* 8px */
-    }
-    .stripeSection code {
-        font-size: 0.6875rem; /* ~11px */
-    }
-    .stripeSection button {
-        margin-right: 0.4rem; /* 6.4px */
-    }
-    .error-message, .success-message {
-        font-size: 0.75rem; /* 12px */
-        padding: 0.4rem; /* 6.4px */
-        margin: 0.4rem 0; /* 6.4px 0 */
-    }
+  .container {
+    max-width: 95%; /* Take more width on tablet */
+    padding: 1rem 1.25rem; /* 16px 20px */
+    margin: 0.8rem auto; /* 12.8px auto */
+    min-height: 20rem; /* 320px */
+  }
+  .tabs {
+    gap: 0.9375rem; /* 15px */
+    margin-bottom: 1rem; /* 16px */
+    justify-content: center; /* Center tabs if they wrap */
+  }
+  .activeTab,
+  .inactiveTab {
+    font-size: 0.8125rem; /* 13px */
+    padding-bottom: 0.4rem; /* 6.4px */
+  }
+  .tabContent {
+    padding-top: 0.625rem; /* 10px */
+    gap: 0.625rem; /* 10px */
+  }
+  .row {
+    gap: 0.8rem; /* 12.8px */
+    flex-direction: column; /* Stack input groups vertically */
+  }
+  .inputGroup {
+    min-width: auto; /* Allow full flexibility when stacked */
+  }
+  .inputGroup label,
+  .inputGroup input {
+    font-size: 0.75rem; /* 12px */
+  }
+  .inputGroup input {
+    padding: 0.4rem 0.5rem; /* 6.4px 8px */
+  }
+  .saveButton {
+    padding: 0.4rem 1rem; /* 6.4px 16px */
+    font-size: 0.75rem; /* 12px */
+    margin-top: 1rem; /* 16px */
+  }
+  .subheading {
+    font-size: 0.9375rem; /* 15px */
+    margin-top: 0.8rem; /* 12.8px */
+    margin-bottom: 0.6rem; /* 9.6px */
+    padding-bottom: 0.3rem; /* 4.8px */
+  }
+  .stripeSection {
+    padding: 0.8rem; /* 12.8px */
+    margin-top: 0.6rem; /* 9.6px */
+  }
+  .stripeSection p {
+    font-size: 0.8125rem; /* 13px */
+    margin-bottom: 0.5rem; /* 8px */
+  }
+  .stripeSection code {
+    font-size: 0.6875rem; /* ~11px */
+  }
+  .stripeSection button {
+    margin-right: 0.4rem; /* 6.4px */
+  }
+  .error-message,
+  .success-message {
+    font-size: 0.75rem; /* 12px */
+    padding: 0.4rem; /* 6.4px */
+    margin: 0.4rem 0; /* 6.4px 0 */
+  }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
-    .container {
-        padding: 0.8rem 1rem; /* 12.8px 16px */
-        margin: 0.5rem auto; /* 8px auto */
-        min-height: 16rem; /* 256px */
-    }
-    .tabs {
-        gap: 0.625rem; /* 10px */
-        margin-bottom: 0.8rem; /* 12.8px */
-    }
-    .activeTab, .inactiveTab {
-        font-size: 0.75rem; /* 12px */
-        padding-bottom: 0.3rem; /* 4.8px */
-    }
-    .tabContent {
-        padding-top: 0.5rem; /* 8px */
-        gap: 0.5rem; /* 8px */
-    }
-    .row {
-        gap: 0.625rem; /* 10px */
-    }
-    .inputGroup label, .inputGroup input {
-        font-size: 0.6875rem; /* ~11px */
-    }
-    .inputGroup input {
-        padding: 0.3rem 0.4rem; /* 4.8px 6.4px */
-    }
-    .saveButton {
-        padding: 0.3rem 0.8rem; /* 4.8px 12.8px */
-        font-size: 0.6875rem; /* ~11px */
-        margin-top: 0.8rem; /* 12.8px */
-    }
-    .subheading {
-        font-size: 0.875rem; /* 14px */
-        margin-top: 0.625rem; /* 10px */
-        margin-bottom: 0.5rem; /* 8px */
-        padding-bottom: 0.25rem; /* 4px */
-    }
-    .stripeSection {
-        padding: 0.625rem; /* 10px */
-        margin-top: 0.625rem; /* 10px */
-    }
-    .stripeSection p {
-        font-size: 0.75rem; /* 12px */
-        margin-bottom: 0.4rem; /* 6.4px */
-    }
-    .stripeSection code {
-        font-size: 0.625rem; /* 10px */
-        padding: 0.1rem 0.25rem; /* 1.6px 4px */
-    }
-    .stripeSection button {
-        margin-right: 0.3rem; /* 4.8px */
-    }
-    .error-message, .success-message {
-        font-size: 0.6875rem; /* ~11px */
-        padding: 0.3rem; /* 4.8px */
-        margin: 0.3rem 0; /* 4.8px 0 */
-    }
+  .container {
+    padding: 0.8rem 1rem; /* 12.8px 16px */
+    margin: 0.5rem auto; /* 8px auto */
+    min-height: 16rem; /* 256px */
+  }
+  .tabs {
+    gap: 0.625rem; /* 10px */
+    margin-bottom: 0.8rem; /* 12.8px */
+  }
+  .activeTab,
+  .inactiveTab {
+    font-size: 0.75rem; /* 12px */
+    padding-bottom: 0.3rem; /* 4.8px */
+  }
+  .tabContent {
+    padding-top: 0.5rem; /* 8px */
+    gap: 0.5rem; /* 8px */
+  }
+  .row {
+    gap: 0.625rem; /* 10px */
+  }
+  .inputGroup label,
+  .inputGroup input {
+    font-size: 0.6875rem; /* ~11px */
+  }
+  .inputGroup input {
+    padding: 0.3rem 0.4rem; /* 4.8px 6.4px */
+  }
+  .saveButton {
+    padding: 0.3rem 0.8rem; /* 4.8px 12.8px */
+    font-size: 0.6875rem; /* ~11px */
+    margin-top: 0.8rem; /* 12.8px */
+  }
+  .subheading {
+    font-size: 0.875rem; /* 14px */
+    margin-top: 0.625rem; /* 10px */
+    margin-bottom: 0.5rem; /* 8px */
+    padding-bottom: 0.25rem; /* 4px */
+  }
+  .stripeSection {
+    padding: 0.625rem; /* 10px */
+    margin-top: 0.625rem; /* 10px */
+  }
+  .stripeSection p {
+    font-size: 0.75rem; /* 12px */
+    margin-bottom: 0.4rem; /* 6.4px */
+  }
+  .stripeSection code {
+    font-size: 0.625rem; /* 10px */
+    padding: 0.1rem 0.25rem; /* 1.6px 4px */
+  }
+  .stripeSection button {
+    margin-right: 0.3rem; /* 4.8px */
+  }
+  .error-message,
+  .success-message {
+    font-size: 0.6875rem; /* ~11px */
+    padding: 0.3rem; /* 4.8px */
+    margin: 0.3rem 0; /* 4.8px 0 */
+  }
 }

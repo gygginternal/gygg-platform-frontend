@@ -4,34 +4,41 @@ import styles from './BioAndPictureForm.module.css'; // Create this
 import FormInput from './FormInput';
 // import { FaUpload } from 'react-icons/fa'; // If using react-icons
 
-function BioAndPictureForm({ bio, onBioChange, profileImageFile, onProfileImageChange, currentImageUrl }) {
+function BioAndPictureForm({
+  bio,
+  onBioChange,
+  profileImageFile,
+  onProfileImageChange,
+  currentImageUrl,
+}) {
   const [preview, setPreview] = useState(null);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
-      if (profileImageFile) {
-          const objectUrl = URL.createObjectURL(profileImageFile);
-          setPreview(objectUrl);
-          return () => URL.revokeObjectURL(objectUrl); // Cleanup
-      } else if (currentImageUrl && currentImageUrl !== 'default.jpg') {
-          setPreview(currentImageUrl); // Show existing S3 URL
-      } else {
-          setPreview(null);
-      }
+    if (profileImageFile) {
+      const objectUrl = URL.createObjectURL(profileImageFile);
+      setPreview(objectUrl);
+      return () => URL.revokeObjectURL(objectUrl); // Cleanup
+    } else if (currentImageUrl && currentImageUrl !== 'default.jpg') {
+      setPreview(currentImageUrl); // Show existing S3 URL
+    } else {
+      setPreview(null);
+    }
   }, [profileImageFile, currentImageUrl]);
 
-
-  const handleFileChange = (e) => {
+  const handleFileChange = e => {
     const file = e.target.files?.[0];
     if (file) {
-        if (file.size > 5 * 1024 * 1024) { /* Error handling for size */ return; }
-        onProfileImageChange(file); // Pass File object to parent
+      if (file.size > 5 * 1024 * 1024) {
+        /* Error handling for size */ return;
+      }
+      onProfileImageChange(file); // Pass File object to parent
     }
   };
 
   const handleUploadAreaClick = () => fileInputRef.current?.click();
-  const handleDragOver = (e) => e.preventDefault();
-  const handleDrop = (e) => {
+  const handleDragOver = e => e.preventDefault();
+  const handleDrop = e => {
     e.preventDefault();
     const file = e.dataTransfer.files?.[0];
     if (file) onProfileImageChange(file);
@@ -49,13 +56,36 @@ function BioAndPictureForm({ bio, onBioChange, profileImageFile, onProfileImageC
         placeholder="e.g., We are a small startup looking for talented freelancers..."
       />
       <div className={styles.imageSection}>
-        <div className={styles.imagePreview} onDrop={handleDrop} onDragOver={handleDragOver}>
-          {preview ? ( <img src={preview} alt="Profile preview" className={styles.previewImage} /> ) : (<div className={styles.placeholder}>No image</div>)}
+        <div
+          className={styles.imagePreview}
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+        >
+          {preview ? (
+            <img
+              src={preview}
+              alt="Profile preview"
+              className={styles.previewImage}
+            />
+          ) : (
+            <div className={styles.placeholder}>No image</div>
+          )}
         </div>
-        <div className={styles.imageUpload} onClick={handleUploadAreaClick} role="button">
-          {/* <FaUpload className={styles.uploadIcon} /> */} <span className={styles.uploadEmoji}>⬆️</span>
+        <div
+          className={styles.imageUpload}
+          onClick={handleUploadAreaClick}
+          role="button"
+        >
+          {/* <FaUpload className={styles.uploadIcon} /> */}{' '}
+          <span className={styles.uploadEmoji}>⬆️</span>
           <p className={styles.uploadText}>Upload Profile Picture</p>
-          <input type="file" ref={fileInputRef} onChange={handleFileChange} accept="image/*" className={styles.fileInput} />
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            accept="image/*"
+            className={styles.fileInput}
+          />
         </div>
       </div>
     </div>

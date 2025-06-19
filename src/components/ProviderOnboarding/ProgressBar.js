@@ -7,8 +7,8 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
   return (
     <div className={styles.progressContainer}>
       <div className={styles.progressBar}>
-        <div 
-          className={styles.progressFill} 
+        <div
+          className={styles.progressFill}
           style={{ width: `${progress}%` }}
         />
       </div>
@@ -19,4 +19,4 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
   );
 };
 
-export default ProgressBar; 
+export default ProgressBar;

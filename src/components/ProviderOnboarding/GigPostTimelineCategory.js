@@ -1,11 +1,10 @@
 // src/components/Onboarding/GigPostTimelineCategory.js
-import React from "react";
+import React from 'react';
 import styles from '../Onboarding/GigPostForm.module.css'; // Use common or specific styles
-import { CATEGORY_ENUM, SKILL_OPTIONS } from "../../utils/constants";
+import { CATEGORY_ENUM, SKILL_OPTIONS } from '../../utils/constants';
 
 function GigPostTimelineCategory({ formData, onInputChange }) {
-  const handleSelectChange = (e) =>
-    onInputChange(e.target.name, e.target.value);
+  const handleSelectChange = e => onInputChange(e.target.name, e.target.value);
 
   return (
     <>
@@ -55,7 +54,7 @@ function GigPostTimelineCategory({ formData, onInputChange }) {
           <option value="" disabled>
             Select a category
           </option>
-          {SKILL_OPTIONS.map((cat) => (
+          {SKILL_OPTIONS.map(cat => (
             <option key={cat} value={cat}>
               {cat}
             </option>

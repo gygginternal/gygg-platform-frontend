@@ -2,186 +2,186 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-    font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
 .formContainer {
-    background-color: #fff;
-    padding: 2.5rem; /* 40px */
-    border-radius: 0.75rem; /* 12px */
-    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1); /* Shadow */
-    width: 100%;
-    max-width: 25rem; /* 400px */
-    box-sizing: border-box;
+  background-color: #fff;
+  padding: 2.5rem; /* 40px */
+  border-radius: 0.75rem; /* 12px */
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1); /* Shadow */
+  width: 100%;
+  max-width: 25rem; /* 400px */
+  box-sizing: border-box;
 }
 
 .formTitle {
-    font-size: 2rem; /* 32px */
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 1.5rem; /* 24px */
-    text-align: center;
+  font-size: 2rem; /* 32px */
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1.5rem; /* 24px */
+  text-align: center;
 }
 
 .formGroup {
-    margin-bottom: 1.25rem; /* 20px */
+  margin-bottom: 1.25rem; /* 20px */
 }
 
 .label {
-    display: block;
-    font-size: 0.9375rem; /* 15px */
-    font-weight: 500;
-    color: #555;
-    margin-bottom: 0.5rem; /* 8px */
+  display: block;
+  font-size: 0.9375rem; /* 15px */
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 0.5rem; /* 8px */
 }
 
 .input,
 .select {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 0.375rem; /* 6px */
-    font-size: 1rem; /* 16px */
-    color: #333;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 0.375rem; /* 6px */
+  font-size: 1rem; /* 16px */
+  color: #333;
+  box-sizing: border-box;
 }
 
 .input:focus,
 .select:focus {
-    outline: none;
-    border-color: #D99633;
-    box-shadow: 0 0 0 3px rgba(217, 150, 51, 0.25);
+  outline: none;
+  border-color: #d99633;
+  box-shadow: 0 0 0 3px rgba(217, 150, 51, 0.25);
 }
 
 .select {
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236B7280'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3Csvg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0.7rem center;
-    background-size: 1.2em 1.2em;
-    padding-right: 2.5rem;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236B7280'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3Csvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+  background-size: 1.2em 1.2em;
+  padding-right: 2.5rem;
 }
 
 .errorMessage {
-    color: red;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    text-align: center;
-    font-size: 0.9375rem; /* 15px */
+  color: red;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 0.9375rem; /* 15px */
 }
 
 .submitBtn {
-    background-color: #D99633;
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    font-size: 1.125rem;
-    font-weight: 600;
-    cursor: pointer;
-    width: 100%;
-    transition: background-color 0.3s ease;
-    margin-top: 1.5rem; /* 24px */
+  background-color: #d99633;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  margin-top: 1.5rem; /* 24px */
 }
 
 .submitBtn:hover:not(:disabled) {
-    background-color: #b45309;
+  background-color: #b45309;
 }
 
 .submitBtn:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-    opacity: 0.7;
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 .loginLinks,
 .signupLinks {
-    text-align: center;
-    margin-top: 15px;
-    font-size: 0.9375rem; /* 15px */
-    color: #666;
+  text-align: center;
+  margin-top: 15px;
+  font-size: 0.9375rem; /* 15px */
+  color: #666;
 }
 
 .link {
-    color: #007bff;
-    text-decoration: none;
-    transition: text-decoration 0.2s ease;
+  color: #007bff;
+  text-decoration: none;
+  transition: text-decoration 0.2s ease;
 }
 
 .link:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .formContainer {
-        padding: 1.5rem;
-        max-width: 90%;
-    }
-    .formTitle {
-        font-size: 1.75rem;
-        margin-bottom: 1rem;
-    }
-    .formGroup {
-        margin-bottom: 1rem;
-    }
-    .label {
-        font-size: 0.875rem;
-    }
-    .input,
-    .select {
-        padding: 0.6rem;
-        font-size: 0.9rem;
-    }
-    .errorMessage {
-        font-size: 0.875rem;
-        margin-top: 0.8rem;
-        margin-bottom: 0.8rem;
-    }
-    .submitBtn {
-        padding: 0.6rem 1.2rem;
-        font-size: 1rem;
-        margin-top: 1rem;
-    }
-    .loginLinks,
-    .signupLinks {
-        font-size: 0.875rem;
-        margin-top: 10px;
-    }
+  .formContainer {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+  .formTitle {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+  .formGroup {
+    margin-bottom: 1rem;
+  }
+  .label {
+    font-size: 0.875rem;
+  }
+  .input,
+  .select {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+  .errorMessage {
+    font-size: 0.875rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+  .submitBtn {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+  .loginLinks,
+  .signupLinks {
+    font-size: 0.875rem;
+    margin-top: 10px;
+  }
 }
 
 @media (max-width: 480px) {
-    .formContainer {
-        padding: 1rem;
-    }
-    .formTitle {
-        font-size: 1.5rem;
-        margin-bottom: 0.8rem;
-    }
-    .formGroup {
-        margin-bottom: 0.8rem;
-    }
-    .label {
-        font-size: 0.8125rem;
-    }
-    .input,
-    .select {
-        padding: 0.5rem;
-        font-size: 0.8rem;
-    }
-    .errorMessage {
-        font-size: 0.8125rem;
-        margin-top: 0.6rem;
-        margin-bottom: 0.6rem;
-    }
-    .submitBtn {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
-        margin-top: 0.8rem;
-    }
-    .loginLinks,
-    .signupLinks {
-        font-size: 0.8125rem;
-        margin-top: 8px;
-    }
+  .formContainer {
+    padding: 1rem;
+  }
+  .formTitle {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+  }
+  .formGroup {
+    margin-bottom: 0.8rem;
+  }
+  .label {
+    font-size: 0.8125rem;
+  }
+  .input,
+  .select {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+  .errorMessage {
+    font-size: 0.8125rem;
+    margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+  .submitBtn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    margin-top: 0.8rem;
+  }
+  .loginLinks,
+  .signupLinks {
+    font-size: 0.8125rem;
+    margin-top: 8px;
+  }
 }

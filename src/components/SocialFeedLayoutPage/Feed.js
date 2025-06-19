@@ -1,28 +1,28 @@
 // src/components/SocialPage/Feed.js
-import React, { useState, useEffect, useCallback } from "react";
-import styles from "./Feed.module.css"; // Ensure CSS Module exists
-import Post from "./Post"; // Use adapted Post component
-import Button from "../Button"; // Use shared Button component
-import apiClient from "../../api/axiosConfig"; // Adjust path
-import { useAuth } from "../../context/AuthContext"; // Adjust path
-import logger from "../../utils/logger"; // Optional logger
-import { Link, useNavigate } from "react-router-dom"; // Import Link and useNavigate
+import React, { useState, useEffect, useCallback } from 'react';
+import styles from './Feed.module.css'; // Ensure CSS Module exists
+import Post from './Post'; // Use adapted Post component
+import Button from '../Button'; // Use shared Button component
+import apiClient from '../../api/axiosConfig'; // Adjust path
+import { useAuth } from '../../context/AuthContext'; // Adjust path
+import logger from '../../utils/logger'; // Optional logger
+import { Link, useNavigate } from 'react-router-dom'; // Import Link and useNavigate
 
 function Feed() {
   const { user } = useAuth();
   const navigate = useNavigate(); // For programmatic navigation
-  const [postText, setPostText] = useState("");
+  const [postText, setPostText] = useState('');
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false); // Main feed loading
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [createPostLoading, setCreatePostLoading] = useState(false);
-  const [createPostError, setCreatePostError] = useState("");
+  const [createPostError, setCreatePostError] = useState('');
   const [uploadedImage, setUploadedImage] = useState(null); // State for uploaded image
 
   // --- States for Phase 8 Sorting ---
-  const [sortOrder, setSortOrder] = useState("recents");
+  const [sortOrder, setSortOrder] = useState('recents');
   const [userLocation, setUserLocation] = useState(null);
-  const [locationError, setLocationError] = useState("");
+  const [locationError, setLocationError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -43,10 +43,10 @@ function Feed() {
       } else {
         setIsLoadingMore(true);
       }
-      setError("");
-      setLocationError("");
-      let params = { page, limit: 10, sort };
-      if (sort === "near_me") {
+      setError('');
+      setLocationError('');
+      const params = { page, limit: 10, sort };
+      if (sort === 'near_me') {
         if (!location) {
           setError(
             'Location permission needed for "Near Me". Try enabling location.'
@@ -60,14 +60,14 @@ function Feed() {
         params.lng = location.lng;
       }
       try {
-        logger.debug("Feed: Fetching posts with params:", params);
-        const response = await apiClient.get("/posts", { params });
+        logger.debug('Feed: Fetching posts with params:', params);
+        const response = await apiClient.get('/posts', { params });
         const newPosts = response.data.data.posts || [];
-        setPosts((prev) => (append ? [...prev, ...newPosts] : newPosts));
+        setPosts(prev => (append ? [...prev, ...newPosts] : newPosts));
         setHasMore(newPosts.length === params.limit); // Assuming limit is always sent
         setCurrentPage(page);
       } catch (err) {
-        setError(err.response?.data?.message || "Failed to load feed.");
+        setError(err.response?.data?.message || 'Failed to load feed.');
         setHasMore(false);
       } finally {
         setLoading(false);
@@ -79,24 +79,24 @@ function Feed() {
 
   // --- Geolocation Logic (from PostFeedPage adaptation) ---
   const getUserLocation = () => {
-    setLocationError("");
+    setLocationError('');
     setLoading(true); // Indicate loading while getting location
     if (!navigator.geolocation) {
-      setLocationError("Geolocation not supported.");
+      setLocationError('Geolocation not supported.');
       setLoading(false);
       return;
     }
     navigator.geolocation.getCurrentPosition(
-      (position) => {
+      position => {
         const loc = {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         };
         setUserLocation(loc);
-        fetchPosts(1, "near_me", loc, false); // Fetch immediately
+        fetchPosts(1, 'near_me', loc, false); // Fetch immediately
         // setLoading(false) handled in fetchPosts
       },
-      (err) => {
+      err => {
         setLocationError(`Geolocation error: ${err.message}`);
         setLoading(false);
         setHasMore(false);
@@ -109,17 +109,17 @@ function Feed() {
 
   // --- Initial Fetch & Sort Change Fetch ---
   useEffect(() => {
-    if (sortOrder === "near_me" && !userLocation) {
+    if (sortOrder === 'near_me' && !userLocation) {
       getUserLocation();
     } else {
       fetchPosts(1, sortOrder, userLocation, false);
     }
   }, [sortOrder]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const handleSortChange = (newSort) => {
+  const handleSortChange = newSort => {
     if (newSort !== sortOrder) {
       // Clear userLocation if switching away from 'near_me' without a new location attempt
-      if (sortOrder === "near_me" && newSort !== "near_me")
+      if (sortOrder === 'near_me' && newSort !== 'near_me')
         setUserLocation(null);
       setSortOrder(newSort); // Triggers useEffect for fetching
     }
@@ -128,55 +128,55 @@ function Feed() {
   // --- Create Post Logic ---
   const handlePostSubmit = async () => {
     if (!postText.trim() && !uploadedImage) {
-      setCreatePostError("Post content or image cannot be empty.");
+      setCreatePostError('Post content or image cannot be empty.');
       return;
     }
     if (!user) {
-      setCreatePostError("You must be logged in to post.");
+      setCreatePostError('You must be logged in to post.');
       return;
     }
 
     setCreatePostLoading(true);
-    setCreatePostError("");
+    setCreatePostError('');
 
     const formData = new FormData();
-    formData.append("content", postText.trim());
+    formData.append('content', postText.trim());
     if (uploadedImage) {
-      formData.append("file", uploadedImage); // Add the uploaded image to the form data
+      formData.append('file', uploadedImage); // Add the uploaded image to the form data
     }
 
     try {
       logger.info(`User ${user._id} creating post...`);
-      const response = await apiClient.post("/posts", formData, {
+      const response = await apiClient.post('/posts', formData, {
         headers: {
-          "Content-Type": "multipart/form-data", // Ensure correct headers for file upload
+          'Content-Type': 'multipart/form-data', // Ensure correct headers for file upload
         },
       });
       const newPost = response.data.data.post;
-      logger.info("Post created successfully:", newPost._id);
+      logger.info('Post created successfully:', newPost._id);
 
       // Add the new post to the top of the feed *if* sorting by 'recents'
-      if (sortOrder === "recents") {
-        setPosts((prevPosts) => [newPost, ...prevPosts]);
+      if (sortOrder === 'recents') {
+        setPosts(prevPosts => [newPost, ...prevPosts]);
       } else {
         alert(
           "Post created successfully! Refresh or switch to 'Recents' to see it immediately."
         );
       }
-      setPostText(""); // Clear input field
+      setPostText(''); // Clear input field
       setUploadedImage(null); // Clear uploaded image
     } catch (err) {
-      logger.error("Error creating post:", err.response?.data || err.message);
+      logger.error('Error creating post:', err.response?.data || err.message);
       setCreatePostError(
-        err.response?.data?.message || "Failed to create post."
+        err.response?.data?.message || 'Failed to create post.'
       );
     } finally {
       setCreatePostLoading(false);
     }
   };
 
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
+  const handleImageUpload = event => {
+    const [file] = event.target.files;
     if (file) {
       setUploadedImage(file); // Store the uploaded image file
     }
@@ -189,10 +189,10 @@ function Feed() {
   };
 
   // Callback to update a single post in the local 'posts' state
-  const handleSinglePostUpdate = (updatedPostData) => {
-    logger.debug("Feed: Updating single post in list:", updatedPostData);
-    setPosts((currentPosts) =>
-      currentPosts.map((p) =>
+  const handleSinglePostUpdate = updatedPostData => {
+    logger.debug('Feed: Updating single post in list:', updatedPostData);
+    setPosts(currentPosts =>
+      currentPosts.map(p =>
         p._id === updatedPostData._id ? updatedPostData : p
       )
     );
@@ -201,10 +201,10 @@ function Feed() {
   // --- Render ---
   return (
     <main className={styles.feedContainer}>
-      {user && user.role?.includes("provider") && (
+      {user && user.role?.includes('provider') && (
         <section className={styles.providerActionsHeader}>
           <Button
-            onClick={() => navigate("/gigs/create")} // Navigate to your Gig Create page
+            onClick={() => navigate('/gigs/create')} // Navigate to your Gig Create page
             className={styles.postGigButton} // Add specific style for this button
           >
             + Post a Gig
@@ -215,46 +215,41 @@ function Feed() {
       {/* Create Post Section */}
       <section className={styles.createPostCard}>
         <div className={styles.createPostHeader}>
-          <img
-            src={user?.profileImage || "/default.jpg"} // Use logged-in user's image
-            alt={user?.firstName || "Your profile"}
-            width={48}
-            height={48}
-            className={styles.profileImage}
-            onError={(e) => {
-              e.target.src = "/default.jpg";
-            }} // Fallback image
-          />
-          <input
-            type="text"
+          <div className={styles.profileImage}>
+            <img
+              src={user?.profileImage || '/default.jpg'}
+              alt={user?.firstName || 'Your profile'}
+              className={styles.profileImage}
+              onError={e => {
+                e.target.src = '/default.jpg';
+              }}
+            />
+          </div>
+          <textarea
             className={styles.createPostInput}
             placeholder="What's happening?"
             value={postText}
-            onChange={(e) => {
+            onChange={e => {
               setPostText(e.target.value);
-              setCreatePostError("");
-            }} // Clear error on type
+              setCreatePostError('');
+            }}
             disabled={createPostLoading}
+            rows={1}
           />
         </div>
         {createPostError && (
-          <p className="error-message" style={{ marginLeft: "52px" }}>
+          <p className="error-message" style={{ marginLeft: '52px' }}>
             {createPostError}
           </p>
         )}
         <div className={styles.createPostActions}>
           <div className={styles.postIcons}>
             <label className={styles.postIcon}>
-              <img
-                src="/assets/image.svg"
-                alt="Add Image"
-                width={20}
-                height={20}
-              />
+              <img src="/assets/image.svg" alt="Add" width={20} height={20} />
               <input
                 type="file"
                 accept="image/*"
-                style={{ display: "none" }}
+                style={{ display: 'none' }}
                 onChange={handleImageUpload}
               />
             </label>
@@ -275,7 +270,7 @@ function Feed() {
             onClick={handlePostSubmit}
             disabled={createPostLoading || (!postText.trim() && !uploadedImage)}
           >
-            {createPostLoading ? "Posting..." : "Post"}
+            {createPostLoading ? 'Posting...' : 'Post'}
           </Button>
         </div>
         {uploadedImage && (
@@ -285,9 +280,9 @@ function Feed() {
               src={URL.createObjectURL(uploadedImage)}
               alt="Uploaded Preview"
               style={{
-                maxWidth: "100%",
-                maxHeight: "200px",
-                marginTop: "10px",
+                maxWidth: '100%',
+                maxHeight: '200px',
+                marginTop: '10px',
               }}
             />
           </div>
@@ -301,7 +296,7 @@ function Feed() {
         {!loading && posts.length === 0 && (
           <p>No posts found for this criteria.</p>
         )}
-        {posts.map((post) => (
+        {posts.map(post => (
           <Post
             key={post._id}
             post={post}
@@ -312,13 +307,13 @@ function Feed() {
         {hasMore && !loading && !isLoadingMore && (
           <Button
             onClick={loadMorePosts}
-            style={{ width: "100%", marginTop: "10px" }}
+            style={{ width: '100%', marginTop: '10px' }}
           >
             Load More
           </Button>
         )}
         {!hasMore && posts.length > 0 && (
-          <p style={{ textAlign: "center", marginTop: "20px", color: "#888" }}>
+          <p style={{ textAlign: 'center', marginTop: '20px', color: '#888' }}>
             End of feed.
           </p>
         )}

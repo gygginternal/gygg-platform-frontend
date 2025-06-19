@@ -1,28 +1,29 @@
-import React from "react";
+import React from 'react';
 // import cn from "classnames"; // For conditional classnames
-import styles from "./ProfileSidebar.module.css"; // Your CSS module
-import { Link } from "react-router-dom"; // Use react-router Link
-import { useAuth } from "../context/AuthContext"; // Adjust path
-import RecommendedGigs from "./RecommendedGigs"; // Import the new component
-import RecommendedAppliances from "./RecommendedAppliances";
-import AwaitedPostedGigs from "./AwaitedPostedGigs"; // Import the AwaitedPostedGigs component
-import { useQuery } from "@tanstack/react-query";
-import apiClient from "../api/axiosConfig";
+import styles from './ProfileSidebar.module.css'; // Your CSS module
+import { Link } from 'react-router-dom'; // Use react-router Link
+import { useAuth } from '../context/AuthContext'; // Adjust path
+import RecommendedGigs from './RecommendedGigs'; // Import the new component
+import RecommendedAppliances from './RecommendedAppliances';
+import AwaitedPostedGigs from './AwaitedPostedGigs'; // Import the AwaitedPostedGigs component
+import { useQuery } from '@tanstack/react-query';
+import apiClient from '../api/axiosConfig';
+import PropTypes from 'prop-types';
 
 function ProfileSidebar() {
   const { user } = useAuth(); // Get logged-in user data
 
   // User's skills/gigs they offer - should come from user profile
-  const userSkills = user?.skills || ["Pet Sitting", "Gardening"]; // Example fallback
+  const userSkills = user?.skills || ['Pet Sitting', 'Gardening']; // Example fallback
 
   // Fetch top 3 matching gigs for taskers
   const { data: topMatchedGigs, isLoading: isLoadingTopGigs } = useQuery({
-    queryKey: ["topMatchedGigs"],
+    queryKey: ['topMatchedGigs'],
     queryFn: async () => {
-      const response = await apiClient.get("/gigs/top-match");
+      const response = await apiClient.get('/gigs/top-match');
       return response.data.data;
     },
-    enabled: user?.role?.includes("tasker"), // Only fetch if user is a tasker
+    enabled: user?.role?.includes('tasker'), // Only fetch if user is a tasker
   });
 
   if (!user) {
@@ -49,9 +50,7 @@ function ProfileSidebar() {
             </span>
           ))
         ) : (
-          <p className={styles.addSkillsMessage}>
-            Add skills in your profile!
-          </p>
+          <p className={styles.addSkillsMessage}>Add skills in your profile!</p>
         )}
       </div>
     </section>
@@ -70,7 +69,7 @@ function ProfileSidebar() {
         <p>Loading top matching gigs...</p>
       ) : topMatchedGigs && topMatchedGigs.length > 0 ? (
         <ul className={styles.gigList}>
-          {topMatchedGigs.map((gig) => (
+          {topMatchedGigs.map(gig => (
             <li key={gig._id} className={styles.gigItem}>
               <Link to={`/gigs/${gig._id}`} className={styles.gigLink}>
                 {gig.title}
@@ -93,7 +92,7 @@ function ProfileSidebar() {
       <div className={styles.profileCard}>
         <div className={styles.profileHeader}>
           <img
-            src={user.profileImage || "/default.jpg"}
+            src={user.profileImage || '/default.jpg'}
             alt="Profile"
             width={64}
             height={64}
@@ -110,7 +109,7 @@ function ProfileSidebar() {
         </div>
 
         {/* Render Recommended Gigs Section if user is a provider */}
-        {user.role?.includes("provider") && (
+        {user.role?.includes('provider') && (
           <>
             <AwaitedPostedGigs />
             <RecommendedAppliances />
@@ -118,7 +117,7 @@ function ProfileSidebar() {
         )}
 
         {/* Render Recommended Gigs Section if user is a tasker */}
-        {user.role?.includes("tasker") && (
+        {user.role?.includes('tasker') && (
           <>
             {iCanHelp}
             <RecommendedGigs />
@@ -128,5 +127,9 @@ function ProfileSidebar() {
     </aside>
   );
 }
+
+ProfileSidebar.propTypes = {
+  // No props to add PropTypes for, but ensure accessibility and remove unused imports if any.
+};
 
 export default ProfileSidebar;

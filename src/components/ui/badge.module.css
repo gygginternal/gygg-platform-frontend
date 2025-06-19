@@ -7,13 +7,19 @@
   padding: 0.125rem 0.625rem; /* px-2.5 py-0.5 */
   font-size: 0.75rem; /* text-xs */
   font-weight: 600; /* font-semibold */
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition:
+    color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
   outline: none; /* focus:outline-none */
   border: 1px solid transparent; /* default border */
 }
 
 .base:focus {
-  box-shadow: 0 0 0 2px var(--ring), 0 0 0 4px var(--ring-offset-background); /* focus:ring-2 focus:ring-ring focus:ring-offset-2 */
+  box-shadow:
+    0 0 0 2px var(--ring),
+    0 0 0 4px var(--ring-offset-background); /* focus:ring-2 focus:ring-ring focus:ring-offset-2 */
 }
 
 .default {
@@ -47,4 +53,4 @@
   background-color: transparent;
   color: #0f172a; /* text-foreground */
   border-color: #d1d5db; /* border-input */
-} 
+}

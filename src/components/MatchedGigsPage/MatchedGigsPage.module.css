@@ -1,96 +1,173 @@
 /* frontend/src/pages/MatchedGigsPage.module.css */
 
 .container {
-    padding: 20px;
-    max-width: 900px;
-    margin: 0 auto;
-    font-family: 'Inter', sans-serif;
-    color: #333;
+  padding-top: 5.25rem; /* 84px - Account for fixed header */
+  min-height: calc(100vh - 5.25rem);
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  box-sizing: border-box;
 }
 
 .title {
-    font-size: 2em;
-    margin-bottom: 10px;
-    color: #333;
-    text-align: center;
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: #333;
+  text-align: center;
+  padding: 1.25rem 1.25rem 0;
 }
 
 .subtitle {
-    font-size: 1em;
-    color: #666;
-    margin-bottom: 20px;
-    text-align: center;
+  font-size: 1em;
+  color: #666;
+  margin-bottom: 20px;
+  text-align: center;
+  padding: 0 1.25rem;
 }
 
 .refreshButton {
-    margin-bottom: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  margin: 0 1.25rem 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .refreshButton:hover:not(:disabled) {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 .refreshButton:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 .errorMessage {
-    color: red;
-    margin-top: 10px;
-    text-align: center;
+  color: red;
+  margin: 10px 1.25rem;
+  text-align: center;
 }
 
 .gigList {
-    padding: 0;
-    list-style: none;
+  padding: 0 1.25rem;
+  list-style: none;
 }
 
 .noGigsMessage {
-    text-align: center;
-    color: #666;
-    margin-top: 20px;
-    font-size: 1.1em;
+  text-align: center;
+  color: #666;
+  margin: 20px 1.25rem;
+  font-size: 1.1em;
 }
 
 .loadingMoreMessage {
-    text-align: center;
-    color: #666;
-    margin-top: 20px;
+  text-align: center;
+  color: #666;
+  margin: 20px 1.25rem;
 }
 
 .loadMoreButton {
-    margin-top: 20px;
-    width: 100%;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  margin: 20px 1.25rem;
+  width: calc(100% - 2.5rem);
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .loadMoreButton:hover:not(:disabled) {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 .loadMoreButton:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 .endMessage {
-    text-align: center;
-    margin-top: 20px;
-    color: #888;
-} 
+  text-align: center;
+  margin: 20px 1.25rem;
+  color: #888;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .container {
+    padding-top: 4.5rem; /* 72px */
+    min-height: calc(100vh - 4.5rem);
+  }
+
+  .title,
+  .subtitle,
+  .refreshButton,
+  .errorMessage,
+  .gigList,
+  .noGigsMessage,
+  .loadingMoreMessage,
+  .loadMoreButton,
+  .endMessage {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .loadMoreButton {
+    width: calc(100% - 2rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-top: 4rem; /* 64px */
+    min-height: calc(100vh - 4rem);
+  }
+
+  .title,
+  .subtitle,
+  .refreshButton,
+  .errorMessage,
+  .gigList,
+  .noGigsMessage,
+  .loadingMoreMessage,
+  .loadMoreButton,
+  .endMessage {
+    padding-left: 0.875rem;
+    padding-right: 0.875rem;
+  }
+
+  .loadMoreButton {
+    width: calc(100% - 1.75rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding-top: 3.5rem; /* 56px */
+    min-height: calc(100vh - 3.5rem);
+  }
+
+  .title,
+  .subtitle,
+  .refreshButton,
+  .errorMessage,
+  .gigList,
+  .noGigsMessage,
+  .loadingMoreMessage,
+  .loadMoreButton,
+  .endMessage {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .loadMoreButton {
+    width: calc(100% - 1.5rem);
+  }
+}

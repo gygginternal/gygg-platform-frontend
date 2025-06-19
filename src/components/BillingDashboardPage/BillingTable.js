@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import apiClient from "../api/axiosConfig";
-import { format } from "date-fns";
-import { BillingModal } from "./BillingModal";
-import { Pagination } from "antd";
-import styles from "./BillingTable.module.css";
+import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import apiClient from '../api/axiosConfig';
+import { format } from 'date-fns';
+import { BillingModal } from './BillingModal';
+import { Pagination } from 'antd';
+import styles from './BillingTable.module.css';
 
 export const BillingTable = () => {
   const [selectedGig, setSelectedGig] = useState(null);
@@ -12,7 +12,7 @@ export const BillingTable = () => {
   const [pageSize] = useState(10);
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["payments", currentPage],
+    queryKey: ['payments', currentPage],
     queryFn: async () => {
       const response = await apiClient.get(
         `/payments?page=${currentPage}&limit=${pageSize}`
@@ -23,14 +23,14 @@ export const BillingTable = () => {
   });
 
   const handleCloseModal = () => setSelectedGig(null);
-  const handlePageChange = (page) => setCurrentPage(page);
+  const handlePageChange = page => setCurrentPage(page);
 
   if (isLoading) {
     return <p>Loading payments...</p>;
   }
 
   if (isError) {
-    return <p>Error loading payments: {error?.message || "Unknown error"}</p>;
+    return <p>Error loading payments: {error?.message || 'Unknown error'}</p>;
   }
 
   const { payments } = data.data;
@@ -58,7 +58,10 @@ export const BillingTable = () => {
           <tbody>
             {payments.length === 0 && (
               <tr>
-                <td colSpan="4" className={`${styles.bodyCell} ${styles.noPaymentsCell}`}>
+                <td
+                  colSpan="4"
+                  className={`${styles.bodyCell} ${styles.noPaymentsCell}`}
+                >
                   No payments found.
                 </td>
               </tr>
@@ -66,14 +69,14 @@ export const BillingTable = () => {
             {payments.map((row, index) => (
               <tr key={index}>
                 <td className={styles.bodyCell}>
-                  {[row.payer.firstName, row.payer.lastName].filter(Boolean).join(" ")}
+                  {[row.payer.firstName, row.payer.lastName]
+                    .filter(Boolean)
+                    .join(' ')}
                 </td>
                 <td className={styles.bodyCell}>
-                  {format(new Date(row.createdAt), "MM-dd-yyyy")}
+                  {format(new Date(row.createdAt), 'MM-dd-yyyy')}
                 </td>
-                <td className={styles.bodyCell}>
-                  {row?.gig?.title || "N/A"}
-                </td>
+                <td className={styles.bodyCell}>{row?.gig?.title || 'N/A'}</td>
                 <td
                   className={`${styles.bodyCell} ${styles.invoiceLink}`}
                   onClick={() => setSelectedGig(row)}

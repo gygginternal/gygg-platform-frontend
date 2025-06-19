@@ -1,7 +1,7 @@
 // src/components/ChatPage/MessageThread.js
-import React, { useEffect, useRef } from "react";
-import styles from "./MessageThread.module.css"; // Your CSS Module
-import { useAuth } from "../context/AuthContext"; // To get current user ID
+import React, { useEffect, useRef } from 'react';
+import styles from './MessageThread.module.css'; // Your CSS Module
+import { useAuth } from '../context/AuthContext'; // To get current user ID
 
 // interface Message {
 //   _id: string;
@@ -16,21 +16,21 @@ function MessageThread({ messages = [] }) {
   const messagesEndRef = useRef(null); // To scroll to bottom
 
   // Function to format timestamp
-  const formatTimestamp = (timestamp) => {
-    if (!timestamp) return "";
+  const formatTimestamp = timestamp => {
+    if (!timestamp) return '';
     return new Date(timestamp).toLocaleTimeString([], {
-      hour: "numeric",
-      minute: "2-digit",
+      hour: 'numeric',
+      minute: '2-digit',
     });
   };
 
   // Scroll to bottom when messages change
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]); // Dependency on messages array
 
-  const handleImageError = (e) => {
-    e.target.src = "/default.png";
+  const handleImageError = e => {
+    e.target.src = '/default.png';
   };
 
   if (!user)
@@ -55,12 +55,12 @@ function MessageThread({ messages = [] }) {
             key={msg._id || index}
             className={`${styles.messageWrapper} ${
               isSender ? styles.sent : styles.received
-            } ${isContinuous ? styles.continuous : ""}`}
+            } ${isContinuous ? styles.continuous : ''}`}
           >
             {!isContinuous && ( // Only show avatar for the first message in a group
               <img
-                src={msg.sender?.profileImage || "/default.png"}
-                alt={msg.sender?.firstName || "User"}
+                src={msg.sender?.profileImage || '/default.png'}
+                alt={msg.sender?.firstName || 'User'}
                 className={styles.avatar}
                 onError={handleImageError}
               />
@@ -69,7 +69,7 @@ function MessageThread({ messages = [] }) {
               {!isContinuous && ( // Only show name for the first message in a group
                 <div className={styles.messageHeader}>
                   <h3 className={styles.userName}>
-                    {msg.sender?.firstName || "User"}
+                    {msg.sender?.firstName || 'User'}
                   </h3>
                 </div>
               )}

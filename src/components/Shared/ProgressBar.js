@@ -1,8 +1,8 @@
 // src/components/Shared/ProgressBar.js
-import React from "react";
-import styles from "./ProgressBar.module.css"; // Create this CSS module
+import React from 'react';
+import styles from './ProgressBar.module.css'; // Create this CSS module
 
-function ProgressBar({ current, total, label = "Profile Setup Progress" }) {
+function ProgressBar({ current, total, label = 'Profile Setup Progress' }) {
   const progressPercentage = (current / total) * 100;
 
   return (

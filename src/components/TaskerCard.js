@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './TaskerCard.module.css';
+import PropTypes from 'prop-types';
 
 function TaskerCard({ tasker }) {
   if (!tasker) return null;
@@ -14,12 +15,13 @@ function TaskerCard({ tasker }) {
         <div>
           <h4 className={styles.title}>
             {tasker.fullName} ({tasker.rating?.toFixed(1)}⭐{' '}
-            <span className={styles.smallText}>({tasker.ratingCount || 0})</span>)
+            <span className={styles.smallText}>
+              ({tasker.ratingCount || 0})
+            </span>
+            )
           </h4>
           <p className={styles.paragraph}>
-            <i>
-              "{tasker.peoplePreference || 'No preference specified'}"
-            </i>
+            <i>"{tasker.peoplePreference || 'No preference specified'}"</i>
           </p>
         </div>
         <span className={`${styles.textMuted} ${styles.marginLeftAuto}`}>
@@ -43,5 +45,19 @@ function TaskerCard({ tasker }) {
     </li>
   );
 }
+
+TaskerCard.propTypes = {
+  tasker: PropTypes.shape({
+    _id: PropTypes.string,
+    fullName: PropTypes.string,
+    rating: PropTypes.number,
+    ratingCount: PropTypes.number,
+    peoplePreference: PropTypes.string,
+    score: PropTypes.number,
+    profileImage: PropTypes.string,
+    bio: PropTypes.string,
+    hobbies: PropTypes.arrayOf(PropTypes.string),
+  }),
+};
 
 export default TaskerCard;

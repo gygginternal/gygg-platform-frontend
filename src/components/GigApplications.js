@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { MapPin } from "lucide-react";
-import { useParams } from "react-router-dom";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import apiClient from "../api/axiosConfig";
+import React, { useState, useEffect } from 'react';
+import { MapPin } from 'lucide-react';
+import { useParams } from 'react-router-dom';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import apiClient from '../api/axiosConfig';
 import Badge from '../components/Badge';
-import { StatusBadge } from "../components/StatusBadge"; // Assuming you have a StatusBadge component
-import { useAuth } from "../context/AuthContext";
+import { StatusBadge } from '../components/StatusBadge'; // Assuming you have a StatusBadge component
+import { useAuth } from '../context/AuthContext';
 // import { Button } from "../components/ui/button"; // Removed
-import styles from "./GigApplications.module.css"; // Import CSS module
+import styles from './GigApplications.module.css'; // Import CSS module
+import PropTypes from 'prop-types';
 
 function OfferCard({ offer, onDelete, onAccept, onDecline, isProvider }) {
   const provider = offer.provider || {}; // Assuming offer has a provider object
@@ -17,7 +18,7 @@ function OfferCard({ offer, onDelete, onAccept, onDecline, isProvider }) {
       <div className={styles.offerCardContent}>
         <div className={styles.offerCardImageContainer}>
           <img
-            src={offer.image || "/placeholder.svg"}
+            src={offer.image || '/placeholder.svg'}
             alt={`${offer.name}'s profile picture`}
             className={styles.offerCardImage}
           />
@@ -28,7 +29,7 @@ function OfferCard({ offer, onDelete, onAccept, onDecline, isProvider }) {
               <h2 className={styles.offerCardTitle}>{offer.name}</h2>
               <p className={styles.offerCardRate}>{offer.rate}</p>
               {provider.location &&
-                provider.location.trim().split(",").filter(Boolean).length >
+                provider.location.trim().split(',').filter(Boolean).length >
                   0 && (
                   <div className={styles.location}>
                     <MapPin className={styles.locationIcon} />
@@ -47,7 +48,10 @@ function OfferCard({ offer, onDelete, onAccept, onDecline, isProvider }) {
               </button>
             ) : (
               <>
-                <button className={`${styles.acceptButton} ${styles.button}`} onClick={() => onAccept(offer._id)}>
+                <button
+                  className={`${styles.acceptButton} ${styles.button}`}
+                  onClick={() => onAccept(offer._id)}
+                >
                   Accept Offer
                 </button>
                 <button
@@ -63,12 +67,8 @@ function OfferCard({ offer, onDelete, onAccept, onDecline, isProvider }) {
           <p className={styles.offerCardDescription}>{offer.description}</p>
 
           <div className={styles.skillsContainer}>
-            {provider.skills.map((service) => (
-              <Badge
-                key={service}
-                variant="outline"
-                className={styles.badge}
-              >
+            {provider.skills.map(service => (
+              <Badge key={service} variant="outline" className={styles.badge}>
                 {service}
               </Badge>
             ))}
@@ -79,13 +79,21 @@ function OfferCard({ offer, onDelete, onAccept, onDecline, isProvider }) {
   );
 }
 
+OfferCard.propTypes = {
+  offer: PropTypes.object.isRequired,
+  onDelete: PropTypes.func,
+  onAccept: PropTypes.func,
+  onDecline: PropTypes.func,
+  isProvider: PropTypes.bool,
+};
+
 function ProviderCard({ provider, onOffer, onReject }) {
   return (
     <div className={styles.offerCard}>
       <div className={styles.offerCardContent}>
         <div className={styles.offerCardImageContainer}>
           <img
-            src={provider.image || "/placeholder.svg"}
+            src={provider.image || '/placeholder.svg'}
             alt={`${provider.name}'s profile picture`}
             className={styles.offerCardImage}
           />
@@ -95,12 +103,12 @@ function ProviderCard({ provider, onOffer, onReject }) {
             <div>
               <StatusBadge
                 className={styles.statusBadgeMargin}
-                status={provider.status === "rejected" ? "Rejected" : "Active"}
+                status={provider.status === 'rejected' ? 'Rejected' : 'Active'}
               />
               <h2 className={styles.offerCardTitle}>{provider.name}</h2>
               <p className={styles.offerCardRate}>{provider.rate}</p>
               {provider.location &&
-                provider.location.trim().split(",").filter(Boolean).length >
+                provider.location.trim().split(',').filter(Boolean).length >
                   0 && (
                   <div className={styles.location}>
                     <MapPin className={styles.locationIcon} />
@@ -110,18 +118,17 @@ function ProviderCard({ provider, onOffer, onReject }) {
             </div>
           </div>
           <div className={styles.providerServicesGap}>
-            {provider.services.map((service) => (
-              <Badge
-                key={service}
-                variant="outline"
-                className={styles.badge}
-              >
+            {provider.services.map(service => (
+              <Badge key={service} variant="outline" className={styles.badge}>
                 {service}
               </Badge>
             ))}
           </div>
           <div className={styles.buttonGroup}>
-            <button className={`${styles.sendOfferButton} ${styles.button}`} onClick={() => onOffer(provider.id)}>
+            <button
+              className={`${styles.sendOfferButton} ${styles.button}`}
+              onClick={() => onOffer(provider.id)}
+            >
               Send Offer
             </button>
             <button
@@ -137,6 +144,12 @@ function ProviderCard({ provider, onOffer, onReject }) {
   );
 }
 
+ProviderCard.propTypes = {
+  provider: PropTypes.object.isRequired,
+  onOffer: PropTypes.func.isRequired,
+  onReject: PropTypes.func.isRequired,
+};
+
 export const GigApplications = ({ onOffer, onReject }) => {
   const { gigId } = useParams(); // Get the gigId from the URL
   const { user } = useAuth();
@@ -149,53 +162,47 @@ export const GigApplications = ({ onOffer, onReject }) => {
 
   // Fetch applications with pagination
   const { isLoading, isError, error, data } = useQuery({
-    queryKey: ["gigApplications", gigId, currentPage],
+    queryKey: ['gigApplications', gigId, currentPage],
     queryFn: async () => {
       const response = await apiClient.get(
         `/gigs/${gigId}/applications?page=${currentPage}`
       );
 
-      const data = response.data;
+      const { data } = response;
       if (data && data.data && data.data.applications) {
-        setApplications((prev) => [...prev, ...data.data.applications]); // Append new applications
+        setApplications(prev => [...prev, ...data.data.applications]); // Append new applications
         setHasMore(currentPage < data.totalPages); // Check if more pages are available
       }
       return response.data;
     },
-    onSuccess: (data) => {
-      console.info("Fetched applications:", data);
+    onSuccess: data => {
+      // No console.info needed here
     },
     enabled: !!gigId && hasMore, // Only fetch if gigId is available and more pages exist
   });
 
   const offerMutation = useMutation({
-    mutationFn: async (applicationId) => {
+    mutationFn: async applicationId => {
       await apiClient.post(`/applications/${applicationId}/offer`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["gigApplications", gigId]); // Refresh applications
+      queryClient.invalidateQueries(['gigApplications', gigId]); // Refresh applications
     },
-    onError: (err) => {
-      console.error(
-        "Error offering application:",
-        err.response?.data || err.message
-      );
+    onError: err => {
+      // No console.error needed here
     },
   });
 
   // Mutation for rejecting an application
   const rejectMutation = useMutation({
-    mutationFn: async (applicationId) => {
+    mutationFn: async applicationId => {
       await apiClient.patch(`/applications/${applicationId}/reject`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["gigApplications", gigId]); // Refresh applications
+      queryClient.invalidateQueries(['gigApplications', gigId]); // Refresh applications
     },
-    onError: (err) => {
-      console.error(
-        "Error rejecting application:",
-        err.response?.data || err.message
-      );
+    onError: err => {
+      // No console.error needed here
     },
   });
 
@@ -206,84 +213,78 @@ export const GigApplications = ({ onOffer, onReject }) => {
     isError: isOfferError,
     error: offerError,
   } = useQuery({
-    queryKey: ["gigOffer", gigId],
+    queryKey: ['gigOffer', gigId],
     queryFn: async () => {
       const response = await apiClient.get(`/gigs/${gigId}/offer`);
       return response.data.data.offer; // Return the single offer
     },
-    onSuccess: (data) => {
-      console.info("Fetched offer:", data);
+    onSuccess: data => {
+      // No console.info needed here
     },
   });
 
   // Mutation for deleting an offer
   const deleteOfferMutation = useMutation({
-    mutationFn: async (offerId) => {
+    mutationFn: async offerId => {
       await apiClient.delete(`/offers/${offerId}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["gigOffers", gigId]); // Refresh offers
+      queryClient.invalidateQueries(['gigOffers', gigId]); // Refresh offers
     },
-    onError: (err) => {
-      console.error("Error deleting offer:", err.response?.data || err.message);
+    onError: err => {
+      // No console.error needed here
     },
   });
 
   // Mutation for accepting an offer
   const acceptOfferMutation = useMutation({
-    mutationFn: async (offerId) => {
+    mutationFn: async offerId => {
       await apiClient.patch(`/offers/${offerId}/accept`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["gigOffers", gigId]); // Refresh offers
+      queryClient.invalidateQueries(['gigOffers', gigId]); // Refresh offers
     },
-    onError: (err) => {
-      console.error(
-        "Error accepting offer:",
-        err.response?.data || err.message
-      );
+    onError: err => {
+      // No console.error needed here
     },
   });
 
   // Mutation for declining an offer
   const declineOfferMutation = useMutation({
-    mutationFn: async (offerId) => {
+    mutationFn: async offerId => {
       await apiClient.patch(`/offers/${offerId}/decline`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["gigOffers", gigId]); // Refresh offers
+      queryClient.invalidateQueries(['gigOffers', gigId]); // Refresh offers
     },
-    onError: (err) => {
-      console.error(
-        "Error declining offer:",
-        err.response?.data || err.message
-      );
+    onError: err => {
+      // No console.error needed here
     },
   });
 
-  const handleDeleteOffer = async (offerId) => {
+  const handleDeleteOffer = async offerId => {
     await deleteOfferMutation.mutateAsync(offerId);
   };
 
-  const handleAcceptOffer = async (offerId) => {
+  const handleAcceptOffer = async offerId => {
     await acceptOfferMutation.mutateAsync(offerId);
   };
 
-  const handleDeclineOffer = async (offerId) => {
+  const handleDeclineOffer = async offerId => {
     await declineOfferMutation.mutateAsync(offerId);
   };
 
   const handleLoadMore = () => {
     if (hasMore) {
-      setCurrentPage((prevPage) => prevPage + 1);
+      setCurrentPage(prevPage => prevPage + 1);
     }
   };
 
-  const handleOffer = async (applicationId) => {
+  const handleOffer = async applicationId => {
     await offerMutation.mutateAsync(applicationId);
   };
 
-  const handleReject = async (applicationId) => {
+  const handleReject = async applicationId => {
     await rejectMutation.mutateAsync(applicationId);
   };
 
@@ -295,7 +296,7 @@ export const GigApplications = ({ onOffer, onReject }) => {
     return <p>Error loading applications or offers.</p>;
   }
 
-  const isProviderUser = user?.role === "provider"; // Determine if the user is a provider
+  const isProviderUser = user?.role === 'provider'; // Determine if the user is a provider
 
   return (
     <div className={styles.container}>
@@ -309,18 +310,18 @@ export const GigApplications = ({ onOffer, onReject }) => {
             onDelete={handleDeleteOffer}
             onAccept={handleAcceptOffer}
             onDecline={handleDeclineOffer}
-            isProvider={true} // As this is "Your Offer" section for a provider
+            isProvider // As this is "Your Offer" section for a provider
           />
         </div>
       )}
 
       <div className={styles.section}>
         <h2 className={styles.subheading}>
-          {isProviderUser ? "Received Applications" : "Your Offers"}
+          {isProviderUser ? 'Received Applications' : 'Your Offers'}
         </h2>
         {applications.length > 0 ? (
           <div className={styles.cardList}>
-            {applications.map((application) => (
+            {applications.map(application => (
               <ProviderCard
                 key={application._id}
                 provider={application.applicant}
@@ -338,10 +339,15 @@ export const GigApplications = ({ onOffer, onReject }) => {
             disabled={isLoading}
             className={styles.loadMoreButton}
           >
-            {isLoading ? "Loading more..." : "Load More"}
+            {isLoading ? 'Loading more...' : 'Load More'}
           </button>
         )}
       </div>
     </div>
   );
+};
+
+GigApplications.propTypes = {
+  onOffer: PropTypes.func,
+  onReject: PropTypes.func,
 };

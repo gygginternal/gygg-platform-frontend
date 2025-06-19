@@ -2,265 +2,217 @@
 
 /* Setting a base font size for rem calculations */
 :root {
-    font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
 .thread {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem; /* 20px */
-    padding: 1.25rem; /* 20px */
-    margin-top: 1.25rem; /* 20px */
-    box-sizing: border-box; /* Ensure padding is included in width */
-    width: 100%; /* Take full width of parent */
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding: 2rem 1.5rem 1rem 1.5rem;
+  margin-top: 0;
+  background: #fff;
+  border-radius: 16px;
+  min-height: 70vh;
+  box-sizing: border-box;
+  width: 100%;
 }
-  
+
 /* --- Message Wrapper and Alignment --- */
 .messageWrapper {
-    display: flex;
-    margin-bottom: 0.5rem; /* 8px - Space between message bubbles */
-    max-width: 75%; /* Limit bubble width to 75% of container */
-    align-items: flex-end; /* Align avatar with bottom of message bubble */
-    /* Removed specific avatar margin here, moved to .avatar directly */
+  display: flex;
+  margin-bottom: 0.5rem;
+  max-width: 75%;
+  align-items: flex-end;
 }
 .messageWrapper.sent {
-    margin-left: auto; /* Align to right */
-    flex-direction: row-reverse; /* Avatar on right */
+  margin-left: auto;
+  flex-direction: row-reverse;
 }
 .messageWrapper.received {
-    margin-right: auto; /* Align to left */
+  margin-right: auto;
 }
 
 /* --- Avatar (Profile Picture) --- */
 .avatar {
-    /* Facebook Profile pic thumbnails: 32-40px. Using 40px (2.5rem). */
-    width: 2.5rem; /* 40px */
-    height: 2.5rem; /* 40px */
-    border-radius: 50%; /* Perfect circle */
-    object-fit: cover;
-    flex-shrink: 0;
-    /* Margin for avatar relative to message bubble */
-    margin: 0 0.5rem; /* 0 8px */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  margin: 0 0.7rem 0 0;
+  border: 1.5px solid #e0e0e0;
+  background: #fff;
 }
-/* Hide avatar for continuous messages from same sender */
-.messageWrapper.continuous .avatar {
-    visibility: hidden;
-    /* Adjust margin for continuous messages to align text bubbles */
-    /* This compensation depends on the avatar width + its own margin */
-    /* For 2.5rem avatar + 0.5rem margin = 3rem offset */
-    width: 2.5rem; /* Maintain space */
-    height: 2.5rem;
+.messageWrapper.sent .avatar {
+  margin: 0 0 0 0.7rem;
 }
-.messageWrapper.continuous.sent {
-    margin-left: calc(2.5rem + 0.5rem); /* Avatar width + its margin */
-}
-.messageWrapper.continuous.received {
-    margin-right: calc(2.5rem + 0.5rem); /* Avatar width + its margin */
-}
-
 
 /* --- Message Content (The Bubble) --- */
 .messageContent {
-    flex-direction: column; /* Stack header (if visible) and text */
-    flex: 1; /* Allow content to grow */
-    padding: 0.8rem 1rem; /* 12.8px 16px - Generous padding inside bubble */
-    border-radius: 1rem; /* 16px - Standard bubble shape */
-    line-height: 1.4;
-    word-wrap: break-word; /* Ensure long messages wrap */
-    /* Facebook Post text (main body) 14-16px. Using 1rem (16px) for main text. */
-    font-size: 1rem; /* 16px */
-    font-weight: 500;
-    font-family:
-      Inter,
-      -apple-system,
-      Roboto,
-      Helvetica,
-      sans-serif;
+  display: flex;
+  flex-direction: column;
+  background: #f7f7f7;
+  border-radius: 12px;
+  padding: 0.7rem 1.1rem;
+  font-size: 1rem;
+  color: #222;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  min-width: 60px;
+  max-width: 340px;
+  word-break: break-word;
+  position: relative;
 }
 
 /* Specific styles for sent messages */
 .messageWrapper.sent .messageContent {
-    background-color: #536471; /* Darker background for sent */
-    color: #fff; /* White text for sent */
-    border-bottom-right-radius: 0.25rem; /* 4px - Pointed corner */
-    border-top-right-radius: 0.25rem; /* 4px */
-}
-/* Specific styles for received messages */
-.messageWrapper.received .messageContent {
-    background-color: #e7e7e7; /* Lighter background for received */
-    color: #303030; /* Darker text for received */
-    border-bottom-left-radius: 0.25rem; /* 4px - Pointed corner */
-    border-top-left-radius: 0.25rem; /* 4px */
+  background: #3d4d55;
+  color: #fff;
 }
 
 /* --- Message Header (User Name & Timestamp within bubble) --- */
 .messageHeader {
   display: flex;
-  justify-content: space-between; /* To push timestamp right */
   align-items: center;
-  gap: 0.8rem; /* 12.8px - Gap between name and timestamp */
-  margin-bottom: 0.25rem; /* 4px - Space below header before text */
-  flex-wrap: wrap; /* Allow name/timestamp to wrap if long */
-}
-/* Hide header for continuous messages from same sender */
-.messageWrapper.continuous .messageHeader {
-    display: none;
+  margin-bottom: 2px;
 }
 
 /* --- User Name in Message Header --- */
 .userName {
-    /* Facebook Comments 13-14px. Using 14px (0.875rem). */
-    font-size: 0.875rem; /* 14px */
-    font-weight: 600;
-    margin: 0;
-    color: inherit; /* Inherit color from bubble (sent/received) */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-/* Align username for sent messages */
-.messageWrapper.sent .userName {
-    text-align: right;
+  font-size: 0.95rem;
+  color: #222;
+  font-weight: 600;
+  margin-right: 0.5rem;
 }
 
 /* --- Timestamp in Message Header --- */
 .timestamp {
-    /* Facebook Timestamps and meta info: 12px. Using 12px (0.75rem). */
-    font-size: 0.75rem; /* 12px */
-    font-weight: 400;
-    margin: 0; /* Remove default margin */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-/* Adjust color for sent messages */
-.messageWrapper.sent .timestamp {
-    color: rgba(255, 255, 255, 0.7); /* Lighter timestamp for dark bubble */
-}
-/* Adjust color for received messages */
-.messageWrapper.received .timestamp {
-    color: #707070;
-}
-/* Align timestamp for sent messages */
-.messageWrapper.sent .timestamp {
-    text-align: right;
+  font-size: 0.82rem;
+  color: #888;
+  font-weight: 400;
+  margin-left: 0.5rem;
 }
 
 /* --- Responsive Adjustments --- */
 
 /* @media (max-width: 1024px) - Large Tablets / Small Laptops */
 @media (max-width: 1024px) {
-    .thread {
-        gap: 1rem; /* 16px */
-        padding: 1rem; /* 16px */
-        margin-top: 1rem; /* 16px */
-    }
-    .messageWrapper {
-        max-width: 80%; /* Allow bubbles to be wider */
-        margin-bottom: 0.4rem; /* 6.4px */
-    }
-    .avatar {
-        width: 2.25rem; /* 36px */
-        height: 2.25rem; /* 36px */
-        margin: 0 0.4rem; /* 0 6.4px */
-    }
-    .messageWrapper.continuous.sent {
-        margin-left: calc(2.25rem + 0.4rem); /* Avatar width + its margin */
-    }
-    .messageWrapper.continuous.received {
-        margin-right: calc(2.25rem + 0.4rem); /* Avatar width + its margin */
-    }
-    .messageContent {
-        padding: 0.6rem 0.8rem; /* 9.6px 12.8px */
-        border-radius: 0.8rem; /* 12.8px */
-        font-size: 0.9375rem; /* 15px */
-    }
-    .messageHeader {
-        gap: 0.6rem; /* 9.6px */
-        margin-bottom: 0.2rem; /* 3.2px */
-    }
-    .userName {
-        font-size: 0.8125rem; /* 13px */
-    }
-    .timestamp {
-        font-size: 0.6875rem; /* ~11px */
-    }
+  .thread {
+    gap: 1rem; /* 16px */
+    padding: 1rem; /* 16px */
+    margin-top: 1rem; /* 16px */
+  }
+  .messageWrapper {
+    max-width: 80%; /* Allow bubbles to be wider */
+    margin-bottom: 0.4rem; /* 6.4px */
+  }
+  .avatar {
+    width: 2.25rem; /* 36px */
+    height: 2.25rem; /* 36px */
+    margin: 0 0.4rem; /* 0 6.4px */
+  }
+  .messageWrapper.continuous.sent {
+    margin-left: calc(2.25rem + 0.4rem); /* Avatar width + its margin */
+  }
+  .messageWrapper.continuous.received {
+    margin-right: calc(2.25rem + 0.4rem); /* Avatar width + its margin */
+  }
+  .messageContent {
+    padding: 0.6rem 0.8rem; /* 9.6px 12.8px */
+    border-radius: 0.8rem; /* 12.8px */
+    font-size: 0.9375rem; /* 15px */
+  }
+  .messageHeader {
+    gap: 0.6rem; /* 9.6px */
+    margin-bottom: 0.2rem; /* 3.2px */
+  }
+  .userName {
+    font-size: 0.8125rem; /* 13px */
+  }
+  .timestamp {
+    font-size: 0.6875rem; /* ~11px */
+  }
 }
 
 /* @media (max-width: 768px) - Tablets */
 @media (max-width: 768px) {
-    .thread {
-        gap: 0.8rem; /* 12.8px */
-        padding: 0.8rem; /* 12.8px */
-        margin-top: 0.8rem; /* 12.8px */
-    }
-    .messageWrapper {
-        max-width: 90%; /* Even wider */
-        margin-bottom: 0.3rem; /* 4.8px */
-    }
-    .avatar {
-        width: 2rem; /* 32px */
-        height: 2rem; /* 32px */
-        margin: 0 0.3rem; /* 0 4.8px */
-    }
-    .messageWrapper.continuous.sent {
-        margin-left: calc(2rem + 0.3rem);
-    }
-    .messageWrapper.continuous.received {
-        margin-right: calc(2rem + 0.3rem);
-    }
-    .messageContent {
-        padding: 0.5rem 0.7rem; /* 8px 11.2px */
-        border-radius: 0.7rem; /* 11.2px */
-        font-size: 0.875rem; /* 14px */
-    }
-    .messageHeader {
-        gap: 0.5rem; /* 8px */
-        margin-bottom: 0.15rem; /* 2.4px */
-    }
-    .userName {
-        font-size: 0.75rem; /* 12px */
-    }
-    .timestamp {
-        font-size: 0.625rem; /* 10px */
-    }
+  .thread {
+    gap: 0.8rem; /* 12.8px */
+    padding: 0.8rem; /* 12.8px */
+    margin-top: 0.8rem; /* 12.8px */
+  }
+  .messageWrapper {
+    max-width: 90%; /* Even wider */
+    margin-bottom: 0.3rem; /* 4.8px */
+  }
+  .avatar {
+    width: 2rem; /* 32px */
+    height: 2rem; /* 32px */
+    margin: 0 0.3rem; /* 0 4.8px */
+  }
+  .messageWrapper.continuous.sent {
+    margin-left: calc(2rem + 0.3rem);
+  }
+  .messageWrapper.continuous.received {
+    margin-right: calc(2rem + 0.3rem);
+  }
+  .messageContent {
+    padding: 0.5rem 0.7rem; /* 8px 11.2px */
+    border-radius: 0.7rem; /* 11.2px */
+    font-size: 0.875rem; /* 14px */
+  }
+  .messageHeader {
+    gap: 0.5rem; /* 8px */
+    margin-bottom: 0.15rem; /* 2.4px */
+  }
+  .userName {
+    font-size: 0.75rem; /* 12px */
+  }
+  .timestamp {
+    font-size: 0.625rem; /* 10px */
+  }
 }
 
 /* @media (max-width: 480px) - Mobile Phones */
 @media (max-width: 480px) {
-    .thread {
-        gap: 0.625rem; /* 10px */
-        padding: 0.625rem; /* 10px */
-        margin-top: 0.625rem; /* 10px */
-    }
-    .messageWrapper {
-        max-width: 95%; /* Almost full width */
-        margin-bottom: 0.25rem; /* 4px */
-    }
-    .avatar {
-        width: 1.75rem; /* 28px */
-        height: 1.75rem; /* 28px */
-        margin: 0 0.25rem; /* 0 4px */
-    }
-    .messageWrapper.continuous.sent {
-        margin-left: calc(1.75rem + 0.25rem);
-    }
-    .messageWrapper.continuous.received {
-        margin-right: calc(1.75rem + 0.25rem);
-    }
-    .messageContent {
-        padding: 0.4rem 0.6rem; /* 6.4px 9.6px */
-        border-radius: 0.6rem; /* 9.6px */
-        font-size: 0.8125rem; /* 13px */
-    }
-    .messageHeader {
-        gap: 0.4rem; /* 6.4px */
-        margin-bottom: 0.1rem; /* 1.6px */
-    }
-    .userName {
-        font-size: 0.6875rem; /* ~11px */
-    }
-    .timestamp {
-        font-size: 0.5625rem; /* ~9px */
-    }
+  .thread {
+    gap: 0.625rem; /* 10px */
+    padding: 0.625rem; /* 10px */
+    margin-top: 0.625rem; /* 10px */
+  }
+  .messageWrapper {
+    max-width: 95%; /* Almost full width */
+    margin-bottom: 0.25rem; /* 4px */
+  }
+  .avatar {
+    width: 1.75rem; /* 28px */
+    height: 1.75rem; /* 28px */
+    margin: 0 0.25rem; /* 0 4px */
+  }
+  .messageWrapper.continuous.sent {
+    margin-left: calc(1.75rem + 0.25rem);
+  }
+  .messageWrapper.continuous.received {
+    margin-right: calc(1.75rem + 0.25rem);
+  }
+  .messageContent {
+    padding: 0.4rem 0.6rem; /* 6.4px 9.6px */
+    border-radius: 0.6rem; /* 9.6px */
+    font-size: 0.8125rem; /* 13px */
+  }
+  .messageHeader {
+    gap: 0.4rem; /* 6.4px */
+    margin-bottom: 0.1rem; /* 1.6px */
+  }
+  .userName {
+    font-size: 0.6875rem; /* ~11px */
+  }
+  .timestamp {
+    font-size: 0.5625rem; /* ~9px */
+  }
+}
+
+.messageText {
+  margin: 0;
+  padding: 0;
 }

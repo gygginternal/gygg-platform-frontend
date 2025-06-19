@@ -1,27 +1,28 @@
 // @ts-nocheck
 
-import { Button } from "../components/ui/button";
+import { Button } from '../components/ui/button';
 // frontend/src/pages/GigDetailPage.js
-import React, { useState, useEffect, useCallback } from "react";
-import { useParams } from "react-router-dom";
-import apiClient from "../api/axiosConfig";
-import { useAuth } from "../context/AuthContext";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
+import apiClient from '../api/axiosConfig';
+import { useAuth } from '../context/AuthContext';
 import {
   useStripe,
   useElements,
   Elements,
   PaymentElement,
-} from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+} from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 // import "./GigDetails.css"; // Assuming you have a CSS file for styling
 import styles from './GigDetail.module.css'; // Import CSS Modules
-import { GigApplications } from "./GigApplications";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { GigApplySection } from "./GigApplySection";
+import { GigApplications } from './GigApplications';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { GigApplySection } from './GigApplySection';
 import ReviewSection from './ReviewSection';
+import PropTypes from 'prop-types';
 
 const stripePromise = loadStripe(
-  "pk_test_51RRrQ2Q5bv7DRpKKkdum0wirsfQWdEid1PgmxjDvnY63M7wCbbRiH9mgitk4wpj37RTmTkgC3xYHEQhJOF9hUvXS00Z6OvQMz4"
+  'pk_test_51RRrQ2Q5bv7DRpKKkdum0wirsfQWdEid1PgmxjDvnY63M7wCbbRiH9mgitk4wpj37RTmTkgC3xYHEQhJOF9hUvXS00Z6OvQMz4'
 ); // Replace with your Stripe publishable key
 
 const ConfirmButton = ({ clientSecret }) => {
@@ -30,7 +31,7 @@ const ConfirmButton = ({ clientSecret }) => {
 
   const handleConfirmPayment = async () => {
     if (!stripe || !elements) {
-      console.error("Stripe.js has not loaded yet.");
+      console.error('Stripe.js has not loaded yet.');
       return;
     }
 
@@ -43,9 +44,9 @@ const ConfirmButton = ({ clientSecret }) => {
     });
 
     if (error) {
-      console.error("Payment confirmation error:", error.message);
+      console.error('Payment confirmation error:', error.message);
     } else {
-      console.log("Payment confirmed successfully.");
+      console.log('Payment confirmed successfully.');
     }
   };
 
@@ -63,29 +64,33 @@ const ConfirmButton = ({ clientSecret }) => {
   );
 };
 
+ConfirmButton.propTypes = {
+  clientSecret: PropTypes.string.isRequired,
+};
+
 function GigDetailPage() {
   const { gigId } = useParams();
   const { user } = useAuth();
   const [gigData, setGigData] = useState(null);
 
   const [contractData, setContractData] = useState(null);
-  const isContractCompleted = contractData?.status === "completed";
+  const isContractCompleted = contractData?.status === 'completed';
 
   const [paymentData, setPaymentData] = useState(null);
   const [paymentIntent, setPaymentIntent] = useState(null);
   const [isReleasable, setIsReleasable] = useState(false); // New state for release eligibility
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
-  const isRefunding = paymentData?.status === "refund_pending";
-  const isPaymentDeposit = paymentIntent?.status === "succeeded";
+  const isRefunding = paymentData?.status === 'refund_pending';
+  const isPaymentDeposit = paymentIntent?.status === 'succeeded';
   const hasPayment = Boolean(paymentData);
-  const isProvider = user?.role?.includes("provider");
+  const isProvider = user?.role?.includes('provider');
   const isTasker = !isProvider;
 
   const queryClient = useQueryClient();
 
-  const fetchReleasableStatus = async (contractId) => {
+  const fetchReleasableStatus = async contractId => {
     try {
       const response = await apiClient.get(
         `/payments/contracts/${contractId}/releasable`
@@ -94,14 +99,14 @@ function GigDetailPage() {
       setIsReleasable(isBalanceSufficient);
     } catch (err) {
       console.error(
-        "Error fetching releasable status:",
+        'Error fetching releasable status:',
         err.response?.data || err.message
       );
       setIsReleasable(false);
     }
   };
 
-  const fetchPaymentDetails = async (contractId) => {
+  const fetchPaymentDetails = async contractId => {
     try {
       const response = await apiClient.get(
         `/payments/contracts/${contractId}/payment`
@@ -111,7 +116,7 @@ function GigDetailPage() {
       await fetchReleasableStatus(contractId); // Fetch releasable status after payment details
     } catch (err) {
       console.error(
-        "Error fetching payment details:",
+        'Error fetching payment details:',
         err.response?.data || err.message
       );
       setPaymentData(null);
@@ -119,20 +124,20 @@ function GigDetailPage() {
   };
 
   const fetchData = useCallback(async () => {
-    console.log("GigDetailPage - Attempting fetch with gigId:", gigId);
+    console.log('GigDetailPage - Attempting fetch with gigId:', gigId);
 
     // CHECK: Ensure gigId exists and looks like a valid ObjectId before proceeding
     if (
       !gigId ||
-      typeof gigId !== "string" ||
+      typeof gigId !== 'string' ||
       gigId.length !== 24 ||
       !/^[a-fA-F0-9]{24}$/.test(gigId)
     ) {
       console.error(
-        "GigDetailPage: Invalid Gig ID detected. Aborting fetch.",
+        'GigDetailPage: Invalid Gig ID detected. Aborting fetch.',
         gigId
       );
-      setError(`Invalid Gig ID found in URL: '${gigId || "None"}'.`);
+      setError(`Invalid Gig ID found in URL: '${gigId || 'None'}'.`);
       setLoading(false);
       setGigData(null); // Clear any potentially stale data
       setContractData(null);
@@ -141,7 +146,7 @@ function GigDetailPage() {
     }
 
     setLoading(true);
-    setError("");
+    setError('');
 
     try {
       // ... rest of your try/catch block for fetching gig, contract, and review data ...
@@ -149,7 +154,7 @@ function GigDetailPage() {
       const gigResponse = await apiClient.get(`/gigs/${gigId}`);
       const currentGig = gigResponse.data.data.gig;
       setGigData(currentGig);
-      console.log("Gig Data Fetched:", currentGig);
+      console.log('Gig Data Fetched:', currentGig);
 
       try {
         const contractResponse = await apiClient.get(
@@ -157,19 +162,18 @@ function GigDetailPage() {
         );
         const currentContract = contractResponse.data.data.contract;
         setContractData(currentContract);
-        console.log("Contract Data Fetched:", currentContract);
+        console.log('Contract Data Fetched:', currentContract);
 
         if (
           currentContract &&
           currentContract.provider?._id === user?._id &&
           currentGig?.assignedTo?._id
         ) {
-          const reviewParams = { gigId: gigId, reviewer: user._id };
-          const reviewResponse = await apiClient.get("/reviews", {
+          const reviewParams = { gigId, reviewer: user._id };
+          const reviewResponse = await apiClient.get('/reviews', {
             params: reviewParams,
           });
-          if (reviewResponse.data.results > 0) {
-          }
+          // (Optional) Handle review existence if needed
         }
 
         if (currentContract?._id) {
@@ -180,28 +184,28 @@ function GigDetailPage() {
           contractError.response?.status === 404 ||
           contractError.response?.status === 403 ||
           (contractError.response?.data?.message &&
-            contractError.response.data.message.includes("No contract found"))
+            contractError.response.data.message.includes('No contract found'))
         ) {
           console.log(
-            "No accessible contract found for this gig, or query failed."
+            'No accessible contract found for this gig, or query failed.'
           );
           setContractData(null);
         } else {
           console.error(
-            "Error fetching contract:",
+            'Error fetching contract:',
             contractError.response?.data || contractError.message
           );
-          setError("Error loading associated contract details.");
+          setError('Error loading associated contract details.');
         }
         setContractData(null);
         setPaymentData(null); // Clear payment data if no contract
       }
     } catch (err) {
       console.error(
-        "Error fetching gig details:",
+        'Error fetching gig details:',
         err.response?.data || err.message
       );
-      setError(err.response?.data?.message || "Failed to load gig details.");
+      setError(err.response?.data?.message || 'Failed to load gig details.');
       setGigData(null);
       setContractData(null);
       setPaymentData(null); // Clear payment data
@@ -221,18 +225,18 @@ function GigDetailPage() {
 
   // ... rest of GigDetailPage component (callbacks and return JSX) ...
   const handleAcceptSuccess = () => {
-    console.log("Gig accepted, refreshing data...");
+    console.log('Gig accepted, refreshing data...');
     fetchData();
   };
   const handlePaymentSuccess = () => {
-    console.log("Payment successful, refreshing data...");
+    console.log('Payment successful, refreshing data...');
     fetchData();
   };
   const hasSecret = paymentData?.stripePaymentIntentSecret;
   const options = {
     // clientSecret: paymentData?.stripePaymentIntentSecret, // your test secret
     clientSecret:
-      "pi_3RVl7SQ5bv7DRpKK1Ct8ziGw_secret_vXLXyg0ERmsJWiZxgnvtNN5JZ",
+      'pi_3RVl7SQ5bv7DRpKK1Ct8ziGw_secret_vXLXyg0ERmsJWiZxgnvtNN5JZ',
     // Fully customizable with appearance API.
     appearance: {
       /*...*/
@@ -247,44 +251,45 @@ function GigDetailPage() {
   // Set up Stripe.js and Elements to use in checkout form, passing the client secret obtained in a previous step
 
   const cancelContractMutation = useMutation({
-    mutationFn: async (contractId) => {
+    mutationFn: async contractId => {
       await apiClient.delete(`/contracts/${contractId}`);
     },
     onSuccess: () => {
-      console.log("Contract canceled successfully.");
+      console.log('Contract canceled successfully.');
       fetchData(); // Refetch data to update the UI
     },
-    onError: (err) => {
+    onError: err => {
       console.error(
-        "Error canceling contract:",
+        'Error canceling contract:',
         err.response?.data || err.message
       );
     },
   });
 
   const acceptContractMutation = useMutation({
-    mutationFn: (contractId) => apiClient.put(`/contracts/${contractId}/accept`),
+    mutationFn: contractId => apiClient.put(`/contracts/${contractId}/accept`),
     onSuccess: () => {
       queryClient.invalidateQueries(['gig', gigData._id]);
-    }
+    },
   });
 
   const releaseFundsMutation = useMutation({
-    mutationFn: (contractId) => apiClient.put(`/contracts/${contractId}/release`),
+    mutationFn: contractId => apiClient.put(`/contracts/${contractId}/release`),
     onSuccess: () => {
       queryClient.invalidateQueries(['gig', gigData._id]);
-    }
+    },
   });
 
   const completeContractMutation = useMutation({
-    mutationFn: (contractId) => apiClient.put(`/contracts/${contractId}/complete`),
+    mutationFn: contractId =>
+      apiClient.put(`/contracts/${contractId}/complete`),
     onSuccess: () => {
       queryClient.invalidateQueries(['gig', gigData._id]);
-    }
+    },
   });
 
   if (!gigData && !loading) {
-    return <div>No gig found with ID: {gigId || "None"}.</div>;
+    return <div>No gig found with ID: {gigId || 'None'}.</div>;
   }
 
   return (
@@ -299,19 +304,42 @@ function GigDetailPage() {
             {/* Gig Info */}
             <h1 className={styles.gigTitle}>{gigData.title}</h1>
             <p className={styles.gigDescription}>{gigData.description}</p>
-            <p className={styles.gigLocation}><strong>Location:</strong> {gigData.location}</p>
-            <p className={styles.gigBudget}><strong>Budget:</strong> ${gigData.budget.toFixed(2)}</p>
-            <p className={styles.gigCategory}><strong>Category:</strong> {gigData.category}</p>
+            <p className={styles.gigLocation}>
+              <strong>Location:</strong> {gigData.location}
+            </p>
+            <p className={styles.gigBudget}>
+              <strong>Budget:</strong> $
+              {typeof gigData.budget === 'number' && !isNaN(gigData.budget)
+                ? gigData.budget.toFixed(2)
+                : 'N/A'}
+            </p>
+            <p className={styles.gigCategory}>
+              <strong>Category:</strong> {gigData.category}
+            </p>
 
             {/* Payment Breakdown */}
             {paymentData && (
-                <div className={styles.paymentBreakdown}>
-                    <h3 className={styles.paymentBreakdownTitle}>Payment Breakdown</h3>
-                    <div className={styles.breakdownItem}><strong>Total:</strong> ${((paymentData.amount || 0) / 100).toFixed(2)}</div>
-                    <div className={styles.breakdownItem}><strong>Tax (13%):</strong> ${((paymentData.taxAmount || 0) / 100).toFixed(2)}</div>
-                    <div className={styles.breakdownItem}><strong>Platform Fee ($5 + 5%):</strong> ${((paymentData.applicationFeeAmount || 0) / 100).toFixed(2)}</div>
-                    <div className={styles.breakdownItem}><strong>Payout to Tasker:</strong> ${((paymentData.amountReceivedByPayee || 0) / 100).toFixed(2)}</div>
+              <div className={styles.paymentBreakdown}>
+                <h3 className={styles.paymentBreakdownTitle}>
+                  Payment Breakdown
+                </h3>
+                <div className={styles.breakdownItem}>
+                  <strong>Total:</strong> $
+                  {((paymentData.amount || 0) / 100).toFixed(2)}
                 </div>
+                <div className={styles.breakdownItem}>
+                  <strong>Tax (13%):</strong> $
+                  {((paymentData.taxAmount || 0) / 100).toFixed(2)}
+                </div>
+                <div className={styles.breakdownItem}>
+                  <strong>Platform Fee ($5 + 5%):</strong> $
+                  {((paymentData.applicationFeeAmount || 0) / 100).toFixed(2)}
+                </div>
+                <div className={styles.breakdownItem}>
+                  <strong>Payout to Tasker:</strong> $
+                  {((paymentData.amountReceivedByPayee || 0) / 100).toFixed(2)}
+                </div>
+              </div>
             )}
 
             {/* ... other sections ... */}
@@ -324,118 +352,187 @@ function GigDetailPage() {
               </div>
             )}
 
-             {contractData && contractData.status === 'pending' && isTasker && gigData?.assignedTo?._id === user?._id && (
+            {contractData &&
+              contractData.status === 'pending' &&
+              isTasker &&
+              gigData?.assignedTo?._id === user?._id && (
                 <div className={styles.sectionCard}>
-                    <h3 className={styles.sectionTitle}>Contract Pending Acceptance</h3>
-                    <p className={styles.sectionText}>Awaiting your acceptance of the contract for this gig.</p>
-                    <button 
-                        onClick={() => acceptContractMutation.mutate(contractData._id)}
-                        disabled={acceptContractMutation.isLoading}
-                        className={styles.primaryButton}
-                    >
-                        {acceptContractMutation.isLoading ? 'Accepting...' : 'Accept Contract'}
-                    </button>
-                     <button
-                        onClick={() => cancelContractMutation.mutate(contractData._id)}
-                        disabled={cancelContractMutation.isLoading}
-                        className={styles.secondaryButton}
-                    >
-                        {cancelContractMutation.isLoading ? 'Cancelling...' : 'Cancel Contract'}
-                    </button>
+                  <h3 className={styles.sectionTitle}>
+                    Contract Pending Acceptance
+                  </h3>
+                  <p className={styles.sectionText}>
+                    Awaiting your acceptance of the contract for this gig.
+                  </p>
+                  <button
+                    onClick={() =>
+                      acceptContractMutation.mutate(contractData._id)
+                    }
+                    disabled={acceptContractMutation.isLoading}
+                    className={styles.primaryButton}
+                  >
+                    {acceptContractMutation.isLoading
+                      ? 'Accepting...'
+                      : 'Accept Contract'}
+                  </button>
+                  <button
+                    onClick={() =>
+                      cancelContractMutation.mutate(contractData._id)
+                    }
+                    disabled={cancelContractMutation.isLoading}
+                    className={styles.secondaryButton}
+                  >
+                    {cancelContractMutation.isLoading
+                      ? 'Cancelling...'
+                      : 'Cancel Contract'}
+                  </button>
                 </div>
-            )}
+              )}
 
             {/* Release Funds Section */}
-            {isProvider && isContractCompleted && paymentData?.status === 'succeeded' && !paymentData?.releasedToTasker && isReleasable && (
+            {isProvider &&
+              isContractCompleted &&
+              paymentData?.status === 'succeeded' &&
+              !paymentData?.releasedToTasker &&
+              isReleasable && (
                 <div className={styles.sectionCard}>
-                    <h3 className={styles.sectionTitle}>Release Funds to Tasker</h3>
-                    <p className={styles.sectionText}>The gig is completed and funds are ready to be released to the tasker.</p>
-                    <button
-                        onClick={() => releaseFundsMutation.mutate(paymentData.contract)}
-                        disabled={releaseFundsMutation.isLoading}
-                        className={styles.primaryButton}
-                    >
-                        {releaseFundsMutation.isLoading ? 'Releasing...' : 'Release Funds'}
-                    </button>
+                  <h3 className={styles.sectionTitle}>
+                    Release Funds to Tasker
+                  </h3>
+                  <p className={styles.sectionText}>
+                    The gig is completed and funds are ready to be released to
+                    the tasker.
+                  </p>
+                  <button
+                    onClick={() =>
+                      releaseFundsMutation.mutate(paymentData.contract)
+                    }
+                    disabled={releaseFundsMutation.isLoading}
+                    className={styles.primaryButton}
+                  >
+                    {releaseFundsMutation.isLoading
+                      ? 'Releasing...'
+                      : 'Release Funds'}
+                  </button>
                 </div>
-            )}
+              )}
 
-            {isProvider && isContractCompleted && paymentData?.releasedToTasker && (
+            {isProvider &&
+              isContractCompleted &&
+              paymentData?.releasedToTasker && (
                 <div className={styles.infoCard}>
-                    <p className={styles.infoText}>Funds have been successfully released to the tasker.</p>
+                  <p className={styles.infoText}>
+                    Funds have been successfully released to the tasker.
+                  </p>
                 </div>
-            )}
+              )}
 
-            {isProvider && isContractCompleted && paymentData?.status === 'succeeded' && !paymentData?.releasedToTasker && !isReleasable && (
+            {isProvider &&
+              isContractCompleted &&
+              paymentData?.status === 'succeeded' &&
+              !paymentData?.releasedToTasker &&
+              !isReleasable && (
                 <div className={styles.warningCard}>
-                    <p className={styles.warningText}>Funds cannot be released yet. The tasker needs to connect their Stripe account and verify their identity.</p>
+                  <p className={styles.warningText}>
+                    Funds cannot be released yet. The tasker needs to connect
+                    their Stripe account and verify their identity.
+                  </p>
                 </div>
-            )}
+              )}
 
-            {isTasker && isContractCompleted && paymentData?.status === 'succeeded' && !paymentData?.releasedToTasker && (
+            {isTasker &&
+              isContractCompleted &&
+              paymentData?.status === 'succeeded' &&
+              !paymentData?.releasedToTasker && (
                 <div className={styles.infoCard}>
-                    <p className={styles.infoText}>The gig is completed. Funds are awaiting release from the provider.</p>
+                  <p className={styles.infoText}>
+                    The gig is completed. Funds are awaiting release from the
+                    provider.
+                  </p>
                 </div>
-            )}
+              )}
 
             {isRefunding && (
-                <div className={styles.warningCard}>
-                    <p className={styles.warningText}>This payment is currently being refunded. Status: {paymentData.status}</p>
-                </div>
+              <div className={styles.warningCard}>
+                <p className={styles.warningText}>
+                  This payment is currently being refunded. Status:{' '}
+                  {paymentData.status}
+                </p>
+              </div>
             )}
 
             {/* Gig Application Section */}
             {!contractData && isTasker && gigData?.status === 'open' && (
-                <GigApplySection gigId={gigId} onApplySuccess={fetchData} />
+              <GigApplySection gigId={gigId} onApplySuccess={fetchData} />
             )}
 
             {/* Tasker Applications (for Provider) */}
             {isProvider && !contractData && gigData?.status === 'open' && (
-                <GigApplications gigId={gigId} onApplicationUpdate={fetchData} />
+              <GigApplications gigId={gigId} onApplicationUpdate={fetchData} />
             )}
 
             {/* Contract Management for Provider */}
             {contractData && isProvider && !isContractCompleted && (
-                <div className={styles.sectionCard}>
-                    <h3 className={styles.sectionTitle}>Contract Management</h3>
-                    <p className={styles.sectionText}>Current Status: {contractData.status}</p>
-                    {contractData.status === 'accepted' && (
-                        <button
-                            onClick={() => completeContractMutation.mutate(contractData._id)}
-                            disabled={completeContractMutation.isLoading}
-                            className={styles.primaryButton}
-                        >
-                            {completeContractMutation.isLoading ? 'Completing...' : 'Mark Contract as Completed'}
-                        </button>
-                    )}
-                     {contractData.status === 'accepted' && (
-                        <button
-                            onClick={() => cancelContractMutation.mutate(contractData._id)}
-                            disabled={cancelContractMutation.isLoading}
-                            className={styles.secondaryButton}
-                        >
-                            {cancelContractMutation.isLoading ? 'Cancelling...' : 'Cancel Contract'}
-                        </button>
-                    )}
-                </div>
+              <div className={styles.sectionCard}>
+                <h3 className={styles.sectionTitle}>Contract Management</h3>
+                <p className={styles.sectionText}>
+                  Current Status: {contractData.status}
+                </p>
+                {contractData.status === 'accepted' && (
+                  <button
+                    onClick={() =>
+                      completeContractMutation.mutate(contractData._id)
+                    }
+                    disabled={completeContractMutation.isLoading}
+                    className={styles.primaryButton}
+                  >
+                    {completeContractMutation.isLoading
+                      ? 'Completing...'
+                      : 'Mark Contract as Completed'}
+                  </button>
+                )}
+                {contractData.status === 'accepted' && (
+                  <button
+                    onClick={() =>
+                      cancelContractMutation.mutate(contractData._id)
+                    }
+                    disabled={cancelContractMutation.isLoading}
+                    className={styles.secondaryButton}
+                  >
+                    {cancelContractMutation.isLoading
+                      ? 'Cancelling...'
+                      : 'Cancel Contract'}
+                  </button>
+                )}
+              </div>
             )}
 
-             {/* Review Section */}
-            {contractData && isContractCompleted && (gigData?.provider?._id === user?._id || gigData?.assignedTo?._id === user?._id) && (
+            {/* Review Section */}
+            {contractData &&
+              isContractCompleted &&
+              (gigData?.provider?._id === user?._id ||
+                gigData?.assignedTo?._id === user?._id) && (
                 <ReviewSection
-                    gigId={gigId}
-                    contractId={contractData._id}
-                    reviewerId={user._id}
-                    reviewedUserId={user._id === gigData.provider._id ? gigData.assignedTo._id : gigData.provider._id}
-                    onReviewSubmitted={fetchData}
+                  gigId={gigId}
+                  contractId={contractData._id}
+                  reviewerId={user._id}
+                  reviewedUserId={
+                    user._id === gigData.provider._id
+                      ? gigData.assignedTo._id
+                      : gigData.provider._id
+                  }
+                  onReviewSubmitted={fetchData}
                 />
-            )}
-
-          </div> {/* End gigDetailsSection */}
+              )}
+          </div>{' '}
+          {/* End gigDetailsSection */}
         </div> /* End gigContent */
       )}
     </div>
   );
 }
+
+GigDetailPage.propTypes = {
+  // No props to add PropTypes for, but ensure accessibility and remove unused imports if any.
+};
 
 export default GigDetailPage;
