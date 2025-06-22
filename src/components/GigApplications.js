@@ -19,7 +19,7 @@ function OfferCard({ offer, onDelete, onAccept, onDecline, isProvider }) {
         <div className={styles.offerCardImageContainer}>
           <img
             src={offer.image || '/placeholder.svg'}
-            alt={`${offer.name}'s profile picture`}
+            alt={`${offer.name}'s profile`}
             className={styles.offerCardImage}
           />
         </div>
@@ -94,7 +94,7 @@ function ProviderCard({ provider, onOffer, onReject }) {
         <div className={styles.offerCardImageContainer}>
           <img
             src={provider.image || '/placeholder.svg'}
-            alt={`${provider.name}'s profile picture`}
+            alt={`${provider.name}'s profile`}
             className={styles.offerCardImage}
           />
         </div>

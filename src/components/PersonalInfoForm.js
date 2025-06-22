@@ -1,17 +1,27 @@
 // src/components/Settings/PersonalInfoForm.js
-import React, { useState, useEffect } from 'react';
-import styles from './PersonalInfoForm.module.css'; // Make sure this CSS Module exists and is styled
-import { useAuth } from '../context/AuthContext'; // Adjust path as needed
-import apiClient from '../api/axiosConfig'; // Adjust path as needed
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
+import apiClient from '../api/axiosConfig';
+import styles from './PersonalInfoForm.module.css';
+import FormInput from './Shared/FormInput';
+import CountrySelect from './Shared/CountrySelect';
+import CountryCodeSelect from './Shared/CountryCodeSelect';
+import AddressInput from './Shared/AddressInput';
 import logger from '../utils/logger'; // Optional logger, adjust path as needed
 import { StripeOnboarding } from '../components/StripeOnboarding'; // Import StripeOnboarding if needed
-import { useSearchParams, useNavigate } from 'react-router-dom'; // Import hooks for URL params and navigation
+import { useSearchParams } from 'react-router-dom'; // Import hooks for URL params and navigation
 import PropTypes from 'prop-types';
 
 function PersonalInfoForm() {
-  const { user, refreshUser } = useAuth();
-  const [searchParams, setSearchParams] = useSearchParams(); // For URL query params
-  const navigate = useNavigate(); // For updating URL without full page reload
+  const { user, updateUser } = useAuth();
+  const { showToast } = useToast();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(false);
+  const [_error, setError] = useState('');
+  const [_success, setSuccess] = useState('');
 
   // Initialize activeTab from URL, default to 'personal'
   const initialActiveTab = searchParams.get('tab') || 'personal';
@@ -42,10 +52,8 @@ function PersonalInfoForm() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [passwordSuccess, setPasswordSuccess] = useState('');
+  const [error, setPasswordError] = useState('');
+  const [success, setPasswordSuccess] = useState('');
 
   useEffect(() => {
     if (user) {
@@ -73,8 +81,6 @@ function PersonalInfoForm() {
     // Clear messages when switching tabs
     setError('');
     setSuccess('');
-    setPasswordError('');
-    setPasswordSuccess('');
   };
 
   const handlePersonalInfoChange = e => {
@@ -150,7 +156,7 @@ function PersonalInfoForm() {
         await apiClient.patch('/users/updateMe', personalPayload);
         setSuccess('Personal information saved.');
         profileUpdated = true;
-        if (refreshUser) refreshUser();
+        if (updateUser) updateUser();
       } catch (err) {
         logger.error('Error updating personal info:', err);
         setError(
@@ -231,6 +237,12 @@ function PersonalInfoForm() {
           role="tab"
           tabIndex={0}
           aria-selected={activeTab === 'personal'}
+          onKeyDown={e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleTabClick('personal');
+            }
+          }}
         >
           {' '}
           Personal Information{' '}
@@ -245,6 +257,12 @@ function PersonalInfoForm() {
             role="tab"
             tabIndex={0}
             aria-selected={activeTab === 'withdraw'}
+            onKeyDown={e => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleTabClick('withdraw');
+              }
+            }}
           >
             {' '}
             Withdraw Information{' '}
@@ -343,9 +361,9 @@ function PersonalInfoForm() {
             </div>
 
             <h4 className={styles.subheading}>Change Password (Optional)</h4>
-            {passwordError && <p className="error-message">{passwordError}</p>}
-            {passwordSuccess && (
-              <p className="success-message">{passwordSuccess}</p>
+            {error && <p className="error-message">{error}</p>}
+            {success && (
+              <p className="success-message">{success}</p>
             )}
             <div className={styles.row}>
               <div className={styles.inputGroup}>

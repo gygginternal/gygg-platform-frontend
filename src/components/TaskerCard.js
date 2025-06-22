@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './TaskerCard.module.css';
 import PropTypes from 'prop-types';
 
@@ -21,7 +20,10 @@ function TaskerCard({ tasker }) {
             )
           </h4>
           <p className={styles.paragraph}>
-            <i>"{tasker.peoplePreference || 'No preference specified'}"</i>
+            <i>
+              &ldquo;{tasker.peoplePreference || 'No preference specified'}
+              &rdquo;
+            </i>
           </p>
         </div>
         <span className={`${styles.textMuted} ${styles.marginLeftAuto}`}>

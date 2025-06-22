@@ -312,7 +312,8 @@ function TaskerOnboardingPage() {
             />
           </>
         );
-      case 4: // Availability and Rate
+      case 4: {
+        // Availability and Rate
         const rateRanges = [];
         for (let start = 15; start < 100; start += 5) {
           rateRanges.push({ value: start, label: `${start}-${start + 5}` });
@@ -325,11 +326,12 @@ function TaskerOnboardingPage() {
               That will help us better account setup for you.
             </p>
             <div className={styles.inputField}>
-              <label className={styles.inputLabel}>
+              <label htmlFor="ratePerHour" className={styles.inputLabel}>
                 What is your task rate range ($)? We recommend picking a
                 reasonable rate so you can get hired.
               </label>
               <select
+                id="ratePerHour"
                 className={styles.inputDropdown}
                 name="ratePerHour"
                 value={formData.ratePerHour}
@@ -344,33 +346,36 @@ function TaskerOnboardingPage() {
               </select>
             </div>
             <div className={styles.inputField}>
-              <label className={styles.inputLabel}>
+              <label htmlFor="availability" className={styles.inputLabel}>
                 How often are you available for tasks?
               </label>
-              {Object.keys(initialFormData.availability).map(day => (
-                <div key={day} className={styles.availabilityRow}>
-                  <input
-                    type="checkbox"
-                    id={`avail-${day}`}
-                    name={`availability.${day}`}
-                    checked={formData.availability[day]}
-                    onChange={e =>
-                      handleAvailabilityChange(day, e.target.checked)
-                    }
-                    className={styles.availabilityCheckbox}
-                  />
-                  <label
-                    htmlFor={`avail-${day}`}
-                    className={styles.availabilityLabel}
-                  >
-                    {day.charAt(0).toUpperCase() + day.slice(1)}
-                  </label>
-                </div>
-              ))}
+              <div id="availability">
+                {Object.keys(initialFormData.availability).map(day => (
+                  <div key={day} className={styles.availabilityRow}>
+                    <input
+                      type="checkbox"
+                      id={`avail-${day}`}
+                      name={`availability.${day}`}
+                      checked={formData.availability[day]}
+                      onChange={e =>
+                        handleAvailabilityChange(day, e.target.checked)
+                      }
+                      className={styles.availabilityCheckbox}
+                    />
+                    <label
+                      htmlFor={`avail-${day}`}
+                      className={styles.availabilityLabel}
+                    >
+                      {day.charAt(0).toUpperCase() + day.slice(1)}
+                    </label>
+                  </div>
+                ))}
+              </div>
             </div>
             {/* <InputField label="How often are you available for tasks? (e.g., Weekends, Evenings)" name="textAvailability" type="text" value={formData.textAvailability} onChange={(name,val)=>handleInputChange(name,val)} /> */}
           </>
         );
+      }
       case 5: // Profile Picture and Bio (if bio is distinct for step 5)
         return (
           <>

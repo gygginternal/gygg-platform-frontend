@@ -1,14 +1,15 @@
 // src/components/ProfilePage/AddPhotoModal.js
-import React, { useState, useEffect } from 'react'; // Added useEffect
+import { useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
+import apiClient from '../../api/axiosConfig';
 import styles from './AddPhotoModal.module.css';
-import apiClient from '../../api/axiosConfig'; // Adjust path
-import logger from '../../utils/logger'; // Adjust path
-import { useAuth } from '../../context/AuthContext'; // To get userId if needed by backend
+import FormInput from '../Shared/FormInput';
 import PropTypes from 'prop-types';
 
 function AddPhotoModal({ onClose, onAddSuccess }) {
   // Renamed onAdd to onAddSuccess
-  const { user } = useAuth(); // Get user if backend needs userId for non /me/album routes
+  const { user: _user } = useAuth(); // Get user if backend needs userId for non /me/album routes
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [caption, setCaption] = useState('');

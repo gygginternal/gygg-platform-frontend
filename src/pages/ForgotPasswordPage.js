@@ -5,12 +5,12 @@ import styles from '../components/ForgotPasswordPage/ForgotPasswordPage.module.c
 import InputField from '../components/Shared/InputField'; // Adjust path
 import apiClient from '../api/axiosConfig'; // Adjust path
 import logger from '../utils/logger'; // Optional logger
-import { useToast } from '../context/ToastContext';
+import { useToast } from '../contexts/ToastContext';
 
 function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
-  const showToast = useToast();
+  const { showToast } = useToast();
 
   // Handler expected by InputField
   const handleChange = (name, value) => {
@@ -21,7 +21,7 @@ function ForgotPasswordPage() {
   const handleSubmit = async e => {
     e.preventDefault();
     if (!email) {
-      showToast('Please enter your email address.', { type: 'error' });
+      showToast('Please enter your email address.', 'error');
       return;
     }
     setLoading(true);
@@ -29,15 +29,12 @@ function ForgotPasswordPage() {
     try {
       logger.info('Requesting password reset for:', email);
       await apiClient.post('/users/forgotPassword', { email });
-      showToast(
-        'If an account exists for this email, a password reset link has been sent. Please check your inbox (and spam folder).',
-        { type: 'success' }
-      );
+      showToast('Password reset email sent!', 'success');
     } catch (err) {
       logger.error('Forgot password error:', err.response?.data || err.message);
       showToast(
-        'If an account exists for this email, a password reset link has been sent. Please check your inbox (and spam folder).',
-        { type: 'success' }
+        err.response?.data?.message || 'Failed to send reset email.',
+        'error'
       );
     } finally {
       setLoading(false);
@@ -100,7 +97,7 @@ function ForgotPasswordPage() {
               className={styles.submitButton}
               disabled={loading}
             >
-              {loading ? 'Sending...' : 'Send Reset Link'}
+              {loading ? 'Sending...' : 'Send Reset Email'}
             </button>
           </form>
         )}
@@ -108,7 +105,16 @@ function ForgotPasswordPage() {
         {/* Text shown below the form or below the success message */}
         <p className={styles.retryText}>
           Didn&apos;t get an email?{' '}
-          <span onClick={handleResendClick} className={styles.retryLink}>
+          <span
+            onClick={handleResendClick}
+            onKeyDown={e => {
+              if (e.key === 'Enter' || e.key === ' ') handleResendClick();
+            }}
+            className={styles.retryLink}
+            role="button"
+            tabIndex={0}
+            aria-label="Re-enter email"
+          >
             Re-enter your email
           </span>{' '}
           and try again. You can also{' '}

@@ -14,6 +14,7 @@ import {
   Select,
 } from '../styles/components';
 import apiClient from '../api/axiosConfig';
+import DeleteAccountButton from '../components/DeleteAccountButton';
 
 const Profile = () => {
   const { user, updateProfile } = useAuth();
@@ -214,6 +215,15 @@ const Profile = () => {
               {loading ? 'Saving...' : 'Save Changes'}
             </Button>
           </form>
+          <div
+            style={{
+              marginTop: '32px',
+              borderTop: '1px solid #eee',
+              paddingTop: '24px',
+            }}
+          >
+            <DeleteAccountButton />
+          </div>
         </Card>
       </Flex>
     </Container>

@@ -465,7 +465,7 @@ function ProviderOnboardingPage() {
           <>
             <h1 className={styles.title}>Create Your First Gig (Step 1/3)</h1>
             <p className={styles.subtitle}>
-              Let's get your first service need posted!
+              Let&apos;s get your first service need posted!
             </p>
             <GigPostTimelineCategory
               formData={formData}

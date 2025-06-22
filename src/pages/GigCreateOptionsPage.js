@@ -94,8 +94,11 @@ function GigCreateOptionsPage() {
   // Simulating components from your `profilesetup5` example
   const TimelineSelector = ({ value, onChange }) => (
     <div className={styles.formGroup}>
-      <label className={styles.label}>Timeline</label>
+      <label htmlFor="timeline" className={styles.label}>
+        Timeline
+      </label>
       <select
+        id="timeline"
         name="timeline"
         value={value}
         onChange={onChange}
@@ -163,7 +166,7 @@ function GigCreateOptionsPage() {
         <main className={styles.formSection}>
           <h1 className={styles.pageTitle}>Create Your First Gig Post</h1>
           <p className={styles.pageSubtitle}>
-            Let's get your first service listed!
+            Let&apos;s get your first service listed!
           </p>
 
           <form onSubmit={handleSubmitFirstGig}>

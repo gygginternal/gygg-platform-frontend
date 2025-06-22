@@ -4,6 +4,12 @@ import styles from './ProfileInfo.module.css'; // Ensure this CSS Module exists 
 import apiClient from '../../api/axiosConfig'; // Adjust path if necessary
 import logger from '../../utils/logger'; // Optional: Adjust path if necessary
 import { useToast } from '../../context/ToastContext';
+import { useAuth } from '../../context/AuthContext';
+import FormInput from '../Shared/FormInput';
+import CountrySelect from '../Shared/CountrySelect';
+import CountryCodeSelect from '../Shared/CountryCodeSelect';
+import AddressInput from '../Shared/AddressInput';
+import PropTypes from 'prop-types';
 
 // Helper function to decode HTML entities (if bio or other text fields might have them from backend)
 const decodeHTMLEntities = text => {
@@ -239,7 +245,7 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
   const displayName =
     userToDisplay.fullName ||
     `${userToDisplay.firstName || ''} ${userToDisplay.lastName || ''}`.trim();
-  const displayBioInAboutSection = userToDisplay.bio
+  const _displayBioInAboutSection = userToDisplay.bio
     ? decodeHTMLEntities(userToDisplay.bio)
     : 'No bio provided yet.';
   const displayHobbiesString =
@@ -338,13 +344,14 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
             </div>
             <div className={styles.modalBody}>
               {/* Profile Image Upload Section */}
-              <label className={styles.rowLabel}>Profile Picture:</label>
+              <label htmlFor="profileImage" className={styles.rowLabel}>
+                Profile Picture:
+              </label>
               <div className={styles.imageUploadContainerModal}>
                 {profileImagePreview ? (
                   <img
                     src={profileImagePreview}
                     alt="Profile Preview"
-                    n
                     className={styles.profileImagePreview}
                   />
                 ) : (
@@ -354,6 +361,7 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
                 )}
                 <input
                   type="file"
+                  id="profileImage"
                   ref={fileInputRef}
                   style={{ display: 'none' }} // Hide the actual input
                   onChange={handleProfileImageFileChange}
@@ -575,5 +583,11 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
     </section>
   );
 }
+
+ProfileInfo.propTypes = {
+  userToDisplay: PropTypes.object,
+  isOwnProfile: PropTypes.bool,
+  onProfileUpdate: PropTypes.func,
+};
 
 export default ProfileInfo;

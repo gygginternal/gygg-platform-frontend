@@ -45,8 +45,12 @@ export function ToastProvider({ children }) {
               transition: 'background 0.2s',
             }}
             onClick={() => removeToast(toast.id)}
-            role="alert"
+            onKeyDown={e => {
+              if (e.key === 'Enter' || e.key === ' ') removeToast(toast.id);
+            }}
+            role="button"
             tabIndex={0}
+            aria-label={`Dismiss ${toast.type} notification`}
           >
             {toast.message}
           </div>

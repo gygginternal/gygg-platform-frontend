@@ -1,10 +1,8 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './RecommendedGigs.module.css'; // NEW CSS MODULE
 import { useQuery } from '@tanstack/react-query';
 import apiClient from '../api/axiosConfig';
 import logger from '../utils/logger';
-import PropTypes from 'prop-types';
 
 const RecommendedGigs = () => {
   const {
@@ -75,10 +73,6 @@ const RecommendedGigs = () => {
       </div>
     </section>
   );
-};
-
-RecommendedGigs.propTypes = {
-  // No props to add PropTypes for, but ensure accessibility and remove unused imports if any.
 };
 
 export default RecommendedGigs;

@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import styles from './Badge.module.css';
+import PropTypes from 'prop-types';
 
 const Badge = ({ variant = 'default', children }) => {
   return (
@@ -8,7 +8,7 @@ const Badge = ({ variant = 'default', children }) => {
 };
 
 Badge.propTypes = {
-  variant: PropTypes.string,
+  variant: PropTypes.oneOf(['default', 'secondary', 'destructive', 'outline']),
   children: PropTypes.node.isRequired,
 };
 

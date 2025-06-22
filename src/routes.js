@@ -12,6 +12,12 @@ import Applications from './pages/Applications';
 import Chat from './pages/Chat';
 import Messages from './pages/Messages';
 import NotFound from './pages/NotFound';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
+import NotificationsPage from './pages/NotificationsPage';
+import MyContractsPage from './pages/MyContractsPage';
+import ContractDetailPage from './pages/ContractDetailPage';
+import InvoicePage from './pages/InvoicePage';
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -97,6 +103,40 @@ const AppRoutes = () => {
           element={
             <PrivateRoute>
               <Messages />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
+        <Route
+          path="/notifications"
+          element={
+            <PrivateRoute>
+              <NotificationsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/contracts"
+          element={
+            <PrivateRoute>
+              <MyContractsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/contracts/:id"
+          element={
+            <PrivateRoute>
+              <ContractDetailPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/invoice/:paymentId"
+          element={
+            <PrivateRoute>
+              <InvoicePage />
             </PrivateRoute>
           }
         />

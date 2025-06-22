@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { useToast } from '../contexts/ToastContext';
+import { useToast } from '../context/ToastContext';
+import apiClient from '../api/axiosConfig';
+import styles from './Applications.module.css';
+import GigApplications from '../components/GigApplications';
 import {
   Container,
   Card,
@@ -12,13 +15,13 @@ import {
   Grid,
   Select,
 } from '../styles/components';
-import apiClient from '../api/axiosConfig';
 
 const Applications = () => {
   const { user } = useAuth();
   const { showToast } = useToast();
-  const [applications, setApplications] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [_applications, setApplications] = useState([]);
+  const [_loading, setLoading] = useState(false);
+  const [_error, setError] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
 
   useEffect(() => {
@@ -38,7 +41,9 @@ const Applications = () => {
 
   const handleStatusChange = async (applicationId, newStatus) => {
     try {
-      await apiClient.patch(`/applications/${applicationId}`, { status: newStatus });
+      await apiClient.patch(`/applications/${applicationId}`, {
+        status: newStatus,
+      });
       setApplications(prev =>
         prev.map(app =>
           app.id === applicationId ? { ...app, status: newStatus } : app
@@ -53,7 +58,7 @@ const Applications = () => {
     }
   };
 
-  const filteredApplications = applications.filter(
+  const filteredApplications = _applications.filter(
     app => statusFilter === 'all' || app.status === statusFilter
   );
 
@@ -90,7 +95,7 @@ const Applications = () => {
 
         {/* Applications List */}
         <Flex direction="column" gap="md">
-          {loading ? (
+          {_loading ? (
             <Text color="text.secondary">Loading applications...</Text>
           ) : filteredApplications.length === 0 ? (
             <Text color="text.secondary">No applications found</Text>

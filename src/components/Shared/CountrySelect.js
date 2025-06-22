@@ -1,5 +1,5 @@
-import React from 'react';
 import styles from './CountrySelect.module.css';
+import PropTypes from 'prop-types';
 
 const countries = [
   { code: 'CA', name: 'Canada' },
@@ -23,6 +23,13 @@ const CountrySelect = ({ value, onChange, className, disabled }) => {
       ))}
     </select>
   );
+};
+
+CountrySelect.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 export default CountrySelect;

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import apiClient from '../api/axiosConfig';
 import ReviewItem from './ReviewItem';
+
 function ReviewList({ taskerId, gigId }) {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);

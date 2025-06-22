@@ -1,5 +1,5 @@
 // src/components/ChatPage/ChatHeader.js
-import React from 'react';
+import { useState } from 'react';
 import styles from './ChatHeader.module.css'; // Your CSS Module
 import PropTypes from 'prop-types';
 

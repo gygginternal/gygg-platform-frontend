@@ -1,4 +1,3 @@
-import { LampDesk } from 'lucide-react';
 import { Link } from 'react-router-dom'; // Use react-router Link
 import { useAuth } from '../context/AuthContext'; // Adjust path
 import styles from './TaskerMatchedSidebar.module.css'; // Import CSS module
@@ -13,7 +12,7 @@ export function TaskerMatchedSidebar() {
           <div className={styles.profileImageContainer}>
             <img
               src="/default.png"
-              alt="Profile picture"
+              alt="Profile"
               width={64}
               height={64}
               className={styles.profileImage}
@@ -50,7 +49,7 @@ export function TaskerMatchedSidebar() {
             <div className={styles.applicantImageContainer}>
               <img
                 src="/default.png?height=64&width=64"
-                alt="Applicant picture"
+                alt="Applicant"
                 width={64}
                 height={64}
                 className={styles.applicantImage}
@@ -71,7 +70,7 @@ export function TaskerMatchedSidebar() {
             <div className={styles.applicantImageContainer}>
               <img
                 src="/default.png"
-                alt="Applicant picture"
+                alt="Applicant"
                 width={64}
                 height={64}
                 className={styles.applicantImage}
@@ -92,7 +91,7 @@ export function TaskerMatchedSidebar() {
             <div className={styles.applicantImageContainer}>
               <img
                 src="/default.png"
-                alt="Applicant picture"
+                alt="Applicant"
                 width={64}
                 height={64}
                 className={styles.applicantImage}

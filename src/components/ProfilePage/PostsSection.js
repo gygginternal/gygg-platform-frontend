@@ -1,9 +1,11 @@
 // src/components/ProfilePage/PostsSection.js
-import React, { useState, useEffect } from 'react';
-import styles from './PostsSection.module.css';
-import PostCard from './PostCard'; // Assuming this is your adapted PostCard
+import { useState, useEffect } from 'react';
+import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
 import apiClient from '../../api/axiosConfig';
-import { useAuth } from '../../context/AuthContext'; // To check if it's own profile
+import styles from './PostsSection.module.css';
+import PostCard from './PostCard';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import logger from '../../utils/logger';
 
@@ -93,4 +95,10 @@ function PostsSection({ userIdToView, isOwnProfile }) {
     </section>
   );
 }
+
+PostsSection.propTypes = {
+  userIdToView: PropTypes.string,
+  isOwnProfile: PropTypes.bool.isRequired,
+};
+
 export default PostsSection;

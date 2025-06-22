@@ -3,12 +3,16 @@ import { Card, CardContent, CardHeader } from '../components/ui/card';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns'; // Import date-fns for formatting dates
 import styles from '../components/ContractDetailsPage/ContractDetailsPage.module.css'; // Import CSS Modules
+import ContractPayment from '../components/ContractDetailsPage/ContractPayment';
 
-export default function ContractDetailsPage({ gig, children }) {
+export default function ContractDetailsPage({ gig, contract, user, children }) {
   if (!gig) return null;
   const formattedDate = gig.createdAt
     ? format(new Date(gig.createdAt), 'MM-dd-yyyy')
     : 'N/A';
+  // Assume contractId and user role are available
+  const contractId = contract?.id || gig.contractId || gig.id;
+  const isProvider = user?.role?.includes('provider');
   return (
     <div className={styles.pageContainer}>
       <Link
@@ -63,6 +67,10 @@ export default function ContractDetailsPage({ gig, children }) {
               </span>
             </div> */}
           </div>
+
+          {contractId && (
+            <ContractPayment contractId={contractId} isProvider={isProvider} />
+          )}
 
           {children}
 

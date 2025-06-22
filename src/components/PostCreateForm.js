@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import apiClient from '../api/axiosConfig';
 import PropTypes from 'prop-types';
 import styles from './PostCreateForm.module.css';
+import FormInput from './Shared/FormInput';
+import AddressInput from './Shared/AddressInput';
 
 function PostCreateForm({ onSubmitSuccess }) {
   const [content, setContent] = useState('');
@@ -11,9 +15,9 @@ function PostCreateForm({ onSubmitSuccess }) {
   // const [address, setAddress] = useState('');
   // const [coords, setCoords] = useState({ lng: null, lat: null });
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [_error, setError] = useState('');
+  const [_successMessage, setSuccessMessage] = useState('');
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -21,7 +25,7 @@ function PostCreateForm({ onSubmitSuccess }) {
       setError('Post content cannot be empty.');
       return;
     }
-    setLoading(true);
+    setIsLoading(true);
     setError('');
     setSuccessMessage('');
 
@@ -55,7 +59,7 @@ function PostCreateForm({ onSubmitSuccess }) {
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to create post.');
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -70,12 +74,12 @@ function PostCreateForm({ onSubmitSuccess }) {
           placeholder="What's on your mind?"
           rows={3}
           required
-          disabled={loading}
+          disabled={isLoading}
         />
         <button
           type="submit"
           className={styles.postButton}
-          disabled={loading || !content.trim()}
+          disabled={isLoading || !content.trim()}
         >
           Post
         </button>

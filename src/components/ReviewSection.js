@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './ReviewSection.module.css';
 import ReviewCard from './ProfilePage/ReviewCard';
 

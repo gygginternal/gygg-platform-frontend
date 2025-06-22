@@ -1,9 +1,11 @@
 // src/components/ProfilePage/ReviewsSection.js
-import React, { useState, useEffect } from 'react';
-import styles from './ReviewsSection.module.css';
-import ReviewCard from './ReviewCard'; // Assuming this is your component for displaying a single review
+import { useState, useEffect } from 'react';
+import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
 import apiClient from '../../api/axiosConfig';
-import { useAuth } from '../../context/AuthContext'; // Not strictly needed if always using userIdToView
+import styles from './ReviewsSection.module.css';
+import ReviewCard from './ReviewCard';
+import PropTypes from 'prop-types';
 import logger from '../../utils/logger';
 
 function ReviewsSection({ userIdToView, isOwnProfile }) {
@@ -11,7 +13,7 @@ function ReviewsSection({ userIdToView, isOwnProfile }) {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const { user: loggedInUser } = useAuth();
+  const { user: _loggedInUser } = useAuth();
 
   // Determine whose reviews to fetch
   const targetUserIdForReviews = userIdToView;
@@ -76,4 +78,10 @@ function ReviewsSection({ userIdToView, isOwnProfile }) {
     </section>
   );
 }
+
+ReviewsSection.propTypes = {
+  userIdToView: PropTypes.string,
+  isOwnProfile: PropTypes.bool.isRequired
+};
+
 export default ReviewsSection;

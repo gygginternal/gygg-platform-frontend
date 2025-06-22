@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import styles from './ChatWindow.module.css'; // Your CSS Module
-import ChatHeader from './ChatHeader';
+import { useState, useEffect, useRef } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
+import apiClient from '../api/axiosConfig';
+import styles from './ChatWindow.module.css';
 import MessageThread from './MessageThread';
 import MessageInput from './MessageInput';
-import apiClient from '../api/axiosConfig'; // Adjust path
-import { useAuth } from '../context/AuthContext'; // Adjust path as needed
-import socket from '../socket'; // Import the shared socket instance
 import PropTypes from 'prop-types';
+import socket from '../socket'; // Import the shared socket instance
 
 function ChatWindow({ selectedContractId, chatPartner, layoutClasses = {} }) {
   const { user } = useAuth();
@@ -131,13 +131,8 @@ function ChatWindow({ selectedContractId, chatPartner, layoutClasses = {} }) {
 
 ChatWindow.propTypes = {
   selectedContractId: PropTypes.string,
-  chatPartner: PropTypes.shape({
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    fullName: PropTypes.string,
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
-    profileImage: PropTypes.string,
-  }),
+  chatPartner: PropTypes.object,
+  layoutClasses: PropTypes.object,
 };
 
 export default ChatWindow;

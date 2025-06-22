@@ -1,5 +1,5 @@
 // src/components/ChatPage/MessageInput.js
-import React, { useState } from 'react';
+import { useState, useRef } from 'react';
 import styles from './MessageInput.module.css'; // Your CSS Module
 import PropTypes from 'prop-types';
 

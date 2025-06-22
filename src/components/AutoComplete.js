@@ -44,7 +44,13 @@ export const AutoComplete = ({
               {value}
               <span
                 className={styles.remove}
+                role="button"
+                tabIndex={0}
                 onClick={() => handleRemove(value)}
+                onKeyDown={e => {
+                  if (e.key === 'Enter' || e.key === ' ') handleRemove(value);
+                }}
+                aria-label={`Remove ${value}`}
               >
                 ×
               </span>
@@ -66,11 +72,7 @@ export const AutoComplete = ({
         {showDropdown && filteredOptions.length > 0 && (
           <ul className={styles.dropdownList}>
             {filteredOptions.map(option => (
-              <li
-                key={option}
-                onClick={() => handleAdd(option)}
-                className={styles.dropdownItem}
-              >
+              <li key={option} className={styles.dropdownItem}>
                 <div
                   role="button"
                   tabIndex={0}

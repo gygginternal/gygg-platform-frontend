@@ -1,11 +1,12 @@
 // src/components/ProfilePage/AlbumSection.js
-import React, { useState, useEffect, useCallback } from 'react'; // Added useCallback
+import { useState, useEffect } from 'react';
+import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
+import apiClient from '../../api/axiosConfig';
 import styles from './AlbumSection.module.css';
 import AlbumCard from './AlbumCard';
 import AddPhotoModal from './AddPhotoModal';
-import apiClient from '../../api/axiosConfig';
 import logger from '../../utils/logger';
-import { useToast } from '../../context/ToastContext';
 import PropTypes from 'prop-types';
 
 function AlbumSection({ userIdToView, isOwnProfile, onUpdate }) {
@@ -62,7 +63,7 @@ function AlbumSection({ userIdToView, isOwnProfile, onUpdate }) {
     if (isOwnProfile) setShowModal(true);
   };
 
-  const handlePhotoAddSuccess = newPhotoFromBackend => {
+  const handlePhotoAdded = (_newPhotoFromBackend) => {
     logger.info('AlbumSection: Photo added successfully, refetching album.');
     fetchAlbum();
     setShowModal(false);
@@ -172,7 +173,7 @@ function AlbumSection({ userIdToView, isOwnProfile, onUpdate }) {
       {isOwnProfile && showModal && (
         <AddPhotoModal
           onClose={() => setShowModal(false)}
-          onAddSuccess={handlePhotoAddSuccess}
+          onAddSuccess={handlePhotoAdded}
         />
       )}
     </section>

@@ -147,4 +147,4 @@ const theme = {
   zIndex,
 };
 
-export default theme; 
+export default theme;

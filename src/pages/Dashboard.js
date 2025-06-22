@@ -161,6 +161,32 @@ const Dashboard = () => {
                 </Text>
               </Flex>
             </Button>
+            <Button
+              variant="outline"
+              as={Link}
+              to="/notifications"
+              style={{ height: '100px' }}
+            >
+              <Flex direction="column" align="center" gap="sm">
+                <Text weight="medium">Notifications</Text>
+                <Text size="sm" color="text.secondary">
+                  View your notifications
+                </Text>
+              </Flex>
+            </Button>
+            <Button
+              variant="outline"
+              as={Link}
+              to="/contracts"
+              style={{ height: '100px' }}
+            >
+              <Flex direction="column" align="center" gap="sm">
+                <Text weight="medium">My Contracts</Text>
+                <Text size="sm" color="text.secondary">
+                  View your contracts
+                </Text>
+              </Flex>
+            </Button>
           </Grid>
         </Card>
       </Flex>

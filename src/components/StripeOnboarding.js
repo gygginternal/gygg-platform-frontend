@@ -2,7 +2,6 @@
 import apiClient from '../api/axiosConfig';
 import React, { useState, useEffect } from 'react';
 import styles from './StripeOnboarding.module.css';
-import PropTypes from 'prop-types';
 
 export function StripeOnboarding() {
   const [status, setStatus] = useState(null); // null = unknown, object = found, false = confirmed not found
@@ -128,7 +127,3 @@ export function StripeOnboarding() {
     </section>
   );
 }
-
-StripeOnboarding.propTypes = {
-  // No props to add PropTypes for, but ensure accessibility and remove unused imports if any.
-};

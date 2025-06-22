@@ -1,5 +1,4 @@
 // src/components/ProfilePage/AlbumCard.js
-import React from 'react';
 import styles from './AlbumCard.module.css';
 import PropTypes from 'prop-types';
 
@@ -25,7 +24,7 @@ function AlbumCard({ image, caption, photoId, onDelete }) {
       <div className="image-container">
         <img
           src={image || '/image-placeholder.png'}
-          alt={caption || 'Album image'}
+          alt={caption || 'Album'}
           className="album-image"
           onError={handleImageError}
           loading="lazy"

@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContext'; // Adjust path if needed
-import apiClient from '../api/axiosConfig'; // Adjust path if needed
-import { useNavigate, Link } from 'react-router-dom'; // For React Router v6+
-import styles from './AuthForm.module.css'; // Assuming you have this CSS module
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
+import apiClient from '../api/axiosConfig';
+import styles from './AuthForm.module.css';
+import FormInput from './Shared/FormInput';
+import PropTypes from 'prop-types';
 import logger from '../utils/logger'; // Optional: Adjust path
 
 function AuthForm({ isLogin }) {
@@ -239,7 +242,7 @@ function AuthForm({ isLogin }) {
           <Link to="/forgot-password" className={styles.link}>
             Forgot Password?
           </Link>{' '}
-          | Don't have an account?{' '}
+          | Don&apos;t have an account?{' '}
           <Link to="/join" className={styles.link}>
             Sign Up
           </Link>
@@ -256,5 +259,9 @@ function AuthForm({ isLogin }) {
     </form>
   );
 }
+
+AuthForm.propTypes = {
+  isLogin: PropTypes.bool.isRequired,
+};
 
 export default AuthForm;

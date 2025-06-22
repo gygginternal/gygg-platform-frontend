@@ -1,5 +1,4 @@
 // src/components/Onboarding/NavigationButtons.js
-import React from 'react';
 import styles from './NavigationButtons.module.css'; // Create this
 import { ArrowLeft } from 'lucide-react'; // Assuming lucide-react is installed
 
@@ -24,9 +23,9 @@ function NavigationButtons({
           {backLabel}
         </button>
       ) : (
-        <div
-          className={styles.backButtonPlaceholder}
-        ></div> /* Placeholder for alignment */
+        <div className={styles.backButtonPlaceholder}>
+          {/* Placeholder for alignment */}
+        </div>
       )}
 
       <button

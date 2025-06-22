@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import styles from './TaskerList.module.css';
-import TaskerCard from './TaskerCard';
 import apiClient from '../api/axiosConfig';
-import logger from '../utils/logger';
-import { useAuth } from '../context/AuthContext';
 import GigHelperCard from './GigHelperCard';
 
 const TaskerList = () => {

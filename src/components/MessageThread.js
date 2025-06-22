@@ -1,7 +1,8 @@
 // src/components/ChatPage/MessageThread.js
-import React, { useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './MessageThread.module.css'; // Your CSS Module
 import { useAuth } from '../context/AuthContext'; // To get current user ID
+import PropTypes from 'prop-types';
 
 // interface Message {
 //   _id: string;
@@ -86,5 +87,9 @@ function MessageThread({ messages = [] }) {
     </div>
   );
 }
+
+MessageThread.propTypes = {
+  messages: PropTypes.array.isRequired,
+};
 
 export default MessageThread;

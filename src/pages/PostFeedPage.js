@@ -13,6 +13,8 @@ function PostFeedPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [categoryFilter, setCategoryFilter] = useState('');
+  const [categories, setCategories] = useState([]);
 
   // Function to fetch posts based on current state
   const fetchPosts = useCallback(
@@ -158,7 +160,6 @@ function PostFeedPage() {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Social Feed</h2>
-
       {/* Sorting Controls */}
       <div className={styles.sortControls}>
         <span className={styles.sortLabel}>Sort by: </span>
@@ -188,34 +189,28 @@ function PostFeedPage() {
           <span className={styles.errorMessageLocation}>{locationError}</span>
         )}
       </div>
-
       {/* General Error Display */}
       {error && <p className={styles.errorMessage}>{error}</p>}
-
       {/* Post List */}
-      {
-        posts.length > 0
-          ? // Use the PostCard component to render each post
-            posts.map(post => (
-              <PostCard
-                key={post._id || post.id}
-                post={post}
-                onPostUpdate={handleSinglePostUpdate}
-              />
-            ))
-          : !loading && (
-              <p className={styles.noPostsMessage}>
-                No posts found matching the criteria.
-              </p>
-            ) // Show only if not loading
-      }
-
+      {posts.length > 0
+        ? posts.map(post => (
+            <PostCard
+              key={post._id || post.id}
+              post={post}
+              onPostUpdate={handleSinglePostUpdate}
+            />
+          ))
+        : !loading && (
+            <p className={styles.noPostsMessage}>
+              No posts found matching the criteria.
+            </p>
+          )}
+      {/* Show only if not loading */}
       {/* Loading Indicators */}
       {loading && <p className={styles.loadingMessage}>Loading posts...</p>}
       {isLoadingMore && (
         <p className={styles.loadingMoreMessage}>Loading more...</p>
       )}
-
       {/* Load More Button */}
       {hasMore && !loading && !isLoadingMore && (
         <button onClick={loadMore} className={styles.loadMoreButton}>
@@ -223,8 +218,26 @@ function PostFeedPage() {
         </button>
       )}
       {!hasMore && posts.length > 0 && (
-        <p className={styles.endMessage}>You've reached the end!</p>
+        <p className={styles.endMessage}>You&apos;ve reached the end!</p>
       )}
+      <div className={styles.filterSection}>
+        <div className={styles.filterGroup}>
+          <label htmlFor="categoryFilter">Category:</label>
+          <select
+            id="categoryFilter"
+            value={categoryFilter}
+            onChange={e => setCategoryFilter(e.target.value)}
+            className={styles.filterSelect}
+          >
+            <option value="">All Categories</option>
+            {categories.map(category => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
     </div>
   );
 }

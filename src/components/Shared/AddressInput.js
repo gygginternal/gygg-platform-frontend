@@ -1,6 +1,7 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import styles from './AddressInput.module.css';
 import CountrySelect from './CountrySelect';
+import PropTypes from 'prop-types';
 
 // List of Canadian provinces and territories
 const CANADIAN_PROVINCES = [
@@ -170,6 +171,13 @@ const AddressInput = ({ value, onChange, className, disabled }) => {
       </div>
     </div>
   );
+};
+
+AddressInput.propTypes = {
+  value: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 export default AddressInput;

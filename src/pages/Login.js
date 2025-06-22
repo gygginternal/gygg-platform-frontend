@@ -95,7 +95,7 @@ const Login = () => {
             </Button>
           </form>
           <Text style={{ textAlign: 'center', marginTop: '16px' }}>
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Link to="/register" style={{ color: 'var(--color-primary)' }}>
               Register here
             </Link>

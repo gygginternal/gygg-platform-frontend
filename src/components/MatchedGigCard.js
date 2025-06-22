@@ -34,8 +34,8 @@ function MatchedGigCard({ gig }) {
               <strong>Provider:</strong> {provider.fullName} (
               {provider.rating?.toFixed(1)}⭐) <br />
               <small className="text-muted">
-                Pref: "{provider.peoplePreference || 'N/A'}" | Hobbies:{' '}
-                {provider.hobbies?.join(', ') || 'N/A'}
+                Pref: &quot;{provider.peoplePreference || 'N/A'}&quot; |
+                Hobbies: {provider.hobbies?.join(', ') || 'N/A'}
               </small>
             </div>
           </div>

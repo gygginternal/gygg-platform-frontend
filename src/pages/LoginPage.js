@@ -73,7 +73,6 @@ function LoginPage() {
     // Use standard div or main, not next/image directly here for logo link
     <main className={styles.container}>
       <Link to="/" className={styles.logo}>
-        {' '}
         {/* Link logo to home */}
         <img
           src="/assets/gygg-logo.svg" // Ensure this is in public folder
@@ -130,7 +129,7 @@ function LoginPage() {
 
             {/* Sign Up Link */}
             <p className={styles.signupText}>
-              Don't have an account yet?{' '}
+              Don&apos;t have an account yet?{' '}
               {/* Use /join as the entry point for signup flow */}
               <Link to="/join" className={styles.link}>
                 Sign Up

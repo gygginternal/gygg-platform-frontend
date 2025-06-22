@@ -1,6 +1,8 @@
 // src/components/Shared/FormInput.js (Example if different from global InputField)
-import React from 'react';
+// Remove: import React from 'react';
+import { forwardRef } from 'react';
 import styles from './FormInput.module.css'; // Create this
+import PropTypes from 'prop-types';
 
 function FormInput({
   label,
@@ -36,4 +38,24 @@ function FormInput({
     </div>
   );
 }
+
+FormInput.propTypes = {
+  label: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+  required: PropTypes.bool,
+  disabled: PropTypes.bool,
+  className: PropTypes.string,
+  rows: PropTypes.number,
+  min: PropTypes.number,
+  max: PropTypes.number,
+  step: PropTypes.number,
+  accept: PropTypes.string,
+  multiple: PropTypes.bool,
+  error: PropTypes.string,
+};
+
 export default FormInput;

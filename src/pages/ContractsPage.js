@@ -12,7 +12,7 @@ import Toggle from '../components/Toggle';
 import BillingTable from '../components/Billing/BillingTable';
 import { StatusBadge } from '../components/StatusBadge'; // Adjust the import path
 import './ContractsList.module.css';
-import BillingAndPayment from "./BillingAndPayment";
+import BillingAndPayment from './BillingAndPayment';
 import ContractCard from '../components/ContractsPage/ContractCard';
 
 export const ContractsContext = createContext();
@@ -291,7 +291,9 @@ function ContractsPage() {
                 <div className={styles.contractsCard}>
                   <div className={styles.contractsList}>
                     {filteredContracts.length === 0 ? (
-                      <div className={styles.emptyState}>No contracts found.</div>
+                      <div className={styles.emptyState}>
+                        No contracts found.
+                      </div>
                     ) : (
                       filteredContracts.map(contract => (
                         <ContractCard key={contract.id} contract={contract} />

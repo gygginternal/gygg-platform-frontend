@@ -85,7 +85,9 @@ const Chat = () => {
     try {
       await apiClient.post(`/chat/${id}/messages`, { content: newMessage });
       setNewMessage('');
-      fetchMessages();
+      // Refresh messages after sending
+      const messagesResponse = await apiClient.get(`/chat/${id}/messages`);
+      setMessages(messagesResponse.data);
     } catch (error) {
       showToast('Failed to send message', 'error');
     }

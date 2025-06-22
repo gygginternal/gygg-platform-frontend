@@ -200,4 +200,4 @@ export const Text = styled.p`
   font-size: ${typography.fontSize.md};
   color: ${colors.text.primary};
   margin-bottom: ${spacing.sm};
-`; 
+`;

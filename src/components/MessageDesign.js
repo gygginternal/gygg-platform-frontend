@@ -19,7 +19,12 @@ const MessageDesign = ({ messages, onClick }) => {
               <React.Fragment key={index}>
                 <div
                   className={styles.messageItem}
+                  role="button"
+                  tabIndex={0}
                   onClick={() => onClick(message)} // Pass the message object to the onClick handler
+                  onKeyDown={e => {
+                    if (e.key === 'Enter' || e.key === ' ') onClick(message);
+                  }}
                 >
                   <div className={styles.messageContentLeft}>
                     <img

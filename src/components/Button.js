@@ -1,5 +1,5 @@
+import styles from './Button.module.css';
 import PropTypes from 'prop-types';
-import styles from './Button.module.css'; // Use the CSS module you provided
 
 function Button({
   children,
@@ -25,9 +25,12 @@ function Button({
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
-  variant: PropTypes.string,
+  variant: PropTypes.oneOf(['primary', 'secondary', 'outline', 'ghost', 'destructive']),
+  size: PropTypes.oneOf(['sm', 'md', 'lg']),
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func,
+  type: PropTypes.string,
   className: PropTypes.string,
-  isActive: PropTypes.bool,
 };
 
 export default Button;

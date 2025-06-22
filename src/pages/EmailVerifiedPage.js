@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import apiClient from '../api/axiosConfig';
 import logger from '../utils/logger';
+import ResendVerificationButton from '../components/ResendVerificationButton';
 // import styles from './VerifyEmailPromptPage.module.css'; // Reuse styles or create new
 import styles from './EmailVerifiedPage.module.css'; // New dedicated styles
 
@@ -81,6 +82,11 @@ function EmailVerifiedPage() {
               Go to Login
             </Link>
           )}
+        {verificationStatus === 'failed' && (
+          <div style={{ marginTop: '16px' }}>
+            <ResendVerificationButton />
+          </div>
+        )}
         {verificationStatus === 'failed' && (
           <p className={styles.note}>
             If issues persist, try{' '}

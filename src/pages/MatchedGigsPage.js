@@ -96,7 +96,7 @@ function MatchedGigsPage() {
         </button>
       )}
       {!hasMore && matchedGigs.length > 0 && (
-        <p className={styles.endMessage}>You've reached the end!</p>
+        <p className={styles.endMessage}>You&apos;ve reached the end!</p>
       )}
     </div>
   );

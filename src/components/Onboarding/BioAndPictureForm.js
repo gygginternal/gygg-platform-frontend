@@ -1,6 +1,7 @@
 // src/components/Onboarding/BioAndPictureForm.js
-import React, { useRef, useState, useEffect } from 'react';
+import { useState } from 'react';
 import styles from './BioAndPictureForm.module.css'; // Create this
+import PropTypes from 'prop-types';
 import FormInput from './FormInput';
 // import { FaUpload } from 'react-icons/fa'; // If using react-icons
 
@@ -75,6 +76,12 @@ function BioAndPictureForm({
           className={styles.imageUpload}
           onClick={handleUploadAreaClick}
           role="button"
+          tabIndex={0}
+          onKeyDown={e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              handleUploadAreaClick();
+            }
+          }}
         >
           {/* <FaUpload className={styles.uploadIcon} /> */}{' '}
           <span className={styles.uploadEmoji}>⬆️</span>
@@ -91,4 +98,13 @@ function BioAndPictureForm({
     </div>
   );
 }
+
+BioAndPictureForm.propTypes = {
+  bio: PropTypes.string.isRequired,
+  onBioChange: PropTypes.func.isRequired,
+  profileImageFile: PropTypes.instanceOf(File),
+  onProfileImageChange: PropTypes.func.isRequired,
+  currentImageUrl: PropTypes.string,
+};
+
 export default BioAndPictureForm;

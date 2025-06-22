@@ -1,4 +1,3 @@
-import React from 'react';
 // import cn from "classnames"; // For conditional classnames
 import styles from './ProfileSidebar.module.css'; // Your CSS module
 import { Link } from 'react-router-dom'; // Use react-router Link
@@ -8,7 +7,7 @@ import RecommendedAppliances from './RecommendedAppliances';
 import AwaitedPostedGigs from './AwaitedPostedGigs'; // Import the AwaitedPostedGigs component
 import { useQuery } from '@tanstack/react-query';
 import apiClient from '../api/axiosConfig';
-import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 function ProfileSidebar() {
   const { user } = useAuth(); // Get logged-in user data
@@ -25,6 +24,9 @@ function ProfileSidebar() {
     },
     enabled: user?.role?.includes('tasker'), // Only fetch if user is a tasker
   });
+
+  const [_topMatchedGigs, setTopMatchedGigs] = useState([]);
+  const [_isLoadingTopGigs, setIsLoadingTopGigs] = useState(false);
 
   if (!user) {
     return (
@@ -53,36 +55,6 @@ function ProfileSidebar() {
           <p className={styles.addSkillsMessage}>Add skills in your profile!</p>
         )}
       </div>
-    </section>
-  );
-
-  // New section for top 3 matching gigs for taskers
-  const topMatchingGigs = (
-    <section className={styles.gigsSection}>
-      <div className={styles.sectionHeader}>
-        <div className={styles.sectionIcon}>
-          <img src="/assets/star.svg" alt="Star" width={20} height={20} />
-        </div>
-        <h4 className={styles.sectionTitle}>Top Matching Gigs</h4>
-      </div>
-      {isLoadingTopGigs ? (
-        <p>Loading top matching gigs...</p>
-      ) : topMatchedGigs && topMatchedGigs.length > 0 ? (
-        <ul className={styles.gigList}>
-          {topMatchedGigs.map(gig => (
-            <li key={gig._id} className={styles.gigItem}>
-              <Link to={`/gigs/${gig._id}`} className={styles.gigLink}>
-                {gig.title}
-              </Link>
-              <p>Category: {gig.category}</p>
-              <p>Cost: ${gig.cost}</p>
-              <p>Match Score: {gig.matchScore?.toFixed(2)}</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No matching gigs found.</p>
-      )}
     </section>
   );
 
@@ -175,9 +147,5 @@ function ProfileSidebar() {
     </aside>
   );
 }
-
-ProfileSidebar.propTypes = {
-  // No props to add PropTypes for, but ensure accessibility and remove unused imports if any.
-};
 
 export default ProfileSidebar;

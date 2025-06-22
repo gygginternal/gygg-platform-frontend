@@ -1,11 +1,9 @@
-import React from 'react';
 // import cn from "classnames"; // Removed
 import { Link } from 'react-router-dom';
 import styles from './RecommendedAppliances.module.css';
 import { useQuery } from '@tanstack/react-query';
 import apiClient from '../api/axiosConfig';
 import logger from '../utils/logger';
-import PropTypes from 'prop-types';
 
 const RecommendedAppliances = () => {
   const {
@@ -76,10 +74,6 @@ const RecommendedAppliances = () => {
       </div>
     </section>
   );
-};
-
-RecommendedAppliances.propTypes = {
-  // No props to add PropTypes for, but ensure accessibility and remove unused imports if any.
 };
 
 export default RecommendedAppliances;

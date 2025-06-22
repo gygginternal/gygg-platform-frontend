@@ -1,5 +1,5 @@
 // src/components/Shared/ProgressHeader.js
-import React from 'react';
+// Remove: import React from 'react';
 import { ArrowLeft } from 'lucide-react'; // Keep if lucide-react is installed
 import styles from './ProgressHeader.module.css'; // Create this CSS module
 
@@ -15,10 +15,8 @@ function ProgressHeader({
 
   return (
     <div className={styles.container}>
-      {' '}
       {/* Assuming .container is the outermost div in your CSS */}
       <div className={styles.header}>
-        {' '}
         {/* Assuming .header is next level */}
         <div className={styles.logo}>
           {/* Use standard img tag for logo, ensure /gygg-logo.svg is in public folder */}
@@ -27,12 +25,12 @@ function ProgressHeader({
             alt="Gygg Logo"
             width={100}
             height={60}
-          />{' '}
+          />
           {/* Adjust size as needed */}
         </div>
         <div className={styles.content}>
           <div className={styles.headerContent}>
-            <span className={styles.title}>Profile Setup</span>{' '}
+            <span className={styles.title}>Profile Setup</span>
             {/* Changed from "set up" */}
             <span className={styles.progress}>
               {step}/{totalSteps}
@@ -43,23 +41,24 @@ function ProgressHeader({
             <div
               className={styles.progressFill}
               style={{ width: `${progressPercentage}%` }}
-            ></div>
+            />
           </div>
 
           <div className={styles.navigation}>
-            {step > 1 && canGoBack ? ( // Show back button only if not on first step
+            {step > 1 && canGoBack ? (
+              // Show back button only if not on first step
               <button
                 className={styles.backButton}
                 onClick={() => onNavigate('back')}
               >
-                <ArrowLeft size={20} className={styles.backIcon} />{' '}
+                <ArrowLeft size={20} className={styles.backIcon} />
                 {/* Adjusted icon size */}
                 Back
               </button>
             ) : (
-              <div
-                className={styles.backButtonPlaceholder}
-              ></div> /* Placeholder for spacing if back button hidden */
+              <div className={styles.backButtonPlaceholder}>
+                {/* Placeholder for spacing if back button hidden */}
+              </div>
             )}
 
             {step < totalSteps ? (

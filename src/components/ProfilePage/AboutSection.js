@@ -1,11 +1,14 @@
 // src/components/ProfilePage/AboutSection.js
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './AboutSection.module.css';
 import { useAuth } from '../../context/AuthContext'; // For loggedInUser details if needed for save
 import apiClient from '../../api/axiosConfig';
 import logger from '../../utils/logger';
 import { useToast } from '../../context/ToastContext';
 import PropTypes from 'prop-types';
+import FormInput from '../Shared/FormInput';
+import { AutoComplete } from '../AutoComplete';
+import { HOBBIES_OPTIONS, SKILLS_OPTIONS } from '../../utils/constants';
 
 const decodeHTMLEntities = text => {
   if (typeof text !== 'string' || !text) return '';
@@ -21,7 +24,7 @@ const decodeHTMLEntities = text => {
 
 function AboutSection({ userToDisplay, isOwnProfile, onUpdate }) {
   // Accept props
-  const { user: loggedInUser } = useAuth(); // Still need for auth check on save
+  const { user: _loggedInUser } = useAuth(); // Still need for auth check on save
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editedBio, setEditedBio] = useState('');
   const [saveLoading, setSaveLoading] = useState(false);
@@ -61,7 +64,7 @@ function AboutSection({ userToDisplay, isOwnProfile, onUpdate }) {
       await apiClient.patch('/users/updateMe', { bio: trimmedBio });
       logger.info(`Bio updated successfully for user: ${userToDisplay?._id}`);
       showToast('Bio updated!', { type: 'success' });
-      setEditing(false);
+      closeModal();
       if (onUpdate) onUpdate();
     } catch (err) {
       logger.error('Error saving bio:', err.response?.data || err.message, {
@@ -146,7 +149,11 @@ function AboutSection({ userToDisplay, isOwnProfile, onUpdate }) {
               <p className={styles.modalPrompt}>
                 Use this space to showcase your skills and experience.
               </p>
+              <label htmlFor="bio-textarea" className={styles.srOnly}>
+                Bio content
+              </label>
               <textarea
+                id="bio-textarea"
                 className={styles.textArea}
                 value={editedBio}
                 onChange={e => setEditedBio(e.target.value)}

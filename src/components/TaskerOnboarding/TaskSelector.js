@@ -1,7 +1,9 @@
 // src/components/TaskerOnboarding/TaskSelector.js
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ChevronDown, X } from 'lucide-react'; // Keep if lucide-react is installed
 import styles from './TaskSelector.module.css'; // Create this CSS module
+import { AutoComplete } from '../AutoComplete';
+import { CATEGORIES } from '../../utils/constants';
 import PropTypes from 'prop-types';
 
 const tasks = [
@@ -51,6 +53,9 @@ function TaskSelector({
         <div
           className={styles.select} /* Use .select from your CSS */
           onClick={() => setIsOpen(!isOpen)}
+          onKeyDown={e => {
+            if (e.key === 'Enter' || e.key === ' ') setIsOpen(!isOpen);
+          }}
           role="button"
           tabIndex={0}
           aria-haspopup="listbox"

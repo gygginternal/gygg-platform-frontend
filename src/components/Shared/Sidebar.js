@@ -1,6 +1,6 @@
 // src/components/Shared/Sidebar.js
 import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import { useAuth } from '../../context/AuthContext';
 import socket from '../../socket';
@@ -141,7 +141,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
                     marginLeft: 4,
                     verticalAlign: 'middle',
                   }}
-                ></span>
+                />
               )}
               {isOpen && <span className={styles.navText}>{item.text}</span>}
             </div>

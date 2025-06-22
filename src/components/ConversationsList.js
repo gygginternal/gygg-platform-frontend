@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 // import cn from "classnames"; // No longer needed
 import styles from './ConversationsList.module.css'; // Your CSS Module
 import apiClient from '../api/axiosConfig'; // Adjust path
 import logger from '../utils/logger'; // Optional, adjust path
 import { useAuth } from '../context/AuthContext'; // Adjust path
+import { useToast } from '../context/ToastContext';
 import MessageDesign from './MessageDesign'; // Import MessageDesign component
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';

@@ -1,6 +1,6 @@
 // frontend/src/components/ReviewForm.js
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import apiClient from '../api/axiosConfig'; // Assuming you use axios for API calls
 import styles from './ReviewForm.module.css';
@@ -43,39 +43,27 @@ StarRatingInput.propTypes = {
   disabled: PropTypes.bool,
 };
 
-function ReviewForm({ contractId, onSubmitSuccess }) {
-  const [rating, setRating] = useState(0); // Initialize rating to 0
-  const [comment, setComment] = useState('');
+function ReviewForm({ contractId, review, onSuccess }) {
+  const [rating, setRating] = useState(review ? review.rating : 5);
+  const [comment, setComment] = useState(review ? review.comment : '');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
   const handleSubmit = async e => {
     e.preventDefault();
-    if (rating === 0) {
-      setError('Please select a rating (1-5 stars).');
-      return;
-    }
     setLoading(true);
-    setError('');
-    setSuccessMessage('');
-
     try {
-      const payload = {
-        contractId, // Backend uses this to find the gig/tasker/provider
-        rating,
-        comment: comment.trim(), // Send trimmed comment
-      };
-      const response = await apiClient.post('/reviews', payload); // POST to the reviews endpoint
-
-      setSuccessMessage('Review submitted successfully!');
-
-      if (onSubmitSuccess) {
-        onSubmitSuccess(response.data.data.review); // Pass the new review back to parent
+      if (review) {
+        await apiClient.patch(`/reviews/${review._id}`, { rating, comment });
+      } else {
+        await apiClient.post('/reviews', {
+          contract: contractId,
+          rating,
+          comment,
+        });
       }
-      // Don't clear form immediately, parent component might hide it based on success/state change
-      // setRating(0);
-      // setComment('');
+      if (onSuccess) onSuccess();
     } catch (err) {
       setError(
         err.response?.data?.message ||
@@ -84,6 +72,19 @@ function ReviewForm({ contractId, onSubmitSuccess }) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleDelete = async () => {
+    if (!review) return;
+    setLoading(true);
+    try {
+      await apiClient.delete(`/reviews/${review._id}`);
+      if (onSuccess) onSuccess();
+    } catch (err) {
+      // Handle error silently or log it
+      console.error('Error deleting review:', err);
+    }
+    setLoading(false);
   };
 
   // Prevent form resubmission if successful
@@ -98,15 +99,22 @@ function ReviewForm({ contractId, onSubmitSuccess }) {
       {error && <p className={styles.errorMessage}>{error}</p>}{' '}
       {/* Use className for styling */}
       <div className={styles.formGroup}>
-        <label className={styles.label} id={`star-label-${contractId}`}>
+        <label className={styles.label} htmlFor={`rating-${contractId}`}>
           Rating:*
         </label>
-        <StarRatingInput
-          rating={rating}
-          setRating={setRating}
+        <select
+          id={`rating-${contractId}`}
+          value={rating}
+          onChange={e => setRating(Number(e.target.value))}
           disabled={loading}
-          aria-labelledby={`star-label-${contractId}`}
-        />
+          className={styles.select}
+        >
+          {[1, 2, 3, 4, 5].map(n => (
+            <option key={n} value={n}>
+              {n}
+            </option>
+          ))}
+        </select>
       </div>
       <div className={styles.formGroup}>
         <label htmlFor={`comment-${contractId}`} className={styles.label}>
@@ -123,15 +131,26 @@ function ReviewForm({ contractId, onSubmitSuccess }) {
         />
       </div>
       <button type="submit" disabled={loading} className={styles.submitButton}>
-        {loading ? 'Submitting...' : 'Submit Review'}
+        {loading ? 'Submitting...' : review ? 'Update' : 'Submit'} Review
       </button>
+      {review && (
+        <button
+          type="button"
+          onClick={handleDelete}
+          disabled={loading}
+          className={styles.deleteButton}
+        >
+          Delete
+        </button>
+      )}
     </form>
   );
 }
 
 ReviewForm.propTypes = {
   contractId: PropTypes.string.isRequired,
-  onSubmitSuccess: PropTypes.func,
+  review: PropTypes.object,
+  onSuccess: PropTypes.func,
 };
 
 export default ReviewForm;

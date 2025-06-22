@@ -1,5 +1,5 @@
 // frontend/src/components/GigsPage/TaskList.js
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import styles from './TaskList.module.css';
 import TaskCard from './TaskCard';
 import apiClient from '../api/axiosConfig';

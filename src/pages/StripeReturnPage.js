@@ -38,7 +38,7 @@ function StripeReturnPage() {
         You will be redirected to your dashboard shortly.
       </p>
       <p className={styles.redirectPrompt}>
-        If redirection doesn't happen,{' '}
+        If redirection doesn&apos;t happen,{' '}
         <Link to="/settings?activeTab=withdraw" className={styles.link}>
           click here to go to your Dashboard
         </Link>{' '}

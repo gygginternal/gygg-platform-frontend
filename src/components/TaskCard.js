@@ -1,5 +1,5 @@
 // src/components/GigsPage/TaskCard.js
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from './TaskCard.module.css';
 import { useNavigate } from 'react-router-dom';
 import { formatCategoryName, getCategoryIcon } from '../constants/categories';

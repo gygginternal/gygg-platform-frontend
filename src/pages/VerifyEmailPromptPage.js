@@ -80,8 +80,17 @@ function VerifyEmailPromptPage() {
           )}
         </div>
         <p className={styles.retryText}>
-          Didn't get an email?{' '}
-          <span onClick={handleResendEmail} className={styles.retryLink}>
+          Didn&apos;t get an email?{' '}
+          <span
+            onClick={handleResendEmail}
+            onKeyDown={e => {
+              if (e.key === 'Enter' || e.key === ' ') handleResendEmail();
+            }}
+            className={styles.retryLink}
+            role="button"
+            tabIndex={0}
+            aria-label="Resend verification email"
+          >
             Resend email
           </span>
           . You can also{' '}

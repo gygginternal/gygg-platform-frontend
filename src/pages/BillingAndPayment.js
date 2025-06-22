@@ -1,7 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react';
-import styles from './BillingAndPayment.module.css';
-import apiClient from '../api/axiosConfig';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
+import apiClient from '../api/axiosConfig';
+import styles from './BillingAndPayment.module.css';
+import BillingTable from '../components/Billing/BillingTable';
 
 function WithdrawModal({ open, onClose, available, onConfirm }) {
   const [custom, setCustom] = useState(false);
@@ -157,9 +159,9 @@ function InvoiceModal({ open, onClose, payment }) {
 
 export default function BillingAndPayment() {
   const { user } = useAuth();
-  const [payments, setPayments] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [_transactions, setTransactions] = useState([]);
+  const [_loading, setLoading] = useState(false);
+  const [_error, setError] = useState('');
   const [view, setView] = useState('earned'); // 'earned' for tasker, 'spent' for provider
   const [showWithdraw, setShowWithdraw] = useState(false);
   const [withdrawSuccess, setWithdrawSuccess] = useState(false);
@@ -184,7 +186,7 @@ export default function BillingAndPayment() {
           url += `payer=${user._id}`;
         }
         const res = await apiClient.get(url);
-        setPayments(res.data.data.payments || []);
+        setTransactions(res.data.data.payments || []);
       } catch (err) {
         setError(err.response?.data?.message || 'Failed to load payments.');
       } finally {
@@ -195,7 +197,7 @@ export default function BillingAndPayment() {
   }, [user, view, isTasker, isProvider]);
 
   // Calculate totals
-  const total = payments.reduce((sum, p) => sum + (p.amount || 0), 0);
+  const total = _transactions.reduce((sum, p) => sum + (p.amount || 0), 0);
   const available = total / 100;
 
   // Color for summary
@@ -273,13 +275,13 @@ export default function BillingAndPayment() {
           </div>
         )}
         <div className={styles.tableWrapper}>
-          {loading ? (
+          {_loading ? (
             <div style={{ padding: '2rem', textAlign: 'center' }}>
               Loading payments...
             </div>
-          ) : error ? (
+          ) : _error ? (
             <div style={{ padding: '2rem', color: 'red', textAlign: 'center' }}>
-              {error}
+              {_error}
             </div>
           ) : (
             <table className={styles.table}>
@@ -293,7 +295,7 @@ export default function BillingAndPayment() {
                 </tr>
               </thead>
               <tbody>
-                {payments.length === 0 ? (
+                {_transactions.length === 0 ? (
                   <tr>
                     <td
                       colSpan={5}
@@ -303,7 +305,7 @@ export default function BillingAndPayment() {
                     </td>
                   </tr>
                 ) : (
-                  payments.map((inv, idx) => (
+                  _transactions.map((inv, idx) => (
                     <tr key={inv._id || idx}>
                       <td>
                         {inv.payer?.firstName || ''} {inv.payer?.lastName || ''}

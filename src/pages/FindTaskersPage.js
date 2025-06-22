@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import apiClient from '../api/axiosConfig'; // Adjust path
 import { ServiceProviderListing } from '../components/TaskerMatchedSection';
 import { TaskerMatchedSidebar } from '../components/TaskerMatchedSidebar';
@@ -56,8 +56,8 @@ export const FindTaskersPage = () => {
         <main className={styles.mainFeedArea}>
           <h2 className={styles.title}>Find Matching Taskers</h2>
           <p className={styles.subtitle}>
-            Showing taskers based on similarities in your profile's hobbies and
-            people preferences.
+            Showing taskers based on similarities in your profile&apos;s hobbies
+            and people preferences.
           </p>
           <button
             onClick={() => fetchGigHelpers(1)}

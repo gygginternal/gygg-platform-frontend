@@ -25,7 +25,7 @@ const ChatPage = () => {
       const response = await apiClient.get(`/chat/history?userId=${userId}`);
       setMessages(response.data.data.messages);
       if (response.data.data.messages.length > 0) {
-        const message = response.data.data.messages[0];
+        const [message] = response.data.data.messages;
         const otherUserInfo =
           message.sender._id === user.id ? message.receiver : message.sender;
         setOtherUser(otherUserInfo);
@@ -108,7 +108,7 @@ const ChatPage = () => {
 
   // Image upload handler
   const handleImageChange = async e => {
-    const file = e.target.files[0];
+    const [file] = e.target.files;
     if (!file) return;
     setUploading(true);
     setError(null);

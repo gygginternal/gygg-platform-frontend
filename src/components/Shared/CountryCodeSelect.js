@@ -1,5 +1,5 @@
-import React from 'react';
 import styles from './CountryCodeSelect.module.css';
+import PropTypes from 'prop-types';
 
 function CountryCodeSelect({ value, onChange }) {
   const countryCodes = [
@@ -253,5 +253,10 @@ function CountryCodeSelect({ value, onChange }) {
     </div>
   );
 }
+
+CountryCodeSelect.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default CountryCodeSelect;

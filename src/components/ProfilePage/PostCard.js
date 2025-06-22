@@ -1,25 +1,16 @@
 // src/components/SocialPage/PostCard.js
-import React from 'react';
 import { format, isToday } from 'date-fns';
 import styles from './PostCard.module.css'; // Assuming postCard styles are here
 import PropTypes from 'prop-types';
 
 // Re-defining Icon component (ensure it's imported or defined somewhere accessible)
-const Icon = ({
-  src,
-  alt,
-  className = '',
-  width = 16,
-  height = 16,
-  onClick,
-}) => (
+const Icon = ({ src, alt, className = '', width = 16, height = 16 }) => (
   <img
     src={src}
     alt={alt}
-    className={`${className} ${onClick ? styles.clickableIcon : ''}`}
+    className={className}
     width={width}
     height={height}
-    onClick={onClick}
     onError={e => {
       e.currentTarget.style.display = 'none';
     }}
@@ -32,7 +23,6 @@ Icon.propTypes = {
   className: PropTypes.string,
   width: PropTypes.number,
   height: PropTypes.number,
-  onClick: PropTypes.func,
 };
 
 // Helper function to format timestamp (retained from previous updates)
@@ -50,16 +40,30 @@ function PostCard({ post }) {
 
   const profileImageSrc = post.author?.profileImage || '/default.jpg';
 
+  // Define the handlePostClick function
+  const handlePostClick = (_postData) => {
+    // TODO: Implement post click handler
+    console.log('Post clicked:', _postData);
+    // You can navigate to post detail page or open modal here
+  };
+
   return (
-    <div
-      role="button"
-      tabIndex={0}
+    <button
+      type="button"
       onClick={() => handlePostClick(post)}
       onKeyDown={e => {
         if (e.key === 'Enter' || e.key === ' ') handlePostClick(post);
       }}
       className={styles.postCard}
-      aria-label={`View post by ${post.author}`}
+      aria-label={`View post by ${post.author?.fullName || 'Unknown User'}`}
+      style={{
+        background: 'none',
+        border: 'none',
+        padding: 0,
+        width: '100%',
+        textAlign: 'inherit',
+        cursor: 'pointer',
+      }}
     >
       <div className={styles.postHeader}>
         <div className="image-container">
@@ -117,7 +121,7 @@ function PostCard({ post }) {
         )}
       </div>
       {/* TODO: Add Like/Unlike/Comment buttons/forms if this is meant to be interactive */}
-    </div>
+    </button>
   );
 }
 
