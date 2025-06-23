@@ -24,24 +24,20 @@ apiClient.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       const message = error.response.data?.message || '';
       if (message.toLowerCase().includes('token')) {
-        console.warn(
-          `API Auth Error (${error.response.status}): ${message}. Logging out.`
-        );
         localStorage.removeItem('authToken');
         if (window.location.pathname !== '/login') {
           window.location.href = '/login';
         }
-      } else {
-        console.warn(
-          `API Auth/Permission Error (${error.response.status}): ${message}`
-        );
       }
     } else if (error.response) {
       console.error(
         `API Error (${error.response.status}): ${error.response.data?.message || error.message}`
       );
-    } else {
-      console.error('API Network Error or CORS issue:', error.message);
+    } else if (
+      error.message &&
+      error.message.toLowerCase().includes('network')
+    ) {
+      // No need to log network errors
     }
     return Promise.reject(error);
   }

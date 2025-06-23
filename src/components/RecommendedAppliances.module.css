@@ -221,3 +221,7 @@
     padding: 0.25rem; /* 4px */
   }
 }
+
+.mt20 {
+  margin-top: 1.25rem;
+}

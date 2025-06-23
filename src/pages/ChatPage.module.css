@@ -154,3 +154,11 @@
   max-width: 100%;
   max-height: 100%;
 }
+
+.displayNone {
+  display: none;
+}
+
+.marginRight8 {
+  margin-right: 8px;
+}

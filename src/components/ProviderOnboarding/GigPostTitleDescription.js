@@ -31,7 +31,7 @@ function GigPostTitleDescription({ formData, onInputChange }) {
 
 GigPostTitleDescription.propTypes = {
   formData: PropTypes.object.isRequired,
-  onInputChange: PropTypes.func.isRequired
+  onInputChange: PropTypes.func.isRequired,
 };
 
-export default GigPostTitleDescription; 
+export default GigPostTitleDescription;

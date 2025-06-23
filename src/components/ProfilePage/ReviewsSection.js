@@ -1,7 +1,6 @@
 // src/components/ProfilePage/ReviewsSection.js
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { useToast } from '../../context/ToastContext';
 import apiClient from '../../api/axiosConfig';
 import styles from './ReviewsSection.module.css';
 import ReviewCard from './ReviewCard';
@@ -81,7 +80,7 @@ function ReviewsSection({ userIdToView, isOwnProfile }) {
 
 ReviewsSection.propTypes = {
   userIdToView: PropTypes.string,
-  isOwnProfile: PropTypes.bool.isRequired
+  isOwnProfile: PropTypes.bool.isRequired,
 };
 
 export default ReviewsSection;

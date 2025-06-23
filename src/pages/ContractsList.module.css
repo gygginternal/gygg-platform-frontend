@@ -54,7 +54,7 @@
 .card {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   padding: 20px 24px;
   display: flex;
   flex-direction: column;
@@ -124,4 +124,4 @@
   color: #ff9100;
   font-weight: bold;
   margin-left: 4px;
-} 
+}

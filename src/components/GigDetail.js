@@ -31,7 +31,6 @@ const ConfirmButton = ({ clientSecret }) => {
 
   const handleConfirmPayment = async () => {
     if (!stripe || !elements) {
-      console.error('Stripe.js has not loaded yet.');
       return;
     }
 
@@ -45,8 +44,6 @@ const ConfirmButton = ({ clientSecret }) => {
 
     if (error) {
       console.error('Payment confirmation error:', error.message);
-    } else {
-      console.log('Payment confirmed successfully.');
     }
   };
 
@@ -98,10 +95,6 @@ function GigDetailPage() {
       const { isBalanceSufficient } = response.data.data;
       setIsReleasable(isBalanceSufficient);
     } catch (err) {
-      console.error(
-        'Error fetching releasable status:',
-        err.response?.data || err.message
-      );
       setIsReleasable(false);
     }
   };
@@ -115,28 +108,17 @@ function GigDetailPage() {
       setPaymentIntent(response.data.data.paymentIntent);
       await fetchReleasableStatus(contractId); // Fetch releasable status after payment details
     } catch (err) {
-      console.error(
-        'Error fetching payment details:',
-        err.response?.data || err.message
-      );
       setPaymentData(null);
     }
   };
 
   const fetchData = useCallback(async () => {
-    console.log('GigDetailPage - Attempting fetch with gigId:', gigId);
-
-    // CHECK: Ensure gigId exists and looks like a valid ObjectId before proceeding
     if (
       !gigId ||
       typeof gigId !== 'string' ||
       gigId.length !== 24 ||
       !/^[a-fA-F0-9]{24}$/.test(gigId)
     ) {
-      console.error(
-        'GigDetailPage: Invalid Gig ID detected. Aborting fetch.',
-        gigId
-      );
       setError(`Invalid Gig ID found in URL: '${gigId || 'None'}'.`);
       setLoading(false);
       setGigData(null); // Clear any potentially stale data
@@ -149,12 +131,9 @@ function GigDetailPage() {
     setError('');
 
     try {
-      // ... rest of your try/catch block for fetching gig, contract, and review data ...
-      // (This part remains the same as the previous correct version)
       const gigResponse = await apiClient.get(`/gigs/${gigId}`);
       const currentGig = gigResponse.data.data.gig;
       setGigData(currentGig);
-      console.log('Gig Data Fetched:', currentGig);
 
       try {
         const contractResponse = await apiClient.get(
@@ -162,7 +141,6 @@ function GigDetailPage() {
         );
         const currentContract = contractResponse.data.data.contract;
         setContractData(currentContract);
-        console.log('Contract Data Fetched:', currentContract);
 
         if (
           currentContract &&
@@ -186,25 +164,14 @@ function GigDetailPage() {
           (contractError.response?.data?.message &&
             contractError.response.data.message.includes('No contract found'))
         ) {
-          console.log(
-            'No accessible contract found for this gig, or query failed.'
-          );
           setContractData(null);
         } else {
-          console.error(
-            'Error fetching contract:',
-            contractError.response?.data || contractError.message
-          );
           setError('Error loading associated contract details.');
         }
         setContractData(null);
         setPaymentData(null); // Clear payment data if no contract
       }
     } catch (err) {
-      console.error(
-        'Error fetching gig details:',
-        err.response?.data || err.message
-      );
       setError(err.response?.data?.message || 'Failed to load gig details.');
       setGigData(null);
       setContractData(null);
@@ -225,11 +192,9 @@ function GigDetailPage() {
 
   // ... rest of GigDetailPage component (callbacks and return JSX) ...
   const handleAcceptSuccess = () => {
-    console.log('Gig accepted, refreshing data...');
     fetchData();
   };
   const handlePaymentSuccess = () => {
-    console.log('Payment successful, refreshing data...');
     fetchData();
   };
   const hasSecret = paymentData?.stripePaymentIntentSecret;
@@ -242,11 +207,6 @@ function GigDetailPage() {
       /*...*/
     },
   };
-  console.log({
-    hasSecret,
-    options,
-    stripePromise,
-  });
 
   // Set up Stripe.js and Elements to use in checkout form, passing the client secret obtained in a previous step
 
@@ -255,14 +215,7 @@ function GigDetailPage() {
       await apiClient.delete(`/contracts/${contractId}`);
     },
     onSuccess: () => {
-      console.log('Contract canceled successfully.');
       fetchData(); // Refetch data to update the UI
-    },
-    onError: err => {
-      console.error(
-        'Error canceling contract:',
-        err.response?.data || err.message
-      );
     },
   });
 

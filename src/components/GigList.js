@@ -1,10 +1,11 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import styles from './GigList.module.css';
 
 function GigList({ gigs, loading, error, title = 'Available Gigs' }) {
   if (loading) return <p>Loading gigs...</p>;
   if (error)
-    return <p className="error-message">Error loading gigs: {error}</p>;
+    return <p className={styles.errorMessage}>Error loading gigs: {error}</p>;
   if (!gigs || gigs.length === 0) return <p>No gigs found.</p>;
 
   return (
@@ -12,7 +13,7 @@ function GigList({ gigs, loading, error, title = 'Available Gigs' }) {
       <h3>{title}</h3>
       <ul style={{ padding: 0 }}>
         {gigs.map(gig => (
-          <li key={gig.id || gig._id} className="list-item-card">
+          <li key={gig.id || gig._id} className={styles.listItemCard}>
             <h4>
               <Link to={`/gigs/${gig.id || gig._id}`}>{gig.title}</Link>
             </h4>
@@ -37,4 +38,12 @@ function GigList({ gigs, loading, error, title = 'Available Gigs' }) {
     </div>
   );
 }
+
+GigList.propTypes = {
+  gigs: PropTypes.arrayOf(PropTypes.object),
+  loading: PropTypes.bool,
+  error: PropTypes.string,
+  title: PropTypes.string,
+};
+
 export default GigList;

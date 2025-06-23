@@ -66,12 +66,12 @@ const Applications = () => {
 
   return (
     <Container>
-      <Flex direction="column" gap="lg" style={{ padding: '24px 0' }}>
+      <Flex direction="column" gap="lg" className={styles.padding24}>
         {/* Header */}
         <Card>
           <Flex justify="space-between" align="center">
             <div>
-              <Heading as="h1" style={{ marginBottom: '8px' }}>
+              <Heading as="h1" className={styles.marginBottom8}>
                 {isClient ? 'Received Applications' : 'My Applications'}
               </Heading>
               <Text color="text.secondary">
@@ -83,7 +83,7 @@ const Applications = () => {
             <Select
               value={statusFilter}
               onChange={e => setStatusFilter(e.target.value)}
-              style={{ width: '200px' }}
+              className={styles.width200}
             >
               <option value="all">All Status</option>
               <option value="pending">Pending</option>
@@ -107,13 +107,13 @@ const Applications = () => {
                   <Flex
                     direction="column"
                     gap="sm"
-                    style={{ gridColumn: 'span 2' }}
+                    className={styles.gridColumnSpan2}
                   >
                     <Link
                       to={`/gigs/${application.gig.id}`}
-                      style={{ textDecoration: 'none', color: 'inherit' }}
+                      className={styles.textDecorationNone}
                     >
-                      <Heading as="h3" style={{ marginBottom: '8px' }}>
+                      <Heading as="h3" className={styles.marginBottom8}>
                         {application.gig.title}
                       </Heading>
                     </Link>
@@ -122,7 +122,7 @@ const Applications = () => {
                         ? `From ${application.freelancer.name}`
                         : `Applied on ${new Date(application.createdAt).toLocaleDateString()}`}
                     </Text>
-                    <Text style={{ marginTop: '8px' }}>
+                    <Text className={styles.marginTop8}>
                       {application.proposal}
                     </Text>
                   </Flex>

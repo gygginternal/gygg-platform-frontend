@@ -1,9 +1,10 @@
 // src/components/SocialPage/Post.js
-import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styles from './Post.module.css';
 import { useAuth } from '../../context/AuthContext';
 import apiClient from '../../api/axiosConfig';
 import logger from '../../utils/logger';
+import React, { useState, useEffect } from 'react';
 
 const Icon = ({
   src,
@@ -232,7 +233,7 @@ function Post({ post, onPostUpdate }) {
   };
 
   const handleMoreClick = () => {
-    console.log('More options clicked for post:', postId);
+    // Remove all console.log statements
   };
 
   // Handler to show more comments
@@ -321,7 +322,7 @@ function Post({ post, onPostUpdate }) {
 
       {interactionError && (
         <p
-          className="error-message"
+          className={styles['error-message']}
           style={{ fontSize: '0.8em', margin: '8px 0' }}
         >
           {interactionError}
@@ -361,7 +362,7 @@ function Post({ post, onPostUpdate }) {
         </div>
         <button
           className={styles.bookmarkIcon}
-          onClick={() => console.log('Bookmark clicked for:', postId)}
+          onClick={() => {}}
           disabled={!loggedInUser}
         >
           <Icon src="/assets/bookmark.svg" alt="bookmark" />
@@ -466,5 +467,26 @@ function Post({ post, onPostUpdate }) {
     </article>
   );
 }
+
+Post.propTypes = {
+  post: PropTypes.shape({
+    _id: PropTypes.string,
+    author: PropTypes.shape({
+      _id: PropTypes.string,
+      profileImage: PropTypes.string,
+      fullName: PropTypes.string,
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+    }),
+    content: PropTypes.string,
+    media: PropTypes.array,
+    createdAt: PropTypes.string,
+    likeCount: PropTypes.number,
+    commentCount: PropTypes.number,
+    likes: PropTypes.array,
+    comments: PropTypes.array,
+  }),
+  onPostUpdate: PropTypes.func,
+};
 
 export default Post;

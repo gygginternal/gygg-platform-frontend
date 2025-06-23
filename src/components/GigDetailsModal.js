@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styles from './TaskCard.module.css';
+import styles from './GigDetailsModal.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import apiClient from '../api/axiosConfig';
 import { useContracts } from '../pages/ContractsPage';
@@ -155,13 +155,7 @@ const GigDetailsModal = ({ gig, open, onClose, onApply }) => {
         type="button"
         aria-label="Close modal"
         onClick={onClose}
-        style={{
-          position: 'absolute',
-          left: '-9999px',
-          width: 1,
-          height: 1,
-          overflow: 'hidden',
-        }}
+        className={styles.closeButton}
         tabIndex={0}
       >
         Close

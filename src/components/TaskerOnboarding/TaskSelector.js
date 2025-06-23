@@ -2,8 +2,6 @@
 import { useState } from 'react';
 import { ChevronDown, X } from 'lucide-react'; // Keep if lucide-react is installed
 import styles from './TaskSelector.module.css'; // Create this CSS module
-import { AutoComplete } from '../AutoComplete';
-import { CATEGORIES } from '../../utils/constants';
 import PropTypes from 'prop-types';
 
 const tasks = [

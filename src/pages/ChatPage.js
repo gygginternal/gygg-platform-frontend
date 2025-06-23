@@ -66,12 +66,10 @@ const ChatPage = () => {
 
     const handleNotification = notification => {
       // Handle new message notification
-      console.log('New message notification:', notification);
     };
 
     const handleUnreadCountUpdate = data => {
       // Handle unread count update
-      console.log('Unread count updated:', data);
     };
 
     // Listen for new messages in the chat channel

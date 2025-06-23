@@ -5,7 +5,6 @@ import Sidebar from './Sidebar';
 import { useAuth } from '../../context/AuthContext';
 import apiClient from '../../api/axiosConfig';
 import socket from '../../socket';
-import PropTypes from 'prop-types';
 
 function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -41,7 +40,7 @@ function Header() {
       const response = await apiClient.get('/chat/unread-count');
       setUnreadMessageCount(response.data.data.unreadCount);
     } catch (error) {
-      console.error('Error fetching unread count:', error);
+      // console.error('Error fetching unread count:', error);
     }
   };
 
@@ -54,7 +53,7 @@ function Header() {
         (res.data.data.notifications || []).filter(n => !n.isRead).length
       );
     } catch (err) {
-      console.error('Error fetching notifications:', err);
+      // console.error('Error fetching notifications:', err);
     }
   };
 
@@ -68,7 +67,7 @@ function Header() {
       );
       fetchNotifications();
     } catch (err) {
-      console.error('Error marking notifications as read:', err);
+      // console.error('Error marking notifications as read:', err);
     }
   };
 
@@ -82,12 +81,12 @@ function Header() {
       socket.connect();
 
       socket.on('connect', () => {
-        console.log('Connected to WebSocket for notifications.');
+        // console.log('Connected to WebSocket for notifications.');
         socket.emit('subscribeToNotifications', { userId: user._id });
       });
 
       socket.on('notification:newMessage', data => {
-        console.log('New chat message notification received:', data);
+        // console.log('New chat message notification received:', data);
         if (data.receiverId === user._id) {
           setUnreadMessageCount(prevCount => prevCount + 1);
         }
@@ -95,18 +94,18 @@ function Header() {
 
       // Listen for unread count updates (e.g., when messages are marked as read)
       socket.on('notification:unreadCountUpdated', () => {
-        console.log(
-          'Unread count update notification received. Refreshing count...'
-        );
+        // console.log(
+        //   'Unread count update notification received. Refreshing count...'
+        // );
         fetchUnreadCount(); // Re-fetch the count immediately
       });
 
       socket.on('disconnect', () => {
-        console.log('Disconnected from WebSocket.');
+        // console.log('Disconnected from WebSocket.');
       });
 
       socket.on('error', err => {
-        console.error('WebSocket error:', err);
+        // console.error('WebSocket error:', err);
       });
     }
 
@@ -393,45 +392,76 @@ function Header() {
                 </button>
                 {isProfileOpen && (
                   <div className={styles.dropdown}>
-                    <Link
-                      to="/profile"
-                      className={styles.dropdownItem}
-                      onClick={() => setIsProfileOpen(false)}
-                    >
-                      <img
-                        src="/assets/user.svg"
-                        alt="User"
-                        width={18}
-                        height={18}
-                      />
-                      <p>Profile</p>
-                    </Link>
-                    <button
-                      type="button"
-                      className={styles.dropdownItem}
-                      onClick={() => handleNavigation('/settings')}
-                    >
-                      <img
-                        src="/assets/settings.svg"
-                        alt="Settings"
-                        width={18}
-                        height={18}
-                      />
-                      <p>Settings</p>
-                    </button>
-                    <button
-                      type="button"
-                      className={styles.dropdownItem}
-                      onClick={handleLogout}
-                    >
-                      <img
-                        src="/assets/logout.svg"
-                        alt="Log out"
-                        width={18}
-                        height={18}
-                      />
-                      <p>Log out</p>
-                    </button>
+                    <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+                      <li
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          padding: '0.5rem 1rem',
+                          borderBottom: '1px solid #f3f4f6',
+                        }}
+                      >
+                        <img
+                          src={user?.profileImage || '/assets/user.svg'}
+                          alt={user?.fullName || 'User'}
+                          className={styles.profileAvatar}
+                        />
+                        <div
+                          style={{
+                            fontWeight: 600,
+                            fontSize: '1rem',
+                            color: '#1e293b',
+                          }}
+                        >
+                          {user?.fullName || 'Profile'}
+                        </div>
+                      </li>
+                      <li>
+                        <Link
+                          to="/profile"
+                          className={styles.dropdownItem}
+                          onClick={() => setIsProfileOpen(false)}
+                        >
+                          <img
+                            src="/assets/user.svg"
+                            alt="User"
+                            width={18}
+                            height={18}
+                          />
+                          <p>Profile</p>
+                        </Link>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          className={styles.dropdownItem}
+                          onClick={() => handleNavigation('/settings')}
+                        >
+                          <img
+                            src="/assets/settings.svg"
+                            alt="Settings"
+                            width={18}
+                            height={18}
+                          />
+                          <p>Settings</p>
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          className={styles.dropdownItem}
+                          onClick={handleLogout}
+                        >
+                          <img
+                            src="/assets/logout.svg"
+                            alt="Log out"
+                            width={18}
+                            height={18}
+                          />
+                          <p>Log out</p>
+                        </button>
+                      </li>
+                    </ul>
                   </div>
                 )}
               </div>
@@ -444,9 +474,5 @@ function Header() {
     </>
   );
 }
-
-Header.propTypes = {
-  // Add any necessary prop types here
-};
 
 export default Header;

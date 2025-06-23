@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { Flex, Button, Text, Card } from '../styles/components';
+import styles from './Navigation.module.css';
 
 const NavContainer = styled(Card)`
   position: sticky;

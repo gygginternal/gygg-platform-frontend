@@ -24,7 +24,14 @@ const Button = React.forwardRef(
 Button.displayName = 'Button';
 
 Button.propTypes = {
-  variant: PropTypes.oneOf(['default', 'destructive', 'outline', 'secondary', 'ghost', 'link']),
+  variant: PropTypes.oneOf([
+    'default',
+    'destructive',
+    'outline',
+    'secondary',
+    'ghost',
+    'link',
+  ]),
   size: PropTypes.oneOf(['default', 'sm', 'lg', 'icon']),
   asChild: PropTypes.bool,
   children: PropTypes.node,

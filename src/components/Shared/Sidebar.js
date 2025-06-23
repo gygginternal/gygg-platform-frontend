@@ -24,7 +24,7 @@ Icon.propTypes = {
   className: PropTypes.string,
 };
 
-function Sidebar({ isOpen, toggleSidebar }) {
+function Sidebar({ isOpen }) {
   const location = useLocation();
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -38,7 +38,6 @@ function Sidebar({ isOpen, toggleSidebar }) {
         const unreadResponse = await apiClient.get('/chat/unread-count');
         setUnreadMessageCount(unreadResponse.data.data.unreadCount);
       } catch (error) {
-        console.error('Error fetching unread count:', error);
         setUnreadMessageCount(0);
       }
     };
@@ -120,7 +119,6 @@ function Sidebar({ isOpen, toggleSidebar }) {
                 handleNavigation(item.path);
             }}
             className={`${styles.navItem} ${isSelected ? styles.selected : ''}`}
-            aria-label={`Go to ${item.text}`}
           >
             <div className={styles.navItemContent}>
               <Icon
@@ -154,7 +152,6 @@ function Sidebar({ isOpen, toggleSidebar }) {
 
 Sidebar.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  toggleSidebar: PropTypes.func,
 };
 
 export default Sidebar;

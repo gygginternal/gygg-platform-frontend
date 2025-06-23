@@ -49,7 +49,6 @@ function ContractDetailPage() {
       await fetchContract();
     } catch (err) {
       // Handle error silently or log it
-      console.error('Error performing contract action:', err);
     }
     setActionLoading(false);
   };

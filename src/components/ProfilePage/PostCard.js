@@ -41,9 +41,8 @@ function PostCard({ post }) {
   const profileImageSrc = post.author?.profileImage || '/default.jpg';
 
   // Define the handlePostClick function
-  const handlePostClick = (_postData) => {
+  const handlePostClick = _postData => {
     // TODO: Implement post click handler
-    console.log('Post clicked:', _postData);
     // You can navigate to post detail page or open modal here
   };
 

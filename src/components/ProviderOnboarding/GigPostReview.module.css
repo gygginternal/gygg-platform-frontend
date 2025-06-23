@@ -1,0 +1,41 @@
+.reviewSection {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(30,41,59,0.07);
+  padding: 2em;
+  margin: 1.5em 0;
+  font-family: 'Inter', sans-serif;
+}
+.reviewSubTitle {
+  font-size: 1.15em;
+  font-weight: 700;
+  margin-bottom: 1.2em;
+  color: #2563eb;
+}
+.reviewItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1em;
+  padding-bottom: 0.7em;
+  border-bottom: 1px solid #e5e7eb;
+}
+.editStepButton {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.3em 1em;
+  font-size: 0.97em;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.editStepButton:hover {
+  background: #1d4ed8;
+}
+.reviewDescription {
+  margin: 0.5em 0 0 0;
+  color: #64748b;
+  font-size: 0.98em;
+} 

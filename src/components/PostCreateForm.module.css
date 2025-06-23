@@ -3,7 +3,7 @@
   border-radius: 20px;
   padding: 1.25rem 1.5rem 1rem 1.5rem;
   margin: 0.5rem 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -87,4 +87,4 @@
   width: 24px;
   height: 24px;
   display: block;
-} 
+}

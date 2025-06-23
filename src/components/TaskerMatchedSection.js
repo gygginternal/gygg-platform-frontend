@@ -1,17 +1,18 @@
 import { MapPin } from 'lucide-react';
 import { Badge } from '../components/Badge';
 import PropTypes from 'prop-types';
+import styles from './TaskerMatchedSection.module.css';
 
 export function ServiceProviderListing({ gigHelpers }) {
   return (
-    <div className="container mx-auto py-8 px-4">
-      <div className="space-y-4">
+    <div className={styles.container}>
+      <div className={styles.spaceY4}>
         {gigHelpers.length > 0 ? (
           gigHelpers.map(provider => (
             <ProviderCard key={provider.id} provider={provider} />
           ))
         ) : (
-          <p className="text-gray-500">No Tasker Found.</p>
+          <p className={styles.noTaskerFound}>No Tasker Found.</p>
         )}
       </div>
     </div>
@@ -24,39 +25,37 @@ ServiceProviderListing.propTypes = {
 
 export function ProviderCard({ provider }) {
   return (
-    <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
-      <div className="flex flex-col sm:flex-row">
-        <div className="w-full sm:w-48 h-48 relative">
+    <div className={styles.providerCard}>
+      <div className={styles.cardContent}>
+        <div className={styles.imageContainer}>
           <img
             src={provider.image || '/placeholder.svg'}
             alt={provider.name}
-            className="w-full h-full object-cover"
+            className={styles.image}
           />
         </div>
-        <div className="flex-1 p-4">
-          <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-2">
+        <div className={styles.content}>
+          <div className={styles.header}>
             <div>
-              <h2 className="text-xl font-semibold">{provider.name}</h2>
-              <p className="text-amber-500 font-semibold">{provider.rate}</p>
+              <h2 className={styles.title}>{provider.name}</h2>
+              <p className={styles.rate}>{provider.rate}</p>
               {provider.location && (
-                <div className="flex items-center text-gray-500 mt-1">
-                  <MapPin className="h-4 w-4 mr-1" />
+                <div className={styles.locationContainer}>
+                  <MapPin className={styles.locationIcon} />
                   <span>{provider.location}</span>
                 </div>
               )}
             </div>
           </div>
 
-          <p className="text-gray-600 my-3 line-clamp-2">
-            {provider.description}
-          </p>
+          <p className={styles.description}>{provider.description}</p>
 
-          <div className="flex flex-wrap gap-2 mt-2">
+          <div className={styles.servicesContainer}>
             {provider.services.map(service => (
               <Badge
                 key={service}
                 variant="outline"
-                className="hover:bg-amber-200 border-amber-200 rounded-full px-4 py-1"
+                className={styles.serviceBadge}
               >
                 {service}
               </Badge>

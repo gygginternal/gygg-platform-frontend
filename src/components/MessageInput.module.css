@@ -21,7 +21,7 @@
 
 .inputContainer:focus-within {
   border-color: #10b3c6;
-  box-shadow: 0 0 0 2px rgba(16,179,198,0.08);
+  box-shadow: 0 0 0 2px rgba(16, 179, 198, 0.08);
 }
 
 .input {

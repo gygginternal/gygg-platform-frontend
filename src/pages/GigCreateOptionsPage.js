@@ -249,7 +249,7 @@ function GigCreateOptionsPage() {
               </div>
             )}
 
-            {error && <p className="error-message">{error}</p>}
+            {error && <p className={styles.errorMessage}>{error}</p>}
             <button
               type="submit"
               className={styles.submitButton}

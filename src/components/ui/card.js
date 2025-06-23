@@ -35,11 +35,7 @@ CardTitle.propTypes = {
 };
 
 const CardDescription = React.forwardRef(({ className, ...props }, ref) => (
-  <p
-    ref={ref}
-    className={`${styles.description} ${className}`}
-    {...props}
-  />
+  <p ref={ref} className={`${styles.description} ${className}`} {...props} />
 ));
 CardDescription.displayName = 'CardDescription';
 

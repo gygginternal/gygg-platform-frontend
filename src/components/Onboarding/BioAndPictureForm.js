@@ -1,5 +1,5 @@
 // src/components/Onboarding/BioAndPictureForm.js
-import { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styles from './BioAndPictureForm.module.css'; // Create this
 import PropTypes from 'prop-types';
 import FormInput from './FormInput';

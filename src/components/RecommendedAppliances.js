@@ -34,10 +34,7 @@ const RecommendedAppliances = () => {
   };
 
   return (
-    <section
-      className={styles.appliancesSection}
-      style={{ marginTop: '1.25rem' }}
-    >
+    <section className={styles.appliancesSection}>
       <div className={styles.sectionHeader}>
         <h4 className={styles.sectionTitleUnderlined}>
           Top matched people applied to your gig

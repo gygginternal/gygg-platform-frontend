@@ -15,6 +15,7 @@ import {
   Grid,
 } from '../styles/components';
 import apiClient from '../api/axiosConfig';
+import styles from './CreateGig.module.css';
 
 const CreateGig = () => {
   const { user } = useAuth();
@@ -64,7 +65,7 @@ const CreateGig = () => {
             direction="column"
             align="center"
             gap="md"
-            style={{ padding: '48px 0' }}
+            className={styles.accessDeniedContainer}
           >
             <Heading as="h1">Access Denied</Heading>
             <Text color="text.secondary">
@@ -82,9 +83,9 @@ const CreateGig = () => {
 
   return (
     <Container>
-      <Flex direction="column" gap="lg" style={{ padding: '24px 0' }}>
+      <Flex direction="column" gap="lg" className={styles.createGigContainer}>
         <Card>
-          <Heading as="h1" style={{ marginBottom: '24px' }}>
+          <Heading as="h1" className={styles.createGigHeading}>
             Create a New Gig
           </Heading>
 
@@ -95,7 +96,7 @@ const CreateGig = () => {
                 <Text
                   as="label"
                   color="text.secondary"
-                  style={{ marginBottom: '4px' }}
+                  className={styles.label}
                 >
                   Title
                 </Text>
@@ -105,6 +106,7 @@ const CreateGig = () => {
                   onChange={handleChange}
                   placeholder="Enter a clear, descriptive title"
                   required
+                  className={styles.input}
                 />
               </div>
 
@@ -112,7 +114,7 @@ const CreateGig = () => {
                 <Text
                   as="label"
                   color="text.secondary"
-                  style={{ marginBottom: '4px' }}
+                  className={styles.label}
                 >
                   Description
                 </Text>
@@ -123,15 +125,16 @@ const CreateGig = () => {
                   placeholder="Describe the gig in detail..."
                   rows={6}
                   required
+                  className={styles.textArea}
                 />
               </div>
 
-              <Grid columns={2} gap="lg">
+              <Grid columns={2} gap="lg" className={styles.grid}>
                 <div>
                   <Text
                     as="label"
                     color="text.secondary"
-                    style={{ marginBottom: '4px' }}
+                    className={styles.label}
                   >
                     Budget ($)
                   </Text>
@@ -142,6 +145,7 @@ const CreateGig = () => {
                     onChange={handleChange}
                     min="0"
                     required
+                    className={styles.input}
                   />
                 </div>
 
@@ -149,7 +153,7 @@ const CreateGig = () => {
                   <Text
                     as="label"
                     color="text.secondary"
-                    style={{ marginBottom: '4px' }}
+                    className={styles.label}
                   >
                     Category
                   </Text>
@@ -158,6 +162,7 @@ const CreateGig = () => {
                     value={formData.category}
                     onChange={handleChange}
                     required
+                    className={styles.select}
                   >
                     <option value="">Select a category</option>
                     <option value="web-development">Web Development</option>
@@ -174,7 +179,7 @@ const CreateGig = () => {
                   <Text
                     as="label"
                     color="text.secondary"
-                    style={{ marginBottom: '4px' }}
+                    className={styles.label}
                   >
                     Duration
                   </Text>
@@ -183,6 +188,7 @@ const CreateGig = () => {
                     value={formData.duration}
                     onChange={handleChange}
                     required
+                    className={styles.select}
                   >
                     <option value="">Select duration</option>
                     <option value="less-than-1-week">Less than 1 week</option>
@@ -200,7 +206,7 @@ const CreateGig = () => {
                   <Text
                     as="label"
                     color="text.secondary"
-                    style={{ marginBottom: '4px' }}
+                    className={styles.label}
                   >
                     Experience Level
                   </Text>
@@ -209,6 +215,7 @@ const CreateGig = () => {
                     value={formData.experience}
                     onChange={handleChange}
                     required
+                    className={styles.select}
                   >
                     <option value="">Select experience level</option>
                     <option value="entry">Entry Level</option>
@@ -222,7 +229,7 @@ const CreateGig = () => {
                 <Text
                   as="label"
                   color="text.secondary"
-                  style={{ marginBottom: '4px' }}
+                  className={styles.label}
                 >
                   Required Skills (comma-separated)
                 </Text>
@@ -231,10 +238,16 @@ const CreateGig = () => {
                   value={formData.skills.join(', ')}
                   onChange={handleSkillsChange}
                   placeholder="e.g., React, Node.js, UI/UX Design"
+                  className={styles.input}
                 />
               </div>
 
-              <Button type="submit" variant="primary" disabled={loading}>
+              <Button
+                type="submit"
+                variant="primary"
+                disabled={loading}
+                className={styles.submitButton}
+              >
                 {loading ? 'Creating...' : 'Create Gig'}
               </Button>
             </Flex>

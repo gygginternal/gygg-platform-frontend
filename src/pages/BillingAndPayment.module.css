@@ -27,7 +27,7 @@
 .card {
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   padding: 28px 28px 16px 28px;
   max-width: 800px;
   margin: 0 auto;
@@ -120,7 +120,8 @@
   background: #fff;
 }
 
-th, td {
+th,
+td {
   padding: 10px 8px;
   text-align: left;
 }
@@ -171,7 +172,9 @@ tr:not(:last-child) td {
   cursor: pointer;
   color: #888;
   border-radius: 6px 6px 0 0;
-  transition: color 0.18s, border-bottom 0.18s;
+  transition:
+    color 0.18s,
+    border-bottom 0.18s;
 }
 
 .toggleView button:hover {
@@ -184,7 +187,7 @@ tr:not(:last-child) td {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0,0,0,0.18);
+  background: rgba(0, 0, 0, 0.18);
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -194,7 +197,7 @@ tr:not(:last-child) td {
 .modalCard {
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.18);
   min-width: 400px;
   max-width: 95vw;
   padding: 0;
@@ -309,7 +312,7 @@ tr:not(:last-child) td {
 .invoiceModalCard {
   background: #fff;
   border-radius: 14px;
-  box-shadow: 0 4px 32px rgba(0,0,0,0.14);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.14);
   max-width: 480px;
   width: 100%;
   margin: 60px auto;
@@ -365,6 +368,76 @@ tr:not(:last-child) td {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: none; }
-} 
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.mb16 {
+  margin-bottom: 16px;
+}
+
+.ml8 {
+  margin-left: 8px;
+}
+
+.fw500 {
+  font-weight: 500;
+}
+
+.ml24 {
+  margin-left: 24px;
+}
+
+.w100 {
+  width: 100px;
+}
+
+.fw600 {
+  font-weight: 600;
+}
+
+.fs24 {
+  font-size: 24px;
+}
+
+.mb12 {
+  margin-bottom: 12px;
+}
+
+.c555 {
+  color: #555;
+}
+
+.c888 {
+  color: #888;
+}
+
+.fs22 {
+  font-size: 22px;
+}
+
+.fw700 {
+  font-weight: 700;
+}
+
+.c1db954 {
+  color: #1db954;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.p2rem {
+  padding: 2rem;
+}
+
+.cred {
+  color: red;
+}

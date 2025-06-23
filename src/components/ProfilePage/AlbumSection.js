@@ -1,6 +1,5 @@
 // src/components/ProfilePage/AlbumSection.js
-import { useState, useEffect } from 'react';
-import { useAuth } from '../../context/AuthContext';
+import { useState, useEffect, useCallback } from 'react';
 import { useToast } from '../../context/ToastContext';
 import apiClient from '../../api/axiosConfig';
 import styles from './AlbumSection.module.css';
@@ -63,7 +62,7 @@ function AlbumSection({ userIdToView, isOwnProfile, onUpdate }) {
     if (isOwnProfile) setShowModal(true);
   };
 
-  const handlePhotoAdded = (_newPhotoFromBackend) => {
+  const handlePhotoAdded = _newPhotoFromBackend => {
     logger.info('AlbumSection: Photo added successfully, refetching album.');
     fetchAlbum();
     setShowModal(false);

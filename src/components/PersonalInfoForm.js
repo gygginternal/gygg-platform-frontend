@@ -1,6 +1,6 @@
 // src/components/Settings/PersonalInfoForm.js
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import apiClient from '../api/axiosConfig';
@@ -11,14 +11,13 @@ import CountryCodeSelect from './Shared/CountryCodeSelect';
 import AddressInput from './Shared/AddressInput';
 import logger from '../utils/logger'; // Optional logger, adjust path as needed
 import { StripeOnboarding } from '../components/StripeOnboarding'; // Import StripeOnboarding if needed
-import { useSearchParams } from 'react-router-dom'; // Import hooks for URL params and navigation
 import PropTypes from 'prop-types';
 
 function PersonalInfoForm() {
   const { user, updateUser } = useAuth();
   const { showToast } = useToast();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [_error, setError] = useState('');
   const [_success, setSuccess] = useState('');
@@ -361,10 +360,8 @@ function PersonalInfoForm() {
             </div>
 
             <h4 className={styles.subheading}>Change Password (Optional)</h4>
-            {error && <p className="error-message">{error}</p>}
-            {success && (
-              <p className="success-message">{success}</p>
-            )}
+            {error && <p className={styles['error-message']}>{error}</p>}
+            {success && <p className={styles['success-message']}>{success}</p>}
             <div className={styles.row}>
               <div className={styles.inputGroup}>
                 <label htmlFor="currentPassword">Current Password</label>

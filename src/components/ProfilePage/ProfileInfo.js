@@ -4,11 +4,6 @@ import styles from './ProfileInfo.module.css'; // Ensure this CSS Module exists 
 import apiClient from '../../api/axiosConfig'; // Adjust path if necessary
 import logger from '../../utils/logger'; // Optional: Adjust path if necessary
 import { useToast } from '../../context/ToastContext';
-import { useAuth } from '../../context/AuthContext';
-import FormInput from '../Shared/FormInput';
-import CountrySelect from '../Shared/CountrySelect';
-import CountryCodeSelect from '../Shared/CountryCodeSelect';
-import AddressInput from '../Shared/AddressInput';
 import PropTypes from 'prop-types';
 
 // Helper function to decode HTML entities (if bio or other text fields might have them from backend)

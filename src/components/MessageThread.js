@@ -1,5 +1,5 @@
 // src/components/ChatPage/MessageThread.js
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './MessageThread.module.css'; // Your CSS Module
 import { useAuth } from '../context/AuthContext'; // To get current user ID
 import PropTypes from 'prop-types';

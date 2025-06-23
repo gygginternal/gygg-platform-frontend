@@ -1,5 +1,5 @@
 // src/components/Shared/ProgressBar.js
-import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './ProgressBar.module.css'; // Create this CSS module
 
 function ProgressBar({ current, total, label = 'Profile Setup Progress' }) {
@@ -25,4 +25,11 @@ function ProgressBar({ current, total, label = 'Profile Setup Progress' }) {
     </div>
   );
 }
+
+ProgressBar.propTypes = {
+  current: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+  label: PropTypes.string,
+};
+
 export default ProgressBar;

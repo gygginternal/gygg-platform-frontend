@@ -1,8 +1,6 @@
 // src/components/GigsPage/TaskCard.js
 import { useState } from 'react';
 import styles from './TaskCard.module.css';
-import { useNavigate } from 'react-router-dom';
-import { formatCategoryName, getCategoryIcon } from '../constants/categories';
 import GigDetailsModal from './GigDetailsModal';
 import PropTypes from 'prop-types';
 
@@ -17,7 +15,6 @@ const timeAgo = date => {
 
 const TaskCard = ({ gig }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const navigate = useNavigate();
   const {
     _id,
     title,

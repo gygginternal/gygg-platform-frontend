@@ -15,6 +15,7 @@ import {
 } from '../styles/components';
 import apiClient from '../api/axiosConfig';
 import DeleteAccountButton from '../components/DeleteAccountButton';
+import styles from './Profile.module.css';
 
 const Profile = () => {
   const { user, updateProfile } = useAuth();
@@ -69,9 +70,9 @@ const Profile = () => {
 
   return (
     <Container>
-      <Flex direction="column" gap="lg" style={{ padding: '24px 0' }}>
+      <Flex direction="column" gap="lg" className={styles.padding}>
         <Card>
-          <Heading as="h1" style={{ marginBottom: '24px' }}>
+          <Heading as="h1" className={styles.marginBottom}>
             Profile Settings
           </Heading>
 
@@ -79,7 +80,7 @@ const Profile = () => {
             <Grid columns={2} gap="lg">
               {/* Basic Information */}
               <Card>
-                <Heading as="h2" style={{ marginBottom: '16px' }}>
+                <Heading as="h2" className={styles.marginBottom}>
                   Basic Information
                 </Heading>
                 <Flex direction="column" gap="md">
@@ -87,7 +88,7 @@ const Profile = () => {
                     <Text
                       as="label"
                       color="text.secondary"
-                      style={{ marginBottom: '4px' }}
+                      className={styles.marginBottom}
                     >
                       Full Name
                     </Text>
@@ -102,7 +103,7 @@ const Profile = () => {
                     <Text
                       as="label"
                       color="text.secondary"
-                      style={{ marginBottom: '4px' }}
+                      className={styles.marginBottom}
                     >
                       Email
                     </Text>
@@ -118,7 +119,7 @@ const Profile = () => {
                     <Text
                       as="label"
                       color="text.secondary"
-                      style={{ marginBottom: '4px' }}
+                      className={styles.marginBottom}
                     >
                       Location
                     </Text>
@@ -134,7 +135,7 @@ const Profile = () => {
 
               {/* Professional Information */}
               <Card>
-                <Heading as="h2" style={{ marginBottom: '16px' }}>
+                <Heading as="h2" className={styles.marginBottom}>
                   Professional Information
                 </Heading>
                 <Flex direction="column" gap="md">
@@ -142,7 +143,7 @@ const Profile = () => {
                     <Text
                       as="label"
                       color="text.secondary"
-                      style={{ marginBottom: '4px' }}
+                      className={styles.marginBottom}
                     >
                       Bio
                     </Text>
@@ -158,7 +159,7 @@ const Profile = () => {
                     <Text
                       as="label"
                       color="text.secondary"
-                      style={{ marginBottom: '4px' }}
+                      className={styles.marginBottom}
                     >
                       Skills (comma-separated)
                     </Text>
@@ -173,7 +174,7 @@ const Profile = () => {
                     <Text
                       as="label"
                       color="text.secondary"
-                      style={{ marginBottom: '4px' }}
+                      className={styles.marginBottom}
                     >
                       Hourly Rate ($)
                     </Text>
@@ -189,7 +190,7 @@ const Profile = () => {
                     <Text
                       as="label"
                       color="text.secondary"
-                      style={{ marginBottom: '4px' }}
+                      className={styles.marginBottom}
                     >
                       Availability
                     </Text>
@@ -210,18 +211,12 @@ const Profile = () => {
               type="submit"
               variant="primary"
               disabled={loading}
-              style={{ marginTop: '24px' }}
+              className={styles.marginTop}
             >
               {loading ? 'Saving...' : 'Save Changes'}
             </Button>
           </form>
-          <div
-            style={{
-              marginTop: '32px',
-              borderTop: '1px solid #eee',
-              paddingTop: '24px',
-            }}
-          >
+          <div className={styles.marginTop}>
             <DeleteAccountButton />
           </div>
         </Card>

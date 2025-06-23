@@ -12,6 +12,7 @@ import {
   Grid,
 } from '../styles/components';
 import apiClient from '../api/axiosConfig';
+import styles from './Dashboard.module.css';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -44,12 +45,12 @@ const Dashboard = () => {
 
   return (
     <Container>
-      <Flex direction="column" gap="lg" style={{ padding: '24px 0' }}>
+      <Flex direction="column" gap="lg" className={styles.padding}>
         {/* Welcome Section */}
         <Card>
           <Flex justify="space-between" align="center">
             <div>
-              <Heading as="h1" style={{ marginBottom: '8px' }}>
+              <Heading as="h1" className={styles.marginBottom}>
                 Welcome back, {user?.name}!
               </Heading>
               <Text color="text.secondary">
@@ -71,10 +72,10 @@ const Dashboard = () => {
         {/* Stats Section */}
         <Grid columns={3} gap="md">
           <Card>
-            <Text color="text.secondary" style={{ marginBottom: '8px' }}>
+            <Text color="text.secondary" className={styles.marginBottom}>
               {isFreelancer ? 'Total Gigs' : 'Posted Gigs'}
             </Text>
-            <Heading as="h2" style={{ marginBottom: '8px' }}>
+            <Heading as="h2" className={styles.marginBottom}>
               {loading ? '...' : stats.totalGigs}
             </Heading>
             <Text size="sm" color="text.secondary">
@@ -85,10 +86,10 @@ const Dashboard = () => {
           </Card>
 
           <Card>
-            <Text color="text.secondary" style={{ marginBottom: '8px' }}>
+            <Text color="text.secondary" className={styles.marginBottom}>
               Active Gigs
             </Text>
-            <Heading as="h2" style={{ marginBottom: '8px' }}>
+            <Heading as="h2" className={styles.marginBottom}>
               {loading ? '...' : stats.activeGigs}
             </Heading>
             <Text size="sm" color="text.secondary">
@@ -97,10 +98,10 @@ const Dashboard = () => {
           </Card>
 
           <Card>
-            <Text color="text.secondary" style={{ marginBottom: '8px' }}>
+            <Text color="text.secondary" className={styles.marginBottom}>
               {isFreelancer ? 'Total Earnings' : 'Total Spent'}
             </Text>
-            <Heading as="h2" style={{ marginBottom: '8px' }}>
+            <Heading as="h2" className={styles.marginBottom}>
               {loading
                 ? '...'
                 : `$${isFreelancer ? stats.totalEarnings : stats.totalSpent}`}
@@ -115,14 +116,15 @@ const Dashboard = () => {
 
         {/* Recent Activity Section */}
         <Card>
-          <Heading as="h2" style={{ marginBottom: '24px' }}>
+          <Heading as="h2" className={styles.marginBottom}>
             Recent Activity
           </Heading>
           <Flex direction="column" gap="md">
             {/* Placeholder for recent activity items */}
             <Text
               color="text.secondary"
-              style={{ textAlign: 'center', padding: '32px' }}
+              className={styles.textAlignCenter}
+              style={{ padding: '32px' }}
             >
               No recent activity to show
             </Text>
@@ -131,7 +133,7 @@ const Dashboard = () => {
 
         {/* Quick Actions Section */}
         <Card>
-          <Heading as="h2" style={{ marginBottom: '24px' }}>
+          <Heading as="h2" className={styles.marginBottom}>
             Quick Actions
           </Heading>
           <Grid columns={2} gap="md">
@@ -139,7 +141,7 @@ const Dashboard = () => {
               variant="outline"
               as={Link}
               to="/profile"
-              style={{ height: '100px' }}
+              className={styles.height}
             >
               <Flex direction="column" align="center" gap="sm">
                 <Text weight="medium">Update Profile</Text>
@@ -152,7 +154,7 @@ const Dashboard = () => {
               variant="outline"
               as={Link}
               to="/chat"
-              style={{ height: '100px' }}
+              className={styles.height}
             >
               <Flex direction="column" align="center" gap="sm">
                 <Text weight="medium">Messages</Text>
@@ -165,7 +167,7 @@ const Dashboard = () => {
               variant="outline"
               as={Link}
               to="/notifications"
-              style={{ height: '100px' }}
+              className={styles.height}
             >
               <Flex direction="column" align="center" gap="sm">
                 <Text weight="medium">Notifications</Text>
@@ -178,7 +180,7 @@ const Dashboard = () => {
               variant="outline"
               as={Link}
               to="/contracts"
-              style={{ height: '100px' }}
+              className={styles.height}
             >
               <Flex direction="column" align="center" gap="sm">
                 <Text weight="medium">My Contracts</Text>

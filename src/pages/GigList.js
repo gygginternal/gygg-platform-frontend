@@ -14,6 +14,7 @@ import {
   Select,
 } from '../styles/components';
 import apiClient from '../api/axiosConfig';
+import styles from './GigList.module.css';
 
 const GigList = () => {
   const { user } = useAuth();
@@ -64,12 +65,12 @@ const GigList = () => {
 
   return (
     <Container>
-      <Flex direction="column" gap="lg" style={{ padding: '24px 0' }}>
+      <Flex direction="column" gap="lg" className={styles.padding}>
         {/* Header */}
         <Card>
           <Flex justify="space-between" align="center">
             <div>
-              <Heading as="h1" style={{ marginBottom: '8px' }}>
+              <Heading as="h1" className={styles.marginBottom}>
                 Available Gigs
               </Heading>
               <Text color="text.secondary">
@@ -91,7 +92,7 @@ const GigList = () => {
               <Text
                 as="label"
                 color="text.secondary"
-                style={{ marginBottom: '4px' }}
+                className={styles.marginBottom}
               >
                 Search
               </Text>
@@ -105,7 +106,7 @@ const GigList = () => {
               <Text
                 as="label"
                 color="text.secondary"
-                style={{ marginBottom: '4px' }}
+                className={styles.marginBottom}
               >
                 Category
               </Text>
@@ -125,7 +126,7 @@ const GigList = () => {
               <Text
                 as="label"
                 color="text.secondary"
-                style={{ marginBottom: '4px' }}
+                className={styles.marginBottom}
               >
                 Sort By
               </Text>
@@ -151,7 +152,7 @@ const GigList = () => {
               <Card key={gig.id}>
                 <Flex direction="column" gap="md">
                   <div>
-                    <Heading as="h3" style={{ marginBottom: '8px' }}>
+                    <Heading as="h3" className={styles.marginBottom}>
                       {gig.title}
                     </Heading>
                     <Text

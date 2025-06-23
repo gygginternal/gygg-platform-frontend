@@ -30,7 +30,7 @@ function NotificationsPage() {
         n.map(notif => (notif._id === id ? { ...notif, read: true } : notif))
       );
     } catch (err) {
-      console.error('Error marking notification as read:', err);
+      // Remove all console.error statements
     }
   };
 
@@ -39,7 +39,7 @@ function NotificationsPage() {
       await apiClient.delete(`/notifications/${id}`);
       setNotifications(n => n.filter(notif => notif._id !== id));
     } catch (err) {
-      console.error('Error deleting notification:', err);
+      // Remove all console.error statements
     }
   };
 

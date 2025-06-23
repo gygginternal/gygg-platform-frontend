@@ -48,7 +48,6 @@ function ReviewForm({ contractId, review, onSuccess }) {
   const [comment, setComment] = useState(review ? review.comment : '');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -82,15 +81,9 @@ function ReviewForm({ contractId, review, onSuccess }) {
       if (onSuccess) onSuccess();
     } catch (err) {
       // Handle error silently or log it
-      console.error('Error deleting review:', err);
     }
     setLoading(false);
   };
-
-  // Prevent form resubmission if successful
-  if (successMessage) {
-    return <p className={styles.successMessage}>{successMessage}</p>;
-  }
 
   return (
     // Apply card styling or custom styling as needed

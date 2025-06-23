@@ -2,6 +2,7 @@
 // Remove: import React from 'react';
 import { ArrowLeft } from 'lucide-react'; // Keep if lucide-react is installed
 import styles from './ProgressHeader.module.css'; // Create this CSS module
+import PropTypes from 'prop-types';
 
 // No TS interface in JS version
 function ProgressHeader({
@@ -85,5 +86,13 @@ function ProgressHeader({
     </div>
   );
 }
+
+ProgressHeader.propTypes = {
+  step: PropTypes.number.isRequired,
+  totalSteps: PropTypes.number.isRequired,
+  onNavigate: PropTypes.func,
+  canGoNext: PropTypes.bool,
+  canGoBack: PropTypes.bool,
+};
 
 export default ProgressHeader;

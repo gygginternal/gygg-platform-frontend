@@ -13,6 +13,7 @@ import {
   ErrorText,
   Select,
 } from '../styles/components';
+import styles from './Register.module.css';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -67,22 +68,15 @@ const Register = () => {
         direction="column"
         align="center"
         justify="center"
-        style={{ minHeight: '100vh', padding: '20px' }}
+        className={styles.flexContainer}
       >
-        <Card style={{ width: '100%', maxWidth: '400px' }}>
-          <Heading
-            as="h1"
-            style={{ textAlign: 'center', marginBottom: '24px' }}
-          >
+        <Card className={styles.card}>
+          <Heading as="h1" className={styles.heading}>
             Create Account
           </Heading>
           <form onSubmit={handleSubmit}>
-            <div style={{ marginBottom: '16px' }}>
-              <Text
-                as="label"
-                htmlFor="name"
-                style={{ display: 'block', marginBottom: '8px' }}
-              >
+            <div className={styles.formGroup}>
+              <Text as="label" htmlFor="name" className={styles.label}>
                 Full Name
               </Text>
               <Input
@@ -93,14 +87,11 @@ const Register = () => {
                 onChange={handleChange}
                 placeholder="Enter your full name"
                 required
+                className={styles.input}
               />
             </div>
-            <div style={{ marginBottom: '16px' }}>
-              <Text
-                as="label"
-                htmlFor="email"
-                style={{ display: 'block', marginBottom: '8px' }}
-              >
+            <div className={styles.formGroup}>
+              <Text as="label" htmlFor="email" className={styles.label}>
                 Email
               </Text>
               <Input
@@ -111,14 +102,11 @@ const Register = () => {
                 onChange={handleChange}
                 placeholder="Enter your email"
                 required
+                className={styles.input}
               />
             </div>
-            <div style={{ marginBottom: '16px' }}>
-              <Text
-                as="label"
-                htmlFor="password"
-                style={{ display: 'block', marginBottom: '8px' }}
-              >
+            <div className={styles.formGroup}>
+              <Text as="label" htmlFor="password" className={styles.label}>
                 Password
               </Text>
               <Input
@@ -129,13 +117,14 @@ const Register = () => {
                 onChange={handleChange}
                 placeholder="Enter your password"
                 required
+                className={styles.input}
               />
             </div>
-            <div style={{ marginBottom: '16px' }}>
+            <div className={styles.formGroup}>
               <Text
                 as="label"
                 htmlFor="confirmPassword"
-                style={{ display: 'block', marginBottom: '8px' }}
+                className={styles.label}
               >
                 Confirm Password
               </Text>
@@ -147,14 +136,11 @@ const Register = () => {
                 onChange={handleChange}
                 placeholder="Confirm your password"
                 required
+                className={styles.input}
               />
             </div>
-            <div style={{ marginBottom: '24px' }}>
-              <Text
-                as="label"
-                htmlFor="role"
-                style={{ display: 'block', marginBottom: '8px' }}
-              >
+            <div className={styles.formGroup}>
+              <Text as="label" htmlFor="role" className={styles.label}>
                 I want to
               </Text>
               <Select
@@ -163,19 +149,27 @@ const Register = () => {
                 value={formData.role}
                 onChange={handleChange}
                 required
+                className={styles.select}
               >
                 <option value="freelancer">Find Work</option>
                 <option value="client">Hire Talent</option>
               </Select>
             </div>
-            {error && <ErrorText>{error}</ErrorText>}
-            <Button type="submit" fullWidth disabled={loading}>
+            {error && (
+              <ErrorText className={styles.errorText}>{error}</ErrorText>
+            )}
+            <Button
+              type="submit"
+              fullWidth
+              disabled={loading}
+              className={styles.button}
+            >
               {loading ? 'Creating Account...' : 'Create Account'}
             </Button>
           </form>
-          <Text style={{ textAlign: 'center', marginTop: '16px' }}>
+          <Text className={styles.text}>
             Already have an account?{' '}
-            <Link to="/login" style={{ color: 'var(--color-primary)' }}>
+            <Link to="/login" className={styles.link}>
               Login here
             </Link>
           </Text>

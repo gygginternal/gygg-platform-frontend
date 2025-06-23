@@ -1,10 +1,6 @@
 // src/components/Onboarding/GigPostTimelineCategory.js
-import { useState } from 'react';
-import styles from './GigPostTimelineCategory.module.css';
-import FormInput from '../Shared/FormInput';
-import { AutoComplete } from '../AutoComplete';
-import { CATEGORIES } from '../../utils/constants';
 import PropTypes from 'prop-types';
+import styles from './GigPostTimelineCategory.module.css';
 import { SKILL_OPTIONS } from '../../utils/constants';
 
 function GigPostTimelineCategory({ formData, onInputChange }) {
@@ -71,7 +67,7 @@ function GigPostTimelineCategory({ formData, onInputChange }) {
 
 GigPostTimelineCategory.propTypes = {
   formData: PropTypes.object.isRequired,
-  onInputChange: PropTypes.func.isRequired
+  onInputChange: PropTypes.func.isRequired,
 };
 
 export default GigPostTimelineCategory;

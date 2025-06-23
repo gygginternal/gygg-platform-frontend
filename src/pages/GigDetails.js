@@ -13,6 +13,7 @@ import {
   TextArea,
 } from '../styles/components';
 import apiClient from '../api/axiosConfig';
+import styles from './GigDetails.module.css';
 
 const GigDetails = () => {
   const { id } = useParams();
@@ -78,7 +79,7 @@ const GigDetails = () => {
 
   return (
     <Container>
-      <Flex direction="column" gap="lg" style={{ padding: '24px 0' }}>
+      <Flex direction="column" gap="lg" className={styles.padding}>
         {/* Gig Header */}
         <Card>
           <Flex direction="column" gap="md">
@@ -93,7 +94,7 @@ const GigDetails = () => {
                 </Button>
               )}
             </Flex>
-            <Flex gap="md" style={{ flexWrap: 'wrap' }}>
+            <Flex gap="md" className={styles.flexWrap}>
               <Text color="text.secondary">
                 Posted by {gig.client.name} •{' '}
                 {new Date(gig.createdAt).toLocaleDateString()}
@@ -108,28 +109,21 @@ const GigDetails = () => {
 
         <Grid columns={3} gap="lg">
           {/* Main Content */}
-          <Flex direction="column" gap="lg" style={{ gridColumn: 'span 2' }}>
+          <Flex direction="column" gap="lg" className={styles.gridColumn}>
             <Card>
-              <Heading as="h2" style={{ marginBottom: '16px' }}>
+              <Heading as="h2" className={styles.marginBottom}>
                 Description
               </Heading>
-              <Text style={{ whiteSpace: 'pre-wrap' }}>{gig.description}</Text>
+              <Text className={styles.whiteSpace}>{gig.description}</Text>
             </Card>
 
             <Card>
-              <Heading as="h2" style={{ marginBottom: '16px' }}>
+              <Heading as="h2" className={styles.marginBottom}>
                 Required Skills
               </Heading>
-              <Flex gap="sm" style={{ flexWrap: 'wrap' }}>
+              <Flex gap="sm" className={styles.flexWrap}>
                 {gig.skills.map(skill => (
-                  <Text
-                    key={skill}
-                    style={{
-                      backgroundColor: 'var(--color-neutral-100)',
-                      padding: '4px 8px',
-                      borderRadius: '4px',
-                    }}
-                  >
+                  <Text key={skill} className={styles.backgroundColor}>
                     {skill}
                   </Text>
                 ))}
@@ -138,7 +132,7 @@ const GigDetails = () => {
 
             {isFreelancer && gig.status === 'open' && (
               <Card>
-                <Heading as="h2" style={{ marginBottom: '16px' }}>
+                <Heading as="h2" className={styles.marginBottom}>
                   Submit a Proposal
                 </Heading>
                 <Flex direction="column" gap="md">
@@ -165,42 +159,41 @@ const GigDetails = () => {
             <Card>
               <Flex direction="column" gap="md">
                 <div>
-                  <Text color="text.secondary" style={{ marginBottom: '4px' }}>
+                  <Text color="text.secondary" className={styles.marginBottom}>
                     Budget
                   </Text>
                   <Heading as="h3">${gig.budget}</Heading>
                 </div>
                 <div>
-                  <Text color="text.secondary" style={{ marginBottom: '4px' }}>
+                  <Text color="text.secondary" className={styles.marginBottom}>
                     Category
                   </Text>
                   <Text>{gig.category}</Text>
                 </div>
                 <div>
-                  <Text color="text.secondary" style={{ marginBottom: '4px' }}>
+                  <Text color="text.secondary" className={styles.marginBottom}>
                     Duration
                   </Text>
                   <Text>{gig.duration}</Text>
                 </div>
                 <div>
-                  <Text color="text.secondary" style={{ marginBottom: '4px' }}>
+                  <Text color="text.secondary" className={styles.marginBottom}>
                     Experience Level
                   </Text>
                   <Text>{gig.experience}</Text>
                 </div>
                 <div>
-                  <Text color="text.secondary" style={{ marginBottom: '4px' }}>
+                  <Text color="text.secondary" className={styles.marginBottom}>
                     Status
                   </Text>
                   <Text
-                    style={{
-                      color:
-                        gig.status === 'open'
-                          ? 'var(--color-success-500)'
-                          : gig.status === 'in-progress'
-                            ? 'var(--color-warning-500)'
-                            : 'var(--color-neutral-500)',
-                    }}
+                    className={
+                      gig.status === 'open'
+                        ? styles.colorSuccess
+                        : gig.status === 'in-progress'
+                          ? styles.colorWarning
+                          : styles.colorNeutral
+                    }
                   >
                     {gig.status.charAt(0).toUpperCase() + gig.status.slice(1)}
                   </Text>
@@ -209,7 +202,7 @@ const GigDetails = () => {
             </Card>
 
             <Card>
-              <Heading as="h3" style={{ marginBottom: '16px' }}>
+              <Heading as="h3" className={styles.marginBottom}>
                 About the Client
               </Heading>
               <Flex direction="column" gap="md">

@@ -1,8 +1,6 @@
 // src/components/Onboarding/GigPostReview.js
-import { useState } from 'react';
-import styles from './GigPostReview.module.css';
-import FormInput from '../Shared/FormInput';
 import PropTypes from 'prop-types';
+import styles from './GigPostReview.module.css';
 
 function GigPostReview({ gigData, onEditStep }) {
   return (
@@ -70,5 +68,5 @@ export default GigPostReview;
 
 GigPostReview.propTypes = {
   gigData: PropTypes.object.isRequired,
-  onEditStep: PropTypes.func.isRequired
+  onEditStep: PropTypes.func.isRequired,
 };

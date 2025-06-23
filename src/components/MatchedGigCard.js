@@ -1,5 +1,6 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import styles from './MatchedGigCard.module.css';
 
 function MatchedGigCard({ gig }) {
   if (!gig) return null;
@@ -15,13 +16,7 @@ function MatchedGigCard({ gig }) {
       <p>Cost: ${gig.cost}</p>
       <p>Status: {gig.status}</p>
       {provider && (
-        <div
-          style={{
-            marginTop: '10px',
-            borderTop: '1px dashed #eee',
-            paddingTop: '10px',
-          }}
-        >
+        <div className={styles.providerInfo}>
           <div className="flex-container">
             {' '}
             {/* Use flexbox */}
@@ -47,4 +42,23 @@ function MatchedGigCard({ gig }) {
     </li>
   );
 }
+
+MatchedGigCard.propTypes = {
+  gig: PropTypes.shape({
+    _id: PropTypes.string,
+    title: PropTypes.string,
+    category: PropTypes.string,
+    cost: PropTypes.number,
+    status: PropTypes.string,
+    matchScore: PropTypes.number,
+    providerInfo: PropTypes.shape({
+      profileImage: PropTypes.string,
+      fullName: PropTypes.string,
+      rating: PropTypes.number,
+      peoplePreference: PropTypes.string,
+      hobbies: PropTypes.arrayOf(PropTypes.string),
+    }),
+  }).isRequired,
+};
+
 export default MatchedGigCard;

@@ -1,8 +1,6 @@
 // src/components/Onboarding/GigPostDetailsBudget.js
-import { useState } from 'react';
-import styles from './GigPostDetailsBudget.module.css';
-import FormInput from '../Shared/FormInput';
 import PropTypes from 'prop-types';
+import styles from './GigPostDetailsBudget.module.css';
 
 function GigPostDetailsBudget({ formData, onInputChange }) {
   const handleSelectChange = e => onInputChange(e.target.name, e.target.value);
@@ -80,7 +78,7 @@ function GigPostDetailsBudget({ formData, onInputChange }) {
 
 GigPostDetailsBudget.propTypes = {
   formData: PropTypes.object.isRequired,
-  onInputChange: PropTypes.func.isRequired
+  onInputChange: PropTypes.func.isRequired,
 };
 
 export default GigPostDetailsBudget;

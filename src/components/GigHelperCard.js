@@ -1,7 +1,7 @@
-import React from 'react';
-import styles from './GigHelperCard.module.css';
+import PropTypes from 'prop-types';
 import { Link, useNavigate } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
+import styles from './GigHelperCard.module.css';
 
 const GigHelperCard = ({
   userId,
@@ -45,6 +45,15 @@ const GigHelperCard = ({
       </div>
     </div>
   );
+};
+
+GigHelperCard.propTypes = {
+  userId: PropTypes.string,
+  profileImage: PropTypes.string,
+  name: PropTypes.string,
+  rate: PropTypes.string,
+  location: PropTypes.string,
+  bio: PropTypes.string,
 };
 
 export default GigHelperCard;

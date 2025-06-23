@@ -387,3 +387,7 @@
     margin: 0.3rem 0; /* 4.8px 0 */
   }
 }
+
+.maxWidth {
+  max-width: calc(50% - 10px);
+}

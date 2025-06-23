@@ -8,24 +8,21 @@ function StripeReturnPage() {
 
   // Optional: Automatically trigger a status check on return
   useEffect(() => {
-    console.log('Returned from Stripe onboarding flow.');
     // Give Stripe webhook a moment, then navigate or trigger check
     const timer = setTimeout(() => {
       // Option 1: Just navigate to dashboard, user can refresh status there
       navigate('/settings?activeTab=withdraw');
 
       // Option 2: Try fetching status here (might be too soon for webhook)
-      /*
-            apiClient.get('/users/stripe/account-status')
-                .then(response => {
-                    console.log("Fetched status after return:", response.data.data);
-                    navigate('/profile');
-                })
-                .catch(error => {
-                    console.error("Error fetching status after return:", error);
-                    navigate('/profile'); // Navigate anyway
-                });
-            */
+      apiClient
+        .get('/users/stripe-status')
+        .then(response => {
+          // Optionally update user context or redirect
+        })
+        .catch(error => {
+          // Option 2: Navigate anyway
+          navigate('/profile');
+        });
     }, 1500); // Wait 1.5 seconds
 
     return () => clearTimeout(timer); // Cleanup timer on unmount

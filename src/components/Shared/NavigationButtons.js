@@ -1,4 +1,5 @@
 // src/components/Onboarding/NavigationButtons.js
+import PropTypes from 'prop-types';
 import styles from './NavigationButtons.module.css'; // Create this
 import { ArrowLeft } from 'lucide-react'; // Assuming lucide-react is installed
 
@@ -40,4 +41,15 @@ function NavigationButtons({
     </div>
   );
 }
+
+NavigationButtons.propTypes = {
+  onBack: PropTypes.func,
+  onNext: PropTypes.func,
+  backLabel: PropTypes.string,
+  nextLabel: PropTypes.string,
+  isFirstStep: PropTypes.bool,
+  isLastStep: PropTypes.bool,
+  canGoNext: PropTypes.bool,
+};
+
 export default NavigationButtons;

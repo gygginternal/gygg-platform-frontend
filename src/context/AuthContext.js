@@ -46,7 +46,6 @@ export const AuthProvider = ({ children }) => {
       try {
         // apiClient includes token via interceptor
         const response = await apiClient.get('/users/me');
-        console.log({ response });
 
         if (response.data?.data?.user) {
           setUser(response.data.data.user);

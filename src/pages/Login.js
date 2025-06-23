@@ -12,6 +12,7 @@ import {
   Flex,
   ErrorText,
 } from '../styles/components';
+import styles from './Login.module.css';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -45,22 +46,15 @@ const Login = () => {
         direction="column"
         align="center"
         justify="center"
-        style={{ minHeight: '100vh', padding: '20px' }}
+        className={styles.container}
       >
-        <Card style={{ width: '100%', maxWidth: '400px' }}>
-          <Heading
-            as="h1"
-            style={{ textAlign: 'center', marginBottom: '24px' }}
-          >
+        <Card className={styles.card}>
+          <Heading as="h1" className={styles.heading}>
             Welcome Back
           </Heading>
           <form onSubmit={handleSubmit}>
-            <div style={{ marginBottom: '16px' }}>
-              <Text
-                as="label"
-                htmlFor="email"
-                style={{ display: 'block', marginBottom: '8px' }}
-              >
+            <div className={styles.formGroup}>
+              <Text as="label" htmlFor="email" className={styles.label}>
                 Email
               </Text>
               <Input
@@ -70,14 +64,11 @@ const Login = () => {
                 onChange={e => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 required
+                className={styles.input}
               />
             </div>
-            <div style={{ marginBottom: '24px' }}>
-              <Text
-                as="label"
-                htmlFor="password"
-                style={{ display: 'block', marginBottom: '8px' }}
-              >
+            <div className={styles.formGroup}>
+              <Text as="label" htmlFor="password" className={styles.label}>
                 Password
               </Text>
               <Input
@@ -87,16 +78,24 @@ const Login = () => {
                 onChange={e => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 required
+                className={styles.input}
               />
             </div>
-            {error && <ErrorText>{error}</ErrorText>}
-            <Button type="submit" fullWidth disabled={loading}>
+            {error && (
+              <ErrorText className={styles.errorText}>{error}</ErrorText>
+            )}
+            <Button
+              type="submit"
+              fullWidth
+              disabled={loading}
+              className={styles.button}
+            >
               {loading ? 'Logging in...' : 'Login'}
             </Button>
           </form>
-          <Text style={{ textAlign: 'center', marginTop: '16px' }}>
+          <Text className={styles.text}>
             Don&apos;t have an account?{' '}
-            <Link to="/register" style={{ color: 'var(--color-primary)' }}>
+            <Link to="/register" className={styles.link}>
               Register here
             </Link>
           </Text>

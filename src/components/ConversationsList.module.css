@@ -134,7 +134,7 @@
   padding: 0;
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   min-width: 260px;
   max-width: 340px;
   width: 100%;
@@ -239,7 +239,7 @@
   right: 18px;
   top: 50%;
   transform: translateY(-50%);
-  box-shadow: 0 1px 4px rgba(16,179,198,0.08);
+  box-shadow: 0 1px 4px rgba(16, 179, 198, 0.08);
 }
 
 .emptyState {

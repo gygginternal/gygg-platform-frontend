@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styles from './NavigationButtons.module.css';
 
 const NavigationButtons = ({
@@ -23,6 +24,14 @@ const NavigationButtons = ({
       </button>
     </div>
   );
+};
+
+NavigationButtons.propTypes = {
+  currentStep: PropTypes.number,
+  totalSteps: PropTypes.number,
+  onNext: PropTypes.func,
+  onBack: PropTypes.func,
+  isNextDisabled: PropTypes.bool,
 };
 
 export default NavigationButtons;

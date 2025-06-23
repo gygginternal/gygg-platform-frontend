@@ -16,7 +16,6 @@ export default function ContractDetailsPage({ gig, contract, user, children }) {
   return (
     <div className={styles.pageContainer}>
       <Link
-        // variant="ghost" // This is a prop, not a classname
         className={styles.backButton}
         to={{
           pathname: '/contracts',
@@ -59,13 +58,6 @@ export default function ContractDetailsPage({ gig, contract, user, children }) {
               <span className={styles.infoLabel}>Fee</span>
               <span className={styles.feeValue}>${gig.cost}</span>
             </div>
-
-            {/* <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-600">Deadline</span>
-              <span className="text-sm font-medium">
-                {details.duration} hours
-              </span>
-            </div> */}
           </div>
 
           {contractId && (
@@ -73,22 +65,6 @@ export default function ContractDetailsPage({ gig, contract, user, children }) {
           )}
 
           {children}
-
-          {/* <div className="flex gap-3 pt-4">
-            <Button
-              className="flex-1 bg-gray-800 hover:bg-gray-900"
-              onClick={onSubmitComplete}
-            >
-              Submit as Complete
-            </Button>
-            <Button
-              variant="outline"
-              className="flex-1"
-              onClick={onEndContract}
-            >
-              End Contract
-            </Button>
-          </div> */}
         </CardContent>
       </Card>
     </div>

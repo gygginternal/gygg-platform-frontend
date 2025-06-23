@@ -6,9 +6,6 @@ import apiClient from '../../api/axiosConfig';
 import logger from '../../utils/logger';
 import { useToast } from '../../context/ToastContext';
 import PropTypes from 'prop-types';
-import FormInput from '../Shared/FormInput';
-import { AutoComplete } from '../AutoComplete';
-import { HOBBIES_OPTIONS, SKILLS_OPTIONS } from '../../utils/constants';
 
 const decodeHTMLEntities = text => {
   if (typeof text !== 'string' || !text) return '';

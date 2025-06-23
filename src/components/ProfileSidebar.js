@@ -25,9 +25,6 @@ function ProfileSidebar() {
     enabled: user?.role?.includes('tasker'), // Only fetch if user is a tasker
   });
 
-  const [_topMatchedGigs, setTopMatchedGigs] = useState([]);
-  const [_isLoadingTopGigs, setIsLoadingTopGigs] = useState(false);
-
   if (!user) {
     return (
       <aside className={styles.profileSidebar}>

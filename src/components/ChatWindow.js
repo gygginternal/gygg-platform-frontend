@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import apiClient from '../api/axiosConfig';
@@ -7,6 +7,7 @@ import MessageThread from './MessageThread';
 import MessageInput from './MessageInput';
 import PropTypes from 'prop-types';
 import socket from '../socket'; // Import the shared socket instance
+import ChatHeader from './ChatHeader';
 
 function ChatWindow({ selectedContractId, chatPartner, layoutClasses = {} }) {
   const { user } = useAuth();

@@ -1,5 +1,6 @@
 // frontend/src/components/Shared/InputField.js (UPDATED)
 import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import styles from './InputField.module.css';
 import CountrySelect from './CountrySelect'; // Assuming CountrySelect is correctly implemented
 // import { cn } from "../../uitls/cn"; // Assuming you have this utility
@@ -213,5 +214,22 @@ function InputField({
     </div>
   );
 }
+
+InputField.propTypes = {
+  label: PropTypes.string,
+  name: PropTypes.string,
+  type: PropTypes.string,
+  placeholder: PropTypes.string,
+  value: PropTypes.any,
+  onChange: PropTypes.func,
+  icon: PropTypes.node,
+  inputMode: PropTypes.string,
+  maxLength: PropTypes.number,
+  required: PropTypes.bool,
+  rows: PropTypes.number,
+  disabled: PropTypes.bool,
+  onKeyDown: PropTypes.func,
+  className: PropTypes.string,
+};
 
 export default InputField;

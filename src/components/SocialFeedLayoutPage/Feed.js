@@ -6,7 +6,7 @@ import Button from '../Button'; // Use shared Button component
 import apiClient from '../../api/axiosConfig'; // Adjust path
 import { useAuth } from '../../context/AuthContext'; // Adjust path
 import logger from '../../utils/logger'; // Optional logger
-import { Link, useNavigate } from 'react-router-dom'; // Import Link and useNavigate
+import { useNavigate } from 'react-router-dom'; // Import Link and useNavigate
 
 function Feed() {
   const { user } = useAuth();
@@ -22,7 +22,6 @@ function Feed() {
   // --- States for Phase 8 Sorting ---
   const [sortOrder, setSortOrder] = useState('recents');
   const [userLocation, setUserLocation] = useState(null);
-  const [locationError, setLocationError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -44,7 +43,6 @@ function Feed() {
         setIsLoadingMore(true);
       }
       setError('');
-      setLocationError('');
       const params = { page, limit: 10, sort };
       if (sort === 'near_me') {
         if (!location) {
@@ -79,10 +77,9 @@ function Feed() {
 
   // --- Geolocation Logic (from PostFeedPage adaptation) ---
   const getUserLocation = () => {
-    setLocationError('');
     setLoading(true); // Indicate loading while getting location
     if (!navigator.geolocation) {
-      setLocationError('Geolocation not supported.');
+      setError('Geolocation not supported.');
       setLoading(false);
       return;
     }
@@ -97,7 +94,7 @@ function Feed() {
         // setLoading(false) handled in fetchPosts
       },
       err => {
-        setLocationError(`Geolocation error: ${err.message}`);
+        setError(`Geolocation error: ${err.message}`);
         setLoading(false);
         setHasMore(false);
         // Maybe switch back to recents if location fails?
@@ -115,15 +112,6 @@ function Feed() {
       fetchPosts(1, sortOrder, userLocation, false);
     }
   }, [sortOrder]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const handleSortChange = newSort => {
-    if (newSort !== sortOrder) {
-      // Clear userLocation if switching away from 'near_me' without a new location attempt
-      if (sortOrder === 'near_me' && newSort !== 'near_me')
-        setUserLocation(null);
-      setSortOrder(newSort); // Triggers useEffect for fetching
-    }
-  };
 
   // --- Create Post Logic ---
   const handlePostSubmit = async () => {
@@ -238,7 +226,7 @@ function Feed() {
           />
         </div>
         {createPostError && (
-          <p className="error-message" style={{ marginLeft: '52px' }}>
+          <p className={styles['error-message']} style={{ marginLeft: '52px' }}>
             {createPostError}
           </p>
         )}
@@ -292,7 +280,9 @@ function Feed() {
       {/* Displaying Posts */}
       <section className={styles.postsContainer}>
         {loading && <p>Loading feed...</p>}
-        {error && !loading && <p className="error-message">{error}</p>}
+        {error && !loading && (
+          <p className={styles['error-message']}>{error}</p>
+        )}
         {!loading && posts.length === 0 && (
           <p>No posts found for this criteria.</p>
         )}

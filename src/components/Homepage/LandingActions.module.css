@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
-
 /* Container for left or right action panel */
 .actions {
   width: 55%;
@@ -10,6 +8,8 @@
   align-items: center;
   padding: 20px;
   box-sizing: border-box;
+  /* Add this for full-height on desktop if needed */
+  min-height: 100vh; 
 }
 
 /* Card holding the login/signup UI */
@@ -22,7 +22,8 @@
   font-weight: bold;
   width: 100%;
   max-width: 400px;
-  margin: 1rem;
+  /* The margin on the card is fine, as it provides spacing if multiple cards were stacked */
+  margin: 1rem; 
 }
 
 .card a {
@@ -114,7 +115,7 @@
     width: 100% !important;
     order: 2;
     padding: 30px 20px;
-    min-height: auto;
+    min-height: auto; /* Allow height to be determined by content */
   }
 }
 
@@ -123,6 +124,7 @@
   .actions {
     width: 100%;
     order: 2;
+    min-height: 50vh;
   }
 
   .card {
@@ -150,6 +152,11 @@
 @media (max-width: 480px) {
   .card {
     padding: 1.5rem 1rem;
+    margin: 0; /* Let parent padding handle spacing */
+  }
+
+  .actions {
+    padding: 20px; /* Ensure there is still some padding */
   }
 
   .title {

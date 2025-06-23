@@ -459,7 +459,7 @@ function TaskerOnboardingPage() {
         <form className={styles.form} onSubmit={e => e.preventDefault()}>
           {' '}
           {/* Prevent default on main form, handle submit via button */}
-          {error && <p className="error-message">{error}</p>}
+          {error && <p className={styles['error-message']}>{error}</p>}
           {renderStepContent()}
           {/* Navigation buttons are now in ProgressHeader */}
         </form>

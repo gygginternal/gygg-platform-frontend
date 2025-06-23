@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
+import styles from './ReviewItem.module.css';
+
 const DisplayRating = ({ rating }) => {
   /* ... Star display logic ... */
   return (
-    <span style={{ color: 'gold', fontSize: '16px' }}>
+    <span className={styles.rating}>
       {' '}
       {'★'.repeat(Math.floor(rating))}
       {'☆'.repeat(Math.max(0, 5 - Math.floor(rating)))} ({rating?.toFixed(1)}
@@ -19,28 +21,22 @@ function ReviewItem({ review }) {
   if (!review) return null;
   const { reviewer } = review;
   return (
-    <div
-      style={{
-        borderBottom: '1px solid #eee',
-        marginBottom: '15px',
-        paddingBottom: '15px',
-      }}
-    >
-      <div className="flex-container" style={{ marginBottom: '5px' }}>
+    <div className={styles.reviewItem}>
+      <div className={styles.flexContainer}>
         <img
           src={reviewer?.profileImage || '/default.jpg'}
           alt={reviewer?.fullName}
-          className="avatar-small"
+          className={styles.avatarSmall}
         />
         <strong>{reviewer?.fullName || 'Anonymous'}</strong>
-        <span className="margin-left-auto">
+        <span className={styles.marginLeftAuto}>
           <DisplayRating rating={review.rating} />
         </span>
       </div>
-      <p style={{ margin: '5px 0 10px 0' }}>
+      <p className={styles.margin}>
         {review.comment || <i>No comment left.</i>}
       </p>
-      <small className="text-muted">
+      <small className={styles.textMuted}>
         {new Date(review.createdAt).toLocaleDateString()}
       </small>
     </div>

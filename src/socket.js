@@ -15,19 +15,19 @@ const socket = io(SOCKET_URL, {
 });
 
 socket.on('connect_error', error => {
-  console.error('Socket connection error:', error);
+  // console.error('Socket connection error:', error);
 });
 
 socket.on('connect', () => {
-  console.log('Socket connected successfully');
+  // console.log('Socket connected successfully');
 });
 
 socket.on('disconnect', reason => {
-  console.log('Socket disconnected:', reason);
+  // console.log('Socket disconnected:', reason);
 });
 
 socket.on('error', error => {
-  console.error('Socket error:', error);
+  // console.error('Socket error:', error);
 });
 
 export default socket;

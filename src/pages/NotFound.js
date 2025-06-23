@@ -8,6 +8,7 @@ import {
   Text,
   Flex,
 } from '../styles/components';
+import styles from './NotFound.module.css';
 
 const NotFound = () => {
   const navigate = useNavigate();
@@ -18,21 +19,16 @@ const NotFound = () => {
         direction="column"
         align="center"
         justify="center"
-        style={{ minHeight: '100vh', padding: '20px' }}
+        className={styles.container}
       >
-        <Card style={{ width: '100%', maxWidth: '400px', textAlign: 'center' }}>
-          <Heading as="h1" style={{ fontSize: '6rem', marginBottom: '16px' }}>
+        <Card className={styles.card}>
+          <Heading as="h1" className={styles.heading}>
             404
           </Heading>
-          <Heading as="h2" style={{ marginBottom: '16px' }}>
+          <Heading as="h2" className={styles.subHeading}>
             Page Not Found
           </Heading>
-          <Text
-            style={{
-              marginBottom: '24px',
-              color: 'var(--color-text-secondary)',
-            }}
-          >
+          <Text className={styles.text}>
             The page you are looking for might have been removed, had its name
             changed, or is temporarily unavailable.
           </Text>

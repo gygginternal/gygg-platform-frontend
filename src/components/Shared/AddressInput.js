@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import styles from './AddressInput.module.css';
 import CountrySelect from './CountrySelect';
 import PropTypes from 'prop-types';

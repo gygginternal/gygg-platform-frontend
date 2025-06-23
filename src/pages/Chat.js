@@ -13,6 +13,7 @@ import {
   Input,
 } from '../styles/components';
 import apiClient from '../api/axiosConfig';
+import styles from './Chat.module.css';
 
 const Chat = () => {
   const { id } = useParams();
@@ -109,12 +110,12 @@ const Chat = () => {
 
   return (
     <Container>
-      <Flex direction="column" gap="lg" style={{ padding: '24px 0' }}>
+      <Flex direction="column" gap="lg" className={styles.padding}>
         {/* Chat Header */}
         <Card>
           <Flex justify="space-between" align="center">
             <div>
-              <Heading as="h1" style={{ marginBottom: '8px' }}>
+              <Heading as="h1" className={styles.marginBottom}>
                 Chat with {chatUser.name}
               </Heading>
               <Text color="text.secondary">
@@ -128,16 +129,8 @@ const Chat = () => {
         </Card>
 
         {/* Messages */}
-        <Card style={{ height: 'calc(100vh - 300px)', overflow: 'hidden' }}>
-          <Flex
-            direction="column"
-            gap="md"
-            style={{
-              height: '100%',
-              overflowY: 'auto',
-              padding: '16px',
-            }}
-          >
+        <Card className={styles.heightCalc}>
+          <Flex direction="column" gap="md" className={styles.height}>
             {messages.length === 0 ? (
               <Text color="text.secondary" style={{ textAlign: 'center' }}>
                 No messages yet. Start the conversation!
@@ -151,18 +144,13 @@ const Chat = () => {
                     justify={isOwnMessage ? 'flex-end' : 'flex-start'}
                   >
                     <Card
-                      style={{
-                        maxWidth: '70%',
-                        backgroundColor: isOwnMessage
-                          ? 'var(--color-primary-100)'
-                          : 'var(--color-neutral-100)',
-                      }}
+                      className={`${styles.maxWidth} ${isOwnMessage ? styles.backgroundColorPrimary : styles.backgroundColorNeutral}`}
                     >
                       <Text>{message.content}</Text>
                       <Text
                         size="sm"
                         color="text.secondary"
-                        style={{ marginTop: '4px' }}
+                        className={styles.marginTop}
                       >
                         {new Date(message.createdAt).toLocaleTimeString()}
                       </Text>
@@ -183,7 +171,7 @@ const Chat = () => {
                 value={newMessage}
                 onChange={e => setNewMessage(e.target.value)}
                 placeholder="Type your message..."
-                style={{ flex: 1 }}
+                className={styles.flex}
               />
               <Button type="submit" variant="primary">
                 Send

@@ -25,8 +25,6 @@ function HomePage() {
   // If user is not logged in, show the landing page view
   return (
     <div className={pageStyles.pageContainer}>
-      {' '}
-      {/* Main flex container */}
       <LandingVisual />
       <LandingActions />
     </div>
