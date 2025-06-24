@@ -1,13 +1,6 @@
 /* src/pages/ProfilePage.module.css */
 /* Styles adapted from the CSS you provided */
 
-/* Base font size for rem units (1rem = 16px) */
-/* This can be set on body or a top-level container.
-   For this specific module, applying it here makes sense. */
-:root {
-  font-size: 16px;
-}
-
 .profilePageContainer {
   display: flex;
   justify-content: center;

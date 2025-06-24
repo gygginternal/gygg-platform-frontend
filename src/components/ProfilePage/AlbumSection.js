@@ -109,7 +109,7 @@ function AlbumSection({ userIdToView, isOwnProfile, onUpdate }) {
     <section className={styles.albumCard}>
       <div className={styles.albumHeader}>
         <h2>Album</h2>
-        {isOwnProfile && ( // Add button only if it's own profile
+        {isOwnProfile && albumData.length > 0 && (
           <button
             className={styles.addButton}
             onClick={handleAddClick}

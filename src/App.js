@@ -85,7 +85,6 @@ function AppLayout({ children }) {
   return (
     <>
       {showHeader && <Header />}
-      {showHeader && <hr className={styles.headerSeparator} />}
       <main
         className={`${styles.container} ${showHeader ? styles.containerWithHeaderPadding : ''}`}
       >
@@ -101,196 +100,204 @@ function AuthAwareRedirect() {
   return <Navigate to={authToken ? '/feed' : '/'} replace />;
 }
 
-// -------------------- Main App Component --------------------
-const App = () => {
-  return (
-    <Router>
-      <ThemeProvider>
-        <AuthProvider>
-          <ToastProvider>
-            <SocketProvider>
-              <Navigation />
-              <QueryClientProvider client={queryClient}>
-                <AppLayout>
-                  <Routes>
-                    {/* Public Routes */}
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/join" element={<JoinPage />} />
-                    <Route path="/signup" element={<SignupPage />} />
-                    <Route
-                      path="/verify-email-prompt"
-                      element={<VerifyEmailPromptPage />}
-                    />
-                    <Route
-                      path="/forgot-password"
-                      element={<ForgotPasswordPage />}
-                    />
-
-                    <Route path="/terms" element={<TermsOfUsePage />} />
-                    <Route path="/privacy" element={<PrivacyPolicyPage />} />
-
-                    {/* Protected Routes */}
-                    <Route
-                      path="/profile"
-                      element={
-                        <ProtectedRoute>
-                          <ProfilePage />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/settings"
-                      element={
-                        <ProtectedRoute>
-                          <SettingsPage />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/messages"
-                      element={
-                        <ProtectedRoute>
-                          <ConversationsList />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/messages/:userId"
-                      element={
-                        <ProtectedRoute>
-                          <ChatPage />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/feed"
-                      element={
-                        <ProtectedRoute>
-                          <SocialFeedLayoutPage />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/posts/create"
-                      element={
-                        <ProtectedRoute>
-                          <PostCreatePage />
-                        </ProtectedRoute>
-                      }
-                    />
-
-                    <Route
-                      path="/gigs"
-                      element={
-                        <ProtectedRoute>
-                          <GigsPage />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/gigs/create"
-                      element={
-                        <ProtectedRoute>
-                          <GigCreatePage />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/gigs/:gigId"
-                      element={
-                        <ProtectedRoute>
-                          <GigDetailPage />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/gigs/matched"
-                      element={
-                        <ProtectedRoute>
-                          <MatchedGigsPage />
-                        </ProtectedRoute>
-                      }
-                    />
-
-                    <Route
-                      path="/contracts"
-                      element={
-                        <ProtectedRoute>
-                          <ContractsPage />
-                        </ProtectedRoute>
-                      }
-                    />
-
-                    <Route
-                      path="/onboarding/tasker"
-                      element={
-                        <ProtectedRoute>
-                          <TaskerOnboardingPage />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/onboarding/provider"
-                      element={
-                        <ProtectedRoute>
-                          <ProviderOnboardingPage />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/gigs/create/options"
-                      element={
-                        <ProtectedRoute>
-                          <GigCreateOptionsPage />
-                        </ProtectedRoute>
-                      }
-                    />
-
-                    <Route
-                      path="/stripe-onboarding/return"
-                      element={
-                        <ProtectedRoute>
-                          <StripeReturnPage />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/stripe-onboarding/refresh"
-                      element={
-                        <ProtectedRoute>
-                          <StripeRefreshPage />
-                        </ProtectedRoute>
-                      }
-                    />
-
-                    <Route
-                      path="/user-profile/:userId"
-                      element={
-                        <ProtectedRoute>
-                          <UserProfilePage />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/gig-helper"
-                      element={
-                        <ProtectedRoute>
-                          <GigHelperPage />
-                        </ProtectedRoute>
-                      }
-                    />
-                    {/* Catch-all */}
-                    <Route path="*" element={<AuthAwareRedirect />} />
-                  </Routes>
-                </AppLayout>
-              </QueryClientProvider>
-            </SocketProvider>
-          </ToastProvider>
-        </AuthProvider>
-      </ThemeProvider>
-    </Router>
+function AppWithNavigation() {
+  const location = useLocation();
+  const hideNavPaths = ['/onboarding/tasker', '/onboarding/provider'];
+  const showNavigation = !hideNavPaths.some(path =>
+    location.pathname.startsWith(path)
   );
-};
+
+  return (
+    <>
+      {showNavigation && <Navigation />}
+      <QueryClientProvider client={queryClient}>
+        <AppLayout>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/join" element={<JoinPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route
+              path="/verify-email-prompt"
+              element={<VerifyEmailPromptPage />}
+            />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+
+            <Route path="/terms" element={<TermsOfUsePage />} />
+            <Route path="/privacy" element={<PrivacyPolicyPage />} />
+
+            {/* Protected Routes */}
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <ProfilePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <ProtectedRoute>
+                  <SettingsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/messages"
+              element={
+                <ProtectedRoute>
+                  <ConversationsList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/messages/:userId"
+              element={
+                <ProtectedRoute>
+                  <ChatPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/feed"
+              element={
+                <ProtectedRoute>
+                  <SocialFeedLayoutPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/posts/create"
+              element={
+                <ProtectedRoute>
+                  <PostCreatePage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/gigs"
+              element={
+                <ProtectedRoute>
+                  <GigsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/gigs/create"
+              element={
+                <ProtectedRoute>
+                  <GigCreatePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/gigs/:gigId"
+              element={
+                <ProtectedRoute>
+                  <GigDetailPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/gigs/matched"
+              element={
+                <ProtectedRoute>
+                  <MatchedGigsPage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/contracts"
+              element={
+                <ProtectedRoute>
+                  <ContractsPage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/onboarding/tasker"
+              element={
+                <ProtectedRoute>
+                  <TaskerOnboardingPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/onboarding/provider"
+              element={
+                <ProtectedRoute>
+                  <ProviderOnboardingPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/gigs/create/options"
+              element={
+                <ProtectedRoute>
+                  <GigCreateOptionsPage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/stripe-onboarding/return"
+              element={
+                <ProtectedRoute>
+                  <StripeReturnPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/stripe-onboarding/refresh"
+              element={
+                <ProtectedRoute>
+                  <StripeRefreshPage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/user-profile/:userId"
+              element={
+                <ProtectedRoute>
+                  <UserProfilePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/gig-helper"
+              element={
+                <ProtectedRoute>
+                  <GigHelperPage />
+                </ProtectedRoute>
+              }
+            />
+            {/* Catch-all */}
+            <Route path="*" element={<AuthAwareRedirect />} />
+          </Routes>
+        </AppLayout>
+      </QueryClientProvider>
+    </>
+  );
+}
+
+const App = () => (
+  <Router>
+    <ThemeProvider>
+      <AuthProvider>
+        <ToastProvider>
+          <SocketProvider>
+            <AppWithNavigation />
+          </SocketProvider>
+        </ToastProvider>
+      </AuthProvider>
+    </ThemeProvider>
+  </Router>
+);
 
 export default App;

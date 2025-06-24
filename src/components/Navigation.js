@@ -1,18 +1,30 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { Flex, Button, Text, Card } from '../styles/components';
 import styles from './Navigation.module.css';
+
+const GlobalOverrides = createGlobalStyle`
+  .isKfud {
+    background: #fff !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+  }
+  .idfBys {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+`;
 
 const NavContainer = styled(Card)`
   position: sticky;
   top: 0;
   z-index: 100;
   padding: 16px 24px;
-  background-color: var(--color-background);
-  border-bottom: 1px solid var(--color-neutral-200);
+  background-color: #fff !important;
+  border-bottom: none !important;
 `;
 
 const DesktopNav = styled(Flex)`
@@ -67,110 +79,19 @@ const Navigation = () => {
   }
 
   return (
-    <NavContainer>
-      <Flex justify="space-between" align="center">
-        {/* Logo */}
-        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <Text weight="bold" size="lg">
-            Gygg
-          </Text>
-        </Link>
+    <>
+      <GlobalOverrides />
+      <NavContainer>
+        <Flex justify="space-between" align="center">
+          {/* Logo */}
+          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Text weight="bold" size="lg">
+              Gygg
+            </Text>
+          </Link>
 
-        {/* Desktop Navigation */}
-        <DesktopNav gap="lg">
-          {navItems.map(item => (
-            <Link
-              key={item.path}
-              to={item.path}
-              style={{
-                textDecoration: 'none',
-                color: isActive(item.path)
-                  ? 'var(--color-primary-500)'
-                  : 'var(--color-text-primary)',
-              }}
-            >
-              <Text
-                weight={isActive(item.path) ? 'medium' : 'regular'}
-                style={{
-                  borderBottom: isActive(item.path)
-                    ? '2px solid var(--color-primary-500)'
-                    : 'none',
-                  padding: '4px 0',
-                }}
-              >
-                {item.label}
-              </Text>
-            </Link>
-          ))}
-        </DesktopNav>
-
-        {/* User Menu */}
-        <Flex align="center" gap="md">
-          {user.role === 'client' && (
-            <PostGigButton as={Link} to="/create-gig" variant="primary">
-              Post a Gig
-            </PostGigButton>
-          )}
-          <div style={{ position: 'relative' }}>
-            <Button
-              variant="outline"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              style={{ minWidth: '120px' }}
-            >
-              {user.name}
-            </Button>
-            {isMenuOpen && (
-              <Card
-                style={{
-                  position: 'absolute',
-                  top: '100%',
-                  right: 0,
-                  marginTop: '8px',
-                  minWidth: '200px',
-                  boxShadow: 'var(--shadow-lg)',
-                }}
-              >
-                <Flex direction="column" gap="sm">
-                  <Button
-                    as={Link}
-                    to="/profile"
-                    variant="text"
-                    style={{ justifyContent: 'flex-start' }}
-                  >
-                    Profile
-                  </Button>
-                  <Button
-                    variant="text"
-                    onClick={() => {
-                      logout();
-                      setIsMenuOpen(false);
-                    }}
-                    style={{
-                      justifyContent: 'flex-start',
-                      color: 'var(--color-error-500)',
-                    }}
-                  >
-                    Logout
-                  </Button>
-                </Flex>
-              </Card>
-            )}
-          </div>
-        </Flex>
-
-        {/* Mobile Menu Button */}
-        <MobileMenuButton
-          variant="text"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          <Text size="xl">☰</Text>
-        </MobileMenuButton>
-      </Flex>
-
-      {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <MobileNav>
-          <Flex direction="column" gap="sm">
+          {/* Desktop Navigation */}
+          <DesktopNav gap="lg">
             {navItems.map(item => (
               <Link
                 key={item.path}
@@ -180,30 +101,124 @@ const Navigation = () => {
                   color: isActive(item.path)
                     ? 'var(--color-primary-500)'
                     : 'var(--color-text-primary)',
-                  padding: '8px 16px',
                 }}
-                onClick={() => setIsMenuOpen(false)}
               >
-                <Text weight={isActive(item.path) ? 'medium' : 'regular'}>
+                <Text
+                  weight={isActive(item.path) ? 'medium' : 'regular'}
+                  style={{
+                    borderBottom: isActive(item.path)
+                      ? '2px solid var(--color-primary-500)'
+                      : 'none',
+                    padding: '4px 0',
+                  }}
+                >
                   {item.label}
                 </Text>
               </Link>
             ))}
+          </DesktopNav>
+
+          {/* User Menu */}
+          <Flex align="center" gap="md">
             {user.role === 'client' && (
-              <Button
-                as={Link}
-                to="/create-gig"
-                variant="primary"
-                style={{ margin: '8px 16px' }}
-                onClick={() => setIsMenuOpen(false)}
-              >
+              <PostGigButton as={Link} to="/create-gig" variant="primary">
                 Post a Gig
-              </Button>
+              </PostGigButton>
             )}
+            <div style={{ position: 'relative' }}>
+              <Button
+                variant="outline"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                style={{ minWidth: '120px' }}
+              >
+                {user.name}
+              </Button>
+              {isMenuOpen && (
+                <Card
+                  style={{
+                    position: 'absolute',
+                    top: '100%',
+                    right: 0,
+                    marginTop: '8px',
+                    minWidth: '200px',
+                    boxShadow: 'var(--shadow-lg)',
+                  }}
+                >
+                  <Flex direction="column" gap="sm">
+                    <Button
+                      as={Link}
+                      to="/profile"
+                      variant="text"
+                      style={{ justifyContent: 'flex-start' }}
+                    >
+                      Profile
+                    </Button>
+                    <Button
+                      variant="text"
+                      onClick={() => {
+                        logout();
+                        setIsMenuOpen(false);
+                      }}
+                      style={{
+                        justifyContent: 'flex-start',
+                        color: 'var(--color-error-500)',
+                      }}
+                    >
+                      Logout
+                    </Button>
+                  </Flex>
+                </Card>
+              )}
+            </div>
           </Flex>
-        </MobileNav>
-      )}
-    </NavContainer>
+
+          {/* Mobile Menu Button */}
+          <MobileMenuButton
+            variant="text"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <Text size="xl">☰</Text>
+          </MobileMenuButton>
+        </Flex>
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <MobileNav>
+            <Flex direction="column" gap="sm">
+              {navItems.map(item => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  style={{
+                    textDecoration: 'none',
+                    color: isActive(item.path)
+                      ? 'var(--color-primary-500)'
+                      : 'var(--color-text-primary)',
+                    padding: '8px 16px',
+                  }}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Text weight={isActive(item.path) ? 'medium' : 'regular'}>
+                    {item.label}
+                  </Text>
+                </Link>
+              ))}
+              {user.role === 'client' && (
+                <Button
+                  as={Link}
+                  to="/create-gig"
+                  variant="primary"
+                  style={{ margin: '8px 16px' }}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Post a Gig
+                </Button>
+              )}
+            </Flex>
+          </MobileNav>
+        )}
+      </NavContainer>
+    </>
   );
 };
 

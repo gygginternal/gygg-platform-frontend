@@ -393,29 +393,6 @@ function Header() {
                 {isProfileOpen && (
                   <div className={styles.dropdown}>
                     <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-                      <li
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          padding: '0.5rem 1rem',
-                          borderBottom: '1px solid #f3f4f6',
-                        }}
-                      >
-                        <img
-                          src={user?.profileImage || '/assets/user.svg'}
-                          alt={user?.fullName || 'User'}
-                          className={styles.profileAvatar}
-                        />
-                        <div
-                          style={{
-                            fontWeight: 600,
-                            fontSize: '1rem',
-                            color: '#1e293b',
-                          }}
-                        >
-                          {user?.fullName || 'Profile'}
-                        </div>
-                      </li>
                       <li>
                         <Link
                           to="/profile"
@@ -425,10 +402,10 @@ function Header() {
                           <img
                             src="/assets/user.svg"
                             alt="User"
-                            width={18}
-                            height={18}
+                            width={24}
+                            height={24}
                           />
-                          <p>Profile</p>
+                          <span>My Profile</span>
                         </Link>
                       </li>
                       <li>
@@ -440,10 +417,10 @@ function Header() {
                           <img
                             src="/assets/settings.svg"
                             alt="Settings"
-                            width={18}
-                            height={18}
+                            width={24}
+                            height={24}
                           />
-                          <p>Settings</p>
+                          <span>Settings</span>
                         </button>
                       </li>
                       <li>
@@ -455,10 +432,10 @@ function Header() {
                           <img
                             src="/assets/logout.svg"
                             alt="Log out"
-                            width={18}
-                            height={18}
+                            width={24}
+                            height={24}
                           />
-                          <p>Log out</p>
+                          <span>Log out</span>
                         </button>
                       </li>
                     </ul>

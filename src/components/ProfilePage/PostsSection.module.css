@@ -123,20 +123,35 @@
 .noPostsMessage {
   text-align: center;
   padding: 1.25rem 0; /* 20px 0 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px; /* Add minimum height to center content vertically */
+  width: 100%;
+}
+
+.noPostsMessage p {
+  margin: 0;
+  margin-bottom: 1rem;
+  color: #000;
 }
 
 .createPostButton {
   margin-top: 1rem; /* 16px */
   display: inline-block;
-  background-color: #3b82f6; /* Example primary color */
-  color: #fff;
+  background-color: #2c3a40;
+  color: white;
   padding: 0.75rem 1.5rem; /* 12px 24px */
   border-radius: 0.5rem; /* 8px */
   text-decoration: none;
   font-weight: 600;
   transition: background-color 0.2s ease;
+  border: none;
+  cursor: pointer;
 }
 
 .createPostButton:hover {
-  background-color: #2563eb;
+  background-color: #1a252a;
+  text-decoration: none;
 }

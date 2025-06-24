@@ -15,115 +15,174 @@
   background: #fff;
   transition: transform 0.2s ease-in-out;
   box-sizing: border-box; /* Include padding/border in width */
+  display: flex; /* Ensures inner elements respect height if fixed */
+  flex-direction: column;
 }
 
 .albumItem:hover {
   transform: scale(1.05); /* Slight zoom effect on hover */
 }
 
-.albumImage {
+.albumImage, .album-image {
   object-fit: cover;
   width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9; /* Ensures a fixed ratio */
-  display: block; /* Remove any extra space below image */
+  height: 13.75rem; /* 220px - Converted from original */
+  aspect-ratio: unset; /* Retained from original */
+  display: block;
+  flex-shrink: 0; /* Prevents image from shrinking */
+}
+
+.albumFooterOverlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  z-index: 2;
+  pointer-events: none; /* Allows clicks to pass through to underlying album item */
+}
+
+.albumFooterPill {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 0 0 1rem 1rem; /* 0 0 16px 16px */
+  box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.08); /* 0 2px 8px */
+  padding: 0; /* Padding will be on the caption and delete button */
+  gap: 0.75rem; /* 12px */
+  width: 100%;
+  margin: 0;
+  pointer-events: auto; /* Allows clicks on the pill itself */
+  justify-content: space-between;
 }
 
 .albumCaption {
-  color: #536471;
-  padding: 0.625rem; /* 10px */
-  /* Facebook Post text (main body) 14-16px */
-  font-size: 0.875rem; /* 14px */
-  text-align: center;
+  color: #222;
+  /* Facebook Post text (main body) 14-16px. Using 15px (0.9375rem). */
+  font-size: 0.9375rem; /* 15px */
   font-weight: 500;
+  background: none;
+  border-radius: 0;
+  text-align: left;
+  padding: 0.5rem 1rem; /* 8px 16px - Padding inside the pill */
+  margin: 0;
+  pointer-events: auto;
+  flex: 1 1 auto; /* Allows caption to grow and shrink */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
 }
 
 .deleteButton {
-  position: absolute;
-  top: 0.3125rem; /* 5px */
-  right: 0.3125rem; /* 5px */
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
+  background: none;
   border: none;
-  border-radius: 16px;
-  /* Facebook Top navbar icons 20-24px */
-  width: 1.5rem; /* 24px */
-  height: 1.5rem; /* 24px */
-  /* Facebook Buttons 13-14px */
-  font-size: 0.875rem; /* 14px */
-  line-height: 1.5rem; /* Match height for vertical centering of single char/icon */
-  text-align: center;
+  padding: 0.5rem; /* 8px - Padding for clickable area */
   cursor: pointer;
-  opacity: 0.7;
-  transition:
-    opacity 0.2s ease,
-    background-color 0.2s ease;
-  z-index: 1; /* Ensure it's above the image */
-  display: flex; /* Use flexbox for perfect centering of text/icon */
-  justify-content: center;
+  pointer-events: auto; /* Allows click on the button itself */
+  flex-shrink: 0; /* Prevents button from shrinking */
+  display: flex; /* For centering the image/icon */
   align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, filter 0.2s ease;
 }
 .deleteButton:hover {
-  opacity: 1;
-  background-color: rgba(220, 53, 69, 0.8); /* Red on hover */
+  background: rgba(220, 53, 69, 0.08); /* Light red hover effect */
 }
 
-/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+.deleteButton img {
+  /* Facebook Top navbar icons 20-24px. Using 24px (1.5rem). */
+  width: 1.5rem; /* 24px */
+  height: 1.5rem; /* 24px */
+  filter: invert(32%) sepia(98%) saturate(0%) hue-rotate(180deg) brightness(0.7) contrast(1.2); /* Grey color */
+  object-fit: contain; /* Ensure image fits */
+} 
+
+.image-container { /* This class exists in the provided CSS but is not directly styled with new rules.
+                       If it's an outer wrapper for .albumImage, it might need specific responsive rules
+                       to ensure its contents scale correctly. For now, assuming .albumImage directly handles sizing. */
+  position: relative;
+}
+
+/* Responsive adjustments */
+
+/* @media (max-width: 1024px) - Large Tablets / Small Laptops */
 @media (max-width: 1024px) {
-  .albumItem {
-    max-width: 16rem; /* 256px - slightly smaller */
-    border-radius: 0.875rem; /* 14px */
-  }
-  .albumCaption {
-    font-size: 0.8125rem; /* 13px - Facebook Comments */
-    padding: 0.5rem; /* 8px */
-  }
-  .deleteButton {
-    width: 1.375rem; /* 22px */
-    height: 1.375rem; /* 22px */
-    line-height: 1.375rem; /* Match height */
-    font-size: 0.8125rem; /* 13px */
-    top: 0.25rem; /* 4px */
-    right: 0.25rem; /* 4px */
-  }
+    .albumItem {
+        max-width: 16rem; /* 256px */
+        border-radius: 0.875rem; /* 14px */
+    }
+    .albumImage {
+        height: 12.5rem; /* 200px */
+    }
+    .albumFooterPill {
+        border-radius: 0 0 0.875rem 0.875rem; /* 14px */
+        gap: 0.6rem; /* 9.6px */
+    }
+    .albumCaption {
+        font-size: 0.875rem; /* 14px */
+        padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
+    }
+    .deleteButton {
+        padding: 0.4rem; /* 6.4px */
+    }
+    .deleteButton img {
+        width: 1.375rem; /* 22px */
+        height: 1.375rem; /* 22px */
+    }
 }
 
-/* Responsive adjustments for screens up to 768px (Tablets) */
+/* @media (max-width: 768px) - Tablets */
 @media (max-width: 768px) {
-  .albumItem {
-    max-width: 100%; /* Take full width of grid column (assuming this is part of a grid) */
-    border-radius: 0.75rem; /* 12px */
-  }
-  .albumCaption {
-    font-size: 0.75rem; /* 12px - Facebook Timestamps */
-    padding: 0.4rem; /* 6.4px */
-  }
-  .deleteButton {
-    width: 1.25rem; /* 20px */
-    height: 1.25rem; /* 20px */
-    line-height: 1.25rem; /* Match height */
-    font-size: 0.75rem; /* 12px */
-    top: 0.2rem; /* 3.2px */
-    right: 0.2rem; /* 3.2px */
-  }
+    .albumItem {
+        max-width: 100%; /* Allows it to take full width of grid column */
+        border-radius: 0.75rem; /* 12px */
+    }
+    .albumImage {
+        height: 10rem; /* 160px */
+    }
+    .albumFooterPill {
+        border-radius: 0 0 0.75rem 0.75rem; /* 12px */
+        gap: 0.5rem; /* 8px */
+    }
+    .albumCaption {
+        font-size: 0.8125rem; /* 13px */
+        padding: 0.35rem 0.7rem; /* 5.6px 11.2px */
+    }
+    .deleteButton {
+        padding: 0.3rem; /* 4.8px */
+    }
+    .deleteButton img {
+        width: 1.25rem; /* 20px */
+        height: 1.25rem; /* 20px */
+    }
 }
 
-/* Responsive adjustments for screens up to 480px (Mobile Phones) */
+/* @media (max-width: 480px) - Mobile Phones */
 @media (max-width: 480px) {
-  .albumItem {
-    border-radius: 0.625rem; /* 10px */
-    /* max-width is already 100% from 768px breakpoint, or can be set lower if multiple columns on mobile */
-  }
-  .albumCaption {
-    font-size: 0.6875rem; /* ~11px - slightly smaller for compact text */
-    padding: 0.3rem; /* 4.8px */
-  }
-  .deleteButton {
-    width: 1.125rem; /* 18px */
-    height: 1.125rem; /* 18px */
-    line-height: 1.125rem; /* Match height */
-    font-size: 0.6875rem; /* ~11px */
-    top: 0.15rem; /* 2.4px */
-    right: 0.15rem; /* 2.4px */
-  }
+    .albumItem {
+        border-radius: 0.625rem; /* 10px */
+    }
+    .albumImage {
+        height: 8rem; /* 128px */
+    }
+    .albumFooterPill {
+        border-radius: 0 0 0.625rem 0.625rem; /* 10px */
+        gap: 0.4rem; /* 6.4px */
+    }
+    .albumCaption {
+        font-size: 0.75rem; /* 12px */
+        padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
+    }
+    .deleteButton {
+        padding: 0.25rem; /* 4px */
+    }
+    .deleteButton img {
+        width: 1.125rem; /* 18px */
+        height: 1.125rem; /* 18px */
+    }
 }

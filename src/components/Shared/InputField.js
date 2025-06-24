@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styles from './InputField.module.css';
-import CountrySelect from './CountrySelect'; // Assuming CountrySelect is correctly implemented
 // import { cn } from "../../uitls/cn"; // Assuming you have this utility
 
 function InputField({
@@ -70,9 +69,14 @@ function InputField({
     }
   }, [value, isPhoneInput]); // Removed countryCode, localNumber from deps to prevent infinite loops
 
-  // Handler for CountrySelect component
-  const handleCountryCodeChange = e => {
-    const newCode = e.target.value;
+  // Replace CountrySelect with a simple select for country code, defaulting to +1 for US/Canada
+  const countryOptions = [
+    { code: '+1', label: 'Canada/US (+1)' },
+    // Add more as needed
+  ];
+
+  // Handler for CountrySelect component (now expects a string, not event)
+  const handleCountryCodeChange = newCode => {
     setCountryCode(newCode); // Update internal state
     // Notify parent with the *full* phone number (new country code + current local number)
     if (onChange) {
@@ -154,51 +158,43 @@ function InputField({
       </label>
       <div className={styles.inputContainer}>
         {isPhoneInput && (
-          <CountrySelect
+          <select
             value={countryCode}
-            onChange={handleCountryCodeChange}
-          />
-        )}
-        {type === 'textarea' ? (
-          <textarea
-            id={name}
-            name={name}
-            className={`${styles.input} ${styles.textarea}`}
-            placeholder={placeholder}
-            value={displayValueForInput}
-            onChange={specificChangeHandler}
-            rows={rows}
-            required={required}
-            disabled={disabled}
-            maxLength={effectiveHtmlMaxLength}
-            {...props}
-          />
-        ) : (
-          <input
-            type={effectiveInputType}
-            id={name}
-            name={name}
+            onChange={e => handleCountryCodeChange(e.target.value)}
             className={styles.input}
-            placeholder={placeholder}
-            value={displayValueForInput}
-            onChange={specificChangeHandler}
-            inputMode={inputMode}
-            maxLength={effectiveHtmlMaxLength}
-            required={required}
-            disabled={disabled}
-            autoComplete={
-              name.includes('password')
-                ? 'new-password'
-                : type === 'email'
-                  ? 'email'
-                  : 'on'
-            }
-            max={type === 'date' ? props.max : undefined}
-            min={type === 'number' ? props.min : undefined}
-            step={type === 'number' ? props.step : undefined}
-            {...props}
-          />
+            style={{ maxWidth: 100 }}
+          >
+            {countryOptions.map(opt => (
+              <option key={opt.code} value={opt.code}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
         )}
+        <input
+          type={effectiveInputType}
+          id={name}
+          name={name}
+          className={styles.input}
+          placeholder={placeholder}
+          value={displayValueForInput}
+          onChange={specificChangeHandler}
+          inputMode={inputMode}
+          maxLength={effectiveHtmlMaxLength}
+          required={required}
+          disabled={disabled}
+          autoComplete={
+            name.includes('password')
+              ? 'new-password'
+              : type === 'email'
+                ? 'email'
+                : 'on'
+          }
+          max={type === 'date' ? props.max : undefined}
+          min={type === 'number' ? props.min : undefined}
+          step={type === 'number' ? props.step : undefined}
+          {...props}
+        />
         {icon === 'password' && (
           <button
             type="button"

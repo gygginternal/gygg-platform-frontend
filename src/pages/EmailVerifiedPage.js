@@ -37,12 +37,10 @@ function EmailVerifiedPage() {
         setMessage('Email successfully verified! Redirecting to login...');
         setVerificationStatus('success');
 
-        // Redirect to login after a short delay
-        setTimeout(() => {
+        // Redirect to login immediately
           navigate('/login', {
             state: { message: 'Email verified! Please log in.' },
-          }); // Pass success message to login page
-        }, 3000); // 3 seconds delay
+        });
       } catch (err) {
         logger.error(
           'EmailVerifiedPage: Verification API call failed:',

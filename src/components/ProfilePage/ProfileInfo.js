@@ -5,6 +5,8 @@ import apiClient from '../../api/axiosConfig'; // Adjust path if necessary
 import logger from '../../utils/logger'; // Optional: Adjust path if necessary
 import { useToast } from '../../context/ToastContext';
 import PropTypes from 'prop-types';
+import { AutoComplete } from '../AutoComplete';
+import { HOBBIES_OPTIONS, SKILL_OPTIONS } from '../../utils/constants';
 
 // Helper function to decode HTML entities (if bio or other text fields might have them from backend)
 const decodeHTMLEntities = text => {
@@ -157,16 +159,20 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
     payload.append('bio', editedBio.trim()); // Send plain text, backend should escape/sanitize
 
     // Convert comma-separated strings for hobbies/skills back to arrays for backend
-    editedHobbies
-      .split(',')
-      .map(h => h.trim())
-      .filter(h => h)
-      .forEach(hobby => payload.append('hobbies[]', hobby));
-    editedSkills
-      .split(',')
-      .map(s => s.trim())
-      .filter(s => s)
-      .forEach(skill => payload.append('skills[]', skill));
+    (Array.isArray(editedHobbies)
+      ? editedHobbies
+      : editedHobbies
+          .split(',')
+          .map(h => h.trim())
+          .filter(h => h)
+    ).forEach(hobby => payload.append('hobbies[]', hobby));
+    (Array.isArray(editedSkills)
+      ? editedSkills
+      : editedSkills
+          .split(',')
+          .map(s => s.trim())
+          .filter(s => s)
+    ).forEach(skill => payload.append('skills[]', skill));
 
     // Address: Backend expects an object. If sending via FormData, stringify it or send individual fields.
     // Let's assume backend's updateMe controller handles `address[street]`, `address[city]` etc.
@@ -358,29 +364,34 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
                   type="file"
                   id="profileImage"
                   ref={fileInputRef}
-                  style={{ display: 'none' }} // Hide the actual input
+                  style={{ display: 'none' }}
                   onChange={handleProfileImageFileChange}
                   accept="image/jpeg,image/png,image/webp"
                 />
-                <button
-                  onClick={triggerFileInput}
-                  className={styles.chooseImageButton}
-                  disabled={saveLoading}
+                <div
+                  style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}
                 >
-                  Choose Image
-                </button>
-                {profileImagePreview && (
                   <button
-                    onClick={() => {
-                      setProfileImagePreview(null);
-                      setProfileImageFile(null);
-                    }}
-                    className={styles.removeImageButton}
+                    onClick={triggerFileInput}
+                    className={styles.chooseImageButton}
+                    style={{ backgroundColor: '#2c3a40', color: '#fff' }}
                     disabled={saveLoading}
                   >
-                    Remove Image
+                    Choose Image
                   </button>
-                )}
+                  {profileImagePreview && (
+                    <button
+                      onClick={() => {
+                        setProfileImagePreview(null);
+                        setProfileImageFile(null);
+                      }}
+                      className={styles.removeImageButton}
+                      disabled={saveLoading}
+                    >
+                      Remove Image
+                    </button>
+                  )}
+                </div>
               </div>
 
               {/* Editable Fields */}
@@ -420,7 +431,7 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
                 </label>
                 <textarea
                   id="bio"
-                  className={`${styles.textInput} ${styles.textarea}`}
+                  className={`${styles.textInput} ${styles.textArea}`}
                   value={editedBio}
                   onChange={e => setEditedBio(e.target.value)}
                   placeholder="Tell us about yourself..."
@@ -430,32 +441,36 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
               </div>
 
               <div className={styles.formGroup}>
-                <label htmlFor="hobbies" className={styles.rowLabel}>
-                  Hobbies (comma-separated):
-                </label>
-                <input
-                  type="text"
-                  id="hobbies"
-                  className={styles.textInput}
-                  value={editedHobbies}
-                  onChange={e => setEditedHobbies(e.target.value)}
-                  placeholder="e.g., Reading, Hiking, Cooking"
-                  disabled={saveLoading}
+                <AutoComplete
+                  label="Hobbies"
+                  options={HOBBIES_OPTIONS}
+                  values={
+                    Array.isArray(editedHobbies)
+                      ? editedHobbies
+                      : editedHobbies
+                          .split(',')
+                          .map(h => h.trim())
+                          .filter(Boolean)
+                  }
+                  onChange={newHobbies => setEditedHobbies(newHobbies)}
+                  placeholder="Add hobbies..."
                 />
               </div>
 
               <div className={styles.formGroup}>
-                <label htmlFor="skills" className={styles.rowLabel}>
-                  Skills (comma-separated):
-                </label>
-                <input
-                  type="text"
-                  id="skills"
-                  className={styles.textInput}
-                  value={editedSkills}
-                  onChange={e => setEditedSkills(e.target.value)}
-                  placeholder="e.g., Web Development, Graphic Design, Project Management"
-                  disabled={saveLoading}
+                <AutoComplete
+                  label="Skills"
+                  options={SKILL_OPTIONS}
+                  values={
+                    Array.isArray(editedSkills)
+                      ? editedSkills
+                      : editedSkills
+                          .split(',')
+                          .map(s => s.trim())
+                          .filter(Boolean)
+                  }
+                  onChange={newSkills => setEditedSkills(newSkills)}
+                  placeholder="Add skills..."
                 />
               </div>
 

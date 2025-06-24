@@ -10,17 +10,6 @@ function AlbumCard({ image, caption, photoId, onDelete }) {
 
   return (
     <figure className={styles.albumItem}>
-      {/* Delete button - shown only if onDelete function is provided */}
-      {onDelete && (
-        <button
-          className={styles.deleteButton}
-          onClick={() => onDelete(photoId)}
-          title="Delete photo"
-          aria-label="Delete photo"
-        >
-          × {/* Simple 'x' icon */}
-        </button>
-      )}
       <div className="image-container">
         <img
           src={image || '/image-placeholder.png'}
@@ -29,10 +18,29 @@ function AlbumCard({ image, caption, photoId, onDelete }) {
           onError={handleImageError}
           loading="lazy"
         />
+        <div className={styles.albumFooterOverlay}>
+          <div className={styles.albumFooterPill}>
+            <figcaption className={styles.albumCaption}>
+              {caption || 'No caption'}
+            </figcaption>
+            {onDelete && (
+              <button
+                className={styles.deleteButton}
+                onClick={() => onDelete(photoId)}
+                title="Delete photo"
+                aria-label="Delete photo"
+                type="button"
+              >
+                <img
+                  src="/assets/trash.svg"
+                  alt="Delete"
+                  style={{ width: 22, height: 22 }}
+                />
+              </button>
+            )}
+          </div>
+        </div>
       </div>
-      <figcaption className={styles.albumCaption}>
-        {caption || 'No caption'}
-      </figcaption>
     </figure>
   );
 }

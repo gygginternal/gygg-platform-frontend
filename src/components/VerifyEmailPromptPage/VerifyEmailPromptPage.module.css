@@ -1,7 +1,9 @@
+/* src/pages/ForgotPasswordPage.module.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
+/* Setting a base font size for rem calculations if not set globally */
 :root {
-  font-size: 16px;
+    font-size: 16px; /* 1rem = 16px */
 }
 
 .container {
@@ -10,7 +12,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 1.25rem;
+  padding: 1.25rem; /* 20px */
   background: linear-gradient(#3c4a53, #0f212d);
   overflow-y: auto;
   box-sizing: border-box;
@@ -22,7 +24,7 @@
   font-weight: 900;
   color: #d89362;
   text-decoration: none;
-  position: absolute;
+  position: absolute; /* Position at top-left */
   top: 1.5rem;
   left: 1.5rem;
   z-index: 10;
@@ -30,7 +32,7 @@
 
 .logo img {
   display: block;
-  max-width: 9.375rem;
+  max-width: 9.375rem; /* 150px - Use max-width for responsiveness */
   width: 100%;
   height: auto;
 }
@@ -40,18 +42,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.5625rem;
-  max-width: 30rem;
+  gap: 1.5625rem; /* 25px */
+  max-width: 30rem; /* 480px */
   width: 100%;
   text-align: center;
   background-color: transparent;
-  padding: 2.1875rem;
-  border-radius: 0.625rem;
+  padding: 2.1875rem; /* 35px */
+  border-radius: 0.625rem; /* 10px */
 }
 
 .title {
-  color: #fff;
-  font-size: clamp(1.125rem, 4vw, 1.5rem);
+  /* Facebook Header (profile names etc.) 16-18px.
+     This is a main page title, so a slightly larger range is acceptable for impact. */
+  font-size: clamp(1.125rem, 4vw, 1.5rem); /* Ranging from 18px to 24px */
   font-weight: 600;
   font-family: 'Inter', sans-serif;
   margin-bottom: 0;
@@ -59,8 +62,9 @@
 
 .instructionText {
   color: #eee;
-  font-size: 0.9375rem;
-  margin-bottom: 1.25rem;
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 0.9375rem; /* 15px */
+  margin-bottom: 1.25rem; /* 20px */
   line-height: 1.5;
   max-width: 90%;
 }
@@ -69,12 +73,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 0.625rem;
+  margin-bottom: 0.625rem; /* 10px */
 }
 .iconContainer img {
-  width: 4rem;
-  height: 4rem;
+  /* This is the primary adjustment point. Starting larger and scaling down. */
+  /* Facebook Top navbar icons 20-24px. */
+  width: 4rem; /* 64px - Larger for prominence on desktop */
+  height: 4rem; /* 64px */
   opacity: 0.8;
+  object-fit: contain; /* Ensure icon scales properly */
 }
 
 .form {
@@ -85,9 +92,9 @@
   box-shadow: none !important;
   display: flex;
   flex-direction: column;
-  gap: 1.125rem;
+  gap: 1.125rem; /* 18px */
   width: 100%;
-  margin-bottom: 0.625rem;
+  margin-bottom: 0.625rem; /* 10px */
 }
 
 .submitButton {
@@ -95,21 +102,22 @@
   cursor: pointer;
   background-color: #d99633;
   border: none;
-  border-radius: 0.75rem;
+  border-radius: 0.75rem; /* 12px */
   width: 100%;
-  height: 2.8125rem;
-  font-size: 0.875rem;
+  height: 2.8125rem; /* 45px */
+  /* Facebook Buttons 13-14px */
+  font-size: 0.875rem; /* 14px */
   font-weight: 700;
-  line-height: 1;
-  letter-spacing: 0.14px;
+  line-height: 1; /* Adjust line-height to center text */
+  letter-spacing: 0.00875rem; /* 0.14px */
   transition:
     background-color 0.3s ease,
     transform 0.1s ease;
-  margin-top: 0.625rem;
+  margin-top: 0.625rem; /* 10px */
 }
 .submitButton:hover:not(:disabled) {
   background-color: #b45309;
-  transform: translateY(-0.0625rem);
+  transform: translateY(-0.0625rem); /* -1px */
 }
 .submitButton:active:not(:disabled) {
   transform: translateY(0px);
@@ -122,16 +130,17 @@
 
 .retryText {
   color: #bbb;
-  font-size: 0.8125rem;
+  /* Facebook Comments 13-14px */
+  font-size: 0.8125rem; /* 13px */
   font-weight: 400;
   font-family: 'Inter', sans-serif;
   text-align: center;
-  margin-top: 1.25rem;
-  line-height: 2.4;
+  margin-top: 1.25rem; /* 20px */
+  line-height: 1.6; /* Adjusted line-height for better readability */
 }
 
 .retryLink {
-  color: #d99633;
+  color: #d89362;
   text-decoration: none;
   cursor: pointer;
   font-weight: 500;
@@ -144,9 +153,10 @@
 
 .error {
   color: #ff8a8a;
-  font-size: 0.875rem;
-  margin-top: 0.3125rem;
-  margin-bottom: 0.625rem;
+  /* Facebook Comments 13-14px */
+  font-size: 0.875rem; /* 14px */
+  margin-top: 0.3125rem; /* 5px */
+  margin-bottom: 0.625rem; /* 10px */
   font-family: 'Inter', sans-serif;
   text-align: center;
   width: 100%;
@@ -154,17 +164,18 @@
 
 .infoMessage {
   color: #e0f2f7;
-  font-size: 1rem;
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 1rem; /* 16px */
   text-align: center;
-  padding: 0.9375rem;
+  padding: 0.9375rem; /* 15px */
   background-color: rgba(0, 100, 120, 0.3);
-  border-radius: 0.3125rem;
+  border-radius: 0.3125rem; /* 5px */
   width: 100%;
   line-height: 1.5;
 }
 
 .link {
-  color: #d99633;
+  color: #d89362;
   text-decoration: none;
   transition: color 0.3s ease;
   font-weight: 500;
@@ -196,8 +207,8 @@
     margin-bottom: 1rem;
   }
   .iconContainer img {
-    width: 3rem;
-    height: 3rem;
+    width: 3rem; /* 48px */
+    height: 3rem; /* 48px */
   }
   .form {
     gap: 1rem;
@@ -247,8 +258,8 @@
     margin-bottom: 0.8rem;
   }
   .iconContainer img {
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 2.4rem; /* 38.4px */
+    height: 2.4rem; /* 38.4px */
   }
   .form {
     gap: 0.8rem;
@@ -279,8 +290,10 @@
     padding: 0.625rem;
   }
   .logo {
-    top: 1rem;
-    left: 1rem;
+    /* At 480px, it's often better for logo to be static and centered if no global header */
+    /* If there's a header, it stays absolute. Reverted this from previous turn's override */
+    top: 0.75rem;
+    left: 0.75rem;
   }
   .logo img {
     max-width: 6.25rem;
@@ -297,8 +310,8 @@
     margin-bottom: 0.625rem;
   }
   .iconContainer img {
-    width: 1.8rem;
-    height: 1.8rem;
+    width: 1.8rem; /* 28.8px */
+    height: 1.8rem; /* 28.8px */
   }
   .form {
     gap: 0.625rem;

@@ -39,13 +39,13 @@ function LoginPage() {
       const response = await apiClient.post('/users/login', payload);
       logger.info('Login successful:', response.data);
 
-      if (response.data.token && response.data.data.user) {
-        login(response.data.token, response.data.data.user); // Update auth context
-        if (response.data.data.redirectToOnboarding) {
+      if (response.data.data.token && response.data.data.user) {
+        login(response.data.data.token, response.data.data.user); // Update auth context
+        if (response.data.redirectToOnboarding) {
           logger.info(
-            `Redirecting to onboarding: ${response.data.data.redirectToOnboarding}`
+            `Redirecting to onboarding: ${response.data.redirectToOnboarding}`
           );
-          return navigate(response.data.data.redirectToOnboarding); // Navigate to onboarding path
+          return navigate(response.data.redirectToOnboarding); // Navigate to onboarding path
         }
 
         navigate('/feed'); // Redirect to dashboard

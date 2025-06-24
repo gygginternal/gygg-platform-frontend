@@ -26,6 +26,10 @@
   display: flex;
 }
 
+.editButton {
+  background-color: transparent;
+}
+
 .editIcon {
   /* Facebook Top navbar icons 20-24px, Post action icons 16-20px */
   height: 1.25rem; /* 20px */
@@ -107,6 +111,11 @@
   /* Facebook Header (profile names etc.) 16-18px */
   font-size: 1.25rem; /* 20px */
   font-weight: 600; /* Slightly lighter than original 700 to match FB */
+}
+
+.srOnly{
+  padding-left: 1.5rem;
+  font-weight: 500;
 }
 
 .modalPrompt {

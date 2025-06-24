@@ -65,7 +65,7 @@ function PostsSection({ userIdToView, isOwnProfile }) {
           </p>
           {/* Only show create post link if it's own profile */}
           {isOwnProfile && (
-            <Link to="/posts/create" className={styles.createPostButton}>
+            <Link to="/feed" className={styles.createPostButton}>
               Create Your First Post
             </Link>
           )}

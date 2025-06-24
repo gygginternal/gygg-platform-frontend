@@ -289,11 +289,20 @@
   flex-shrink: 0; /* Prevent actions from shrinking */
 }
 
+.modalFooter {
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 0.75rem; /* Space between buttons */
+  padding-top: 1rem; /* Optional padding above buttons */
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  border-top: 1px solid #e0e0e0; /* Optional separator line */
+}
+
 .cancelButton,
 .saveButton {
   padding: 0.5625rem 1.125rem; /* 9px 18px */
-  /* Facebook Buttons 13-14px */
-  font-size: 0.9375rem; /* 15px (slightly larger than 14px for prominence) */
+  font-size: 0.9375rem; /* 15px */
   border-radius: 0.375rem; /* 6px */
   border: none;
   cursor: pointer;
@@ -303,6 +312,7 @@
     transform 0.1s ease;
 }
 
+/* Save Button Styles */
 .saveButton {
   background-color: #3d4d55;
   color: #fff;
@@ -312,6 +322,7 @@
   transform: translateY(-0.0625rem); /* -1px */
 }
 
+/* Cancel Button Styles */
 .cancelButton {
   background-color: #e9ecef;
   color: #495057;
@@ -321,6 +332,8 @@
   background-color: #ced4da;
   transform: translateY(-0.0625rem); /* -1px */
 }
+
+/* Active State Reset */
 .cancelButton:active,
 .saveButton:active {
   transform: translateY(0);

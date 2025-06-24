@@ -150,7 +150,7 @@ function AboutSection({ userToDisplay, isOwnProfile, onUpdate }) {
                 Bio content
               </label>
               <textarea
-                id="bio-textarea"
+                id="bio-textArea"
                 className={styles.textArea}
                 value={editedBio}
                 onChange={e => setEditedBio(e.target.value)}
