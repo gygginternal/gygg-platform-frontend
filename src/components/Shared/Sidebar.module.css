@@ -23,6 +23,7 @@
   flex-direction: column;
   z-index: 99; /* Below header (100) on desktop */
   box-sizing: border-box; /* Include padding in height */
+  gap: 0 !important; /* Remove gap between nav items */
 }
 
 /* Desktop Collapsed State (still visible on screen) */
@@ -49,10 +50,10 @@
 .navItemContent {
   display: flex;
   align-items: center;
-  gap: 0.625rem; /* 10px - Space between icon and text */
-  width: 100%; /* Important: ensures this inner div stretches */
-  padding: 1rem 1.5rem; /* 16px 24px - Original padding applied here */
-  box-sizing: border-box; /* Ensure padding is included in width */
+  gap: 0 !important;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  box-sizing: border-box;
 }
 
 .navItem:hover {
@@ -91,13 +92,14 @@
 }
 
 .navText {
-  font-size: 1rem; /* 16px */
+  font-size: 1em;
   font-weight: 500;
   white-space: nowrap;
   transition:
     opacity 0.3s ease-in-out,
     width 0.3s ease-in-out;
   overflow: hidden;
+  margin-left: 0.5em; /* Add space between icon and text */
 }
 
 /* Styles for collapsed text on desktop */
@@ -107,10 +109,14 @@
 }
 
 .defaultIcon {
-  filter: brightness(0);
-  width: 1.25rem; /* 20px */
-  height: 1.25rem; /* 20px */
+  width: 1em;
+  height: 1em;
   flex-shrink: 0;
+  filter: brightness(0) invert(0); /* Black icon for unselected */
+}
+
+.navItem.selected .defaultIcon {
+  filter: brightness(0) invert(1); /* White icon for selected */
 }
 
 /* --- Responsive Adjustments for Sidebar --- */
@@ -146,11 +152,14 @@
 /* Header Height: 4rem (64px) from Header.module.css */
 @media (max-width: 768px) {
   .sidebar {
-    left: -15rem; /* Match the desired width of the open overlay */
-    width: 15rem; /* 240px */
-    top: 4rem; /* Starts BELOW the 64px header */
-    height: calc(100vh - 4rem); /* Fills remaining height below header */
-    padding-top: 1rem; /* Standard internal padding for mobile overlay */
+    left: -15rem;
+    width: 15rem;
+    top: 4rem;
+    height: calc(100vh - 4rem);
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    border-top: none !important;
+    box-shadow: none !important;
   }
 
   /* When the sidebar is 'open' (via JavaScript toggle) */
@@ -217,19 +226,26 @@
 /* Header Height: 3.5rem (56px) from Header.module.css */
 @media (max-width: 480px) {
   .sidebar {
-    top: 3.5rem; /* Starts below the 56px header */
-    height: calc(100vh - 3.5rem); /* Fills remaining height */
-    padding-top: 0.75rem; /* 12px - Standard internal padding */
+    left: -100vw;
+    width: 50vw !important;
+    top: 3.5rem; /* Align with header height */
+    height: calc(100vh - 3.5rem);
+    padding-top: 0 !important; /* Remove top padding to eliminate white bar */
+    transition: left 0.3s;
+    z-index: 200;
+  }
+  .sidebar.open {
+    left: 0;
   }
   .navItemContent {
-    /* Apply to inner content */
-    padding: 0.625rem 0.8rem; /* 10px 12.8px */
+    padding: 0.3rem 0.4rem; /* Smaller padding for mobile */
   }
   .navText {
-    font-size: 0.75rem; /* 12px */
+    font-size: 0.65em;
+    margin-left: 0.4em;
   }
   .defaultIcon {
-    width: 0.875rem; /* 14px */
-    height: 0.875rem; /* 14px */
+    width: 0.65em;
+    height: 0.65em;
   }
 }

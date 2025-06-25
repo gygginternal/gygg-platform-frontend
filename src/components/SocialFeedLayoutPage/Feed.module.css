@@ -1,10 +1,5 @@
 /* frontend/src/components/SocialPage/FeedContainer.module.css */
 
-/* Setting a base font size for rem calculations if not set globally */
-:root {
-  font-size: 16px; /* 1rem = 16px */
-}
-
 .error-message {
   color: #dc2626;
   font-size: 0.875rem;
@@ -18,10 +13,10 @@
 .feedContainer {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem; /* 24px */
-  padding: 1.5rem; /* 24px */
-  box-sizing: border-box; /* Ensure padding is included in width */
-  width: 100%; /* Ensure it takes full width of its parent */
+  gap: 1.5rem;
+  padding: 0.5rem 1.5rem 1.5rem 1.5rem; /* Reduced top padding */
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .feedHeader {
@@ -225,8 +220,8 @@
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
   .feedContainer {
-    gap: 1.25rem; /* 20px */
-    padding: 1.25rem; /* 20px */
+    gap: 1.25rem;
+    padding: 0.5rem 1.25rem 1.25rem 1.25rem; /* Reduced top padding */
   }
   .feedTitle {
     font-size: 1.125rem; /* 18px */
@@ -284,8 +279,8 @@
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
   .feedContainer {
-    gap: 1rem; /* 16px */
-    padding: 1rem; /* 16px */
+    gap: 1rem;
+    padding: 0.25rem 1rem 1rem 1rem; /* Further reduced top padding */
   }
   .feedHeader {
     flex-direction: column; /* Stack header items */
@@ -354,8 +349,8 @@
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
   .feedContainer {
-    gap: 0.75rem; /* 12px */
-    padding: 0.75rem; /* 12px */
+    gap: 0.75rem;
+    padding: 0.05rem 0.75rem 0.75rem 0.75rem; /* Halved top padding for mobile */
   }
   .feedHeader {
     gap: 0.4rem; /* 6.4px */

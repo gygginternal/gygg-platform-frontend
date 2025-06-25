@@ -1,12 +1,4 @@
 /* src/pages/SettingsPage.module.css */
-
-/* Setting a base font size for rem calculations if not set globally */
-:root {
-  font-size: 16px; /* 1rem = 16px */
-}
-
-/* Removed .pageTitle as it is not used */
-
 .settingsContainer {
   /* Add general padding to give space around the content */
   padding: 1rem; /* 16px */
@@ -18,7 +10,7 @@
 @media (max-width: 1024px) {
   .settingsContainer {
     padding: 0.8rem; /* 12.8px */
-    padding-left: 300px;
+    padding-left: 200px;
   }
 }
 
@@ -26,7 +18,7 @@
 @media (max-width: 768px) {
   .settingsContainer {
     padding: 0.6rem; /* 9.6px */
-    padding-left: 150px;
+    padding-left: 100px;
   }
 }
 

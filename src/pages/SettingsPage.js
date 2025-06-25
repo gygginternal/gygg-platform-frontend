@@ -8,7 +8,6 @@ function SettingsPage() {
   return (
     <div className={styles.settingsContainer}>
       <PersonalInfoForm />
-      {/* Add other settings sections here */}
       {/* <NotificationSettings /> */}
       {/* <SecuritySettings /> */}
     </div>

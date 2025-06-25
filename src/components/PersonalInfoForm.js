@@ -276,26 +276,6 @@ function PersonalInfoForm() {
                         {error && <p className="error-message">{error}</p>}
                         {success && <p className="success-message">{success}</p>}
                         <h4 className={styles.subheading}>Basic Info</h4> */}
-            <div className={styles.row}>
-              <div className={styles.inputGroup}>
-                <label htmlFor="p-firstName">First Name</label>
-                <input
-                  id="p-firstName"
-                  name="firstName"
-                  value={personalInfo.firstName}
-                  onChange={handlePersonalInfoChange}
-                />
-              </div>
-              <div className={styles.inputGroup}>
-                <label htmlFor="p-lastName">Last Name</label>
-                <input
-                  id="p-lastName"
-                  name="lastName"
-                  value={personalInfo.lastName}
-                  onChange={handlePersonalInfoChange}
-                />
-              </div>
-            </div>
             <div className={styles.inputGroup}>
               <label htmlFor="p-email">Email Address</label>
               <input
@@ -305,6 +285,46 @@ function PersonalInfoForm() {
                 readOnly
                 disabled
                 title="Email cannot be changed here"
+              />
+            </div>
+
+            <h4 className={styles.subheading}>Change Password (Optional)</h4>
+            {error && <p className={styles['error-message']}>{error}</p>}
+            {success && <p className={styles['success-message']}>{success}</p>}
+            <div className={styles.row}>
+              <div className={styles.inputGroup}>
+                <label htmlFor="currentPassword">Current Password</label>
+                <input
+                  id="currentPassword"
+                  type="password"
+                  name="currentPassword"
+                  value={passwordInfo.currentPassword}
+                  onChange={handlePasswordChange}
+                  placeholder="Required to change"
+                />
+              </div>
+              <div className={styles.inputGroup}>
+                <label htmlFor="newPassword">New Password</label>
+                <input
+                  id="newPassword"
+                  type="password"
+                  name="newPassword"
+                  value={passwordInfo.newPassword}
+                  onChange={handlePasswordChange}
+                  placeholder="Min. 8 characters"
+                />
+              </div>
+            </div>
+            <div
+              className={`${styles.inputGroup} ${styles.confirmPasswordGroup}`}
+            >
+              <label htmlFor="confirmNewPassword">Confirm New Password</label>
+              <input
+                id="confirmNewPassword"
+                type="password"
+                name="confirmNewPassword"
+                value={passwordInfo.confirmNewPassword}
+                onChange={handlePasswordChange}
               />
             </div>
 
@@ -357,47 +377,6 @@ function PersonalInfoForm() {
                   onChange={handlePersonalInfoChange}
                 />
               </div>
-            </div>
-
-            <h4 className={styles.subheading}>Change Password (Optional)</h4>
-            {error && <p className={styles['error-message']}>{error}</p>}
-            {success && <p className={styles['success-message']}>{success}</p>}
-            <div className={styles.row}>
-              <div className={styles.inputGroup}>
-                <label htmlFor="currentPassword">Current Password</label>
-                <input
-                  id="currentPassword"
-                  type="password"
-                  name="currentPassword"
-                  value={passwordInfo.currentPassword}
-                  onChange={handlePasswordChange}
-                  placeholder="Required to change"
-                />
-              </div>
-              <div className={styles.inputGroup}>
-                <label htmlFor="newPassword">New Password</label>
-                <input
-                  id="newPassword"
-                  type="password"
-                  name="newPassword"
-                  value={passwordInfo.newPassword}
-                  onChange={handlePasswordChange}
-                  placeholder="Min. 8 characters"
-                />
-              </div>
-            </div>
-            <div
-              className={styles.inputGroup}
-              style={{ maxWidth: 'calc(50% - 10px)' }}
-            >
-              <label htmlFor="confirmNewPassword">Confirm New Password</label>
-              <input
-                id="confirmNewPassword"
-                type="password"
-                name="confirmNewPassword"
-                value={passwordInfo.confirmNewPassword}
-                onChange={handlePasswordChange}
-              />
             </div>
 
             <div

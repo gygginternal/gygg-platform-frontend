@@ -198,6 +198,7 @@
   /* Facebook Header (profile names etc.) 16-18px */
   font-size: 1.25rem; /* 20px */
   font-weight: 600;
+  color: #fff;
 }
 
 .closeButton {

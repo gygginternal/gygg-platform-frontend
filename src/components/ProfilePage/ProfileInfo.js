@@ -156,7 +156,6 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
     // Append standard text fields
     payload.append('firstName', editedFirstName.trim());
     payload.append('lastName', editedLastName.trim());
-    payload.append('bio', editedBio.trim()); // Send plain text, backend should escape/sanitize
 
     // Convert comma-separated strings for hobbies/skills back to arrays for backend
     (Array.isArray(editedHobbies)
@@ -173,21 +172,6 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
           .map(s => s.trim())
           .filter(s => s)
     ).forEach(skill => payload.append('skills[]', skill));
-
-    // Address: Backend expects an object. If sending via FormData, stringify it or send individual fields.
-    // Let's assume backend's updateMe controller handles `address[street]`, `address[city]` etc.
-    // OR it handles a JSON string for 'address'. For simplicity with FormData and files:
-    const addressObject = {
-      street: editedAddress.street.trim(),
-      city: editedAddress.city.trim(),
-      state: editedAddress.state.trim(),
-      postalCode: editedAddress.postalCode.trim(),
-      country: editedAddress.country.trim(),
-    };
-    // Only append address if at least one field is filled to avoid sending empty object
-    if (Object.values(addressObject).some(val => val)) {
-      payload.append('address', JSON.stringify(addressObject)); // Send as JSON string
-    }
 
     // Append profile image file IF a new one was selected by the user
     if (profileImageFile) {
@@ -426,23 +410,8 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
               </div>
 
               <div className={styles.formGroup}>
-                <label htmlFor="bio" className={styles.rowLabel}>
-                  Bio:
-                </label>
-                <textarea
-                  id="bio"
-                  className={`${styles.textInput} ${styles.textArea}`}
-                  value={editedBio}
-                  onChange={e => setEditedBio(e.target.value)}
-                  placeholder="Tell us about yourself..."
-                  rows="4"
-                  disabled={saveLoading}
-                ></textarea>
-              </div>
-
-              <div className={styles.formGroup}>
                 <AutoComplete
-                  label="Hobbies"
+                  label="Hobbies:"
                   options={HOBBIES_OPTIONS}
                   values={
                     Array.isArray(editedHobbies)
@@ -459,7 +428,7 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
 
               <div className={styles.formGroup}>
                 <AutoComplete
-                  label="Skills"
+                  label="Skills:"
                   options={SKILL_OPTIONS}
                   values={
                     Array.isArray(editedSkills)
@@ -471,103 +440,6 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
                   }
                   onChange={newSkills => setEditedSkills(newSkills)}
                   placeholder="Add skills..."
-                />
-              </div>
-
-              {/* Address Fields */}
-              <h4 className={styles.addressSectionTitle}>
-                Address Information
-              </h4>
-              <div className={styles.formGroup}>
-                <label htmlFor="street" className={styles.rowLabel}>
-                  Street:
-                </label>
-                <input
-                  type="text"
-                  id="street"
-                  className={styles.textInput}
-                  value={editedAddress.street}
-                  onChange={e =>
-                    setEditedAddress({
-                      ...editedAddress,
-                      street: e.target.value,
-                    })
-                  }
-                  placeholder="Street Address"
-                  disabled={saveLoading}
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="city" className={styles.rowLabel}>
-                  City:
-                </label>
-                <input
-                  type="text"
-                  id="city"
-                  className={styles.textInput}
-                  value={editedAddress.city}
-                  onChange={e =>
-                    setEditedAddress({ ...editedAddress, city: e.target.value })
-                  }
-                  placeholder="City"
-                  disabled={saveLoading}
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="state" className={styles.rowLabel}>
-                  State/Province:
-                </label>
-                <input
-                  type="text"
-                  id="state"
-                  className={styles.textInput}
-                  value={editedAddress.state}
-                  onChange={e =>
-                    setEditedAddress({
-                      ...editedAddress,
-                      state: e.target.value,
-                    })
-                  }
-                  placeholder="State/Province"
-                  disabled={saveLoading}
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="postalCode" className={styles.rowLabel}>
-                  Postal Code:
-                </label>
-                <input
-                  type="text"
-                  id="postalCode"
-                  className={styles.textInput}
-                  value={editedAddress.postalCode}
-                  onChange={e =>
-                    setEditedAddress({
-                      ...editedAddress,
-                      postalCode: e.target.value,
-                    })
-                  }
-                  placeholder="Postal Code"
-                  disabled={saveLoading}
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="country" className={styles.rowLabel}>
-                  Country:
-                </label>
-                <input
-                  type="text"
-                  id="country"
-                  className={styles.textInput}
-                  value={editedAddress.country}
-                  onChange={e =>
-                    setEditedAddress({
-                      ...editedAddress,
-                      country: e.target.value,
-                    })
-                  }
-                  placeholder="Country"
-                  disabled={saveLoading}
                 />
               </div>
             </div>
