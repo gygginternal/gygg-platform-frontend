@@ -7,7 +7,6 @@ import RecommendedAppliances from './RecommendedAppliances';
 import AwaitedPostedGigs from './AwaitedPostedGigs'; // Import the AwaitedPostedGigs component
 import { useQuery } from '@tanstack/react-query';
 import apiClient from '../api/axiosConfig';
-import { useState } from 'react';
 
 function ProfileSidebar() {
   const { user } = useAuth(); // Get logged-in user data
@@ -55,53 +54,6 @@ function ProfileSidebar() {
     </section>
   );
 
-  // New section for people needing help (Figma-style)
-  const peopleNeedHelp = [
-    {
-      name: 'Ariana. A from Thornhill needs a dog sitter',
-      avatar: '/default.jpg',
-      detail: 'View task detail',
-      link: '#',
-    },
-    {
-      name: 'Lia.T is from Thornhill needs a grocery Shopper',
-      avatar: '/default.jpg',
-      detail: 'View task detail',
-      link: '#',
-    },
-    {
-      name: 'Wilson. H from Richmondhill needs a furniture assembler',
-      avatar: '/default.jpg',
-      detail: 'View task detail',
-      link: '#',
-    },
-  ];
-
-  const peopleNeedHelpSection = (
-    <section className={styles.helpSection}>
-      <div className={styles.helpHeader}>
-        <span className={styles.helpTitle}>3 People need your help</span>
-      </div>
-      <ul className={styles.helpList}>
-        {peopleNeedHelp.map((person, idx) => (
-          <li key={idx} className={styles.helpItem}>
-            <img
-              src={person.avatar}
-              alt={person.name}
-              className={styles.helpAvatar}
-            />
-            <div className={styles.helpInfo}>
-              <span className={styles.helpName}>{person.name}</span>
-              <a href={person.link} className={styles.helpDetailLink}>
-                {person.detail}
-              </a>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
-
   return (
     <aside className={styles.profileSidebar}>
       {/* Profile Card */}
@@ -136,7 +88,6 @@ function ProfileSidebar() {
         {user.role?.includes('tasker') && (
           <>
             {iCanHelp}
-            {peopleNeedHelpSection}
             <RecommendedGigs />
           </>
         )}

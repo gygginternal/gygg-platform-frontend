@@ -1,5 +1,6 @@
+/* frontend/src/components/ProfileSidebar.module.css */
 .profileSidebar {
-  width: 18.75rem; /* 300px */
+  width: 18.75rem; /* 268px - Adjusted from previous 300px, respecting user input */
   border-radius: 1rem; /* 16px */
   box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1); /* 0 4px 12px */
   box-sizing: border-box; /* Ensure padding/border included in width */
@@ -20,7 +21,7 @@
 
 .profileImage {
   border-radius: 50%;
-  /* Facebook Avatar in stories: 40-60px. Using 64px is a bit large for sidebar, adjusting to 56px. */
+  /* Facebook Avatar in stories: 40-60px. Using 56px (3.5rem). */
   height: 3.5rem; /* 56px */
   width: 3.5rem; /* 56px */
   object-fit: cover;
@@ -48,6 +49,7 @@
 }
 .viewProfileLink:hover {
   color: #536471;
+  text-decoration: none; /* User specified 'none' on hover, overriding previous underline */
 }
 
 .gigsSection {
@@ -94,10 +96,8 @@
 .skillTag {
   color: #fff;
   background-color: #d99633;
-  border: 0.125rem solid #b08461; /* 2px */
   border-radius: 1rem; /* 16px */
-  padding: 0.5rem 1rem; /* 8px 16px */
-  /* Facebook Buttons 13-14px. Using 14px. */
+  padding: 0.5rem 0.5rem; /* 8px 16px */
   font-size: 0.875rem; /* 14px */
   font-weight: 600;
   cursor: default;
@@ -110,8 +110,7 @@
 /* Matches `sidebarArea` width in AppLayout.module.css */
 @media (max-width: 1024px) {
   .profileSidebar {
-    width: 15rem; /* 240px - Matches sidebarArea width */
-    box-shadow: none; /* Remove shadow on smaller screen to reduce visual clutter */
+    width: 15rem; /* 240px - Matches sidebarArea width from AppLayout */
   }
   .profileCard {
     padding: 1.25rem; /* 20px */
@@ -143,7 +142,7 @@
   }
   .skillTag {
     font-size: 0.8125rem; /* 13px */
-    padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
+    padding: 0.4rem 0.4rem; /* 6.4px 12.8px */
     border-radius: 0.8rem; /* 12.8px */
   }
 }
@@ -189,7 +188,7 @@
   }
   .skillTag {
     font-size: 0.75rem; /* 12px */
-    padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
+    padding: 0.3rem 0.3rem; /* 4.8px 9.6px */
     border-radius: 0.75rem; /* 12px */
   }
 }
@@ -225,7 +224,7 @@
   }
   .skillTag {
     font-size: 0.6875rem; /* ~11px */
-    padding: 0.25rem 0.5rem; /* 4px 8px */
+    padding: 0.25rem 0.25rem; /* 4px 8px */
     border-radius: 0.6rem; /* 9.6px */
   }
 }
@@ -261,7 +260,7 @@
   }
   .skillTag {
     font-size: 0.625rem; /* 10px */
-    padding: 0.2rem 0.4rem; /* 3.2px 6.4px */
+    padding: 0.2rem 0.2rem; /* 3.2px 6.4px */
     border-radius: 0.5rem; /* 8px */
   }
 }

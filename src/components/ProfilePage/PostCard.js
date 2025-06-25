@@ -65,20 +65,18 @@ function PostCard({ post }) {
       }}
     >
       <div className={styles.postHeader}>
-        <div className="image-container">
-          <img
-            src={profileImageSrc}
-            alt={post.author?.fullName || 'User Profile'}
-            className="profile-image-medium"
-            onError={e => {
-              e.currentTarget.src = '/default.jpg';
-            }}
-          />
-        </div>
+        <img
+          src={profileImageSrc}
+          alt={post.author?.fullName || 'User Profile'}
+          className={styles.postProfileImg}
+          onError={e => {
+            e.currentTarget.src = '/default.jpg';
+          }}
+        />
         <div className={styles.postAuthorInfo}>
-          <p className={styles.postAuthorName}>
+          <span className={styles.postAuthorName}>
             {post.author?.fullName || 'Unknown User'}
-          </p>
+          </span>
           <span className={styles.postDate}>
             {formatPostTimestamp(post.createdAt)}
           </span>

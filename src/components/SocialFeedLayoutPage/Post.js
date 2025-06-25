@@ -4,7 +4,7 @@ import styles from './Post.module.css';
 import { useAuth } from '../../context/AuthContext';
 import apiClient from '../../api/axiosConfig';
 import logger from '../../utils/logger';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const Icon = ({
   src,
@@ -55,6 +55,26 @@ const Icon = ({
   );
 };
 
+function formatCommentTime(dateString) {
+  const date = new Date(dateString);
+  const now = new Date();
+  const isToday =
+    date.getDate() === now.getDate() &&
+    date.getMonth() === now.getMonth() &&
+    date.getFullYear() === now.getFullYear();
+  if (isToday) {
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    if (hours === 0) hours = 12;
+    const minutesStr = minutes < 10 ? `0${minutes}` : `${minutes}`;
+    return `${hours}:${minutesStr} ${ampm}`;
+  } else {
+    return date.toLocaleDateString();
+  }
+}
+
 function Post({ post, onPostUpdate }) {
   const { user: loggedInUser } = useAuth();
 
@@ -80,6 +100,7 @@ function Post({ post, onPostUpdate }) {
   const [visibleCommentsCount, setVisibleCommentsCount] = useState(3);
   const [showPostMenu, setShowPostMenu] = useState(false);
   const [openCommentMenuId, setOpenCommentMenuId] = useState(null);
+  const postMenuRef = useRef(null);
 
   // Effect to update local state when the 'post' prop changes
   useEffect(() => {
@@ -105,6 +126,18 @@ function Post({ post, onPostUpdate }) {
   useEffect(() => {
     setVisibleCommentsCount(3);
   }, [post, comments]);
+
+  // Close post menu on click outside
+  useEffect(() => {
+    if (!showPostMenu) return;
+    function handleClickOutside(event) {
+      if (postMenuRef.current && !postMenuRef.current.contains(event.target)) {
+        setShowPostMenu(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showPostMenu]);
 
   // --- Early return if essential data is missing AFTER hooks are called ---
   if (!post || !post.author || !post._id) {
@@ -251,6 +284,23 @@ function Post({ post, onPostUpdate }) {
   };
   const handleCloseCommentMenu = () => setOpenCommentMenuId(null);
 
+  // Handler for deleting a post
+  const handleDeletePost = async () => {
+    if (!window.confirm('Are you sure you want to delete this post?')) return;
+    setInteractionError('');
+    try {
+      await apiClient.delete(`/posts/${postId}`);
+      if (onPostUpdate) {
+        onPostUpdate({ ...post, deleted: true });
+      }
+    } catch (err) {
+      setInteractionError(
+        err.response?.data?.message || 'Could not delete post.'
+      );
+    }
+    setShowPostMenu(false);
+  };
+
   // --- Return JSX ---
   return (
     <article className={styles.postCard}>
@@ -276,31 +326,28 @@ function Post({ post, onPostUpdate }) {
             </p>
           </div>
         </div>
-        <button
-          className={styles.moreIcon}
-          onClick={handlePostMenuToggle}
-          aria-label="More options"
-          type="button"
-        >
-          <Icon src="/assets/more.svg" alt="more" />
-        </button>
-        {showPostMenu &&
-          (loggedInUser?._id === author._id ||
-            loggedInUser?.role.includes('admin')) && (
-            <div
-              className={styles.menuDropdown}
-              onMouseLeave={handleClosePostMenu}
-            >
-              <button
-                className={styles.menuItem}
-                onClick={() => {
-                  /* call delete post logic here */
-                }}
+        <div style={{ position: 'relative' }} ref={postMenuRef}>
+          <button
+            className={styles.moreIcon}
+            onClick={handlePostMenuToggle}
+            aria-label="More options"
+            type="button"
+          >
+            <Icon src="/assets/more.svg" alt="more" />
+          </button>
+          {showPostMenu &&
+            (loggedInUser?._id === author._id ||
+              loggedInUser?.role.includes('admin')) && (
+              <div
+                className={styles.menuDropdown}
+                onMouseLeave={handleClosePostMenu}
               >
-                Delete Post
-              </button>
-            </div>
-          )}
+                <button className={styles.menuItem} onClick={handleDeletePost}>
+                  Delete Post
+                </button>
+              </div>
+            )}
+        </div>
       </div>
 
       <p className={styles.postContent}>{content}</p>
@@ -360,13 +407,13 @@ function Post({ post, onPostUpdate }) {
             <span className={styles.actionCount}>{commentCount}</span>
           </button>
         </div>
-        <button
+        {/* <button
           className={styles.bookmarkIcon}
           onClick={() => {}}
           disabled={!loggedInUser}
         >
           <Icon src="/assets/bookmark.svg" alt="bookmark" />
-        </button>
+        </button> */}
       </div>
 
       {/* Toggleable comment section */}
@@ -418,22 +465,20 @@ function Post({ post, onPostUpdate }) {
                       <span className={styles.commentTimestamp}>
                         ·{' '}
                         {comment.createdAt
-                          ? new Date(comment.createdAt).toLocaleString()
+                          ? formatCommentTime(comment.createdAt)
                           : ''}
                       </span>
                     </div>
                     <p className={styles.commentText}>{comment.text}</p>
                     {(loggedInUser?._id === comment.author?._id ||
                       loggedInUser?.role.includes('admin')) && (
-                      <div className={styles.commentMenuWrapper}>
-                        <button
-                          className={styles.moreIcon}
-                          onClick={() => handleCommentMenuToggle(comment._id)}
-                          aria-label="More options"
-                          type="button"
-                        >
-                          <Icon src="/assets/more.svg" alt="more" />
-                        </button>
+                      <button
+                        className={styles.commentMoreIcon}
+                        onClick={() => handleCommentMenuToggle(comment._id)}
+                        aria-label="More options"
+                        type="button"
+                      >
+                        <Icon src="/assets/more.svg" alt="more" />
                         {openCommentMenuId === comment._id && (
                           <div
                             className={styles.menuDropdown}
@@ -447,7 +492,7 @@ function Post({ post, onPostUpdate }) {
                             </button>
                           </div>
                         )}
-                      </div>
+                      </button>
                     )}
                   </div>
                 </div>

@@ -73,9 +73,10 @@
 .moreIcon {
   cursor: pointer;
   /* Facebook Top navbar icons 20-24px, Post action icons 16-20px */
-  width: 1.25rem; /* 20px */
-  height: 1.25rem; /* 20px */
-  flex-shrink: 0;
+  /* width: 1.25rem; /* 20px */
+  /* height: 1.25rem;
+  flex-shrink: 0;  */
+  background-color: transparent;
   color: #536471; /* Example icon color */
   transition: color 0.2s ease;
 }
@@ -375,11 +376,11 @@
   .userHandle {
     font-size: 0.8125rem; /* 13px */
   }
-  .moreIcon,
+  /* .moreIcon,
   .bookmarkIcon {
-    width: 1.125rem; /* 18px */
-    height: 1.125rem; /* 18px */
-  }
+    width: 1.125rem; 
+    height: 1.125rem; 
+  } */
   .postContent {
     font-size: 0.9375rem; /* 15px */
     margin-top: 0.875rem; /* 14px */
@@ -483,11 +484,11 @@
   .userHandle {
     font-size: 0.75rem; /* 12px */
   }
-  .moreIcon,
+  /* .moreIcon,
   .bookmarkIcon {
-    width: 1rem; /* 16px (FB action icon size) */
-    height: 1rem; /* 16px */
-  }
+    width: 1rem;
+    height: 1rem; 
+  } */
   .postContent {
     font-size: 0.875rem; /* 14px */
     margin-top: 0.75rem; /* 12px */
@@ -591,11 +592,11 @@
   .userHandle {
     font-size: 0.6875rem; /* ~11px */
   }
-  .moreIcon,
+  /* .moreIcon,
   .bookmarkIcon {
-    width: 0.9375rem; /* 15px */
-    height: 0.9375rem; /* 15px */
-  }
+    width: 0.9375rem; 
+    height: 0.9375rem; 
+  } */
   .postContent {
     font-size: 0.8125rem; /* 13px */
     margin-top: 0.625rem; /* 10px */
@@ -904,4 +905,65 @@
   align-items: flex-start;
   gap: 0.75rem;
   margin-bottom: 0.5rem;
+}
+
+.menuDropdown {
+  position: absolute;
+  top: 2.2rem; /* below the more icon, adjust as needed */
+  right: 0;
+  min-width: 8rem;
+  background: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+  border: 1px solid #e5e7eb;
+  z-index: 20;
+  /* padding: 0.5rem 0.75rem; */
+  display: flex;
+  flex-direction: column;
+  animation: dropdownFadeIn 0.18s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.menuItem {
+  background: none;
+  border: none;
+  color: #222;
+  font-size: 0.875rem;
+  font-weight: 500;
+  /* padding: 0.5rem 1rem; */
+  border-radius: 0.5rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.menuItem:hover, .menuItem:focus {
+  background: #f3f4f6;
+}
+
+/* More icon in top-right of comment */
+.commentMoreIcon {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  padding: 0.2rem;
+  cursor: pointer;
+  color: #8a8f99;
+  z-index: 2;
+  border-radius: 50%;
+  transition: background 0.15s;
+}
+.commentMoreIcon:hover,
+.commentMoreIcon:focus {
+  background: #e5e7eb;
+  color: #222;
 }

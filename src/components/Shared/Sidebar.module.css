@@ -8,7 +8,8 @@
 .sidebar {
   background-color: #f1f1f1;
   width: 16.875rem; /* 270px Default width for larger screens */
-  height: 100vh; /* Covers full viewport height on desktop */
+  min-height: 150vh;
+  height: 150vh !important; /* Ensure full height on all screens */
   padding-top: 5.25rem; /* 84px - Pushes content below the header on desktop */
   position: fixed;
   left: 0; /* Always visible on desktop */

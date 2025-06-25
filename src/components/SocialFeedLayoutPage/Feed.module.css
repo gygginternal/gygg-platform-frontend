@@ -416,3 +416,12 @@
     border-radius: 0.625rem; /* 10px */
   }
 }
+
+.emojiButton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}

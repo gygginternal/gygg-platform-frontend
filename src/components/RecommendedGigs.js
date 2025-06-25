@@ -53,18 +53,38 @@ const RecommendedGigs = () => {
             {error?.message || 'Failed to load recommended gigs.'}
           </p>
         ) : recommendedGigs && recommendedGigs.length > 0 ? (
-          recommendedGigs.slice(0, 3).map(gig => (
-            <div key={gig._id} className={styles.gigItem}>
-              <div className={styles.gigContent}>
-                <p className={styles.gigDescription}>
-                  {formatGigDescription(gig)}
-                </p>
-                <Link to={`/gigs/${gig._id}`} className={styles.viewGigLink}>
-                  View gig detail
-                </Link>
+          recommendedGigs.slice(0, 3).map(gig => {
+            const poster = gig.poster || {};
+            const profileImage = poster.profileImage || '/default.jpg';
+            const posterName =
+              poster.firstName && poster.lastName
+                ? `${poster.firstName}. ${poster.lastName[0]}`
+                : poster.firstName || 'Anonymous';
+            const location =
+              poster.address?.city || poster.address?.state || '';
+            return (
+              <div key={gig._id} className={styles.gigItem}>
+                <img
+                  src={profileImage}
+                  alt={posterName}
+                  className={styles.gigAvatar}
+                  width={56}
+                  height={56}
+                />
+                <div className={styles.gigContent}>
+                  <div className={styles.gigDescription}>
+                    <span>{posterName}</span>
+                    {location && ` from ${location}`} needs a {gig.title}
+                  </div>
+                  <Link to={`/gigs/${gig._id}`} className={styles.viewGigLink}>
+                    <b>
+                      <u>View gig detail</u>
+                    </b>
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))
+            );
+          })
         ) : (
           <p className={styles.errorMessage}>
             No recommended gigs found right now.

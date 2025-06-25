@@ -182,6 +182,28 @@ function Header() {
     setSearchTerm('');
   };
 
+  // Helper function to format notification time
+  function formatNotificationTime(dateString) {
+    const date = new Date(dateString);
+    const now = new Date();
+    const isToday =
+      date.getDate() === now.getDate() &&
+      date.getMonth() === now.getMonth() &&
+      date.getFullYear() === now.getFullYear();
+    if (isToday) {
+      // Show time as h:mm AM/PM (no leading zero for hour, minutes always two digits)
+      let hours = date.getHours();
+      const minutes = date.getMinutes();
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      if (hours === 0) hours = 12;
+      const minutesStr = minutes < 10 ? `0${minutes}` : `${minutes}`;
+      return `${hours}:${minutesStr} ${ampm}`;
+    } else {
+      return date.toLocaleDateString();
+    }
+  }
+
   return (
     <>
       <header className={styles.header}>
@@ -266,63 +288,25 @@ function Header() {
                     className={styles.notificationDropdown}
                     ref={notificationDropdownRef}
                   >
-                    <div className={styles.notificationHeader}>
-                      Notifications
-                      {notifications.length > 0 && (
-                        <button
-                          className={styles.markAllReadBtn}
-                          onClick={markAllAsRead}
-                          type="button"
-                        >
-                          Mark all as read
-                        </button>
-                      )}
-                    </div>
                     {notifications.length === 0 ? (
                       <div className={styles.notificationEmpty}>
                         No notifications
                       </div>
                     ) : (
                       <ul className={styles.notificationList}>
-                        {notifications.map(n => (
-                          <li
-                            key={n._id}
-                            className={
-                              n.isRead
-                                ? styles.notificationRead
-                                : styles.notificationUnread
-                            }
-                          >
-                            <button
-                              type="button"
-                              className={styles.notificationItemBtn}
-                              onClick={() => {
-                                if (n.link) {
-                                  navigate(n.link);
-                                  setShowNotifications(false);
-                                } else if (n.data && n.data.link) {
-                                  navigate(n.data.link);
-                                  setShowNotifications(false);
-                                } else if (
-                                  n.type === 'new_message' &&
-                                  n.data &&
-                                  n.data.conversationId
-                                ) {
-                                  navigate(
-                                    `/messages/${n.data.conversationId}`
-                                  );
-                                  setShowNotifications(false);
-                                } else if (
-                                  n.type === 'new_comment' &&
-                                  n.data &&
-                                  n.data.postId
-                                ) {
-                                  navigate(`/posts/${n.data.postId}`);
-                                  setShowNotifications(false);
-                                }
-                              }}
-                              onKeyDown={e => {
-                                if (e.key === 'Enter' || e.key === ' ') {
+                        {notifications.slice(0, 5).map((n, idx) => (
+                          <React.Fragment key={n._id}>
+                            <li
+                              className={
+                                n.isRead
+                                  ? styles.notificationRead
+                                  : styles.notificationUnread
+                              }
+                            >
+                              <button
+                                type="button"
+                                className={styles.notificationDropdownItem}
+                                onClick={() => {
                                   if (n.link) {
                                     navigate(n.link);
                                     setShowNotifications(false);
@@ -346,30 +330,53 @@ function Header() {
                                     navigate(`/posts/${n.data.postId}`);
                                     setShowNotifications(false);
                                   }
-                                }
-                              }}
-                              tabIndex={0}
-                              aria-label={n.message}
-                            >
-                              {/* Show icon if present */}
-                              {n.icon && (
-                                <img
-                                  src={`/assets/${n.icon}`}
-                                  alt="Notification Icon"
-                                  style={{
-                                    width: 24,
-                                    height: 24,
-                                    marginRight: 8,
-                                    verticalAlign: 'middle',
-                                  }}
-                                />
-                              )}
-                              <span>{n.message}</span>
-                              <div className={styles.notificationTime}>
-                                {new Date(n.createdAt).toLocaleString()}
-                              </div>
-                            </button>
-                          </li>
+                                }}
+                                onKeyDown={e => {
+                                  if (e.key === 'Enter' || e.key === ' ') {
+                                    if (n.link) {
+                                      navigate(n.link);
+                                      setShowNotifications(false);
+                                    } else if (n.data && n.data.link) {
+                                      navigate(n.data.link);
+                                      setShowNotifications(false);
+                                    } else if (
+                                      n.type === 'new_message' &&
+                                      n.data &&
+                                      n.data.conversationId
+                                    ) {
+                                      navigate(
+                                        `/messages/${n.data.conversationId}`
+                                      );
+                                      setShowNotifications(false);
+                                    } else if (
+                                      n.type === 'new_comment' &&
+                                      n.data &&
+                                      n.data.postId
+                                    ) {
+                                      navigate(`/posts/${n.data.postId}`);
+                                      setShowNotifications(false);
+                                    }
+                                  }
+                                }}
+                                tabIndex={0}
+                                aria-label={n.message}
+                              >
+                                {n.icon && (
+                                  <img
+                                    src={`/assets/${n.icon}`}
+                                    alt="Notification Icon"
+                                  />
+                                )}
+                                <span>{n.message}</span>
+                                <span className={styles.notificationTime}>
+                                  {formatNotificationTime(n.createdAt)}
+                                </span>
+                              </button>
+                            </li>
+                            {idx < Math.min(notifications.length, 5) - 1 && (
+                              <hr className={styles.notificationDivider} />
+                            )}
+                          </React.Fragment>
                         ))}
                       </ul>
                     )}

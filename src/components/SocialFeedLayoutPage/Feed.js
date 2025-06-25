@@ -7,6 +7,8 @@ import apiClient from '../../api/axiosConfig'; // Adjust path
 import { useAuth } from '../../context/AuthContext'; // Adjust path
 import logger from '../../utils/logger'; // Optional logger
 import { useNavigate } from 'react-router-dom'; // Import Link and useNavigate
+import { Picker } from 'emoji-mart';
+import 'emoji-mart/css/emoji-mart.css';
 
 function Feed() {
   const { user } = useAuth();
@@ -18,6 +20,7 @@ function Feed() {
   const [createPostLoading, setCreatePostLoading] = useState(false);
   const [createPostError, setCreatePostError] = useState('');
   const [uploadedImage, setUploadedImage] = useState(null); // State for uploaded image
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   // --- States for Phase 8 Sorting ---
   const [sortOrder, setSortOrder] = useState('recents');
@@ -130,7 +133,7 @@ function Feed() {
     const formData = new FormData();
     formData.append('content', postText.trim());
     if (uploadedImage) {
-      formData.append('file', uploadedImage); // Add the uploaded image to the form data
+      formData.append('postImage', uploadedImage); // Use 'postImage' to match backend
     }
 
     try {
@@ -186,6 +189,11 @@ function Feed() {
     );
   };
 
+  const handleEmojiSelect = emoji => {
+    setPostText(prev => prev + emoji.native);
+    setShowEmojiPicker(false);
+  };
+
   // --- Render ---
   return (
     <main className={styles.feedContainer}>
@@ -239,18 +247,37 @@ function Feed() {
                 accept="image/*"
                 style={{ display: 'none' }}
                 onChange={handleImageUpload}
+                name="postImage"
               />
             </label>
-            <div className={styles.postIcon}>
+            {/* <div className={styles.postIcon}>
               <img src="/assets/gif.svg" alt="Add Gif" width={20} height={20} />
-            </div>
+            </div> */}
             <div className={styles.postIcon}>
-              <img
-                src="/assets/emoji.svg"
-                alt="Add Emoji"
-                width={20}
-                height={20}
-              />
+              <button
+                type="button"
+                aria-label="Add Emoji"
+                className={styles.emojiButton}
+                onClick={() => setShowEmojiPicker(val => !val)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  padding: 0,
+                  cursor: 'pointer',
+                }}
+              >
+                <img
+                  src="/assets/emoji.svg"
+                  alt="Add Emoji"
+                  width={20}
+                  height={20}
+                />
+              </button>
+              {showEmojiPicker && (
+                <div style={{ position: 'absolute', zIndex: 1000 }}>
+                  <Picker onSelect={handleEmojiSelect} />
+                </div>
+              )}
             </div>
           </div>
           <Button

@@ -166,13 +166,21 @@
 /* Notification Dot */
 .notificationDot {
   position: absolute;
-  top: 0.25rem; /* 4px */
-  right: 0.25rem; /* 4px */
-  width: 0.625rem; /* 10px */
-  height: 0.625rem; /* 10px */
-  background-color: #e0245e; /* Red */
+  top: -6px;
+  right: -2px;
+  min-width: 18px;
+  height: 18px;
+  background-color: #e0245e;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
-  border: 0.0625rem solid #fff; /* 1px white border */
+  border: 2px solid #3d4d55;
+  z-index: 2;
+  box-shadow: 0 0 0 2px #3d4d55;
 }
 
 .iconWithDropdown {
@@ -193,6 +201,7 @@
   border: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 .notificationHeader {
   font-weight: 700;
@@ -210,22 +219,24 @@
   list-style: none;
 }
 .notificationUnread {
-  background: #f0f6ff;
+  background: #fff !important;
   font-weight: 600;
 }
 .notificationRead {
-  background: #fff;
+  background: #fff !important;
   color: #888;
 }
 .notificationList li {
-  padding: 0.9rem 1.5rem 0.7rem 1.5rem;
-  border-bottom: 1px solid #f5f5f5;
+  /* padding: 0.9rem 1.5rem 0.7rem 1.5rem; */
+  border-bottom: none;
   cursor: pointer;
   transition: background 0.18s;
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
   color: #000;
+  margin: 0;
+  background: #fff !important;
 }
 .notificationList li span {
   color: #000 !important;
@@ -248,9 +259,10 @@
   background: #eaf3ff;
 }
 .notificationTime {
-  font-size: 0.8rem;
-  color: #b0b8c1;
+  font-size: 0.72rem;
+  color: #a0a0a0;
   margin-top: 0.1rem;
+  font-weight: 400;
 }
 .notificationEmpty {
   padding: 2rem 1.5rem;
@@ -270,6 +282,50 @@
 }
 .markAllReadBtn:hover {
   color: #008b8b;
+}
+
+.notificationDivider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* Notification Dropdown Item (match profile dropdown style) */
+.notificationDropdownItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: #222;
+  font-weight: 500;
+  transition: background 0.15s;
+  text-decoration: none;
+  border-radius: 0;
+}
+.notificationDropdownItem img {
+  width: 1.5rem;
+  height: 1.5rem;
+  filter: none;
+}
+.notificationDropdownItem span {
+  color: #1e293b;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+.notificationDropdownItem:hover,
+.notificationDropdownItem:focus {
+  background: #f3f4f6;
+  color: #1e293b;
+  text-decoration: none;
 }
 
 /* Responsive Adjustments */

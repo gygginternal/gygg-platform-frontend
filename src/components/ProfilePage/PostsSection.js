@@ -84,11 +84,6 @@ function PostsSection({ userIdToView, isOwnProfile }) {
     <section className={styles.postsCard}>
       <div className={styles.postsHeader}>
         <h2>Recent Posts</h2>
-        {posts.length > 0 && (
-          <Link to={seeAllLink} className={styles.seeAllButton}>
-            See all
-          </Link>
-        )}
       </div>
       <div className={styles.postsGrid}>{renderContent()}</div>
     </section>
