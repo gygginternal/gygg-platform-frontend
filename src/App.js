@@ -47,9 +47,6 @@ import Header from './components/Shared/Header';
 import { queryClient } from './client';
 import ContractsPage from './pages/ContractsPage';
 
-// Import the new components
-import ConversationsList from './components/ConversationsList';
-
 // -------------------- ProtectedRoute HOC --------------------
 function ProtectedRoute({ children }) {
   const { authToken, isLoading } = useAuth();
@@ -67,10 +64,16 @@ function AppLayout({ children }) {
   const location = useLocation();
 
   const noHeaderPaths = ['/onboarding/tasker', '/onboarding/provider'];
+  const gigsPagePaths = ['/gigs'];
 
   const showHeader =
     authToken &&
     !noHeaderPaths.some(path => location.pathname.startsWith(path));
+
+  // Remove top padding for /gigs
+  const isGigsPage = gigsPagePaths.some(path =>
+    location.pathname.startsWith(path)
+  );
 
   const mainStyle = {
     paddingTop: showHeader ? '84px' : '0',
@@ -86,7 +89,7 @@ function AppLayout({ children }) {
     <>
       {showHeader && <Header />}
       <main
-        className={`${styles.container} ${showHeader ? styles.containerWithHeaderPadding : ''}`}
+        className={`${styles.container} ${showHeader && !isGigsPage ? styles.containerWithHeaderPadding : ''}`}
       >
         {children}
       </main>
@@ -148,7 +151,7 @@ function AppWithNavigation() {
               path="/messages"
               element={
                 <ProtectedRoute>
-                  <ConversationsList />
+                  <ChatPage />
                 </ProtectedRoute>
               }
             />

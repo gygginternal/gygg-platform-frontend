@@ -66,10 +66,15 @@
   background-color: var(--primary-color-dark);
 }
 
-.noResults p {
+.noResults {
+  color: #222;
+  background: #fff;
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
   text-align: center;
-  color: var(--text-secondary);
-  line-height: 1.5;
+  font-size: 1rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  margin-top: 1.5rem;
 }
 
 .loadingMore {

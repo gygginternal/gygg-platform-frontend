@@ -1,232 +1,100 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import apiClient from '../api/axiosConfig';
+import React, { useState, useEffect } from 'react';
+import ChatSidebar from '../components/ChatPage/ChatSidebar';
+import ChatWindow from '../components/ChatPage/ChatWindow';
+import ChatEmptyState from '../components/ChatPage/ChatEmptyState';
 import styles from './ChatPage.module.css';
-import appStyles from '../App.module.css';
-import socket from '../socket';
+import apiClient from '../api/axiosConfig';
+import { useAuth } from '../context/AuthContext';
 
 const ChatPage = () => {
-  const { userId } = useParams();
   const { user } = useAuth();
+  const [contacts, setContacts] = useState([]);
+  const [selectedContact, setSelectedContact] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loadingContacts, setLoadingContacts] = useState(true);
+  const [loadingMessages, setLoadingMessages] = useState(false);
   const [error, setError] = useState(null);
-  const [otherUser, setOtherUser] = useState(null);
-  const [uploading, setUploading] = useState(false);
-  const messagesEndRef = useRef(null);
-  const fileInputRef = useRef(null);
 
-  // Fetch chat history
-  const fetchMessages = async () => {
-    try {
-      setLoading(true);
-      const response = await apiClient.get(`/chat/history?userId=${userId}`);
-      setMessages(response.data.data.messages);
-      if (response.data.data.messages.length > 0) {
-        const [message] = response.data.data.messages;
-        const otherUserInfo =
-          message.sender._id === user.id ? message.receiver : message.sender;
-        setOtherUser(otherUserInfo);
-      } else {
-        const userResponse = await apiClient.get(`/users/public/${userId}`);
-        setOtherUser(userResponse.data.data.user);
+  // Fetch contacts (conversations)
+  useEffect(() => {
+    const fetchContacts = async () => {
+      setLoadingContacts(true);
+      try {
+        const res = await apiClient.get('/chat/conversations');
+        // Map backend data to ChatSidebar format
+        const mappedContacts = res.data.data.conversations.map(conv => ({
+          id: conv.otherParty._id,
+          name: `${conv.otherParty.firstName} ${conv.otherParty.lastName}`,
+          avatar: conv.otherParty.profileImage || '/default-avatar.png',
+          lastMessage: conv.lastMessage?.content || '',
+          timestamp: conv.lastMessage?.timestamp
+            ? new Date(conv.lastMessage.timestamp).toLocaleString([], {
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+              })
+            : '',
+          isOnline: false, // Optionally, implement online status
+          unreadCount: conv.unreadCount || 0,
+        }));
+        setContacts(mappedContacts);
+      } catch (err) {
+        setError('Failed to load contacts');
+      } finally {
+        setLoadingContacts(false);
       }
-    } catch (err) {
-      setError(err.response?.data?.message || 'Failed to fetch messages');
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+    fetchContacts();
+  }, []);
 
+  // Fetch messages for selected contact
   useEffect(() => {
+    if (!selectedContact) return;
+    const fetchMessages = async () => {
+      setLoadingMessages(true);
+      try {
+        const res = await apiClient.get(
+          `/chat/history?userId=${selectedContact.id}`
+        );
+        // Map backend messages to ChatWindow format
+        const mappedMessages = res.data.data.messages.map(msg => ({
+          id: msg._id,
+          text: msg.content,
+          timestamp: new Date(msg.timestamp).toLocaleString([], {
+            hour: '2-digit',
+            minute: '2-digit',
+          }),
+          isSent: msg.sender._id === user.id,
+        }));
+        setMessages(mappedMessages);
+      } catch (err) {
+        setError('Failed to load messages');
+        setMessages([]);
+      } finally {
+        setLoadingMessages(false);
+      }
+    };
     fetchMessages();
-    // eslint-disable-next-line
-  }, [userId]);
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
-  // Real-time: join room and listen for new messages
-  useEffect(() => {
-    if (!user || !userId) return;
-
-    // Join user's personal channel for notifications
-    socket.emit('subscribeToNotifications', { userId: user.id });
-
-    // Join the specific chat channel
-    const chatChannel = `chat:${user.id}:${userId}`;
-    socket.emit('join', chatChannel);
-
-    const handleNewMessage = msg => {
-      setMessages(prev => [...prev, msg]);
-    };
-
-    const handleNotification = notification => {
-      // Handle new message notification
-    };
-
-    const handleUnreadCountUpdate = data => {
-      // Handle unread count update
-    };
-
-    // Listen for new messages in the chat channel
-    socket.on('newChatMessage', handleNewMessage);
-
-    // Listen for notifications
-    socket.on('notification:newMessage', handleNotification);
-    socket.on('notification:unreadCountUpdated', handleUnreadCountUpdate);
-
-    return () => {
-      socket.emit('unsubscribeFromNotifications', { userId: user.id });
-      socket.emit('leave', chatChannel);
-      socket.off('newChatMessage', handleNewMessage);
-      socket.off('notification:newMessage', handleNotification);
-      socket.off('notification:unreadCountUpdated', handleUnreadCountUpdate);
-    };
-  }, [user, userId]);
-
-  const handleSend = async e => {
-    e.preventDefault();
-    if (!input.trim() || uploading) return;
-    try {
-      const response = await apiClient.post('/chat/send', {
-        message: input,
-        receiverId: userId,
-      });
-      setMessages(prev => [...prev, response.data.data.message]);
-      setInput('');
-      // No need to emit via socket - backend will handle this
-    } catch (err) {
-      setError(err.response?.data?.message || 'Failed to send message');
-    }
-  };
-
-  // Image upload handler
-  const handleImageChange = async e => {
-    const [file] = e.target.files;
-    if (!file) return;
-    setUploading(true);
-    setError(null);
-    try {
-      const formData = new FormData();
-      formData.append('image', file);
-      const res = await apiClient.post('/chat/upload', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-      const imageUrl = res.data.data.url;
-      // Send image as a message
-      const response = await apiClient.post('/chat/send', {
-        message: imageUrl,
-        receiverId: userId,
-        type: 'image',
-      });
-      setMessages(prev => [...prev, response.data.data.message]);
-      // No need to emit via socket - backend will handle this
-    } catch (err) {
-      setError(err.response?.data?.message || 'Failed to upload image');
-    } finally {
-      setUploading(false);
-      if (fileInputRef.current) fileInputRef.current.value = '';
-    }
-  };
-
-  if (loading)
-    return <div className={styles.messages}>Loading messages...</div>;
-  if (error) return <div className={styles.messages}>{error}</div>;
+  }, [selectedContact, user]);
 
   return (
-    <div className={appStyles.container}>
-      <div className={styles.chatContainer}>
-        <div className={styles.header}>
-          <img
-            className={styles.avatar}
-            src={otherUser?.profileImage || '/default-avatar.png'}
-            alt={otherUser?.firstName || 'User'}
-            width={48}
-            height={48}
+    <div className={styles.container}>
+      <ChatSidebar
+        contacts={contacts}
+        selectedContact={selectedContact}
+        onContactSelect={setSelectedContact}
+      />
+      <div className={styles.chatArea}>
+        {selectedContact ? (
+          <ChatWindow
+            contact={selectedContact}
+            messages={messages}
+            loading={loadingMessages}
           />
-          <div>
-            <div className={styles.username}>
-              {`${otherUser?.firstName || ''} ${otherUser?.lastName || ''}`}
-            </div>
-            <div className={styles.status}>Online</div>
-          </div>
-        </div>
-        <div className={styles.messages}>
-          {messages.map(msg => {
-            const isSelf = msg.sender._id === user.id;
-            const isImage =
-              typeof msg.content === 'string' &&
-              msg.content.match(/\.(jpeg|jpg|gif|png|webp|svg)$/i);
-            return (
-              <div
-                key={msg._id}
-                className={isSelf ? styles.selfMessage : styles.otherMessage}
-              >
-                {isImage ? (
-                  <div className={styles.imageMessageWrapper}>
-                    <div className={styles.imageContainer}>
-                      <img
-                        src={msg.content}
-                        alt="message"
-                        className={styles.messageImage}
-                      />
-                    </div>
-                  </div>
-                ) : (
-                  <div className={styles.messageText}>{msg.content}</div>
-                )}
-                <div className={styles.messageTime}>
-                  {new Date(msg.timestamp).toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}
-                </div>
-              </div>
-            );
-          })}
-          <div ref={messagesEndRef} />
-        </div>
-        <form className={styles.inputArea} onSubmit={handleSend}>
-          <input
-            className={styles.input}
-            type="text"
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            placeholder={
-              uploading ? 'Uploading image...' : 'Type your message here...'
-            }
-            disabled={uploading}
-          />
-          <input
-            type="file"
-            accept="image/*"
-            style={{ display: 'none' }}
-            ref={fileInputRef}
-            onChange={handleImageChange}
-            disabled={uploading}
-          />
-          <button
-            className={styles.sendButton}
-            type="button"
-            onClick={() => fileInputRef.current && fileInputRef.current.click()}
-            disabled={uploading}
-            style={{ marginRight: 8 }}
-            title="Send image"
-          >
-            📷
-          </button>
-          <button
-            className={styles.sendButton}
-            type="submit"
-            disabled={uploading || !input.trim()}
-          >
-            Send
-          </button>
-        </form>
+        ) : (
+          <ChatEmptyState />
+        )}
       </div>
     </div>
   );

@@ -239,3 +239,18 @@ select:focus {
     --color-text-disabled: rgba(255, 255, 255, 0.38);
   }
 }
+
+/* Global fix for .upcLi and .idfBys white bar issue */
+.upcLi {
+  background-color: transparent !important;
+  padding-top: 0 !important;
+  border-top: none !important;
+  box-shadow: none !important;
+}
+.idfBys {
+  background-color: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding-top: 0 !important;
+  border-top: none !important;
+}

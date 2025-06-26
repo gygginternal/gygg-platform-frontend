@@ -22,7 +22,6 @@ export default function GigsPage() {
   const [priceRange, setPriceRange] = useState(priceRangeFromUrl);
   const [showFilters, setShowFilters] = useState(false);
   const [selectedGig, setSelectedGig] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false);
 
   const categories = ['All', ...CATEGORY_ENUM];
   const priceRanges = ['Any', 'Under $20', '$20 - $50', '$50 - $100', '$100+'];
@@ -152,15 +151,12 @@ export default function GigsPage() {
             category={selectedCategory}
             location={selectedLocation}
             priceRange={priceRange}
-            onGigClick={gig => {
-              setSelectedGig(gig);
-              setModalOpen(true);
-            }}
+            onGigClick={gig => setSelectedGig(gig)}
           />
           <GigDetailsModal
             gig={selectedGig}
-            open={modalOpen}
-            onClose={() => setModalOpen(false)}
+            open={!!selectedGig}
+            onClose={() => setSelectedGig(null)}
           />
         </main>
       </div>

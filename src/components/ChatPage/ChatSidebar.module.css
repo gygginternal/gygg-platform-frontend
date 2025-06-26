@@ -1,0 +1,151 @@
+.sidebar {
+  width: 340px;
+  background-color: #202c33;
+  border-right: 1px solid #313d45;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header {
+  padding: 1rem;
+  background-color: #202c33;
+  border-bottom: 1px solid #313d45;
+}
+
+.searchContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  width: 16px;
+  height: 16px;
+  color: #8696a0;
+  z-index: 1;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 8px 12px 8px 40px;
+  background-color: #2a3942;
+  border: none;
+  border-radius: 8px;
+  color: #e9edef;
+  font-size: 0.875rem;
+  outline: none;
+}
+
+.searchInput::placeholder {
+  color: #8696a0;
+}
+
+.contactsList {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #313d45;
+  transition: background-color 0.2s ease;
+}
+
+.contactItem:hover {
+  background-color: #2a3942;
+}
+
+.contactItem.selected {
+  background-color: #2a3942;
+}
+
+.avatarContainer {
+  position: relative;
+  margin-right: 12px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.onlineIndicator {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 12px;
+  height: 12px;
+  background-color: #00d95f;
+  border: 2px solid #202c33;
+  border-radius: 50%;
+}
+
+.contactInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.contactHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.contactName {
+  color: #e9edef;
+  font-size: 1rem;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.timestamp {
+  color: #8696a0;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.lastMessageContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lastMessage {
+  color: #8696a0;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.unreadBadge {
+  background-color: #00d95f;
+  color: #111b21;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 18px;
+  text-align: center;
+  margin-left: 8px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    max-width: none;
+  }
+}

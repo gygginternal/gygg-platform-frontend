@@ -9,8 +9,6 @@ import GigList from './pages/GigList';
 import GigDetails from './pages/GigDetails';
 import CreateGig from './pages/CreateGig';
 import Applications from './pages/Applications';
-import Chat from './pages/Chat';
-import Messages from './pages/Messages';
 import NotFound from './pages/NotFound';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
@@ -95,14 +93,6 @@ const AppRoutes = () => {
           element={
             <PrivateRoute>
               <Chat />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/messages"
-          element={
-            <PrivateRoute>
-              <Messages />
             </PrivateRoute>
           }
         />

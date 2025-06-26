@@ -150,19 +150,22 @@ const GigDetailsModal = ({ gig, open, onClose, onApply }) => {
   };
 
   return (
-    <div className={styles.modalOverlay} role="dialog" aria-modal="true">
-      <button
-        type="button"
-        aria-label="Close modal"
-        onClick={onClose}
-        className={styles.closeButton}
-        tabIndex={0}
-      >
-        Close
-      </button>
+    <div
+      className={styles.modalOverlay}
+      role="dialog"
+      aria-modal="true"
+      style={{ zIndex: 9999, display: open ? 'flex' : 'none' }}
+    >
       <div className={styles.modalContent} ref={modalRef} tabIndex={-1}>
         <div className={styles.modalHeader}>
           <h2 className={styles.modalTitle}>Gig Detail</h2>
+          <button
+            className={styles.closeButton}
+            onClick={onClose}
+            aria-label="Close modal"
+          >
+            ✖
+          </button>
         </div>
         <div className={styles.modalSubHeader}>
           <span className={styles.modalGigTitle}>{title}</span>
@@ -203,13 +206,6 @@ const GigDetailsModal = ({ gig, open, onClose, onApply }) => {
         </div>
         {feedback && <div className={styles.modalFeedback}>{feedback}</div>}
         <div className={styles.modalActions}>
-          <button
-            className={styles.modalCloseButton}
-            onClick={onClose}
-            disabled={loading}
-          >
-            Close
-          </button>
           <button
             className={styles.modalApplyButton}
             onClick={handleApply}

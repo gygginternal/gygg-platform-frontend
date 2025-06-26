@@ -1,0 +1,128 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #2a2f32;
+  color: #e9edef;
+  padding: 2rem;
+  position: relative;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 460px;
+  margin: 0 auto;
+}
+
+.logoContainer {
+  margin-bottom: 2rem;
+  opacity: 0.8;
+}
+
+.logo {
+  width: 120px;
+  height: 120px;
+  color: #54656f;
+  stroke-width: 1;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 300;
+  margin: 0 0 2rem 0;
+  color: #e9edef;
+  letter-spacing: -0.5px;
+}
+
+.description {
+  line-height: 1.6;
+  color: #8696a0;
+}
+
+.mainText {
+  font-size: 0.875rem;
+  margin: 0 0 0.5rem 0;
+  font-weight: 400;
+}
+
+.subText {
+  font-size: 0.875rem;
+  margin: 0;
+  font-weight: 400;
+}
+
+.footer {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #8696a0;
+  font-size: 0.75rem;
+}
+
+.lockIcon {
+  width: 12px;
+  height: 12px;
+  opacity: 0.8;
+}
+
+.encryptedText {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .logo {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+  }
+  
+  .content {
+    max-width: 320px;
+  }
+}
+
+/* Subtle animations */
+.logoContainer {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.title {
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.description {
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.footer {
+  animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
