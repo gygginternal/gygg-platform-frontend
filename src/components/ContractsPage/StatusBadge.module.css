@@ -1,0 +1,27 @@
+.badgeBase {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+}
+
+.active {
+  background-color: #d1fae5; /* green-100 */
+  color: #065f46; /* green-800 */
+  border-color: #a7f3d0; /* green-200 */
+}
+
+.interviewing {
+  background-color: #dbeafe; /* blue-100 */
+  color: #1e3a8a; /* blue-800 */
+  border-color: #bfdbfe; /* blue-200 */
+}
+
+.ended {
+  background-color: #f3f4f6; /* gray-100 */
+  color: #1f2937; /* gray-800 */
+  border-color: #e5e7eb; /* gray-200 */
+}

@@ -30,9 +30,7 @@ apiClient.interceptors.response.use(
         }
       }
     } else if (error.response) {
-      console.error(
-        `API Error (${error.response.status}): ${error.response.data?.message || error.message}`
-      );
+      // No need to log API errors
     } else if (
       error.message &&
       error.message.toLowerCase().includes('network')

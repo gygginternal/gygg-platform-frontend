@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { MessageCircle, Lock } from 'lucide-react';
 import styles from './ChatEmptyState.module.css';
 

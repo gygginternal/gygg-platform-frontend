@@ -1,0 +1,18 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Users\deven\AppData\Roaming\npm\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.3.0
+2 info using node@v23.6.0
+3 silly config load:file:C:\Users\deven\AppData\Roaming\npm\node_modules\npm\npmrc
+4 silly config load:file:D:\Code\Gygg\gygg-platform\frontend\.npmrc
+5 silly config load:file:C:\Users\deven\.npmrc
+6 silly config load:file:C:\Users\deven\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm run lint .eslintcache
+8 verbose argv "run" "lint" "--cache" "--cache-location" ".eslintcache"
+9 verbose logfile logs-max:10 dir:D:\Code\Gygg\gygg-platform\frontend\--cache-location\_logs\2025-06-27T21_08_52_535Z-
+10 verbose logfile D:\Code\Gygg\gygg-platform\frontend\--cache-location\_logs\2025-06-27T21_08_52_535Z-debug-0.log
+11 silly logfile done cleaning log files
+12 verbose cwd D:\Code\Gygg\gygg-platform\frontend
+13 verbose os Windows_NT 10.0.26100
+14 verbose node v23.6.0
+15 verbose npm  v11.3.0
+16 verbose exit 2
+17 verbose code 2

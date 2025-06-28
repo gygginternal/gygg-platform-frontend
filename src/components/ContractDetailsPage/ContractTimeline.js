@@ -1,5 +1,6 @@
-import React from 'react';
-import styles from './ContractTimeline.module.css';
+// import React from 'react';
+import PropTypes from 'prop-types';
+import styles from './ContractDetailsSection.module.css';
 
 const ContractTimeline = ({ timeline }) => (
   <section className={styles.timelineSection}>
@@ -13,5 +14,9 @@ const ContractTimeline = ({ timeline }) => (
     </ul>
   </section>
 );
+
+ContractTimeline.propTypes = {
+  timeline: PropTypes.arrayOf(PropTypes.object),
+};
 
 export default ContractTimeline;

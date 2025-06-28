@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+// import React from 'react';
+import { useState } from 'react';
 import { MoreVertical, Smile, Paperclip, Mic } from 'lucide-react';
 import styles from './ChatWindow.module.css';
+import PropTypes from 'prop-types';
 
 const ChatWindow = ({ contact, messages }) => {
   const [newMessage, setNewMessage] = useState('');
@@ -9,7 +11,6 @@ const ChatWindow = ({ contact, messages }) => {
     e.preventDefault();
     if (newMessage.trim()) {
       // In a real app, you would send the message here
-      console.log('Sending message:', newMessage);
       setNewMessage('');
     }
   };
@@ -67,6 +68,11 @@ const ChatWindow = ({ contact, messages }) => {
       </div>
     </div>
   );
+};
+
+ChatWindow.propTypes = {
+  contact: PropTypes.object,
+  messages: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default ChatWindow;

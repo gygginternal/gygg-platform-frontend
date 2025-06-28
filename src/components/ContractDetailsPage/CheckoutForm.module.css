@@ -1,0 +1,44 @@
+/* .paymentForm {
+} */
+.paymentBreakdown {
+  margin: 0 0 20px 0;
+  padding: 12px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fafbfc;
+}
+
+.breakdownTitle {
+  margin-bottom: 10px;
+}
+
+.breakdownDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 15px;
+}
+
+.paymentDetailsTitle {
+  margin-bottom: 20px;
+}
+
+.submitButton {
+  margin-top: 24px;
+  width: 100%;
+  /* Add button specific styles here if not handled globally */
+  /* e.g., background-color, color, padding, border-radius etc. */
+}
+
+.paymentMessage {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.paymentSuccess {
+  color: green;
+}
+
+.paymentError {
+  color: red;
+}

@@ -1,10 +1,10 @@
 // src/components/SocialPage/Feed.js
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import styles from './Feed.module.css'; // Ensure CSS Module exists
 import Post from './Post'; // Use adapted Post component
-import Button from '../Button'; // Use shared Button component
+import { Button } from '../Shared/Button'; // Use shared Button component
 import apiClient from '../../api/axiosConfig'; // Adjust path
-import { useAuth } from '../../context/AuthContext'; // Adjust path
+import { useAuth } from '../../contexts/AuthContext'; // Adjust path
 import logger from '../../utils/logger'; // Optional logger
 import { useNavigate } from 'react-router-dom'; // Import Link and useNavigate
 import { Picker } from 'emoji-mart';
@@ -23,7 +23,6 @@ function Feed() {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   // --- States for Phase 8 Sorting ---
-  const [sortOrder, setSortOrder] = useState('recents');
   const [userLocation, setUserLocation] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -31,12 +30,7 @@ function Feed() {
 
   // --- Fetching Logic (from PostFeedPage adaptation) ---
   const fetchPosts = useCallback(
-    async (
-      page = 1,
-      sort = sortOrder,
-      location = userLocation,
-      append = false
-    ) => {
+    async (page = 1, location = userLocation, append = false) => {
       if (!append) {
         setPosts([]);
         setLoading(true);
@@ -46,17 +40,8 @@ function Feed() {
         setIsLoadingMore(true);
       }
       setError('');
-      const params = { page, limit: 10, sort };
-      if (sort === 'near_me') {
-        if (!location) {
-          setError(
-            'Location permission needed for "Near Me". Try enabling location.'
-          );
-          setLoading(false);
-          setIsLoadingMore(false);
-          setHasMore(false);
-          return;
-        }
+      const params = { page, limit: 10 };
+      if (location) {
         params.lat = location.lat;
         params.lng = location.lng;
       }
@@ -75,7 +60,7 @@ function Feed() {
         setIsLoadingMore(false);
       }
     },
-    [sortOrder, userLocation]
+    [userLocation]
   );
 
   // --- Geolocation Logic (from PostFeedPage adaptation) ---
@@ -93,7 +78,7 @@ function Feed() {
           lng: position.coords.longitude,
         };
         setUserLocation(loc);
-        fetchPosts(1, 'near_me', loc, false); // Fetch immediately
+        fetchPosts(1, loc, false); // Fetch immediately
         // setLoading(false) handled in fetchPosts
       },
       err => {
@@ -109,12 +94,12 @@ function Feed() {
 
   // --- Initial Fetch & Sort Change Fetch ---
   useEffect(() => {
-    if (sortOrder === 'near_me' && !userLocation) {
+    if (userLocation) {
       getUserLocation();
     } else {
-      fetchPosts(1, sortOrder, userLocation, false);
+      fetchPosts(1, null, false);
     }
-  }, [sortOrder]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [userLocation]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // --- Create Post Logic ---
   const handlePostSubmit = async () => {
@@ -147,12 +132,8 @@ function Feed() {
       logger.info('Post created successfully:', newPost._id);
 
       // Add the new post to the top of the feed *if* sorting by 'recents'
-      if (sortOrder === 'recents') {
+      if (userLocation) {
         setPosts(prevPosts => [newPost, ...prevPosts]);
-      } else {
-        alert(
-          "Post created successfully! Refresh or switch to 'Recents' to see it immediately."
-        );
       }
       setPostText(''); // Clear input field
       setUploadedImage(null); // Clear uploaded image
@@ -175,7 +156,7 @@ function Feed() {
 
   const loadMorePosts = () => {
     if (!loading && !isLoadingMore && hasMore) {
-      fetchPosts(currentPage + 1, sortOrder, userLocation, true); // Pass append=true
+      fetchPosts(currentPage + 1, userLocation, true); // Pass append=true
     }
   };
 

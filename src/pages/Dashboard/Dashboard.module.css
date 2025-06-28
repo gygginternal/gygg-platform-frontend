@@ -1,0 +1,50 @@
+.padding {
+  padding: 24px 0;
+}
+
+.marginBottom {
+  margin-bottom: 24px;
+}
+
+.textAlignCenter {
+  text-align: center;
+}
+
+.height {
+  height: 100px;
+}
+
+.p32 {
+  padding: 32px;
+}
+
+.flexColumnCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px; /* gap="sm" equivalent */
+}
+
+.flexColumnGapLg {
+  display: flex;
+  flex-direction: column;
+  gap: 32px; /* assuming gap="lg" */
+}
+
+.justifyBetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px; /* assuming gap="md" */
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}

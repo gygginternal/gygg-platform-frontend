@@ -1,0 +1,155 @@
+.billingPaymentsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.billingCardGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .billingCardGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.inProgressCard {
+  background-color: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+
+.inProgressLabel {
+  color: #c2410c;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.inProgressValue {
+  color: #7c2d12;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.availableCard {
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+
+.availableLabel {
+  color: #15803d;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.availableValue {
+  color: #166534;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.withdrawActionWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.withdrawButtonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.withdrawButton {
+  background-color: #374151;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.withdrawButton:hover:not(:disabled) {
+  background-color: #1f2937;
+}
+
+.addWithdrawMethodButton {
+  font-size: 0.875rem;
+  color: #4b5563;
+  transition: color 0.2s;
+}
+
+.addWithdrawMethodButton:hover {
+  color: #1f2937;
+}
+
+.transactionHistoryBox {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+.transactionHeader {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.transactionTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.transactionTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableHead {
+  background-color: #f9fafb;
+}
+
+.transactionTable th,
+.transactionTable td {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.transactionTable th {
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+.tableRow:hover {
+  background-color: #f9fafb;
+}
+
+.invoiceLinkButton {
+  color: #0d9488;
+  font-weight: 500;
+  transition: color 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.invoiceLinkButton:hover {
+  color: #115e59;
+}

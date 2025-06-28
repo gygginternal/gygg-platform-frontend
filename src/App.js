@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,46 +5,53 @@ import {
   Navigate,
   useLocation,
 } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { QueryClientProvider } from '@tanstack/react-query';
 import styles from './App.module.css'; // Import CSS Modules
-import { ToastProvider } from './context/ToastContext';
+import { ToastProvider } from './contexts/ToastContext';
 import ThemeProvider from './styles/ThemeProvider';
 import './styles/global.css';
-import AppRoutes from './routes';
 import { SocketProvider } from './contexts/SocketContext';
-import Navigation from './components/Navigation';
+import Navigation from './components/Shared/Navigation';
+import { queryClient } from './client';
+import PropTypes from 'prop-types';
 
 // Pages
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import JoinPage from './pages/JoinPage';
-import SignupPage from './pages/SignupPage';
-import VerifyEmailPromptPage from './pages/VerifyEmailPromptPage';
-import ForgotPasswordPage from './pages/ForgotPasswordPage';
-import TaskerOnboardingPage from './pages/TaskerOnboardingPage';
-import ProviderOnboardingPage from './pages/ProviderOnboardingPage';
-import GigCreateOptionsPage from './pages/GigCreateOptionsPage';
-import GigsPage from './pages/GigsPage';
-import GigCreatePage from './pages/GigCreatePage';
-import GigDetailPage from './pages/GigDetailPage';
-import MatchedGigsPage from './pages/MatchedGigsPage';
-import ProfilePage from './pages/ProfilePage';
-import SettingsPage from './pages/SettingsPage';
-import ChatPage from './pages/ChatPage';
-import SocialFeedLayoutPage from './pages/SocialFeedLayoutPage';
-import PostCreatePage from './pages/PostCreatePage';
-import StripeReturnPage from './pages/StripeReturnPage';
-import StripeRefreshPage from './pages/StripeRefreshPage';
-import TermsOfUsePage from './pages/TermsOfUsePage';
-import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
-import UserProfilePage from './pages/UserProfilePage';
-import GigHelperPage from './pages/GigHelperPage';
+import HomePage from './pages/HomePage/HomePage';
+import LoginPage from './pages/LoginPage/LoginPage';
+import JoinPage from './pages/JoinPage/JoinPage';
+import SignupPage from './pages/SignupPage/SignupPage';
+import VerifyEmailPromptPage from './pages/VerifyEmailPromptPage/VerifyEmailPromptPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage';
+import TaskerOnboardingPage from './pages/TaskerOnboardingPage/TaskerOnboardingPage';
+import ProviderOnboardingPage from './pages/ProviderOnboardingPage/ProviderOnboardingPage';
+import GigCreateOptionsPage from './pages/GigCreateOptionsPage/GigCreateOptionsPage';
+import GigsPage from './pages/GigsPage/GigsPage';
+import GigCreatePage from './pages/GigCreatePage/GigCreatePage';
+import GigDetailPage from './pages/GigDetailPage/GigDetailPage';
+import MatchedGigsPage from './pages/MatchedGigsPage/MatchedGigsPage';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
+import SettingsPage from './pages/SettingsPage/SettingsPage';
+import ChatPage from './pages/ChatPage/ChatPage';
+import SocialFeedLayoutPage from './pages/SocialFeedLayoutPage/SocialFeedLayoutPage';
+import PostCreatePage from './pages/PostCreatePage/PostCreatePage';
+import StripeReturnPage from './pages/StripeReturnPage/StripeReturnPage';
+import StripeRefreshPage from './pages/StripeRefreshPage/StripeRefreshPage';
+import TermsOfUsePage from './pages/TermsOfUsePage/TermsOfUsePage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage/PrivacyPolicyPage';
+import UserProfilePage from './pages/UserProfilePage/UserProfilePage';
+import GigHelperPage from './pages/GigHelperPage/GigHelperPage';
 
 // Shared
 import Header from './components/Shared/Header';
-import { queryClient } from './client';
-import ContractsPage from './pages/ContractsPage';
+import ContractsPage from './pages/ContractsPage/ContractsPage';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Applications from './pages/Applications/Applications';
+import GigList from './pages/GigList/GigList';
+import GigDetails from './pages/GigDetails/GigDetails';
+import CreateGig from './pages/CreateGig/CreateGig';
+import ContractDetailPage from './pages/ContractDetailPage/ContractDetailPage';
+import InvoicePage from './pages/InvoicePage/InvoicePage';
 
 // -------------------- ProtectedRoute HOC --------------------
 function ProtectedRoute({ children }) {
@@ -57,6 +63,10 @@ function ProtectedRoute({ children }) {
   }
   return authToken ? children : <Navigate to="/login" replace />;
 }
+
+ProtectedRoute.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 // -------------------- AppLayout --------------------
 function AppLayout({ children }) {
@@ -75,10 +85,6 @@ function AppLayout({ children }) {
     location.pathname.startsWith(path)
   );
 
-  const mainStyle = {
-    paddingTop: showHeader ? '84px' : '0',
-  };
-
   if (isLoading && !authToken) {
     return (
       <div className={styles.loadingApplication}>Loading Application...</div>
@@ -96,6 +102,10 @@ function AppLayout({ children }) {
     </>
   );
 }
+
+AppLayout.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 // -------------------- Auth-Aware Catch-All Redirect --------------------
 function AuthAwareRedirect() {
@@ -280,6 +290,62 @@ function AppWithNavigation() {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/applications"
+              element={
+                <ProtectedRoute>
+                  <Applications />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/gigs"
+              element={
+                <ProtectedRoute>
+                  <GigList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/gigs/:id"
+              element={
+                <ProtectedRoute>
+                  <GigDetails />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/create-gig"
+              element={
+                <ProtectedRoute>
+                  <CreateGig />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/contracts/:id"
+              element={
+                <ProtectedRoute>
+                  <ContractDetailPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/invoice/:paymentId"
+              element={
+                <ProtectedRoute>
+                  <InvoicePage />
+                </ProtectedRoute>
+              }
+            />
             {/* Catch-all */}
             <Route path="*" element={<AuthAwareRedirect />} />
           </Routes>
@@ -302,5 +368,9 @@ const App = () => (
     </ThemeProvider>
   </Router>
 );
+
+App.propTypes = {
+  children: PropTypes.node,
+};
 
 export default App;

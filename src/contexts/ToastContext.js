@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback } from 'react';
 import { colors } from '../styles/theme';
+import PropTypes from 'prop-types';
 
 const ToastContext = createContext(undefined);
 
@@ -83,6 +84,10 @@ export const ToastProvider = ({ children }) => {
       </style>
     </ToastContext.Provider>
   );
+};
+
+ToastProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export const useToast = () => {

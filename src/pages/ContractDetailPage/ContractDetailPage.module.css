@@ -1,0 +1,249 @@
+.contractDetailWrapper {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.headerSection {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.backButton {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.backButton:hover {
+  background-color: #f3f4f6;
+}
+
+.backIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #4b5563;
+}
+
+.title {
+  flex: 1;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.clientInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hiredByText {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #4b5563;
+}
+
+.hiredByName {
+  font-weight: 500;
+  color: #111827;
+}
+
+.profileButton {
+  background-color: #f3f4f6;
+  color: #374151;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.profileButton:hover {
+  background-color: #e5e7eb;
+}
+
+.detailsBody {
+  padding: 1.5rem;
+}
+
+.metaGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .metaGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.metaLabel {
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.metaValue {
+  font-weight: 500;
+  color: #111827;
+}
+
+.descriptionBlock {
+  margin-bottom: 1.5rem;
+}
+
+.descriptionTitle {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.descriptionText {
+  color: #374151;
+  line-height: 1.6;
+}
+
+.infoCards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .infoCards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.infoCard {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+}
+
+.cardIcon {
+  width: 1rem;
+  height: 1rem;
+  color: #6b7280;
+}
+
+.cardLabel {
+  font-size: 0.75rem;
+  color: #6b7280;
+  display: block;
+}
+
+.cardValue {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #111827;
+}
+
+.cardRate {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #ea580c;
+}
+
+.earnedBox {
+  background-color: #ecfdf5;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.earnedRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.earnedLabel {
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.earnedValue {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #16a34a;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.loadingState,
+.errorState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  text-align: center;
+}
+
+.loadingState p {
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.errorState p {
+  color: #dc2626;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.submitButton,
+.endButton {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.submitButton {
+  background-color: #10b981;
+  color: white;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: #059669;
+}
+
+.submitButton:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.endButton {
+  background-color: #ef4444;
+  color: white;
+}
+
+.endButton:hover:not(:disabled) {
+  background-color: #dc2626;
+}
+
+.endButton:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}

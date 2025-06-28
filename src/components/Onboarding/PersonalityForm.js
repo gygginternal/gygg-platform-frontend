@@ -1,5 +1,5 @@
 // src/components/Onboarding/PersonalityForm.js
-import { useState } from 'react';
+// import { useState } from 'react';
 import styles from './PersonalityForm.module.css'; // Create this
 import FormInput from './FormInput'; // Or your global InputField
 import { AutoComplete } from '../AutoComplete';

@@ -1,5 +1,4 @@
 // src/components/LandingActions.js
-import React from 'react';
 import { Link } from 'react-router-dom';
 import actionsStyles from './LandingActions.module.css';
 

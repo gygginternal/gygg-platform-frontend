@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  height: 100vh; /* Full viewport height */
+  background-color: #fff;
+  color: #000;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    sans-serif;
+  box-sizing: border-box; /* Ensure padding/border are included */
+  width: 100vw; /* Ensure it takes full viewport width */
+}
+
+.chatArea {
+  flex: 1; /* Takes remaining space */
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* Allows content to shrink */
+}
+
+/* Responsive design */
+
+/* @media (max-width: 1024px) - Large Tablets / Small Laptops */
+@media (max-width: 1024px) {
+  .container {
+    /* No major layout changes typically needed for container at this size */
+  }
+}
+
+/* @media (max-width: 768px) - Tablets */
+/* Existing breakpoint, refined values */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Stack sidebar and chat window vertically */
+  }
+}
+
+/* @media (max-width: 480px) - Mobile Phones */
+@media (max-width: 480px) {
+  .container {
+    /* Already flex-direction: column from 768px */
+    /* No additional changes needed for the container itself at this size.
+       Its children (sidebar and chat window) will handle their own responsive padding/margins. */
+  }
+}

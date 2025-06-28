@@ -602,7 +602,8 @@
   text-decoration: none;
 }
 
-.dropdownItem:hover, .dropdownItem:focus {
+.dropdownItem:hover,
+.dropdownItem:focus {
   background: #f3f4f6;
   color: #1e293b;
   text-decoration: none;
@@ -614,7 +615,7 @@
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #e5e7eb;
-  box-shadow: 0 2px 8px rgba(30,41,59,0.08);
+  box-shadow: 0 2px 8px rgba(30, 41, 59, 0.08);
   margin-right: 0.75rem;
   background: #f9fafb;
   display: block;
@@ -623,4 +624,3 @@
 .notificationItemBtn {
   color: #000 !important;
 }
-

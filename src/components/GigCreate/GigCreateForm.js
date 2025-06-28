@@ -1,5 +1,6 @@
 // src/components/GigCreate/GigCreateForm.js
-import React, { useState, useEffect } from 'react';
+// import React, { useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './GigCreateForm.module.css'; // CREATE THIS CSS MODULE
 import ProgressBar from '../ProviderOnboarding/ProgressBar';
@@ -8,11 +9,12 @@ import GigPostTimelineCategory from '../ProviderOnboarding/GigPostTimelineCatego
 import GigPostDetailsBudget from '../ProviderOnboarding/GigPostDetailsBudget';
 import GigPostReview from '../ProviderOnboarding/GigPostReview';
 import InputField from '../Shared/InputField'; // Your global InputField
-import { useAuth } from '../../context/AuthContext'; // Relative path
+import { useAuth } from '../../contexts/AuthContext';
 import apiClient from '../../api/axiosConfig'; // Relative path
 import logger from '../../utils/logger'; // Relative path
 import { CATEGORY_ENUM } from '../../utils/constants'; // Relative path
-import { useToast } from '../../context/ToastContext';
+import { useToast } from '../../contexts/ToastContext';
+import PropTypes from 'prop-types';
 
 const TOTAL_GIG_CREATE_STEPS = 3; // Define steps for gig creation only
 
@@ -48,17 +50,6 @@ function GigCreateForm({ onGigCreated }) {
   // Input Handlers (same as before, ensure InputField calls onChange with name, value)
   const handleInputChange = (name, value) => {
     setFormData(prev => ({ ...prev, [name]: value }));
-    setError('');
-  };
-  const handleCheckboxChange = (name, checked) => {
-    setFormData(prev => ({ ...prev, [name]: checked }));
-    setError('');
-  };
-  const handleLocationChange = (fieldName, value) => {
-    setFormData(prev => ({
-      ...prev,
-      gigLocation: { ...prev.gigLocation, [fieldName]: value },
-    }));
     setError('');
   };
   // Add handleSkillsRequiredChange if using AutoComplete for skills
@@ -239,5 +230,9 @@ function GigCreateForm({ onGigCreated }) {
     </div>
   );
 }
+
+GigCreateForm.propTypes = {
+  onGigCreated: PropTypes.func,
+};
 
 export default GigCreateForm;

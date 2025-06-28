@@ -1,11 +1,11 @@
 // frontend/src/components/ProfilePage/ProfileInfo.js
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from './ProfileInfo.module.css'; // Ensure this CSS Module exists and is styled correctly
 import apiClient from '../../api/axiosConfig'; // Adjust path if necessary
 import logger from '../../utils/logger'; // Optional: Adjust path if necessary
-import { useToast } from '../../context/ToastContext';
+import { useToast } from '../../contexts/ToastContext';
 import PropTypes from 'prop-types';
-import { AutoComplete } from '../AutoComplete';
+import { AutoComplete } from '../Shared/AutoComplete';
 import { HOBBIES_OPTIONS, SKILL_OPTIONS } from '../../utils/constants';
 
 // Helper function to decode HTML entities (if bio or other text fields might have them from backend)
@@ -32,16 +32,8 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
   // State for editable fields within the modal
   const [editedFirstName, setEditedFirstName] = useState('');
   const [editedLastName, setEditedLastName] = useState('');
-  const [editedBio, setEditedBio] = useState('');
   const [editedHobbies, setEditedHobbies] = useState('');
   const [editedSkills, setEditedSkills] = useState('');
-  const [editedAddress, setEditedAddress] = useState({
-    street: '',
-    city: '',
-    state: '',
-    postalCode: '',
-    country: '',
-  });
   const [profileImageFile, setProfileImageFile] = useState(null);
   const [profileImagePreview, setProfileImagePreview] = useState(null);
   const fileInputRef = useRef(null);
@@ -57,7 +49,6 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
       );
       setEditedFirstName(userToDisplay.firstName || '');
       setEditedLastName(userToDisplay.lastName || '');
-      setEditedBio(decodeHTMLEntities(userToDisplay.bio) || '');
       setEditedHobbies(
         Array.isArray(userToDisplay.hobbies)
           ? userToDisplay.hobbies.join(', ')
@@ -67,11 +58,6 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
         Array.isArray(userToDisplay.skills)
           ? userToDisplay.skills.join(', ')
           : ''
-      );
-      setEditedAddress(
-        userToDisplay.address
-          ? { ...userToDisplay.address }
-          : { street: '', city: '', state: '', postalCode: '', country: '' }
       );
       setProfileImagePreview(
         userToDisplay.profileImage &&
@@ -87,14 +73,8 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
     if (!isOwnProfile || !userToDisplay) return;
     setEditedFirstName(userToDisplay.firstName || '');
     setEditedLastName(userToDisplay.lastName || '');
-    setEditedBio(decodeHTMLEntities(userToDisplay.bio) || '');
     setEditedHobbies(userToDisplay.hobbies?.join(', ') || '');
     setEditedSkills(userToDisplay.skills?.join(', ') || '');
-    setEditedAddress(
-      userToDisplay.address
-        ? { ...userToDisplay.address }
-        : { street: '', city: '', state: '', postalCode: '', country: '' }
-    );
     setProfileImagePreview(
       userToDisplay.profileImage && userToDisplay.profileImage !== 'default.jpg'
         ? userToDisplay.profileImage
@@ -113,11 +93,9 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
     if (file) {
       if (file.size > 5 * 1024 * 1024) {
         // 5MB limit example
-        alert('Profile image must be less than 5MB.');
         return;
       }
       if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
-        alert('Invalid file type. Please select JPG, PNG, or WEBP.');
         return;
       }
       setProfileImageFile(file); // Store the File object

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './Sidebar.module.css';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import socket from '../../socket';
 import apiClient from '../../api/axiosConfig';
 import PropTypes from 'prop-types';

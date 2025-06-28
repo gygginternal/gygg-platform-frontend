@@ -9,7 +9,7 @@
   padding: 20px;
   box-sizing: border-box;
   /* Add this for full-height on desktop if needed */
-  min-height: 100vh; 
+  min-height: 100vh;
 }
 
 /* Card holding the login/signup UI */
@@ -23,7 +23,7 @@
   width: 100%;
   max-width: 400px;
   /* The margin on the card is fine, as it provides spacing if multiple cards were stacked */
-  margin: 1rem; 
+  margin: 1rem;
 }
 
 .card a {

@@ -1,60 +1,66 @@
-import React, { useState } from 'react';
-import styles from './ContractsPage.module.css';
-import { StatusBadge } from '../StatusBadge';
+// import React from 'react';
+import StatusBadge from './StatusBadge';
+import styles from './ContractCard.module.css';
+import PropTypes from 'prop-types';
 
-export default function ContractCard({ contract }) {
-  const [expanded, setExpanded] = useState(false);
+function ContractCard({ contract, onClick }) {
+  const handleKeyDown = e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onClick();
+    }
+  };
 
   return (
     <div
-      className={styles.contractRow}
-      onClick={() => setExpanded(prev => !prev)}
-      onKeyDown={e => {
-        if (e.key === 'Enter' || e.key === ' ') setExpanded(prev => !prev);
-      }}
+      className={styles.contractCard}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
       tabIndex={0}
       role="button"
-      aria-expanded={expanded}
+      aria-label={`View details for contract: ${contract.title}`}
     >
-      <div className={styles.contractMain}>
-        <div className={styles.contractTitle}>{contract.title}</div>
-        <div className={styles.contractDetailsRow}>
-          <span className={styles.contractDetailLabel}>
-            Hired by <b>{contract.hiredBy}</b>
-          </span>
-          <span className={styles.contractDetailLabel}>
-            Rate <span className={styles.contractRate}>{contract.rate}</span>
-          </span>
-          <StatusBadge status={contract.status} />
+      <div className={styles.cardHeader}>
+        <h3 className={styles.contractTitle}>{contract.title}</h3>
+        <StatusBadge status={contract.status} />
+      </div>
+      <div className={styles.contractInfo}>
+        <div className={styles.infoRow}>
+          <span>Hired by</span>
+          <span className={styles.infoValuePrimary}>{contract.hiredBy}</span>
         </div>
-        <div className={styles.contractDetailsRow}>
-          <span className={styles.contractDetailLabel}>
-            Contract ID {contract.contractId}
-          </span>
-          <span className={styles.contractDetailLabel}>
-            Earned{' '}
-            <span className={styles.contractEarned}>{contract.earned}</span>
-          </span>
-          <span className={styles.contractStarted}>
-            Started {contract.started}
-          </span>
+        <div className={styles.infoRow}>
+          <span>Rate</span>
+          <span className={styles.infoValueOrange}>${contract.rate}/hr</span>
+        </div>
+        <div className={styles.infoRow}>
+          <span>Contract ID</span>
+          <span className={styles.infoValuePrimary}>{contract.contractId}</span>
+        </div>
+        <div className={styles.infoRow}>
+          <span>Earned</span>
+          <span className={styles.infoValueGreen}>${contract.earned}</span>
+        </div>
+        <div className={styles.infoRow}>
+          <span>Started</span>
+          <span className={styles.infoValuePrimary}>{contract.startDate}</span>
         </div>
       </div>
-      {expanded && (
-        <div className={styles.details}>
-          <p className={styles.description}>{contract.description}</p>
-          <div className={styles.detailRow}>
-            <span>
-              <b>Location</b> <span className={styles.locationIcon}>📍</span>
-              {contract.location}
-            </span>
-          </div>
-          <div className={styles.buttonRow}>
-            <button className={styles.primaryBtn}>Submit as Complete</button>
-            <button className={styles.secondaryBtn}>End Contract</button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
+
+ContractCard.propTypes = {
+  contract: PropTypes.shape({
+    title: PropTypes.string,
+    status: PropTypes.string,
+    hiredBy: PropTypes.string,
+    rate: PropTypes.number,
+    contractId: PropTypes.string,
+    earned: PropTypes.number,
+    startDate: PropTypes.string,
+  }),
+  onClick: PropTypes.func,
+};
+
+export default ContractCard;

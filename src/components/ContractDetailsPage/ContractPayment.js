@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import styles from './ContractPayment.module.css';
-import CheckoutForm from '../CheckoutForm';
+// import React from 'react';
+import { useEffect, useState } from 'react';
+import styles from './ContractDetailsSection.module.css';
+import CheckoutForm from './CheckoutForm';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import apiClient from '../../api/axiosConfig';
+import PropTypes from 'prop-types';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
@@ -95,6 +97,12 @@ const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
       )}
     </section>
   );
+};
+
+ContractPayment.propTypes = {
+  contractId: PropTypes.string,
+  isProvider: PropTypes.bool,
+  onPaymentReleased: PropTypes.func,
 };
 
 export default ContractPayment;
