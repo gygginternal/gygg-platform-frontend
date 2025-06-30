@@ -1,5 +1,5 @@
 // frontend/src/components/Shared/InputField.js (UPDATED)
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styles from './InputField.module.css';
 // import { cn } from "../../uitls/cn"; // Assuming you have this utility
@@ -15,11 +15,10 @@ function InputField({
   inputMode,
   maxLength, // This `maxLength` prop from SignupPage should be 10 for phone numbers
   required = false,
+  rows = 3,
   disabled = false,
+  onKeyDown,
   className = '',
-  max,
-  min,
-  step,
   ...props
 }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -68,7 +67,7 @@ function InputField({
         setCountryCode('+1');
       }
     }
-  }, [value, isPhoneInput, countryCode, localNumber]);
+  }, [value, isPhoneInput]); // Removed countryCode, localNumber from deps to prevent infinite loops
 
   // Replace CountrySelect with a simple select for country code, defaulting to +1 for US/Canada
   const countryOptions = [
@@ -191,9 +190,9 @@ function InputField({
                 ? 'email'
                 : 'on'
           }
-          max={max}
-          min={min}
-          step={step}
+          max={type === 'date' ? props.max : undefined}
+          min={type === 'number' ? props.min : undefined}
+          step={type === 'number' ? props.step : undefined}
           {...props}
         />
         {icon === 'password' && (
@@ -223,11 +222,10 @@ InputField.propTypes = {
   inputMode: PropTypes.string,
   maxLength: PropTypes.number,
   required: PropTypes.bool,
+  rows: PropTypes.number,
   disabled: PropTypes.bool,
+  onKeyDown: PropTypes.func,
   className: PropTypes.string,
-  max: PropTypes.number,
-  min: PropTypes.number,
-  step: PropTypes.number,
 };
 
 export default InputField;

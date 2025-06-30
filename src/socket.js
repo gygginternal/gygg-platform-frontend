@@ -14,7 +14,7 @@ const socket = io(SOCKET_URL, {
   forceNew: true,
 });
 
-socket.on('connect_error', _error => {
+socket.on('connect_error', error => {
   // console.error('Socket connection error:', error);
 });
 
@@ -22,11 +22,11 @@ socket.on('connect', () => {
   // console.log('Socket connected successfully');
 });
 
-socket.on('disconnect', _reason => {
+socket.on('disconnect', reason => {
   // console.log('Socket disconnected:', reason);
 });
 
-socket.on('error', _error => {
+socket.on('error', error => {
   // console.error('Socket error:', error);
 });
 

@@ -1,0 +1,129 @@
+.card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.profileSection {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.profileImage {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e5e7eb;
+}
+
+.profileInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.name {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.viewProfileLink {
+  color: #334155;
+  font-size: 1rem;
+  text-decoration: underline;
+  font-weight: 500;
+  margin-left: 1rem;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 0.25rem;
+}
+
+.rate {
+  color: #eab308;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.location {
+  color: #64748b;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.bio {
+  color: #475569;
+  font-size: 1rem;
+  margin: 0.5rem 0 0.25rem 0;
+  min-height: 2.5rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+.primaryButton {
+  background: #334155;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.primaryButton:hover {
+  background: #1e293b;
+}
+
+.secondaryButton {
+  background: #f1f5f9;
+  color: #222;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.secondaryButton:hover {
+  background: #e2e8f0;
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 1rem;
+  }
+  .profileImage {
+    width: 56px;
+    height: 56px;
+  }
+  .actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

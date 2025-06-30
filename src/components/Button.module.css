@@ -1,0 +1,88 @@
+/* src/components/Button.module.css */
+
+/* Setting a base font size for rem calculations if not set globally */
+:root {
+  font-size: 16px; /* 1rem = 16px */
+}
+
+.baseButton {
+  padding: 0.5rem 1rem; /* 8px 16px */
+  border-radius: 1rem; /* 16px */
+  font-weight: 600;
+  /* Facebook Buttons 13-14px */
+  font-size: 0.875rem; /* 14px */
+  cursor: pointer;
+  border: none;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.1s ease;
+  font-family: 'Inter', sans-serif; /* Assuming Inter is loaded globally */
+  box-sizing: border-box; /* Ensures padding is included in width/height */
+}
+.baseButton:hover:not(:disabled) {
+  transform: translateY(-0.0625rem); /* -1px */
+}
+.baseButton:active:not(:disabled) {
+  transform: translateY(0px);
+}
+.baseButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Default style if not active (you can customize) */
+.baseButton {
+  background-color: #f0f0f0;
+  color: #3d4d55;
+}
+.baseButton:hover:not(:disabled) {
+  background-color: #e0e0e0;
+}
+
+/* Style for when isActive prop is true */
+.active {
+  background-color: #3d4d55; /* Theme color */
+  color: #fff;
+  border: 0.125rem solid #3d4d55; /* 2px Example border */
+}
+.active:hover:not(:disabled) {
+  background-color: #28343a; /* Darker hover */
+  border-color: #28343a; /* Adjust border on hover too */
+}
+
+/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+@media (max-width: 1024px) {
+  .baseButton {
+    padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
+    font-size: 0.8125rem; /* 13px */
+    border-radius: 0.875rem; /* 14px */
+  }
+  .active {
+    border-width: 0.1rem; /* Adjust border width */
+  }
+}
+
+/* Responsive adjustments for screens up to 768px (Tablets) */
+@media (max-width: 768px) {
+  .baseButton {
+    padding: 0.35rem 0.7rem; /* 5.6px 11.2px */
+    font-size: 0.75rem; /* 12px */
+    border-radius: 0.75rem; /* 12px */
+  }
+  .active {
+    border-width: 0.08rem; /* Adjust border width */
+  }
+}
+
+/* Responsive adjustments for screens up to 480px (Mobile Phones) */
+@media (max-width: 480px) {
+  .baseButton {
+    padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
+    font-size: 0.6875rem; /* ~11px */
+    border-radius: 0.625rem; /* 10px */
+  }
+  .active {
+    border-width: 0.06rem; /* Adjust border width */
+  }
+}

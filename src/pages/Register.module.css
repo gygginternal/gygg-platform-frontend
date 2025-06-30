@@ -1,0 +1,35 @@
+.container {
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+}
+
+.centerText {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.mb16 {
+  margin-bottom: 16px;
+}
+
+.mb8 {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.mb24 {
+  margin-bottom: 24px;
+}
+
+.primaryColor {
+  color: var(--color-primary);
+}
+
+.mt16 {
+  margin-top: 16px;
+} 

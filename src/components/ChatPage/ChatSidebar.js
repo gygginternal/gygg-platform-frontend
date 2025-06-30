@@ -1,7 +1,6 @@
-// import React from 'react';
-import { Search } from 'lucide-react';
+import React from 'react';
+import { Search, MoreVertical } from 'lucide-react';
 import styles from './ChatSidebar.module.css';
-import PropTypes from 'prop-types';
 
 const ChatSidebar = ({ contacts, selectedContact, onContactSelect }) => {
   return (
@@ -65,12 +64,6 @@ const ChatSidebar = ({ contacts, selectedContact, onContactSelect }) => {
       </div>
     </div>
   );
-};
-
-ChatSidebar.propTypes = {
-  contacts: PropTypes.arrayOf(PropTypes.object),
-  selectedContact: PropTypes.object,
-  onContactSelect: PropTypes.func,
 };
 
 export default ChatSidebar;

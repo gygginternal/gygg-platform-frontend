@@ -1,8 +1,8 @@
 // src/utils/logger.js (frontend)
 const logger = {
-  debug: () => {},
-  info: () => {},
-  warn: () => {},
-  error: () => {},
+  debug: (...args) => {},
+  info: (...args) => {},
+  warn: (...args) => {},
+  error: (...args) => {},
 };
 export default logger;

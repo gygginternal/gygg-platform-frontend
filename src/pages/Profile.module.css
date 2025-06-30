@@ -1,0 +1,17 @@
+.padding {
+  padding: 24px 0;
+}
+
+.marginBottom {
+  margin-bottom: 24px;
+}
+
+.marginTop {
+  margin-top: 24px;
+}
+
+.marginTop32 {
+  margin-top: 32px;
+  border-top: 1px solid #eee;
+  padding-top: 24px;
+} 

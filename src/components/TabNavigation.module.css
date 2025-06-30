@@ -1,0 +1,124 @@
+/* src/components/YourComponent/Tabs.module.css (example path) */
+
+/* Setting a base font size for rem calculations if not set globally */
+:root {
+  font-size: 16px; /* 1rem = 16px */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.625rem; /* 10px */
+  margin-top: 2.5rem; /* 40px */
+  width: 100%;
+  color: #374151; /* text-gray-700 */
+  box-sizing: border-box; /* Ensures padding is included in width */
+}
+
+.tabs {
+  display: flex;
+  gap: 2.5rem; /* 40px */
+  align-self: flex-start; /* Aligns tabs to the left if parent is wider */
+  flex-wrap: wrap; /* Allow tabs to wrap on smaller screens */
+}
+
+.tab {
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  /* Facebook Side menu / nav labels: 14-16px */
+  font-size: 0.9375rem; /* 15px */
+  padding-bottom: 0.3125rem; /* Added padding to give space for indicator */
+}
+
+.active {
+  font-weight: 700;
+}
+
+.activeIndicator {
+  position: absolute;
+  bottom: -0.3125rem; /* 5px - position indicator right below text */
+  left: 0;
+  right: 0;
+  height: 0.3125rem; /* 5px */
+  background-color: #06b6d4; /* cyan-600 */
+  border-radius: 0.125rem 0.125rem 0 0; /* 2px */
+}
+
+.separator {
+  flex-shrink: 0;
+  height: 0.125rem; /* 2px */
+  border: 0.0625rem solid #d4d4d8; /* 1px solid */
+  border-style: solid;
+  margin-top: 0.5rem; /* 8px */
+  max-width: 100%; /* Ensure it spans the full width */
+}
+
+/* Responsive adjustments */
+
+/* @media (max-width: 1024px) - Large Tablets / Small Laptops */
+@media (max-width: 1024px) {
+  .container {
+    margin-top: 2rem; /* 32px */
+    padding-left: 0.5rem; /* 8px */
+  }
+  .tabs {
+    gap: 2rem; /* 32px */
+  }
+  .tab {
+    font-size: 0.875rem; /* 14px */
+    padding-bottom: 0.25rem; /* 4px */
+  }
+  .activeIndicator {
+    bottom: -0.25rem; /* 4px */
+    height: 0.25rem; /* 4px */
+  }
+  .separator {
+    margin-top: 0.4rem; /* 6.4px */
+  }
+}
+
+/* @media (max-width: 768px) - Tablets */
+@media (max-width: 768px) {
+  .container {
+    margin-top: 1.5rem; /* 24px */
+    padding-left: 0.4rem; /* 6.4px */
+  }
+  .tabs {
+    gap: 1.5rem; /* 24px */
+    justify-content: center; /* Center tabs when they wrap */
+  }
+  .tab {
+    font-size: 0.8125rem; /* 13px */
+    padding-bottom: 0.2rem; /* 3.2px */
+  }
+  .activeIndicator {
+    bottom: -0.2rem; /* 3.2px */
+    height: 0.2rem; /* 3.2px */
+  }
+  .separator {
+    margin-top: 0.3rem; /* 4.8px */
+  }
+}
+
+/* @media (max-width: 480px) - Mobile Phones */
+@media (max-width: 480px) {
+  .container {
+    margin-top: 1rem; /* 16px */
+    padding-left: 0.3rem; /* 4.8px */
+  }
+  .tabs {
+    gap: 1rem; /* 16px */
+  }
+  .tab {
+    font-size: 0.75rem; /* 12px - Facebook Timestamps and meta info */
+    padding-bottom: 0.15rem; /* 2.4px */
+  }
+  .activeIndicator {
+    bottom: -0.15rem; /* 2.4px */
+    height: 0.15rem; /* 2.4px */
+  }
+  .separator {
+    margin-top: 0.25rem; /* 4px */
+  }
+}

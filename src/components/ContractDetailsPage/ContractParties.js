@@ -1,6 +1,5 @@
-// import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './ContractDetailsSection.module.css';
+import React from 'react';
+import styles from './ContractParties.module.css';
 
 const ContractParties = ({ provider, tasker }) => (
   <section className={styles.partiesSection}>
@@ -20,16 +19,5 @@ const ContractParties = ({ provider, tasker }) => (
     </div>
   </section>
 );
-
-ContractParties.propTypes = {
-  provider: PropTypes.shape({
-    avatar: PropTypes.string,
-    name: PropTypes.string,
-  }),
-  tasker: PropTypes.shape({
-    avatar: PropTypes.string,
-    name: PropTypes.string,
-  }),
-};
 
 export default ContractParties;

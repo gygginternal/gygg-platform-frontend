@@ -1,10 +1,10 @@
 // src/components/SocialPage/Post.js
 import PropTypes from 'prop-types';
 import styles from './Post.module.css';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import apiClient from '../../api/axiosConfig';
 import logger from '../../utils/logger';
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const Icon = ({
   src,
@@ -55,15 +55,6 @@ const Icon = ({
   );
 };
 
-Icon.propTypes = {
-  src: PropTypes.string.isRequired,
-  alt: PropTypes.string.isRequired,
-  className: PropTypes.string,
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  onClick: PropTypes.func,
-};
-
 function formatCommentTime(dateString) {
   const date = new Date(dateString);
   const now = new Date();
@@ -102,6 +93,7 @@ function Post({ post, onPostUpdate }) {
   const [commentCount, setCommentCount] = useState(post?.commentCount || 0);
   const [newCommentText, setNewCommentText] = useState('');
   const [showComments, setShowComments] = useState(false);
+  const [showAllComments, setShowAllComments] = useState(false);
   const [isLiking, setIsLiking] = useState(false);
   const [isCommenting, setIsCommenting] = useState(false);
   const [interactionError, setInteractionError] = useState('');
@@ -121,6 +113,7 @@ function Post({ post, onPostUpdate }) {
           ? post.likes.includes(loggedInUser._id)
           : false
       );
+      setShowAllComments(false);
     } else {
       setCurrentLikeCount(0);
       setCommentCount(0);
@@ -227,6 +220,7 @@ function Post({ post, onPostUpdate }) {
       setCommentCount(updatedPostData.commentCount || 0);
       setNewCommentText('');
       setShowComments(false);
+      setShowAllComments(true);
       if (onPostUpdate) onPostUpdate(updatedPostData);
     } catch (err) {
       setInteractionError(
@@ -239,6 +233,9 @@ function Post({ post, onPostUpdate }) {
 
   const handleDeleteComment = async commentIdToDelete => {
     if (!loggedInUser) return;
+    if (!window.confirm('Are you sure you want to delete this comment?'))
+      return;
+
     setInteractionError('');
 
     try {
@@ -268,6 +265,10 @@ function Post({ post, onPostUpdate }) {
     }
   };
 
+  const handleMoreClick = () => {
+    // Remove all console.log statements
+  };
+
   // Handler to show more comments
   const handleSeeMoreComments = () => {
     setVisibleCommentsCount(prev => prev + 10);
@@ -285,7 +286,7 @@ function Post({ post, onPostUpdate }) {
 
   // Handler for deleting a post
   const handleDeletePost = async () => {
-    // TODO: Replace confirm with user-friendly notification or modal
+    if (!window.confirm('Are you sure you want to delete this post?')) return;
     setInteractionError('');
     try {
       await apiClient.delete(`/posts/${postId}`);
@@ -320,7 +321,7 @@ function Post({ post, onPostUpdate }) {
               {author._id?.slice(-4)}
               <span className={styles.postTimestamp}>
                 {' '}
-                • {new Date(createdAt).toLocaleDateString()}
+                · {new Date(createdAt).toLocaleDateString()}
               </span>
             </p>
           </div>
@@ -462,7 +463,7 @@ function Post({ post, onPostUpdate }) {
                     <div className={styles.commentHeaderRow}>
                       <strong>{comment.author?.firstName || 'User'}</strong>
                       <span className={styles.commentTimestamp}>
-                        •{' '}
+                        ·{' '}
                         {comment.createdAt
                           ? formatCommentTime(comment.createdAt)
                           : ''}
@@ -531,12 +532,6 @@ Post.propTypes = {
     comments: PropTypes.array,
   }),
   onPostUpdate: PropTypes.func,
-  src: PropTypes.string,
-  alt: PropTypes.string,
-  className: PropTypes.string,
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  onClick: PropTypes.func,
 };
 
 export default Post;

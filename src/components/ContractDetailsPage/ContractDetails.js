@@ -1,6 +1,5 @@
-// import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './ContractDetailsSection.module.css';
+import React from 'react';
+import styles from './ContractDetails.module.css';
 
 const ContractDetails = ({ gig }) => (
   <section className={styles.detailsSection}>
@@ -11,14 +10,5 @@ const ContractDetails = ({ gig }) => (
     <div>Timeline: {gig.timeline}</div>
   </section>
 );
-
-ContractDetails.propTypes = {
-  gig: PropTypes.shape({
-    title: PropTypes.string,
-    description: PropTypes.string,
-    budget: PropTypes.number,
-    timeline: PropTypes.string,
-  }),
-};
 
 export default ContractDetails;

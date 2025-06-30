@@ -24,7 +24,11 @@
       "presets": ["@babel/preset-react"]
     }
   },
-  "plugins": ["react", "jsx-a11y", "prettier"],
+  "plugins": [
+    "react",
+    "jsx-a11y",
+    "prettier"
+  ],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "warn",
@@ -33,20 +37,14 @@
     "react/jsx-no-undef": "error",
     "react/jsx-no-duplicate-props": "error",
     "react/jsx-key": "error",
-    "react/jsx-curly-brace-presence": [
-      "error",
-      { "props": "never", "children": "never" }
-    ],
+    "react/jsx-curly-brace-presence": ["error", { "props": "never", "children": "never" }],
     "react/jsx-boolean-value": ["error", "never"],
     "react/jsx-no-bind": ["error", { "allowArrowFunctions": true }],
     "react/jsx-no-literals": "off",
     "react/jsx-pascal-case": "error",
     "react/jsx-sort-props": "off",
     "react/jsx-wrap-multilines": "error",
-    "no-unused-vars": [
-      "warn",
-      { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
-    ],
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
     "no-console": "warn",
     "no-debugger": "error",
     "no-alert": "warn",
@@ -59,20 +57,17 @@
     "template-curly-spacing": "error",
     "prefer-destructuring": ["error", { "array": true, "object": true }],
     "no-duplicate-imports": "error",
-    "prettier/prettier": [
-      "error",
-      {
-        "singleQuote": true,
-        "trailingComma": "es5",
-        "tabWidth": 2,
-        "semi": true,
-        "printWidth": 80
-      }
-    ]
+    "prettier/prettier": ["error", {
+      "singleQuote": true,
+      "trailingComma": "es5",
+      "tabWidth": 2,
+      "semi": true,
+      "printWidth": 80
+    }]
   },
   "settings": {
     "react": {
       "version": "detect"
     }
   }
-}
+} 

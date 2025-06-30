@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import styles from './ProgressBar.module.css';
 
 const ProgressBar = ({ currentStep, totalSteps }) => {
@@ -17,11 +16,6 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
       </div>
     </div>
   );
-};
-
-ProgressBar.propTypes = {
-  currentStep: PropTypes.number,
-  totalSteps: PropTypes.number,
 };
 
 export default ProgressBar;

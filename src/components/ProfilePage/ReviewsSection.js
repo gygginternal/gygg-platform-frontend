@@ -1,6 +1,6 @@
 // src/components/ProfilePage/ReviewsSection.js
 import { useState, useEffect } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import apiClient from '../../api/axiosConfig';
 import styles from './ReviewsSection.module.css';
 import ReviewCard from './ReviewCard';

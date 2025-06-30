@@ -13,7 +13,7 @@ frontend:
   artifacts:
     baseDirectory: build # or build/out as per your framework
     files:
-      - '**/*'
+      - "**/*"
   cache:
     paths:
       - node_modules/**/*

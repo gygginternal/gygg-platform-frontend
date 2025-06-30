@@ -1,7 +1,7 @@
 .reviewSection {
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(30, 41, 59, 0.07);
+  box-shadow: 0 2px 12px rgba(30,41,59,0.07);
   padding: 2em;
   margin: 1.5em 0;
   font-family: 'Inter', sans-serif;
@@ -38,4 +38,4 @@
   margin: 0.5em 0 0 0;
   color: #64748b;
   font-size: 0.98em;
-}
+} 

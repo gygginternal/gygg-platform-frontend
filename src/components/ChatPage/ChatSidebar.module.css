@@ -1,32 +1,16 @@
 .sidebar {
-  width: 21.25rem; /* 340px */
-  background-color: #fff; /* Keep original white for contact list */
-  color: #000;
-  border-right: 0.0625rem solid #313d45; /* 1px */
+  width: 340px;
+  background-color: #202c33;
+  border-right: 1px solid #313d45;
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Fixed height for chat layout */
-  box-sizing: border-box; /* Ensure padding/border are included */
-  flex-shrink: 0; /* Prevent sidebar from shrinking in a flex container */
-  /* This is assumed to be part of a larger layout that handles its margin-left or positioning. */
-  font-family:
-    'Inter',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    sans-serif;
+  height: 100vh;
 }
 
 .header {
-  /* This header is for the sidebar itself, not the global app header */
-  padding: 1rem; /* 16px */
-  background-color: #202c33; /* Dark background */
-  border-bottom: 0.0625rem solid #313d45; /* 1px */
-  flex-shrink: 0; /* Prevents header from shrinking */
+  padding: 1rem;
+  background-color: #202c33;
+  border-bottom: 1px solid #313d45;
 }
 
 .searchContainer {
@@ -37,27 +21,22 @@
 
 .searchIcon {
   position: absolute;
-  left: 0.75rem; /* 12px */
-  /* Facebook Top navbar icons 20-24px, Post action icons 16-20px. Using 1rem (16px). */
-  width: 1rem; /* 16px */
-  height: 1rem; /* 16px */
+  left: 12px;
+  width: 16px;
+  height: 16px;
   color: #8696a0;
   z-index: 1;
-  object-fit: contain; /* Ensure icon fits */
 }
 
 .searchInput {
   width: 100%;
-  padding: 0.5rem 0.75rem 0.5rem 2.5rem; /* 8px 12px 8px 40px - Padding adjusted for icon */
+  padding: 8px 12px 8px 40px;
   background-color: #2a3942;
   border: none;
-  border-radius: 0.5rem; /* 8px */
+  border-radius: 8px;
   color: #e9edef;
-  /* Facebook Post text (main body) 14-16px. Using 14px (0.875rem). */
-  font-size: 0.875rem; /* 14px */
+  font-size: 0.875rem;
   outline: none;
-  box-sizing: border-box; /* Crucial for padding/width */
-  min-height: 2.25rem; /* 36px - Ensure minimum height */
 }
 
 .searchInput::placeholder {
@@ -65,17 +44,16 @@
 }
 
 .contactsList {
-  flex: 1; /* Takes remaining vertical space */
-  overflow-y: auto; /* Allows scrolling for contacts */
-  -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
+  flex: 1;
+  overflow-y: auto;
 }
 
 .contactItem {
   display: flex;
   align-items: center;
-  padding: 0.75rem 1rem; /* 12px 16px */
+  padding: 12px 16px;
   cursor: pointer;
-  border-bottom: 0.0625rem solid #313d45; /* 1px */
+  border-bottom: 1px solid #313d45;
   transition: background-color 0.2s ease;
 }
 
@@ -89,61 +67,52 @@
 
 .avatarContainer {
   position: relative;
-  margin-right: 0.75rem; /* 12px */
-  flex-shrink: 0;
+  margin-right: 12px;
 }
 
 .avatar {
-  /* Facebook Profile pic thumbnails: 32-40px. Using 48px (3rem) here. */
-  width: 3rem; /* 48px */
-  height: 3rem; /* 48px */
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
 }
 
 .onlineIndicator {
   position: absolute;
-  bottom: 0.125rem; /* 2px */
-  right: 0.125rem; /* 2px */
-  /* Facebook Timestamps and meta info: 12px (for small indicator). */
-  width: 0.75rem; /* 12px */
-  height: 0.75rem; /* 12px */
+  bottom: 2px;
+  right: 2px;
+  width: 12px;
+  height: 12px;
   background-color: #00d95f;
-  border: 0.125rem solid #202c33; /* 2px */
+  border: 2px solid #202c33;
   border-radius: 50%;
 }
 
 .contactInfo {
-  flex: 1; /* Takes remaining space */
-  min-width: 0; /* Allows text to truncate */
+  flex: 1;
+  min-width: 0;
 }
 
 .contactHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.25rem; /* 4px */
+  margin-bottom: 4px;
 }
 
 .contactName {
   color: #e9edef;
-  /* Facebook Post text (main body) 14-16px. Using 1rem (16px). */
-  font-size: 1rem; /* 16px */
+  font-size: 1rem;
   font-weight: 400;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  flex: 1; /* Allow name to take space */
-  min-width: 0;
 }
 
 .timestamp {
   color: #8696a0;
-  /* Facebook Timestamps and meta info: 12px. Using 12px (0.75rem). */
-  font-size: 0.75rem; /* 12px */
+  font-size: 0.75rem;
   white-space: nowrap;
-  flex-shrink: 0;
-  margin-left: 0.5rem; /* Space from name */
 }
 
 .lastMessageContainer {
@@ -154,173 +123,29 @@
 
 .lastMessage {
   color: #8696a0;
-  /* Facebook Comments 13-14px. Using 14px (0.875rem). */
-  font-size: 0.875rem; /* 14px */
+  font-size: 0.875rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   flex: 1;
-  min-width: 0;
 }
 
 .unreadBadge {
   background-color: #00d95f;
   color: #111b21;
-  /* Facebook Timestamps and meta info: 12px. Using 12px (0.75rem). */
-  font-size: 0.75rem; /* 12px */
+  font-size: 0.75rem;
   font-weight: 600;
-  padding: 0.125rem 0.375rem; /* 2px 6px */
-  border-radius: 0.625rem; /* 10px */
-  min-width: 1.125rem; /* 18px */
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 18px;
   text-align: center;
-  margin-left: 0.5rem; /* 8px */
-  box-sizing: border-box;
-  flex-shrink: 0;
+  margin-left: 8px;
 }
 
 /* Responsive design */
-
-/* @media (max-width: 1024px) - Large Tablets / Small Laptops */
-@media (max-width: 1024px) {
-  .sidebar {
-    width: 18rem; /* 288px */
-  }
-  .header {
-    padding: 0.8rem; /* 12.8px */
-  }
-  .searchIcon {
-    width: 0.9rem; /* 14.4px */
-    height: 0.9rem; /* 14.4px */
-    left: 0.6rem; /* 9.6px */
-  }
-  .searchInput {
-    padding: 0.4rem 0.6rem 0.4rem 2rem; /* 6.4px 9.6px 6.4px 32px */
-    font-size: 0.8125rem; /* 13px */
-    border-radius: 0.4rem; /* 6.4px */
-    min-height: 2rem; /* 32px */
-  }
-  .contactItem {
-    padding: 0.6rem 0.8rem; /* 9.6px 12.8px */
-  }
-  .avatar {
-    width: 2.5rem; /* 40px */
-    height: 2.5rem; /* 40px */
-  }
-  .onlineIndicator {
-    width: 0.6rem; /* 9.6px */
-    height: 0.6rem; /* 9.6px */
-    border-width: 0.1rem; /* 1.6px */
-  }
-  .contactName {
-    font-size: 0.9375rem; /* 15px */
-  }
-  .timestamp {
-    font-size: 0.6875rem; /* ~11px */
-  }
-  .lastMessage {
-    font-size: 0.8125rem; /* 13px */
-  }
-  .unreadBadge {
-    font-size: 0.6875rem; /* ~11px */
-    padding: 0.1rem 0.3rem; /* 1.6px 4.8px */
-    border-radius: 0.5rem; /* 8px */
-    min-width: 1rem; /* 16px */
-  }
-}
-
-/* @media (max-width: 768px) - Tablets */
-/* Existing breakpoint, refined values */
 @media (max-width: 768px) {
   .sidebar {
-    width: 100%; /* Take full width */
-    max-width: none; /* Override any max-width */
-  }
-  .header {
-    padding: 0.6rem; /* 9.6px */
-  }
-  .searchIcon {
-    width: 0.8rem; /* 12.8px */
-    height: 0.8rem; /* 12.8px */
-    left: 0.5rem; /* 8px */
-  }
-  .searchInput {
-    padding: 0.35rem 0.5rem 0.35rem 1.8rem; /* 5.6px 8px 5.6px 28.8px */
-    font-size: 0.75rem; /* 12px */
-    border-radius: 0.3rem; /* 4.8px */
-    min-height: 1.875rem; /* 30px */
-  }
-  .contactItem {
-    padding: 0.5rem 0.7rem; /* 8px 11.2px */
-  }
-  .avatar {
-    width: 2.25rem; /* 36px */
-    height: 2.25rem; /* 36px */
-  }
-  .onlineIndicator {
-    width: 0.5rem; /* 8px */
-    height: 0.5rem; /* 8px */
-    border-width: 0.08rem; /* ~1.28px */
-  }
-  .contactName {
-    font-size: 0.875rem; /* 14px */
-  }
-  .timestamp {
-    font-size: 0.625rem; /* 10px */
-  }
-  .lastMessage {
-    font-size: 0.75rem; /* 12px */
-  }
-  .unreadBadge {
-    font-size: 0.625rem; /* 10px */
-    padding: 0.08rem 0.25rem; /* ~1.28px 4px */
-    border-radius: 0.4rem; /* 6.4px */
-    min-width: 0.9rem; /* 14.4px */
-  }
-}
-
-/* @media (max-width: 480px) - Mobile Phones */
-@media (max-width: 480px) {
-  .sidebar {
-    /* width: 100%; */
-  }
-  .header {
-    padding: 0.5rem; /* 8px */
-  }
-  .searchIcon {
-    width: 0.7rem; /* 11.2px */
-    height: 0.7rem; /* 11.2px */
-    left: 0.4rem; /* 6.4px */
-  }
-  .searchInput {
-    padding: 0.3rem 0.4rem 0.3rem 1.5rem; /* 4.8px 6.4px 4.8px 24px */
-    font-size: 0.6875rem; /* ~11px */
-    min-height: 1.75rem; /* 28px */
-  }
-  .contactItem {
-    padding: 0.4rem 0.6rem; /* 6.4px 9.6px */
-  }
-  .avatar {
-    width: 2rem; /* 32px */
-    height: 2rem; /* 32px */
-  }
-  .onlineIndicator {
-    width: 0.4rem; /* 6.4px */
-    height: 0.4rem; /* 6.4px */
-    border-width: 0.06rem; /* ~0.96px */
-  }
-  .contactName {
-    font-size: 0.8125rem; /* 13px */
-  }
-  .timestamp {
-    font-size: 0.5625rem; /* ~9px */
-  }
-  .lastMessage {
-    font-size: 0.6875rem; /* ~11px */
-  }
-  .unreadBadge {
-    font-size: 0.5625rem; /* ~9px */
-    padding: 0.05rem 0.2rem; /* ~0.8px 3.2px */
-    border-radius: 0.3rem; /* 4.8px */
-    min-width: 0.75rem; /* 12px */
+    width: 100%;
+    max-width: none;
   }
 }

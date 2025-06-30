@@ -1,0 +1,221 @@
+/* frontend/src/components/YourComponent.module.css (where taskList is used) */
+
+/* Setting a base font size for rem calculations if not set globally */
+:root {
+  font-size: 16px; /* 1rem = 16px */
+}
+
+.taskList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.loadingState,
+.errorState,
+.noResults {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: 2rem;
+  background: var(--surface-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.errorMessage {
+  color: var(--error-color);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.retryButton {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.retryButton:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.noResults {
+  color: #222;
+  background: #fff;
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  text-align: center;
+  font-size: 1rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  margin-top: 1.5rem;
+}
+
+.loadingMore {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.loadingMore .loadingSpinner {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 0.5rem;
+}
+
+.loadMoreButton {
+  align-self: center;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  margin: 1rem 0;
+}
+
+.loadMoreButton:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.loadMoreButton:disabled {
+  background-color: var(--border-color);
+  cursor: not-allowed;
+}
+
+.endOfResults {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 1rem;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .taskList {
+    padding: 0.5rem;
+  }
+
+  .loadingState,
+  .errorState,
+  .noResults {
+    min-height: 150px;
+    padding: 1rem;
+  }
+
+  .loadMoreButton {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+}
+
+/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+@media (max-width: 1024px) {
+  .taskList {
+    gap: 1rem; /* 16px */
+  }
+  .noResults {
+    padding: 1.5rem;
+    font-size: 0.8125rem;
+  }
+  .loadMoreButton {
+    margin-top: 1rem; /* 16px */
+    padding: 0.625rem; /* 10px */
+    font-size: 0.8125rem; /* 13px */
+  }
+  .loadingMore {
+    padding: 0.75rem; /* 12px */
+  }
+  .endOfResults {
+    margin-top: 1rem; /* 16px */
+  }
+  .errorMessage {
+    padding: 0.625rem; /* 10px */
+    font-size: 0.8125rem; /* 13px */
+  }
+}
+
+/* Responsive adjustments for screens up to 640px (Small Tablets / Large Phones) */
+/* The existing `min-width: 640px` rule already handles a large part.
+   This `max-width` rule refines sizes for smaller screens. */
+@media (max-width: 640px) {
+  .taskList {
+    gap: 0.75rem; /* 12px */
+  }
+  /* `width: auto` is applied from the `min-width: 640px` breakpoint, which is fine. */
+  .loadMoreButton {
+    margin-top: 0.75rem; /* 12px */
+    padding: 0.45rem; /* 7.2px */
+    font-size: 0.6875rem; /* ~11px */
+    border-radius: 0.3125rem; /* 5px */
+  }
+  .loadingMore {
+    padding: 0.5rem; /* 8px */
+    font-size: 0.625rem; /* 10px */
+  }
+  .endOfResults {
+    margin-top: 0.75rem; /* 12px */
+    font-size: 0.625rem; /* 10px */
+  }
+  .errorMessage {
+    padding: 0.45rem; /* 7.2px */
+    font-size: 0.6875rem; /* ~11px */
+  }
+}
+
+/* Responsive adjustments for screens up to 480px (Mobile Phones) */
+@media (max-width: 480px) {
+  .taskList {
+    gap: 0.75rem; /* 10px */
+  }
+  .noResults {
+    padding: 1rem;
+    font-size: 0.6875rem;
+  }
+  .loadMoreButton {
+    margin-top: 0.5rem; /* 10px */
+    padding: 0.5rem; /* 8px */
+    font-size: 0.9rem; /* 14px */
+    border-radius: 0.25rem; /* 4px */
+  }
+  .loadingMore {
+    padding: 0.5rem; /* 8px */
+    font-size: 0.625rem; /* 10px */
+  }
+  .endOfResults {
+    margin-top: 0.5rem; /* 10px */
+    font-size: 0.5625rem; /* ~9px */
+  }
+  .errorMessage {
+    padding: 0.45rem; /* 7.2px */
+    font-size: 0.6875rem; /* ~11px */
+  }
+}

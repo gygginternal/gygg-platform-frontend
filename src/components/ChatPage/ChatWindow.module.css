@@ -1,105 +1,72 @@
 .chatWindow {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Fixed height for chat layout */
-  background-color: #fff;
-  color: #000;
-  box-sizing: border-box; /* Ensure padding/border are included */
-  font-family:
-    'Inter',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    sans-serif;
+  height: 100vh;
+  background-color: #0b141a;
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 1rem; /* 12px 16px */
+  padding: 12px 16px;
   background-color: #202c33;
-  border-bottom: 0.0625rem solid #313d45; /* 1px */
-  flex-shrink: 0; /* Prevents header from shrinking */
+  border-bottom: 1px solid #313d45;
 }
 
 .contactInfo {
   display: flex;
   align-items: center;
-  flex: 1; /* Allows contact info to take space */
-  min-width: 0; /* Prevents text overflow */
 }
 
 .avatar {
-  /* Facebook Profile pic thumbnails: 32-40px. Using 40px (2.5rem). */
-  width: 2.5rem; /* 40px */
-  height: 2.5rem; /* 40px */
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 0.75rem; /* 12px */
-  flex-shrink: 0;
+  margin-right: 12px;
 }
 
 .contactDetails {
   display: flex;
   flex-direction: column;
-  min-width: 0; /* Prevents text overflow */
 }
 
 .contactName {
   color: #e9edef;
-  /* Facebook Post text (main body) 14-16px. Using 1rem (16px). */
-  font-size: 1rem; /* 16px */
+  font-size: 1rem;
   font-weight: 400;
-  margin-bottom: 0.125rem; /* 2px */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.3; /* Adjusted for better spacing */
+  margin-bottom: 2px;
 }
 
 .onlineStatus {
   color: #8696a0;
-  /* Facebook Comments 13-14px. Using 13px (0.8125rem). */
-  font-size: 0.8125rem; /* 13px */
-  line-height: 1.3;
+  font-size: 0.8125rem;
 }
 
 .moreIcon {
-  /* Facebook Post action icons 16-20px. Using 1.25rem (20px). */
-  width: 1.25rem; /* 20px */
-  height: 1.25rem; /* 20px */
+  width: 20px;
+  height: 20px;
   color: #8696a0;
   cursor: pointer;
-  flex-shrink: 0;
-  margin-left: 0.5rem; /* Add space if needed */
-  object-fit: contain;
 }
 
 .messagesContainer {
-  flex: 1; /* Takes remaining vertical space */
-  overflow-y: auto; /* Allows scrolling for messages */
-  -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
-  /* Background image for chat bubbles (adjust if path is wrong) */
+  flex: 1;
+  overflow-y: auto;
   background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><defs><pattern id="chat-bg" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23chat-bg)"/></svg>');
-  background-size: auto; /* Allow background to tile normally */
-  background-repeat: repeat;
 }
 
 .messagesList {
-  padding: 1rem; /* 16px */
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem; /* 8px - Space between message bubbles */
+  gap: 8px;
 }
 
 .messageWrapper {
   display: flex;
-  margin-bottom: 0.25rem; /* 4px */
+  margin-bottom: 4px;
 }
 
 .messageWrapper.sent {
@@ -111,70 +78,63 @@
 }
 
 .message {
-  max-width: 65%; /* Max width of message bubble */
-  padding: 0.5rem 0.75rem; /* 8px 12px */
-  border-radius: 0.5rem; /* 8px */
-  position: relative; /* If you add a time/status tick inside */
+  max-width: 65%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  position: relative;
   display: flex;
   flex-direction: column;
-  word-wrap: break-word; /* Ensure long words break */
-  box-sizing: border-box; /* Crucial for padding/width */
+  word-wrap: break-word;
 }
 
 .sent .message {
-  background-color: #005c4b; /* Dark green for sent */
+  background-color: #005c4b;
   color: #e9edef;
-  border-bottom-right-radius: 0.125rem; /* 2px */
+  border-bottom-right-radius: 2px;
 }
 
 .received .message {
-  background-color: #202c33; /* Dark grey for received */
+  background-color: #202c33;
   color: #e9edef;
-  border-bottom-left-radius: 0.125rem; /* 2px */
+  border-bottom-left-radius: 2px;
 }
 
 .messageText {
-  /* Facebook Post text (main body) 14-16px. Using 14px (0.875rem). */
-  font-size: 0.875rem; /* 14px */
+  font-size: 0.875rem;
   line-height: 1.4;
-  margin-bottom: 0.25rem; /* 4px */
+  margin-bottom: 4px;
 }
 
 .messageTime {
-  /* Facebook Timestamps and meta info: 12px. Using 11px (0.6875rem). */
-  font-size: 0.6875rem; /* ~11px */
+  font-size: 0.6875rem;
   color: #8696a0;
-  align-self: flex-end; /* Aligns time to bottom right of bubble */
-  margin-top: 0.25rem; /* 4px */
+  align-self: flex-end;
+  margin-top: 4px;
 }
 
 .inputContainer {
-  padding: 1rem; /* 16px */
+  padding: 16px;
   background-color: #202c33;
-  border-top: 0.0625rem solid #313d45; /* 1px */
-  flex-shrink: 0; /* Prevents input area from shrinking */
+  border-top: 1px solid #313d45;
 }
 
 .inputForm {
   display: flex;
   align-items: center;
   background-color: #2a3942;
-  border-radius: 1.5rem; /* 24px */
-  padding: 0.5rem 1rem; /* 8px 16px */
-  gap: 0.75rem; /* 12px */
+  border-radius: 24px;
+  padding: 8px 16px;
+  gap: 12px;
 }
 
 .attachIcon,
 .emojiIcon,
 .micIcon {
-  /* Facebook Post action icons 16-20px. Using 1.25rem (20px). */
-  width: 1.25rem; /* 20px */
-  height: 1.25rem; /* 20px */
+  width: 20px;
+  height: 20px;
   color: #8696a0;
   cursor: pointer;
   transition: color 0.2s ease;
-  flex-shrink: 0;
-  object-fit: contain;
 }
 
 .attachIcon:hover,
@@ -189,11 +149,8 @@
   border: none;
   outline: none;
   color: #e9edef;
-  /* Facebook Post text (main body) 14-16px. Using 15px (0.9375rem). */
-  font-size: 0.9375rem; /* 15px */
-  padding: 0.25rem 0; /* 4px 0 */
-  box-sizing: border-box; /* Crucial for padding/width */
-  line-height: 1.4;
+  font-size: 0.9375rem;
+  padding: 4px 0;
 }
 
 .messageInput::placeholder {
@@ -201,175 +158,20 @@
 }
 
 /* Responsive design */
-
-/* @media (max-width: 1024px) - Large Tablets / Small Laptops */
-@media (max-width: 1024px) {
-  .header {
-    padding: 0.6rem 0.8rem; /* 9.6px 12.8px */
-  }
-  .avatar {
-    width: 2.25rem; /* 36px */
-    height: 2.25rem; /* 36px */
-    margin-right: 0.6rem; /* 9.6px */
-  }
-  .contactName {
-    font-size: 0.9375rem; /* 15px */
-  }
-  .onlineStatus {
-    font-size: 0.75rem; /* 12px */
-  }
-  .moreIcon {
-    width: 1.125rem; /* 18px */
-    height: 1.125rem; /* 18px */
-  }
-  .messagesList {
-    padding: 0.8rem; /* 12.8px */
-    gap: 0.4rem; /* 6.4px */
-  }
-  .message {
-    max-width: 70%; /* Allow messages to be a bit wider */
-    padding: 0.4rem 0.6rem; /* 6.4px 9.6px */
-    border-radius: 0.4rem; /* 6.4px */
-  }
-  .messageText {
-    font-size: 0.8125rem; /* 13px */
-    margin-bottom: 0.2rem; /* 3.2px */
-  }
-  .messageTime {
-    font-size: 0.625rem; /* 10px */
-    margin-top: 0.2rem; /* 3.2px */
-  }
-  .inputContainer {
-    padding: 0.8rem; /* 12.8px */
-  }
-  .inputForm {
-    border-radius: 1.25rem; /* 20px */
-    padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
-    gap: 0.6rem; /* 9.6px */
-  }
-  .attachIcon,
-  .emojiIcon,
-  .micIcon {
-    width: 1.125rem; /* 18px */
-    height: 1.125rem; /* 18px */
-  }
-  .messageInput {
-    font-size: 0.875rem; /* 14px */
-    padding: 0.2rem 0; /* 3.2px 0 */
-  }
-}
-
-/* @media (max-width: 768px) - Tablets */
-/* Existing breakpoint, refined values */
 @media (max-width: 768px) {
   .header {
-    padding: 0.5rem 0.75rem; /* 8px 12px */
+    padding: 8px 12px;
   }
-  .avatar {
-    width: 2rem; /* 32px */
-    height: 2rem; /* 32px */
-    margin-right: 0.6rem; /* 9.6px */
-  }
-  .contactName {
-    font-size: 0.875rem; /* 14px */
-  }
-  .onlineStatus {
-    font-size: 0.6875rem; /* ~11px */
-  }
-  .moreIcon {
-    width: 1rem; /* 16px */
-    height: 1rem; /* 16px */
-  }
+  
   .messagesList {
-    padding: 0.625rem; /* 10px */
-    gap: 0.3rem; /* 4.8px */
+    padding: 12px;
   }
-  .message {
-    max-width: 80%; /* Wider on smaller screens */
-    padding: 0.35rem 0.5rem; /* 5.6px 8px */
-    border-radius: 0.35rem; /* 5.6px */
-  }
-  .messageText {
-    font-size: 0.75rem; /* 12px */
-    margin-bottom: 0.15rem; /* 2.4px */
-  }
-  .messageTime {
-    font-size: 0.5625rem; /* ~9px */
-    margin-top: 0.15rem; /* 2.4px */
-  }
+  
   .inputContainer {
-    padding: 0.625rem; /* 10px */
+    padding: 12px;
   }
-  .inputForm {
-    border-radius: 1rem; /* 16px */
-    padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
-    gap: 0.5rem; /* 8px */
-  }
-  .attachIcon,
-  .emojiIcon,
-  .micIcon {
-    width: 1rem; /* 16px */
-    height: 1rem; /* 16px */
-  }
-  .messageInput {
-    font-size: 0.8125rem; /* 13px */
-    padding: 0.15rem 0; /* 2.4px 0 */
-  }
-}
-
-/* @media (max-width: 480px) - Mobile Phones */
-@media (max-width: 480px) {
-  .header {
-    padding: 0.4rem 0.6rem; /* 6.4px 9.6px */
-  }
-  .avatar {
-    width: 1.75rem; /* 28px */
-    height: 1.75rem; /* 28px */
-    margin-right: 0.4rem; /* 6.4px */
-  }
-  .contactName {
-    font-size: 0.8125rem; /* 13px */
-  }
-  .onlineStatus {
-    font-size: 0.625rem; /* 10px */
-  }
-  .moreIcon {
-    width: 0.9rem; /* 14.4px */
-    height: 0.9rem; /* 14.4px */
-  }
-  .messagesList {
-    padding: 0.5rem; /* 8px */
-    gap: 0.25rem; /* 4px */
-  }
+  
   .message {
-    max-width: 90%; /* Even wider for tiny screens */
-    padding: 0.3rem 0.4rem; /* 4.8px 6.4px */
-    border-radius: 0.3rem; /* 4.8px */
-  }
-  .messageText {
-    font-size: 0.6875rem; /* ~11px */
-    margin-bottom: 0.1rem; /* 1.6px */
-  }
-  .messageTime {
-    font-size: 0.5rem; /* 8px */
-    margin-top: 0.1rem; /* 1.6px */
-  }
-  .inputContainer {
-    padding: 0.5rem; /* 8px */
-  }
-  .inputForm {
-    border-radius: 0.8rem; /* 12.8px */
-    padding: 0.25rem 0.5rem; /* 4px 8px */
-    gap: 0.4rem; /* 6.4px */
-  }
-  .attachIcon,
-  .emojiIcon,
-  .micIcon {
-    width: 0.9rem; /* 14.4px */
-    height: 0.9rem; /* 14.4px */
-  }
-  .messageInput {
-    font-size: 0.75rem; /* 12px */
-    padding: 0.1rem 0; /* 1.6px 0 */
+    max-width: 85%;
   }
 }

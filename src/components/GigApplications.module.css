@@ -1,0 +1,198 @@
+/* frontend/src/components/GigApplications.module.css */
+
+.offerCard {
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.offerCardContent {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  .offerCardContent {
+    flex-direction: row;
+  }
+}
+
+.offerCardImageContainer {
+  width: 100%;
+  height: 12rem; /* h-48 */
+  position: relative;
+}
+
+@media (min-width: 640px) {
+  .offerCardImageContainer {
+    width: 12rem; /* sm:w-48 */
+  }
+}
+
+.offerCardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.offerCardDetails {
+  flex: 1;
+  padding: 1rem; /* p-4 */
+}
+
+.offerCardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* gap-2 */
+}
+
+@media (min-width: 768px) {
+  .offerCardHeader {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+
+.offerCardTitle {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600; /* font-semibold */
+}
+
+.offerCardRate {
+  color: #f59e0b; /* text-amber-500 */
+  font-weight: 600; /* font-semibold */
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  color: #6b7280; /* text-gray-500 */
+  margin-top: 0.25rem; /* mt-1 */
+}
+
+.locationIcon {
+  height: 1rem; /* h-4 */
+  width: 1rem; /* w-4 */
+  margin-right: 0.25rem; /* mr-1 */
+}
+
+.offerCardDescription {
+  color: #4b5563; /* text-gray-600 */
+  margin: 0.75rem 0; /* my-3 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.skillsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem; /* gap-2 */
+  margin-top: 0.5rem; /* mt-2 */
+}
+
+.badge {
+  border: 1px solid #fcd34d; /* border-amber-200 */
+  border-radius: 9999px; /* rounded-full */
+  padding: 0.25rem 1rem; /* px-4 py-1 */
+}
+
+.badge:hover {
+  background-color: #fef3c7; /* hover:bg-amber-200 */
+}
+
+.buttonGroup {
+  margin-top: 1rem;
+}
+
+.button {
+  border: none;
+  border-radius: 0.25rem; /* Equivalent to rounded */
+  padding: 0.5rem 1rem; /* Equivalent to px-4 py-2 */
+  font-weight: 500; /* Equivalent to font-medium */
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.acceptButton {
+  margin-right: 0.75rem; /* mr-3 */
+  background-color: #3b82f6; /* bg-blue-500 */
+  color: #fff;
+}
+
+.acceptButton:hover {
+  background-color: #2563eb; /* hover:bg-blue-600 */
+}
+
+.declineButton {
+  background-color: #ef4444; /* bg-red-500 */
+  color: #fff;
+}
+
+.declineButton:hover {
+  background-color: #dc2626; /* hover:bg-red-600 */
+}
+
+.deleteOfferButton {
+  background-color: #ef4444; /* bg-red-500 */
+  color: #fff;
+}
+
+.deleteOfferButton:hover {
+  background-color: #dc2626; /* hover:bg-red-600 */
+}
+
+.sendOfferButton {
+  margin-right: 0.75rem; /* mr-3 */
+  background-color: #3b82f6; /* bg-blue-500 */
+  color: #fff;
+}
+
+.sendOfferButton:hover {
+  background-color: #2563eb; /* hover:bg-blue-600 */
+}
+
+.rejectApplicationButton {
+  background-color: #ef4444; /* bg-red-500 */
+  color: #fff;
+}
+
+.rejectApplicationButton:hover {
+  background-color: #dc2626; /* hover:bg-red-600 */
+}
+
+.statusBadgeMargin {
+  margin-bottom: 0.5rem; /* mb-2 */
+}
+
+.providerServicesGap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem; /* gap-2 */
+  margin-bottom: 1.25rem; /* mb-5 */
+}
+
+.loadMoreButton {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #d99633;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 1.5rem;
+}
+
+.loadMoreButton:hover {
+  background-color: #b45309;
+}
+
+.loadMoreButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}

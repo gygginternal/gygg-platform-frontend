@@ -1,0 +1,198 @@
+/* src/pages/ProfilePage.module.css (assuming this is part of the profile page or a common component) */
+
+/* Setting a base font size for rem calculations if not set globally */
+:root {
+  font-size: 16px; /* 1rem = 16px */
+}
+
+.postCard {
+  border: 1.5px solid #000;
+  border-radius: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: box-shadow 0.2s cubic-bezier(0.4,0,0.2,1), transform 0.2s cubic-bezier(0.4,0,0.2,1);
+  padding: 2rem;
+  flex: 1;
+  box-sizing: border-box;
+}
+.postCard:hover {
+  box-shadow: 0 6px 24px rgba(0,0,0,0.13);
+  transform: translateY(-2px) scale(1.01);
+}
+
+.postHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.postProfileImg {
+  border-radius: 50%;
+  /* Facebook Profile pic thumbnails: 32-40px. Aim for higher end on desktop. */
+  width: 2.5rem; /* 40px */
+  height: 2.5rem; /* 40px */
+  object-fit: cover;
+  flex-shrink: 0; /* Prevent from shrinking in flex layout */
+}
+
+.postAuthorInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.postAuthorName {
+  color: #0f1419;
+  /* Facebook Header (profile names etc.) 16-18px */
+  font-size: 1rem; /* 16px */
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.postDate {
+  color: #536471;
+  /* Facebook Timestamps and meta info: 12px */
+  font-size: 0.75rem; /* 12px */
+  margin-top: 0.1rem;
+}
+
+.postContent {
+  color: #0f1419;
+  /* Facebook Post text (main body): 14-16px */
+  font-size: 1rem; /* 16px */
+  margin-bottom: 1rem; /* 16px */
+  line-height: 1.5; /* Improve readability */
+}
+
+.postActions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; /* 24px */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.actionItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* 8px */
+  /* Facebook Timestamps and meta info: 12px */
+  font-size: 0.75rem; /* 12px */
+  color: #536471;
+}
+/* If icons are used within actionItem, ensure they follow "Post action icons: 16-20px" */
+/* E.g., .actionItem svg, .actionItem img { width: 1rem; height: 1rem; } */
+
+.bookmarkButton {
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0; /* Prevent from shrinking */
+  color: #536471; /* Default icon color */
+  transition: color 0.2s ease;
+}
+/* If this button contains an icon, ensure the icon adheres to guidelines */
+/* E.g., .bookmarkButton svg, .bookmarkButton img { width: 1.25rem; height: 1.25rem; } (20px) */
+.bookmarkButton:hover {
+  color: #0f1419; /* Darker on hover */
+}
+
+.clickableIcon {
+  cursor: pointer;
+}
+
+/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+@media (max-width: 1024px) {
+  .postCard {
+    padding: 0.875rem; /* 14px */
+    border-radius: 0.875rem; /* 14px */
+  }
+  .postProfileImg {
+    width: 2.25rem; /* 36px */
+    height: 2.25rem; /* 36px */
+  }
+  .postAuthorName {
+    font-size: 0.9375rem; /* 15px */
+  }
+  .postDate {
+    font-size: 0.6875rem; /* ~11px */
+  }
+  .postContent {
+    font-size: 0.9375rem; /* 15px */
+    margin-bottom: 0.875rem; /* 14px */
+  }
+  .postActions {
+    gap: 1.25rem; /* 20px */
+  }
+  .actionItem {
+    font-size: 0.6875rem; /* ~11px */
+  }
+  /* Bookmark icon size (if applicable) for this breakpoint could be ~18px */
+}
+
+/* Responsive adjustments for screens up to 768px (Tablets) */
+@media (max-width: 768px) {
+  .postCard {
+    padding: 0.75rem; /* 12px */
+    border-radius: 0.75rem; /* 12px */
+  }
+  .postProfileImg {
+    width: 2rem; /* 32px - lowest end of FB guideline */
+    height: 2rem; /* 32px */
+  }
+  .postHeader {
+    gap: 0.4rem; /* 6.4px */
+    margin-bottom: 0.8rem; /* 12.8px */
+  }
+  .postAuthorName {
+    font-size: 0.875rem; /* 14px - aligns with FB Post text */
+  }
+  .postDate {
+    font-size: 0.625rem; /* 10px - smaller for tight spaces */
+  }
+  .postContent {
+    font-size: 0.875rem; /* 14px */
+    margin-bottom: 0.75rem; /* 12px */
+  }
+  .postActions {
+    gap: 1rem; /* 16px */
+  }
+  .actionItem {
+    gap: 0.4rem; /* 6.4px */
+    font-size: 0.625rem; /* 10px */
+  }
+  /* Bookmark icon size (if applicable) for this breakpoint could be ~16px */
+}
+
+/* Responsive adjustments for screens up to 480px (Mobile Phones) */
+@media (max-width: 480px) {
+  .postCard {
+    padding: 0.625rem; /* 10px */
+    border-radius: 0.625rem; /* 10px */
+  }
+  /* Profile image size remains 32px */
+  .postHeader {
+    gap: 0.3rem; /* 4.8px */
+    margin-bottom: 0.625rem; /* 10px */
+  }
+  .postAuthorName {
+    font-size: 0.8125rem; /* 13px - aligns with FB Comments */
+  }
+  .postDate {
+    font-size: 0.5625rem; /* ~9px */
+  }
+  .postContent {
+    font-size: 0.8125rem; /* 13px */
+    margin-bottom: 0.625rem; /* 10px */
+  }
+  .postActions {
+    gap: 0.75rem; /* 12px */
+  }
+  .actionItem {
+    font-size: 0.5625rem; /* ~9px */
+  }
+  /* Bookmark icon size (if applicable) could be ~16px still or slightly smaller */
+}

@@ -914,13 +914,13 @@
   min-width: 8rem;
   background: #fff;
   border-radius: 0.75rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.13);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.13);
   border: 1px solid #e5e7eb;
   z-index: 20;
   /* padding: 0.5rem 0.75rem; */
   display: flex;
   flex-direction: column;
-  animation: dropdownFadeIn 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: dropdownFadeIn 0.18s cubic-bezier(0.4,0,0.2,1);
 }
 @keyframes dropdownFadeIn {
   from {
@@ -944,8 +944,7 @@
   cursor: pointer;
   transition: background 0.15s;
 }
-.menuItem:hover,
-.menuItem:focus {
+.menuItem:hover, .menuItem:focus {
   background: #f3f4f6;
 }
 

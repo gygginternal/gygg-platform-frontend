@@ -1,6 +1,5 @@
-// import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './ContractDetailsSection.module.css';
+import React from 'react';
+import styles from './ContractHeader.module.css';
 
 const ContractHeader = ({ title, status }) => (
   <section className={styles.headerSection}>
@@ -12,10 +11,5 @@ const ContractHeader = ({ title, status }) => (
     </div>
   </section>
 );
-
-ContractHeader.propTypes = {
-  title: PropTypes.string,
-  status: PropTypes.string,
-};
 
 export default ContractHeader;

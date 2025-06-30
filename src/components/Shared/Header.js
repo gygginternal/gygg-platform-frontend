@@ -1,17 +1,18 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './Header.module.css';
 import Sidebar from './Sidebar';
-import { useAuth } from '../../contexts/AuthContext';
-import socket from '../../socket';
+import { useAuth } from '../../context/AuthContext';
 import apiClient from '../../api/axiosConfig';
+import socket from '../../socket';
 
 function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [notifications] = useState([]);
-  const [unreadNotificationCount] = useState(0);
+  const [unreadMessageCount, setUnreadMessageCount] = useState(0);
+  const [notifications, setNotifications] = useState([]);
+  const [unreadNotificationCount, setUnreadNotificationCount] = useState(0);
   const [showNotifications, setShowNotifications] = useState(false);
   const notificationDropdownRef = useRef(null);
 
@@ -36,29 +37,39 @@ function Header() {
 
   const fetchUnreadCount = async () => {
     try {
-      const response = await apiClient.get('/notifications/unread-count');
-      const { data: _data } = response;
-      // Handle the response
-    } catch (_err) {
-      // Handle error
+      const response = await apiClient.get('/chat/unread-count');
+      setUnreadMessageCount(response.data.data.unreadCount);
+    } catch (error) {
+      // console.error('Error fetching unread count:', error);
     }
   };
 
   // Fetch notifications
-  const fetchNotifications = useCallback(async () => {
+  const fetchNotifications = async () => {
     try {
-      const response = await apiClient.get('/notifications');
-      const { data: _data } = response;
-      // Handle the response
-    } catch (_err) {
-      // Handle error
+      const res = await apiClient.get('/notifications');
+      setNotifications(res.data.data.notifications || []);
+      setUnreadNotificationCount(
+        (res.data.data.notifications || []).filter(n => !n.isRead).length
+      );
+    } catch (err) {
+      // console.error('Error fetching notifications:', err);
     }
-  }, []);
+  };
 
   // Mark all as read
-  const markAllAsRead = useCallback(async () => {
-    // Remove all unused variables and function arguments: response, data, err, etc.
-  }, []);
+  const markAllAsRead = async () => {
+    try {
+      await Promise.all(
+        notifications
+          .filter(n => !n.isRead)
+          .map(n => apiClient.patch(`/notifications/${n._id}/read`))
+      );
+      fetchNotifications();
+    } catch (err) {
+      // console.error('Error marking notifications as read:', err);
+    }
+  };
 
   useEffect(() => {
     fetchUnreadCount();
@@ -74,8 +85,11 @@ function Header() {
         socket.emit('subscribeToNotifications', { userId: user._id });
       });
 
-      socket.on('notification:newMessage', _data => {
+      socket.on('notification:newMessage', data => {
         // console.log('New chat message notification received:', data);
+        if (data.receiverId === user._id) {
+          setUnreadMessageCount(prevCount => prevCount + 1);
+        }
       });
 
       // Listen for unread count updates (e.g., when messages are marked as read)
@@ -90,7 +104,7 @@ function Header() {
         // console.log('Disconnected from WebSocket.');
       });
 
-      socket.on('error', _err => {
+      socket.on('error', err => {
         // console.error('WebSocket error:', err);
       });
     }
@@ -116,7 +130,7 @@ function Header() {
     return () => {
       socket.off('notification:new', fetchNotifications);
     };
-  }, [user, fetchNotifications]);
+  }, [user]);
 
   // Handle notification dropdown open/close
   useEffect(() => {
@@ -132,7 +146,7 @@ function Header() {
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [showNotifications, markAllAsRead]);
+  }, [showNotifications]);
 
   useEffect(() => {
     const handleClickOutside = event => {
@@ -145,7 +159,7 @@ function Header() {
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [profileDropdownRef]);
+  }, []);
 
   const handleSearchInputChange = event => {
     setSearchTerm(event.target.value);

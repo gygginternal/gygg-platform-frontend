@@ -1,4 +1,5 @@
 // src/components/LandingVisual.js
+import React from 'react';
 import visualStyles from './LandingVisual.module.css';
 
 const LandingVisual = () => {

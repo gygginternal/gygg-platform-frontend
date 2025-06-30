@@ -1,9 +1,9 @@
 // src/components/ProfilePage/PostsSection.js
 import { useState, useEffect } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import apiClient from '../../api/axiosConfig';
 import styles from './PostsSection.module.css';
-import PostCard from '../SocialFeedLayoutPage/Post';
+import PostCard from './PostCard';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import logger from '../../utils/logger';
@@ -49,6 +49,8 @@ function PostsSection({ userIdToView, isOwnProfile }) {
     };
     fetchUserPosts();
   }, [targetUserIdForPosts]);
+
+  const seeAllLink = `/feed`; // Could be /users/${targetUserIdForPosts}/posts
 
   const renderContent = () => {
     if (loading) return <p>Loading posts...</p>;
