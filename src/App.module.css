@@ -18,9 +18,3 @@
   margin: 0;
 }
 
-/* .container {
-} */
-
-.containerWithHeaderPadding {
-  padding-top: 42px; /* Adjust this value based on your Header's actual height */
-}

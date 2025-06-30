@@ -1,6 +1,6 @@
 // src/pages/EmailVerifiedPage.js
 import React, { useEffect, useState } from 'react';
-import { Link, useSearchParams, useNavigate } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import apiClient from '../api/axiosConfig';
 import logger from '../utils/logger';
 import ResendVerificationButton from '../components/ResendVerificationButton';
@@ -10,7 +10,9 @@ import styles from './EmailVerifiedPage.module.css'; // New dedicated styles
 function EmailVerifiedPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const token = searchParams.get('token');
+  const email = searchParams.get('email') || location.state?.email || '';
 
   const [verificationStatus, setVerificationStatus] = useState('verifying'); // verifying, success, failed
   const [message, setMessage] = useState(
@@ -82,7 +84,7 @@ function EmailVerifiedPage() {
           )}
         {verificationStatus === 'failed' && (
           <div style={{ marginTop: '16px' }}>
-            <ResendVerificationButton />
+            <ResendVerificationButton email={email} />
           </div>
         )}
         {verificationStatus === 'failed' && (

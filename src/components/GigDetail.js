@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { Button } from '../components/ui/button';
 // frontend/src/pages/GigDetailPage.js
 import React, { useState, useEffect, useCallback } from 'react';

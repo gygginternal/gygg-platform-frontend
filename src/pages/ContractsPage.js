@@ -9,9 +9,7 @@ import ProfileSidebar from '../components/ProfileSidebar';
 import { TabNavigation } from '../components/TabNavigation'; // Import the TabNavigation component
 import InputField from '../components/Shared/InputField';
 import Toggle from '../components/Toggle';
-import BillingTable from '../components/Billing/BillingTable';
 import { StatusBadge } from '../components/StatusBadge'; // Adjust the import path
-import './ContractsList.module.css';
 import BillingAndPayment from './BillingAndPayment';
 import ContractCard from '../components/ContractsPage/ContractCard';
 

@@ -198,6 +198,9 @@ function TaskerOnboardingPage() {
     if (formData.availability)
       payload.append('availability', JSON.stringify(formData.availability));
 
+    // Mark onboarding as complete
+    payload.append('isTaskerOnboardingComplete', 'true');
+
     // Append profile image file if selected
     if (formData.profileImageFile) {
       payload.append(

@@ -3,14 +3,14 @@ import apiClient from '../api/axiosConfig';
 import { useToast } from '../contexts/ToastContext';
 import styles from './ResendVerificationButton.module.css';
 
-function ResendVerificationButton() {
+function ResendVerificationButton({ email }) {
   const [loading, setLoading] = useState(false);
   const { showToast } = useToast();
 
   const handleResend = async () => {
     setLoading(true);
     try {
-      await apiClient.post('/users/resendVerificationEmail');
+      await apiClient.post('/users/resendVerificationEmail', { email });
       showToast('Verification email resent!', 'success');
     } catch (err) {
       showToast(
