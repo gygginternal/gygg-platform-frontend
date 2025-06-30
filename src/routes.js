@@ -16,6 +16,7 @@ import NotificationsPage from './pages/NotificationsPage';
 import MyContractsPage from './pages/MyContractsPage';
 import ContractDetailPage from './pages/ContractDetailPage';
 import InvoicePage from './pages/InvoicePage';
+import ChatPage from './pages/ChatPage';
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -92,7 +93,7 @@ const AppRoutes = () => {
           path="/chat/:id"
           element={
             <PrivateRoute>
-              <Chat />
+              <ChatPage />
             </PrivateRoute>
           }
         />

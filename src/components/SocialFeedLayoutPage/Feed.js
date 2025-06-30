@@ -7,8 +7,8 @@ import apiClient from '../../api/axiosConfig'; // Adjust path
 import { useAuth } from '../../context/AuthContext'; // Adjust path
 import logger from '../../utils/logger'; // Optional logger
 import { useNavigate } from 'react-router-dom'; // Import Link and useNavigate
-import { Picker } from 'emoji-mart';
-import 'emoji-mart/css/emoji-mart.css';
+// import { Picker } from 'emoji-mart'; // Commented out due to emoji-mart removal
+// import 'emoji-mart/css/emoji-mart.css'; // Commented out due to emoji-mart removal
 
 function Feed() {
   const { user } = useAuth();
@@ -254,7 +254,7 @@ function Feed() {
               <img src="/assets/gif.svg" alt="Add Gif" width={20} height={20} />
             </div> */}
             <div className={styles.postIcon}>
-              <button
+              {/* <button
                 type="button"
                 aria-label="Add Emoji"
                 className={styles.emojiButton}
@@ -272,12 +272,13 @@ function Feed() {
                   width={20}
                   height={20}
                 />
-              </button>
-              {showEmojiPicker && (
+              </button> */}
+              {/* {showEmojiPicker && (
                 <div style={{ position: 'absolute', zIndex: 1000 }}>
                   <Picker onSelect={handleEmojiSelect} />
                 </div>
-              )}
+              )} */}
+              {/* Emoji picker removed due to emoji-mart package removal */}
             </div>
           </div>
           <Button
