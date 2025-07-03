@@ -13,7 +13,7 @@ const TaskerList = () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await apiClient.get('/applicances/top-match');
+        const response = await apiClient.get('/applications/top-match');
         if (
           !response.data ||
           !response.data.data ||

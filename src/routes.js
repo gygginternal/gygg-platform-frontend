@@ -17,6 +17,8 @@ import MyContractsPage from './pages/MyContractsPage';
 import ContractDetailPage from './pages/ContractDetailPage';
 import InvoicePage from './pages/InvoicePage';
 import ChatPage from './pages/ChatPage';
+import PostedGigsPage from './pages/PostedGigsPage';
+import GigsAppliedPage from './pages/GigsAppliedPage';
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -128,6 +130,22 @@ const AppRoutes = () => {
           element={
             <PrivateRoute>
               <InvoicePage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/posted-gigs"
+          element={
+            <PrivateRoute>
+              <PostedGigsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/gigs-applied"
+          element={
+            <PrivateRoute>
+              <GigsAppliedPage />
             </PrivateRoute>
           }
         />

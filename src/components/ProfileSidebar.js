@@ -76,6 +76,9 @@ function ProfileSidebar() {
           </div>
         </div>
 
+        {/* Sidebar navigation options */}
+        {/* Removed Gigs Applied link, now in main Sidebar only */}
+
         {/* Render Recommended Gigs Section if user is a provider */}
         {user.role?.includes('provider') && (
           <>

@@ -54,6 +54,7 @@ const RecommendedGigs = () => {
           </p>
         ) : recommendedGigs && recommendedGigs.length > 0 ? (
           recommendedGigs.slice(0, 3).map(gig => {
+            console.log('Recommended gig:', gig);
             const poster = gig.poster || {};
             const profileImage = poster.profileImage || '/default.jpg';
             const posterName =
@@ -76,7 +77,11 @@ const RecommendedGigs = () => {
                     <span>{posterName}</span>
                     {location && ` from ${location}`} needs a {gig.title}
                   </div>
-                  <Link to={`/gigs/${gig._id}`} className={styles.viewGigLink}>
+                  <Link
+                    to={{ pathname: '/gigs', search: `?gigId=${gig._id}` }}
+                    state={{ gigId: gig._id }}
+                    className={styles.viewGigLink}
+                  >
                     <b>
                       <u>View gig detail</u>
                     </b>

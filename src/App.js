@@ -41,6 +41,9 @@ import TermsOfUsePage from './pages/TermsOfUsePage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import UserProfilePage from './pages/UserProfilePage';
 import GigHelperPage from './pages/GigHelperPage';
+import GigsAppliedPage from './pages/GigsAppliedPage';
+import PostedGigsPage from './pages/PostedGigsPage';
+import ChoosePage from './pages/ChoosePage';
 
 // Shared
 import Header from './components/Shared/Header';
@@ -280,6 +283,23 @@ function AppWithNavigation() {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/gigs-applied"
+              element={
+                <ProtectedRoute>
+                  <GigsAppliedPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/posted-gigs"
+              element={
+                <ProtectedRoute>
+                  <PostedGigsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/choose" element={<ChoosePage />} />
             {/* Catch-all */}
             <Route path="*" element={<AuthAwareRedirect />} />
           </Routes>

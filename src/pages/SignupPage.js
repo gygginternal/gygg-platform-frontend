@@ -11,26 +11,25 @@ function SignupPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const showToast = useToast();
-  const initialRole = location.state?.selectedRole || 'tasker';
+  const selectedRole = location.state?.selectedRole || 'tasker';
 
   const [formData, setFormData] = useState({
     email: '',
-    phoneNo: '+1', // Initialize with a default country code
+    phoneNo: '+1',
     password: '',
     passwordConfirm: '',
     dateOfBirth: '',
-    role: [initialRole],
+    role: [selectedRole],
   });
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const roleFromState = location.state?.selectedRole;
-    if (roleFromState && roleFromState !== formData.role[0]) {
-      setFormData(prev => ({ ...prev, role: [roleFromState] }));
+    if (selectedRole && selectedRole !== formData.role[0]) {
+      setFormData(prev => ({ ...prev, role: [selectedRole] }));
     }
-  }, [location.state, formData.role]);
+  }, [selectedRole, formData.role]);
 
   // --- START: SIMPLIFIED handleChange - InputField now handles phoneNo formatting ---
   const handleChange = (name, value) => {
@@ -155,7 +154,7 @@ function SignupPage() {
 
       <section className={styles.formContainer}>
         <h1 className={styles.title}>
-          Sign up as {formData.role[0] === 'tasker' ? 'a Tasker' : 'a Provider'}
+          Sign up as {selectedRole === 'tasker' ? 'a Tasker' : 'a Provider'}
         </h1>
 
         <form className={styles.form} onSubmit={handleSubmit}>
@@ -246,7 +245,11 @@ function SignupPage() {
               className={styles.submitButton}
               disabled={loading}
             >
-              {loading ? 'Signing up...' : 'Sign up'}
+              {loading
+                ? 'Signing up...'
+                : `Sign up as ${
+                    selectedRole === 'tasker' ? 'Tasker' : 'Provider'
+                  }`}
             </button>
           </footer>
           <p className={styles.terms}>

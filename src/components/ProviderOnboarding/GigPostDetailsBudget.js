@@ -19,6 +19,7 @@ function GigPostDetailsBudget({ formData, onInputChange }) {
           required
         >
           <option value="fixed">One Fixed Payment</option>
+          <option value="hourly">Hourly</option>
         </select>
       </div>
       {formData.gigPaymentType === 'fixed' && (
@@ -40,22 +41,40 @@ function GigPostDetailsBudget({ formData, onInputChange }) {
         </div>
       )}
       {formData.gigPaymentType === 'hourly' && (
-        <div className={styles.formGroup}>
-          <label htmlFor="gigRatePerHour" className={styles.label}>
-            Your Hourly Rate Budget ($/hr)*
-          </label>
-          <input
-            type="number"
-            id="gigRatePerHour"
-            name="gigRatePerHour"
-            value={formData.gigRatePerHour}
-            onChange={handleSelectChange}
-            min="1"
-            step="0.01"
-            className={styles.input}
-            required
-          />
-        </div>
+        <>
+          <div className={styles.formGroup}>
+            <label htmlFor="gigRatePerHour" className={styles.label}>
+              Your Hourly Rate Budget ($/hr)*
+            </label>
+            <input
+              type="number"
+              id="gigRatePerHour"
+              name="gigRatePerHour"
+              value={formData.gigRatePerHour}
+              onChange={handleSelectChange}
+              min="1"
+              step="0.01"
+              className={styles.input}
+              required
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label htmlFor="gigDuration" className={styles.label}>
+              Estimated Hours Needed*
+            </label>
+            <input
+              type="number"
+              id="gigDuration"
+              name="gigDuration"
+              value={formData.gigDuration || ''}
+              onChange={handleSelectChange}
+              min="1"
+              step="1"
+              className={styles.input}
+              required
+            />
+          </div>
+        </>
       )}
       <div className={styles.formGroup}>
         <label htmlFor="gigDescription" className={styles.label}>

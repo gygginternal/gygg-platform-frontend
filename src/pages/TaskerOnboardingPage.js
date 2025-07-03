@@ -60,28 +60,44 @@ function TaskerOnboardingPage() {
   const [error, setError] = useState('');
   const showToast = useToast();
 
-  // Populate with existing user data if available (e.g., if they partially completed)
+  // All useEffect hooks must be at the top
+  useEffect(() => {
+    if (user?.isTaskerOnboardingComplete) {
+      navigate('/feed', { replace: true });
+    }
+  }, [user, navigate]);
+
   useEffect(() => {
     if (user) {
       setFormData(prev => ({
         ...prev,
         firstName: user.firstName || '',
         lastName: user.lastName || '',
-        skills: user.skills || [], // Assuming 'skills' is the field for TaskSelector
+        skills: user.skills || [],
         hobbies: user.hobbies || [],
         peoplePreference: user.peoplePreference || [],
         ratePerHour: user.ratePerHour || 0,
         availability: user.availability
           ? { ...initialFormData.availability, ...user.availability }
           : initialFormData.availability,
-        // Bio for step 5 - if it's the same as selfDescription, merge them
-        bioStep5: user.bio || '', // Or a different field if needed
+        bioStep5: user.bio || '',
       }));
       if (user.profileImage && user.profileImage !== 'default.jpg') {
-        setProfileImagePreview(user.profileImage); // Show existing S3 URL
+        setProfileImagePreview(user.profileImage);
       }
     }
   }, [user]);
+
+  useEffect(() => {
+    return () => {
+      if (profileImagePreview && profileImagePreview.startsWith('blob:'))
+        URL.revokeObjectURL(profileImagePreview);
+    };
+  }, [profileImagePreview]);
+
+  if (user?.isTaskerOnboardingComplete) {
+    return null;
+  }
 
   // Generic InputField handler (name, value)
   const handleInputChange = (name, value) => {
@@ -147,13 +163,6 @@ function TaskerOnboardingPage() {
       setProfileImagePreview(URL.createObjectURL(file)); // Show preview
     }
   };
-  useEffect(() => {
-    return () => {
-      if (profileImagePreview && profileImagePreview.startsWith('blob:'))
-        URL.revokeObjectURL(profileImagePreview);
-    };
-  }, [profileImagePreview]); // Cleanup blob URL
-
   const handleUploadAreaClick = () => fileInputRef.current?.click();
   // Drag and drop handlers (basic)
   const handleDragOver = e => {

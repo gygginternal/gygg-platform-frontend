@@ -358,3 +358,131 @@
 
 /* Tabs polish (already styled, but ensure font and underline) */
 /* .tab, .active, .activeIndicator in TabNavigation.module.css */
+
+/* --- Modern filter and layout styles copied from GigsPage.module.css --- */
+
+.searchAndFilters {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.searchIcon {
+  color: #666;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.searchInput {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  transition: border-color 0.2s;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #3d4d55;
+}
+
+.filterButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  color: #333;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filterButton:hover {
+  background: #e9ecef;
+}
+
+.filterIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.filtersPanel {
+  background: #f8f9fa;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.filterSection {
+  margin-bottom: 1.5rem;
+}
+
+.filterSection:last-child {
+  margin-bottom: 0;
+}
+
+.filterSection h3 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.75rem;
+}
+
+.categoryList,
+.priceRangeList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.categoryButton,
+.priceRangeButton {
+  padding: 0.5rem 0.75rem;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.categoryButton:hover,
+.priceRangeButton:hover {
+  background: #f0f0f0;
+}
+
+.categoryButton.selected,
+.priceRangeButton.selected {
+  background: #3d4d55;
+  color: white;
+  border-color: #3d4d55;
+}
+
+.clearFiltersButton {
+  width: 100%;
+  padding: 0.75rem;
+  background: #3D4D55;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.clearFiltersButton:hover {
+  background: #60727c;
+}

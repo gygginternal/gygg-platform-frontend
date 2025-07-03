@@ -12,6 +12,8 @@ import Toggle from '../components/Toggle';
 import { StatusBadge } from '../components/StatusBadge'; // Adjust the import path
 import BillingAndPayment from './BillingAndPayment';
 import ContractCard from '../components/ContractsPage/ContractCard';
+import { CATEGORY_ENUM } from '../constants/categories';
+import { Search, Filter, DollarSign } from 'lucide-react';
 
 export const ContractsContext = createContext();
 export function useContracts() {
@@ -146,22 +148,70 @@ function JobListingItem({ job }) {
   );
 }
 
+const priceRanges = ['Any', 'Under $20', '$20 - $50', '$50 - $100', '$100+'];
+const statusOptions = [
+  'All',
+  'active',
+  'completed',
+  'cancelled_by_provider',
+  'cancelled_by_tasker',
+  'cancelled_mutual',
+  'pending_acceptance',
+  'pending_payment',
+  'submitted',
+  'approved',
+];
+
 function ContractsPage() {
   const [contracts, setContracts] = useState([]);
   const [search, setSearch] = useState('');
   const [selectedStatuses, setSelectedStatuses] = useState([]); // State for selected statuses
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [minCost, setMinCost] = useState('');
+  const [maxCost, setMaxCost] = useState('');
   const [activeTab, setActiveTab] = useState('contracts'); // State for active tab
   const [newContracts, setNewContracts] = useState([]); // For newly added contracts
   const [expandedId, setExpandedId] = useState(null);
+  const [showFilters, setShowFilters] = useState(false);
+  const [priceRange, setPriceRange] = useState('Any');
+  const [status, setStatus] = useState('All');
 
   const tabOptions = [
     { id: 'contracts', label: 'All Contracts' },
     { id: 'billing', label: 'Billing and payment' },
   ];
 
+  const clearFilters = () => {
+    setSearch('');
+    setSelectedCategory('All');
+    setPriceRange('Any');
+    setStatus('All');
+  };
+
   useEffect(() => {
-    async function fetchContracts() {
-      const res = await apiClient.get('/contracts/my-contracts');
+    // Map priceRange to minCost/maxCost
+    let minCost, maxCost;
+    if (priceRange === 'Under $20') maxCost = 20;
+    else if (priceRange === '$20 - $50') {
+      minCost = 20;
+      maxCost = 50;
+    } else if (priceRange === '$50 - $100') {
+      minCost = 50;
+      maxCost = 100;
+    } else if (priceRange === '$100+') minCost = 100;
+    // Map status
+    const statusParam = status !== 'All' ? status : undefined;
+    const params = {
+      name: search,
+      status: statusParam,
+      category: selectedCategory !== 'All' ? selectedCategory : undefined,
+      minCost,
+      maxCost,
+    };
+    Object.keys(params).forEach(
+      key => params[key] === undefined && delete params[key]
+    );
+    apiClient.get('/contracts/my-contracts', { params }).then(res => {
       const mapped = res.data.data.contracts.map(c => ({
         id: c.id || c.contractId || Math.random(),
         title: c.gigTitle || c.title || 'Contract',
@@ -182,11 +232,12 @@ function ContractsPage() {
         rate: c.rate || '$23/hr',
         duration: c.duration || '4 hours',
         earned: c.earned || '$96',
+        category: c.gigCategory || 'Other',
+        cost: c.gigCost || 0,
       }));
       setContracts(mapped);
-    }
-    fetchContracts();
-  }, []);
+    });
+  }, [search, selectedCategory, priceRange, status]);
 
   const filteredContracts = contracts.filter(c =>
     c.title.toLowerCase().includes(search.toLowerCase())
@@ -246,46 +297,87 @@ function ContractsPage() {
               onTabChange={setActiveTab}
               tabs={tabOptions}
             />
+            <div className={styles.searchAndFilters}>
+              <div className={styles.searchBar}>
+                <Search className={styles.searchIcon} />
+                <input
+                  type="text"
+                  placeholder="Search contracts..."
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                  className={styles.searchInput}
+                />
+                <button
+                  className={styles.filterButton}
+                  onClick={() => setShowFilters(!showFilters)}
+                >
+                  <Filter className={styles.filterIcon} />
+                  Filters
+                </button>
+              </div>
+              {showFilters && (
+                <div className={styles.filtersPanel}>
+                  <div className={styles.filterSection}>
+                    <h3>Categories</h3>
+                    <div className={styles.categoryList}>
+                      {['All', ...CATEGORY_ENUM].map(category => (
+                        <button
+                          key={category}
+                          className={`${styles.categoryButton} ${selectedCategory === category ? styles.selected : ''}`}
+                          onClick={() => setSelectedCategory(category)}
+                        >
+                          {category}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className={styles.filterSection}>
+                    <h3>Price Range</h3>
+                    <div className={styles.priceRangeList}>
+                      {priceRanges.map(range => (
+                        <button
+                          key={range}
+                          className={`${styles.priceRangeButton} ${priceRange === range ? styles.selected : ''}`}
+                          onClick={() => setPriceRange(range)}
+                        >
+                          {range}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className={styles.filterSection}>
+                    <h3>Status</h3>
+                    <div className={styles.priceRangeList}>
+                      {statusOptions.map(opt => (
+                        <button
+                          key={opt}
+                          className={`${styles.priceRangeButton} ${status === opt ? styles.selected : ''}`}
+                          onClick={() => setStatus(opt)}
+                        >
+                          {opt === 'cancelled_by_provider'
+                            ? 'Cancelled by Provider'
+                            : opt === 'cancelled_by_tasker'
+                              ? 'Cancelled by Tasker'
+                              : opt === 'cancelled_mutual'
+                                ? 'Cancelled (Mutual)'
+                                : opt
+                                    .replace(/_/g, ' ')
+                                    .replace(/\b\w/g, l => l.toUpperCase())}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <button
+                    className={styles.clearFiltersButton}
+                    onClick={clearFilters}
+                  >
+                    Clear All Filters
+                  </button>
+                </div>
+              )}
+            </div>
             {activeTab === 'contracts' && (
               <>
-                <div className={styles.filterSection}>
-                  <InputField
-                    name="search"
-                    type="text"
-                    placeholder="Search existing contract..."
-                    value={search}
-                    onChange={e => setSearch(e.target.value)}
-                    onKeyDown={handleSearch}
-                  />
-                  Filter by Status:
-                  <Toggle
-                    pressed={selectedStatuses.includes('completed')}
-                    onPressedChange={() => toggleStatus('completed')}
-                    variant="outline"
-                    size="sm"
-                    className={`${styles.toggleButton} ${styles.toggleButtonCompleted}`}
-                  >
-                    Completed
-                  </Toggle>
-                  <Toggle
-                    pressed={selectedStatuses.includes('active')}
-                    onPressedChange={() => toggleStatus('active')}
-                    variant="outline"
-                    size="sm"
-                    className={`${styles.toggleButton} ${styles.toggleButtonActive}`}
-                  >
-                    Active
-                  </Toggle>
-                  <Toggle
-                    pressed={selectedStatuses.includes('cancelled')}
-                    onPressedChange={() => toggleStatus('cancelled')}
-                    variant="outline"
-                    size="sm"
-                    className={`${styles.toggleButton} ${styles.toggleButtonCancelled}`}
-                  >
-                    Cancelled
-                  </Toggle>
-                </div>
                 <div className={styles.contractsCard}>
                   <div className={styles.contractsList}>
                     {filteredContracts.length === 0 ? (

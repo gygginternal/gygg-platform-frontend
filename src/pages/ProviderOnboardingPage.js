@@ -14,11 +14,8 @@ import GigPostReview from '../components/ProviderOnboarding/GigPostReview';
 import { useAuth } from '../context/AuthContext';
 import apiClient from '../api/axiosConfig';
 import logger from '../utils/logger';
-import {
-  CATEGORY_ENUM,
-  HOBBIES_OPTIONS,
-  PERSONALITIES_OPTIONS,
-} from '../utils/constants';
+import { CATEGORY_ENUM } from '../constants/categories';
+import { HOBBIES_OPTIONS, PERSONALITIES_OPTIONS } from '../utils/constants';
 
 const TOTAL_PROVIDER_STEPS = 6; // Profile (3) + Gig Post (3)
 
@@ -45,6 +42,7 @@ const initialProviderFormData = {
   gigCost: '',
   gigRatePerHour: '',
   gigDescription: '',
+  gigDuration: '',
   // Add other Gig fields as needed: isRemote, location (for gig), skillsRequired (from tasker)
 };
 
@@ -59,7 +57,13 @@ function ProviderOnboardingPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // Populate form with existing user data
+  // All useEffect hooks must be at the top
+  useEffect(() => {
+    if (user?.isProviderOnboardingComplete) {
+      navigate('/feed', { replace: true });
+    }
+  }, [user, navigate]);
+
   useEffect(() => {
     if (user) {
       logger.debug('ProviderOnboarding: Populating formData from user:', user);
@@ -73,8 +77,7 @@ function ProviderOnboardingPage() {
         hobbies: user.hobbies || [],
         peoplePreference: user.peoplePreference || [],
         mainBio: user.bio || '',
-        providerBioForMatching: user.providerBioForMatching || '', // Assuming this might exist
-        // Don't populate gig fields from user profile as they are for a new gig
+        providerBioForMatching: user.providerBioForMatching || '',
       }));
       if (user.profileImage && user.profileImage !== 'default.jpg') {
         setProfileImagePreview(user.profileImage);
@@ -82,7 +85,6 @@ function ProviderOnboardingPage() {
     }
   }, [user]);
 
-  // Cleanup blob URL when component unmounts or preview changes
   useEffect(() => {
     return () => {
       if (profileImagePreview && profileImagePreview.startsWith('blob:')) {
@@ -90,6 +92,10 @@ function ProviderOnboardingPage() {
       }
     };
   }, [profileImagePreview]);
+
+  if (user?.isProviderOnboardingComplete) {
+    return null;
+  }
 
   // --- Input Handlers ---
   const handleInputChange = (name, value) => {
@@ -189,7 +195,15 @@ function ProviderOnboardingPage() {
         currentStep === 4 &&
         (!formData.gigTitle.trim() || !formData.gigCategory)
       ) {
-        setError('Gig title and category are required.');
+        if (!formData.gigTitle.trim()) {
+          setError('Gig title is required.');
+        } else if (formData.gigTitle.trim().length < 5) {
+          setError('Gig title must be at least 5 characters.');
+        } else if (formData.gigTitle.trim().length > 100) {
+          setError('Gig title cannot exceed 100 characters.');
+        } else if (!formData.gigCategory) {
+          setError('Gig category is required.');
+        }
         canProceed = false;
       } else if (
         currentStep === 5 &&
@@ -198,9 +212,27 @@ function ProviderOnboardingPage() {
             (!formData.gigCost || parseFloat(formData.gigCost) <= 0)) ||
           (formData.gigPaymentType === 'hourly' &&
             (!formData.gigRatePerHour ||
-              parseFloat(formData.gigRatePerHour) <= 0)))
+              parseFloat(formData.gigRatePerHour) <= 0 ||
+              !formData.gigDuration ||
+              parseFloat(formData.gigDuration) <= 0)))
       ) {
-        setError('Gig description and valid budget details are required.');
+        if (!formData.gigDescription.trim()) {
+          setError('Gig description is required.');
+        } else if (formData.gigDescription.trim().length < 20) {
+          setError('Gig description must be at least 20 characters.');
+        } else if (formData.gigDescription.trim().length > 2000) {
+          setError('Gig description cannot exceed 2000 characters.');
+        } else if (
+          formData.gigPaymentType === 'fixed' &&
+          (!formData.gigCost || parseFloat(formData.gigCost) <= 0)
+        ) {
+          setError('Please enter a valid fixed cost.');
+        } else if (
+          formData.gigPaymentType === 'hourly' &&
+          (!formData.gigRatePerHour || parseFloat(formData.gigRatePerHour) <= 0)
+        ) {
+          setError('Please enter a valid hourly rate.');
+        }
         canProceed = false;
       }
 
@@ -315,6 +347,11 @@ function ProviderOnboardingPage() {
           formData.gigPaymentType === 'hourly'
             ? parseFloat(formData.gigRatePerHour)
             : undefined,
+        isHourly: formData.gigPaymentType === 'hourly',
+        duration:
+          formData.gigPaymentType === 'hourly'
+            ? parseFloat(formData.gigDuration)
+            : undefined,
       };
       Object.keys(gigPayload).forEach(
         key => gigPayload[key] === undefined && delete gigPayload[key]
@@ -323,7 +360,7 @@ function ProviderOnboardingPage() {
       logger.debug('Submitting first gig:', gigPayload);
       const gigResponse = await apiClient.post('/gigs', gigPayload);
       alert('Profile setup complete and your first gig has been posted!');
-      navigate(`/gigs/${gigResponse.data.data.gig._id}`);
+      navigate('/feed');
     } catch (err) {
       setError(
         err.response?.data?.message || 'Failed to save setup and post gig.'
@@ -563,7 +600,10 @@ function ProviderOnboardingPage() {
       (formData.gigPaymentType === 'fixed' &&
         (!formData.gigCost || parseFloat(formData.gigCost) <= 0)) ||
       (formData.gigPaymentType === 'hourly' &&
-        (!formData.gigRatePerHour || parseFloat(formData.gigRatePerHour) <= 0)))
+        (!formData.gigRatePerHour ||
+          parseFloat(formData.gigRatePerHour) <= 0 ||
+          !formData.gigDuration ||
+          parseFloat(formData.gigDuration) <= 0)))
   ) {
     canGoNextForCurrentStep = false;
   }

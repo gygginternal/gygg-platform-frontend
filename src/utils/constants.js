@@ -69,6 +69,4 @@ export const PERSONALITIES_OPTIONS = [
   'Responsible',
 ];
 
-export const CATEGORY_ENUM = [];
-
 // Add other frontend constants here as needed

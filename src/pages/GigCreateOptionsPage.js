@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import styles from '../components/GigCreateOptionsPage/GigCreateOptionsPage.module.css';
-import { CATEGORY_ENUM } from '../utils/constants'; // Assuming categories are here
+import { CATEGORY_ENUM } from '../constants/categories';
 import apiClient from '../api/axiosConfig'; // Adjust path if needed
 import logger from '../utils/logger';
 import { useToast } from '../context/ToastContext';

@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Search, Filter, MapPin, DollarSign, Clock } from 'lucide-react';
 import { CATEGORY_ENUM } from '../constants/categories';
 import GigDetailsModal from '../components/GigDetailsModal';
+import apiClient from '../api/axiosConfig';
 
 export default function GigsPage() {
   const location = useLocation();
@@ -37,6 +38,17 @@ export default function GigsPage() {
 
     navigate(`?${params.toString()}`);
   }, [searchTerm, selectedCategory, selectedLocation, priceRange, navigate]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const gigId = params.get('gigId') || location.state?.gigId;
+    if (gigId) {
+      apiClient.get(`/gigs/${gigId}`).then(res => {
+        setSelectedGig(res.data.data.gig);
+        navigate('/gigs', { replace: true });
+      });
+    }
+  }, [location, navigate]);
 
   const handleSearch = e => {
     setSearchTerm(e.target.value);

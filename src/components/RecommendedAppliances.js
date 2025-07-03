@@ -14,7 +14,7 @@ const RecommendedAppliances = () => {
   } = useQuery({
     queryKey: ['recommendedAppliances'],
     queryFn: async () => {
-      const response = await apiClient.get('/applicances/top-match');
+      const response = await apiClient.get('/applications/top-match');
       return response.data;
     },
     onError: err => {

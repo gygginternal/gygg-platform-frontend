@@ -12,7 +12,14 @@ const timeAgo = date => {
   return `Posted ${Math.floor(diff / 86400)} days ago`;
 };
 
-const GigDetailsModal = ({ gig, open, onClose, onApply }) => {
+const GigDetailsModal = ({
+  gig,
+  open,
+  onClose,
+  onApply,
+  showRetract,
+  applicationId,
+}) => {
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState('');
   const navigate = useNavigate();
@@ -130,7 +137,7 @@ const GigDetailsModal = ({ gig, open, onClose, onApply }) => {
     setFeedback('');
     try {
       // Adjust endpoint as needed for your backend
-      const res = await apiClient.post(`/applications`, { gigId: _id });
+      const res = await apiClient.post(`/gigs/${_id}/applications`);
       setFeedback('Application submitted!');
       // If backend returns contract, add it to contracts context
       if (res.data?.data?.contract && addContract) {
@@ -143,6 +150,25 @@ const GigDetailsModal = ({ gig, open, onClose, onApply }) => {
     } catch (err) {
       setFeedback(
         err.response?.data?.message || 'Failed to apply for this gig.'
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRetract = async () => {
+    setLoading(true);
+    setFeedback('');
+    try {
+      await apiClient.patch(`/applications/${applicationId}/cancel`);
+      setFeedback('Application retracted.');
+      if (onApply) onApply();
+      setTimeout(() => {
+        onClose();
+      }, 1000);
+    } catch (err) {
+      setFeedback(
+        err.response?.data?.message || 'Failed to retract application.'
       );
     } finally {
       setLoading(false);
@@ -206,13 +232,23 @@ const GigDetailsModal = ({ gig, open, onClose, onApply }) => {
         </div>
         {feedback && <div className={styles.modalFeedback}>{feedback}</div>}
         <div className={styles.modalActions}>
-          <button
-            className={styles.modalApplyButton}
-            onClick={handleApply}
-            disabled={loading}
-          >
-            {loading ? 'Applying...' : 'Apply'}
-          </button>
+          {showRetract ? (
+            <button
+              className={styles.modalApplyButton}
+              onClick={handleRetract}
+              disabled={loading}
+            >
+              {loading ? 'Retracting...' : 'Retract'}
+            </button>
+          ) : (
+            <button
+              className={styles.modalApplyButton}
+              onClick={handleApply}
+              disabled={loading}
+            >
+              {loading ? 'Applying...' : 'Apply'}
+            </button>
+          )}
         </div>
       </div>
     </div>

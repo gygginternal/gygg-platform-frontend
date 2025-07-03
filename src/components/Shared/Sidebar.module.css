@@ -1,10 +1,5 @@
 /* src/components/Shared/Sidebar.module.css */
 
-/* Setting a base font size for rem calculations if not set globally */
-:root {
-  font-size: 16px; /* 1rem = 16px */
-}
-
 .sidebar {
   background-color: #f1f1f1;
   width: 16.875rem; /* 270px Default width for larger screens */

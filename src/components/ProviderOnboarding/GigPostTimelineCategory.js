@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types';
 import styles from './GigPostTimelineCategory.module.css';
 import { SKILL_OPTIONS } from '../../utils/constants';
+import { CATEGORY_ENUM } from '../../constants/categories';
 
 function GigPostTimelineCategory({ formData, onInputChange }) {
   const handleSelectChange = e => onInputChange(e.target.name, e.target.value);
@@ -54,7 +55,7 @@ function GigPostTimelineCategory({ formData, onInputChange }) {
           <option value="" disabled>
             Select a category
           </option>
-          {SKILL_OPTIONS.map(cat => (
+          {CATEGORY_ENUM.map(cat => (
             <option key={cat} value={cat}>
               {cat}
             </option>

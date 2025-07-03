@@ -27,7 +27,7 @@ Icon.propTypes = {
 function Sidebar({ isOpen }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, sessionRole } = useAuth();
   const [unreadMessageCount, setUnreadMessageCount] = useState(0);
 
   React.useEffect(() => {
@@ -77,21 +77,33 @@ function Sidebar({ isOpen }) {
     },
   ];
 
-  if (user?.role.includes('tasker')) {
+  if (sessionRole === 'tasker') {
     navItems.push({
       key: 'gigs',
       path: '/gigs',
       icon: '/assets/briefcase.svg',
       text: 'Gigs',
     });
+    navItems.push({
+      key: 'gigs-applied',
+      path: '/gigs-applied',
+      icon: '/assets/applied-user.svg',
+      text: 'Gigs Applied',
+    });
   }
 
-  if (user?.role.includes('provider')) {
+  if (sessionRole === 'provider') {
     navItems.push({
       key: 'gig helpers',
       path: '/gig-helper',
       icon: '/assets/briefcase.svg',
       text: 'Gig Helpers',
+    });
+    navItems.push({
+      key: 'posted-gigs',
+      path: '/posted-gigs',
+      icon: '/assets/applied-user.svg',
+      text: 'Posted Gigs',
     });
   }
 

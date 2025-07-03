@@ -13,7 +13,9 @@ function LoginPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, selectSessionRole } = useAuth();
+  const location = useLocation();
+  const selectedRole = location.state?.selectedRole || null;
   const showToast = useToast();
 
   // Handler expected by our InputField component
@@ -40,14 +42,23 @@ function LoginPage() {
       logger.info('Login successful:', response.data);
 
       if (response.data.data.token && response.data.data.user) {
+        const userRoles = response.data.data.user.role || [];
+        if (selectedRole && !userRoles.includes(selectedRole)) {
+          setError(
+            `You do not have access as a ${selectedRole === 'tasker' ? 'Tasker' : 'Provider'}. Please log in with the correct role.`
+          );
+          return;
+        }
         login(response.data.data.token, response.data.data.user); // Update auth context
+        if (selectedRole) {
+          selectSessionRole(selectedRole);
+        }
         if (response.data.redirectToOnboarding) {
           logger.info(
             `Redirecting to onboarding: ${response.data.redirectToOnboarding}`
           );
           return navigate(response.data.redirectToOnboarding); // Navigate to onboarding path
         }
-
         navigate('/feed'); // Redirect to dashboard
       } else {
         logger.error(
@@ -83,7 +94,12 @@ function LoginPage() {
       </Link>
 
       <section className={styles.formContainer}>
-        <h1 className={styles.title}>Log In</h1>
+        <h1 className={styles.title}>
+          Log In
+          {selectedRole
+            ? ` as ${selectedRole === 'tasker' ? 'Tasker' : 'Provider'}`
+            : ''}
+        </h1>
 
         <form className={styles.form} onSubmit={handleSubmit}>
           <InputField
@@ -124,7 +140,13 @@ function LoginPage() {
               className={styles.submitButton}
               disabled={loading}
             >
-              {loading ? 'Logging in...' : 'Login'}
+              {loading
+                ? 'Logging in...'
+                : `Login${
+                    selectedRole
+                      ? ` as ${selectedRole === 'tasker' ? 'Tasker' : 'Provider'}`
+                      : ''
+                  }`}
             </button>
 
             {/* Sign Up Link */}

@@ -11,7 +11,7 @@ const LandingActions = () => {
         <Link to="/join">
           <button className={actionsStyles.signup}>Sign Up</button>
         </Link>
-        <Link to="/login">
+        <Link to="/choose">
           <button className={actionsStyles.login}>Log In</button>
         </Link>
         <p className={actionsStyles.terms}>

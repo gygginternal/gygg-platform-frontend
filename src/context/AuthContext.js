@@ -19,14 +19,22 @@ export const AuthProvider = ({ children }) => {
   });
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true); // Start true to fetch user on initial load
+  const [sessionRole, setSessionRole] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('sessionRole') || null;
+    }
+    return null;
+  });
 
   const logout = useCallback(() => {
     logger.info('AuthContext: Logging out...');
     if (typeof window !== 'undefined') {
       localStorage.removeItem('authToken');
+      localStorage.removeItem('sessionRole');
     }
     setAuthToken(null);
     setUser(null);
+    setSessionRole(null);
     // Optional: Invalidate backend session if needed
     // apiClient.get('/users/logout').catch(err => logger.error("Backend logout error:", err));
   }, []); // logout has no dependencies, so it's stable
@@ -97,6 +105,18 @@ export const AuthProvider = ({ children }) => {
     }
     setAuthToken(token);
     setUser(userData);
+    // If user has only one role, set sessionRole automatically
+    if (userData?.role?.length === 1) {
+      setSessionRole(userData.role[0]);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('sessionRole', userData.role[0]);
+      }
+    } else {
+      setSessionRole(null);
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('sessionRole');
+      }
+    }
     logger.info('AuthContext: User logged in:', userData?._id);
   };
 
@@ -109,6 +129,20 @@ export const AuthProvider = ({ children }) => {
     return refreshedUserData;
   }, [fetchUser]);
 
+  // Allow setting sessionRole manually (e.g., after role selection)
+  const selectSessionRole = role => {
+    setSessionRole(role);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('sessionRole', role);
+    }
+  };
+  const clearSessionRole = () => {
+    setSessionRole(null);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('sessionRole');
+    }
+  };
+
   // Provide logger if other parts of the app might need it through context (optional)
   const contextValue = {
     authToken,
@@ -117,6 +151,9 @@ export const AuthProvider = ({ children }) => {
     logout,
     isLoading,
     refreshUser /*, logger */,
+    sessionRole,
+    selectSessionRole,
+    clearSessionRole,
   };
 
   return (
