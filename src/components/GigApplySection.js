@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext'; // To get userId if needed by backend
+import { useAuth } from '../contexts/AuthContext'; // To get userId if needed by backend
 // import { Button } from "../components/ui/button"; // Removed as we'll use a local button or convert it
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import apiClient from '../api/axiosConfig';

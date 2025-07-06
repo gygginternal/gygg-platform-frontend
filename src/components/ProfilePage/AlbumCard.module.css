@@ -23,7 +23,8 @@
   transform: scale(1.05); /* Slight zoom effect on hover */
 }
 
-.albumImage, .album-image {
+.albumImage,
+.album-image {
   object-fit: cover;
   width: 100%;
   height: 13.75rem; /* 220px - Converted from original */
@@ -51,7 +52,7 @@
   align-items: center;
   background: #fff;
   border-radius: 0 0 1rem 1rem; /* 0 0 16px 16px */
-  box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.08); /* 0 2px 8px */
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.08); /* 0 2px 8px */
   padding: 0; /* Padding will be on the caption and delete button */
   gap: 0.75rem; /* 12px */
   width: 100%;
@@ -88,7 +89,9 @@
   display: flex; /* For centering the image/icon */
   align-items: center;
   justify-content: center;
-  transition: background 0.2s ease, filter 0.2s ease;
+  transition:
+    background 0.2s ease,
+    filter 0.2s ease;
 }
 .deleteButton:hover {
   background: rgba(220, 53, 69, 0.08); /* Light red hover effect */
@@ -98,11 +101,13 @@
   /* Facebook Top navbar icons 20-24px. Using 24px (1.5rem). */
   width: 1.5rem; /* 24px */
   height: 1.5rem; /* 24px */
-  filter: invert(32%) sepia(98%) saturate(0%) hue-rotate(180deg) brightness(0.7) contrast(1.2); /* Grey color */
+  filter: invert(32%) sepia(98%) saturate(0%) hue-rotate(180deg) brightness(0.7)
+    contrast(1.2); /* Grey color */
   object-fit: contain; /* Ensure image fits */
-} 
+}
 
-.image-container { /* This class exists in the provided CSS but is not directly styled with new rules.
+.image-container {
+  /* This class exists in the provided CSS but is not directly styled with new rules.
                        If it's an outer wrapper for .albumImage, it might need specific responsive rules
                        to ensure its contents scale correctly. For now, assuming .albumImage directly handles sizing. */
   position: relative;
@@ -112,77 +117,77 @@
 
 /* @media (max-width: 1024px) - Large Tablets / Small Laptops */
 @media (max-width: 1024px) {
-    .albumItem {
-        max-width: 16rem; /* 256px */
-        border-radius: 0.875rem; /* 14px */
-    }
-    .albumImage {
-        height: 12.5rem; /* 200px */
-    }
-    .albumFooterPill {
-        border-radius: 0 0 0.875rem 0.875rem; /* 14px */
-        gap: 0.6rem; /* 9.6px */
-    }
-    .albumCaption {
-        font-size: 0.875rem; /* 14px */
-        padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
-    }
-    .deleteButton {
-        padding: 0.4rem; /* 6.4px */
-    }
-    .deleteButton img {
-        width: 1.375rem; /* 22px */
-        height: 1.375rem; /* 22px */
-    }
+  .albumItem {
+    max-width: 16rem; /* 256px */
+    border-radius: 0.875rem; /* 14px */
+  }
+  .albumImage {
+    height: 12.5rem; /* 200px */
+  }
+  .albumFooterPill {
+    border-radius: 0 0 0.875rem 0.875rem; /* 14px */
+    gap: 0.6rem; /* 9.6px */
+  }
+  .albumCaption {
+    font-size: 0.875rem; /* 14px */
+    padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
+  }
+  .deleteButton {
+    padding: 0.4rem; /* 6.4px */
+  }
+  .deleteButton img {
+    width: 1.375rem; /* 22px */
+    height: 1.375rem; /* 22px */
+  }
 }
 
 /* @media (max-width: 768px) - Tablets */
 @media (max-width: 768px) {
-    .albumItem {
-        max-width: 100%; /* Allows it to take full width of grid column */
-        border-radius: 0.75rem; /* 12px */
-    }
-    .albumImage {
-        height: 10rem; /* 160px */
-    }
-    .albumFooterPill {
-        border-radius: 0 0 0.75rem 0.75rem; /* 12px */
-        gap: 0.5rem; /* 8px */
-    }
-    .albumCaption {
-        font-size: 0.8125rem; /* 13px */
-        padding: 0.35rem 0.7rem; /* 5.6px 11.2px */
-    }
-    .deleteButton {
-        padding: 0.3rem; /* 4.8px */
-    }
-    .deleteButton img {
-        width: 1.25rem; /* 20px */
-        height: 1.25rem; /* 20px */
-    }
+  .albumItem {
+    max-width: 100%; /* Allows it to take full width of grid column */
+    border-radius: 0.75rem; /* 12px */
+  }
+  .albumImage {
+    height: 10rem; /* 160px */
+  }
+  .albumFooterPill {
+    border-radius: 0 0 0.75rem 0.75rem; /* 12px */
+    gap: 0.5rem; /* 8px */
+  }
+  .albumCaption {
+    font-size: 0.8125rem; /* 13px */
+    padding: 0.35rem 0.7rem; /* 5.6px 11.2px */
+  }
+  .deleteButton {
+    padding: 0.3rem; /* 4.8px */
+  }
+  .deleteButton img {
+    width: 1.25rem; /* 20px */
+    height: 1.25rem; /* 20px */
+  }
 }
 
 /* @media (max-width: 480px) - Mobile Phones */
 @media (max-width: 480px) {
-    .albumItem {
-        border-radius: 0.625rem; /* 10px */
-    }
-    .albumImage {
-        height: 8rem; /* 128px */
-    }
-    .albumFooterPill {
-        border-radius: 0 0 0.625rem 0.625rem; /* 10px */
-        gap: 0.4rem; /* 6.4px */
-    }
-    .albumCaption {
-        font-size: 0.75rem; /* 12px */
-        padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
-    }
-    .deleteButton {
-        padding: 0.25rem; /* 4px */
-    }
-    .deleteButton img {
-        width: 1.125rem; /* 18px */
-        height: 1.125rem; /* 18px */
-    }
+  .albumItem {
+    border-radius: 0.625rem; /* 10px */
+  }
+  .albumImage {
+    height: 8rem; /* 128px */
+  }
+  .albumFooterPill {
+    border-radius: 0 0 0.625rem 0.625rem; /* 10px */
+    gap: 0.4rem; /* 6.4px */
+  }
+  .albumCaption {
+    font-size: 0.75rem; /* 12px */
+    padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
+  }
+  .deleteButton {
+    padding: 0.25rem; /* 4px */
+  }
+  .deleteButton img {
+    width: 1.125rem; /* 18px */
+    height: 1.125rem; /* 18px */
+  }
 }

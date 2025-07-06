@@ -1,7 +1,7 @@
 // import cn from "classnames"; // For conditional classnames
 import styles from './ProfileSidebar.module.css'; // Your CSS module
 import { Link } from 'react-router-dom'; // Use react-router Link
-import { useAuth } from '../context/AuthContext'; // Adjust path
+import { useAuth } from '../contexts/AuthContext'; // Adjust path
 import RecommendedGigs from './RecommendedGigs'; // Import the new component
 import RecommendedAppliances from './RecommendedAppliances';
 import AwaitedPostedGigs from './AwaitedPostedGigs'; // Import the AwaitedPostedGigs component

@@ -8,9 +8,13 @@ const NavigationButtons = ({
   onBack,
   isNextDisabled = false,
 }) => {
+  const hasBack = currentStep > 1;
+  const containerClass = hasBack
+    ? `${styles.navigationContainer} ${styles.bothButtons}`
+    : `${styles.navigationContainer} ${styles.nextOnly}`;
   return (
-    <div className={styles.navigationContainer}>
-      {currentStep > 1 && (
+    <div className={containerClass}>
+      {hasBack && (
         <button className={styles.backButton} onClick={onBack}>
           Back
         </button>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { useToast } from '../context/ToastContext';
+import { useAuth } from '../contexts/AuthContext';
+import { useToast } from '../contexts/ToastContext';
 import apiClient from '../api/axiosConfig';
 import PropTypes from 'prop-types';
 import styles from './PostCreateForm.module.css';

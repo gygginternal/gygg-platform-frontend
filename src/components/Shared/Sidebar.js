@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './Sidebar.module.css';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import socket from '../../socket';
 import apiClient from '../../api/axiosConfig';
 import PropTypes from 'prop-types';
@@ -79,31 +79,31 @@ function Sidebar({ isOpen }) {
 
   if (sessionRole === 'tasker') {
     navItems.push({
-      key: 'gigs',
-      path: '/gigs',
-      icon: '/assets/briefcase.svg',
-      text: 'Gigs',
-    });
-    navItems.push({
       key: 'gigs-applied',
       path: '/gigs-applied',
       icon: '/assets/applied-user.svg',
       text: 'Gigs Applied',
     });
+    navItems.push({
+      key: 'gigs',
+      path: '/gigs',
+      icon: '/assets/briefcase.svg',
+      text: 'Gigs',
+    });
   }
 
   if (sessionRole === 'provider') {
-    navItems.push({
-      key: 'gig helpers',
-      path: '/gig-helper',
-      icon: '/assets/briefcase.svg',
-      text: 'Gig Helpers',
-    });
     navItems.push({
       key: 'posted-gigs',
       path: '/posted-gigs',
       icon: '/assets/applied-user.svg',
       text: 'Posted Gigs',
+    });
+    navItems.push({
+      key: 'gig helpers',
+      path: '/gig-helper',
+      icon: '/assets/briefcase.svg',
+      text: 'Gig Helpers',
     });
   }
 

@@ -43,7 +43,7 @@
   /* Facebook Comments 13-14px. Using 14px. */
   font-size: 0.875rem; /* 14px */
   font-weight: 700;
-  text-decoration: none;
+  text-decoration: underline;
   display: inline-block;
   transition: color 0.2s ease;
 }

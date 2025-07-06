@@ -1,0 +1,117 @@
+.recentPostsSection {
+  margin: 32px 0;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.sectionTitle {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #222;
+}
+
+.seeAllLink {
+  color: #1a4d7a;
+  font-size: 1rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.postsList {
+  display: flex;
+  gap: 24px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.postCard {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding: 20px 24px;
+  min-width: 340px;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.postHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 2px;
+}
+
+.profileImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #e0e0e0;
+}
+
+.postMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.profileName {
+  font-weight: bold;
+  font-size: 1.05rem;
+  color: #222;
+}
+
+.postDate {
+  color: #888;
+  font-size: 0.98rem;
+}
+
+.postText {
+  color: #444;
+  font-size: 1.05rem;
+  margin-bottom: 2px;
+}
+
+.hashtags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.hashtag {
+  color: #1a4d7a;
+  font-size: 0.98rem;
+  background: #f0f2f5;
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+
+.postActions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 4px;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #888;
+  font-size: 1rem;
+}
+
+.state {
+  color: #888;
+  margin: 16px 0;
+}

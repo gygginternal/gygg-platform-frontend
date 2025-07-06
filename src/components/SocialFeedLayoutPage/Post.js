@@ -1,7 +1,7 @@
 // src/components/SocialPage/Post.js
 import PropTypes from 'prop-types';
 import styles from './Post.module.css';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import apiClient from '../../api/axiosConfig';
 import logger from '../../utils/logger';
 import React, { useState, useEffect, useRef } from 'react';

@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from './ProfileInfo.module.css'; // Ensure this CSS Module exists and is styled correctly
 import apiClient from '../../api/axiosConfig'; // Adjust path if necessary
 import logger from '../../utils/logger'; // Optional: Adjust path if necessary
-import { useToast } from '../../context/ToastContext';
+import { useToast } from '../../contexts/ToastContext';
 import PropTypes from 'prop-types';
 import { AutoComplete } from '../AutoComplete';
 import { HOBBIES_OPTIONS, SKILL_OPTIONS } from '../../utils/constants';

@@ -1,94 +1,67 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
-import { colors } from '../styles/theme';
 
-const ToastContext = createContext(undefined);
+const ToastContext = createContext();
 
-export const ToastProvider = ({ children }) => {
+export function ToastProvider({ children }) {
   const [toasts, setToasts] = useState([]);
 
-  const showToast = useCallback((message, type) => {
-    const id = Math.random().toString(36).substr(2, 9);
-    setToasts(prev => [...prev, { id, message, type }]);
+  const showToast = useCallback(
+    (message, { type = 'info', duration = 4000 } = {}) => {
+      const id = Date.now() + Math.random();
+      setToasts(prev => [...prev, { id, message, type }]);
+      setTimeout(() => {
+        setToasts(prev => prev.filter(t => t.id !== id));
+      }, duration);
+    },
+    []
+  );
 
-    // Auto remove toast after 5 seconds
-    setTimeout(() => {
-      setToasts(prev => prev.filter(toast => toast.id !== id));
-    }, 5000);
-  }, []);
-
-  const removeToast = useCallback(id => {
-    setToasts(prev => prev.filter(toast => toast.id !== id));
-  }, []);
+  const removeToast = id => {
+    setToasts(prev => prev.filter(t => t.id !== id));
+  };
 
   return (
-    <ToastContext.Provider value={{ toasts, showToast, removeToast }}>
+    <ToastContext.Provider value={{ showToast }}>
       {children}
-      <div
-        style={{
-          position: 'fixed',
-          bottom: '20px',
-          right: '20px',
-          zIndex: 1000,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '10px',
-        }}
-      >
+      <div style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 9999 }}>
         {toasts.map(toast => (
           <div
             key={toast.id}
             style={{
-              padding: '12px 24px',
-              borderRadius: '4px',
-              backgroundColor: colors[toast.type].main,
-              color: colors[toast.type].contrast,
-              boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              minWidth: '300px',
-              animation: 'slideIn 0.3s ease-out',
+              marginBottom: 12,
+              padding: '16px 24px',
+              borderRadius: 8,
+              background:
+                toast.type === 'error'
+                  ? '#ff3b30'
+                  : toast.type === 'success'
+                    ? '#22c55e'
+                    : '#333',
+              color: '#fff',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+              minWidth: 220,
+              fontWeight: 500,
+              cursor: 'pointer',
+              transition: 'background 0.2s',
             }}
+            onClick={() => removeToast(toast.id)}
+            onKeyDown={e => {
+              if (e.key === 'Enter' || e.key === ' ') removeToast(toast.id);
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label={`Dismiss ${toast.type} notification`}
           >
-            <span>{toast.message}</span>
-            <button
-              onClick={() => removeToast(toast.id)}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: 'inherit',
-                cursor: 'pointer',
-                marginLeft: '12px',
-                padding: '4px',
-              }}
-            >
-              ×
-            </button>
+            {toast.message}
           </div>
         ))}
       </div>
-      <style>
-        {`
-          @keyframes slideIn {
-            from {
-              transform: translateX(100%);
-              opacity: 0;
-            }
-            to {
-              transform: translateX(0);
-              opacity: 1;
-            }
-          }
-        `}
-      </style>
     </ToastContext.Provider>
   );
-};
+}
 
-export const useToast = () => {
-  const context = useContext(ToastContext);
-  if (context === undefined) {
-    throw new Error('useToast must be used within a ToastProvider');
-  }
-  return context;
-};
+export function useToast() {
+  const ctx = useContext(ToastContext);
+  if (!ctx) throw new Error('useToast must be used within a ToastProvider');
+  return ctx.showToast;
+}

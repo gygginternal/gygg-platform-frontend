@@ -1,0 +1,115 @@
+.profileInfoSection {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f0f2f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.avatarPlaceholder {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #e0e0e0;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.name {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #222;
+}
+
+.email {
+  color: #666;
+  font-size: 1rem;
+}
+
+/* Profile Card Modern Layout */
+.profileCard {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding: 32px 40px;
+  margin-bottom: 32px;
+}
+
+.profileImageWrapper {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f0f2f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.avatarPlaceholder {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: #e0e0e0;
+}
+
+.profileInfoContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.profileName {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #222;
+}
+
+.profileLocation {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #666;
+  font-size: 1.08rem;
+}
+
+.locationIcon {
+  color: #b0b8c1;
+}
+
+.profileBio {
+  color: #444;
+  font-size: 1.08rem;
+  margin-top: 4px;
+}

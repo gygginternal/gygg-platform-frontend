@@ -11,6 +11,7 @@ function NavigationButtons({
   isFirstStep = false,
   isLastStep = false,
   canGoNext = true, // To disable Next button based on validation
+  backArrowColor = undefined, // allow custom color
 }) {
   return (
     <div className={styles.navigationContainer}>
@@ -20,7 +21,11 @@ function NavigationButtons({
           onClick={onBack}
           className={`${styles.navButton} ${styles.backButton}`}
         >
-          <ArrowLeft size={20} className={styles.backIcon} />
+          <ArrowLeft
+            size={20}
+            className={styles.backIcon}
+            color={backArrowColor}
+          />
           {backLabel}
         </button>
       ) : (
@@ -50,6 +55,7 @@ NavigationButtons.propTypes = {
   isFirstStep: PropTypes.bool,
   isLastStep: PropTypes.bool,
   canGoNext: PropTypes.bool,
+  backArrowColor: PropTypes.string,
 };
 
 export default NavigationButtons;

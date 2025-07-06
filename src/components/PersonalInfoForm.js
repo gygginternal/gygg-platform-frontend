@@ -1,8 +1,8 @@
 // src/components/Settings/PersonalInfoForm.js
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { useToast } from '../context/ToastContext';
+import { useAuth } from '../contexts/AuthContext';
+import { useToast } from '../contexts/ToastContext';
 import apiClient from '../api/axiosConfig';
 import styles from './PersonalInfoForm.module.css';
 import FormInput from './Shared/FormInput';
@@ -267,6 +267,27 @@ function PersonalInfoForm() {
             Withdraw Information{' '}
           </div>
         )}
+        {/* Conditionally render Payment tab only for providers */}
+        {user?.role?.includes('provider') && (
+          <div
+            className={
+              activeTab === 'payment' ? styles.activeTab : styles.inactiveTab
+            }
+            onClick={() => handleTabClick('payment')}
+            role="tab"
+            tabIndex={0}
+            aria-selected={activeTab === 'payment'}
+            onKeyDown={e => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleTabClick('payment');
+              }
+            }}
+          >
+            {' '}
+            Payment Information{' '}
+          </div>
+        )}
       </div>
 
       <form className={styles.form} onSubmit={handleSubmit}>
@@ -405,6 +426,13 @@ function PersonalInfoForm() {
               </h4>
               {renderStripeSection()} {/* StripeOnboarding logic is here */}
             </div>
+          </div>
+        ) : activeTab === 'payment' && user?.role?.includes('provider') ? (
+          <div className={styles.tabContent}>
+            <h4 className={styles.subheading}>
+              Payment Method (Stripe Connect)
+            </h4>
+            <StripeOnboarding />
           </div>
         ) : null}
       </form>

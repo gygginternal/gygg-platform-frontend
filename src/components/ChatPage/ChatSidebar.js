@@ -7,7 +7,7 @@ const ChatSidebar = ({ contacts, selectedContact, onContactSelect }) => {
     <div className={styles.sidebar}>
       <div className={styles.header}>
         <div className={styles.searchContainer}>
-          <Search className={styles.searchIcon} />
+          {/* <Search className={styles.searchIcon} /> */}
           <input
             type="text"
             placeholder="Search or start new chat"

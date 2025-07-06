@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import apiClient from '../api/axiosConfig';
-import { useToast } from '../context/ToastContext';
+import { useToast } from '../contexts/ToastContext';
 import { useNavigate } from 'react-router-dom';
 import styles from './DeleteAccountButton.module.css';
 

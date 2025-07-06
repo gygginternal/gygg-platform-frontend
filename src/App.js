@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,49 +5,48 @@ import {
   Navigate,
   useLocation,
 } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from './client';
 import styles from './App.module.css'; // Import CSS Modules
-import { ToastProvider } from './context/ToastContext';
+import { ToastProvider } from './contexts/ToastContext';
 import ThemeProvider from './styles/ThemeProvider';
 import './styles/global.css';
-import AppRoutes from './routes';
 import { SocketProvider } from './contexts/SocketContext';
 import Navigation from './components/Navigation';
 
 // Pages
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import JoinPage from './pages/JoinPage';
-import SignupPage from './pages/SignupPage';
-import VerifyEmailPromptPage from './pages/VerifyEmailPromptPage';
-import ForgotPasswordPage from './pages/ForgotPasswordPage';
-import TaskerOnboardingPage from './pages/TaskerOnboardingPage';
-import ProviderOnboardingPage from './pages/ProviderOnboardingPage';
-import GigCreateOptionsPage from './pages/GigCreateOptionsPage';
-import GigsPage from './pages/GigsPage';
-import GigCreatePage from './pages/GigCreatePage';
-import GigDetailPage from './pages/GigDetailPage';
-import MatchedGigsPage from './pages/MatchedGigsPage';
-import ProfilePage from './pages/ProfilePage';
-import SettingsPage from './pages/SettingsPage';
-import ChatPage from './pages/ChatPage';
-import SocialFeedLayoutPage from './pages/SocialFeedLayoutPage';
-import PostCreatePage from './pages/PostCreatePage';
-import StripeReturnPage from './pages/StripeReturnPage';
-import StripeRefreshPage from './pages/StripeRefreshPage';
-import TermsOfUsePage from './pages/TermsOfUsePage';
-import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
-import UserProfilePage from './pages/UserProfilePage';
-import GigHelperPage from './pages/GigHelperPage';
-import GigsAppliedPage from './pages/GigsAppliedPage';
-import PostedGigsPage from './pages/PostedGigsPage';
-import ChoosePage from './pages/ChoosePage';
+import HomePage from './pages/HomePage/HomePage';
+import LoginPage from './pages/LoginPage/LoginPage';
+import JoinPage from './pages/JoinPage/JoinPage';
+import SignupPage from './pages/SignupPage/SignupPage';
+import VerifyEmailPromptPage from './pages/VerifyEmailPromptPage/VerifyEmailPromptPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage';
+import TaskerOnboardingPage from './pages/OnboardingPages/TaskerOnboardingPage';
+import ProviderOnboardingPage from './pages/OnboardingPages/ProviderOnboardingPage';
+import GigCreateOptionsPage from './pages/GigCreateOptionsPage/GigCreateOptionsPage';
+import GigsPage from './pages/GigsPage/GigsPage';
+import GigCreatePage from './pages/GigCreatePage/GigCreatePage';
+import GigDetailPage from './pages/GigDetailPage/GigDetailPage';
+import MatchedGigsPage from './pages/MatchedGigsPage/MatchedGigsPage';
+import TaskerProfilePage from './pages/TaskerProfilePage/TaskerProfilePage';
+import SettingsPage from './pages/SettingsPage/SettingsPage';
+import ChatPage from './pages/ChatPage/ChatPage';
+import SocialFeedLayoutPage from './pages/SocialFeedLayoutPage/SocialFeedLayoutPage';
+import PostCreatePage from './pages/PostCreatePage/PostCreatePage';
+import StripeReturnPage from './pages/StripeReturnPage/StripeReturnPage';
+import StripeRefreshPage from './pages/StripeRefreshPage/StripeRefreshPage';
+import TermsOfUsePage from './pages/Legalpages/TermsOfUsePage';
+import PrivacyPolicyPage from './pages/Legalpages/PrivacyPolicyPage';
+import UserProfilePage from './pages/UserProfilePage/UserProfilePage';
+import GigHelperPage from './pages/GigHelperPage/GigHelperPage';
+import GigsAppliedPage from './pages/GigsAppliedPage/GigsAppliedPage';
+import PostedGigsPage from './pages/PostedGigsPage/PostedGigsPage';
+import ChoosePage from './pages/ChoosePage/ChoosePage';
 
 // Shared
 import Header from './components/Shared/Header';
-import { queryClient } from './client';
-import ContractsPage from './pages/ContractsPage';
+import ContractsPage from './pages/ContractsPage/ContractsPage';
 
 // -------------------- ProtectedRoute HOC --------------------
 function ProtectedRoute({ children }) {
@@ -138,7 +136,7 @@ function AppWithNavigation() {
               path="/profile"
               element={
                 <ProtectedRoute>
-                  <ProfilePage />
+                  <TaskerProfilePage />
                 </ProtectedRoute>
               }
             />

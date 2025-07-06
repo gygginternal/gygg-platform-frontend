@@ -16,7 +16,7 @@
 .modalContent {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
   max-width: 600px;
   width: 95vw;
   padding: 0;
@@ -186,7 +186,12 @@
   .modalContent {
     max-width: 90vw;
   }
-  .modalHeader, .modalSubHeader, .modalProviderRow, .modalDescription, .modalDetailsRow, .modalActions {
+  .modalHeader,
+  .modalSubHeader,
+  .modalProviderRow,
+  .modalDescription,
+  .modalDetailsRow,
+  .modalActions {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
   }
@@ -201,7 +206,11 @@
     padding: 0.75rem 1rem;
     border-radius: 10px 10px 0 0;
   }
-  .modalSubHeader, .modalProviderRow, .modalDescription, .modalDetailsRow, .modalActions {
+  .modalSubHeader,
+  .modalProviderRow,
+  .modalDescription,
+  .modalDetailsRow,
+  .modalActions {
     padding-left: 1rem;
     padding-right: 1rem;
   }
@@ -233,7 +242,8 @@
     margin-top: 0.25rem;
     margin-bottom: 0.25rem;
   }
-  .modalLocation, .modalPostedTime {
+  .modalLocation,
+  .modalPostedTime {
     font-size: 0.95rem;
   }
   .modalPostedTime {
@@ -252,7 +262,11 @@
     padding: 0.75rem 0.75rem;
     border-radius: 0.5rem 0.5rem 0 0;
   }
-  .modalSubHeader, .modalProviderRow, .modalDescription, .modalDetailsRow, .modalActions {
+  .modalSubHeader,
+  .modalProviderRow,
+  .modalDescription,
+  .modalDetailsRow,
+  .modalActions {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
   }
@@ -262,7 +276,8 @@
   .modalGigTitle {
     font-size: 0.95rem;
   }
-  .modalProviderName, .modalPay {
+  .modalProviderName,
+  .modalPay {
     font-size: 0.95rem;
   }
   /* Card-like stacking for all details */
@@ -287,7 +302,8 @@
     margin-top: 0.15rem;
     margin-bottom: 0.15rem;
   }
-  .modalLocation, .modalPostedTime {
+  .modalLocation,
+  .modalPostedTime {
     font-size: 0.92rem;
   }
   .modalPostedTime {
@@ -295,4 +311,4 @@
     margin-top: 0.15rem;
     color: #888;
   }
-} 
+}

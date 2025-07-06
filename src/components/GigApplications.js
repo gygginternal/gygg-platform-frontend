@@ -1,100 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin } from 'lucide-react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import apiClient from '../api/axiosConfig';
 import Badge from '../components/Badge';
 import { StatusBadge } from '../components/StatusBadge'; // Assuming you have a StatusBadge component
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
+import { useToast } from '../contexts/ToastContext';
 // import { Button } from "../components/ui/button"; // Removed
 import styles from './GigApplications.module.css'; // Import CSS module
 import PropTypes from 'prop-types';
 
-function OfferCard({ offer, onDelete, onAccept, onDecline, isProvider }) {
-  const provider = offer.provider || {}; // Assuming offer has a provider object
-
-  return (
-    <div className={styles.offerCard}>
-      <div className={styles.offerCardContent}>
-        <div className={styles.offerCardImageContainer}>
-          <img
-            src={offer.image || '/placeholder.svg'}
-            alt={`${offer.name}'s profile`}
-            className={styles.offerCardImage}
-          />
-        </div>
-        <div className={styles.offerCardDetails}>
-          <div className={styles.offerCardHeader}>
-            <div>
-              <h2 className={styles.offerCardTitle}>{offer.name}</h2>
-              <p className={styles.offerCardRate}>{offer.rate}</p>
-              {provider.location &&
-                provider.location.trim().split(',').filter(Boolean).length >
-                  0 && (
-                  <div className={styles.location}>
-                    <MapPin className={styles.locationIcon} />
-                    <span>{provider.location}</span>
-                  </div>
-                )}
+function TaskerCard({ tasker, onAccept, onReject, onClick }) {
+  if (!tasker) {
+    return (
+      <div className={styles.offerCard}>
+        <div className={styles.offerCardContent}>
+          <div className={styles.offerCardImageContainer}>
+            <img
+              src="/placeholder.svg"
+              alt="Tasker profile"
+              className={styles.offerCardImage}
+            />
+          </div>
+          <div className={styles.offerCardDetails}>
+            <div className={styles.offerCardHeader}>
+              <div>
+                <h2 className={styles.offerCardTitle}>Tasker not available</h2>
+                <p className={styles.offerCardRate}>N/A</p>
+              </div>
             </div>
-          </div>
-          <div className={styles.buttonGroup}>
-            {isProvider ? (
-              <button
-                className={`${styles.deleteOfferButton} ${styles.button}`}
-                onClick={() => onDelete(offer._id)}
-              >
-                Delete Offer
-              </button>
-            ) : (
-              <>
-                <button
-                  className={`${styles.acceptButton} ${styles.button}`}
-                  onClick={() => onAccept(offer._id)}
-                >
-                  Accept Offer
-                </button>
-                <button
-                  className={`${styles.declineButton} ${styles.button}`}
-                  onClick={() => onDecline(offer._id)}
-                >
-                  Decline Offer
-                </button>
-              </>
-            )}
-          </div>
-
-          <p className={styles.offerCardDescription}>{offer.description}</p>
-
-          <div className={styles.skillsContainer}>
-            {provider.skills.map(service => (
-              <Badge key={service} variant="outline" className={styles.badge}>
-                {service}
-              </Badge>
-            ))}
           </div>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
-OfferCard.propTypes = {
-  offer: PropTypes.object.isRequired,
-  onDelete: PropTypes.func,
-  onAccept: PropTypes.func,
-  onDecline: PropTypes.func,
-  isProvider: PropTypes.bool,
-};
+  const handleKeyDown = e => {
+    if (onClick && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      onClick();
+    }
+  };
 
-function ProviderCard({ provider, onOffer, onReject }) {
   return (
-    <div className={styles.offerCard}>
+    <div
+      className={styles.offerCard}
+      onClick={onClick}
+      style={{ cursor: 'pointer' }}
+      role="button"
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+    >
       <div className={styles.offerCardContent}>
         <div className={styles.offerCardImageContainer}>
           <img
-            src={provider.image || '/placeholder.svg'}
-            alt={`${provider.name}'s profile`}
+            src={tasker.image || '/placeholder.svg'}
+            alt={`${tasker.name || 'Tasker'}'s profile`}
             className={styles.offerCardImage}
           />
         </div>
@@ -103,40 +65,36 @@ function ProviderCard({ provider, onOffer, onReject }) {
             <div>
               <StatusBadge
                 className={styles.statusBadgeMargin}
-                status={provider.status === 'rejected' ? 'Rejected' : 'Active'}
+                status={
+                  tasker.status === 'accepted'
+                    ? 'Accepted'
+                    : tasker.status === 'rejected'
+                      ? 'Rejected'
+                      : tasker.status === 'pending'
+                        ? 'Pending'
+                        : 'Active'
+                }
               />
-              <h2 className={styles.offerCardTitle}>{provider.name}</h2>
-              <p className={styles.offerCardRate}>{provider.rate}</p>
-              {provider.location &&
-                provider.location.trim().split(',').filter(Boolean).length >
+              <h2 className={styles.offerCardTitle}>
+                {tasker.name || 'Unknown Tasker'}
+              </h2>
+              <p className={styles.offerCardRate}>{tasker.rate || 'N/A'}</p>
+              {tasker.location &&
+                tasker.location.trim().split(',').filter(Boolean).length >
                   0 && (
                   <div className={styles.location}>
                     <MapPin className={styles.locationIcon} />
-                    <span>{provider.location}</span>
+                    <span>{tasker.location}</span>
                   </div>
                 )}
             </div>
           </div>
           <div className={styles.providerServicesGap}>
-            {provider.services.map(service => (
+            {(tasker.services || []).map(service => (
               <Badge key={service} variant="outline" className={styles.badge}>
                 {service}
               </Badge>
             ))}
-          </div>
-          <div className={styles.buttonGroup}>
-            <button
-              className={`${styles.sendOfferButton} ${styles.button}`}
-              onClick={() => onOffer(provider.id)}
-            >
-              Send Offer
-            </button>
-            <button
-              className={`${styles.rejectApplicationButton} ${styles.button}`}
-              onClick={() => onReject(provider.id)}
-            >
-              Decline application
-            </button>
           </div>
         </div>
       </div>
@@ -144,210 +102,275 @@ function ProviderCard({ provider, onOffer, onReject }) {
   );
 }
 
-ProviderCard.propTypes = {
-  provider: PropTypes.object.isRequired,
-  onOffer: PropTypes.func.isRequired,
-  onReject: PropTypes.func.isRequired,
+TaskerCard.propTypes = {
+  tasker: PropTypes.object.isRequired,
+  onAccept: PropTypes.func,
+  onReject: PropTypes.func,
+  onClick: PropTypes.func,
 };
 
-export const GigApplications = ({ onOffer, onReject }) => {
-  const { gigId } = useParams(); // Get the gigId from the URL
+function TaskerModal({
+  tasker,
+  isOpen,
+  onClose,
+  onAccept,
+  onReject,
+  isLoading,
+}) {
+  if (!isOpen || !tasker) return null;
+
+  return (
+    <div
+      className={styles.modalOverlay}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      <div className={styles.modalContent} tabIndex={-1}>
+        <button
+          className={styles.closeButton}
+          onClick={onClose}
+          onKeyDown={e => {
+            if (e.key === 'Escape') {
+              onClose();
+            }
+          }}
+        >
+          &times;
+        </button>
+
+        <div className={styles.modalHeader}>
+          <h2 id="modal-title">Tasker Details</h2>
+        </div>
+
+        <div className={styles.modalBody}>
+          <div className={styles.modalTaskerInfo}>
+            <img
+              src={tasker.image || '/placeholder.svg'}
+              alt={`${tasker.name || 'Tasker'}'s profile`}
+              className={styles.modalTaskerImage}
+            />
+            <div className={styles.modalTaskerDetails}>
+              <h3>{tasker.name || 'Unknown Tasker'}</h3>
+              <p className={styles.modalTaskerLocation}>
+                {tasker.location || 'Location not specified'}
+              </p>
+              <p className={styles.modalTaskerDescription}>
+                {tasker.description || 'No description provided'}
+              </p>
+            </div>
+          </div>
+
+          <div className={styles.modalServices}>
+            <h4>Skills & Services:</h4>
+            <div className={styles.modalServicesList}>
+              {(tasker.services || []).map(service => (
+                <Badge key={service} variant="outline" className={styles.badge}>
+                  {service}
+                </Badge>
+              ))}
+            </div>
+          </div>
+
+          <div className={styles.modalActions}>
+            {tasker.status === 'accepted' ? (
+              <>
+                <div className={styles.statusMessage}>
+                  <p>✅ This tasker has been accepted</p>
+                  <p>Contract has been created and work can begin.</p>
+                </div>
+                <button
+                  className={`${styles.acceptButton} ${styles.button}`}
+                  onClick={onClose}
+                >
+                  Close
+                </button>
+              </>
+            ) : tasker.status === 'rejected' ? (
+              <>
+                <div className={styles.statusMessage}>
+                  <p>❌ This tasker has been rejected</p>
+                </div>
+                <button
+                  className={`${styles.acceptButton} ${styles.button}`}
+                  onClick={onClose}
+                >
+                  Close
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  className={`${styles.acceptButton} ${styles.button}`}
+                  onClick={() => onAccept(tasker.id)}
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Accepting...' : 'Accept Tasker'}
+                </button>
+                <button
+                  className={`${styles.rejectButton} ${styles.button}`}
+                  onClick={() => onReject(tasker.id)}
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Rejecting...' : 'Reject Tasker'}
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+TaskerModal.propTypes = {
+  tasker: PropTypes.object,
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onAccept: PropTypes.func.isRequired,
+  onReject: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
+};
+
+export const GigApplications = ({ gigId, onOffer, onReject }) => {
   const { user } = useAuth();
-
-  const queryClient = useQueryClient(); // React Query client for invalidating queries
-  const [currentPage, setCurrentPage] = useState(1); // State for the current page
-  const [applications, setApplications] = useState([]); // State for storing all applications
-
-  const [hasMore, setHasMore] = useState(true); // State to track if more pages are available
+  const showToast = useToast();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [applications, setApplications] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+  const [selectedTasker, setSelectedTasker] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   // Fetch applications with pagination
-  const { isLoading, isError, error, data } = useQuery({
+  useQuery({
     queryKey: ['gigApplications', gigId, currentPage],
     queryFn: async () => {
       const response = await apiClient.get(
         `/gigs/${gigId}/applications?page=${currentPage}`
       );
-
       const { data } = response;
       if (data && data.data && data.data.applications) {
-        setApplications(prev => [...prev, ...data.data.applications]); // Append new applications
-        setHasMore(currentPage < data.totalPages); // Check if more pages are available
+        setApplications(prev => [...prev, ...data.data.applications]);
+        setHasMore(currentPage < (data.totalPages || 1));
       }
       return response.data;
     },
-    onSuccess: data => {
-      // No console.info needed here
-    },
-    enabled: !!gigId && hasMore, // Only fetch if gigId is available and more pages exist
+    enabled: !!gigId && hasMore,
   });
 
-  const offerMutation = useMutation({
+  // Mutation for accepting a tasker
+  const acceptMutation = useMutation({
     mutationFn: async applicationId => {
-      await apiClient.post(`/applications/${applicationId}/offer`);
+      const response = await apiClient.patch(
+        `/applications/${applicationId}/accept`
+      );
+      return response.data;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries(['gigApplications', gigId]); // Refresh applications
+    onSuccess: data => {
+      // Refresh applications list
+      queryClient.invalidateQueries(['gigApplications', gigId]);
+      setShowModal(false);
+      setSelectedTasker(null);
+      showToast('Tasker accepted successfully!', 'success');
+
+      // Navigate to contract if created
+      const contractId = data?.data?.contract?._id;
+      if (contractId) {
+        navigate(`/contracts/${contractId}`);
+      } else {
+        navigate('/contracts');
+      }
     },
-    onError: err => {
-      // No console.error needed here
+    onError: error => {
+      console.error('Failed to accept tasker:', error);
+      const errorMessage =
+        error.response?.data?.message ||
+        'Failed to accept tasker. Please try again.';
+      showToast(errorMessage, 'error');
+
+      // Refresh applications list even on error to get current status
+      queryClient.invalidateQueries(['gigApplications', gigId]);
+      setShowModal(false);
+      setSelectedTasker(null);
     },
   });
 
-  // Mutation for rejecting an application
+  // Mutation for rejecting a tasker
   const rejectMutation = useMutation({
     mutationFn: async applicationId => {
       await apiClient.patch(`/applications/${applicationId}/reject`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(['gigApplications', gigId]); // Refresh applications
+      // Refresh applications list
+      queryClient.invalidateQueries(['gigApplications', gigId]);
+      setShowModal(false);
+      setSelectedTasker(null);
+      showToast('Tasker rejected successfully!', 'success');
     },
-    onError: err => {
-      // No console.error needed here
-    },
-  });
+    onError: error => {
+      console.error('Failed to reject tasker:', error);
+      const errorMessage =
+        error.response?.data?.message ||
+        'Failed to reject tasker. Please try again.';
+      showToast(errorMessage, 'error');
 
-  // Fetch offers for the gig
-  const {
-    data: offerData,
-    isLoading: isOfferLoading,
-    isError: isOfferError,
-    error: offerError,
-  } = useQuery({
-    queryKey: ['gigOffer', gigId],
-    queryFn: async () => {
-      const response = await apiClient.get(`/gigs/${gigId}/offer`);
-      return response.data.data.offer; // Return the single offer
-    },
-    onSuccess: data => {
-      // No console.info needed here
+      // Refresh applications list even on error to get current status
+      queryClient.invalidateQueries(['gigApplications', gigId]);
+      setShowModal(false);
+      setSelectedTasker(null);
     },
   });
 
-  // Mutation for deleting an offer
-  const deleteOfferMutation = useMutation({
-    mutationFn: async offerId => {
-      await apiClient.delete(`/offers/${offerId}`);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(['gigOffers', gigId]); // Refresh offers
-    },
-    onError: err => {
-      // No console.error needed here
-    },
-  });
-
-  // Mutation for accepting an offer
-  const acceptOfferMutation = useMutation({
-    mutationFn: async offerId => {
-      await apiClient.patch(`/offers/${offerId}/accept`);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(['gigOffers', gigId]); // Refresh offers
-    },
-    onError: err => {
-      // No console.error needed here
-    },
-  });
-
-  // Mutation for declining an offer
-  const declineOfferMutation = useMutation({
-    mutationFn: async offerId => {
-      await apiClient.patch(`/offers/${offerId}/decline`);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(['gigOffers', gigId]); // Refresh offers
-    },
-    onError: err => {
-      // No console.error needed here
-    },
-  });
-
-  const handleDeleteOffer = async offerId => {
-    await deleteOfferMutation.mutateAsync(offerId);
+  const handleTaskerClick = tasker => {
+    setSelectedTasker(tasker);
+    setShowModal(true);
   };
 
-  const handleAcceptOffer = async offerId => {
-    await acceptOfferMutation.mutateAsync(offerId);
+  const handleAccept = applicationId => {
+    acceptMutation.mutate(applicationId);
   };
 
-  const handleDeclineOffer = async offerId => {
-    await declineOfferMutation.mutateAsync(offerId);
+  const handleReject = applicationId => {
+    rejectMutation.mutate(applicationId);
   };
 
-  const handleLoadMore = () => {
-    if (hasMore) {
-      setCurrentPage(prevPage => prevPage + 1);
-    }
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedTasker(null);
   };
 
-  const handleOffer = async applicationId => {
-    await offerMutation.mutateAsync(applicationId);
-  };
-
-  const handleReject = async applicationId => {
-    await rejectMutation.mutateAsync(applicationId);
-  };
-
-  if (isLoading || isOfferLoading) {
-    return <p>Loading applications...</p>;
-  }
-
-  if (isError || isOfferError) {
-    return <p>Error loading applications or offers.</p>;
-  }
-
-  const isProviderUser = user?.role === 'provider'; // Determine if the user is a provider
+  const isLoading = acceptMutation.isLoading || rejectMutation.isLoading;
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.heading}>Applications & Offers</h1>
-
-      {isProviderUser && offerData && (
-        <div className={styles.section}>
-          <h2 className={styles.subheading}>Your Offer</h2>
-          <OfferCard
-            offer={offerData}
-            onDelete={handleDeleteOffer}
-            onAccept={handleAcceptOffer}
-            onDecline={handleDeclineOffer}
-            isProvider // As this is "Your Offer" section for a provider
+    <div className={styles.applicationsList}>
+      {applications.length === 0 ? (
+        <div className={styles.noApplications}>No applications found.</div>
+      ) : (
+        applications.map(app => (
+          <TaskerCard
+            key={app.id}
+            tasker={app}
+            onClick={() => handleTaskerClick(app)}
           />
-        </div>
+        ))
       )}
 
-      <div className={styles.section}>
-        <h2 className={styles.subheading}>
-          {isProviderUser ? 'Received Applications' : 'Your Offers'}
-        </h2>
-        {applications.length > 0 ? (
-          <div className={styles.cardList}>
-            {applications.map(application => (
-              <ProviderCard
-                key={application._id}
-                provider={application.applicant}
-                onOffer={handleOffer}
-                onReject={handleReject}
-              />
-            ))}
-          </div>
-        ) : (
-          <p className={styles.noApplicationsMessage}>No applications yet.</p>
-        )}
-        {hasMore && (
-          <button
-            onClick={handleLoadMore}
-            disabled={isLoading}
-            className={styles.loadMoreButton}
-          >
-            {isLoading ? 'Loading more...' : 'Load More'}
-          </button>
-        )}
-      </div>
+      <TaskerModal
+        tasker={selectedTasker}
+        isOpen={showModal}
+        onClose={handleCloseModal}
+        onAccept={handleAccept}
+        onReject={handleReject}
+        isLoading={isLoading}
+      />
     </div>
   );
 };
 
 GigApplications.propTypes = {
+  gigId: PropTypes.string.isRequired,
   onOffer: PropTypes.func,
   onReject: PropTypes.func,
 };

@@ -1,0 +1,159 @@
+.recentHiresSection {
+  margin: 32px 0;
+}
+
+.sectionTitle {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 16px;
+}
+
+.hiresList {
+  display: flex;
+  gap: 24px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.hireCard {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding: 20px 24px;
+  min-width: 300px;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.avatarPlaceholder {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #f0f2f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hireInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.hireName {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #222;
+}
+
+.gigTitleLink {
+  font-weight: bold;
+  font-size: 1.08rem;
+  color: #1a4d7a;
+  text-decoration: underline;
+  margin-bottom: 2px;
+  cursor: pointer;
+}
+
+.gigDoneBy {
+  color: #666;
+  font-size: 0.98rem;
+  margin-bottom: 2px;
+}
+
+.reviewText {
+  color: #444;
+  font-size: 1.01rem;
+  margin-bottom: 6px;
+}
+
+.ratingRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.ratingValue {
+  font-weight: bold;
+  color: #ffa726;
+  font-size: 1.05rem;
+}
+
+.stars {
+  display: flex;
+  gap: 1px;
+}
+
+.hireDate {
+  color: #888;
+  font-size: 0.98rem;
+  margin-left: auto;
+}
+
+.state {
+  color: #888;
+  margin: 16px 0;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.25rem;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.header {
+  color: #3d4d55;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  display: flex;
+}
+
+.emptyMessage {
+  text-align: center;
+  padding: 1.25rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  width: 100%;
+}
+
+.emptyMessage p {
+  margin: 0;
+  margin-bottom: 1rem;
+  color: #000;
+  font-size: 1rem;
+}
+
+.createActionButton {
+  margin-top: 1rem;
+  display: inline-block;
+  background-color: #2c3a40;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.createActionButton:hover {
+  background-color: #1a252a;
+  color: #fff;
+  text-decoration: none;
+}

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { useToast } from '../context/ToastContext';
+import { useAuth } from '../contexts/AuthContext';
+import { useToast } from '../contexts/ToastContext';
 import apiClient from '../api/axiosConfig';
 import styles from './AuthForm.module.css';
 import FormInput from './Shared/FormInput';

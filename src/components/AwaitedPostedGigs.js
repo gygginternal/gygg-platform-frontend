@@ -37,7 +37,7 @@ const AwaitedPostedGigs = () => {
           </p>
         ) : awaitedGigs?.length > 0 ? (
           awaitedGigs.map(gig => (
-            <div key={gig.id} className={styles.awaitedItem}>
+            <div key={gig._id} className={styles.awaitedItem}>
               <div>
                 <Link
                   to={`/gigs/${gig._id}`}

@@ -1,8 +1,17 @@
 .navigationContainer {
   display: flex;
-  justify-content: space-between;
   margin-top: 2rem;
   padding: 0 1rem;
+}
+
+/* Add a class for when only Next is present */
+.nextOnly {
+  justify-content: flex-end;
+}
+
+/* Default: both buttons present */
+.bothButtons {
+  justify-content: space-between;
 }
 
 .backButton {

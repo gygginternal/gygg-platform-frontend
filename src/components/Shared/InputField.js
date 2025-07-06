@@ -19,6 +19,7 @@ function InputField({
   disabled = false,
   onKeyDown,
   className = '',
+  labelColor = '#fff',
   ...props
 }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -152,7 +153,11 @@ function InputField({
 
   return (
     <div className={`${styles.fieldContainer} ${className}`.trim()}>
-      <label htmlFor={name} className={styles.label}>
+      <label
+        htmlFor={name}
+        className={styles.label}
+        style={{ color: labelColor }}
+      >
         {label}
         {required && <span className={styles.requiredIndicator}>*</span>}
       </label>
@@ -226,6 +231,7 @@ InputField.propTypes = {
   disabled: PropTypes.bool,
   onKeyDown: PropTypes.func,
   className: PropTypes.string,
+  labelColor: PropTypes.string,
 };
 
 export default InputField;

@@ -1,20 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './ContractsPage.module.css';
 import { StatusBadge } from '../StatusBadge';
 
 export default function ContractCard({ contract }) {
-  const [expanded, setExpanded] = useState(false);
-
   return (
     <div
       className={styles.contractRow}
-      onClick={() => setExpanded(prev => !prev)}
-      onKeyDown={e => {
-        if (e.key === 'Enter' || e.key === ' ') setExpanded(prev => !prev);
-      }}
       tabIndex={0}
       role="button"
-      aria-expanded={expanded}
+      aria-expanded={false}
     >
       <div className={styles.contractMain}>
         <div className={styles.contractTitle}>{contract.title}</div>
@@ -40,21 +34,6 @@ export default function ContractCard({ contract }) {
           </span>
         </div>
       </div>
-      {expanded && (
-        <div className={styles.details}>
-          <p className={styles.description}>{contract.description}</p>
-          <div className={styles.detailRow}>
-            <span>
-              <b>Location</b> <span className={styles.locationIcon}>📍</span>
-              {contract.location}
-            </span>
-          </div>
-          <div className={styles.buttonRow}>
-            <button className={styles.primaryBtn}>Submit as Complete</button>
-            <button className={styles.secondaryBtn}>End Contract</button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

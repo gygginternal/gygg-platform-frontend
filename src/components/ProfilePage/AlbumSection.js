@@ -1,6 +1,6 @@
 // src/components/ProfilePage/AlbumSection.js
 import { useState, useEffect, useCallback } from 'react';
-import { useToast } from '../../context/ToastContext';
+import { useToast } from '../../contexts/ToastContext';
 import apiClient from '../../api/axiosConfig';
 import styles from './AlbumSection.module.css';
 import AlbumCard from './AlbumCard';

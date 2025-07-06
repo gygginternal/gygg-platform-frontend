@@ -1,0 +1,174 @@
+/* Base styles for the overall page container */
+.pageContainer {
+  padding-top: 41px;
+  min-height: calc(100vh - 2rem);
+  box-sizing: border-box;
+  background-color: #f0f2f5;
+  font-family: 'Inter', sans-serif;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 69rem;
+  margin-left: 12.75rem;
+  margin-right: auto;
+  margin-top: 0rem;
+  padding: 0.625rem;
+  gap: 1.25rem;
+  box-sizing: border-box;
+}
+
+.sidebarArea {
+  width: 18.75rem;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.mainFeedArea {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  max-width: none;
+  margin-right: 0;
+  padding-bottom: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px 16px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.gigList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.gigListItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid #f2f2f2;
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+.viewApplicationsBtn {
+  background: #3d4d55;
+  color: #111;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 20px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition:
+    background 0.2s,
+    color 0.2s;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+.viewApplicationsBtn:hover {
+  background: #222e34;
+  color: #fff;
+}
+.viewApplicationsBtnWhite {
+  color: #fff !important;
+}
+.backBtn {
+  background: none;
+  border: none;
+  color: #111;
+  font-size: 1em;
+  cursor: pointer;
+  margin-bottom: 16px;
+  text-align: left;
+}
+.error {
+  color: #d32f2f;
+  margin-top: 16px;
+}
+
+/* Modern section header */
+h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 18px;
+}
+
+/* Empty/Loading state */
+.state {
+  color: #888;
+  margin: 20px 0;
+  font-size: 1.05rem;
+  text-align: center;
+}
+
+/* Gig title styling */
+.gigTitle {
+  font-weight: bold;
+  font-size: 1.08rem;
+  color: #222;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .pageContainer {
+    padding-top: 2rem;
+  }
+
+  .contentWrapper {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .sidebarArea {
+    width: 16rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .pageContainer {
+    padding-top: 1rem;
+  }
+
+  .contentWrapper {
+    flex-direction: column;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+
+  .sidebarArea {
+    width: 100%;
+  }
+
+  .mainFeedArea {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageContainer {
+    padding-top: 0.5rem;
+  }
+
+  .contentWrapper {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    padding: 0.25rem;
+  }
+
+  .sidebarArea {
+    width: 100%;
+  }
+
+  .mainFeedArea {
+    margin-left: 0;
+  }
+}

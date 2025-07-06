@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useAuth } from './context/AuthContext';
+import { useAuth } from './contexts/AuthContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
@@ -19,6 +19,7 @@ import InvoicePage from './pages/InvoicePage';
 import ChatPage from './pages/ChatPage';
 import PostedGigsPage from './pages/PostedGigsPage';
 import GigsAppliedPage from './pages/GigsAppliedPage';
+import ProviderProfilePage from './pages/ProviderProfilePage';
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -146,6 +147,14 @@ const AppRoutes = () => {
           element={
             <PrivateRoute>
               <GigsAppliedPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/profile/:providerId"
+          element={
+            <PrivateRoute>
+              <ProviderProfilePage />
             </PrivateRoute>
           }
         />

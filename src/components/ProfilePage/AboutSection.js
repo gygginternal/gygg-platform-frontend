@@ -1,10 +1,10 @@
 // src/components/ProfilePage/AboutSection.js
 import { useState, useEffect } from 'react';
 import styles from './AboutSection.module.css';
-import { useAuth } from '../../context/AuthContext'; // For loggedInUser details if needed for save
+import { useAuth } from '../../contexts/AuthContext'; // For loggedInUser details if needed for save
 import apiClient from '../../api/axiosConfig';
 import logger from '../../utils/logger';
-import { useToast } from '../../context/ToastContext';
+import { useToast } from '../../contexts/ToastContext';
 import PropTypes from 'prop-types';
 
 const decodeHTMLEntities = text => {
@@ -144,7 +144,7 @@ function AboutSection({ userToDisplay, isOwnProfile, onUpdate }) {
             </div>
             <div className={styles.modalBody}>
               <p className={styles.modalPrompt}>
-                Use this space to showcase your skills and experience.
+                Use this space to tell everyone a bit about yourself.
               </p>
               <label htmlFor="bio-textarea" className={styles.srOnly}>
                 Bio content

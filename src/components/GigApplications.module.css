@@ -162,6 +162,15 @@
   background-color: #dc2626; /* hover:bg-red-600 */
 }
 
+.rejectButton {
+  background-color: #ef4444; /* bg-red-500 */
+  color: #fff;
+}
+
+.rejectButton:hover {
+  background-color: #dc2626; /* hover:bg-red-600 */
+}
+
 .statusBadgeMargin {
   margin-bottom: 0.5rem; /* mb-2 */
 }
@@ -195,4 +204,163 @@
   background-color: #ccc;
   cursor: not-allowed;
   opacity: 0.7;
+}
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 0.5rem;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6b7280;
+  z-index: 10;
+}
+
+.closeButton:hover {
+  color: #374151;
+}
+
+.modalHeader {
+  padding: 1.5rem 1.5rem 0 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modalHeader h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.modalBody {
+  padding: 1.5rem;
+}
+
+.modalTaskerInfo {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.modalTaskerImage {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.modalTaskerDetails h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.modalTaskerLocation {
+  color: #6b7280;
+  margin: 0 0 0.5rem 0;
+  font-size: 0.875rem;
+}
+
+.modalTaskerDescription {
+  color: #4b5563;
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.modalServices {
+  margin-bottom: 1.5rem;
+}
+
+.modalServices h4 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.modalServicesList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.modalActions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.modalActions .button {
+  min-width: 120px;
+}
+
+.applicationsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.noApplications {
+  text-align: center;
+  color: #6b7280;
+  padding: 2rem;
+  font-size: 1rem;
+}
+
+.statusMessage {
+  text-align: center;
+  padding: 1rem;
+  background-color: #f8fafc;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+  width: 100%;
+}
+
+.statusMessage p {
+  margin: 0.25rem 0;
+  font-weight: 500;
+}
+
+.statusMessage p:first-child {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #059669;
+}
+
+.statusMessage p:last-child {
+  color: #6b7280;
+  font-size: 0.875rem;
 }

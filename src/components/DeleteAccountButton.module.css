@@ -7,7 +7,9 @@
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s, box-shadow 0.2s;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
   box-shadow: 0 1px 4px rgba(239, 68, 68, 0.08);
 }
 .button:hover {
@@ -15,7 +17,10 @@
 }
 .modalOverlay {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: rgba(30, 41, 59, 0.25);
   display: flex;
   align-items: center;
@@ -26,7 +31,7 @@
   background: #fff;
   padding: 2.5em 2em;
   border-radius: 8px;
-  box-shadow: 0 4px 32px rgba(30,41,59,0.10);
+  box-shadow: 0 4px 32px rgba(30, 41, 59, 0.1);
   max-width: 90vw;
   width: 350px;
   text-align: center;
@@ -64,4 +69,4 @@
   background: #e5e7eb;
   color: #94a3b8;
   cursor: not-allowed;
-} 
+}

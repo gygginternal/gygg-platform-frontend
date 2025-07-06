@@ -99,9 +99,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
   color: #333; /* Default text color for the app */
-  background-color: #fff;
+  background-color: #f0f2f5;
 }
-
+/* 
+div {
+  background-color: #f0f2f5;
+} */
 /* Code Snippets */
 code {
   font-family:

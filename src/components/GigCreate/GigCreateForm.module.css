@@ -101,3 +101,36 @@
 /* Ensure InputField.module.css, ProgressBar.module.css, NavigationButtons.module.css are styled */
 /* And GigPostTimelineCategory.module.css, GigPostDetailsBudget.module.css, GigPostForm.module.css (for review) */
 /* Styles for elements inside GigPost... components should come from their own modules */
+
+.gigCreateFormBlackText {
+  color: #111;
+}
+
+.gigCreateFormBlackText .label {
+  color: #111 !important;
+}
+
+.gigCreateFormBlackText .backButton,
+.gigCreateFormBlackText .backButton svg,
+.gigCreateFormBlackText .backIcon,
+.gigCreateFormBlackText .backButton .backIcon {
+  color: #111 !important;
+  fill: #111 !important;
+  stroke: #111 !important;
+}
+.gigCreateFormBlackText .nextButton {
+  color: #fff !important;
+  background-color: #00aaba !important;
+  border-color: #00aaba !important;
+}
+.gigCreateFormBlackText .nextButton:hover:not(:disabled) {
+  background-color: #008b97 !important;
+  border-color: #008b97 !important;
+}
+.gigCreateFormBlackText .nextIcon,
+.gigCreateFormBlackText .nextButton .nextIcon,
+.gigCreateFormBlackText .nextButton svg {
+  color: #fff !important;
+  fill: #fff !important;
+  stroke: #fff !important;
+}

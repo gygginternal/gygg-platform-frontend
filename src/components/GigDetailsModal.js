@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from './GigDetailsModal.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import apiClient from '../api/axiosConfig';
-import { useContracts } from '../pages/ContractsPage';
+// Removed useContracts import to avoid circular dependency
 
 const timeAgo = date => {
   const diff = Math.floor((Date.now() - new Date(date)) / 1000);
@@ -23,7 +23,7 @@ const GigDetailsModal = ({
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState('');
   const navigate = useNavigate();
-  const { addContract } = useContracts() || {};
+  // Removed useContracts to avoid circular dependency - addContract functionality can be added later if needed
   const modalRef = useRef(null);
 
   // Prevent background scroll when modal is open
@@ -139,10 +139,10 @@ const GigDetailsModal = ({
       // Adjust endpoint as needed for your backend
       const res = await apiClient.post(`/gigs/${_id}/applications`);
       setFeedback('Application submitted!');
-      // If backend returns contract, add it to contracts context
-      if (res.data?.data?.contract && addContract) {
-        addContract(res.data.data.contract);
-      }
+      // If backend returns contract, we could add it to contracts context later
+      // if (res.data?.data?.contract && addContract) {
+      //   addContract(res.data.data.contract);
+      // }
       if (onApply) onApply();
       setTimeout(() => {
         navigate('/contracts');

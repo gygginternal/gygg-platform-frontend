@@ -3,7 +3,7 @@ import { Button } from '../components/ui/button';
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import apiClient from '../api/axiosConfig';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import {
   useStripe,
   useElements,
@@ -20,7 +20,7 @@ import ReviewSection from './ReviewSection';
 import PropTypes from 'prop-types';
 
 const stripePromise = loadStripe(
-  'pk_test_51RRrQ2Q5bv7DRpKKkdum0wirsfQWdEid1PgmxjDvnY63M7wCbbRiH9mgitk4wpj37RTmTkgC3xYHEQhJOF9hUvXS00Z6OvQMz4'
+  'pk_test_51RgsCzCar68v7b8ot0KNr8l9NTWwDsURWgVctgW2wN45rZLxejGqO6s4e44z7KjhAHxjvZ1DOvbggzcPgXMUrusy00h5KCJqtc'
 ); // Replace with your Stripe publishable key
 
 const ConfirmButton = ({ clientSecret }) => {
@@ -278,10 +278,20 @@ function GigDetailPage() {
                   <strong>Total:</strong> $
                   {((paymentData.amount || 0) / 100).toFixed(2)}
                 </div>
-                <div className={styles.breakdownItem}>
-                  <strong>Tax (13%):</strong> $
-                  {((paymentData.taxAmount || 0) / 100).toFixed(2)}
-                </div>
+                {/* Stripe Tax: Show calculated tax if available */}
+                {paymentIntent?.automatic_tax?.amount_tax !== undefined ? (
+                  <div className={styles.breakdownItem}>
+                    <strong>Tax (calculated by Stripe):</strong> $
+                    {(
+                      (paymentIntent.automatic_tax.amount_tax || 0) / 100
+                    ).toFixed(2)}
+                  </div>
+                ) : (
+                  <div className={styles.breakdownItem}>
+                    <strong>Tax:</strong> $
+                    {((paymentData.taxAmount || 0) / 100).toFixed(2)}
+                  </div>
+                )}
                 <div className={styles.breakdownItem}>
                   <strong>Platform Fee ($5 + 5%):</strong> $
                   {((paymentData.applicationFeeAmount || 0) / 100).toFixed(2)}

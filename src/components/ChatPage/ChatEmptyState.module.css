@@ -92,16 +92,16 @@
   .container {
     padding: 1rem;
   }
-  
+
   .logo {
     width: 100px;
     height: 100px;
   }
-  
+
   .title {
     font-size: 1.75rem;
   }
-  
+
   .content {
     max-width: 320px;
   }

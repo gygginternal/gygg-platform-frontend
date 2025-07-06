@@ -2,25 +2,24 @@
 import PropTypes from 'prop-types';
 import styles from './ProgressBar.module.css'; // Create this CSS module
 
-function ProgressBar({ current, total, label = 'Profile Setup Progress' }) {
+function ProgressBar({ current, total, color = '#00AABA' }) {
   const progressPercentage = (current / total) * 100;
 
   return (
     <div className={styles.progressContainer}>
-      {label && (
-        <span className={styles.progressLabel}>
-          {label} ({current}/{total})
-        </span>
-      )}
       <div className={styles.progressBarBackground}>
         <div
           className={styles.progressBarForeground}
-          style={{ width: `${progressPercentage}%` }}
+          style={{ width: `${progressPercentage}%`, backgroundColor: color }}
           aria-valuenow={current}
           aria-valuemin="0"
           aria-valuemax={total}
           role="progressbar"
-        />
+        >
+          <span
+            className={styles.progressStepLabel}
+          >{`Step ${current} of ${total}`}</span>
+        </div>
       </div>
     </div>
   );
@@ -29,7 +28,7 @@ function ProgressBar({ current, total, label = 'Profile Setup Progress' }) {
 ProgressBar.propTypes = {
   current: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
-  label: PropTypes.string,
+  color: PropTypes.string,
 };
 
 export default ProgressBar;

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'; // Use react-router Link
-import { useAuth } from '../context/AuthContext'; // Adjust path
+import { useAuth } from '../contexts/AuthContext'; // Adjust path
 import styles from './TaskerMatchedSidebar.module.css'; // Import CSS module
 
 export function TaskerMatchedSidebar() {

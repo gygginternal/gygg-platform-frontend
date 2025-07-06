@@ -104,7 +104,7 @@ export function StripeOnboarding() {
               });
           }}
         >
-          {status?.detailsSubmitted ? 'Update Info' : 'Connect Stripe'}
+          {status?.payoutsEnabled ? 'Update Info' : 'Complete Verification'}
         </button>
         {/* {status?.detailsSubmitted && (
           <button

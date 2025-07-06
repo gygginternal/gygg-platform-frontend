@@ -9,16 +9,22 @@
   color: #ffffff;
   font-size: 1rem;
 }
-.select, .input, .textarea {
+.select,
+.input,
+.textarea {
   padding: 0.7em 1em;
   border: 1px solid #e5e7eb;
   border-radius: 4px;
   font-size: 1rem;
   background: #f9fafb;
-  transition: border 0.2s, box-shadow 0.2s;
+  transition:
+    border 0.2s,
+    box-shadow 0.2s;
   font-family: 'Inter', sans-serif;
 }
-.select:focus, .input:focus, .textarea:focus {
+.select:focus,
+.input:focus,
+.textarea:focus {
   border-color: #2563eb;
   box-shadow: 0 0 0 2px #2563eb22;
   outline: none;
@@ -26,4 +32,4 @@
 .textarea {
   resize: vertical;
   min-height: 120px;
-} 
+}

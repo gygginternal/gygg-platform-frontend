@@ -59,7 +59,7 @@ const RecommendedGigs = () => {
             const profileImage = poster.profileImage || '/default.jpg';
             const posterName =
               poster.firstName && poster.lastName
-                ? `${poster.firstName}. ${poster.lastName[0]}`
+                ? `${poster.firstName.charAt(0).toUpperCase() + poster.firstName.slice(1)}. ${poster.lastName.charAt(0).toUpperCase()}`
                 : poster.firstName || 'Anonymous';
             const location =
               poster.address?.city || poster.address?.state || '';
@@ -74,7 +74,7 @@ const RecommendedGigs = () => {
                 />
                 <div className={styles.gigContent}>
                   <div className={styles.gigDescription}>
-                    <span>{posterName}</span>
+                    <strong>{posterName}</strong>
                     {location && ` from ${location}`} needs a {gig.title}
                   </div>
                   <Link
