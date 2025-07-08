@@ -1,207 +1,367 @@
-/* frontend/src/components/InputField.module.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* Setting a base font size for rem calculations if not set globally */
-:root {
-  font-size: 16px; /* 1rem = 16px */
-}
-
+/* Field Container */
 .fieldContainer {
-  /* Wrapper for label + input */
   display: flex;
   flex-direction: column;
-  gap: 0.5rem; /* 8px */
+  gap: 0.5rem;
   width: 100%;
-  margin-bottom: 0.3125rem; /* 5px - Reduced margin between fields */
-  box-sizing: border-box; /* Ensure padding/border are included */
+  margin-bottom: 1rem;
+  font-family: 'Inter', sans-serif;
 }
 
+/* Label */
 .label {
   display: block;
-  text-align: left;
-  color: #fff; /* Label color from signup */
-  /* Facebook Post text (main body) 14-16px */
-  font-size: 0.9375rem; /* 15px */
+  font-size: 0.875rem;
   font-weight: 500;
-  font-family: 'Inter', sans-serif;
-  line-height: 1.3;
+  line-height: 1.4;
+  color: #374151;
+  margin-bottom: 0.25rem;
 }
 
+.requiredIndicator {
+  color: #d99633;
+  margin-left: 0.25rem;
+}
+
+/* Input Container */
 .inputContainer {
+  position: relative;
   display: flex;
-  align-items: center;
-  background-color: #fff;
-  border: 0.0625rem solid #ccc; /* 1px Default border */
-  border-radius: 0.5rem; /* 8px */
-  padding: 0; /* Remove padding here, apply to input/select */
-  gap: 0; /* No gap needed if styled correctly */
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
-  overflow: hidden; /* Clip children to rounded corners */
+  align-items: stretch;
+  background-color: #ffffff;
+  border: 1.5px solid #d99633;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease-in-out;
+  overflow: hidden;
 }
 
 .inputContainer:focus-within {
-  /* Style container when input inside is focused */
-  border-color: #d99633; /* Use theme color */
-  box-shadow: 0 0 0 0.125rem rgba(217, 150, 51, 0.25); /* 0 0 0 2px */
+  border-color: #d99633;
+  box-shadow: 0 0 0 3px rgba(217, 150, 51, 0.15);
 }
 
-/* Add styles for country select container */
-.inputContainer > div:first-child {
-  width: 20%; /* Set width to 20% of container */
-  min-width: 80px; /* Ensure it doesn't get too small */
-  max-width: 120px; /* Ensure it doesn't get too large */
-  border-right: 0.0625rem solid #eee; /* Add separator */
+.inputContainer.error {
+  border-color: #ef4444;
 }
 
-.input {
-  flex: 1; /* Take remaining space */
+.inputContainer.error:focus-within {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Country Select */
+.countrySelect {
+  flex-shrink: 0;
+  width: auto;
+  min-width: 100px;
+  max-width: 140px;
   border: none;
-  /* Facebook Post text (main body) 14-16px */
-  font-size: 0.875rem; /* 14px */
+  border-right: 1.5px solid #d99633;
+  background-color: #ffffff !important;
+  padding: 0.75rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #111827;
+  cursor: pointer;
   outline: none;
-  color: #333;
-  font-family: 'Inter', sans-serif;
-  background-color: transparent;
-  padding: 0.625rem 0.75rem; /* 10px 12px - Padding inside input */
-  width: 100%;
-  /* Remove spinners for number input */
+  transition: background-color 0.2s ease;
+
   appearance: none;
-  -moz-appearance: textfield;
-  min-height: 2.25rem; /* 36px - Ensure a minimum height */
-  box-sizing: border-box; /* Crucial for padding/width */
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
+
+.countrySelect:hover {
+  background-color: #f7e7cc;
+}
+
+.countrySelect:focus {
+  background-color: #ffffff;
+  border-right: 1.5px solid #d99633;
+}
+
+.countrySelect:disabled {
+  background-color: #f9fafb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Main Input */
+.input {
+  flex: 1;
+  border: none;
+  background-color: #ffffff;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #111827 !important;
+  outline: none;
+  transition: all 0.2s ease;
+  min-height: 2.5rem;
+  box-sizing: border-box;
+}
+
+.input::placeholder {
+  color: #9ca3af;
+}
+
+.input:disabled {
+  background-color: #f9fafb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Remove number input spinners */
 .input::-webkit-outer-spin-button,
 .input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.input::placeholder {
-  /* Style placeholder */
-  color: #aaa;
+
+.input[type='number'] {
+  -moz-appearance: textfield;
 }
 
+/* Textarea specific */
 .textarea {
-  min-height: 3rem; /* 48px - one line default height */
-  line-height: 1.4;
-  padding: 0.625rem 0.75rem; /* 10px 12px - Matches input padding */
+  min-height: 4rem;
   resize: vertical;
-  /* Inherits other styles from .input */
+  line-height: 1.5;
+  padding: 0.75rem 1rem;
 }
 
+/* Password Toggle */
 .togglePassword {
-  background: none;
-  border: none !important;
-  padding: 0 0.75rem; /* 0 12px - Padding around button */
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.75rem;
+  background: #ffffff;
+  border: none;
+  border-left: 1.5px solid #d99633;
+  color: #111827;
   cursor: pointer;
-  /* Facebook Buttons 13-14px */
-  font-size: 0.8125rem; /* 13px */
-  font-weight: 500;
-  color: #d99633;
-  font-family: 'Inter', sans-serif;
-  align-self: stretch; /* Make button fill height */
-  transition: background-color 0.2s ease;
-  flex-shrink: 0; /* Prevent icon/button from shrinking */
+  transition: all 0.2s ease;
 }
+
 .togglePassword:hover {
-  background-color: #f8f8f8;
+  color: #fff !important;
+  background-color: #D99633;
 }
 
-/* Adjustments when CountrySelect is present */
-.inputContainer select + .input {
-  /* Target input immediately after select */
-  border-left: 0.0625rem solid #eee; /* 1px Add separator */
-  border-top-left-radius: 0; /* Flatten corner */
-  border-bottom-left-radius: 0;
+.togglePassword:focus {
+  outline: none;
+  color: #d99633;
+  background: #ffffff;
 }
 
-/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
+.togglePassword:disabled {
+  color: #d1d5db;
+  cursor: not-allowed;
+}
+
+/* Error and Helper Text */
+.errorMessage {
+  font-size: 0.75rem;
+  color: #ef4444;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.helperText {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+/* Responsive Design */
 @media (max-width: 1024px) {
   .fieldContainer {
-    gap: 0.4rem; /* 6.4px */
-    margin-bottom: 0.4rem; /* 6.4px */
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
   }
+
   .label {
-    font-size: 0.875rem; /* 14px */
+    font-size: 0.8125rem;
   }
-  .inputContainer {
-    border-radius: 0.4rem; /* 6.4px */
-  }
-  .inputContainer:focus-within {
-    box-shadow: 0 0 0 0.1rem rgba(217, 150, 51, 0.2); /* 1.6px */
-  }
+
   .input {
-    font-size: 0.8125rem; /* 13px */
-    padding: 0.5rem 0.625rem; /* 8px 10px */
-    min-height: 2rem; /* 32px */
+    padding: 0.625rem 0.875rem;
+    font-size: 0.8125rem;
+    min-height: 2.25rem;
   }
+
+  .countrySelect {
+    padding: 0.625rem 0.5rem;
+    font-size: 0.8125rem;
+    min-width: 90px;
+  }
+
   .textarea {
-    padding: 0.5rem 0.625rem; /* 8px 10px */
-    min-height: 3rem; /* 48px */
-  }
-  .togglePassword {
-    padding: 0 0.625rem; /* 0 10px */
-    font-size: 0.75rem; /* 12px */
+    min-height: 3.5rem;
+    padding: 0.625rem 0.875rem;
   }
 }
 
-/* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
   .fieldContainer {
-    gap: 0.3rem; /* 4.8px */
-    margin-bottom: 0.3rem; /* 4.8px */
+    gap: 0.3rem;
+    margin-bottom: 0.625rem;
   }
+
   .label {
-    font-size: 0.8125rem; /* 13px */
+    font-size: 0.75rem;
   }
-  .inputContainer {
-    border-radius: 0.35rem; /* ~5.6px */
-  }
-  .inputContainer:focus-within {
-    box-shadow: 0 0 0 0.08rem rgba(217, 150, 51, 0.15); /* ~1.28px */
-  }
+
   .input {
-    font-size: 0.75rem; /* 12px */
-    padding: 0.4rem 0.5rem; /* 6.4px 8px */
-    min-height: 1.875rem; /* 30px */
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    min-height: 2rem;
   }
+
+  .countrySelect {
+    padding: 0.5rem 0.375rem;
+    font-size: 0.75rem;
+    min-width: 80px;
+  }
+
   .textarea {
-    padding: 0.4rem 0.5rem; /* 6.4px 8px */
-    min-height: 2.5rem; /* 40px */
+    min-height: 3rem;
+    padding: 0.5rem 0.75rem;
   }
+
   .togglePassword {
-    padding: 0 0.5rem; /* 0 8px */
-    font-size: 0.6875rem; /* ~11px */
+    padding: 0.375rem 0.5rem;
   }
 }
 
-/* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
   .fieldContainer {
-    gap: 0.25rem; /* 4px */
-    margin-bottom: 0.25rem; /* 4px */
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
   }
+
   .label {
-    font-size: 0.75rem; /* 12px */
+    font-size: 0.6875rem;
   }
-  .inputContainer {
-    border-radius: 0.3rem; /* 4.8px */
-  }
-  .inputContainer:focus-within {
-    box-shadow: 0 0 0 0.06rem rgba(217, 150, 51, 0.1); /* ~0.96px */
-  }
+
   .input {
-    font-size: 0.6875rem; /* ~11px */
-    padding: 0.35rem 0.4rem; /* 5.6px 6.4px */
-    min-height: 1.75rem; /* 28px */
+    padding: 0.4375rem 0.625rem;
+    font-size: 0.6875rem;
+    min-height: 1.875rem;
   }
+
+  .countrySelect {
+    padding: 0.4375rem 0.25rem;
+    font-size: 0.6875rem;
+    min-width: 70px;
+  }
+
   .textarea {
-    padding: 0.35rem 0.4rem; /* 5.6px 6.4px */
-    min-height: 2rem; /* 32px */
+    min-height: 2.5rem;
+    padding: 0.4375rem 0.625rem;
   }
+
   .togglePassword {
-    padding: 0 0.4rem; /* 0 6.4px */
-    font-size: 0.625rem; /* 10px */
+    padding: 0.25rem 0.375rem;
+  }
+
+  .errorMessage,
+  .helperText {
+    font-size: 0.6875rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .inputContainer {
+    background-color: #1f2937;
+    border-color: #4b5563;
+  }
+
+  .inputContainer:focus-within {
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+  }
+
+  .input {
+    color: #111827 !important;
+  }
+
+  .input::placeholder {
+    color: #6b7280;
+  }
+
+  .input:disabled {
+    background-color: #374151;
+    color: #6b7280;
+  }
+
+  .countrySelect {
+    background-color: #374151;
+    border-color: #4b5563;
+    color: #111827;
+  }
+
+  .countrySelect:hover {
+    background-color: #4b5563;
+  }
+
+  .togglePassword {
+    color: #9ca3af;
+    border-color: #4b5563;
+  }
+
+  .togglePassword:hover {
+    color: #f9fafb;
+    background-color: #374151;
+  }
+
+  .helperText {
+    color: #9ca3af;
+  }
+}
+
+/* Animation for smooth transitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.errorMessage,
+.helperText {
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Focus styles for better accessibility */
+.input:focus,
+.countrySelect:focus,
+.togglePassword:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .inputContainer {
+    border-width: 2px;
+  }
+
+  .inputContainer:focus-within {
+    border-width: 3px;
+  }
+
+  .label {
+    font-weight: 600;
   }
 }

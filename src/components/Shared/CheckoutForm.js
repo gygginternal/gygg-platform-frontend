@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import { useToast } from '../contexts/ToastContext';
-import apiClient from '../api/axiosConfig';
+import { useAuth } from '../../contexts/AuthContext';
+import { useToast } from '../../contexts/ToastContext';
+import apiClient from '../../api/axiosConfig';
 import styles from './CheckoutForm.module.css';
-import FormInput from './Shared/FormInput';
+import FormInput from './FormInput';
 import PropTypes from 'prop-types';
 import {
   PaymentElement,

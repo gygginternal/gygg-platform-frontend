@@ -9,11 +9,11 @@ import { Link } from 'react-router-dom';
 import { format } from 'date-fns'; // Import date-fns for formatting dates
 import apiClient from '../../api/axiosConfig';
 import styles from './ContractsPage.module.css';
-import ProfileSidebar from '../../components/ProfileSidebar';
-import { TabNavigation } from '../../components/TabNavigation'; // Import the TabNavigation component
+import ProfileSidebar from '../../components/Shared/ProfileSidebar';
+import { TabNavigation } from '../../components/Shared/TabNavigation'; // Import the TabNavigation component
 import InputField from '../../components/Shared/InputField';
-import Toggle from '../../components/Toggle';
-import { StatusBadge } from '../../components/StatusBadge'; // Adjust the import path
+import Toggle from '../../components/Shared/Toggle';
+import { StatusBadge } from '../../components/Shared/StatusBadge'; // Adjust the import path
 import BillingAndPayment from '../BillingAndPayment/BillingAndPayment';
 import { CATEGORY_ENUM } from '../../constants/categories';
 import { Search, Filter, DollarSign } from 'lucide-react';

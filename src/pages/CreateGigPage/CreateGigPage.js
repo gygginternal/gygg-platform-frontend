@@ -128,4 +128,4 @@ const CreateGigPage = () => {
   );
 };
 
-export default CreateGigPage; 
+export default CreateGigPage;

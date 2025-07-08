@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { MapPin } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import apiClient from '../api/axiosConfig';
-import Badge from '../components/Badge';
-import { StatusBadge } from '../components/StatusBadge'; // Assuming you have a StatusBadge component
-import { useAuth } from '../contexts/AuthContext';
-import { useToast } from '../contexts/ToastContext';
+import apiClient from '../../api/axiosConfig';
+import Badge from './Badge';
+import { StatusBadge } from './StatusBadge'; // Assuming you have a StatusBadge component
+import { useAuth } from '../../contexts/AuthContext';
+import { useToast } from '../../contexts/ToastContext';
 // import { Button } from "../components/ui/button"; // Removed
 import styles from './GigApplications.module.css'; // Import CSS module
 import PropTypes from 'prop-types';

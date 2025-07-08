@@ -5,7 +5,7 @@ import styles from './OnboardingPages.module.css'; // Create this CSS for overal
 import ProgressHeader from '../../components/Shared/ProgressHeader';
 import InputField from '../../components/Shared/InputField';
 import TaskSelector from '../../components/TaskerOnboarding/TaskSelector';
-import { AutoComplete } from '../../components/AutoComplete';
+import { AutoComplete } from '../../components/Shared/AutoComplete';
 import { useAuth } from '../../contexts/AuthContext';
 import apiClient from '../../api/axiosConfig';
 import logger from '../../utils/logger';

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext'; // To get userId if needed by backend
+import { useAuth } from '../../contexts/AuthContext'; // To get userId if needed by backend
 // import { Button } from "../components/ui/button"; // Removed as we'll use a local button or convert it
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import apiClient from '../api/axiosConfig';
+import apiClient from '../../api/axiosConfig';
 import styles from './GigApplySection.module.css'; // Import CSS module
 import PropTypes from 'prop-types';
 

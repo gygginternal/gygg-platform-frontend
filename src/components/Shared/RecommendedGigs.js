@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import styles from './RecommendedGigs.module.css'; // NEW CSS MODULE
 import { useQuery } from '@tanstack/react-query';
-import apiClient from '../api/axiosConfig';
-import logger from '../utils/logger';
+import apiClient from '../../api/axiosConfig';
+import logger from '../../utils/logger';
 
 const RecommendedGigs = () => {
   const {

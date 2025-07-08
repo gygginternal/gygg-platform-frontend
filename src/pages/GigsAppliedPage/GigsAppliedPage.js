@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import apiClient from '../../api/axiosConfig';
 import styles from './GigsAppliedPage.module.css';
-import ProfileSidebar from '../../components/ProfileSidebar';
+import ProfileSidebar from '../../components/Shared/ProfileSidebar';
 import { useAuth } from '../../contexts/AuthContext';
 import {
   FaClipboardList,
@@ -9,7 +9,7 @@ import {
   FaTimesCircle,
   FaHourglassHalf,
 } from 'react-icons/fa';
-import GigDetailsModal from '../../components/GigDetailsModal';
+import GigDetailsModal from '../../components/Shared/GigDetailsModal';
 
 const statusColors = {
   pending: '#ff9800',

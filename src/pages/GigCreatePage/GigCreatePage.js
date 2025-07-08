@@ -5,7 +5,7 @@ import styles from './GigCreatePage.module.css'; // CSS for the page layout
 import gigCreateFormStyles from '../../components/GigCreate/GigCreateForm.module.css';
 // Header and main navigation Sidebar are assumed to be part of App.js global layout
 // import Header from '../../components/Shared/Header';
-import ProfileSidebar from '../../components/ProfileSidebar'; // The static info sidebar
+import ProfileSidebar from '../../components/Shared/ProfileSidebar'; // The static info sidebar
 import GigCreateForm from '../../components/GigCreate/GigCreateForm'; // The new multi-step form component
 
 function GigCreatePage() {

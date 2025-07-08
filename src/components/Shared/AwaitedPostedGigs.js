@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './AwaitedPostedGigs.module.css'; // Single CSS module
 import { useQuery } from '@tanstack/react-query';
-import apiClient from '../api/axiosConfig';
-import logger from '../utils/logger';
+import apiClient from '../../api/axiosConfig';
+import logger from '../../utils/logger';
 import PropTypes from 'prop-types';
 
 const AwaitedPostedGigs = () => {

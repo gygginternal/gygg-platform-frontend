@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './GigHelperPage.module.css';
-import ProfileSidebar from '../../components/ProfileSidebar';
+import ProfileSidebar from '../../components/Shared/ProfileSidebar';
 import { useLocation } from 'react-router-dom';
 import TaskerList from '../../components/TaskerList';
 

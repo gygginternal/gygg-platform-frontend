@@ -1,16 +1,16 @@
 // src/components/Settings/PersonalInfoForm.js
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import { useToast } from '../contexts/ToastContext';
-import apiClient from '../api/axiosConfig';
+import { useAuth } from '../../contexts/AuthContext';
+import { useToast } from '../../contexts/ToastContext';
+import apiClient from '../../api/axiosConfig';
 import styles from './PersonalInfoForm.module.css';
-import FormInput from './Shared/FormInput';
-import CountrySelect from './Shared/CountrySelect';
-import CountryCodeSelect from './Shared/CountryCodeSelect';
-import AddressInput from './Shared/AddressInput';
-import logger from '../utils/logger'; // Optional logger, adjust path as needed
-import { StripeOnboarding } from '../components/StripeOnboarding'; // Import StripeOnboarding if needed
+import FormInput from './FormInput';
+import CountrySelect from './CountrySelect';
+import CountryCodeSelect from './CountryCodeSelect';
+import AddressInput from './AddressInput';
+import logger from '../../utils/logger'; // Optional logger, adjust path as needed
+import { StripeOnboarding } from '../StripeOnboarding'; // Import StripeOnboarding if needed
 import PropTypes from 'prop-types';
 
 function PersonalInfoForm() {

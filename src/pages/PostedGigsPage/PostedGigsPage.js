@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import apiClient from '../../api/axiosConfig';
-import { GigApplications } from '../../components/GigApplications';
+import { GigApplications } from '../../components/Shared/GigApplications';
 import styles from './PostedGigsPage.module.css';
-import ProfileSidebar from '../../components/ProfileSidebar';
+import ProfileSidebar from '../../components/Shared/ProfileSidebar';
 import { useAuth } from '../../contexts/AuthContext';
 
 // Utility to check for valid MongoDB ObjectId

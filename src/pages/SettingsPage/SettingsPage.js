@@ -1,7 +1,7 @@
 // src/pages/SettingsPage.js
 import React from 'react';
 import styles from './SettingsPage.module.css'; // Create this CSS Module
-import PersonalInfoForm from '../../components/PersonalInfoForm'; // Adjust path
+import PersonalInfoForm from '../../components/Shared/PersonalInfoForm'; // Adjust path
 // Import other settings components like NotificationSettings, SecuritySettings later
 
 function SettingsPage() {

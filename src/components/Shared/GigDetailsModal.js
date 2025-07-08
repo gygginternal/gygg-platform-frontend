@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './GigDetailsModal.module.css';
 import { Link, useNavigate } from 'react-router-dom';
-import apiClient from '../api/axiosConfig';
+import apiClient from '../../api/axiosConfig';
 // Removed useContracts import to avoid circular dependency
 
 const timeAgo = date => {

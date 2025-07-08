@@ -166,6 +166,7 @@ function SignupPage() {
             value={formData.email}
             onChange={handleChange}
             required
+            labelColor="white"
           />
 
           <InputField
@@ -178,6 +179,7 @@ function SignupPage() {
             icon="password"
             maxLength={20}
             required
+            labelColor="white"
           />
 
           <InputField
@@ -190,19 +192,20 @@ function SignupPage() {
             icon="password"
             maxLength={20}
             required
+            labelColor="white"
           />
 
           <InputField
-            label="Phone number"
-            name="phoneNo"
-            type="tel"
-            value={formData.phoneNo} // Full E.164 value goes down to InputField
-            onChange={handleChange} // Full E.164 value comes up from InputField
-            icon="phone"
-            placeholder="e.g., 2345678900" // Placeholder for local part
+            label="Phone Number"
+            name="phone"
+            variant="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="Enter phone number"
+            maxLength={10}
             required
-            maxLength={10} // IMPORTANT: This maxLength is for the LOCAL number part (10 digits)
-            inputMode="tel"
+            error={error}
+            labelColor="white"
           />
 
           <InputField
@@ -214,6 +217,7 @@ function SignupPage() {
             required
             max={getMaxDateForDOB()}
             min={getMinDateForDOB()}
+            labelColor="white"
           />
 
           <footer className={styles.footer}>

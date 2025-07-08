@@ -13,9 +13,9 @@ import {
 import { loadStripe } from '@stripe/stripe-js';
 // import "./GigDetails.css"; // Assuming you have a CSS file for styling
 import styles from './GigDetail.module.css'; // Import CSS Modules
-import { GigApplications } from './GigApplications';
+import { GigApplications } from './Shared/GigApplications';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { GigApplySection } from './GigApplySection';
+import { GigApplySection } from './Shared/GigApplySection';
 import ReviewSection from './ReviewSection';
 import PropTypes from 'prop-types';
 

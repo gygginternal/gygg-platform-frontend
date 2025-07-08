@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ContractPayment.module.css';
-import CheckoutForm from '../CheckoutForm';
+import CheckoutForm from '../Shared/CheckoutForm';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import apiClient from '../../api/axiosConfig';

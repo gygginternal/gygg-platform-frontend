@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styles from './Feed.module.css'; // Ensure CSS Module exists
 import Post from './Post'; // Use adapted Post component
-import Button from '../Button'; // Use shared Button component
+import Button from '../Shared/Button'; // Use shared Button component
 import apiClient from '../../api/axiosConfig'; // Adjust path
 import { useAuth } from '../../contexts/AuthContext'; // Adjust path
 import logger from '../../utils/logger'; // Optional logger

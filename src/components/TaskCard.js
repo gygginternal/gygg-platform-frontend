@@ -1,7 +1,7 @@
 // src/components/GigsPage/TaskCard.js
 import { useState } from 'react';
 import styles from './TaskCard.module.css';
-import GigDetailsModal from './GigDetailsModal';
+import GigDetailsModal from './Shared/GigDetailsModal';
 import PropTypes from 'prop-types';
 
 // Utility to format "time ago"

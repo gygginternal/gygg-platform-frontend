@@ -6,7 +6,7 @@ import ProgressHeader from '../../components/Shared/ProgressHeader';
 import InputField from '../../components/Shared/InputField';
 import AddressInput from '../../components/Shared/AddressInput';
 // PersonalityForm and BioAndPictureForm are removed as their content/styling is now managed directly/inlined.
-import { AutoComplete } from '../../components/AutoComplete';
+import { AutoComplete } from '../../components/Shared/AutoComplete';
 import GigPostTimelineCategory from '../../components/ProviderOnboarding/GigPostTimelineCategory';
 import GigPostDetailsBudget from '../../components/ProviderOnboarding/GigPostDetailsBudget';
 import GigPostReview from '../../components/ProviderOnboarding/GigPostReview';

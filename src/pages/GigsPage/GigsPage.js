@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styles from './GigsPage.module.css';
 import { TaskList } from '../../components/TaskList';
-import ProfileSidebar from '../../components/ProfileSidebar';
+import ProfileSidebar from '../../components/Shared/ProfileSidebar';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Search, Filter, MapPin, DollarSign, Clock } from 'lucide-react';
 import { CATEGORY_ENUM } from '../../constants/categories';
-import GigDetailsModal from '../../components/GigDetailsModal';
+import GigDetailsModal from '../../components/Shared/GigDetailsModal';
 import apiClient from '../../api/axiosConfig';
 
 export default function GigsPage() {
