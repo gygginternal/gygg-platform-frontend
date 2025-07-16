@@ -4,13 +4,17 @@ import styles from './Header.module.css';
 import Sidebar from './Sidebar';
 import { useAuth } from '../../contexts/AuthContext';
 import apiClient from '../../api/axiosConfig';
-import socket from '../../socket';
+import { useSocket } from '../../contexts/SocketContext';
 
 function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [unreadMessageCount, setUnreadMessageCount] = useState(0);
+  const {
+    unreadCount,
+    notification,
+    notifications: liveNotifications,
+  } = useSocket();
   const [notifications, setNotifications] = useState([]);
   const [unreadNotificationCount, setUnreadNotificationCount] = useState(0);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -38,13 +42,13 @@ function Header() {
   const fetchUnreadCount = async () => {
     try {
       const response = await apiClient.get('/chat/unread-count');
-      setUnreadMessageCount(response.data.data.unreadCount);
+      // setUnreadMessageCount(response.data.data.unreadCount); // This line is removed as per new_code
     } catch (error) {
       // console.error('Error fetching unread count:', error);
     }
   };
 
-  // Fetch notifications
+  // Fetch notifications only on mount or user change
   const fetchNotifications = async () => {
     try {
       const res = await apiClient.get('/notifications');
@@ -65,72 +69,30 @@ function Header() {
           .filter(n => !n.isRead)
           .map(n => apiClient.patch(`/notifications/${n._id}/read`))
       );
-      fetchNotifications();
+      // Optimistically update local state
+      setNotifications(prev => prev.map(n => ({ ...n, isRead: true })));
+      setUnreadNotificationCount(0);
     } catch (err) {
       // console.error('Error marking notifications as read:', err);
     }
   };
 
   useEffect(() => {
-    fetchUnreadCount();
-
-    const pollInterval = setInterval(fetchUnreadCount, 30000);
-
-    if (user) {
-      socket.disconnect();
-      socket.connect();
-
-      socket.on('connect', () => {
-        // console.log('Connected to WebSocket for notifications.');
-        socket.emit('subscribeToNotifications', { userId: user._id });
-      });
-
-      socket.on('notification:newMessage', data => {
-        // console.log('New chat message notification received:', data);
-        if (data.receiverId === user._id) {
-          setUnreadMessageCount(prevCount => prevCount + 1);
-        }
-      });
-
-      // Listen for unread count updates (e.g., when messages are marked as read)
-      socket.on('notification:unreadCountUpdated', () => {
-        // console.log(
-        //   'Unread count update notification received. Refreshing count...'
-        // );
-        fetchUnreadCount(); // Re-fetch the count immediately
-      });
-
-      socket.on('disconnect', () => {
-        // console.log('Disconnected from WebSocket.');
-      });
-
-      socket.on('error', err => {
-        // console.error('WebSocket error:', err);
-      });
-    }
-
-    return () => {
-      clearInterval(pollInterval);
-      socket.off('notification:newMessage');
-      socket.off('notification:unreadCountUpdated');
-      socket.off('connect');
-      socket.off('disconnect');
-      socket.off('error');
-      if (user) {
-        socket.emit('unsubscribeFromNotifications', { userId: user._id });
-        socket.disconnect();
-      }
-    };
-  }, [user]);
-
-  useEffect(() => {
     if (!user) return;
     fetchNotifications();
-    socket.on('notification:new', fetchNotifications);
-    return () => {
-      socket.off('notification:new', fetchNotifications);
-    };
   }, [user]);
+
+  // Use live notifications for instant updates
+  useEffect(() => {
+    if (liveNotifications && liveNotifications.length > 0) {
+      setNotifications(liveNotifications);
+      setUnreadNotificationCount(
+        liveNotifications.filter(n => !n.isRead).length
+      );
+    }
+  }, [liveNotifications]);
+
+  // No need for socket event listeners here; handled by context
 
   // Handle notification dropdown open/close
   useEffect(() => {

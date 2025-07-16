@@ -110,6 +110,7 @@ function LoginPage() {
             value={formData.email}
             onChange={handleChange}
             required
+            labelColor="#fff"
           />
           <InputField
             label="Password"
@@ -120,6 +121,7 @@ function LoginPage() {
             onChange={handleChange}
             icon="password"
             required // Use icon prop
+            labelColor="#fff"
           />
 
           {/* Error display */}

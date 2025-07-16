@@ -47,22 +47,9 @@ function PostCard({ post }) {
   };
 
   return (
-    <button
-      type="button"
-      onClick={() => handlePostClick(post)}
-      onKeyDown={e => {
-        if (e.key === 'Enter' || e.key === ' ') handlePostClick(post);
-      }}
+    <div
       className={styles.postCard}
       aria-label={`View post by ${post.author?.fullName || 'Unknown User'}`}
-      style={{
-        background: 'none',
-        border: 'none',
-        padding: 0,
-        width: '100%',
-        textAlign: 'inherit',
-        cursor: 'pointer',
-      }}
     >
       <div className={styles.postHeader}>
         <img
@@ -118,7 +105,7 @@ function PostCard({ post }) {
         )}
       </div>
       {/* TODO: Add Like/Unlike/Comment buttons/forms if this is meant to be interactive */}
-    </button>
+    </div>
   );
 }
 

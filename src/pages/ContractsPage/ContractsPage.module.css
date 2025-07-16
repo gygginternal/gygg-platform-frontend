@@ -276,18 +276,26 @@
   flex-direction: column;
 }
 .contractRow {
-  padding: 1.2rem 0 1.2rem 0;
+  background: #fff;
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem 2rem;
+  margin-bottom: 1.5rem;
   transition:
-    box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.22s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: 1px solid #f0f2f5;
+  display: flex;
+  flex-direction: column;
 }
 .contractRow:hover,
 .contractRow:focus {
   box-shadow:
-    0 6px 24px rgba(36, 180, 190, 0.13),
-    0 1.5px 6px rgba(0, 0, 0, 0.08);
-  transform: scale(1.025);
-  z-index: 2;
+    0 8px 32px rgba(16, 179, 198, 0.13),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px) scale(1.015);
+  border-color: #d0eaff;
 }
 .contractMain {
   display: flex;
@@ -509,57 +517,84 @@
   background-color: #fff;
   width: 100%;
   max-width: 37.5rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 0.3125rem 0.9375rem rgba(0, 0, 0, 0.25);
+  border-radius: 1.25rem;
+  box-shadow:
+    0 8px 32px rgba(16, 179, 198, 0.13),
+    0 2px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   max-height: 90vh;
+  padding: 0;
 }
-
 .modalHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #00aaba;
+  background: linear-gradient(90deg, #00aaba 60%, #1ec8e7 100%);
   color: #fff;
-  padding: 0.75rem 1.25rem;
-  border-radius: 0.75rem 0.75rem 0 0;
+  padding: 1.25rem 1.75rem 1rem 1.75rem;
+  border-radius: 1.25rem 1.25rem 0 0;
   flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 .modalHeader h3 {
   margin: 0;
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
-
 .closeButton {
   background: none;
   border: none;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   color: #fff;
   cursor: pointer;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
   transition: background 0.2s;
 }
 .closeButton:hover {
-  background: rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.1);
 }
-
 .modalBody {
-  padding: 1.5rem 1.25rem;
-  color: #333;
-  font-size: 1rem;
+  padding: 2rem 2rem 1.5rem 2rem;
+  color: #222;
+  font-size: 1.08rem;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  background: #fff;
 }
-
+.modalBody b {
+  font-weight: 600;
+  color: #222;
+}
 .modalActions {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
-  padding: 1rem 1.25rem 1.25rem 1.25rem;
+  padding: 1.25rem 2rem 1.75rem 2rem;
   background: none;
-  border-radius: 0 0 0.75rem 0.75rem;
+  border-radius: 0 0 1.25rem 1.25rem;
+}
+.secondaryBtn {
+  background: #f5f6fa;
+  color: #222;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition:
+    background 0.18s,
+    color 0.18s;
+  cursor: pointer;
+}
+.secondaryBtn:hover {
+  background: #e4e8ee;
+  color: #111;
 }
 
 @media (max-width: 600px) {

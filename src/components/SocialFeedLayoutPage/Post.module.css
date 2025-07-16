@@ -102,6 +102,15 @@
   object-fit: cover;
 }
 
+.postMedia {
+  border-radius: 16px;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-top: 1rem;
+}
+
 .postActions {
   display: flex;
   justify-content: space-between;
@@ -388,6 +397,9 @@
   .postImage {
     margin-top: 0.875rem; /* 14px */
   }
+  .postMedia {
+    margin-top: 0.875rem; /* 14px */
+  }
   .postActions {
     margin-top: 0.875rem; /* 14px */
     gap: 0.4rem; /* 6.4px */
@@ -496,6 +508,9 @@
   .postImage {
     margin-top: 0.75rem; /* 12px */
   }
+  .postMedia {
+    margin-top: 0.75rem; /* 12px */
+  }
   .postActions {
     margin-top: 0.75rem; /* 12px */
     gap: 0.3rem; /* 4.8px */
@@ -602,6 +617,10 @@
     margin-top: 0.625rem; /* 10px */
   }
   .postImage {
+    margin-top: 0.625rem; /* 10px */
+    border-radius: 0.4rem; /* ~6.4px */
+  }
+  .postMedia {
     margin-top: 0.625rem; /* 10px */
     border-radius: 0.4rem; /* ~6.4px */
   }

@@ -37,27 +37,29 @@ function ProfilePage() {
   const isTaskerProfile = loggedInUser.role?.includes('tasker');
 
   return (
-    <div className={styles.content}>
-      <ProfileInfo
-        userToDisplay={loggedInUser}
-        isOwnProfile
-        onProfileUpdate={refreshUser} // <<< PASS refreshUser directly
-      />
-      <AboutSection
-        userToDisplay={loggedInUser}
-        isOwnProfile
-        onBioUpdate={refreshUser} // <<< PASS refreshUser directly
-      />
+    <div className={styles.profilePageContainer}>
+      <div className={styles.content}>
+        <ProfileInfo
+          userToDisplay={loggedInUser}
+          isOwnProfile
+          onProfileUpdate={refreshUser} // <<< PASS refreshUser directly
+        />
+        <AboutSection
+          userToDisplay={loggedInUser}
+          isOwnProfile
+          onBioUpdate={refreshUser} // <<< PASS refreshUser directly
+        />
 
-      <PostsSection userIdToView={loggedInUser._id} isOwnProfile />
-      <AlbumSection
-        userIdToView={loggedInUser._id}
-        isOwnProfile
-        onUpdate={refreshUser} // <<< PASS refreshUser directly
-      />
-      {isTaskerProfile && (
-        <ReviewsSection userIdToView={loggedInUser._id} isOwnProfile />
-      )}
+        <PostsSection userIdToView={loggedInUser._id} isOwnProfile />
+        <AlbumSection
+          userIdToView={loggedInUser._id}
+          isOwnProfile
+          onUpdate={refreshUser} // <<< PASS refreshUser directly
+        />
+        {isTaskerProfile && (
+          <ReviewsSection userIdToView={loggedInUser._id} isOwnProfile />
+        )}
+      </div>
     </div>
   );
 }

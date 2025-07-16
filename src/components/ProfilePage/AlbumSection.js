@@ -56,7 +56,11 @@ function AlbumSection({ userIdToView, isOwnProfile, onUpdate }) {
   // ... (rest of handlers: handleDotClick, handleAddClick, handlePhotoAddSuccess, handleDeletePhoto, handleIconError) ...
   // Ensure these handlers correctly use isOwnProfile where needed.
 
-  const totalPages = Math.ceil(albumData.length / itemsPerPage);
+  // Sort albumData by most recent first (descending by uploadedAt)
+  const sortedAlbumData = [...albumData].sort(
+    (a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt)
+  );
+  const totalPages = Math.ceil(sortedAlbumData.length / itemsPerPage);
   const handleDotClick = index => setCurrentPage(index);
   const handleAddClick = () => {
     if (isOwnProfile) setShowModal(true);
@@ -87,7 +91,7 @@ function AlbumSection({ userIdToView, isOwnProfile, onUpdate }) {
   const handleIconError = e => {
     e.target.style.display = 'none';
   };
-  const currentAlbumPageItems = albumData.slice(
+  const currentAlbumPageItems = sortedAlbumData.slice(
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
   );
@@ -147,9 +151,15 @@ function AlbumSection({ userIdToView, isOwnProfile, onUpdate }) {
                   <button
                     key={index}
                     aria-label={`Go to album page ${index + 1}`}
-                    className={`${styles.dot} ${index === currentPage ? styles.activeDot : ''}`}
+                    className={styles.dotButton}
                     onClick={() => handleDotClick(index)}
-                  />
+                  >
+                    <span
+                      className={
+                        index === currentPage ? styles.activeDot : styles.dot
+                      }
+                    />
+                  </button>
                 ))}
               </div>
             )}

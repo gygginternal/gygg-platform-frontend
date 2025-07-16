@@ -67,23 +67,35 @@
   padding: 0.625rem 0; /* 10px 0 */
 }
 
-.dot {
-  width: 0.4375rem; /* 7px */
-  height: 0.4375rem; /* 7px */
-  margin: 0 0.25rem; /* 4px */
-  background-color: #bbb;
-  border-radius: 50%;
-  cursor: pointer;
+.dotButton {
+  background: none;
   border: none;
   padding: 0;
-  transition:
-    background-color 0.2s ease-in-out,
-    transform 0.2s ease-in-out;
+  margin: 0 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
-
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #bbb;
+  display: inline-block;
+  transition:
+    background 0.2s,
+    width 0.2s;
+}
 .activeDot {
-  background-color: #d89362;
-  transform: scale(1.3); /* Slightly larger for active dot */
+  width: 28px;
+  height: 12px;
+  border-radius: 8px;
+  background: #d99633;
+  display: inline-block;
+  transition:
+    background 0.2s,
+    width 0.2s;
 }
 
 .noAlbums {

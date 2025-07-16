@@ -13,17 +13,28 @@ export const SocketProvider = ({ children }) => {
   const [typingUser, setTypingUser] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [notification, setNotification] = useState(null);
+  const [notifications, setNotifications] = useState([]); // New: notifications array
   const [updatedMessage, setUpdatedMessage] = useState(null);
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
   const newMessageHandlers = useRef([]);
   const messageUpdateHandlers = useRef([]);
 
+  console.log('[Socket] User in SocketContext:', user);
+
   useEffect(() => {
-    if (user) {
+    console.log(
+      '[Socket] useEffect running. isLoading:',
+      isLoading,
+      'user:',
+      user
+    );
+    console.log('[Socket] useEffect before if (!isLoading && user)');
+    if (!isLoading && user) {
+      console.log('[Socket] Entering socket creation block.');
       const newSocket = io(
-        process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000',
+        (process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000').replace('/api/v1', ''),
         {
-          path: '/socketio',
+          path: '/socket.io',
           transports: ['websocket', 'polling'],
           reconnection: true,
           reconnectionAttempts: 5,
@@ -33,20 +44,37 @@ export const SocketProvider = ({ children }) => {
           withCredentials: true,
           forceNew: true,
           auth: {
-            token: localStorage.getItem('token'),
+            token: user.token,
           },
         }
       );
+      console.log('[Socket] Socket instance created:', newSocket);
 
       newSocket.on('connect', () => {
         setConnected(true);
-        if (user && user.id) {
-          newSocket.emit('subscribeToNotifications', { userId: user.id });
+        console.log('[Socket] Connected:', newSocket.id);
+        if (user && user._id) {
+          newSocket.emit('subscribeToNotifications', { userId: user._id });
+          console.log(
+            '[Socket] Subscribed to notifications for userId:',
+            user._id,
+            'typeof:',
+            typeof user._id
+          );
         }
       });
 
-      newSocket.on('disconnect', () => {
+      newSocket.on('disconnect', reason => {
         setConnected(false);
+        console.log('[Socket] Disconnected:', reason);
+      });
+
+      newSocket.on('connect_error', err => {
+        console.error('[Socket] Connect error:', err);
+      });
+
+      newSocket.on('error', err => {
+        console.error('[Socket] General error:', err);
       });
 
       newSocket.on('chat:newMessage', message => {
@@ -67,7 +95,18 @@ export const SocketProvider = ({ children }) => {
       });
 
       newSocket.on('notification:new', notif => {
+        console.log(
+          '[Socket] Received notification:new:',
+          notif,
+          'socket:',
+          newSocket
+        );
         setNotification(notif);
+        setNotifications(prev => {
+          const updated = [notif, ...prev];
+          console.log('[Socket] Updated notifications array:', updated);
+          return updated;
+        });
       });
 
       newSocket.on('newChatMessage', message => {
@@ -87,13 +126,14 @@ export const SocketProvider = ({ children }) => {
       setSocket(newSocket);
 
       return () => {
-        if (user && user.id) {
-          newSocket.emit('unsubscribeFromNotifications', { userId: user.id });
+        console.log('[Socket] Cleanup function running.');
+        if (user && user._id) {
+          newSocket.emit('unsubscribeFromNotifications', { userId: user._id });
         }
-        newSocket.close();
+        newSocket.disconnect();
       };
     }
-  }, [user]);
+  }, [user, isLoading]);
 
   // Register/unregister handler functions
   const registerNewMessageHandler = handler => {
@@ -123,6 +163,7 @@ export const SocketProvider = ({ children }) => {
         typingUser,
         onlineUsers,
         notification,
+        notifications, // Export notifications array
         updatedMessage,
         registerNewMessageHandler,
         registerMessageUpdateHandler,

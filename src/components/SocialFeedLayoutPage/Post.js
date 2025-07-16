@@ -362,6 +362,7 @@ function Post({ post, onPostUpdate }) {
               className={styles.postMedia}
               onError={handleImageError}
               loading="lazy"
+              style={{ borderRadius: 16 }}
             />
           ))}
         </div>

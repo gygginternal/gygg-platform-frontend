@@ -291,15 +291,9 @@ function Feed() {
         </div>
         {uploadedImage && (
           <div className={styles.imagePreview}>
-            <p>Image Preview:</p>
             <img
               src={URL.createObjectURL(uploadedImage)}
               alt="Uploaded Preview"
-              style={{
-                maxWidth: '100%',
-                maxHeight: '200px',
-                marginTop: '10px',
-              }}
             />
           </div>
         )}

@@ -9,13 +9,13 @@ import { Link } from 'react-router-dom';
 import logger from '../../utils/logger';
 
 function PostsSection({ userIdToView, isOwnProfile }) {
-  // Accept isOwnProfile
-  const { user: loggedInUser } = useAuth(); // loggedInUser can be different from userToDisplay (userIdToView)
+  const { user: loggedInUser } = useAuth();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [page, setPage] = useState(0); // For pagination
+  const POSTS_PER_PAGE = 2;
 
-  // If userIdToView is not passed, assume we want posts of loggedInUser (for PostsSection on own dashboard)
   const targetUserIdForPosts = userIdToView || loggedInUser?._id;
 
   useEffect(() => {
@@ -35,10 +35,11 @@ function PostsSection({ userIdToView, isOwnProfile }) {
         const response = await apiClient.get(
           `/posts/user/${targetUserIdForPosts}`,
           {
-            params: { limit: 5, sort: 'recents' },
+            params: { limit: 10, sort: 'recents' }, // Fetch more for pagination
           }
         );
         setPosts(response.data.data.posts || []);
+        setPage(0); // Reset to first page on user change
       } catch (err) {
         logger.error('PostsSection: Error fetching posts:', err);
         setError('Could not load posts.');
@@ -50,7 +51,13 @@ function PostsSection({ userIdToView, isOwnProfile }) {
     fetchUserPosts();
   }, [targetUserIdForPosts]);
 
-  const seeAllLink = `/feed`; // Could be /users/${targetUserIdForPosts}/posts
+  const seeAllLink = `/feed`;
+
+  const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
+  const paginatedPosts = posts.slice(
+    page * POSTS_PER_PAGE,
+    (page + 1) * POSTS_PER_PAGE
+  );
 
   const renderContent = () => {
     if (loading) return <p>Loading posts...</p>;
@@ -63,7 +70,6 @@ function PostsSection({ userIdToView, isOwnProfile }) {
               ? "You haven't made any posts yet."
               : "This user hasn't made any posts yet."}
           </p>
-          {/* Only show create post link if it's own profile */}
           {isOwnProfile && (
             <Link to="/feed" className={styles.createPostButton}>
               Create Your First Post
@@ -72,12 +78,7 @@ function PostsSection({ userIdToView, isOwnProfile }) {
         </div>
       );
     }
-    return posts.map(post => (
-      <PostCard
-        key={post._id}
-        post={post} /* Pass onPostUpdate if PostCard needs it */
-      />
-    ));
+    return paginatedPosts.map(post => <PostCard key={post._id} post={post} />);
   };
 
   return (
@@ -86,6 +87,27 @@ function PostsSection({ userIdToView, isOwnProfile }) {
         <h2>Recent Posts</h2>
       </div>
       <div className={styles.postsGrid}>{renderContent()}</div>
+      {totalPages > 1 && (
+        <div className={styles.paginationDots}>
+          {Array.from({ length: totalPages }).map((_, idx) => (
+            <button
+              key={idx}
+              type="button"
+              className={styles.dotButton}
+              onClick={() => setPage(idx)}
+              style={{
+                cursor: 'pointer',
+                margin: '0 4px',
+                background: 'none',
+                border: 'none',
+                padding: 0,
+              }}
+            >
+              <span className={idx === page ? styles.activeDot : styles.dot} />
+            </button>
+          ))}
+        </div>
+      )}
     </section>
   );
 }

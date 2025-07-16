@@ -14,7 +14,7 @@ function AlbumCard({ image, caption, photoId, onDelete }) {
         <img
           src={image || '/image-placeholder.png'}
           alt={caption || 'Album'}
-          className="album-image"
+          className={styles.albumImage}
           onError={handleImageError}
           loading="lazy"
         />

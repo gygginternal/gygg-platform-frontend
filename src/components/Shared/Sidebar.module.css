@@ -104,10 +104,12 @@
 }
 
 .defaultIcon {
-  width: 1em;
-  height: 1em;
+  width: 1.5em;
+  height: 1.5em;
   flex-shrink: 0;
   filter: brightness(0) invert(0); /* Black icon for unselected */
+  object-fit: contain;
+  display: block;
 }
 
 .navItem.selected .defaultIcon {

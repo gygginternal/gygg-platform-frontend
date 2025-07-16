@@ -4,6 +4,7 @@ import { useToast } from '../../contexts/ToastContext';
 import apiClient from '../../api/axiosConfig';
 import styles from './BillingAndPayment.module.css';
 import BillingTable from '../../components/Billing/BillingTable';
+import { Filter } from 'lucide-react';
 
 function WithdrawModal({ open, onClose, available, onConfirm }) {
   const [custom, setCustom] = useState(false);
@@ -197,50 +198,47 @@ export default function BillingAndPayment() {
     contract: null,
   });
   const [unpaidContracts, setUnpaidContracts] = useState([]);
+  const [showFilters, setShowFilters] = useState(false);
 
   // Determine if user has both roles
   const isTasker = user?.role?.includes('tasker');
   const isProvider = user?.role?.includes('provider');
+
+  // Set payer/payee filter based on view and role
+  const payer = view === 'spent' && isProvider ? user?._id : undefined;
+  const payee = view === 'earned' && isTasker ? user?._id : undefined;
 
   // Move fetchPayments outside useEffect
   const fetchPayments = async () => {
     setLoading(true);
     setError('');
     try {
-      let url = '/payments?';
-      if (view === 'earned' && isTasker) {
-        url += `payee=${user._id}&`;
-      } else if (view === 'spent' && isProvider) {
-        url += `payer=${user._id}&`;
-      }
-      if (search) url += `search=${encodeURIComponent(search)}&`;
-      if (status && status !== 'all') url += `status=${status}&`;
-      if (type && type !== 'all') url += `type=${type}&`;
-      if (minAmount) url += `minAmount=${minAmount}&`;
-      if (maxAmount) url += `maxAmount=${maxAmount}&`;
-      const res = await apiClient.get(url);
+      const params = {
+        status: status !== 'all' ? status : undefined,
+        type: type !== 'all' ? type : undefined,
+        minAmount: minAmount || undefined,
+        maxAmount: maxAmount || undefined,
+        search: search || undefined,
+        payer,
+        payee,
+      };
+      Object.keys(params).forEach(
+        key => params[key] === undefined && delete params[key]
+      );
+      const res = await apiClient.get('/payments', { params });
       setTransactions(res.data.data.payments || []);
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to load payments.');
+      setError('Failed to fetch payments.');
+      setTransactions([]);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (user) fetchPayments();
+    fetchPayments();
     // eslint-disable-next-line
-  }, [
-    user,
-    view,
-    isTasker,
-    isProvider,
-    search,
-    status,
-    type,
-    minAmount,
-    maxAmount,
-  ]);
+  }, [status, type, minAmount, maxAmount, search]);
 
   // Calculate totals
   const total = _transactions.reduce((sum, p) => sum + (p.amount || 0), 0);
@@ -323,6 +321,92 @@ export default function BillingAndPayment() {
         onClose={() => setInvoiceModal({ open: false, payment: null })}
         payment={invoiceModal.payment}
       />
+      {/* Filter/Search bar at the top, like All Contracts */}
+      <div className={styles.searchAndFilters}>
+        <div className={styles.searchBar}>
+          <input
+            ref={searchInputRef}
+            type="text"
+            placeholder="Search payments..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className={styles.searchInput}
+          />
+          <button
+            className={styles.filterButton}
+            onClick={() => setShowFilters(!showFilters)}
+          >
+            <Filter className={styles.filterIcon} /> Filters
+          </button>
+        </div>
+        {showFilters && (
+          <div className={styles.filtersPanel}>
+            <div className={styles.filterSection}>
+              <h3>Status</h3>
+              <div className={styles.priceRangeList}>
+                {statusOptions.map(opt => (
+                  <button
+                    key={opt}
+                    className={`${styles.priceRangeButton} ${status === opt ? styles.selected : ''}`}
+                    onClick={() => setStatus(opt)}
+                  >
+                    {opt.charAt(0).toUpperCase() +
+                      opt.slice(1).replace(/_/g, ' ')}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className={styles.filterSection}>
+              <h3>Type</h3>
+              <div className={styles.priceRangeList}>
+                {typeOptions.map(opt => (
+                  <button
+                    key={opt}
+                    className={`${styles.priceRangeButton} ${type === opt ? styles.selected : ''}`}
+                    onClick={() => setType(opt)}
+                  >
+                    {opt.charAt(0).toUpperCase() + opt.slice(1)}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className={styles.filterSection}>
+              <h3>Amount Range</h3>
+              <div style={{ display: 'flex', gap: 12 }}>
+                <input
+                  type="number"
+                  placeholder="Min"
+                  value={minAmount}
+                  onChange={e => setMinAmount(e.target.value)}
+                  className={styles.searchInput}
+                  style={{ width: 100 }}
+                />
+                <input
+                  type="number"
+                  placeholder="Max"
+                  value={maxAmount}
+                  onChange={e => setMaxAmount(e.target.value)}
+                  className={styles.searchInput}
+                  style={{ width: 100 }}
+                />
+              </div>
+            </div>
+            <button
+              className={styles.clearFiltersButton}
+              onClick={() => {
+                setStatus('all');
+                setType('all');
+                setMinAmount('');
+                setMaxAmount('');
+                setSearch('');
+              }}
+            >
+              Clear All Filters
+            </button>
+          </div>
+        )}
+      </div>
+      {/* Card with summary and table below */}
       <div className={styles.card}>
         <div className={styles.summaryRow}>
           {isTasker && isProvider && (
@@ -364,153 +448,149 @@ export default function BillingAndPayment() {
             Withdrawal request submitted!
           </div>
         )}
-        <div className={styles.tableWrapper}>
-          {console.log('DEBUG _transactions:', _transactions)}
-          {console.log('DEBUG unpaidContracts:', unpaidContracts)}
-          <div>DEBUG unpaidContracts.length: {unpaidContracts.length}</div>
-          {_loading ? (
-            <div style={{ padding: '2rem', textAlign: 'center' }}>
-              Loading payments...
-            </div>
-          ) : _error ? (
-            <div style={{ padding: '2rem', color: 'red', textAlign: 'center' }}>
-              {_error}
-            </div>
-          ) : (
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>Hired by</th>
-                  <th>Date</th>
-                  <th>Contract detail</th>
-                  <th>Amount</th>
-                  <th>Invoice</th>
-                  {view === 'spent' && isProvider && <th>Release Payment</th>}
-                </tr>
-              </thead>
-              <tbody>
-                {_transactions.length === 0 && unpaidContracts.length > 0 ? (
-                  unpaidContracts.map((item, idx) => {
-                    const { contract, payment } = item;
-                    return (
-                      <tr key={contract.id || contract._id || idx}>
-                        <td>{contract.hiredBy || contract.provider || ''}</td>
-                        <td>
-                          {contract.started ||
-                            (contract.createdAt
-                              ? new Date(
-                                  contract.createdAt
-                                ).toLocaleDateString()
-                              : '')}
-                        </td>
-                        <td className={styles.contractDetail}>
-                          {contract.title || contract.gigTitle || 'N/A'}
-                        </td>
-                        <td>{contract.rate || contract.gigCost || 'N/A'}</td>
-                        <td>{payment ? payment.status || 'Pending' : '-'}</td>
-                        <td>
-                          {(!payment || payment.status !== 'succeeded') && (
-                            <button
-                              className={styles.releaseBtn}
-                              onClick={() =>
-                                setMakePaymentModal({ open: true, contract })
-                              }
-                            >
-                              Make Payment
-                            </button>
-                          )}
-                        </td>
-                      </tr>
-                    );
-                  })
-                ) : _transactions.length === 0 ? (
-                  <tr>
-                    <td
-                      colSpan={view === 'earned' ? 5 : 7}
-                      style={{ textAlign: 'center', color: '#888' }}
-                    >
-                      No payments found.
-                    </td>
-                  </tr>
-                ) : (
-                  _transactions.map((inv, idx) => (
-                    <tr key={inv._id || idx}>
+        {console.log('DEBUG _transactions:', _transactions)}
+        {console.log('DEBUG unpaidContracts:', unpaidContracts)}
+        <div>DEBUG unpaidContracts.length: {unpaidContracts.length}</div>
+        {_loading ? (
+          <div style={{ padding: '2rem', textAlign: 'center' }}>
+            Loading payments...
+          </div>
+        ) : _error ? (
+          <div style={{ padding: '2rem', color: 'red', textAlign: 'center' }}>
+            {_error}
+          </div>
+        ) : (
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Hired by</th>
+                <th>Date</th>
+                <th>Contract detail</th>
+                <th>Amount</th>
+                <th>Invoice</th>
+                {view === 'spent' && isProvider && <th>Release Payment</th>}
+              </tr>
+            </thead>
+            <tbody>
+              {_transactions.length === 0 && unpaidContracts.length > 0 ? (
+                unpaidContracts.map((item, idx) => {
+                  const { contract, payment } = item;
+                  return (
+                    <tr key={contract.id || contract._id || idx}>
+                      <td>{contract.hiredBy || contract.provider || ''}</td>
                       <td>
-                        {inv.payer?.firstName || ''} {inv.payer?.lastName || ''}
-                      </td>
-                      <td>
-                        {inv.createdAt
-                          ? new Date(inv.createdAt).toLocaleDateString()
-                          : ''}
+                        {contract.started ||
+                          (contract.createdAt
+                            ? new Date(contract.createdAt).toLocaleDateString()
+                            : '')}
                       </td>
                       <td className={styles.contractDetail}>
-                        {inv.contract?.title || inv.gig?.title || 'N/A'}
+                        {contract.title || contract.gigTitle || 'N/A'}
                       </td>
-                      <td
-                        style={{
-                          color: view === 'earned' ? '#1db954' : '#e53935',
-                          fontWeight: 600,
+                      <td>{contract.rate || contract.gigCost || 'N/A'}</td>
+                      <td>{payment ? payment.status || 'Pending' : '-'}</td>
+                      <td>
+                        {(!payment || payment.status !== 'succeeded') && (
+                          <button
+                            className={styles.releaseBtn}
+                            onClick={() =>
+                              setMakePaymentModal({ open: true, contract })
+                            }
+                          >
+                            Make Payment
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : _transactions.length === 0 ? (
+                <tr>
+                  <td
+                    colSpan={view === 'earned' ? 5 : 7}
+                    style={{ textAlign: 'center', color: '#888' }}
+                  >
+                    No payments found.
+                  </td>
+                </tr>
+              ) : (
+                _transactions.map((inv, idx) => (
+                  <tr key={inv._id || idx}>
+                    <td>
+                      {inv.payer?.firstName || ''} {inv.payer?.lastName || ''}
+                    </td>
+                    <td>
+                      {inv.createdAt
+                        ? new Date(inv.createdAt).toLocaleDateString()
+                        : ''}
+                    </td>
+                    <td className={styles.contractDetail}>
+                      {inv.contract?.title || inv.gig?.title || 'N/A'}
+                    </td>
+                    <td
+                      style={{
+                        color: view === 'earned' ? '#1db954' : '#e53935',
+                        fontWeight: 600,
+                      }}
+                    >
+                      {view === 'earned' ? '+' : '-'}$
+                      {((inv.amount || 0) / 100).toFixed(2)}
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        className={styles.viewLink}
+                        onClick={e => {
+                          e.preventDefault();
+                          setInvoiceModal({ open: true, payment: inv });
                         }}
                       >
-                        {view === 'earned' ? '+' : '-'}$
-                        {((inv.amount || 0) / 100).toFixed(2)}
-                      </td>
-                      <td>
-                        <button
-                          type="button"
-                          className={styles.viewLink}
-                          onClick={e => {
-                            e.preventDefault();
-                            setInvoiceModal({ open: true, payment: inv });
-                          }}
-                        >
-                          View
-                        </button>
-                      </td>
-                      {/* Make Payment button for providers in 'spent' view, status 'active' or 'submitted' */}
-                      {view === 'spent' &&
-                        sessionRole === 'provider' &&
-                        inv.contract &&
-                        ['active', 'submitted'].includes(
-                          inv.contract.status?.toLowerCase()
-                        ) && (
-                          <td>
-                            <button
-                              className={styles.releaseBtn}
-                              onClick={() =>
-                                setMakePaymentModal({
-                                  open: true,
-                                  contract: inv.contract,
-                                })
-                              }
-                            >
-                              Make Payment
-                            </button>
-                          </td>
-                        )}
-                      {/* Release Payment button for providers in 'spent' view, status 'submitted' */}
-                      {view === 'spent' &&
-                        sessionRole === 'provider' &&
-                        inv.contract &&
-                        inv.contract.status?.toLowerCase() === 'submitted' && (
-                          <td>
-                            <button
-                              className={styles.releaseBtn}
-                              onClick={() =>
-                                setReleaseModal({ open: true, payment: inv })
-                              }
-                            >
-                              Release Payment
-                            </button>
-                          </td>
-                        )}
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          )}
-        </div>
+                        View
+                      </button>
+                    </td>
+                    {/* Make Payment button for providers in 'spent' view, status 'active' or 'submitted' */}
+                    {view === 'spent' &&
+                      sessionRole === 'provider' &&
+                      inv.contract &&
+                      ['active', 'submitted'].includes(
+                        inv.contract.status?.toLowerCase()
+                      ) && (
+                        <td>
+                          <button
+                            className={styles.releaseBtn}
+                            onClick={() =>
+                              setMakePaymentModal({
+                                open: true,
+                                contract: inv.contract,
+                              })
+                            }
+                          >
+                            Make Payment
+                          </button>
+                        </td>
+                      )}
+                    {/* Release Payment button for providers in 'spent' view, status 'submitted' */}
+                    {view === 'spent' &&
+                      sessionRole === 'provider' &&
+                      inv.contract &&
+                      inv.contract.status?.toLowerCase() === 'submitted' && (
+                        <td>
+                          <button
+                            className={styles.releaseBtn}
+                            onClick={() =>
+                              setReleaseModal({ open: true, payment: inv })
+                            }
+                          >
+                            Release Payment
+                          </button>
+                        </td>
+                      )}
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        )}
       </div>
       {/* Release Payment Modal */}
       {releaseModal.open && releaseModal.payment && (

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import { useAuth } from '../../contexts/AuthContext';
-import socket from '../../socket';
+import { useSocket } from '../../contexts/SocketContext';
 import apiClient from '../../api/axiosConfig';
 import PropTypes from 'prop-types';
 
@@ -28,31 +28,7 @@ function Sidebar({ isOpen }) {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, sessionRole } = useAuth();
-  const [unreadMessageCount, setUnreadMessageCount] = useState(0);
-
-  React.useEffect(() => {
-    if (!user) return;
-    // Fetch unread count on mount
-    const fetchUnreadCount = async () => {
-      try {
-        const unreadResponse = await apiClient.get('/chat/unread-count');
-        setUnreadMessageCount(unreadResponse.data.data.unreadCount);
-      } catch (error) {
-        setUnreadMessageCount(0);
-      }
-    };
-    fetchUnreadCount();
-
-    socket.emit('subscribeToNotifications', { userId: user._id });
-    socket.on('chat:newMessage', fetchUnreadCount);
-    socket.on('chat:unreadCountUpdated', fetchUnreadCount);
-
-    return () => {
-      socket.emit('unsubscribeFromNotifications', { userId: user._id });
-      socket.off('chat:newMessage', fetchUnreadCount);
-      socket.off('chat:unreadCountUpdated', fetchUnreadCount);
-    };
-  }, [user]);
+  const { unreadCount } = useSocket();
 
   const getSelectedItem = path => {
     if (path === location.pathname) return true;
@@ -67,7 +43,7 @@ function Sidebar({ isOpen }) {
       path: '/messages',
       icon: '/assets/messages.svg',
       text: 'Messages',
-      unread: unreadMessageCount > 0,
+      unread: unreadCount > 0,
     },
     {
       key: 'contracts',
