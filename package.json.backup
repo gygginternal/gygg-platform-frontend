@@ -2,14 +2,22 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "dependencies": {
+    "@babel/plugin-transform-class-properties": "^7.27.1",
+    "@babel/plugin-transform-private-methods": "^7.27.1",
     "@headlessui/react": "^2.2.4",
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-toggle": "^1.1.9",
     "@stripe/react-stripe-js": "^3.6.0",
     "@stripe/stripe-js": "^7.2.0",
     "@tanstack/react-query": "^5.79.0",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/socket.io-client": "^1.4.36",
+    "@types/styled-components": "^5.1.34",
     "antd": "^5.25.4",
     "axios": "^1.10.0",
     "class-variance-authority": "^0.7.1",
@@ -22,6 +30,7 @@
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^6.25.1",
+    "react-scripts": "5.0.1",
     "rimraf": "^6.0.1",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
@@ -31,15 +40,19 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev": "vite",
-    "start": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "test": "vitest",
-    "test:ui": "vitest --ui",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "lint": "eslint src --ext .js,.jsx --fix",
     "lint:check": "eslint src --ext .js,.jsx",
     "format": "prettier --write src/**/*.{js,jsx,css,md}"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
@@ -54,26 +67,13 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "@types/react-router-dom": "^5.3.3",
-    "@types/socket.io-client": "^1.4.36",
-    "@types/styled-components": "^5.1.34",
-    "@vitejs/plugin-react-swc": "^3.10.2",
-    "eslint": "^8.57.1",
+    "@babel/eslint-parser": "^7.24.1",
+    "@babel/preset-react": "^7.24.1",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.5.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.16",
-    "jsdom": "^25.0.1",
-    "prettier": "^3.5.3",
-    "vite": "^6.0.5",
-    "vitest": "^2.1.8"
+    "prettier": "^3.5.3"
   }
 }

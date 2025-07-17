@@ -3,7 +3,7 @@ import axios from 'axios';
 const getToken = () => localStorage.getItem('authToken');
 
 const apiClient = axios.create({
-  baseURL: process.env.REACT_APP_BACKEND_URL,
+  baseURL: import.meta.env.VITE_BACKEND_URL,
   headers: { 'Content-Type': 'application/json' },
 });
 

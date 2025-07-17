@@ -16,9 +16,10 @@ import Toggle from '../../components/Shared/Toggle';
 import { StatusBadge } from '../../components/Shared/StatusBadge'; // Adjust the import path
 import BillingAndPayment from '../BillingAndPayment/BillingAndPayment';
 import { CATEGORY_ENUM } from '../../constants/categories';
-import { Search, Filter, DollarSign } from 'lucide-react';
+import { Search, Filter, DollarSign, User } from 'lucide-react';
 import { useToast } from '../../contexts/ToastContext';
 import { useAuth } from '../../contexts/AuthContext';
+import ContractCard from '../../components/ContractsPage/ContractCard';
 
 export const ContractsContext = createContext();
 export function useContracts() {
@@ -314,6 +315,62 @@ function ContractsPage() {
           <main
             className={`${styles.mainFeedArea} ${styles.mainFeedAreaMarginLeft}`}
           >
+            {/* Dashboard Header */}
+            <div className={styles.dashboardHeader}>
+              <div className={styles.headerContent}>
+                <div className={styles.headerIcon}>
+                  <DollarSign size={24} />
+                </div>
+                <div>
+                  <h1 className={styles.dashboardTitle}>
+                    Contracts Dashboard
+                  </h1>
+                  <p className={styles.dashboardSubtitle}>
+                    Track and manage your active and completed contracts
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Stats Cards */}
+            {activeTab === 'contracts' && (
+              <div className={styles.statsGrid}>
+                <div className={styles.statCard}>
+                  <div className={styles.statNumber}>{contracts.length}</div>
+                  <div className={styles.statLabel}>Total</div>
+                  <div className={styles.statDot} style={{ backgroundColor: '#2196f3' }}></div>
+                </div>
+                <div className={styles.statCard}>
+                  <div className={styles.statNumber}>
+                    {contracts.filter(c => c.status?.toLowerCase() === 'active').length}
+                  </div>
+                  <div className={styles.statLabel}>Active</div>
+                  <div className={styles.statDot} style={{ backgroundColor: '#4caf50' }}></div>
+                </div>
+                <div className={styles.statCard}>
+                  <div className={styles.statNumber}>
+                    {contracts.filter(c => c.status?.toLowerCase() === 'completed').length}
+                  </div>
+                  <div className={styles.statLabel}>Completed</div>
+                  <div className={styles.statDot} style={{ backgroundColor: '#2196f3' }}></div>
+                </div>
+                <div className={styles.statCard}>
+                  <div className={styles.statNumber}>
+                    {contracts.filter(c => c.status?.toLowerCase().includes('cancelled')).length}
+                  </div>
+                  <div className={styles.statLabel}>Cancelled</div>
+                  <div className={styles.statDot} style={{ backgroundColor: '#f44336' }}></div>
+                </div>
+                <div className={styles.statCard}>
+                  <div className={styles.statNumber}>
+                    {contracts.filter(c => c.status?.toLowerCase() === 'pending_payment').length}
+                  </div>
+                  <div className={styles.statLabel}>Pending Payment</div>
+                  <div className={styles.statDot} style={{ backgroundColor: '#9c27b0' }}></div>
+                </div>
+              </div>
+            )}
+            
             <TabNavigation
               activeTab={activeTab}
               onTabChange={setActiveTab}
@@ -402,70 +459,39 @@ function ContractsPage() {
             )}
             {activeTab === 'contracts' && (
               <>
-                <div className={styles.contractsCard}>
-                  <div className={styles.contractsList}>
-                    {filteredContracts.length === 0 ? (
-                      <div className={styles.emptyState}>
-                        No contracts found.
+                <div className={styles.applicationsList}>
+                  {filteredContracts.length === 0 ? (
+                    <div className={styles.emptyState}>
+                      <div className={styles.emptyIcon}>
+                        <DollarSign size={48} />
                       </div>
-                    ) : (
-                      filteredContracts.map((contract, index) => (
-                        <div
-                          key={contract.id}
-                          className={styles.contractRow}
-                          onClick={() => {
-                            console.log('Contract row clicked:', contract);
-                            setModalContract(contract);
-                            setIsModalOpen(true);
-                          }}
-                          onKeyDown={e => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                              setModalContract(contract);
-                              setIsModalOpen(true);
-                            }
-                          }}
-                          tabIndex={0}
-                          role="button"
-                          aria-expanded={false}
-                        >
-                          <div className={styles.contractMain}>
-                            <div className={styles.contractTitle}>
-                              {contract.title}
-                            </div>
-                            <div className={styles.contractDetailsRow}>
-                              <span className={styles.contractDetailLabel}>
-                                Hired by <b>{contract.hiredBy}</b>
-                              </span>
-                              <span className={styles.contractDetailLabel}>
-                                Rate{' '}
-                                <span className={styles.contractRate}>
-                                  {contract.rate}
-                                </span>
-                              </span>
-                              <StatusBadge status={contract.status} />
-                            </div>
-                            <div className={styles.contractDetailsRow}>
-                              <span className={styles.contractDetailLabel}>
-                                Contract ID {contract.contractId}
-                              </span>
-                              <span className={styles.contractDetailLabel}>
-                                Earned{' '}
-                                <span className={styles.contractEarned}>
-                                  {contract.earned}
-                                </span>
-                              </span>
-                              <span className={styles.contractStarted}>
-                                Started {contract.started}
-                              </span>
-                            </div>
-                          </div>
-                          {index !== filteredContracts.length - 1 && (
-                            <div className={styles.contractDivider} />
-                          )}
-                        </div>
-                      ))
-                    )}
-                  </div>
+                      <h3>No Contracts Found</h3>
+                      <p>You don't have any contracts matching your current filters.</p>
+                    </div>
+                  ) : (
+                    filteredContracts.map((contract) => (
+                      <ContractCard
+                        key={contract.id}
+                        contract={{
+                          id: contract.id,
+                          title: contract.title,
+                          hiredBy: contract.hiredBy,
+                          contractId: contract.contractId,
+                          status: contract.status,
+                          rate: contract.rate,
+                          earned: contract.earned,
+                          started: contract.started,
+                          location: contract.location,
+                          duration: contract.duration,
+                          category: contract.category
+                        }}
+                        onClick={() => {
+                          setModalContract(contract);
+                          setIsModalOpen(true);
+                        }}
+                      />
+                    ))
+                  )}
                 </div>
               </>
             )}

@@ -32,7 +32,7 @@ export const SocketProvider = ({ children }) => {
     if (!isLoading && user) {
       console.log('[Socket] Entering socket creation block.');
       const newSocket = io(
-        (process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000').replace(
+        (import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000').replace(
           '/api/v1',
           ''
         ),

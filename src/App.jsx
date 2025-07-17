@@ -10,7 +10,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './client';
 import styles from './App.module.css'; // Import CSS Modules
 import { ToastProvider } from './contexts/ToastContext';
-import ThemeProvider from './styles/ThemeProvider';
+import ThemeProvider from './styles/ThemeProvider.jsx';
 import './styles/global.css';
 import { SocketProvider } from './contexts/SocketContext';
 import Navigation from './components/Navigation';

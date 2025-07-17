@@ -1,0 +1,238 @@
+/* ContractCard.module.css */
+.contractCard {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  margin-bottom: 16px;
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.contractCard:hover {
+  border-color: #d1d5db;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.contractCard:focus {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+/* Card Header */
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.categorySection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.categoryInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.categoryName {
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  letter-spacing: 0.5px;
+}
+
+.statusBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  text-transform: capitalize;
+}
+
+/* Contract Title */
+.contractTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+/* Client Info */
+.clientInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.clientAvatar {
+  width: 32px;
+  height: 32px;
+  background: #6366f1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.clientDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.clientName {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.timeInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.timeInfo span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Contract Details */
+.contractDetails {
+  margin-bottom: 16px;
+}
+
+.contractId {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.contractId span {
+  font-family: monospace;
+  color: #4b5563;
+  background: #f3f4f6;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+/* Card Footer */
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.locationPrice {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.location, .duration {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.priceSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.amount {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.earned {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.earnedAmount {
+  font-weight: 700;
+  color: #f59e0b;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+  .contractCard {
+    padding: 20px;
+  }
+
+  .contractTitle {
+    font-size: 16px;
+  }
+
+  .clientInfo {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .timeInfo {
+    margin-left: 0;
+    margin-top: 8px;
+    flex-basis: 100%;
+  }
+
+  .cardFooter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .priceSection {
+    align-items: flex-start;
+    width: 100%;
+  }
+}

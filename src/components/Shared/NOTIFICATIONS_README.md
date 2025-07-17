@@ -304,7 +304,7 @@ Enable debug logging:
 
 ```javascript
 // In NotificationDropdown.js
-const DEBUG = process.env.NODE_ENV === 'development';
+const DEBUG = import.meta.env.DEV;
 
 if (DEBUG) {
   console.log('Notifications:', notifications);

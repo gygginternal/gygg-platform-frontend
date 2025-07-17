@@ -12,19 +12,14 @@
     "plugin:jsx-a11y/recommended",
     "plugin:prettier/recommended"
   ],
-  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
     "ecmaVersion": "latest",
-    "sourceType": "module",
-    "requireConfigFile": false,
-    "babelOptions": {
-      "presets": ["@babel/preset-react"]
-    }
+    "sourceType": "module"
   },
-  "plugins": ["react", "jsx-a11y", "prettier"],
+  "plugins": ["react", "react-refresh", "jsx-a11y", "prettier"],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "warn",
@@ -68,6 +63,10 @@
         "semi": true,
         "printWidth": 80
       }
+    ],
+    "react-refresh/only-export-components": [
+      "warn",
+      { "allowConstantExport": true }
     ]
   },
   "settings": {

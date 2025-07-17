@@ -225,6 +225,15 @@
   .sidebarArea {
     width: 15rem;
   }
+  
+  .statsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .statsGrid .statCard:nth-child(4),
+  .statsGrid .statCard:nth-child(5) {
+    grid-column: span 1;
+  }
 }
 
 @media (max-width: 768px) {
@@ -239,6 +248,31 @@
   }
   .sidebarArea {
     margin-bottom: 1rem;
+  }
+  
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .statCard {
+    padding: 16px;
+  }
+  
+  .statNumber {
+    font-size: 28px;
+  }
+  
+  .dashboardHeader {
+    padding: 20px;
+  }
+  
+  .headerIcon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .dashboardTitle {
+    font-size: 20px;
   }
 }
 
@@ -260,6 +294,42 @@
   .mainFeedArea {
     width: 100% !important;
     min-width: 0;
+  }
+  
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .statCard {
+    padding: 16px;
+  }
+  
+  .statNumber {
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+  
+  .statLabel {
+    font-size: 12px;
+  }
+  
+  .dashboardHeader {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .headerIcon {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .dashboardTitle {
+    font-size: 18px;
+  }
+  
+  .dashboardSubtitle {
+    font-size: 12px;
   }
 }
 
@@ -350,6 +420,167 @@
 .contractDivider {
   border-bottom: 1.5px solid #f0f2f5;
   margin: 0.5rem 0 0 0;
+}
+
+/* Applied Gigs style for Contracts Page */
+.applicationsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+/* Empty state styling */
+.emptyState {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 16px;
+  padding: 64px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  margin-top: 24px;
+}
+
+.emptyState h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+}
+
+.emptyState p {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+.emptyIcon {
+  color: #d1d5db;
+  margin-bottom: 8px;
+}
+
+/* Dashboard Header */
+.dashboardHeader {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e5e7eb;
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.headerIcon {
+  width: 48px;
+  height: 48px;
+  background: #6366f1;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.dashboardTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.dashboardSubtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 4px 0 0 0;
+}
+
+/* Stats Grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.statCard {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #e5e7eb;
+  position: relative;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.statNumber {
+  font-size: 32px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.statLabel {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.statDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+/* Animation for stats cards */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.statCard:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.statCard:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.statCard:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.statCard:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.statCard:nth-child(5) {
+  animation-delay: 0.5s;
 }
 
 /* Search bar polish */

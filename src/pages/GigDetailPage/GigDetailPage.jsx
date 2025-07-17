@@ -7,7 +7,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import ContractDetailsPage from '../ContractDetailsPage/ContractDetailsPage';
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 function GigDetailPage() {
   const { gigId } = useParams(); // Get gigId from URL
