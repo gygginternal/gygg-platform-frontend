@@ -4,7 +4,7 @@ import { useToast } from '../../contexts/ToastContext';
 import apiClient from '../../api/axiosConfig';
 import styles from './BillingAndPayment.module.css';
 import BillingTable from '../../components/Billing/BillingTable';
-import { Filter } from 'lucide-react';
+import { Filter, Search } from 'lucide-react';
 
 function WithdrawModal({ open, onClose, available, onConfirm }) {
   const [custom, setCustom] = useState(false);
@@ -321,9 +321,9 @@ export default function BillingAndPayment() {
         onClose={() => setInvoiceModal({ open: false, payment: null })}
         payment={invoiceModal.payment}
       />
-      {/* Filter/Search bar at the top, like All Contracts */}
       <div className={styles.searchAndFilters}>
         <div className={styles.searchBar}>
+          <Search className={styles.searchIcon} />
           <input
             ref={searchInputRef}
             type="text"

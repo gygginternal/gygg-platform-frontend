@@ -604,30 +604,41 @@
 .searchAndFilters {
   background: white;
   border-radius: 0.75rem;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-top: 0.75rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .searchBar {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
+  position: relative;
+  width: 100%;
 }
 
 .searchIcon {
   color: #666;
   width: 1.25rem;
   height: 1.25rem;
+  position: absolute;
+  left: 1rem;
 }
 
 .searchInput {
   flex: 1;
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 1rem 0.5rem 2.75rem;
   border: 1px solid #ddd;
   border-radius: 0.5rem;
   font-size: 0.875rem;
   transition: border-color 0.2s;
+  height: 2.25rem;
 }
 
 .searchInput:focus {
@@ -639,7 +650,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 1rem;
   background: #f8f9fa;
   border: 1px solid #ddd;
   border-radius: 0.5rem;
@@ -647,6 +658,7 @@
   font-size: 0.875rem;
   cursor: pointer;
   transition: all 0.2s;
+  height: 2.25rem;
 }
 
 .filterButton:hover {
