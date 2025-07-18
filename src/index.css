@@ -2,6 +2,12 @@
 /* Google Fonts import */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+/* Import responsive design system */
+@import './styles/responsive.css';
+
+/* Import container queries */
+@import './styles/container-queries.css';
+
 /* Basic CSS Reset & Box-Sizing */
 *,
 *::before,

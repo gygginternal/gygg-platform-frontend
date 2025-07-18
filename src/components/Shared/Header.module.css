@@ -624,3 +624,399 @@
 .notificationItemBtn {
   color: #000 !important;
 }
+
+/* Modern Notification System Styles */
+.notificationContainer {
+  position: relative;
+  display: inline-block;
+}
+
+/* Modern Notification Bell Button */
+.notificationButton {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notificationButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.notificationButton.active {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.notificationButton.hasUnread {
+  color: #ffffff;
+}
+
+.notificationButton.hasUnread:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.bellIcon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.notificationButton:hover .bellIcon {
+  transform: rotate(15deg);
+}
+
+.notificationButton.hasUnread .bellIcon {
+  animation: bellShake 2s ease-in-out infinite;
+}
+
+/* Notification Badge */
+.notificationBadge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  border-radius: 50%;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #3d4d55;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.badgeCount {
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0 2px;
+}
+
+/* Notification Pulse */
+.notificationPulse {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ff6b6b;
+  opacity: 0.6;
+  animation: pulse 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Modern Dropdown */
+.modernNotificationDropdown {
+  position: absolute;
+  z-index: 1000;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  width: 380px;
+  max-width: 90vw;
+  max-height: 80vh;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  animation: slideIn 0.2s ease-out;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+}
+
+/* Modern Actions */
+.modernActions {
+  padding: 12px 24px;
+  border-bottom: 1px solid #f0f0f0;
+  background: #f8f9fa;
+}
+
+.modernMarkAllReadBtn {
+  background: none;
+  border: none;
+  color: #667eea;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: color 0.2s ease;
+}
+
+.modernMarkAllReadBtn:hover {
+  color: #5a6fd8;
+  text-decoration: underline;
+}
+
+/* Modern Notifications List */
+.modernNotificationsList {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e0 transparent;
+  max-height: 400px;
+}
+
+.modernNotificationsList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modernNotificationsList::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modernNotificationsList::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 3px;
+}
+
+.modernNotificationsList::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+/* Modern Notification Item */
+.modernNotificationItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 24px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.modernNotificationItem:hover {
+  background: #f8f9fa;
+}
+
+.modernNotificationItem:last-child {
+  border-bottom: none;
+}
+
+.modernNotificationItem.modernUnread {
+  background: linear-gradient(90deg, rgba(102, 126, 234, 0.02) 0%, rgba(255, 255, 255, 1) 100%);
+  border-left: 3px solid #667eea;
+}
+
+.modernNotificationItem.modernUnread:hover {
+  background: linear-gradient(90deg, rgba(102, 126, 234, 0.05) 0%, rgba(248, 249, 250, 1) 100%);
+}
+
+/* Modern Notification Icon */
+.modernNotificationIcon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.modernNotificationIcon .avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.iconFallback {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  border-radius: 50%;
+}
+
+/* Modern Notification Content */
+.modernNotificationContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.notificationText {
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.modernMessage {
+  font-weight: 400;
+  color: #4a5568;
+  font-size: 14px;
+}
+
+.notificationMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.modernTimestamp {
+  font-size: 12px;
+  color: #a0aec0;
+}
+
+/* Modern Unread Indicator */
+.modernUnreadIndicator {
+  width: 8px;
+  height: 8px;
+  background: #667eea;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+/* Modern Empty State */
+.modernEmptyState {
+  text-align: center;
+  padding: 60px 24px;
+  color: #a0aec0;
+}
+
+.emptyIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.modernEmptyState p {
+  font-size: 16px;
+  font-weight: 500;
+  color: #4a5568;
+  margin: 0 0 8px 0;
+}
+
+.modernEmptyState span {
+  font-size: 14px;
+  color: #a0aec0;
+}
+
+
+
+/* Animations */
+@keyframes bellShake {
+  0%, 50%, 100% {
+    transform: rotate(0deg);
+  }
+  10%, 30% {
+    transform: rotate(15deg);
+  }
+  20%, 40% {
+    transform: rotate(-15deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Focus styles for accessibility */
+.notificationButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+/* Responsive Design for Modern Notifications */
+@media (max-width: 480px) {
+  .modernNotificationDropdown {
+    width: calc(100vw - 20px);
+    left: 10px !important;
+    right: 10px !important;
+    top: 60px !important;
+  }
+  
+  .modernHeader {
+    padding: 16px 20px 12px;
+  }
+  
+  .headerTitle h3 {
+    font-size: 16px;
+  }
+  
+  .modernNotificationItem {
+    padding: 12px 20px;
+    gap: 10px;
+  }
+  
+  .modernNotificationIcon {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .iconFallback {
+    font-size: 16px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .modernNotificationDropdown {
+    animation: none;
+  }
+  
+  .modernNotificationItem,
+  .modernCloseButton,
+  .modernMarkAllReadBtn,
+  .modernViewAllBtn {
+    transition: none;
+  }
+  
+  .modernViewAllBtn:hover {
+    transform: none;
+  }
+  
+  .notificationButton.hasUnread .bellIcon {
+    animation: none;
+  }
+  
+  .notificationPulse {
+    animation: none;
+    opacity: 0.6;
+  }
+  
+  .notificationButton:hover .bellIcon {
+    transform: none;
+  }
+}

@@ -1,0 +1,165 @@
+/* Virtualized List Styles */
+.virtualized-list {
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+}
+
+.virtualized-list-inner {
+  position: relative;
+  width: 100%;
+}
+
+.virtualized-list-item {
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  background: white;
+  transition: background-color 0.2s ease;
+}
+
+.virtualized-list-item:hover {
+  background: #f8f9fa;
+}
+
+.virtualized-list-item:last-child {
+  border-bottom: none;
+}
+
+.virtualized-list-scrolling .virtualized-list-item {
+  pointer-events: none;
+}
+
+.virtualized-list-loading {
+  padding: 1rem;
+  background: #f8f9fa;
+  border-top: 1px solid #e0e0e0;
+}
+
+.loading-spinner-small {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  margin-right: 0.5rem;
+}
+
+.loading-spinner-small .spinner-ring {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top-color: #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading-text {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+/* Custom scrollbar */
+.virtualized-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.virtualized-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.virtualized-list::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.virtualized-list::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Firefox scrollbar */
+.virtualized-list {
+  scrollbar-width: thin;
+  scrollbar-color: #c1c1c1 #f1f1f1;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 575.98px) {
+  .virtualized-list-item {
+    padding: 0 0.5rem;
+  }
+  
+  .loading-text {
+    font-size: 0.75rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .virtualized-list {
+    background: #1a1a1a;
+    border-color: #404040;
+  }
+  
+  .virtualized-list-item {
+    background: #1a1a1a;
+    border-color: #2d2d2d;
+    color: #ffffff;
+  }
+  
+  .virtualized-list-item:hover {
+    background: #2d2d2d;
+  }
+  
+  .virtualized-list-loading {
+    background: #2d2d2d;
+    border-color: #404040;
+  }
+  
+  .loading-text {
+    color: #b3b3b3;
+  }
+  
+  .virtualized-list::-webkit-scrollbar-track {
+    background: #2d2d2d;
+  }
+  
+  .virtualized-list::-webkit-scrollbar-thumb {
+    background: #555;
+  }
+  
+  .virtualized-list::-webkit-scrollbar-thumb:hover {
+    background: #777;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .virtualized-list {
+    border-width: 2px;
+  }
+  
+  .virtualized-list-item {
+    border-bottom-width: 2px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .virtualized-list-item {
+    transition: none;
+  }
+  
+  .loading-spinner-small .spinner-ring {
+    animation: none;
+  }
+}

@@ -15,21 +15,24 @@ export const SocketProvider = ({ children }) => {
   const [notification, setNotification] = useState(null);
   const [notifications, setNotifications] = useState([]); // New: notifications array
   const [updatedMessage, setUpdatedMessage] = useState(null);
-  const { user, isLoading } = useAuth();
+  const { user, authToken, isLoading } = useAuth();
   const newMessageHandlers = useRef([]);
   const messageUpdateHandlers = useRef([]);
 
   console.log('[Socket] User in SocketContext:', user);
+  console.log('[Socket] AuthToken in SocketContext:', authToken);
 
   useEffect(() => {
     console.log(
       '[Socket] useEffect running. isLoading:',
       isLoading,
       'user:',
-      user
+      user,
+      'authToken:',
+      authToken
     );
     console.log('[Socket] useEffect before if (!isLoading && user)');
-    if (!isLoading && user) {
+    if (!isLoading && user && authToken) {
       console.log('[Socket] Entering socket creation block.');
       const newSocket = io(
         (import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000').replace(
@@ -47,7 +50,7 @@ export const SocketProvider = ({ children }) => {
           withCredentials: true,
           forceNew: true,
           auth: {
-            token: user.token,
+            token: authToken,
           },
         }
       );
@@ -136,7 +139,7 @@ export const SocketProvider = ({ children }) => {
         newSocket.disconnect();
       };
     }
-  }, [user, isLoading]);
+  }, [user, authToken, isLoading]);
 
   // Register/unregister handler functions
   const registerNewMessageHandler = handler => {

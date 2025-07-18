@@ -274,6 +274,11 @@ function Post({ post, onPostUpdate }) {
     setVisibleCommentsCount(prev => prev + 10);
   };
 
+  // Handler to show less comments (back to 3)
+  const handleSeeLessComments = () => {
+    setVisibleCommentsCount(3);
+  };
+
   // Handler for toggling post menu
   const handlePostMenuToggle = () => setShowPostMenu(prev => !prev);
   const handleClosePostMenu = () => setShowPostMenu(false);
@@ -498,12 +503,23 @@ function Post({ post, onPostUpdate }) {
                   </div>
                 </div>
               ))}
+              {/* Show "See more comments" button when there are more comments to show */}
               {visibleCommentsCount < comments.length && (
                 <button
                   onClick={handleSeeMoreComments}
                   className={styles.viewAllComments}
                 >
                   See more comments
+                </button>
+              )}
+              
+              {/* Show "See less comments" button when showing more than 3 comments */}
+              {visibleCommentsCount > 3 && comments.length > 3 && (
+                <button
+                  onClick={handleSeeLessComments}
+                  className={styles.viewAllComments}
+                >
+                  See less comments
                 </button>
               )}
             </div>

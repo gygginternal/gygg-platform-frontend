@@ -1,0 +1,189 @@
+/* Infinite Scroll Styles */
+.infinite-scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  transition: transform 0.2s ease-out;
+}
+
+.infinite-scroll-reverse {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.infinite-scroll-content {
+  flex: 1;
+}
+
+.infinite-scroll-loader {
+  padding: 1rem;
+  text-align: center;
+  background: #f8f9fa;
+  border-top: 1px solid #e0e0e0;
+}
+
+.infinite-scroll-reverse .infinite-scroll-loader {
+  border-top: none;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.infinite-scroll-end {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #6c757d;
+  font-size: 0.875rem;
+  background: #f8f9fa;
+  border-top: 1px solid #e0e0e0;
+}
+
+.infinite-scroll-end p {
+  margin: 0;
+}
+
+.pull-to-refresh-indicator {
+  position: absolute;
+  top: -60px;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
+  z-index: 10;
+}
+
+.refresh-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+  transition: transform 0.2s ease;
+}
+
+.refresh-icon.ready {
+  transform: rotate(180deg);
+}
+
+.infinite-scroll-refreshing .refresh-icon {
+  animation: spin 1s linear infinite;
+}
+
+.refresh-text {
+  font-size: 0.75rem;
+  color: #6c757d;
+  text-align: center;
+}
+
+/* Custom scrollbar */
+.infinite-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.infinite-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.infinite-scroll::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.infinite-scroll::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Firefox scrollbar */
+.infinite-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #c1c1c1 #f1f1f1;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 575.98px) {
+  .infinite-scroll-loader {
+    padding: 0.75rem;
+  }
+  
+  .infinite-scroll-end {
+    padding: 1.5rem 0.75rem;
+  }
+  
+  .pull-to-refresh-indicator {
+    height: 50px;
+    top: -50px;
+  }
+  
+  .refresh-icon {
+    font-size: 1.25rem;
+  }
+  
+  .refresh-text {
+    font-size: 0.625rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .infinite-scroll-loader {
+    background: #2d2d2d;
+    border-color: #404040;
+  }
+  
+  .infinite-scroll-end {
+    background: #2d2d2d;
+    border-color: #404040;
+    color: #b3b3b3;
+  }
+  
+  .pull-to-refresh-indicator {
+    background: #2d2d2d;
+    border-color: #404040;
+  }
+  
+  .refresh-text {
+    color: #b3b3b3;
+  }
+  
+  .infinite-scroll::-webkit-scrollbar-track {
+    background: #2d2d2d;
+  }
+  
+  .infinite-scroll::-webkit-scrollbar-thumb {
+    background: #555;
+  }
+  
+  .infinite-scroll::-webkit-scrollbar-thumb:hover {
+    background: #777;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .infinite-scroll-loader,
+  .infinite-scroll-end,
+  .pull-to-refresh-indicator {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .infinite-scroll {
+    transition: none;
+  }
+  
+  .refresh-icon {
+    transition: none;
+  }
+  
+  .infinite-scroll-refreshing .refresh-icon {
+    animation: none;
+  }
+}

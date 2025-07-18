@@ -85,10 +85,21 @@ function Header() {
   // Use live notifications for instant updates
   useEffect(() => {
     if (liveNotifications && liveNotifications.length > 0) {
-      setNotifications(liveNotifications);
-      setUnreadNotificationCount(
-        liveNotifications.filter(n => !n.isRead).length
-      );
+      // Merge live notifications with existing ones, avoiding duplicates
+      setNotifications(prev => {
+        const existingIds = new Set(prev.map(n => n._id));
+        const newNotifications = liveNotifications.filter(
+          n => !existingIds.has(n._id)
+        );
+        const merged = [...newNotifications, ...prev];
+        return merged;
+      });
+
+      // Update unread count based on merged notifications
+      setNotifications(current => {
+        setUnreadNotificationCount(current.filter(n => !n.isRead).length);
+        return current;
+      });
     }
   }, [liveNotifications]);
 
@@ -256,11 +267,11 @@ function Header() {
                       </div>
                     ) : (
                       <ul className={styles.notificationList}>
-                        {notifications.slice(0, 5).map((n, idx) => (
-                          <React.Fragment key={n._id}>
+                        {notifications.map((notification, idx) => (
+                          <React.Fragment key={notification._id}>
                             <li
                               className={
-                                n.isRead
+                                notification.isRead
                                   ? styles.notificationRead
                                   : styles.notificationUnread
                               }
@@ -269,73 +280,92 @@ function Header() {
                                 type="button"
                                 className={styles.notificationDropdownItem}
                                 onClick={() => {
-                                  if (n.link) {
-                                    navigate(n.link);
-                                    setShowNotifications(false);
-                                  } else if (n.data && n.data.link) {
-                                    navigate(n.data.link);
+                                  if (notification.link) {
+                                    navigate(notification.link);
                                     setShowNotifications(false);
                                   } else if (
-                                    n.type === 'new_message' &&
-                                    n.data &&
-                                    n.data.conversationId
+                                    notification.data &&
+                                    notification.data.link
+                                  ) {
+                                    navigate(notification.data.link);
+                                    setShowNotifications(false);
+                                  } else if (
+                                    notification.type === 'new_message' &&
+                                    notification.data &&
+                                    notification.data.conversationId
                                   ) {
                                     navigate(
-                                      `/messages/${n.data.conversationId}`
+                                      `/messages/${notification.data.conversationId}`
                                     );
                                     setShowNotifications(false);
                                   } else if (
-                                    n.type === 'new_comment' &&
-                                    n.data &&
-                                    n.data.postId
+                                    notification.type === 'new_comment' &&
+                                    notification.data &&
+                                    notification.data.postId
                                   ) {
-                                    navigate(`/posts/${n.data.postId}`);
+                                    navigate(
+                                      `/posts/${notification.data.postId}`
+                                    );
                                     setShowNotifications(false);
                                   }
                                 }}
                                 onKeyDown={e => {
                                   if (e.key === 'Enter' || e.key === ' ') {
-                                    if (n.link) {
-                                      navigate(n.link);
-                                      setShowNotifications(false);
-                                    } else if (n.data && n.data.link) {
-                                      navigate(n.data.link);
+                                    if (notification.link) {
+                                      navigate(notification.link);
                                       setShowNotifications(false);
                                     } else if (
-                                      n.type === 'new_message' &&
-                                      n.data &&
-                                      n.data.conversationId
+                                      notification.data &&
+                                      notification.data.link
+                                    ) {
+                                      navigate(notification.data.link);
+                                      setShowNotifications(false);
+                                    } else if (
+                                      notification.type === 'new_message' &&
+                                      notification.data &&
+                                      notification.data.conversationId
                                     ) {
                                       navigate(
-                                        `/messages/${n.data.conversationId}`
+                                        `/messages/${notification.data.conversationId}`
                                       );
                                       setShowNotifications(false);
                                     } else if (
-                                      n.type === 'new_comment' &&
-                                      n.data &&
-                                      n.data.postId
+                                      notification.type === 'new_comment' &&
+                                      notification.data &&
+                                      notification.data.postId
                                     ) {
-                                      navigate(`/posts/${n.data.postId}`);
+                                      navigate(
+                                        `/posts/${notification.data.postId}`
+                                      );
                                       setShowNotifications(false);
                                     }
                                   }
                                 }}
                                 tabIndex={0}
-                                aria-label={n.message}
+                                aria-label={notification.message}
                               >
-                                {n.icon && (
+                                {notification.icon ? (
                                   <img
-                                    src={`/assets/${n.icon}`}
+                                    src={`/assets/${notification.icon}`}
                                     alt="Notification Icon"
                                   />
+                                ) : (
+                                  <img
+                                    src="/assets/comment.svg"
+                                    alt="Notification Icon"
+                                    width={24}
+                                    height={24}
+                                  />
                                 )}
-                                <span>{n.message}</span>
+                                <span>{notification.message}</span>
                                 <span className={styles.notificationTime}>
-                                  {formatNotificationTime(n.createdAt)}
+                                  {formatNotificationTime(
+                                    notification.createdAt
+                                  )}
                                 </span>
                               </button>
                             </li>
-                            {idx < Math.min(notifications.length, 5) - 1 && (
+                            {idx < notifications.length - 1 && (
                               <hr className={styles.notificationDivider} />
                             )}
                           </React.Fragment>
