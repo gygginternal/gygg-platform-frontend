@@ -3,9 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './SignupPage.module.css';
 import InputField from '../../components/Shared/InputField';
+import ErrorDisplay from '../../components/Shared/ErrorDisplay';
 import apiClient from '../../api/axiosConfig';
 import logger from '../../utils/logger';
 import { useToast } from '../../contexts/ToastContext';
+import useErrorHandler from '../../hooks/useErrorHandler';
 
 function SignupPage() {
   const navigate = useNavigate();
@@ -22,8 +24,13 @@ function SignupPage() {
     role: [selectedRole],
   });
 
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const { errors, hasErrors, setMultipleErrors, handleApiError, clearOnInputChange } = useErrorHandler();
+  const [passwordStrength, setPasswordStrength] = useState({
+    score: 0,
+    feedback: [],
+    isValid: false
+  });
 
   useEffect(() => {
     if (selectedRole && selectedRole !== formData.role[0]) {
@@ -31,15 +38,39 @@ function SignupPage() {
     }
   }, [selectedRole, formData.role]);
 
+  // Check password strength
+  const checkPasswordStrength = (password) => {
+    const checks = [
+      { test: password.length >= 8, message: 'At least 8 characters' },
+      { test: /[A-Z]/.test(password), message: 'One uppercase letter' },
+      { test: /[a-z]/.test(password), message: 'One lowercase letter' },
+      { test: /\d/.test(password), message: 'One number' },
+      { test: /[!@#$%^&*(),.?":{}|<>]/.test(password), message: 'One special character' }
+    ];
+    
+    const passed = checks.filter(check => check.test);
+    const failed = checks.filter(check => !check.test);
+    
+    return {
+      score: passed.length,
+      feedback: failed.map(check => check.message),
+      isValid: passed.length === checks.length
+    };
+  };
+
   // --- START: SIMPLIFIED handleChange - InputField now handles phoneNo formatting ---
   const handleChange = (name, value) => {
     // InputField for phoneNo will now send the already formatted '+1XXXXXXXXXX' string
     // Or just the raw value for other fields.
     setFormData(prev => ({ ...prev, [name]: value }));
-    // Clear error immediately if user starts typing after an error
-    if (error) {
-      setError('');
+    
+    // Real-time password strength checking
+    if (name === 'password') {
+      setPasswordStrength(checkPasswordStrength(value));
     }
+    
+    // Clear errors on input change
+    clearOnInputChange();
   };
   // --- END: SIMPLIFIED handleChange ---
 
@@ -60,6 +91,31 @@ function SignupPage() {
       currentErrors.push(
         'Please fill in all required fields (*). Email, Password, Phone, and Date of Birth are required.'
       );
+    }
+
+    // Password strength validation
+    if (formData.password) {
+      const passwordErrors = [];
+      
+      if (formData.password.length < 8) {
+        passwordErrors.push('at least 8 characters');
+      }
+      if (!/[A-Z]/.test(formData.password)) {
+        passwordErrors.push('one uppercase letter');
+      }
+      if (!/[a-z]/.test(formData.password)) {
+        passwordErrors.push('one lowercase letter');
+      }
+      if (!/\d/.test(formData.password)) {
+        passwordErrors.push('one number');
+      }
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
+        passwordErrors.push('one special character (!@#$%^&*(),.?":{}|<>)');
+      }
+      
+      if (passwordErrors.length > 0) {
+        currentErrors.push(`Password must contain ${passwordErrors.join(', ')}.`);
+      }
     }
 
     if (formData.password !== formData.passwordConfirm) {
@@ -88,13 +144,13 @@ function SignupPage() {
 
     if (!phoneRegexE164.test(fullPhoneNumber)) {
       currentErrors.push(
-        'Phone number must be in international format (e.g., +441234567890, +919876543210, +12345678900).'
+        'Phone number must be in international format (e.g., +14165551234, +919876543210, +441234567890).'
       );
     }
 
     // If there are any frontend validation errors, display them and stop.
     if (currentErrors.length > 0) {
-      setError(currentErrors.join('\n')); // Join errors with a newline character
+      setMultipleErrors(currentErrors);
       return;
     }
 
@@ -109,6 +165,7 @@ function SignupPage() {
 
     try {
       logger.info('Attempting signup for email:', payload.email);
+      logger.info('Phone number being sent:', payload.phoneNo); // Debug log
       await apiClient.post('/users/signup', payload);
       logger.info('Signup successful on backend for:', payload.email);
       showToast(
@@ -117,11 +174,9 @@ function SignupPage() {
       );
       navigate('/verify-email-prompt', { state: { email: payload.email } });
     } catch (err) {
-      const errorMessage =
-        err.response?.data?.message || 'Signup failed. Please try again.';
       logger.error('Signup error:', err.response?.data || err.message);
-      showToast(errorMessage, { type: 'error' });
-      setError(errorMessage);
+      handleApiError(err);
+      showToast(err.response?.data?.message || 'Signup failed. Please try again.', { type: 'error' });
     } finally {
       setLoading(false);
     }
@@ -173,7 +228,7 @@ function SignupPage() {
             label="Pick a password"
             name="password"
             type="password"
-            placeholder="Enter password (min 8 chars)"
+            placeholder="Password (8+ chars, A-z, 0-9, !@#$)"
             value={formData.password}
             onChange={handleChange}
             icon="password"
@@ -181,6 +236,31 @@ function SignupPage() {
             required
             labelColor="white"
           />
+          
+          {/* Password strength indicator */}
+          {formData.password && (
+            <div className={styles.passwordStrength}>
+              <div className={styles.strengthBar}>
+                <div 
+                  className={`${styles.strengthFill} ${styles[`strength${passwordStrength.score}`]}`}
+                  style={{ width: `${(passwordStrength.score / 5) * 100}%` }}
+                />
+              </div>
+              <div className={styles.strengthText}>
+                {passwordStrength.isValid ? (
+                  <span className={styles.strengthValid}>✓ Strong password</span>
+                ) : (
+                  <div className={styles.strengthRequirements}>
+                    {passwordStrength.feedback.map((req, index) => (
+                      <span key={index} className={styles.strengthRequirement}>
+                        • {req}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
 
           <InputField
             label="Re-enter password"
@@ -197,14 +277,13 @@ function SignupPage() {
 
           <InputField
             label="Phone Number"
-            name="phone"
+            name="phoneNo"
             variant="phone"
-            value={formData.phone}
+            value={formData.phoneNo}
             onChange={handleChange}
             placeholder="Enter phone number"
-            maxLength={10}
+            maxLength={15}
             required
-            error={error}
             labelColor="white"
           />
 
@@ -221,15 +300,13 @@ function SignupPage() {
           />
 
           <footer className={styles.footer}>
-            {/* Display errors, each on a new line */}
-            {error && (
-              <div className={styles.errorWrapper}>
-                {error.split('\n').map((msg, index) => (
-                  <p key={index} className={styles.errorMessage}>
-                    {msg}
-                  </p>
-                ))}
-              </div>
+            {/* Display errors using standardized component */}
+            {hasErrors && (
+              <ErrorDisplay 
+                errors={errors} 
+                variant="default"
+                onDismiss={() => clearOnInputChange()}
+              />
             )}
 
             <p className={styles.terms}>

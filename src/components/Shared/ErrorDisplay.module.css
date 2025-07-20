@@ -1,0 +1,262 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Base Error Container */
+.errorContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-family: 'Inter', sans-serif;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Default Variant - Form-level errors */
+.default {
+  background-color: rgba(255, 138, 138, 0.1);
+  border: 1px solid #ff8a8a;
+  padding: 0.75rem 1rem;
+  margin: 0.75rem 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Inline Variant - Simple inline errors */
+.inline {
+  background: none;
+  border: none;
+  padding: 0.25rem 0;
+  margin: 0.25rem 0;
+}
+
+/* Banner Variant - Page-level errors */
+.banner {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-left: 4px solid #ef4444;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Card Variant - Standalone error cards */
+.card {
+  background-color: #ffffff;
+  border: 1px solid #fecaca;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+  border-radius: 0.75rem;
+}
+
+/* Field Variant - Input field errors */
+.field {
+  background: none;
+  border: none;
+  padding: 0.25rem 0;
+  margin: 0.25rem 0 0 0;
+}
+
+/* Icon Container */
+.iconContainer {
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.errorIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #ef4444;
+}
+
+.field .errorIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Content */
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.errorMessage {
+  color: #dc2626;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  word-wrap: break-word;
+}
+
+.field .errorMessage {
+  font-size: 0.75rem;
+  color: #ef4444;
+}
+
+.inline .errorMessage {
+  font-size: 0.8125rem;
+}
+
+.banner .errorMessage {
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+/* Error List */
+.errorList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.errorList .errorMessage:not(:last-child) {
+  border-bottom: 1px solid rgba(239, 68, 68, 0.2);
+  padding-bottom: 0.5rem;
+}
+
+/* Dismiss Button */
+.dismissButton {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  color: #9ca3af;
+  transition: all 0.2s ease;
+  margin-top: -0.125rem;
+}
+
+.dismissButton:hover {
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.dismissButton:focus {
+  outline: 2px solid #ef4444;
+  outline-offset: 2px;
+}
+
+.dismissIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .default,
+  .banner,
+  .card {
+    padding: 0.625rem 0.875rem;
+    margin: 0.625rem 0;
+  }
+
+  .errorMessage {
+    font-size: 0.8125rem;
+  }
+
+  .field .errorMessage {
+    font-size: 0.6875rem;
+  }
+
+  .banner .errorMessage {
+    font-size: 0.875rem;
+  }
+
+  .errorIcon {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
+  .field .errorIcon {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .default,
+  .banner,
+  .card {
+    padding: 0.5rem 0.75rem;
+    margin: 0.5rem 0;
+    border-radius: 0.375rem;
+  }
+
+  .errorMessage {
+    font-size: 0.75rem;
+  }
+
+  .field .errorMessage {
+    font-size: 0.625rem;
+  }
+
+  .banner .errorMessage {
+    font-size: 0.8125rem;
+  }
+
+  .errorList {
+    gap: 0.375rem;
+  }
+
+  .errorList .errorMessage:not(:last-child) {
+    padding-bottom: 0.375rem;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .default {
+    border-width: 2px;
+    background-color: rgba(255, 138, 138, 0.2);
+  }
+
+  .banner {
+    border-left-width: 6px;
+    background-color: #fef2f2;
+  }
+
+  .errorMessage {
+    font-weight: 500;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .default {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-color: #dc2626;
+  }
+
+  .banner {
+    background-color: rgba(239, 68, 68, 0.05);
+    border-color: #dc2626;
+  }
+
+  .card {
+    background-color: #1f2937;
+    border-color: #dc2626;
+  }
+
+  .errorMessage {
+    color: #fca5a5;
+  }
+
+  .field .errorMessage {
+    color: #ef4444;
+  }
+}

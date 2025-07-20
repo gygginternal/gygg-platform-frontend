@@ -5,6 +5,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import apiClient from '../../api/axiosConfig';
 import logger from '../../utils/logger';
 import React, { useState, useEffect, useRef } from 'react';
+import ConfirmModal from '../Shared/ConfirmModal';
 
 const Icon = ({
   src,
@@ -231,10 +232,17 @@ function Post({ post, onPostUpdate }) {
     }
   };
 
+  const [showDeleteCommentModal, setShowDeleteCommentModal] = useState(false);
+  const [commentToDelete, setCommentToDelete] = useState(null);
+
   const handleDeleteComment = async commentIdToDelete => {
     if (!loggedInUser) return;
-    if (!window.confirm('Are you sure you want to delete this comment?'))
-      return;
+    setCommentToDelete(commentIdToDelete);
+    setShowDeleteCommentModal(true);
+  };
+
+  const confirmDeleteComment = async () => {
+    if (!commentToDelete) return;
 
     setInteractionError('');
 
@@ -289,9 +297,14 @@ function Post({ post, onPostUpdate }) {
   };
   const handleCloseCommentMenu = () => setOpenCommentMenuId(null);
 
+  const [showDeletePostModal, setShowDeletePostModal] = useState(false);
+
   // Handler for deleting a post
   const handleDeletePost = async () => {
-    if (!window.confirm('Are you sure you want to delete this post?')) return;
+    setShowDeletePostModal(true);
+  };
+
+  const confirmDeletePost = async () => {
     setInteractionError('');
     try {
       await apiClient.delete(`/posts/${postId}`);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Eye, EyeOff } from 'lucide-react';
+import ErrorDisplay from './ErrorDisplay';
 import styles from './InputField.module.css';
 
 const COUNTRY_OPTIONS = [
@@ -51,6 +52,11 @@ const InputField = ({
     phoneValue => {
       if (!phoneValue || !isPhoneInput) return { code: '+1', number: '' };
 
+      // Handle cases where phoneValue might be just the country code
+      if (phoneValue === '+1' || phoneValue === '+44' || phoneValue === '+91') {
+        return { code: phoneValue, number: '' };
+      }
+
       const match = phoneValue.match(/^(\+\d{1,4})(.*)$/);
       if (match) {
         return {
@@ -91,7 +97,9 @@ const InputField = ({
       setLocalNumber(limitedDigits);
 
       if (onChange) {
-        onChange(name, countryCode + limitedDigits);
+        const fullPhoneNumber = countryCode + limitedDigits;
+        console.log('Phone number being set:', fullPhoneNumber); // Debug log
+        onChange(name, fullPhoneNumber);
       }
     },
     [name, countryCode, maxLength, onChange]
@@ -235,9 +243,13 @@ const InputField = ({
       </div>
 
       {error && (
-        <span id={`${name}-error`} className={styles.errorMessage}>
-          {error}
-        </span>
+        <div id={`${name}-error`}>
+          <ErrorDisplay 
+            errors={error} 
+            variant="field"
+            showIcon={false}
+          />
+        </div>
       )}
 
       {helperText && !error && (

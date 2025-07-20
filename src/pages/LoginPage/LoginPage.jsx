@@ -3,15 +3,17 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom'; // Use react-router-dom
 import styles from './LoginPage.module.css'; // Create this CSS Module
 import InputField from '../../components/Shared/InputField'; // Adjust path if needed
+import ErrorDisplay from '../../components/Shared/ErrorDisplay';
 import { useAuth } from '../../contexts/AuthContext'; // Adjust path if needed
 import apiClient from '../../api/axiosConfig'; // Adjust path if needed
 import logger from '../../utils/logger'; // Optional: Adjust path if needed
 import { useToast } from '../../contexts/ToastContext';
+import useErrorHandler from '../../hooks/useErrorHandler';
 
 function LoginPage() {
   const [formData, setFormData] = useState({ email: '', password: '' });
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const { errors, hasErrors, setError, handleApiError, clearOnInputChange } = useErrorHandler();
   const navigate = useNavigate();
   const { login, selectSessionRole } = useAuth();
   const location = useLocation();
@@ -21,12 +23,12 @@ function LoginPage() {
   // Handler expected by our InputField component
   const handleChange = (name, value) => {
     setFormData(prev => ({ ...prev, [name]: value }));
-    setError(''); // Clear error on input change
+    clearOnInputChange(); // Clear errors on input change
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
-    setError('');
+    clearOnInputChange();
 
     if (!formData.email || !formData.password) {
       setError('Please fill in both email and password.');
@@ -70,11 +72,9 @@ function LoginPage() {
         });
       }
     } catch (err) {
-      const errorMessage =
-        err.response?.data?.message ||
-        'Login failed. Please check credentials or network.';
       logger.error('Login error:', err.response?.data || err.message);
-      showToast(errorMessage, { type: 'error' });
+      handleApiError(err);
+      showToast(err.response?.data?.message || 'Login failed. Please check credentials or network.', { type: 'error' });
     } finally {
       setLoading(false);
     }
@@ -125,7 +125,12 @@ function LoginPage() {
           />
 
           {/* Error display */}
-          {error && <p className={styles.error}>{error}</p>}
+          {hasErrors && (
+            <ErrorDisplay 
+              errors={errors} 
+              variant="inline"
+            />
+          )}
 
           <div className={styles.footer}>
             {/* Forgot Password Link */}

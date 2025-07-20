@@ -113,11 +113,11 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
     if (file) {
       if (file.size > 5 * 1024 * 1024) {
         // 5MB limit example
-        alert('Profile image must be less than 5MB.');
+        setError('Profile image must be less than 5MB.');
         return;
       }
       if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
-        alert('Invalid file type. Please select JPG, PNG, or WEBP.');
+        setError('Invalid file type. Please select JPG, PNG, or WEBP.');
         return;
       }
       setProfileImageFile(file); // Store the File object

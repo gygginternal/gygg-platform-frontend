@@ -150,9 +150,10 @@ function Feed() {
       if (sortOrder === 'recents') {
         setPosts(prevPosts => [newPost, ...prevPosts]);
       } else {
-        alert(
-          "Post created successfully! Refresh or switch to 'Recents' to see it immediately."
-        );
+        // Show success message via toast instead of alert
+        if (window.showToast) {
+          window.showToast("Post created successfully! Refresh or switch to 'Recents' to see it immediately.", { type: 'success' });
+        }
       }
       setPostText(''); // Clear input field
       setUploadedImage(null); // Clear uploaded image

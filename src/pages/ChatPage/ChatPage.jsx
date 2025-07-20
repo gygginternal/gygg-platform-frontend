@@ -41,7 +41,9 @@ const ChatPage = () => {
           id: conv.otherParty._id,
           name: `${conv.otherParty.firstName} ${conv.otherParty.lastName}`,
           avatar: conv.otherParty.profileImage || '/default-avatar.png',
-          lastMessage: conv.lastMessage?.content || '',
+          lastMessage: conv.lastMessage?.type === 'image' 
+            ? '📷 Image' 
+            : conv.lastMessage?.content || '',
           timestamp: conv.lastMessage?.timestamp
             ? new Date(conv.lastMessage.timestamp).toLocaleString([], {
                 month: 'short',
@@ -101,6 +103,8 @@ const ChatPage = () => {
       const mappedMessages = res.data.data.messages.map(msg => ({
         id: msg._id,
         text: msg.content,
+        type: msg.type || 'text',
+        attachment: msg.attachment || null,
         timestamp: new Date(msg.timestamp).toLocaleString([], {
           hour: '2-digit',
           minute: '2-digit',
@@ -138,7 +142,7 @@ const ChatPage = () => {
   // Join chat room for real-time updates when selectedContact changes
   useEffect(() => {
     if (socket && selectedContact) {
-      const room = [user.id, selectedContact.id].sort().join(':');
+      const room = `chat:${user.id}:${selectedContact.id}`;
       socket.emit('join', room);
       return () => {
         socket.emit('leave', room);
@@ -210,10 +214,12 @@ const ChatPage = () => {
     }
   }, [unreadCount, selectedContact]);
 
-  // Show notification (simple alert for now)
+  // Notification handling (popup removed)
   useEffect(() => {
     if (notification) {
-      alert(notification.message || 'You have a new notification!');
+      console.log('New notification received:', notification);
+      // You can add other notification handling here if needed
+      // like updating a notification badge or showing a toast
     }
   }, [notification]);
 

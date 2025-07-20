@@ -131,9 +131,10 @@ function UserProfilePage() {
       {!isOwnProfile && loggedInUser && (
         <div className={styles.sendMessageCard}>
           <button
-            onClick={() =>
-              alert(`TODO: Start chat with ${profileUser.firstName}`)
-            }
+            onClick={() => {
+              // Navigate to chat page with the user
+              window.location.href = `/chat/${profileUser._id}`;
+            }}
           >
             Send Message to {profileUser.firstName}
           </button>

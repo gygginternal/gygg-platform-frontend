@@ -84,6 +84,7 @@ export const SocketProvider = ({ children }) => {
       });
 
       newSocket.on('chat:newMessage', message => {
+        console.log('[Socket] Received chat:newMessage:', message);
         setNewMessage(message);
         newMessageHandlers.current.forEach(h => h(message));
       });
@@ -116,6 +117,7 @@ export const SocketProvider = ({ children }) => {
       });
 
       newSocket.on('newChatMessage', message => {
+        console.log('[Socket] Received newChatMessage:', message);
         setNewMessage(message);
         newMessageHandlers.current.forEach(h => h(message));
       });

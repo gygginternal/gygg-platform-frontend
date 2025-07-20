@@ -281,7 +281,7 @@ function ProviderOnboardingPage() {
       await apiClient.patch('/users/updateMe', profilePayload, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-      alert('Provider profile setup complete!');
+      showToast('Provider profile setup complete!', { type: 'success' });
       if (refreshUser) await refreshUser();
       navigate('/feed');
     } catch (err) {
@@ -359,7 +359,7 @@ function ProviderOnboardingPage() {
 
       logger.debug('Submitting first gig:', gigPayload);
       const gigResponse = await apiClient.post('/gigs', gigPayload);
-      alert('Profile setup complete and your first gig has been posted!');
+      showToast('Profile setup complete and your first gig has been posted!', { type: 'success' });
       navigate('/feed');
     } catch (err) {
       setError(

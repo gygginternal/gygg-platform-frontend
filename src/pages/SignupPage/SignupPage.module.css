@@ -293,3 +293,91 @@
     margin-bottom: 0.25rem; /* 4px */
   }
 }
+
+/* Password strength indicator */
+.passwordStrength {
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.strengthBar {
+  width: 100%;
+  height: 0.25rem; /* 4px */
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 0.125rem; /* 2px */
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.strengthFill {
+  height: 100%;
+  transition: width 0.3s ease, background-color 0.3s ease;
+  border-radius: 0.125rem; /* 2px */
+}
+
+.strength0, .strength1 {
+  background-color: #ff4444; /* Red - Very weak */
+}
+
+.strength2 {
+  background-color: #ff8800; /* Orange - Weak */
+}
+
+.strength3 {
+  background-color: #ffaa00; /* Yellow - Fair */
+}
+
+.strength4 {
+  background-color: #88cc00; /* Light green - Good */
+}
+
+.strength5 {
+  background-color: #44cc44; /* Green - Strong */
+}
+
+.strengthText {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem; /* 12px */
+  line-height: 1.4;
+}
+
+.strengthValid {
+  color: #44cc44;
+  font-weight: 500;
+}
+
+.strengthRequirements {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem; /* 2px */
+}
+
+.strengthRequirement {
+  color: #ff8a8a;
+  font-size: 0.6875rem; /* 11px */
+}
+
+/* Responsive adjustments for password strength */
+@media (max-width: 768px) {
+  .strengthText {
+    font-size: 0.6875rem; /* 11px */
+  }
+  
+  .strengthRequirement {
+    font-size: 0.625rem; /* 10px */
+  }
+}
+
+@media (max-width: 480px) {
+  .strengthBar {
+    height: 0.1875rem; /* 3px */
+  }
+  
+  .strengthText {
+    font-size: 0.625rem; /* 10px */
+  }
+  
+  .strengthRequirement {
+    font-size: 0.5625rem; /* 9px */
+  }
+}
