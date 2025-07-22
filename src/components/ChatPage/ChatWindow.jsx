@@ -25,6 +25,7 @@ const ChatWindow = ({
   const fileInputRef = useRef(null);
   const scrollTimeoutRef = useRef(null);
   const lastScrollTop = useRef(0);
+  const typingTimeoutRef = useRef(null);
 
   // Auto-scroll to bottom when contact changes (opening new chat)
   useEffect(() => {
@@ -58,24 +59,32 @@ const ChatWindow = ({
         return;
       }
 
-      setSending(true);
+      const messageText = newMessage.trim();
+      setNewMessage(''); // Clear input immediately
       setContentWarning('');
+      
+      // Add optimistic message immediately (Facebook style)
+      const tempId = onMessageSent ? onMessageSent(messageText, 'text') : null;
+      
+      // Ensure auto-scroll when user sends a message
+      setShouldAutoScroll(true);
+      setIsUserScrolling(false);
+
       try {
         await apiClient.post('/chat/send', {
           receiverId: contact.id,
-          message: newMessage,
+          message: messageText,
           type: 'text',
         });
-        setNewMessage('');
-        // Ensure auto-scroll when user sends a message
-        setShouldAutoScroll(true);
-        setIsUserScrolling(false);
-        if (onMessageSent) onMessageSent();
+        // Success - the real-time handler will replace the optimistic message
       } catch (err) {
+        // On error, remove the optimistic message and show error
+        if (tempId && onMessageSent) {
+          // You could implement a removeOptimisticMessage function here
+        }
         const errorMessage = err.response?.data?.message || 'Failed to send message';
         setContentWarning(errorMessage);
-      } finally {
-        setSending(false);
+        setNewMessage(messageText); // Restore message on error
       }
     }
   };
@@ -98,7 +107,34 @@ const ChatWindow = ({
     }
     
     if (socket && contact) {
-      socket.emit('chat:typing', { to: contact.id });
+      // Clear previous timeout
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+      }
+      
+      // Emit typing indicator
+      if (value.trim().length > 0) {
+        socket.emit('chat:typing', { 
+          to: contact.id, 
+          userId: socket.user?.id,
+          isTyping: true 
+        });
+        
+        // Stop typing after 2 seconds of no activity
+        typingTimeoutRef.current = setTimeout(() => {
+          socket.emit('chat:typing', { 
+            to: contact.id, 
+            userId: socket.user?.id,
+            isTyping: false 
+          });
+        }, 2000);
+      } else {
+        socket.emit('chat:typing', { 
+          to: contact.id, 
+          userId: socket.user?.id,
+          isTyping: false 
+        });
+      }
     }
   };
 
@@ -134,10 +170,22 @@ const ChatWindow = ({
 
       const { url, fileName, fileType, fileSize } = uploadResponse.data.data;
 
+      // Add optimistic image message
+      const tempId = onMessageSent ? onMessageSent(fileName, 'image', {
+        url,
+        fileName,
+        fileType,
+        fileSize,
+      }) : null;
+
+      // Ensure auto-scroll when user sends an image
+      setShouldAutoScroll(true);
+      setIsUserScrolling(false);
+
       // Send image message
       await apiClient.post('/chat/send', {
         receiverId: contact.id,
-        message: fileName, // Use filename as message content
+        message: fileName,
         type: 'image',
         attachment: {
           url,
@@ -146,11 +194,6 @@ const ChatWindow = ({
           fileSize,
         },
       });
-
-      // Ensure auto-scroll when user sends an image
-      setShouldAutoScroll(true);
-      setIsUserScrolling(false);
-      if (onMessageSent) onMessageSent();
     } catch (err) {
       const errorMessage = err.response?.data?.message || 'Failed to upload image';
       setContentWarning(errorMessage);
@@ -214,11 +257,14 @@ const ChatWindow = ({
     }
   };
 
-  // Cleanup timeout on unmount
+  // Cleanup timeouts on unmount
   useEffect(() => {
     return () => {
       if (scrollTimeoutRef.current) {
         clearTimeout(scrollTimeoutRef.current);
+      }
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
       }
     };
   }, []);
@@ -277,7 +323,14 @@ const ChatWindow = ({
                 ) : (
                   <span className={styles.messageText}>{message.text}</span>
                 )}
-                <span className={styles.messageTime}>{message.timestamp}</span>
+                <div className={styles.messageFooter}>
+                  <span className={styles.messageTime}>{message.displayTime || message.timestamp}</span>
+                  {message.isSent && (
+                    <span className={`${styles.messageStatus} ${styles[message.status || 'sent']}`}>
+                      {message.status === 'sending' ? '⏳' : '✓'}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           ))}

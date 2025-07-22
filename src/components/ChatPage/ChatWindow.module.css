@@ -120,11 +120,34 @@
   color: #111;
 }
 
+.messageFooter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-top: 4px;
+}
+
 .messageTime {
   font-size: 0.6875rem;
   color: #8696a0;
-  align-self: flex-end;
-  margin-top: 4px;
+}
+
+.messageStatus {
+  font-size: 0.6875rem;
+  color: #8696a0;
+}
+
+.messageStatus.sending {
+  color: #fbbf24;
+}
+
+.messageStatus.sent {
+  color: #10b981;
+}
+
+.messageStatus.failed {
+  color: #ef4444;
 }
 
 .inputContainer {
@@ -251,9 +274,15 @@
 }
 
 @keyframes pulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.5; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .typingIndicator {

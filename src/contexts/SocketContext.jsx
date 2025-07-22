@@ -62,16 +62,30 @@ export const SocketProvider = ({ children }) => {
       });
 
       newSocket.on('newChatMessage', message => {
-        setNewMessage(message);
-        newMessageHandlers.current.forEach(h => h(message));
+        // Add timestamp to ensure we have the latest message data
+        const messageWithTimestamp = {
+          ...message,
+          receivedAt: Date.now() // Add client-side timestamp for deduplication
+        };
+        
+        setNewMessage(messageWithTimestamp);
+        newMessageHandlers.current.forEach(h => h(messageWithTimestamp));
       });
 
       newSocket.on('chat:unreadCountUpdated', ({ count }) => {
         setUnreadCount(count);
       });
 
-      newSocket.on('chat:typing', userId => {
-        setTypingUser(userId);
+      newSocket.on('chat:typing', ({ userId, isTyping }) => {
+        if (isTyping) {
+          setTypingUser(userId);
+          // Clear typing indicator after 3 seconds
+          setTimeout(() => {
+            setTypingUser(prev => prev === userId ? null : prev);
+          }, 3000);
+        } else {
+          setTypingUser(prev => prev === userId ? null : prev);
+        }
       });
 
       newSocket.on('chat:onlineUsers', users => {

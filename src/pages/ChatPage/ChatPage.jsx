@@ -85,32 +85,46 @@ const ChatPage = () => {
     fetchContacts();
   }, [routeUserId]);
 
-  // Fetch messages for selected contact (with pagination)
+  // Fetch messages for selected contact (with pagination) - Facebook style
   const fetchMessages = async (pageOverride = 1, prepend = false) => {
     if (!selectedContact) return;
     if (pageOverride > 1) setLoadingMore(true);
     else setLoadingMessages(true);
+    
     try {
       const res = await apiClient.get(
         `/chat/history?userId=${selectedContact.id}&page=${pageOverride}`
       );
+      
       const mappedMessages = res.data.data.messages.map(msg => ({
         id: msg._id,
         text: msg.content,
         type: msg.type || 'text',
         attachment: msg.attachment || null,
-        timestamp: new Date(msg.timestamp).toLocaleString([], {
+        timestamp: msg.timestamp, // Keep original timestamp for sorting
+        displayTime: new Date(msg.timestamp).toLocaleString([], {
           hour: '2-digit',
           minute: '2-digit',
         }),
         isSent: msg.sender._id === user.id,
+        status: 'sent', // All fetched messages are sent
+        tempId: null // No temp ID for real messages
       }));
+      
       if (prepend) {
-        setMessages(prev => [...mappedMessages, ...prev]);
+        // For pagination (loading older messages), prepend to beginning
+        setMessages(prev => {
+          // Remove duplicates and maintain chronological order
+          const existingIds = new Set(prev.map(m => m.id));
+          const newMessages = mappedMessages.filter(m => !existingIds.has(m.id));
+          return [...newMessages, ...prev];
+        });
       } else {
+        // For initial load, replace all messages
         setMessages(mappedMessages);
       }
-      setHasMore(mappedMessages.length > 0 && mappedMessages.length === 50); // 50 is the backend default limit
+      
+      setHasMore(mappedMessages.length === 50); // Has more if we got full page
       setPage(pageOverride);
     } catch (err) {
       console.error('Failed to load messages:', err);
@@ -144,19 +158,83 @@ const ChatPage = () => {
     }
   }, [socket, selectedContact, user.id]);
 
-  // Register real-time message handlers for the selected contact
+  // Facebook-style message handling with optimistic updates
   useEffect(() => {
     if (!selectedContact) return;
-    // Handler for new messages
+    
+    // Handler for new messages - Facebook Messenger style
     const handleNewMessage = message => {
-      if (
-        (message.sender && message.sender._id === selectedContact.id) ||
+      // Check if message is for current conversation
+      const isForCurrentChat = 
+        (message.sender && message.sender._id === selectedContact.id && message.receiver === user.id) ||
+        (message.sender && message.sender._id === user.id && message.receiver === selectedContact.id);
+      
+      if (isForCurrentChat) {
+        const newMsg = {
+          id: message._id,
+          text: message.content,
+          type: message.type || 'text',
+          attachment: message.attachment || null,
+          timestamp: message.timestamp,
+          displayTime: new Date(message.timestamp).toLocaleString([], {
+            hour: '2-digit',
+            minute: '2-digit',
+          }),
+          isSent: message.sender._id === user.id,
+          status: 'sent',
+          tempId: null
+        };
+        
+        setMessages(prevMsgs => {
+          // Check for duplicates by ID or tempId
+          const existsById = prevMsgs.some(msg => msg.id === newMsg.id);
+          if (existsById) return prevMsgs;
+          
+          // If this is our own message, replace any temp message
+          if (newMsg.isSent) {
+            const withoutTemp = prevMsgs.filter(msg => 
+              !(msg.tempId && msg.isSent && !msg.id && 
+                Math.abs(new Date(msg.timestamp) - new Date(newMsg.timestamp)) < 5000)
+            );
+            return [...withoutTemp, newMsg].sort((a, b) => 
+              new Date(a.timestamp) - new Date(b.timestamp)
+            );
+          }
+          
+          // For received messages, just add and sort
+          return [...prevMsgs, newMsg].sort((a, b) => 
+            new Date(a.timestamp) - new Date(b.timestamp)
+          );
+        });
+      }
+      
+      // Update sidebar for current conversation
+      if (selectedContact && (
+        message.sender._id === selectedContact.id || 
         message.receiver === selectedContact.id
-      ) {
-        fetchMessages(); // Always fetch latest messages for perfect sync
+      )) {
+        setContacts(prevContacts => 
+          prevContacts.map(contact => {
+            if (contact.id === selectedContact.id) {
+              return {
+                ...contact,
+                lastMessage: message.type === 'image' ? '📷 Image' : message.content,
+                timestamp: new Date(message.timestamp).toLocaleString([], {
+                  month: 'short',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                }),
+                unreadCount: message.sender._id === user.id ? 0 : (contact.unreadCount || 0)
+              };
+            }
+            return contact;
+          })
+        );
       }
     };
-    // Handler for message updates (e.g., edits, read receipts)
+    
+    // Handler for message updates
     const handleMessageUpdate = updatedMsg => {
       setMessages(prevMsgs =>
         prevMsgs.map(msg =>
@@ -164,26 +242,49 @@ const ChatPage = () => {
             ? {
                 ...msg,
                 text: updatedMsg.content,
-                // Optionally update timestamp or other fields if needed
+                timestamp: updatedMsg.timestamp,
+                displayTime: new Date(updatedMsg.timestamp).toLocaleString([], {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                }),
+                status: 'sent'
               }
             : msg
         )
       );
     };
+    
     // Register handlers
     const unregisterNew = registerNewMessageHandler(handleNewMessage);
     const unregisterUpdate = registerMessageUpdateHandler(handleMessageUpdate);
-    // Cleanup
+    
     return () => {
       unregisterNew();
       unregisterUpdate();
     };
-  }, [
-    selectedContact,
-    user.id,
-    registerNewMessageHandler,
-    registerMessageUpdateHandler,
-  ]);
+  }, [selectedContact, user.id, registerNewMessageHandler, registerMessageUpdateHandler]);
+
+  // Optimistic message sending function
+  const addOptimisticMessage = (content, type = 'text', attachment = null) => {
+    const tempId = `temp_${Date.now()}_${Math.random()}`;
+    const optimisticMsg = {
+      id: null,
+      tempId,
+      text: content,
+      type,
+      attachment,
+      timestamp: new Date().toISOString(),
+      displayTime: new Date().toLocaleString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+      }),
+      isSent: true,
+      status: 'sending'
+    };
+    
+    setMessages(prev => [...prev, optimisticMsg]);
+    return tempId;
+  };
 
   // Update contacts' online status and unread count in real time
   useEffect(() => {
@@ -208,6 +309,68 @@ const ChatPage = () => {
     }
   }, [unreadCount, selectedContact]);
 
+  // Global message handler for updating sidebar (messages from other conversations)
+  useEffect(() => {
+    const handleGlobalNewMessage = message => {
+      // Update sidebar for messages not in current conversation
+      const isCurrentChat = selectedContact && 
+        ((message.sender && message.sender._id === selectedContact.id) ||
+         (message.receiver === selectedContact.id));
+      
+      if (!isCurrentChat) {
+        // Find the contact in sidebar and update
+        const otherUserId = message.sender._id === user.id ? message.receiver : message.sender._id;
+        
+        setContacts(prevContacts => {
+          const existingContactIndex = prevContacts.findIndex(c => c.id === otherUserId);
+          
+          if (existingContactIndex >= 0) {
+            // Update existing contact
+            const updatedContacts = [...prevContacts];
+            const contact = updatedContacts[existingContactIndex];
+            updatedContacts[existingContactIndex] = {
+              ...contact,
+              lastMessage: message.type === 'image' ? '📷 Image' : message.content,
+              timestamp: new Date(message.timestamp).toLocaleString([], {
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+              }),
+              unreadCount: message.sender._id === user.id ? 0 : (contact.unreadCount || 0) + 1
+            };
+            
+            // Move to top of list (most recent conversation)
+            const [updatedContact] = updatedContacts.splice(existingContactIndex, 1);
+            return [updatedContact, ...updatedContacts];
+          } else if (message.sender._id !== user.id) {
+            // Add new contact if message is from someone not in contacts
+            const newContact = {
+              id: message.sender._id,
+              name: message.sender.firstName + ' ' + (message.sender.lastName || ''),
+              avatar: message.sender.profileImage?.url || '/default-avatar.png',
+              lastMessage: message.type === 'image' ? '📷 Image' : message.content,
+              timestamp: new Date(message.timestamp).toLocaleString([], {
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+              }),
+              isOnline: false,
+              unreadCount: 1
+            };
+            return [newContact, ...prevContacts];
+          }
+          
+          return prevContacts;
+        });
+      }
+    };
+    
+    const unregisterGlobal = registerNewMessageHandler(handleGlobalNewMessage);
+    return () => unregisterGlobal();
+  }, [selectedContact, user.id, registerNewMessageHandler]);
+
   // Notification handling (popup removed)
   useEffect(() => {
     if (notification) {
@@ -230,7 +393,7 @@ const ChatPage = () => {
             contact={selectedContact}
             messages={messages}
             loading={loadingMessages}
-            onMessageSent={() => fetchMessages(1)}
+            onMessageSent={addOptimisticMessage}
             onLoadMore={loadMoreMessages}
             hasMore={hasMore}
             loadingMore={loadingMore}
