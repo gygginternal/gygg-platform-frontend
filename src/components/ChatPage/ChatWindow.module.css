@@ -40,9 +40,9 @@
 }
 
 .contactName {
-  color: #e9edef;
+  color: #1f2937;
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 500;
   margin-bottom: 2px;
 }
 
@@ -165,9 +165,7 @@
   gap: 12px;
 }
 
-.attachIcon,
-.emojiIcon,
-.micIcon {
+.attachIcon {
   width: 20px;
   height: 20px;
   color: #8696a0;
@@ -175,10 +173,42 @@
   transition: color 0.2s ease;
 }
 
-.attachIcon:hover,
-.emojiIcon:hover,
-.micIcon:hover {
-  color: #e9edef;
+.attachIcon:hover {
+  color: #6b7280;
+}
+
+.sendButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: #9ca3af;
+}
+
+.sendButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.sendButton:not(:disabled):hover {
+  background-color: #f3f4f6;
+  color: #00aaba;
+}
+
+.sendButtonActive {
+  color: #00aaba;
+  background-color: #f0fdfa;
+}
+
+.sendButtonActive:not(:disabled):hover {
+  background-color: #00aaba;
+  color: white;
+  transform: scale(1.05);
 }
 
 .messageInput {

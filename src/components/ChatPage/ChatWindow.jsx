@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MoreVertical, Smile, Paperclip, Mic } from 'lucide-react';
+import { MoreVertical, Paperclip } from 'lucide-react';
 import apiClient from '../../api/axiosConfig';
 import styles from './ChatWindow.module.css';
 import { useSocket } from '../../contexts/SocketContext';
@@ -383,9 +383,33 @@ const ChatWindow = ({
             placeholder={uploadingImage ? "Uploading image..." : "Type your message here..."}
             className={`${styles.messageInput} ${contentWarning ? styles.warningInput : ''}`}
             disabled={uploadingImage}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSendMessage(e);
+              }
+            }}
           />
-          <Smile className={styles.emojiIcon} />
-          <Mic className={styles.micIcon} />
+          <button
+            type="submit"
+            className={`${styles.sendButton} ${newMessage.trim() ? styles.sendButtonActive : ''}`}
+            disabled={!newMessage.trim() || sending || uploadingImage}
+            aria-label="Send message"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>
+            </svg>
+          </button>
         </form>
       </div>
     </div>
