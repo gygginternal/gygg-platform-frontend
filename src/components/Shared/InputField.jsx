@@ -98,7 +98,7 @@ const InputField = ({
 
       if (onChange) {
         const fullPhoneNumber = countryCode + limitedDigits;
-        console.log('Phone number being set:', fullPhoneNumber); // Debug log
+        // Phone number formatted and updated
         onChange(name, fullPhoneNumber);
       }
     },

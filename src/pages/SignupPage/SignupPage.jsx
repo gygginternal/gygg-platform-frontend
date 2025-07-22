@@ -165,7 +165,7 @@ function SignupPage() {
 
     try {
       logger.info('Attempting signup for email:', payload.email);
-      logger.info('Phone number being sent:', payload.phoneNo); // Debug log
+      // Phone number validation passed, proceeding with signup
       await apiClient.post('/users/signup', payload);
       logger.info('Signup successful on backend for:', payload.email);
       showToast(

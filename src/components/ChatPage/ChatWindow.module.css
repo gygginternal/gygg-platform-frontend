@@ -65,6 +65,7 @@
   background: #fff;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .messagesList {
@@ -260,4 +261,34 @@
   font-style: italic;
   padding: 8px 16px;
   font-size: 0.875rem;
+}
+
+.scrollToBottomBtn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #00aaba;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scrollToBottomBtn:hover {
+  background-color: #008b8b;
+  transform: scale(1.05);
+}
+
+.scrollToBottomBtn:active {
+  transform: scale(0.95);
 }

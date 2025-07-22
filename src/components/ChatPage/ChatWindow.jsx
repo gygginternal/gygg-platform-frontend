@@ -17,26 +17,36 @@ const ChatWindow = ({
   const [sending, setSending] = useState(false);
   const [contentWarning, setContentWarning] = useState('');
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [isUserScrolling, setIsUserScrolling] = useState(false);
+  const [shouldAutoScroll, setShouldAutoScroll] = useState(true);
   const { socket, typingUser } = useSocket();
   const messagesEndRef = useRef(null);
   const messagesListRef = useRef(null);
   const fileInputRef = useRef(null);
+  const scrollTimeoutRef = useRef(null);
+  const lastScrollTop = useRef(0);
 
-  // Auto-scroll to bottom when messages change, but only if user is near the bottom
+  // Auto-scroll to bottom when contact changes (opening new chat)
   useEffect(() => {
-    const messagesList = messagesEndRef.current?.parentNode;
-    if (messagesList) {
-      const threshold = 120; // px from bottom to auto-scroll
-      const isNearBottom =
-        messagesList.scrollHeight -
-          messagesList.scrollTop -
-          messagesList.clientHeight <
-        threshold;
-      if (isNearBottom) {
-        messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
-      }
+    if (contact && messages.length > 0) {
+      setShouldAutoScroll(true);
+      setIsUserScrolling(false);
+      // Small delay to ensure DOM is updated
+      setTimeout(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
     }
-  }, [messages]);
+  }, [contact?.id]);
+
+  // Auto-scroll to bottom when new messages arrive, but only if user hasn't scrolled up
+  useEffect(() => {
+    if (messages.length > 0 && shouldAutoScroll && !isUserScrolling) {
+      // Small delay to ensure DOM is updated
+      setTimeout(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }, 50);
+    }
+  }, [messages, shouldAutoScroll, isUserScrolling]);
 
   const handleSendMessage = async e => {
     e.preventDefault();
@@ -57,6 +67,9 @@ const ChatWindow = ({
           type: 'text',
         });
         setNewMessage('');
+        // Ensure auto-scroll when user sends a message
+        setShouldAutoScroll(true);
+        setIsUserScrolling(false);
         if (onMessageSent) onMessageSent();
       } catch (err) {
         const errorMessage = err.response?.data?.message || 'Failed to send message';
@@ -134,6 +147,9 @@ const ChatWindow = ({
         },
       });
 
+      // Ensure auto-scroll when user sends an image
+      setShouldAutoScroll(true);
+      setIsUserScrolling(false);
       if (onMessageSent) onMessageSent();
     } catch (err) {
       const errorMessage = err.response?.data?.message || 'Failed to upload image';
@@ -152,13 +168,60 @@ const ChatWindow = ({
     fileInputRef.current?.click();
   };
 
-  // Infinite scroll: load more when scrolled to top
+  // Handle scroll events for auto-scroll behavior and infinite scroll
   const handleScroll = () => {
     const el = messagesListRef.current;
-    if (el && el.scrollTop === 0 && hasMore && !loadingMore) {
+    if (!el) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = el;
+    const isAtBottom = scrollHeight - scrollTop - clientHeight < 50; // 50px threshold
+    const isScrollingUp = scrollTop < lastScrollTop.current;
+    
+    lastScrollTop.current = scrollTop;
+
+    // Update auto-scroll behavior based on user's scroll position
+    if (isAtBottom) {
+      setShouldAutoScroll(true);
+      setIsUserScrolling(false);
+    } else if (isScrollingUp) {
+      setShouldAutoScroll(false);
+      setIsUserScrolling(true);
+    }
+
+    // Clear existing timeout
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+
+    // Set user as not actively scrolling after 1 second of no scroll activity
+    scrollTimeoutRef.current = setTimeout(() => {
+      setIsUserScrolling(false);
+    }, 1000);
+
+    // Infinite scroll: load more when scrolled to top
+    if (scrollTop === 0 && hasMore && !loadingMore) {
+      const previousScrollHeight = scrollHeight;
       onLoadMore && onLoadMore();
+      
+      // Maintain scroll position after loading more messages
+      setTimeout(() => {
+        if (el) {
+          const newScrollHeight = el.scrollHeight;
+          const scrollDifference = newScrollHeight - previousScrollHeight;
+          el.scrollTop = scrollDifference;
+        }
+      }, 100);
     }
   };
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div className={styles.chatWindow}>
@@ -224,6 +287,21 @@ const ChatWindow = ({
           )}
           <div ref={messagesEndRef} />
         </div>
+        
+        {/* Scroll to bottom button */}
+        {!shouldAutoScroll && (
+          <button
+            className={styles.scrollToBottomBtn}
+            onClick={() => {
+              setShouldAutoScroll(true);
+              setIsUserScrolling(false);
+              messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            title="Go to latest messages"
+          >
+            ↓
+          </button>
+        )}
       </div>
 
       <div className={styles.inputContainer}>

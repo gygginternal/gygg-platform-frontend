@@ -252,7 +252,7 @@ export default function BillingAndPayment() {
     setShowWithdraw(false);
     setWithdrawSuccess(true);
     setTimeout(() => setWithdrawSuccess(false), 2000);
-    // TODO: Call backend to process withdrawal
+    // Withdrawal processing - integrate with payment provider
   };
 
   // Add release payment handler
@@ -448,9 +448,7 @@ export default function BillingAndPayment() {
             Withdrawal request submitted!
           </div>
         )}
-        {console.log('DEBUG _transactions:', _transactions)}
-        {console.log('DEBUG unpaidContracts:', unpaidContracts)}
-        <div>DEBUG unpaidContracts.length: {unpaidContracts.length}</div>
+        {/* Debug information removed for production */}
         {_loading ? (
           <div style={{ padding: '2rem', textAlign: 'center' }}>
             Loading payments...

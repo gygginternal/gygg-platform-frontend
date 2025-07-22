@@ -539,6 +539,33 @@ function Post({ post, onPostUpdate }) {
           )}
         </>
       )}
+
+      {/* Delete Comment Confirmation Modal */}
+      <ConfirmModal
+        isOpen={showDeleteCommentModal}
+        title="Delete Comment"
+        message="Are you sure you want to delete this comment? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        variant="danger"
+        onConfirm={confirmDeleteComment}
+        onCancel={() => {
+          setShowDeleteCommentModal(false);
+          setCommentToDelete(null);
+        }}
+      />
+
+      {/* Delete Post Confirmation Modal */}
+      <ConfirmModal
+        isOpen={showDeletePostModal}
+        title="Delete Post"
+        message="Are you sure you want to delete this post? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        variant="danger"
+        onConfirm={confirmDeletePost}
+        onCancel={() => setShowDeletePostModal(false)}
+      />
     </article>
   );
 }

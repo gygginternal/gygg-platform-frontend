@@ -14,12 +14,9 @@ const ChatPage = () => {
   const [contacts, setContacts] = useState([]);
   const [selectedContact, setSelectedContact] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [loadingContacts, setLoadingContacts] = useState(true);
   const [loadingMessages, setLoadingMessages] = useState(false);
-  const [error, setError] = useState(null);
   const {
     socket,
-    newMessage,
     onlineUsers,
     unreadCount,
     notification,
@@ -33,7 +30,6 @@ const ChatPage = () => {
   // Fetch contacts (conversations)
   useEffect(() => {
     const fetchContacts = async () => {
-      setLoadingContacts(true);
       try {
         const res = await apiClient.get('/chat/conversations');
         // Map backend data to ChatSidebar format
@@ -83,9 +79,7 @@ const ChatPage = () => {
           }
         }
       } catch (err) {
-        setError('Failed to load contacts');
-      } finally {
-        setLoadingContacts(false);
+        console.error('Failed to load contacts:', err);
       }
     };
     fetchContacts();
@@ -119,7 +113,7 @@ const ChatPage = () => {
       setHasMore(mappedMessages.length > 0 && mappedMessages.length === 50); // 50 is the backend default limit
       setPage(pageOverride);
     } catch (err) {
-      setError('Failed to load messages');
+      console.error('Failed to load messages:', err);
       if (!prepend) setMessages([]);
     } finally {
       if (pageOverride > 1) setLoadingMore(false);
@@ -217,7 +211,7 @@ const ChatPage = () => {
   // Notification handling (popup removed)
   useEffect(() => {
     if (notification) {
-      console.log('New notification received:', notification);
+      // New notification received and processed
       // You can add other notification handling here if needed
       // like updating a notification badge or showing a toast
     }

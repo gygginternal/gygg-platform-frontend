@@ -19,21 +19,8 @@ export const SocketProvider = ({ children }) => {
   const newMessageHandlers = useRef([]);
   const messageUpdateHandlers = useRef([]);
 
-  console.log('[Socket] User in SocketContext:', user);
-  console.log('[Socket] AuthToken in SocketContext:', authToken);
-
   useEffect(() => {
-    console.log(
-      '[Socket] useEffect running. isLoading:',
-      isLoading,
-      'user:',
-      user,
-      'authToken:',
-      authToken
-    );
-    console.log('[Socket] useEffect before if (!isLoading && user)');
     if (!isLoading && user && authToken) {
-      console.log('[Socket] Entering socket creation block.');
       const newSocket = io(
         (import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000').replace(
           '/api/v1',
@@ -54,25 +41,16 @@ export const SocketProvider = ({ children }) => {
           },
         }
       );
-      console.log('[Socket] Socket instance created:', newSocket);
 
       newSocket.on('connect', () => {
         setConnected(true);
-        console.log('[Socket] Connected:', newSocket.id);
         if (user && user._id) {
           newSocket.emit('subscribeToNotifications', { userId: user._id });
-          console.log(
-            '[Socket] Subscribed to notifications for userId:',
-            user._id,
-            'typeof:',
-            typeof user._id
-          );
         }
       });
 
       newSocket.on('disconnect', reason => {
         setConnected(false);
-        console.log('[Socket] Disconnected:', reason);
       });
 
       newSocket.on('connect_error', err => {
@@ -83,8 +61,7 @@ export const SocketProvider = ({ children }) => {
         console.error('[Socket] General error:', err);
       });
 
-      newSocket.on('chat:newMessage', message => {
-        console.log('[Socket] Received chat:newMessage:', message);
+      newSocket.on('newChatMessage', message => {
         setNewMessage(message);
         newMessageHandlers.current.forEach(h => h(message));
       });
@@ -102,24 +79,8 @@ export const SocketProvider = ({ children }) => {
       });
 
       newSocket.on('notification:new', notif => {
-        console.log(
-          '[Socket] Received notification:new:',
-          notif,
-          'socket:',
-          newSocket
-        );
         setNotification(notif);
-        setNotifications(prev => {
-          const updated = [notif, ...prev];
-          console.log('[Socket] Updated notifications array:', updated);
-          return updated;
-        });
-      });
-
-      newSocket.on('newChatMessage', message => {
-        console.log('[Socket] Received newChatMessage:', message);
-        setNewMessage(message);
-        newMessageHandlers.current.forEach(h => h(message));
+        setNotifications(prev => [notif, ...prev]);
       });
 
       newSocket.on('notification:unreadCountUpdated', () => {
@@ -134,7 +95,6 @@ export const SocketProvider = ({ children }) => {
       setSocket(newSocket);
 
       return () => {
-        console.log('[Socket] Cleanup function running.');
         if (user && user._id) {
           newSocket.emit('unsubscribeFromNotifications', { userId: user._id });
         }
