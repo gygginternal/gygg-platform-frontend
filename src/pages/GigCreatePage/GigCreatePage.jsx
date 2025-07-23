@@ -2,11 +2,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './GigCreatePage.module.css'; // CSS for the page layout
-import gigCreateFormStyles from '../../components/GigCreate/GigCreateForm.module.css';
 // Header and main navigation Sidebar are assumed to be part of App.js global layout
 // import Header from '../../components/Shared/Header';
 import ProfileSidebar from '../../components/Shared/ProfileSidebar'; // The static info sidebar
-import GigCreateForm from '../../components/GigCreate/GigCreateForm'; // The new multi-step form component
+import ModernGigCreateForm from '../../components/GigCreate/ModernGigCreateForm'; // The new modern multi-step form component
 
 function GigCreatePage() {
   const navigate = useNavigate();
@@ -28,9 +27,7 @@ function GigCreatePage() {
 
       {/* Main Content Area for Gig Creation Form */}
       <div className={styles.formArea}>
-        <div className={gigCreateFormStyles.gigCreateFormContainer}>
-          <GigCreateForm onGigCreated={handleGigSuccessfullyPosted} />
-        </div>
+        <ModernGigCreateForm onGigCreated={handleGigSuccessfullyPosted} />
       </div>
     </div>
   );

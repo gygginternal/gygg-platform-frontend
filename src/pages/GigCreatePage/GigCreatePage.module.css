@@ -6,17 +6,17 @@
   display: flex;
   flex-direction: row; /* Sidebar on left, form on right */
   width: 100%;
-  gap: 1.25rem; /* 20px - Space between sidebar and form area */
+  gap: 2rem; /* Increased space between sidebar and form area */
   padding-top: 5.25rem; /* 84px - Space from global header (matches desktop header height) */
   margin-left: 12.5rem; /* 200px - Indentation from the left edge on desktop */
   margin-right: auto; /* Centers the content within the remaining space */
   box-sizing: border-box; /* Ensure padding is included in width calculation */
-  max-width: 65rem; /* ~1040px - Example max-width for overall content */
+  max-width: 75rem; /* Increased max-width for better form display */
   padding-left: 1rem; /* General internal padding for better spacing */
   padding-right: 1rem;
   min-height: 100vh; /* Ensure it takes full viewport height for background */
-  background-color: #fff; /* Apply background to the page layout itself */
-  color: #e5e7eb; /* Default text color for the page */
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); /* Modern gradient background */
+  color: #111827; /* Dark text for better readability */
   font-family: 'Inter', sans-serif;
 }
 
@@ -31,6 +31,7 @@
   flex-direction: column; /* Stack title and form */
   align-items: center; /* Center form if it's narrower than this area */
   min-width: 0; /* Allows content inside to shrink if needed */
+  padding: 1rem 0; /* Add some vertical padding */
 }
 
 .pageTitle {
