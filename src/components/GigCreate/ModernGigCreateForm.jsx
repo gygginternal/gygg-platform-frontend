@@ -238,7 +238,7 @@ function ModernGigCreateForm({ onGigCreated }) {
                 )}
                 <div className={styles.priceDropdown}>
                   <select className={styles.currencySelect}>
-                    <option value="USD">USD</option>
+                    <option value="CAD">CAD</option>
                   </select>
                 </div>
               </div>
