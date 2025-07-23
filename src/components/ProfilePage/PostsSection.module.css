@@ -94,6 +94,22 @@
   .postsGrid {
     gap: 0.8rem; /* 12.8px */
   }
+  
+  .noPostsMessage {
+    padding: 1.5rem 0.5rem;
+    min-height: 200px;
+    gap: 1.25rem;
+  }
+  
+  .noPostsMessage p {
+    font-size: 1rem;
+  }
+  
+  .createPostButton {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9375rem;
+    min-width: 180px;
+  }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
@@ -113,6 +129,22 @@
   .postsGrid {
     gap: 0.6rem; /* 9.6px */
   }
+  
+  .noPostsMessage {
+    padding: 1.25rem 0.5rem;
+    min-height: 180px;
+    gap: 1rem;
+  }
+  
+  .noPostsMessage p {
+    font-size: 0.9375rem;
+  }
+  
+  .createPostButton {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    min-width: 160px;
+  }
 }
 
 .errorMessage {
@@ -123,38 +155,47 @@
 
 .noPostsMessage {
   text-align: center;
-  padding: 1.25rem 0; /* 20px 0 */
+  padding: 2rem 1rem; /* Increased padding for better spacing */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 200px; /* Add minimum height to center content vertically */
+  min-height: 250px; /* Increased height for better vertical centering */
   width: 100%;
+  gap: 1.5rem; /* Add gap between elements */
 }
 
 .noPostsMessage p {
   margin: 0;
-  margin-bottom: 1rem;
-  color: #000;
+  color: #6b7280; /* Softer gray color */
+  font-size: 1.125rem; /* Slightly larger text */
+  font-weight: 500;
+  line-height: 1.6;
+  max-width: 400px; /* Limit width for better readability */
 }
 
 .createPostButton {
-  margin-top: 1rem; /* 16px */
-  display: inline-block;
-  background-color: #2c3a40;
-  color: #fff;
-  padding: 0.75rem 1.5rem; /* 12px 24px */
-  border-radius: 0.5rem; /* 8px */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: #ffffff;
+  padding: 0.875rem 2rem; /* Increased padding for better button size */
+  border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
-  transition: background-color 0.2s ease;
+  font-size: 1rem;
+  transition: all 0.2s ease;
   border: none;
   cursor: pointer;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+  min-width: 200px; /* Ensure consistent button width */
 }
 
 .createPostButton:hover {
-  background-color: #1a252a;
-  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+  color: #ffffff;
   text-decoration: none;
 }
 

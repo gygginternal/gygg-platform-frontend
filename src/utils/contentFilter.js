@@ -1,122 +1,238 @@
-// Basic profanity list for frontend validation (lighter version)
-const BASIC_PROFANITY = [
-  'fuck', 'shit', 'damn', 'bitch', 'ass', 'bastard', 'crap',
-  'piss', 'hell', 'whore', 'slut', 'cunt', 'cock', 'dick',
-  'nigger', 'nigga', 'faggot', 'retard', 'rape', 'kill'
+/**
+ * Content Filter Utility
+ * Filters NSFW and inappropriate content from user inputs
+ */
+
+// NSFW and inappropriate words list (expandable)
+const NSFW_WORDS = [
+  // Explicit sexual content
+  'sex', 'porn', 'xxx', 'nude', 'naked', 'strip', 'escort', 'prostitute',
+  'hooker', 'brothel', 'massage', 'adult', 'erotic', 'fetish', 'bdsm',
+  'webcam', 'cam girl', 'cam boy', 'onlyfans', 'sugar daddy', 'sugar baby',
+  
+  // Profanity and offensive language
+  'fuck', 'shit', 'damn', 'hell', 'bitch', 'bastard', 'asshole', 'crap',
+  'piss', 'cock', 'dick', 'pussy', 'tits', 'boobs', 'ass', 'butt',
+  
+  // Hate speech and discrimination
+  'nazi', 'hitler', 'racist', 'nigger', 'faggot', 'retard', 'terrorist',
+  
+  // Violence and illegal activities
+  'kill', 'murder', 'suicide', 'bomb', 'weapon', 'gun', 'knife', 'drug',
+  'cocaine', 'heroin', 'weed', 'marijuana', 'meth', 'steal', 'robbery',
+  
+  // Gambling and inappropriate services
+  'casino', 'gambling', 'bet', 'poker', 'blackjack', 'lottery',
+  
+  // Common variations and leetspeak
+  'f*ck', 'f**k', 'sh*t', 's**t', 'p0rn', 'pr0n', 'n00ds', 'n00des',
+  'f4ck', 'sh1t', 'b1tch', 'd1ck', 'p*ssy', 'a$$', '@ss', 'h3ll',
 ];
 
-// Leetspeak substitutions
-const LEETSPEAK_MAP = {
-  '4': 'a', '@': 'a', '3': 'e', '1': 'i', '!': 'i',
-  '0': 'o', '5': 's', '$': 's', '7': 't', '+': 't'
-};
+// Suspicious patterns that might indicate NSFW content
+const SUSPICIOUS_PATTERNS = [
+  /\b(18\+|21\+|adult only|adults only)\b/i,
+  /\b(no strings attached|nsa|fwb|friends with benefits)\b/i,
+  /\b(hook up|hookup|one night|casual encounter)\b/i,
+  /\b(private show|private chat|cam show)\b/i,
+  /\b(send pics|send photos|nude pics|naked pics)\b/i,
+  /\b(meet tonight|come over|your place or mine)\b/i,
+  /\b(looking for fun|dtf|down to f)\b/i,
+  /\b(sugar relationship|financial support|pay for)\b/i,
+  /\b(escort service|massage service|happy ending)\b/i,
+  /\b(buy drugs|sell drugs|drug dealer)\b/i,
+];
+
+// Words that might be legitimate in certain contexts but need review
+const CONTEXT_SENSITIVE_WORDS = [
+  'massage', 'therapy', 'adult', 'mature', 'personal', 'private', 'intimate',
+  'body', 'physical', 'touch', 'hands-on', 'close', 'discrete', 'confidential'
+];
 
 /**
- * Normalize text to catch bypass attempts
- * @param {string} text - Text to normalize
- * @returns {string} - Normalized text
+ * Check if text contains NSFW content
+ * @param {string} text - Text to check
+ * @param {object} options - Filtering options
+ * @returns {object} - Result object with isClean, violations, and suggestions
  */
-const normalizeText = (text) => {
-  if (!text || typeof text !== 'string') return '';
-  
-  let normalized = text.toLowerCase();
-  
-  // Replace leetspeak
-  Object.keys(LEETSPEAK_MAP).forEach(leet => {
-    const regex = new RegExp(leet.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
-    normalized = normalized.replace(regex, LEETSPEAK_MAP[leet]);
-  });
-  
-  // Remove repeated characters
-  normalized = normalized.replace(/(.)\1{2,}/g, '$1$1');
-  
-  // Remove special characters
-  normalized = normalized.replace(/[^a-zA-Z0-9\s]/g, ' ');
-  normalized = normalized.replace(/\s+/g, ' ').trim();
-  
-  return normalized;
-};
+export const checkContent = (text, options = {}) => {
+  const {
+    strictMode = false,
+    allowContextSensitive = true,
+    customWords = []
+  } = options;
 
-/**
- * Check if message contains inappropriate content
- * @param {string} message - Message to check
- * @returns {object} - Result with isClean and reason
- */
-export const checkMessageContent = (message) => {
-  if (!message || typeof message !== 'string') {
-    return { isClean: true, reason: '' };
+  if (!text || typeof text !== 'string') {
+    return { isClean: true, violations: [], suggestions: [] };
   }
 
-  const normalized = normalizeText(message);
+  const lowerText = text.toLowerCase();
   const violations = [];
+  const suggestions = [];
 
-  // Check for profanity
-  BASIC_PROFANITY.forEach(word => {
-    const regex = new RegExp(`\\b${word}\\b`, 'i');
-    if (regex.test(normalized)) {
-      violations.push(word);
+  // Combine NSFW words with custom words
+  const allNsfwWords = [...NSFW_WORDS, ...customWords];
+
+  // Check for explicit NSFW words
+  allNsfwWords.forEach(word => {
+    const regex = new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
+    if (regex.test(lowerText)) {
+      violations.push({
+        type: 'explicit',
+        word: word,
+        message: 'Contains inappropriate language'
+      });
     }
   });
 
   // Check for suspicious patterns
-  const suspiciousPatterns = [
-    { pattern: /\b(send|give|transfer)\s+(money|cash|bitcoin)\b/i, reason: 'financial' },
-    { pattern: /\b(buy|sell)\s+(drugs|weed|cocaine)\b/i, reason: 'drugs' },
-    { pattern: /\b(kill|murder|suicide|rape)\b/i, reason: 'violence' },
-    { pattern: /(http|www|\.com|\.net)/i, reason: 'links' }
-  ];
-
-  for (const { pattern, reason } of suspiciousPatterns) {
-    if (pattern.test(normalized)) {
-      violations.push(reason);
+  SUSPICIOUS_PATTERNS.forEach((pattern, index) => {
+    if (pattern.test(text)) {
+      violations.push({
+        type: 'pattern',
+        pattern: pattern.source,
+        message: 'Contains suspicious content pattern'
+      });
     }
+  });
+
+  // Check context-sensitive words in strict mode
+  if (strictMode && !allowContextSensitive) {
+    CONTEXT_SENSITIVE_WORDS.forEach(word => {
+      const regex = new RegExp(`\\b${word}\\b`, 'i');
+      if (regex.test(lowerText)) {
+        violations.push({
+          type: 'context-sensitive',
+          word: word,
+          message: 'Contains potentially inappropriate content'
+        });
+      }
+    });
   }
 
-  const isClean = violations.length === 0;
-  
+  // Generate suggestions for clean alternatives
+  if (violations.length > 0) {
+    suggestions.push(
+      'Please use professional and appropriate language.',
+      'Consider rephrasing your message to be more suitable for all audiences.',
+      'Focus on describing your service or need in a clear, professional manner.'
+    );
+  }
+
   return {
-    isClean,
+    isClean: violations.length === 0,
     violations,
-    reason: getWarningMessage(violations)
+    suggestions,
+    severity: violations.length > 0 ? (violations.some(v => v.type === 'explicit') ? 'high' : 'medium') : 'none'
   };
 };
 
 /**
- * Get user-friendly warning message
- * @param {Array} violations - Array of violations
- * @returns {string} - Warning message
+ * Clean text by replacing inappropriate content with asterisks
+ * @param {string} text - Text to clean
+ * @param {object} options - Cleaning options
+ * @returns {string} - Cleaned text
  */
-const getWarningMessage = (violations) => {
-  if (violations.length === 0) return '';
+export const cleanText = (text, options = {}) => {
+  const { replacement = '***', customWords = [] } = options;
   
-  if (violations.some(v => ['nigger', 'faggot', 'retard', 'rape', 'kill'].includes(v))) {
-    return 'This message contains inappropriate content that violates our community guidelines.';
+  if (!text || typeof text !== 'string') {
+    return text;
   }
-  
-  if (violations.includes('financial')) {
-    return 'Please avoid discussing financial transactions in messages.';
-  }
-  
-  if (violations.includes('drugs')) {
-    return 'Discussion of illegal substances is not permitted.';
-  }
-  
-  if (violations.includes('violence')) {
-    return 'Violent or threatening content is not allowed.';
-  }
-  
-  if (violations.includes('links')) {
-    return 'Please avoid sharing links in messages for security reasons.';
-  }
-  
-  return 'Your message contains inappropriate language. Please keep conversations professional.';
+
+  let cleanedText = text;
+  const allNsfwWords = [...NSFW_WORDS, ...customWords];
+
+  // Replace NSFW words with asterisks
+  allNsfwWords.forEach(word => {
+    const regex = new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+    cleanedText = cleanedText.replace(regex, replacement);
+  });
+
+  return cleanedText;
 };
 
 /**
- * Show warning to user about inappropriate content
- * @param {string} reason - Reason for warning
+ * Get content safety score (0-100, where 100 is completely safe)
+ * @param {string} text - Text to score
+ * @returns {number} - Safety score
+ */
+export const getContentSafetyScore = (text) => {
+  const result = checkContent(text);
+  
+  if (result.isClean) {
+    return 100;
+  }
+
+  const explicitViolations = result.violations.filter(v => v.type === 'explicit').length;
+  const patternViolations = result.violations.filter(v => v.type === 'pattern').length;
+  const contextViolations = result.violations.filter(v => v.type === 'context-sensitive').length;
+
+  // Calculate score based on violation types and count
+  let score = 100;
+  score -= explicitViolations * 30; // Heavy penalty for explicit content
+  score -= patternViolations * 20;  // Medium penalty for suspicious patterns
+  score -= contextViolations * 10;  // Light penalty for context-sensitive words
+
+  return Math.max(0, score);
+};
+
+/**
+ * Validate if content is appropriate for the platform
+ * @param {string} text - Text to validate
+ * @param {object} options - Validation options
+ * @returns {object} - Validation result
+ */
+export const validateContent = (text, options = {}) => {
+  const { minSafetyScore = 70, strictMode = false } = options;
+  
+  const contentCheck = checkContent(text, { strictMode });
+  const safetyScore = getContentSafetyScore(text);
+  
+  const isValid = contentCheck.isClean && safetyScore >= minSafetyScore;
+  
+  return {
+    isValid,
+    safetyScore,
+    violations: contentCheck.violations,
+    suggestions: contentCheck.suggestions,
+    message: isValid 
+      ? 'Content is appropriate' 
+      : 'Content contains inappropriate material and cannot be submitted'
+  };
+};
+
+/**
+ * Alias for checkContent - for backward compatibility
+ * @param {string} message - Message to check
+ * @param {object} options - Validation options
+ * @returns {object} - Validation result with isClean and reason properties
+ */
+export const checkMessageContent = (message, options = {}) => {
+  const result = checkContent(message, options);
+  return {
+    isClean: result.isClean,
+    reason: result.violations.length > 0 ? result.violations[0].message : null,
+    violations: result.violations,
+    suggestions: result.suggestions
+  };
+};
+
+/**
+ * Show content warning (placeholder function)
+ * @param {string} reason - Warning reason
  */
 export const showContentWarning = (reason) => {
-  // Return the reason instead of showing alert - let components handle display
-  return reason;
+  console.warn('Content warning:', reason);
+  // You can implement toast notifications or other warning mechanisms here
+  // For now, just log to console
+};
+
+export default {
+  checkContent,
+  cleanText,
+  getContentSafetyScore,
+  validateContent,
+  checkMessageContent,
+  showContentWarning
 };

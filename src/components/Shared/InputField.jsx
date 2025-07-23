@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, AlertTriangle } from 'lucide-react';
 import ErrorDisplay from './ErrorDisplay';
+import { validateContent } from '../../utils/contentFilter';
 import styles from './InputField.module.css';
 
 const COUNTRY_OPTIONS = [
@@ -29,11 +30,15 @@ const InputField = ({
   min,
   max,
   step,
+  enableContentFilter = true, // New prop to enable/disable content filtering
+  contentFilterOptions = {}, // Options for content filtering
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [countryCode, setCountryCode] = useState('+1');
   const [localNumber, setLocalNumber] = useState('');
+  const [contentWarning, setContentWarning] = useState(null);
+  const [isContentValid, setIsContentValid] = useState(true);
 
   // Determine input variant
   const isPhoneInput = variant === 'phone';
@@ -76,7 +81,7 @@ const InputField = ({
     newCode => {
       setCountryCode(newCode);
       if (onChange) {
-        onChange(name, newCode + localNumber);
+        onChange(name, newCode + localNumber, { isContentValid: true });
       }
     },
     [name, localNumber, onChange]
@@ -92,10 +97,42 @@ const InputField = ({
       if (onChange) {
         const fullPhoneNumber = countryCode + limitedDigits;
         // Phone number formatted and updated
-        onChange(name, fullPhoneNumber);
+        onChange(name, fullPhoneNumber, { isContentValid: true });
       }
     },
     [name, countryCode, maxLength, onChange]
+  );
+
+  // Content validation function
+  const validateInputContent = useCallback(
+    (text) => {
+      if (!enableContentFilter || !text || type === 'password' || type === 'email' || isPhoneInput) {
+        setContentWarning(null);
+        setIsContentValid(true);
+        return true;
+      }
+
+      const validation = validateContent(text, {
+        minSafetyScore: 70,
+        strictMode: false,
+        ...contentFilterOptions
+      });
+
+      if (!validation.isValid) {
+        setContentWarning({
+          message: validation.message,
+          suggestions: validation.suggestions,
+          severity: validation.safetyScore < 30 ? 'high' : 'medium'
+        });
+        setIsContentValid(false);
+        return false;
+      } else {
+        setContentWarning(null);
+        setIsContentValid(true);
+        return true;
+      }
+    },
+    [enableContentFilter, type, isPhoneInput, contentFilterOptions]
   );
 
   // Handle regular input change
@@ -106,11 +143,14 @@ const InputField = ({
         newValue = newValue.slice(0, maxLength);
       }
 
+      // Validate content if filtering is enabled
+      const isValid = validateInputContent(newValue);
+
       if (onChange) {
-        onChange(name, newValue);
+        onChange(name, newValue, { isContentValid: isValid });
       }
     },
-    [name, maxLength, onChange]
+    [name, maxLength, onChange, validateInputContent]
   );
 
   // Get appropriate input type
@@ -199,7 +239,7 @@ const InputField = ({
         </label>
       )}
 
-      <div className={`${styles.inputContainer} ${error ? styles.error : ''}`}>
+      <div className={`${styles.inputContainer} ${error ? styles.error : ''} ${contentWarning ? styles.contentWarning : ''}`}>
         {isPhoneInput && (
           <select
             value={countryCode}
@@ -245,7 +285,28 @@ const InputField = ({
         </div>
       )}
 
-      {helperText && !error && (
+      {contentWarning && (
+        <div className={styles.contentWarningContainer}>
+          <div className={`${styles.contentWarningMessage} ${styles[contentWarning.severity]}`}>
+            <AlertTriangle size={14} className={styles.warningIcon} />
+            <span>{contentWarning.message}</span>
+          </div>
+          {contentWarning.suggestions && contentWarning.suggestions.length > 0 && (
+            <div className={styles.contentSuggestions}>
+              <p className={styles.suggestionsTitle}>Suggestions:</p>
+              <ul className={styles.suggestionsList}>
+                {contentWarning.suggestions.slice(0, 2).map((suggestion, index) => (
+                  <li key={index} className={styles.suggestionItem}>
+                    {suggestion}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+
+      {helperText && !error && !contentWarning && (
         <span id={`${name}-helper`} className={styles.helperText}>
           {helperText}
         </span>
@@ -283,6 +344,8 @@ InputField.propTypes = {
   min: PropTypes.number,
   max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   step: PropTypes.number,
+  enableContentFilter: PropTypes.bool,
+  contentFilterOptions: PropTypes.object,
 };
 
 export default InputField;

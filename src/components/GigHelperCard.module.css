@@ -1,12 +1,20 @@
 .card {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  padding: 1.25rem 1.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f3f4f6;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
   margin-bottom: 1rem;
+  transition: all 0.2s ease;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
 }
 
 .profileSection {
@@ -37,17 +45,27 @@
 }
 
 .name {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  color: #222;
+  color: #111827;
+  letter-spacing: -0.025em;
 }
 
 .viewProfileLink {
-  color: #334155;
-  font-size: 1rem;
-  text-decoration: underline;
+  color: #3b82f6;
+  font-size: 0.875rem;
+  text-decoration: none;
   font-weight: 500;
   margin-left: 1rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  background: #eff6ff;
+}
+
+.viewProfileLink:hover {
+  background: #dbeafe;
+  color: #1d4ed8;
 }
 
 .metaRow {
@@ -58,22 +76,27 @@
 }
 
 .rate {
-  color: #eab308;
+  color: #059669;
   font-weight: 600;
-  font-size: 1.05rem;
+  font-size: 1rem;
+  background: #d1fae5;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
 }
 
 .location {
-  color: #64748b;
-  font-size: 1rem;
+  color: #6b7280;
+  font-size: 0.875rem;
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.375rem;
 }
 
 .bio {
-  color: #475569;
-  font-size: 1rem;
+  color: #374151;
+  font-size: 0.9375rem;
+  line-height: 1.6;
   margin: 0.5rem 0 0.25rem 0;
   min-height: 2.5rem;
 }
@@ -85,33 +108,41 @@
 }
 
 .primaryButton {
-  background: #334155;
-  color: #fff;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: #ffffff;
   border: none;
   border-radius: 8px;
-  padding: 0.5rem 1.25rem;
-  font-size: 1rem;
-  font-weight: 500;
+  padding: 0.625rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  box-shadow: 0 1px 2px rgba(59, 130, 246, 0.2);
 }
+
 .primaryButton:hover {
-  background: #1e293b;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
 }
 
 .secondaryButton {
-  background: #f1f5f9;
-  color: #222;
-  border: none;
+  background: #f9fafb;
+  color: #374151;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
-  padding: 0.5rem 1.25rem;
-  font-size: 1rem;
-  font-weight: 500;
+  padding: 0.625rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
+  font-family: inherit;
 }
+
 .secondaryButton:hover {
-  background: #e2e8f0;
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  transform: translateY(-1px);
 }
 
 @media (max-width: 600px) {

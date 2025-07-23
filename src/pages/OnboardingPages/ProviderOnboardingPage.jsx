@@ -16,6 +16,7 @@ import apiClient from '../../api/axiosConfig';
 import logger from '../../utils/logger';
 import { CATEGORY_ENUM } from '../../constants/categories';
 import { HOBBIES_OPTIONS, PERSONALITIES_OPTIONS } from '../../utils/constants';
+import { useToast } from '../../contexts/ToastContext';
 
 const TOTAL_PROVIDER_STEPS = 6; // Profile (3) + Gig Post (3)
 
@@ -56,6 +57,7 @@ function ProviderOnboardingPage() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const showToast = useToast();
 
   // All useEffect hooks must be at the top
   useEffect(() => {
