@@ -393,6 +393,7 @@ function ProviderOnboardingPage() {
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleInputChange}
+                labelColor="#ffffff"
                 required
               />
               <InputField
@@ -401,6 +402,7 @@ function ProviderOnboardingPage() {
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleInputChange}
+                labelColor="#ffffff"
                 required
               />
             </div>
@@ -447,6 +449,7 @@ function ProviderOnboardingPage() {
               type="textarea"
               value={formData.mainBio}
               onChange={handleInputChange}
+              labelColor="#ffffff"
               rows={6}
             />
             <div className={styles.imageRow}>

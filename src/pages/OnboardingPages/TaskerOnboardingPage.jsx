@@ -269,6 +269,7 @@ function TaskerOnboardingPage() {
                 name="firstName"
                 value={formData.firstName}
                 onChange={(name, val) => handleInputChange(name, val)}
+                labelColor="#ffffff"
                 required
               />
               <InputField
@@ -277,6 +278,7 @@ function TaskerOnboardingPage() {
                 name="lastName"
                 value={formData.lastName}
                 onChange={(name, val) => handleInputChange(name, val)}
+                labelColor="#ffffff"
                 required
               />
             </div>
@@ -401,6 +403,7 @@ function TaskerOnboardingPage() {
               type="textarea"
               value={formData.bioStep5}
               onChange={(name, val) => handleInputChange(name, val)}
+              labelColor="#ffffff"
             />
             <div className={styles.imageRow}>
               <div

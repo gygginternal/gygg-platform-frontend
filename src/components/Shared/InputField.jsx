@@ -5,14 +5,7 @@ import ErrorDisplay from './ErrorDisplay';
 import styles from './InputField.module.css';
 
 const COUNTRY_OPTIONS = [
-  { code: '+1', label: 'CA', flag: 'CA' },
-  { code: '+1', label: 'US', flag: 'US' },
-  { code: '+44', label: 'UK', flag: 'GB' },
-  { code: '+33', label: 'France', flag: 'FR' },
-  { code: '+49', label: 'Germany', flag: 'DE' },
-  { code: '+81', label: 'Japan', flag: 'JP' },
-  { code: '+86', label: 'China', flag: 'CN' },
-  { code: '+91', label: 'India', flag: 'IN' },
+  { code: '+1', label: '+1', flag: 'US' },
 ];
 
 const InputField = ({

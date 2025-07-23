@@ -31,6 +31,11 @@ function SignupPage() {
     feedback: [],
     isValid: false
   });
+  
+  const [passwordMatch, setPasswordMatch] = useState({
+    isMatching: false,
+    isDirty: false // Only show match status after user has typed in confirm field
+  });
 
   useEffect(() => {
     if (selectedRole && selectedRole !== formData.role[0]) {
@@ -58,26 +63,38 @@ function SignupPage() {
     };
   };
 
-  // --- START: SIMPLIFIED handleChange - InputField now handles phoneNo formatting ---
+  // --- START: Enhanced handleChange with password matching ---
   const handleChange = (name, value) => {
-    // InputField for phoneNo will now send the already formatted '+1XXXXXXXXXX' string
-    // Or just the raw value for other fields.
-    setFormData(prev => ({ ...prev, [name]: value }));
-    
-    // Real-time password strength checking
-    if (name === 'password') {
-      setPasswordStrength(checkPasswordStrength(value));
-    }
+    // Update form data
+    setFormData(prev => {
+      const newData = { ...prev, [name]: value };
+      
+      // Check password matching whenever either password field changes
+      if (name === 'password' || name === 'passwordConfirm') {
+        const isMatching = newData.password === newData.passwordConfirm;
+        const isDirty = name === 'passwordConfirm' || 
+                       (name === 'password' && prev.passwordConfirm.length > 0);
+        
+        setPasswordMatch({ isMatching, isDirty });
+      }
+      
+      // Real-time password strength checking
+      if (name === 'password') {
+        setPasswordStrength(checkPasswordStrength(value));
+      }
+      
+      return newData;
+    });
     
     // Clear errors on input change
     clearOnInputChange();
   };
-  // --- END: SIMPLIFIED handleChange ---
+  // --- END: Enhanced handleChange ---
 
   const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+    clearOnInputChange(); // Clear previous errors
 
     const currentErrors = []; // Collect all frontend validation errors
 
@@ -136,26 +153,29 @@ function SignupPage() {
       }
     }
 
-    // *** Phone number validation (Frontend) - Enforce E.164 format (international) ***
+    // *** Phone number validation (Frontend) - Simplified ***
     const fullPhoneNumber = formData.phoneNo; // This should now be the full formatted string from InputField
+    
+    // Very simple validation - just make sure it starts with +1 and has some digits
+    const validPhoneNumber = (phone) => {
+      return phone && phone.startsWith('+1') && phone.length >= 3;
+    };
 
-    // Regex for E.164: + followed by 8 to 15 digits
-    const phoneRegexE164 = /^\+\d{8,15}$/;
-
-    if (!phoneRegexE164.test(fullPhoneNumber)) {
+    if (!validPhoneNumber(fullPhoneNumber)) {
       currentErrors.push(
-        'Phone number must be in international format (e.g., +14165551234, +919876543210, +441234567890).'
+        'Please enter a phone number starting with +1'
       );
     }
 
     // If there are any frontend validation errors, display them and stop.
     if (currentErrors.length > 0) {
       setMultipleErrors(currentErrors);
+      setLoading(false); // Reset loading state
       return;
     }
 
     const payload = {
-      email: formData.email,
+      email: formData.email?.trim(),
       password: formData.password,
       passwordConfirm: formData.passwordConfirm,
       role: formData.role,
@@ -165,9 +185,24 @@ function SignupPage() {
 
     try {
       logger.info('Attempting signup for email:', payload.email);
+      
+      // Set a timeout to handle hanging requests
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => {
+        controller.abort();
+      }, 15000); // 15 second timeout
+      
       // Phone number validation passed, proceeding with signup
-      await apiClient.post('/users/signup', payload);
+      const response = await apiClient.post('/users/signup', payload, {
+        signal: controller.signal,
+        timeout: 15000 // 15 second timeout
+      });
+      
+      // Clear the timeout
+      clearTimeout(timeoutId);
+      
       logger.info('Signup successful on backend for:', payload.email);
+      
       showToast(
         'Signup successful! Please check your email to verify your account.',
         { type: 'success' }
@@ -175,8 +210,31 @@ function SignupPage() {
       navigate('/verify-email-prompt', { state: { email: payload.email } });
     } catch (err) {
       logger.error('Signup error:', err.response?.data || err.message);
-      handleApiError(err);
-      showToast(err.response?.data?.message || 'Signup failed. Please try again.', { type: 'error' });
+      
+      // Handle specific error cases
+      if (err.name === 'AbortError' || err.code === 'ECONNABORTED') {
+        showToast('Request timeout. The server is taking too long to respond. Please try again.', { type: 'error' });
+        setMultipleErrors(['The signup request timed out. This could be due to network issues or server load. Please try again.']);
+      } else if (err.code === 'NETWORK_ERROR' || !err.response) {
+        showToast('Network error. Please check your connection and try again.', { type: 'error' });
+        setMultipleErrors(['Network connection error. Please check your internet connection and try again.']);
+      } else if (err.response?.status === 400) {
+        handleApiError(err);
+        
+        // Check for specific validation errors
+        if (err.response?.data?.errors?.phoneNo) {
+          setMultipleErrors([`Phone number error: ${err.response.data.errors.phoneNo}`]);
+        }
+      } else if (err.response?.status === 409) {
+        showToast('An account with this email already exists.', { type: 'error' });
+        setMultipleErrors(['An account with this email already exists. Please use a different email or try logging in.']);
+      } else if (err.response?.status >= 500) {
+        showToast('Server error. Please try again later.', { type: 'error' });
+        setMultipleErrors(['The server encountered an error. Our team has been notified and is working on it.']);
+      } else {
+        showToast(err.response?.data?.message || 'Signup failed. Please try again.', { type: 'error' });
+        setMultipleErrors([err.response?.data?.message || 'Signup failed. Please try again.']);
+      }
     } finally {
       setLoading(false);
     }
@@ -184,6 +242,7 @@ function SignupPage() {
 
   const getMaxDateForDOB = () => {
     const today = new Date();
+    // Calculate date for 50 years ago (minimum age requirement)
     const maxDate = new Date(
       today.getFullYear() - 50,
       today.getMonth(),
@@ -274,6 +333,22 @@ function SignupPage() {
             required
             labelColor="white"
           />
+          
+          {/* Password matching indicator */}
+          {passwordMatch.isDirty && (
+            <div className={styles.passwordMatch}>
+              <div className={styles.matchIcon}>
+                {passwordMatch.isMatching ? (
+                  <span className={styles.matching}>✓</span>
+                ) : (
+                  <span className={styles.notMatching}>✗</span>
+                )}
+              </div>
+              <div className={`${styles.matchText} ${passwordMatch.isMatching ? styles.matching : styles.notMatching}`}>
+                {passwordMatch.isMatching ? 'Passwords match' : 'Passwords do not match'}
+              </div>
+            </div>
+          )}
 
           <InputField
             label="Phone Number"

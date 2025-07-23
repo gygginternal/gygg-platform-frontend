@@ -5,6 +5,7 @@ const getToken = () => localStorage.getItem('authToken');
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL,
   headers: { 'Content-Type': 'application/json' },
+  timeout: 30000, // 30 second timeout
 });
 
 apiClient.interceptors.request.use(
@@ -33,11 +34,15 @@ apiClient.interceptors.response.use(
       console.error(
         `API Error (${error.response.status}): ${error.response.data?.message || error.message}`
       );
+    } else if (error.code === 'ECONNABORTED') {
+      console.error('Request timeout - server took too long to respond');
+      error.message = 'Request timeout. Please try again.';
     } else if (
       error.message &&
       error.message.toLowerCase().includes('network')
     ) {
-      // No need to log network errors
+      console.error('Network error:', error.message);
+      error.message = 'Network error. Please check your connection.';
     }
     return Promise.reject(error);
   }

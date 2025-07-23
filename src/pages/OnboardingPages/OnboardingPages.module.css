@@ -91,7 +91,7 @@
 .inputLabel {
   font-size: 0.875rem; /* 14px */
   font-weight: 500;
-  color: #d1d5db;
+  color: #ffffff;
 }
 .input, /* Class for generic text/number inputs */
 .inputDropdown, /* For Tasker's specific rate select */
