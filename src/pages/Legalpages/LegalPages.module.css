@@ -104,24 +104,51 @@
   line-height: 1.4;
 }
 
-.footerLink {
+.footerActions {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1.5rem 1rem;
+  margin-top: 2rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.backToHomeButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #00aaba 0%, #008b8b 100%);
+  color: white;
   text-decoration: none;
-  text-align: end;
-  padding-right: 1.5rem; /* 24px */
-  margin-top: 1.5rem; /* Added margin-top for spacing */
-  display: block; /* Ensure text-align works */
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 170, 186, 0.2);
+  border: none;
+  cursor: pointer;
 }
-.footerLink a {
-  /* Facebook Buttons 13-14px */
-  font-size: 0.875rem; /* 14px */
-  color: #007bff;
-  transition:
-    color 0.2s ease,
-    text-decoration 0.2s ease;
+
+.backToHomeButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 170, 186, 0.3);
+  background: linear-gradient(135deg, #008b8b 0%, #006666 100%);
+  text-decoration: none;
+  color: white;
 }
-.footerLink a:hover {
-  color: #0056b3;
-  text-decoration: underline;
+
+.backToHomeButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 170, 186, 0.2);
+}
+
+.backIcon {
+  transition: transform 0.2s ease;
+}
+
+.backToHomeButton:hover .backIcon {
+  transform: translateX(-2px);
 }
 
 /* Responsive adjustments */
@@ -175,12 +202,15 @@
   .legalContent li {
     margin-bottom: 0.4rem; /* 6.4px */
   }
-  .footerLink {
-    padding-right: 1.25rem; /* 20px */
-    margin-top: 1.25rem; /* 20px */
+  .footerActions {
+    padding: 1.5rem 1.25rem 0.8rem;
+    margin-top: 1.5rem;
   }
-  .footerLink a {
-    font-size: 0.8125rem; /* 13px */
+  
+  .backToHomeButton {
+    padding: 10px 20px;
+    font-size: 13px;
+    border-radius: 10px;
   }
 }
 
@@ -233,12 +263,16 @@
   .legalContent li {
     margin-bottom: 0.3rem; /* 4.8px */
   }
-  .footerLink {
-    padding-right: 1rem; /* 16px */
-    margin-top: 1rem; /* 16px */
+  .footerActions {
+    padding: 1.25rem 1rem 0.6rem;
+    margin-top: 1.25rem;
   }
-  .footerLink a {
-    font-size: 0.75rem; /* 12px */
+  
+  .backToHomeButton {
+    padding: 10px 18px;
+    font-size: 13px;
+    border-radius: 10px;
+    gap: 6px;
   }
 }
 
@@ -291,11 +325,20 @@
   .legalContent li {
     margin-bottom: 0.25rem; /* 4px */
   }
-  .footerLink {
-    padding-right: 0.8rem; /* 12.8px */
-    margin-top: 0.8rem; /* 12.8px */
+  .footerActions {
+    padding: 1rem 0.8rem 0.5rem;
+    margin-top: 1rem;
   }
-  .footerLink a {
-    font-size: 0.6875rem; /* ~11px */
+  
+  .backToHomeButton {
+    padding: 8px 16px;
+    font-size: 12px;
+    border-radius: 8px;
+    gap: 4px;
+  }
+  
+  .backToHomeButton svg {
+    width: 14px;
+    height: 14px;
   }
 }
