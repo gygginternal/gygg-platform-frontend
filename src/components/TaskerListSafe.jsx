@@ -58,6 +58,18 @@ const TaskerListSafe = () => {
         });
         
         console.log('Valid taskers:', validTaskers.length);
+        
+        // Debug: Log location data for first few taskers
+        validTaskers.slice(0, 3).forEach((tasker, index) => {
+          console.log(`Tasker ${index + 1} location data:`, {
+            address: tasker.address,
+            location: tasker.location,
+            city: tasker.city,
+            state: tasker.state,
+            name: tasker.firstName || tasker.fullName
+          });
+        });
+        
         setTaskers(validTaskers);
         
       } catch (err) {
@@ -124,9 +136,30 @@ const TaskerListSafe = () => {
                 ? `⭐ ${Number(tasker.rating).toFixed(1)} (${tasker.ratingCount || 0} reviews)`
                 : 'Rate not specified';
           
-          const displayLocation = tasker.address?.city || 
-            tasker.address?.state || 
-            'Location not specified';
+          // Enhanced location extraction
+          let displayLocation = 'Location not specified';
+          
+          if (tasker.address) {
+            const parts = [];
+            if (tasker.address.city) parts.push(tasker.address.city);
+            if (tasker.address.state) parts.push(tasker.address.state);
+            if (tasker.address.country) parts.push(tasker.address.country);
+            
+            if (parts.length > 0) {
+              displayLocation = parts.join(', ');
+            }
+          } else if (tasker.location) {
+            // Fallback to location field if address is not available
+            displayLocation = typeof tasker.location === 'string' 
+              ? tasker.location 
+              : tasker.location.city || tasker.location.state || 'Location not specified';
+          } else if (tasker.city || tasker.state) {
+            // Fallback to direct city/state fields
+            const parts = [];
+            if (tasker.city) parts.push(tasker.city);
+            if (tasker.state) parts.push(tasker.state);
+            displayLocation = parts.join(', ');
+          }
           
           return (
             <GigHelperCard

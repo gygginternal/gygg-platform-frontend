@@ -1,65 +1,88 @@
 .postedGigsSection {
-  margin: 32px 0;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  margin: 24px 0;
 }
 
 .sectionTitle {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #222;
-  margin-bottom: 16px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 20px;
+  margin-top: 0;
 }
 
-div.gigsList {
-  display: flex;
-  gap: 24px;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  padding-bottom: 4px;
+.gigsList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .gigsList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .gigsList {
+    grid-template-columns: 1fr;
+  }
 }
 
 .gigCard {
   background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  padding: 20px 24px;
-  min-width: 260px;
-  max-width: 300px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.gigCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: #cbd5e0;
+}
+
+.gigContent {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  flex-shrink: 0;
+  gap: 12px;
 }
 
-.gigTitleLink {
-  font-weight: bold;
-  font-size: 1.08rem;
-  color: #1a4d7a;
-  text-decoration: underline;
-  margin-bottom: 2px;
-  cursor: pointer;
+.gigTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0;
+  line-height: 1.4;
+  text-decoration: none;
 }
 
-.gigStatusRow {
+.gigMeta {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 4px;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .statusBadge {
   display: inline-block;
-  padding: 2px 12px;
-  border-radius: 8px;
-  font-size: 0.98rem;
-  font-weight: 600;
-  color: #fff;
-  background: #b0b8c1;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  width: fit-content;
+  text-transform: capitalize;
 }
 
 .gigPostedDate {
-  color: #888;
-  font-size: 0.98rem;
-  margin-left: auto;
+  color: #718096;
+  font-size: 0.875rem;
+  font-weight: 400;
 }
 
 .state {
@@ -122,4 +145,49 @@ div.gigsList {
   background-color: #1a252a;
   color: #fff;
   text-decoration: none;
+}
+
+.paginationDots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+  gap: 8px;
+}
+
+.dotButton {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #cbd5e0;
+  display: inline-block;
+  transition: background 0.2s, width 0.2s;
+}
+
+.activeDot {
+  width: 28px;
+  height: 12px;
+  border-radius: 8px;
+  background: #4299e1;
+  display: inline-block;
+  transition: background 0.2s, width 0.2s;
+}
+
+.dotButton:hover .dot {
+  background: #a0aec0;
+}
+
+.dotButton:hover .activeDot {
+  background: #3182ce;
 }

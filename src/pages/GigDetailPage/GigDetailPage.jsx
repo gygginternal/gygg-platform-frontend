@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import GigDetail from '../../components/GigDetail'; // The component rendering details and actions
 import apiClient from '../../api/axiosConfig';
 import { useAuth } from '../../contexts/AuthContext';
@@ -12,6 +12,7 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 function GigDetailPage() {
   const { gigId } = useParams(); // Get gigId from URL
   const { user } = useAuth(); // Get current user for potential checks
+  const navigate = useNavigate();
   const [gigData, setGigData] = useState(null);
   const [contractData, setContractData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -25,7 +26,15 @@ function GigDetailPage() {
     try {
       // Fetch Gig Details
       const gigResponse = await apiClient.get(`/gigs/${gigId}`);
-      setGigData(gigResponse.data.data.gig);
+      const gig = gigResponse.data.data.gig;
+      setGigData(gig);
+
+      // Check if user is a provider and owns this gig
+      if (user && user.role?.includes('provider') && gig.postedBy?._id === user._id) {
+        // Redirect to posted gigs page with this gig selected
+        navigate(`/posted-gigs?gigId=${gigId}`, { replace: true });
+        return;
+      }
 
       // Fetch Associated Contract (if one exists for this gig)
       try {

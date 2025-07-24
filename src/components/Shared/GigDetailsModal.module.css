@@ -171,13 +171,15 @@
   transition: background 0.2s;
 }
 
-.modalActions button:first-child {
+.modalActions button:first-child,
+.modalCloseButton {
   background: #fff;
   color: #222;
   border: 1px solid #ccc;
 }
 
-.modalActions button:last-child {
+.modalActions button:last-child,
+.modalApplyButton {
   background: #222e3a;
   color: #fff;
 }

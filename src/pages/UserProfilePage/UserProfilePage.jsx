@@ -1,6 +1,6 @@
 // src/pages/UserProfilePage.js
 import React, { useState, useEffect, useCallback } from 'react';
-import { useParams } from 'react-router-dom'; // Removed unused Link
+import { useParams, useNavigate } from 'react-router-dom';
 import styles from './UserProfilePage.module.css';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -16,6 +16,7 @@ import logger from '../../utils/logger';
 function UserProfilePage() {
   const { userId: viewedUserIdFromParams } = useParams();
   const { user: loggedInUser, isLoading: authIsLoading } = useAuth();
+  const navigate = useNavigate();
   const [profileUser, setProfileUser] = useState(null);
   const [pageLoading, setPageLoading] = useState(true);
   const [pageError, setPageError] = useState('');
@@ -98,48 +99,39 @@ function UserProfilePage() {
   const isTaskerProfile = profileUser.role?.includes('tasker');
 
   return (
-    <div className={styles.content}>
-      <ProfileInfo
-        userToDisplay={profileUser}
-        isOwnProfile={isOwnProfile}
-        onProfileUpdate={fetchUserProfileData} // Pass the correct fetch function
-      />
-      <AboutSection
-        userToDisplay={profileUser}
-        isOwnProfile={isOwnProfile}
-        onBioUpdate={fetchUserProfileData} // Pass the correct fetch function
-      />
-      {/* StripeOnboarding would typically only be on the logged-in user's own dashboard/settings page */}
-      {/* {isOwnProfile && isTaskerProfile && <StripeOnboarding />} */}
+    <div className={styles.profilePageContainer}>
+      <div className={styles.content}>
+        <ProfileInfo
+          userToDisplay={profileUser}
+          isOwnProfile={isOwnProfile}
+          onProfileUpdate={fetchUserProfileData}
+          showMessageButton={!isOwnProfile && loggedInUser}
+          onMessageClick={() => {
+            navigate(`/messages/${profileUser._id}`);
+          }}
+        />
+        <AboutSection
+          userToDisplay={profileUser}
+          isOwnProfile={isOwnProfile}
+          onBioUpdate={fetchUserProfileData}
+        />
 
-      <PostsSection
-        userIdToView={profileUser._id}
-        isOwnProfile={isOwnProfile}
-      />
-      <AlbumSection
-        userIdToView={profileUser._id}
-        isOwnProfile={isOwnProfile}
-        onUpdate={fetchUserProfileData} // Pass the correct fetch function
-      />
-      {isTaskerProfile && (
-        <ReviewsSection
+        <PostsSection
           userIdToView={profileUser._id}
           isOwnProfile={isOwnProfile}
         />
-      )}
-
-      {!isOwnProfile && loggedInUser && (
-        <div className={styles.sendMessageCard}>
-          <button
-            onClick={() => {
-              // Navigate to chat page with the user
-              window.location.href = `/chat/${profileUser._id}`;
-            }}
-          >
-            Send Message to {profileUser.firstName}
-          </button>
-        </div>
-      )}
+        <AlbumSection
+          userIdToView={profileUser._id}
+          isOwnProfile={isOwnProfile}
+          onUpdate={fetchUserProfileData}
+        />
+        {isTaskerProfile && (
+          <ReviewsSection
+            userIdToView={profileUser._id}
+            isOwnProfile={isOwnProfile}
+          />
+        )}
+      </div>
     </div>
   );
 }

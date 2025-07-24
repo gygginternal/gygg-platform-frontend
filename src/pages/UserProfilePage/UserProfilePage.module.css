@@ -1,50 +1,77 @@
 /* frontend/src/pages/UserProfilePage.module.css */
+.profilePageContainer {
+  display: flex;
+  justify-content: center;
+  padding-top: 41px;
+  min-height: calc(100vh - 41px);
+  background-color: #f0f2f5;
+  box-sizing: border-box;
+}
+
 .content {
-  width: 100%;
-  /* max-width: 900px; -- Handled by global .container in App.js */
-  /* margin: 20px auto; -- Handled by global .container in App.js */
   display: flex;
   flex-direction: column;
-  gap: 25px; /* Space between profile sections (cards) */
-  padding-bottom: 30px;
+  background-color: #f0f2f5;
+  padding-top: 41px;
+  gap: 1.25rem;
+  max-width: 56.25rem; /* 900px */
+  width: 100%;
+  margin: 0 auto;
 }
 
 .pageStateContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 300px;
-  font-size: 1.2rem;
+  min-height: 200px;
+  font-size: 1.1rem;
   color: #555;
 }
 
 .errorMessage {
-  color: red; /* Standard error color */
+  color: red;
   font-weight: bold;
 }
 
-.sendMessageCard {
-  margin-top: 20px;
-  text-align: center;
-  background-color: #f8f8f8; /* Light background similar to a card */
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .profilePageContainer {
+    padding-top: 4.5rem; /* 72px */
+    min-height: calc(100vh - 4.5rem);
+  }
+
+  .content {
+    max-width: 950px;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .pageStateContainer {
+    font-size: 1.0625rem;
+    min-height: 15rem;
+  }
 }
 
-.sendMessageCard button {
-  background-color: #007bff; /* Example button color */
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
+@media (max-width: 768px) {
+  .profilePageContainer {
+    padding-top: 4rem; /* 64px */
+    min-height: calc(100vh - 4rem);
+  }
+
+  .content {
+    padding: 0.875rem;
+    gap: 0.875rem;
+  }
 }
 
-.sendMessageCard button:hover {
-  background-color: #0056b3;
-}
+@media (max-width: 480px) {
+  .profilePageContainer {
+    padding-top: 3.5rem; /* 56px */
+    min-height: calc(100vh - 3.5rem);
+  }
 
-/* Your global .error-message and .card styles will apply */
+  .content {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+}

@@ -8,6 +8,8 @@ function RecentHires({ providerId, isOwnProfile }) {
   const [hires, setHires] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [page, setPage] = useState(0);
+  const HIRES_PER_PAGE = 3;
 
   useEffect(() => {
     async function fetchRecentHires() {
@@ -41,7 +43,8 @@ function RecentHires({ providerId, isOwnProfile }) {
             seen.add(contract.tasker);
           }
         }
-        setHires(uniqueTaskers.slice(0, 5));
+        setHires(uniqueTaskers);
+        setPage(0);
       } catch (err) {
         setError('Could not load recent hires.');
       } finally {
@@ -75,11 +78,17 @@ function RecentHires({ providerId, isOwnProfile }) {
       </div>
     );
 
+  const totalPages = Math.ceil(hires.length / HIRES_PER_PAGE);
+  const paginatedHires = hires.slice(
+    page * HIRES_PER_PAGE,
+    (page + 1) * HIRES_PER_PAGE
+  );
+
   return (
     <div className={styles.recentHiresSection}>
       <h2 className={styles.sectionTitle}>Recent hires</h2>
       <div className={styles.hiresList}>
-        {hires.map((hire, idx) => (
+        {paginatedHires.map((hire, idx) => (
           <div className={styles.hireCard} key={idx}>
             {hire.gigId ? (
               <a href={`/gigs/${hire.gigId}`} className={styles.gigTitleLink}>
@@ -121,6 +130,28 @@ function RecentHires({ providerId, isOwnProfile }) {
           </div>
         ))}
       </div>
+      
+      {hires.length > 0 && totalPages > 1 && (
+        <div className={styles.paginationDots}>
+          {Array.from({ length: totalPages }).map((_, idx) => (
+            <button
+              key={idx}
+              type="button"
+              className={styles.dotButton}
+              onClick={() => setPage(idx)}
+              style={{
+                cursor: 'pointer',
+                margin: '0 4px',
+                background: 'none',
+                border: 'none',
+                padding: 0,
+              }}
+            >
+              <span className={idx === page ? styles.activeDot : styles.dot} />
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -1,33 +1,40 @@
 .recentHiresSection {
-  margin: 32px 0;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  margin: 24px 0;
 }
 
 .sectionTitle {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #222;
-  margin-bottom: 16px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 20px;
+  margin-top: 0;
 }
 
 .hiresList {
-  display: flex;
-  gap: 24px;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  padding-bottom: 4px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
 .hireCard {
   background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  padding: 20px 24px;
-  min-width: 300px;
-  max-width: 340px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  flex-shrink: 0;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.hireCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: #cbd5e0;
 }
 
 .avatarPlaceholder {
@@ -52,48 +59,63 @@
 }
 
 .gigTitleLink {
-  font-weight: bold;
-  font-size: 1.08rem;
-  color: #1a4d7a;
-  text-decoration: underline;
-  margin-bottom: 2px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #2d3748;
+  text-decoration: none;
+  margin-bottom: 8px;
   cursor: pointer;
+  line-height: 1.4;
+}
+
+.gigTitleLink:hover {
+  color: #4299e1;
+  text-decoration: underline;
 }
 
 .gigDoneBy {
-  color: #666;
-  font-size: 0.98rem;
-  margin-bottom: 2px;
+  color: #718096;
+  font-size: 0.875rem;
+  margin-bottom: 12px;
+  font-weight: 400;
+}
+
+.gigDoneBy b {
+  color: #4a5568;
+  font-weight: 600;
 }
 
 .reviewText {
-  color: #444;
-  font-size: 1.01rem;
-  margin-bottom: 6px;
+  color: #4a5568;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 16px;
+  flex-grow: 1;
 }
 
 .ratingRow {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 4px;
+  margin-top: auto;
 }
 
 .ratingValue {
-  font-weight: bold;
-  color: #ffa726;
-  font-size: 1.05rem;
+  font-weight: 600;
+  color: #ed8936;
+  font-size: 1rem;
 }
 
 .stars {
   display: flex;
-  gap: 1px;
+  gap: 2px;
 }
 
 .hireDate {
-  color: #888;
-  font-size: 0.98rem;
+  color: #a0aec0;
+  font-size: 0.875rem;
   margin-left: auto;
+  font-weight: 400;
 }
 
 .state {
@@ -156,4 +178,89 @@
   background-color: #1a252a;
   color: #fff;
   text-decoration: none;
+}
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .hiresList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .hiresList {
+    grid-template-columns: 1fr;
+  }
+  
+  .recentHiresSection {
+    padding: 20px;
+    margin: 20px 0;
+  }
+  
+  .sectionTitle {
+    font-size: 1.125rem;
+  }
+  
+  .hireCard {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .recentHiresSection {
+    padding: 16px;
+    margin: 16px 0;
+  }
+  
+  .gigTitleLink {
+    font-size: 1rem;
+  }
+  
+  .reviewText {
+    font-size: 0.8125rem;
+  }
+}/* Pag
+ination Styles */
+.paginationDots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+  gap: 8px;
+}
+
+.dotButton {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #cbd5e0;
+  display: inline-block;
+  transition: background 0.2s, width 0.2s;
+}
+
+.activeDot {
+  width: 28px;
+  height: 12px;
+  border-radius: 8px;
+  background: #4299e1;
+  display: inline-block;
+  transition: background 0.2s, width 0.2s;
+}
+
+.dotButton:hover .dot {
+  background: #a0aec0;
+}
+
+.dotButton:hover .activeDot {
+  background: #3182ce;
 }

@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './AwaitedPostedGigs.module.css'; // Single CSS module
 import { useQuery } from '@tanstack/react-query';
 import apiClient from '../../api/axiosConfig';
 import logger from '../../utils/logger';
 import PropTypes from 'prop-types';
+import ProviderGigDetailsModal from './ProviderGigDetailsModal';
 
 const AwaitedPostedGigs = () => {
+  const [selectedGig, setSelectedGig] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+
   const {
     data: awaitedGigs,
     isLoading,
@@ -22,6 +26,23 @@ const AwaitedPostedGigs = () => {
       logger.error('Error fetching awaited posted gigs:', err);
     },
   });
+
+  const handleGigClick = async (gig, e) => {
+    e.preventDefault();
+    try {
+      // Fetch full gig details for the modal
+      const res = await apiClient.get(`/gigs/${gig._id}`);
+      setSelectedGig(res.data.data.gig);
+      setModalOpen(true);
+    } catch (err) {
+      logger.error('Error fetching gig details:', err);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setSelectedGig(null);
+  };
 
   return (
     <section className={`${styles.awaitedSection} ${styles.container}`}>
@@ -45,6 +66,7 @@ const AwaitedPostedGigs = () => {
                 <Link
                   to={`/gigs/${gig._id}`}
                   className={`${styles.viewGigLink} ${styles.underline}`}
+                  onClick={(e) => handleGigClick(gig, e)}
                 >
                   <p className={styles.awaitedDescription}>{gig.title}</p>
                 </Link>
@@ -57,6 +79,12 @@ const AwaitedPostedGigs = () => {
           </p>
         )}
       </div>
+      
+      <ProviderGigDetailsModal
+        gig={selectedGig}
+        open={modalOpen}
+        onClose={handleCloseModal}
+      />
     </section>
   );
 };

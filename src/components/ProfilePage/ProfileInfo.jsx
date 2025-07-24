@@ -26,7 +26,7 @@ const decodeHTMLEntities = text => {
 // This component is designed to be used on the logged-in user's own profile/dashboard page.
 // If you want to display *another* user's profile, you'd create a separate component
 // or modify this one to accept a `userIdToView` prop and fetch that user's data.
-function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
+function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate, showMessageButton, onMessageClick }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // State for editable fields within the modal
@@ -241,11 +241,32 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
     ? userToDisplay.skills
     : [];
 
-  const displayLocation =
-    userToDisplay.address &&
-    Object.values(userToDisplay.address).some(val => val)
-      ? `${userToDisplay.address.city || ''}${userToDisplay.address.city && userToDisplay.address.state ? ', ' : ''}${userToDisplay.address.state || ''}${userToDisplay.address.country ? ` (${userToDisplay.address.country})` : ''}`.trim()
-      : 'Location not set';
+  // Enhanced location extraction similar to TaskerListSafe
+  let displayLocation = 'Location not set';
+  
+
+  
+  if (userToDisplay.address && Object.values(userToDisplay.address).some(val => val)) {
+    const parts = [];
+    if (userToDisplay.address.city) parts.push(userToDisplay.address.city);
+    if (userToDisplay.address.state) parts.push(userToDisplay.address.state);
+    if (userToDisplay.address.country) parts.push(userToDisplay.address.country);
+    
+    if (parts.length > 0) {
+      displayLocation = parts.join(', ');
+    }
+  } else if (userToDisplay.location) {
+    // Fallback to location field if address is not available
+    displayLocation = typeof userToDisplay.location === 'string' 
+      ? userToDisplay.location 
+      : userToDisplay.location.city || userToDisplay.location.state || 'Location not set';
+  } else if (userToDisplay.city || userToDisplay.state) {
+    // Fallback to direct city/state fields
+    const parts = [];
+    if (userToDisplay.city) parts.push(userToDisplay.city);
+    if (userToDisplay.state) parts.push(userToDisplay.state);
+    displayLocation = parts.join(', ');
+  }
 
   return (
     <section className={styles.profileCard}>
@@ -294,6 +315,15 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
               />
               <span>{displayLocation}</span>
             </div>
+          )}
+          {showMessageButton && (
+            <button
+              onClick={onMessageClick}
+              className={styles.messageButton}
+              aria-label={`Send message to ${displayName}`}
+            >
+              Message Tasker
+            </button>
           )}
         </div>
 
@@ -470,6 +500,8 @@ ProfileInfo.propTypes = {
   userToDisplay: PropTypes.object,
   isOwnProfile: PropTypes.bool,
   onProfileUpdate: PropTypes.func,
+  showMessageButton: PropTypes.bool,
+  onMessageClick: PropTypes.func,
 };
 
 export default ProfileInfo;

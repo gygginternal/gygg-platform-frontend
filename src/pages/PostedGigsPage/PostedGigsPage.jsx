@@ -7,6 +7,7 @@ import styles from './PostedGigsPage.module.css';
 import ProfileSidebar from '../../components/Shared/ProfileSidebar';
 import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../contexts/ToastContext';
+import ProviderGigDetailsModal from '../../components/Shared/ProviderGigDetailsModal';
 
 // Utility to check for valid MongoDB ObjectId
 function isValidObjectId(id) {
@@ -22,14 +23,17 @@ const PostedGigsPage = () => {
   const navigate = useNavigate();
   const params = new URLSearchParams(location.search);
   const gigIdFromQuery = params.get('gigId');
+  const viewFromQuery = params.get('view');
 
   const [postedGigs, setPostedGigs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [selectedGigId, setSelectedGigId] = useState(
-    isValidObjectId(gigIdFromQuery) ? gigIdFromQuery : null
+    isValidObjectId(gigIdFromQuery) && viewFromQuery === 'applications' ? gigIdFromQuery : null
   );
   const [selectedGigTitle, setSelectedGigTitle] = useState('');
+  const [selectedGigForModal, setSelectedGigForModal] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     // Fetch provider's posted gigs
@@ -49,24 +53,53 @@ const PostedGigsPage = () => {
   }, []);
 
   useEffect(() => {
-    // If gigId is in query and valid, show applications for that gig
-    if (isValidObjectId(gigIdFromQuery)) {
-      setSelectedGigId(gigIdFromQuery);
-      // Find gig title for display
+    // If gigId is in query and valid, show popup for that gig (but not if view=applications)
+    if (isValidObjectId(gigIdFromQuery) && postedGigs.length > 0 && viewFromQuery !== 'applications') {
       const gig = postedGigs.find(g => g._id === gigIdFromQuery);
-      setSelectedGigTitle(gig ? gig.title : '');
-    } else {
-      setSelectedGigId(null);
-      setSelectedGigTitle('');
+      if (gig) {
+        // Fetch full gig details and show modal
+        fetchGigDetails(gig._id);
+      }
     }
-  }, [gigIdFromQuery, postedGigs]);
+  }, [gigIdFromQuery, postedGigs, viewFromQuery]);
+
+  useEffect(() => {
+    // Set gig title when selectedGigId is set from URL
+    if (selectedGigId && postedGigs.length > 0) {
+      const gig = postedGigs.find(g => g._id === selectedGigId);
+      if (gig) {
+        setSelectedGigTitle(gig.title);
+      }
+    }
+  }, [selectedGigId, postedGigs]);
+
+  const fetchGigDetails = async (gigId) => {
+    try {
+      const res = await apiClient.get(`/gigs/${gigId}`);
+      setSelectedGigForModal(res.data.data.gig);
+      setModalOpen(true);
+    } catch (err) {
+      console.error('Error fetching gig details:', err);
+    }
+  };
 
   const handleGigClick = gig => {
     if (isValidObjectId(gig._id)) {
       setSelectedGigId(gig._id);
       setSelectedGigTitle(gig.title);
-      navigate(`/posted-gigs?gigId=${gig._id}`);
+      navigate(`/posted-gigs?gigId=${gig._id}&view=applications`);
     }
+  };
+
+  const handleGigCardClick = async (gig) => {
+    await fetchGigDetails(gig._id);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setSelectedGigForModal(null);
+    // Remove gigId from URL when closing modal
+    navigate('/posted-gigs', { replace: true });
   };
 
   const handleBackToGigs = () => {
@@ -176,7 +209,12 @@ const PostedGigsPage = () => {
           ) : (
             <div className={styles.gigsGrid}>
               {postedGigs.map(gig => (
-                <div key={gig._id} className={styles.gigCard}>
+                <div 
+                  key={gig._id} 
+                  className={styles.gigCard}
+                  onClick={() => handleGigCardClick(gig)}
+                  style={{ cursor: 'pointer' }}
+                >
                   <div className={styles.gigCardHeader}>
                     <h3 className={styles.gigCardTitle}>{gig.title}</h3>
                     <div className={styles.gigCardStatus}>
@@ -221,7 +259,10 @@ const PostedGigsPage = () => {
                   <div className={styles.gigCardActions}>
                     <button
                       className={styles.viewApplicationsButton}
-                      onClick={() => handleGigClick(gig)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleGigClick(gig);
+                      }}
                       aria-label={`View applications for ${gig.title}`}
                     >
                       <Eye size={16} />
@@ -234,6 +275,12 @@ const PostedGigsPage = () => {
           )}
         </div>
       </div>
+      
+      <ProviderGigDetailsModal
+        gig={selectedGigForModal}
+        open={modalOpen}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 };

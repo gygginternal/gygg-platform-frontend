@@ -16,25 +16,26 @@ function ProviderProfilePage({ providerId: propProviderId }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    async function fetchProvider() {
-      setLoading(true);
-      setError('');
-      try {
-        let endpoint;
-        if (providerId === loggedInUser?._id) {
-          endpoint = '/users/me';
-        } else {
-          endpoint = `/users/public/${providerId}`;
-        }
-        const res = await apiClient.get(endpoint);
-        setProvider(res.data.data.user);
-      } catch (err) {
-        setError('Could not load provider profile.');
-      } finally {
-        setLoading(false);
+  const fetchProvider = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      let endpoint;
+      if (providerId === loggedInUser?._id) {
+        endpoint = '/users/me';
+      } else {
+        endpoint = `/users/public/${providerId}`;
       }
+      const res = await apiClient.get(endpoint);
+      setProvider(res.data.data.user);
+    } catch (err) {
+      setError('Could not load provider profile.');
+    } finally {
+      setLoading(false);
     }
+  };
+
+  useEffect(() => {
     fetchProvider();
   }, [providerId, loggedInUser]);
 
@@ -56,6 +57,7 @@ function ProviderProfilePage({ providerId: propProviderId }) {
       <ProviderProfileInfo
         userToDisplay={provider}
         isOwnProfile={isOwnProfile}
+        onProfileUpdate={fetchProvider}
       />
       <RecentHires providerId={provider._id} isOwnProfile={isOwnProfile} />
       <PostedGigs providerId={provider._id} isOwnProfile={isOwnProfile} />

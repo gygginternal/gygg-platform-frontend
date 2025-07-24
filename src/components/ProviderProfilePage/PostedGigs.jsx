@@ -1,37 +1,67 @@
 import React, { useEffect, useState } from 'react';
 import styles from './PostedGigs.module.css';
 import apiClient from '../../api/axiosConfig';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const STATUS_LABELS = {
   active: 'Active',
+  open: 'Active',
   'offer waiting': 'Offer waiting',
   draft: 'Draft',
   completed: 'Completed',
   cancelled: 'Cancelled',
 };
-const STATUS_COLORS = {
-  active: '#1abc9c',
-  'offer waiting': '#f4b400',
-  draft: '#b0b8c1',
-  completed: '#4caf50',
-  cancelled: '#e57373',
+
+const STATUS_STYLES = {
+  active: {
+    backgroundColor: '#e8f5e8',
+    color: '#2e7d32',
+    border: '1px solid #4caf50',
+  },
+  open: {
+    backgroundColor: '#e8f5e8',
+    color: '#2e7d32',
+    border: '1px solid #4caf50',
+  },
+  'offer waiting': {
+    backgroundColor: '#fff3cd',
+    color: '#856404',
+    border: '1px solid #ffc107',
+  },
+  draft: {
+    backgroundColor: '#f8f9fa',
+    color: '#6c757d',
+    border: '1px solid #dee2e6',
+  },
+  completed: {
+    backgroundColor: '#d4edda',
+    color: '#155724',
+    border: '1px solid #28a745',
+  },
+  cancelled: {
+    backgroundColor: '#f8d7da',
+    color: '#721c24',
+    border: '1px solid #dc3545',
+  },
 };
 
 function PostedGigs({ providerId, isOwnProfile }) {
+  const navigate = useNavigate();
   const [gigs, setGigs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [page, setPage] = useState(0);
+  const GIGS_PER_PAGE = 3;
 
   useEffect(() => {
     async function fetchPostedGigs() {
       setLoading(true);
       setError('');
       try {
-        const res = await apiClient.get('/gigs', {
-          params: { postedBy: providerId, limit: 5, sort: 'recent' },
-        });
-        setGigs(res.data.data.gigs || []);
+        const res = await apiClient.get('/gigs/awaiting-posted-gig');
+        const allGigs = res.data.data.gigs || [];
+        setGigs(allGigs);
+        setPage(0);
       } catch (err) {
         setError('Could not load posted gigs.');
       } finally {
@@ -66,44 +96,87 @@ function PostedGigs({ providerId, isOwnProfile }) {
     );
   }
 
+  const handleGigClick = gigId => {
+    // Navigate to posted gigs page with the specific gig ID to open the modal
+    navigate(`/posted-gigs?gigId=${gigId}`);
+  };
+
+  const formatDate = dateString => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      month: '2-digit',
+      year: 'numeric',
+    });
+  };
+
+  const getStatusStyle = status => {
+    // For posted gigs that are awaiting applications, they should be "Active"
+    const normalizedStatus = status?.toLowerCase() || 'active';
+    return STATUS_STYLES[normalizedStatus] || STATUS_STYLES.active;
+  };
+
+  const getStatusLabel = status => {
+    // For posted gigs that are awaiting applications, they should be "Active"
+    const normalizedStatus = status?.toLowerCase() || 'active';
+    return STATUS_LABELS[normalizedStatus] || 'Active';
+  };
+
+  const totalPages = Math.ceil(gigs.length / GIGS_PER_PAGE);
+  const paginatedGigs = gigs.slice(
+    page * GIGS_PER_PAGE,
+    (page + 1) * GIGS_PER_PAGE
+  );
+
   return (
     <div className={styles.postedGigsSection}>
       <h2 className={styles.sectionTitle}>Posted Gigs</h2>
       <div className={styles.gigsList}>
-        {gigs.map(gig => (
-          <div className={styles.gigCard} key={gig._id}>
-            {gig._id ? (
-              <a href={`/gigs/${gig._id}`} className={styles.gigTitleLink}>
-                {gig.title}
-              </a>
-            ) : (
-              <span className={styles.gigTitleLink}>{gig.title}</span>
-            )}
-            <div className={styles.gigStatusRow}>
-              <span
-                className={styles.statusBadge}
-                style={{
-                  background:
-                    STATUS_COLORS[gig.status?.toLowerCase()] || '#b0b8c1',
-                }}
-              >
-                {STATUS_LABELS[gig.status?.toLowerCase()] ||
-                  gig.status ||
-                  'Draft'}
-              </span>
-              <span className={styles.gigPostedDate}>
-                Posted{' '}
-                {gig.createdAt
-                  ? new Date(gig.createdAt).toLocaleDateString('en-US', {
-                      month: '2-digit',
-                      year: 'numeric',
-                    })
-                  : ''}
-              </span>
+        {paginatedGigs.map(gig => (
+          <div
+            className={styles.gigCard}
+            key={gig._id}
+            onClick={() => handleGigClick(gig._id)}
+          >
+            <div className={styles.gigContent}>
+              <h3 className={styles.gigTitle}>{gig.title}</h3>
+              <div className={styles.gigMeta}>
+                <span
+                  className={styles.statusBadge}
+                  style={getStatusStyle(gig.status)}
+                >
+                  {getStatusLabel(gig.status)}
+                </span>
+                <span className={styles.gigPostedDate}>
+                  Posted {formatDate(gig.createdAt)}
+                </span>
+              </div>
             </div>
           </div>
         ))}
       </div>
+
+      {gigs.length > 0 && totalPages > 1 && (
+        <div className={styles.paginationDots}>
+          {Array.from({ length: totalPages }).map((_, idx) => (
+            <button
+              key={idx}
+              type="button"
+              className={styles.dotButton}
+              onClick={() => setPage(idx)}
+              style={{
+                cursor: 'pointer',
+                margin: '0 4px',
+                background: 'none',
+                border: 'none',
+                padding: 0,
+              }}
+            >
+              <span className={idx === page ? styles.activeDot : styles.dot} />
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -32,22 +32,24 @@ const ChatSidebar = ({ contacts, selectedContact, onContactSelect }) => {
       <div className={styles.header}>
         <div className={styles.searchContainer}>
           <Search className={styles.searchIcon} />
-          <input
-            type="text"
-            placeholder="Search or start new chat"
-            className={styles.searchInput}
-            value={searchTerm}
-            onChange={handleSearchChange}
-          />
-          {searchTerm && (
-            <button
-              className={styles.clearButton}
-              onClick={clearSearch}
-              aria-label="Clear search"
-            >
-              ×
-            </button>
-          )}
+          <div className={styles.searchInputContainer}>
+            <input
+              type="text"
+              placeholder="Search or start new chat"
+              className={styles.searchInput}
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+            {searchTerm && (
+              <button
+                className={styles.clearButton}
+                onClick={clearSearch}
+                aria-label="Clear search"
+              >
+                ×
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
