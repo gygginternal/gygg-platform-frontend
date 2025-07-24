@@ -20,6 +20,17 @@
   display: flex;
 }
 
+.centeredMessage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  padding: 2rem 1rem; /* Give it some vertical space */
+  color: #666; /* A neutral color for messages */
+}
+
 .seeAllButton {
   color: #3d4d55;
   cursor: pointer;
@@ -155,30 +166,27 @@
 
 .noPostsMessage {
   text-align: center;
-  padding: 2rem 1rem; /* Increased padding for better spacing */
+  padding: 1.25rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 250px; /* Increased height for better vertical centering */
+  min-height: 200px;
   width: 100%;
-  gap: 1.5rem; /* Add gap between elements */
 }
 
 .noPostsMessage p {
   margin: 0;
-  color: #6b7280; /* Softer gray color */
-  font-size: 1.125rem; /* Slightly larger text */
-  font-weight: 500;
-  line-height: 1.6;
-  max-width: 400px; /* Limit width for better readability */
+  margin-bottom: 1rem;
+  color: #000;
+  font-size: 1rem; /* Slightly larger text */
 }
 
 .createPostButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  background: #2c3a40;
   color: #ffffff;
   padding: 0.875rem 2rem; /* Increased padding for better button size */
   border-radius: 8px;

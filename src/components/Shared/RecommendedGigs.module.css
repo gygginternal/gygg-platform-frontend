@@ -128,7 +128,7 @@
     width: 1rem; /* 16px */
     height: 1rem; /* 16px */
   }
-  .sectionTitleUnderlined {
+  .sectionTitle {
     font-size: 0.9375rem; /* 15px */
   }
   .gigsList {
@@ -169,7 +169,7 @@
     width: 0.9375rem; /* 15px */
     height: 0.9375rem; /* 15px */
   }
-  .sectionTitleUnderlined {
+  .sectionTitle {
     font-size: 0.875rem; /* 14px */
   }
   .gigsList {
@@ -210,7 +210,7 @@
     width: 0.875rem; /* 14px */
     height: 0.875rem; /* 14px */
   }
-  .sectionTitleUnderlined {
+  .sectionTitle {
     font-size: 0.8125rem; /* 13px */
   }
   .gigsList {

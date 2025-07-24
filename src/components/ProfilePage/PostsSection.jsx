@@ -35,11 +35,11 @@ function PostsSection({ userIdToView, isOwnProfile }) {
         const response = await apiClient.get(
           `/posts/user/${targetUserIdForPosts}`,
           {
-            params: { limit: 10, sort: 'recents' }, // Fetch more for pagination
+            params: { limit: 10, sort: 'recents' },
           }
         );
         setPosts(response.data.data.posts || []);
-        setPage(0); // Reset to first page on user change
+        setPage(0);
       } catch (err) {
         logger.error('PostsSection: Error fetching posts:', err);
         setError('Could not load posts.');
@@ -51,33 +51,14 @@ function PostsSection({ userIdToView, isOwnProfile }) {
     fetchUserPosts();
   }, [targetUserIdForPosts]);
 
-  const seeAllLink = `/feed`;
-
   const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
   const paginatedPosts = posts.slice(
     page * POSTS_PER_PAGE,
     (page + 1) * POSTS_PER_PAGE
   );
 
-  const renderContent = () => {
-    if (loading) return <p>Loading posts...</p>;
-    if (error) return <p className={styles.errorMessage}>{error}</p>;
-    if (posts.length === 0) {
-      return (
-        <div className={styles.noPostsMessage}>
-          <p>
-            {isOwnProfile
-              ? "You haven't made any posts yet."
-              : "This user hasn't made any posts yet."}
-          </p>
-          {isOwnProfile && (
-            <Link to="/feed" className={styles.createPostButton}>
-              Create Your First Post
-            </Link>
-          )}
-        </div>
-      );
-    }
+  // This helper function now only renders the list of posts
+  const renderPosts = () => {
     return paginatedPosts.map(post => <PostCard key={post._id} post={post} />);
   };
 
@@ -86,8 +67,37 @@ function PostsSection({ userIdToView, isOwnProfile }) {
       <div className={styles.postsHeader}>
         <h2>Recent Posts</h2>
       </div>
-      <div className={styles.postsGrid}>{renderContent()}</div>
-      {totalPages > 1 && (
+
+      {/* --- MODIFIED SECTION START --- */}
+      <div className={styles.postsContent}>
+        {loading ? (
+          <div className={styles.centeredMessage}>
+            <p>Loading posts...</p>
+          </div>
+        ) : error ? (
+          <div className={`${styles.centeredMessage} ${styles.errorMessage}`}>
+            <p>{error}</p>
+          </div>
+        ) : posts.length === 0 ? (
+          <div className={`${styles.centeredMessage} ${styles.noPostsMessage}`}>
+            <p>
+              {isOwnProfile
+                ? "You haven't made any posts yet."
+                : "This user hasn't made any posts yet."}
+            </p>
+            {isOwnProfile && (
+              <Link to="/feed" className={styles.createPostButton}>
+                Create Your First Post
+              </Link>
+            )}
+          </div>
+        ) : (
+          <div className={styles.postsGrid}>{renderPosts()}</div>
+        )}
+      </div>
+      {/* --- MODIFIED SECTION END --- */}
+
+      {posts.length > 0 && totalPages > 1 && (
         <div className={styles.paginationDots}>
           {Array.from({ length: totalPages }).map((_, idx) => (
             <button

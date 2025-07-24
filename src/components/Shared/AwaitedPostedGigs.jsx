@@ -26,7 +26,10 @@ const AwaitedPostedGigs = () => {
   return (
     <section className={`${styles.awaitedSection} ${styles.container}`}>
       <div className={styles.sectionHeader}>
-        <h4 className={styles.sectionTitleUnderlined}>Awaited Posted Gigs</h4>
+        <div className={styles.sectionIcon}>
+          <img src="/assets/lamp-on.svg" alt="Lamp" width={20} height={20} />
+        </div>
+        <h4 className={styles.sectionTitle}>Awaited Posted Gigs</h4>
       </div>
       <div className={styles.awaitedList}>
         {isLoading ? (

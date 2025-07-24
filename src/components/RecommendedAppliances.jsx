@@ -36,7 +36,15 @@ const RecommendedAppliances = () => {
   return (
     <section className={styles.appliancesSection}>
       <div className={styles.sectionHeader}>
-        <h4 className={styles.sectionTitleUnderlined}>
+        <div className={styles.sectionIcon}>
+          <img
+            src="/assets/profile-2user.svg"
+            alt="Profile"
+            width={20}
+            height={20}
+          />
+        </div>
+        <h4 className={styles.sectionTitle}>
           Top matched people applied to your gig
         </h4>
       </div>
