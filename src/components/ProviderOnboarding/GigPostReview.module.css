@@ -39,3 +39,69 @@
   color: #ffffff;
   font-size: 0.98em;
 }
+
+@media (max-width: 1024px) {
+  .reviewSection {
+    padding: 1.8em;
+    margin: 1.2em 0;
+  }
+  .reviewSubTitle {
+    font-size: 1.05em;
+    margin-bottom: 1em;
+  }
+  .reviewItem {
+    margin-bottom: 0.8em;
+    padding-bottom: 0.6em;
+  }
+  .editStepButton {
+    padding: 0.25em 0.9em;
+    font-size: 0.9em;
+  }
+  .reviewDescription {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 768px) {
+  .reviewSection {
+    padding: 1.5em;
+    margin: 1em 0;
+  }
+  .reviewSubTitle {
+    font-size: 1em;
+    margin-bottom: 0.8em;
+  }
+  .reviewItem {
+    margin-bottom: 0.7em;
+    padding-bottom: 0.5em;
+  }
+  .editStepButton {
+    padding: 0.2em 0.8em;
+    font-size: 0.85em;
+  }
+  .reviewDescription {
+    font-size: 0.85em;
+  }
+}
+
+@media (max-width: 480px) {
+  .reviewSection {
+    padding: 1.2em;
+    margin: 0.8em 0;
+  }
+  .reviewSubTitle {
+    font-size: 0.9em;
+    margin-bottom: 0.6em;
+  }
+  .reviewItem {
+    margin-bottom: 0.6em;
+    padding-bottom: 0.4em;
+  }
+  .editStepButton {
+    padding: 0.15em 0.7em;
+    font-size: 0.8em;
+  }
+  .reviewDescription {
+    font-size: 0.8em;
+  }
+}

@@ -70,3 +70,27 @@
   color: #94a3b8;
   cursor: not-allowed;
 }
+
+@media (max-width: 768px) {
+  .modal {
+    padding: 2em 1.5em;
+  }
+
+  .confirm,
+  .cancel {
+    padding: 0.5em 1.2em;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal {
+    padding: 1.5em 1em;
+  }
+
+  .confirm,
+  .cancel {
+    padding: 0.5em 1em;
+    font-size: 0.8rem;
+  }
+}

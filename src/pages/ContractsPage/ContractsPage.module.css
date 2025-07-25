@@ -234,6 +234,37 @@
   .statsGrid .statCard:nth-child(5) {
     grid-column: span 1;
   }
+
+  .contractsCard {
+    padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .contractRow {
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+  .contractTitle {
+    font-size: 1.05rem;
+  }
+  .contractDetailsRow {
+    gap: 2rem;
+    font-size: 0.95rem;
+  }
+  .contractDetailLabel {
+    font-size: 0.9rem;
+  }
+  .contractRate,
+  .contractEarned {
+    font-size: 0.95rem;
+  }
+  .contractStatusBadge {
+    font-size: 0.85rem;
+    min-width: 80px;
+  }
+  .contractStarted {
+    font-size: 0.95rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -273,6 +304,46 @@
   
   .dashboardTitle {
     font-size: 20px;
+  }
+
+  .contractsCard {
+    padding: 1rem 1rem 0.5rem 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  .contractRow {
+    padding: 1rem 1.2rem;
+    margin-bottom: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .contractTitle {
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+  }
+  .contractDetailsRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+  }
+  .contractDetailLabel {
+    font-size: 0.85rem;
+  }
+  .contractRate,
+  .contractEarned {
+    font-size: 0.9rem;
+  }
+  .contractStatusBadge {
+    font-size: 0.8rem;
+    min-width: 70px;
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+  .contractStarted {
+    font-size: 0.85rem;
+    margin-left: 0;
+    margin-top: 0.2rem;
   }
 }
 
@@ -330,6 +401,36 @@
   
   .dashboardSubtitle {
     font-size: 12px;
+  }
+
+  .contractsCard {
+    padding: 0.8rem 0.8rem 0.4rem 0.8rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+  .contractRow {
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.8rem;
+  }
+  .contractTitle {
+    font-size: 0.9rem;
+  }
+  .contractDetailsRow {
+    font-size: 0.8rem;
+  }
+  .contractDetailLabel {
+    font-size: 0.75rem;
+  }
+  .contractRate,
+  .contractEarned {
+    font-size: 0.8rem;
+  }
+  .contractStatusBadge {
+    font-size: 0.7rem;
+    min-width: 60px;
+  }
+  .contractStarted {
+    font-size: 0.75rem;
   }
 }
 

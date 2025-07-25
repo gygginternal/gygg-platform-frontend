@@ -17,3 +17,48 @@
   margin-bottom: 0.5rem;
   color: #333;
 }
+
+@media (max-width: 1024px) {
+  .detailsSection {
+    margin-bottom: 2rem;
+    padding: 1.2rem 1.6rem;
+  }
+  .detailsSection h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+  .detailsSection div {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .detailsSection {
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.2rem;
+  }
+  .detailsSection h2 {
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
+  }
+  .detailsSection div {
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .detailsSection {
+    margin-bottom: 1rem;
+    padding: 0.8rem 1rem;
+  }
+  .detailsSection h2 {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+  .detailsSection div {
+    font-size: 0.85rem;
+    margin-bottom: 0.2rem;
+  }
+}

@@ -18,3 +18,54 @@
   margin-bottom: 1rem;
   color: #374151;
 }
+
+@media (max-width: 1024px) {
+  .errorMessage {
+    font-size: 0.8rem;
+    margin: 0.8rem 0;
+    padding: 0.4rem;
+  }
+
+  .container {
+    margin-top: 1.2rem;
+  }
+
+  .title {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .errorMessage {
+    font-size: 0.75rem;
+    margin: 0.6rem 0;
+    padding: 0.3rem;
+  }
+
+  .container {
+    margin-top: 1rem;
+  }
+
+  .title {
+    font-size: 1rem;
+    margin-bottom: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .errorMessage {
+    font-size: 0.7rem;
+    margin: 0.5rem 0;
+    padding: 0.25rem;
+  }
+
+  .container {
+    margin-top: 0.8rem;
+  }
+
+  .title {
+    font-size: 0.9rem;
+    margin-bottom: 0.6rem;
+  }
+}

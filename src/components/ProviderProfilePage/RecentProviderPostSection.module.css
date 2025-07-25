@@ -24,7 +24,6 @@
 
 .postsList {
   display: flex;
-  gap: 24px;
   flex-wrap: nowrap;
   overflow-x: auto;
   padding-bottom: 4px;
@@ -114,4 +113,163 @@
 .state {
   color: #888;
   margin: 16px 0;
+}
+
+@media (max-width: 1024px) {
+  .recentPostsSection {
+    margin: 28px 0;
+  }
+  .sectionHeader {
+    margin-bottom: 10px;
+  }
+  .sectionTitle {
+    font-size: 1.1rem;
+  }
+  .seeAllLink {
+    font-size: 0.95rem;
+  }
+  .postsList {
+    gap: 20px;
+  }
+  .postCard {
+    padding: 18px 20px;
+    min-width: 300px;
+    max-width: 340px;
+    gap: 8px;
+  }
+  .profileImage {
+    width: 36px;
+    height: 36px;
+  }
+  .profileName {
+    font-size: 1rem;
+  }
+  .postDate {
+    font-size: 0.9rem;
+  }
+  .postText {
+    font-size: 1rem;
+  }
+  .hashtags {
+    gap: 5px;
+  }
+  .hashtag {
+    font-size: 0.9rem;
+    padding: 2px 7px;
+  }
+  .postActions {
+    gap: 16px;
+  }
+  .action {
+    font-size: 0.95rem;
+  }
+  .state {
+    margin: 14px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .recentPostsSection {
+    margin: 24px 0;
+  }
+  .sectionHeader {
+    margin-bottom: 8px;
+  }
+  .sectionTitle {
+    font-size: 1rem;
+  }
+  .seeAllLink {
+    font-size: 0.9rem;
+  }
+  .postsList {
+    gap: 16px;
+  }
+  .postCard {
+    padding: 16px 18px;
+    min-width: 280px;
+    max-width: 320px;
+    gap: 7px;
+  }
+  .profileImage {
+    width: 32px;
+    height: 32px;
+  }
+  .profileName {
+    font-size: 0.95rem;
+  }
+  .postDate {
+    font-size: 0.85rem;
+  }
+  .postText {
+    font-size: 0.95rem;
+  }
+  .hashtags {
+    gap: 4px;
+  }
+  .hashtag {
+    font-size: 0.85rem;
+    padding: 1px 6px;
+  }
+  .postActions {
+    gap: 14px;
+  }
+  .action {
+    font-size: 0.9rem;
+  }
+  .state {
+    margin: 12px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .recentPostsSection {
+    margin: 20px 0;
+  }
+  .sectionHeader {
+    margin-bottom: 6px;
+  }
+  .sectionTitle {
+    font-size: 0.9rem;
+  }
+  .seeAllLink {
+    font-size: 0.85rem;
+  }
+  .postsList {
+    gap: 12px;
+  }
+  .postCard {
+    padding: 14px 16px;
+    min-width: 250px;
+    max-width: 300px;
+    gap: 6px;
+  }
+  .profileImage {
+    width: 28px;
+    height: 28px;
+  }
+  .profileName {
+    font-size: 0.9rem;
+  }
+  .postDate {
+    font-size: 0.8rem;
+  }
+  .postText {
+    font-size: 0.9rem;
+  }
+  .hashtags {
+    gap: 3px;
+  }
+  .hashtag {
+    font-size: 0.8rem;
+    padding: 1px 5px;
+  }
+  .postActions {
+    gap: 12px;
+  }
+  .action {
+    font-size: 0.85rem;
+  }
+  .state {
+    margin: 10px 0;
+  }
 }

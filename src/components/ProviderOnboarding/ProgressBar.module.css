@@ -23,3 +23,42 @@
   color: #6b7280;
   font-size: 0.875rem;
 }
+
+@media (max-width: 1024px) {
+  .progressContainer {
+    margin: 0.8rem 0;
+  }
+  .progressBar {
+    height: 7px;
+  }
+  .progressText {
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .progressContainer {
+    margin: 0.6rem 0;
+  }
+  .progressBar {
+    height: 6px;
+  }
+  .progressText {
+    font-size: 0.75rem;
+    margin-top: 0.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .progressContainer {
+    margin: 0.5rem 0;
+  }
+  .progressBar {
+    height: 5px;
+  }
+  .progressText {
+    font-size: 0.7rem;
+    margin-top: 0.2rem;
+  }
+}

@@ -1,3 +1,21 @@
 .mt16 {
   margin-top: 16px;
 }
+
+@media (max-width: 1024px) {
+  .mt16 {
+    margin-top: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mt16 {
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mt16 {
+    margin-top: 10px;
+  }
+}

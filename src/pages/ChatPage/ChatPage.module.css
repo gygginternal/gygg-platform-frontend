@@ -19,8 +19,30 @@
 }
 
 /* Responsive design */
+@media (max-width: 1024px) {
+  .container {
+    height: calc(100vh - 35px);
+    width: calc(100vw - 180px);
+    padding-left: 180px;
+    padding-top: 35px;
+  }
+}
+
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
+    height: calc(100vh - 30px);
+    width: 100vw;
+    padding-left: 0;
+    padding-top: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    height: calc(100vh - 25px);
+    width: 100vw;
+    padding-left: 0;
+    padding-top: 25px;
   }
 }

@@ -21,3 +21,75 @@
 .mb24 {
   margin-bottom: 24px;
 }
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 18px;
+  }
+
+  .card {
+    max-width: 380px;
+  }
+
+  .heading1 {
+    font-size: 5rem;
+    margin-bottom: 14px;
+  }
+
+  .heading2 {
+    font-size: 1.8rem;
+    margin-bottom: 14px;
+  }
+
+  .mb24 {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .card {
+    max-width: 350px;
+  }
+
+  .heading1 {
+    font-size: 4rem;
+    margin-bottom: 12px;
+  }
+
+  .heading2 {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .mb24 {
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 12px;
+  }
+
+  .card {
+    max-width: 90%;
+  }
+
+  .heading1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+  }
+
+  .heading2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .mb24 {
+    margin-bottom: 12px;
+  }
+}

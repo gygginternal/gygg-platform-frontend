@@ -26,3 +26,54 @@
 .toggleContainer.toggleOn {
   background-color: #10b981;
 }
+
+@media (max-width: 1024px) {
+  .toggleContainer {
+    width: 40px;
+    height: 22px;
+    border-radius: 11px;
+  }
+  .toggleButton {
+    width: 18px;
+    height: 18px;
+    top: 2px;
+    left: 2px;
+  }
+  .toggleOn {
+    transform: translateX(18px);
+  }
+}
+
+@media (max-width: 768px) {
+  .toggleContainer {
+    width: 36px;
+    height: 20px;
+    border-radius: 10px;
+  }
+  .toggleButton {
+    width: 16px;
+    height: 16px;
+    top: 2px;
+    left: 2px;
+  }
+  .toggleOn {
+    transform: translateX(16px);
+  }
+}
+
+@media (max-width: 480px) {
+  .toggleContainer {
+    width: 32px;
+    height: 18px;
+    border-radius: 9px;
+  }
+  .toggleButton {
+    width: 14px;
+    height: 14px;
+    top: 2px;
+    left: 2px;
+  }
+  .toggleOn {
+    transform: translateX(14px);
+  }
+}

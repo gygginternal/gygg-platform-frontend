@@ -8,8 +8,18 @@ const ContentFilterDemo = () => {
   const [hobbies, setHobbies] = useState([]);
 
   const hobbiesOptions = [
-    'Reading', 'Traveling', 'Cooking', 'Photography', 'Music', 'Sports',
-    'Art', 'Dancing', 'Writing', 'Gaming', 'Hiking', 'Swimming'
+    'Reading',
+    'Traveling',
+    'Cooking',
+    'Photography',
+    'Music',
+    'Sports',
+    'Art',
+    'Dancing',
+    'Writing',
+    'Gaming',
+    'Hiking',
+    'Swimming',
   ];
 
   const handleTextChange = (name, value, meta) => {
@@ -26,7 +36,7 @@ const ContentFilterDemo = () => {
     <div style={{ padding: '2rem', maxWidth: '600px', margin: '0 auto' }}>
       <h2>Content Filter Demo</h2>
       <p>Try typing inappropriate content to see the filtering in action.</p>
-      
+
       <div style={{ marginBottom: '2rem' }}>
         <InputField
           label="Service Title"
@@ -63,11 +73,24 @@ const ContentFilterDemo = () => {
         />
       </div>
 
-      <div style={{ marginTop: '2rem', padding: '1rem', backgroundColor: '#f5f5f5', borderRadius: '8px' }}>
+      <div
+        style={{
+          marginTop: '2rem',
+          padding: '1rem',
+          backgroundColor: '#f5f5f5',
+          borderRadius: '8px',
+        }}
+      >
         <h3>Current Values:</h3>
-        <p><strong>Title:</strong> {textValue}</p>
-        <p><strong>Bio:</strong> {bioValue}</p>
-        <p><strong>Hobbies:</strong> {hobbies.join(', ')}</p>
+        <p>
+          <strong>Title:</strong> {textValue}
+        </p>
+        <p>
+          <strong>Bio:</strong> {bioValue}
+        </p>
+        <p>
+          <strong>Hobbies:</strong> {hobbies.join(', ')}
+        </p>
       </div>
     </div>
   );

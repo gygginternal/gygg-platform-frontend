@@ -101,3 +101,42 @@
   background-color: #ffebee;
   color: #d32f2f;
 }
+
+@media (max-width: 768px) {
+  .notificationItem {
+    padding: 10px 12px;
+  }
+
+  .message {
+    font-size: 13px;
+  }
+
+  .time {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .notificationItem {
+    padding: 8px 10px;
+  }
+
+  .notificationIcon {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+  }
+
+  .notificationIcon img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .message {
+    font-size: 12px;
+  }
+
+  .time {
+    font-size: 10px;
+  }
+}

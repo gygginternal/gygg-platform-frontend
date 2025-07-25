@@ -35,3 +35,69 @@
   border-radius: 50%;
   box-shadow: 0 0 0 2px #e6f8fa;
 }
+
+@media (max-width: 1024px) {
+  .timelineSection {
+    margin-bottom: 2rem;
+    padding: 1.2rem 1.6rem;
+  }
+  .timelineSection h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+  .timelineSection li {
+    padding-left: 1.3rem;
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+  .timelineSection li:before {
+    left: 0.25rem;
+    top: 0.4rem;
+    width: 0.6rem;
+    height: 0.6rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .timelineSection {
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.2rem;
+  }
+  .timelineSection h2 {
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
+  }
+  .timelineSection li {
+    padding-left: 1.1rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.95rem;
+  }
+  .timelineSection li:before {
+    left: 0.2rem;
+    top: 0.35rem;
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .timelineSection {
+    margin-bottom: 1rem;
+    padding: 0.8rem 1rem;
+  }
+  .timelineSection h2 {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+  .timelineSection li {
+    padding-left: 0.9rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+  }
+  .timelineSection li:before {
+    left: 0.15rem;
+    top: 0.3rem;
+    width: 0.4rem;
+    height: 0.4rem;
+  }
+}

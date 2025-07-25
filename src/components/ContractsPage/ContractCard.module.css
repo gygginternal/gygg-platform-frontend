@@ -205,34 +205,231 @@
 }
 
 /* Responsive Adjustments */
-@media (max-width: 640px) {
+@media (max-width: 1024px) {
   .contractCard {
     padding: 20px;
+    margin-bottom: 14px;
   }
-
+  .cardHeader {
+    margin-bottom: 14px;
+  }
+  .categorySection {
+    gap: 10px;
+  }
+  .categoryName {
+    font-size: 11px;
+  }
+  .statusBadge {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
   .contractTitle {
     font-size: 16px;
+    margin-bottom: 14px;
   }
-
   .clientInfo {
-    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .clientAvatar {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+  .clientName {
+    font-size: 13px;
+  }
+  .timeInfo {
+    font-size: 11px;
+  }
+  .contractDetails {
+    margin-bottom: 14px;
+  }
+  .contractId {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+  .contractId span {
+    font-size: 11px;
+  }
+  .cardFooter {
+    padding-top: 14px;
+  }
+  .locationPrice {
+    gap: 12px;
+  }
+  .location, .duration {
+    font-size: 11px;
+  }
+  .amount {
+    font-size: 16px;
+  }
+  .rateType {
+    font-size: 11px;
+  }
+  .earned {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contractCard {
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .cardHeader {
+    margin-bottom: 12px;
+  }
+  .categorySection {
     gap: 8px;
   }
-
+  .categoryName {
+    font-size: 10px;
+  }
+  .statusBadge {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+  .contractTitle {
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+  .clientInfo {
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .clientAvatar {
+    width: 24px;
+    height: 24px;
+    font-size: 10px;
+  }
+  .clientName {
+    font-size: 12px;
+  }
   .timeInfo {
+    font-size: 10px;
     margin-left: 0;
     margin-top: 8px;
     flex-basis: 100%;
   }
-
+  .contractDetails {
+    margin-bottom: 12px;
+  }
+  .contractId {
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+  .contractId span {
+    font-size: 10px;
+  }
   .cardFooter {
+    padding-top: 12px;
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: 10px;
   }
-
+  .locationPrice {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .location, .duration {
+    font-size: 10px;
+  }
   .priceSection {
     align-items: flex-start;
     width: 100%;
+  }
+  .amount {
+    font-size: 15px;
+  }
+  .rateType {
+    font-size: 10px;
+  }
+  .earned {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contractCard {
+    padding: 12px;
+    margin-bottom: 10px;
+  }
+  .cardHeader {
+    margin-bottom: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .categorySection {
+    gap: 6px;
+  }
+  .categoryName {
+    font-size: 9px;
+  }
+  .statusBadge {
+    font-size: 9px;
+    padding: 3px 6px;
+    align-self: flex-start;
+  }
+  .contractTitle {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .clientInfo {
+    gap: 6px;
+    margin-bottom: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .clientAvatar {
+    width: 20px;
+    height: 20px;
+    font-size: 9px;
+  }
+  .clientName {
+    font-size: 11px;
+  }
+  .timeInfo {
+    font-size: 9px;
+    gap: 4px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .contractDetails {
+    margin-bottom: 10px;
+  }
+  .contractId {
+    font-size: 11px;
+    margin-bottom: 3px;
+  }
+  .contractId span {
+    font-size: 9px;
+  }
+  .cardFooter {
+    padding-top: 10px;
+    gap: 8px;
+  }
+  .locationPrice {
+    gap: 8px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .location, .duration {
+    font-size: 9px;
+  }
+  .priceSection {
+    align-items: flex-start;
+    width: 100%;
+  }
+  .amount {
+    font-size: 14px;
+  }
+  .rateType {
+    font-size: 9px;
+  }
+  .earned {
+    font-size: 9px;
   }
 }

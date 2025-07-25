@@ -32,3 +32,24 @@
   border-color: #fca5a5;
   color: #991b1b;
 }
+
+@media (max-width: 1024px) {
+  .badge {
+    padding: 0.1rem 0.5rem;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .badge {
+    padding: 0.08rem 0.4rem;
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .badge {
+    padding: 0.05rem 0.3rem;
+    font-size: 0.6rem;
+  }
+}

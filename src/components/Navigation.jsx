@@ -29,8 +29,16 @@ const NavContainer = styled(Card)`
 
 const DesktopNav = styled(Flex)`
   display: none;
+  
+  /* Tablet and up (768px+) */
   @media (min-width: 768px) {
     display: flex;
+    gap: 1rem;
+  }
+  
+  /* Desktop (1024px+) */
+  @media (min-width: 1024px) {
+    gap: 1.5rem;
   }
 `;
 
@@ -41,6 +49,9 @@ const MobileNav = styled(Card)`
   right: 0;
   margin-top: 8px;
   display: block;
+  z-index: 1000;
+  
+  /* Hide on tablet and up */
   @media (min-width: 768px) {
     display: none;
   }
@@ -48,15 +59,54 @@ const MobileNav = styled(Card)`
 
 const PostGigButton = styled(Button)`
   display: none;
+  
+  /* Show on tablet and up */
   @media (min-width: 768px) {
     display: block;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  /* Larger on desktop */
+  @media (min-width: 1024px) {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
   }
 `;
 
 const MobileMenuButton = styled(Button)`
   display: block;
+  padding: 0.5rem;
+  
+  /* Hide on tablet and up */
   @media (min-width: 768px) {
     display: none;
+  }
+`;
+
+const NavContainer = styled(Card)`
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #fff !important;
+  border-bottom: none !important;
+  
+  /* Mobile (up to 480px) */
+  padding: 12px 16px;
+  
+  /* Small mobile to tablet (480px - 768px) */
+  @media (min-width: 480px) {
+    padding: 14px 20px;
+  }
+  
+  /* Tablet and up (768px+) */
+  @media (min-width: 768px) {
+    padding: 16px 24px;
+  }
+  
+  /* Desktop (1024px+) */
+  @media (min-width: 1024px) {
+    padding: 20px 32px;
   }
 `;
 

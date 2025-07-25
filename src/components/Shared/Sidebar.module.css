@@ -118,131 +118,203 @@
 
 /* --- Responsive Adjustments for Sidebar --- */
 
-/* @media (max-width: 1024px) - Large Tablets / Small Laptops */
-/* Header Height: 4.5rem (72px) */
-@media (max-width: 1024px) {
+/* Desktop (1024px+) - Enhanced for larger screens */
+@media (min-width: 1024px) {
   .sidebar {
-    width: 15rem; /* 240px */
-    padding-top: 4.5rem; /* 72px */
+    width: 17.5rem; /* 280px */
+    padding-top: 5.5rem; /* 88px - matches enhanced header */
   }
   .sidebar.collapsed {
-    width: 4.5rem; /* 72px */
+    width: 5.5rem; /* 88px */
   }
   .navItemContent {
-    /* Apply to inner content */
-    padding: 0.875rem 1.25rem; /* 14px 20px */
+    padding: 1.125rem 1.75rem; /* 18px 28px */
   }
   .sidebar.collapsed .navItemContent {
-    /* Apply to inner content */
-    padding: 0.875rem; /* 14px */
+    padding: 1.125rem; /* 18px */
   }
   .navText {
-    font-size: 0.9375rem; /* 15px */
+    font-size: 1.0625rem; /* 17px */
+    margin-left: 0.75rem; /* 12px */
   }
   .defaultIcon {
-    width: 1.125rem; /* 18px */
-    height: 1.125rem; /* 18px */
+    width: 1.625rem; /* 26px */
+    height: 1.625rem; /* 26px */
   }
 }
 
-/* @media (max-width: 768px) - Tablets (Overlay Behavior Starts Here) */
-/* Header Height: 4rem (64px) from Header.module.css */
-@media (max-width: 768px) {
+/* Tablet (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
   .sidebar {
-    left: -15rem;
-    width: 15rem;
-    top: 4rem;
+    width: 15.5rem; /* 248px */
+    padding-top: 4.75rem; /* 76px - matches tablet header */
+  }
+  .sidebar.collapsed {
+    width: 4.75rem; /* 76px */
+  }
+  .navItemContent {
+    padding: 1rem 1.5rem; /* 16px 24px */
+  }
+  .sidebar.collapsed .navItemContent {
+    padding: 1rem; /* 16px */
+  }
+  .navText {
+    font-size: 1rem; /* 16px */
+    margin-left: 0.625rem; /* 10px */
+  }
+  .defaultIcon {
+    width: 1.375rem; /* 22px */
+    height: 1.375rem; /* 22px */
+  }
+}
+
+/* Small Tablet / Large Mobile (480px - 768px) - Overlay behavior */
+@media (min-width: 480px) and (max-width: 768px) {
+  .sidebar {
+    left: -16rem;
+    width: 16rem; /* 256px */
+    top: 4rem; /* 64px - matches header */
     height: calc(100vh - 4rem);
     padding-top: 0 !important;
-    margin-top: 0 !important;
-    border-top: none !important;
-    box-shadow: none !important;
+    z-index: 150;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   }
 
-  /* When the sidebar is 'open' (via JavaScript toggle) */
   .sidebar.open {
-    left: 0; /* Slides into view */
+    left: 0;
   }
 
-  /* Ensure content within the sidebar is always fully visible when it's open (overlay) */
   .sidebar.collapsed {
-    /* This ensures it stays hidden when not 'open' on mobile */
-    left: -15rem;
-    width: 15rem;
+    left: -16rem;
+    width: 16rem;
   }
-  /* IMPORTANT: Apply reset styles to the .navItemContent when sidebar is open on mobile */
+
   .sidebar.open .navItemContent {
-    justify-content: flex-start; /* Reset icon alignment */
-    padding: 1rem 1.5rem; /* 16px 24px - Standard padding for mobile open state */
+    justify-content: flex-start;
+    padding: 1rem 1.25rem; /* 16px 20px */
   }
+
   .sidebar.open .navText {
     opacity: 1;
     width: auto;
     overflow: visible;
   }
 
-  /* Further size adjustments for nav items at 768px */
   .navItemContent {
-    /* Apply to inner content */
-    padding: 0.8rem 1.2rem; /* 12.8px 19.2px */
+    padding: 0.875rem 1.125rem; /* 14px 18px */
   }
+
+  .navText {
+    font-size: 0.9375rem; /* 15px */
+    margin-left: 0.5rem; /* 8px */
+  }
+
+  .defaultIcon {
+    width: 1.125rem; /* 18px */
+    height: 1.125rem; /* 18px */
+  }
+}
+
+/* Mobile (max-width: 480px) - Full overlay */
+@media (max-width: 480px) {
+  .sidebar {
+    left: -100vw;
+    width: 75vw; /* 75% of viewport width */
+    top: 3.5rem; /* 56px - matches mobile header */
+    height: calc(100vh - 3.5rem);
+    padding-top: 0 !important;
+    z-index: 200;
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease-in-out;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .sidebar.collapsed {
+    left: -100vw;
+    width: 75vw;
+  }
+
+  .sidebar.open .navItemContent {
+    justify-content: flex-start;
+    padding: 1rem 1rem; /* 16px 16px */
+  }
+
+  .sidebar.open .navText {
+    opacity: 1;
+    width: auto;
+    overflow: visible;
+  }
+
+  .navItemContent {
+    padding: 0.75rem 1rem; /* 12px 16px */
+  }
+
   .navText {
     font-size: 0.875rem; /* 14px */
+    margin-left: 0.5rem; /* 8px */
   }
+
   .defaultIcon {
     width: 1rem; /* 16px */
     height: 1rem; /* 16px */
   }
+
+  /* Enhanced mobile touch targets */
+  .navItem {
+    min-height: 3rem; /* 48px - better touch target */
+  }
 }
 
-/* @media (max-width: 640px) - Small Tablets / Large Phones */
-/* Header Height: 4rem (64px) - usually inherits from 768px */
-@media (max-width: 640px) {
+/* Extra small mobile (max-width: 360px) */
+@media (max-width: 360px) {
   .sidebar {
-    left: -80vw; /* Hide completely off-screen */
-    width: 80vw; /* Make it 80% viewport width when opened */
-    top: 4rem; /* Still below the 64px header */
-    height: calc(100vh - 4rem); /* Fills remaining height */
+    width: 85vw; /* Larger on very small screens */
   }
 
-  /* Further size adjustments for nav items at 640px */
-  .navItemContent {
-    /* Apply to inner content */
-    padding: 0.75rem 1rem; /* 12px 16px */
+  .sidebar.collapsed {
+    width: 85vw;
   }
+
+  .navItemContent {
+    padding: 0.625rem 0.875rem; /* 10px 14px */
+  }
+
   .navText {
     font-size: 0.8125rem; /* 13px */
+    margin-left: 0.375rem; /* 6px */
   }
+
   .defaultIcon {
-    width: 0.9375rem; /* 15px */
-    height: 0.9375rem; /* 15px */
+    width: 0.875rem; /* 14px */
+    height: 0.875rem; /* 14px */
+  }
+
+  .navItem {
+    min-height: 2.75rem; /* 44px */
   }
 }
 
-/* @media (max-width: 480px) - Mobile Phones */
-/* Header Height: 3.5rem (56px) from Header.module.css */
-@media (max-width: 480px) {
-  .sidebar {
-    left: -100vw;
-    width: 50vw !important;
-    top: 3.5rem; /* Align with header height */
-    height: calc(100vh - 3.5rem);
-    padding-top: 0 !important; /* Remove top padding to eliminate white bar */
-    transition: left 0.3s;
-    z-index: 200;
-  }
-  .sidebar.open {
+/* Overlay backdrop for mobile */
+@media (max-width: 768px) {
+  .sidebar::before {
+    content: '';
+    position: fixed;
+    top: 0;
     left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    z-index: -1;
   }
-  .navItemContent {
-    padding: 0.3rem 0.4rem; /* Smaller padding for mobile */
-  }
-  .navText {
-    font-size: 0.65em;
-    margin-left: 0.4em;
-  }
-  .defaultIcon {
-    width: 0.65em;
-    height: 0.65em;
+
+  .sidebar.open::before {
+    opacity: 1;
+    visibility: visible;
   }
 }

@@ -40,3 +40,35 @@
   padding: 1.5rem; /* p-6 */
   padding-top: 0; /* pt-0 */
 }
+
+@media (max-width: 768px) {
+  .cardHeader,
+  .cardContent,
+  .cardFooter {
+    padding: 1rem;
+  }
+
+  .cardTitle {
+    font-size: 1.25rem;
+  }
+
+  .cardDescription {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cardHeader,
+  .cardContent,
+  .cardFooter {
+    padding: 0.75rem;
+  }
+
+  .cardTitle {
+    font-size: 1.1rem;
+  }
+
+  .cardDescription {
+    font-size: 0.75rem;
+  }
+}

@@ -254,3 +254,88 @@ select:focus {
   padding-top: 0 !important;
   border-top: none !important;
 }
+
+/* Responsive adjustments for general elements */
+@media (max-width: 1024px) {
+  :root {
+    --font-size-xxl: 1.375rem; /* 22px */
+    --font-size-xl: 1.125rem; /* 18px */
+    --font-size-lg: 1rem; /* 16px */
+    --font-size-md: 0.9375rem; /* 15px */
+    --font-size-sm: 0.875rem; /* 14px */
+    --font-size-xs: 0.75rem; /* 12px */
+
+    --spacing-lg: 20px;
+    --spacing-xl: 24px;
+    --spacing-xxl: 32px;
+  }
+
+  button {
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-md);
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs);
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --font-size-xxl: 1.25rem; /* 20px */
+    --font-size-xl: 1rem; /* 16px */
+    --font-size-lg: 0.9375rem; /* 15px */
+    --font-size-md: 0.875rem; /* 14px */
+    --font-size-sm: 0.8125rem; /* 13px */
+    --font-size-xs: 0.6875rem; /* 11px */
+
+    --spacing-md: 12px;
+    --spacing-lg: 16px;
+    --spacing-xl: 20px;
+    --spacing-xxl: 24px;
+  }
+
+  button {
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --font-size-xxl: 1.125rem; /* 18px */
+    --font-size-xl: 0.9375rem; /* 15px */
+    --font-size-lg: 0.875rem; /* 14px */
+    --font-size-md: 0.8125rem; /* 13px */
+    --font-size-sm: 0.75rem; /* 12px */
+    --font-size-xs: 0.625rem; /* 10px */
+
+    --spacing-sm: 6px;
+    --spacing-md: 10px;
+    --spacing-lg: 12px;
+    --spacing-xl: 16px;
+    --spacing-xxl: 20px;
+  }
+
+  button {
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-xs);
+  }
+}

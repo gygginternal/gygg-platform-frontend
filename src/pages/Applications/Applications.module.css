@@ -18,3 +18,49 @@
   text-decoration: none;
   color: inherit;
 }
+
+@media (max-width: 1024px) {
+  .padding24 {
+    padding: 20px 0;
+  }
+
+  .mb8 {
+    margin-bottom: 6px;
+  }
+
+  .w200 {
+    width: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .padding24 {
+    padding: 16px 0;
+  }
+
+  .mb8 {
+    margin-bottom: 4px;
+  }
+
+  .w200 {
+    width: 150px;
+  }
+
+  .gridCol2 {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .padding24 {
+    padding: 12px 0;
+  }
+
+  .mb8 {
+    margin-bottom: 2px;
+  }
+
+  .w200 {
+    width: 100%;
+  }
+}

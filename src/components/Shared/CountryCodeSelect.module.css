@@ -23,3 +23,24 @@
   border-color: #007bff;
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
+
+@media (max-width: 1024px) {
+  .select {
+    padding: 7px 10px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .select {
+    padding: 6px 9px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .select {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+}

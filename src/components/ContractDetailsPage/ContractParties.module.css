@@ -36,3 +36,79 @@
   font-weight: 700;
   color: #222;
 }
+
+@media (max-width: 1024px) {
+  .partiesSection {
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding: 1.2rem 1.6rem;
+  }
+  .party {
+    gap: 1rem;
+  }
+  .party:not(:last-child) {
+    padding-right: 1.6rem;
+  }
+  .party img {
+    width: 50px;
+    height: 50px;
+  }
+  .partyRole {
+    font-size: 0.9rem;
+  }
+  .partyName {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .partiesSection {
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.2rem;
+  }
+  .party {
+    gap: 0.8rem;
+  }
+  .party:not(:last-child) {
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+    padding-right: 0;
+    padding-bottom: 1rem;
+  }
+  .party img {
+    width: 44px;
+    height: 44px;
+  }
+  .partyRole {
+    font-size: 0.85rem;
+  }
+  .partyName {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .partiesSection {
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.8rem 1rem;
+  }
+  .party {
+    gap: 0.6rem;
+  }
+  .party:not(:last-child) {
+    padding-bottom: 0.8rem;
+  }
+  .party img {
+    width: 38px;
+    height: 38px;
+  }
+  .partyRole {
+    font-size: 0.8rem;
+  }
+  .partyName {
+    font-size: 0.9rem;
+  }
+}

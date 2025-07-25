@@ -46,3 +46,84 @@
 .paymentError {
   color: red;
 }
+
+@media (max-width: 1024px) {
+  .paymentBreakdown {
+    margin: 0 0 18px 0;
+    padding: 10px;
+  }
+
+  .breakdownTitle {
+    margin-bottom: 8px;
+  }
+
+  .breakdownDetails {
+    font-size: 14px;
+  }
+
+  .paymentDetailsTitle {
+    margin-bottom: 18px;
+  }
+
+  .submitButton {
+    margin-top: 20px;
+  }
+
+  .paymentMessage {
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .paymentBreakdown {
+    margin: 0 0 15px 0;
+    padding: 8px;
+  }
+
+  .breakdownTitle {
+    margin-bottom: 7px;
+  }
+
+  .breakdownDetails {
+    font-size: 13px;
+  }
+
+  .paymentDetailsTitle {
+    margin-bottom: 15px;
+  }
+
+  .submitButton {
+    margin-top: 18px;
+  }
+
+  .paymentMessage {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .paymentBreakdown {
+    margin: 0 0 12px 0;
+    padding: 6px;
+  }
+
+  .breakdownTitle {
+    margin-bottom: 6px;
+  }
+
+  .breakdownDetails {
+    font-size: 12px;
+  }
+
+  .paymentDetailsTitle {
+    margin-bottom: 12px;
+  }
+
+  .submitButton {
+    margin-top: 15px;
+  }
+
+  .paymentMessage {
+    margin-top: 8px;
+  }
+}

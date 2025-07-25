@@ -106,3 +106,55 @@
   width: 2.5rem; /* w-10 */
   padding: 0;
 }
+
+@media (max-width: 768px) {
+  .base {
+    font-size: 0.8rem;
+  }
+
+  .sizeDefault {
+    height: 2.25rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .sizeSm {
+    height: 2rem;
+    padding: 0 0.6rem;
+  }
+
+  .sizeLg {
+    height: 2.5rem;
+    padding: 0 1.5rem;
+  }
+
+  .sizeIcon {
+    height: 2.25rem;
+    width: 2.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .base {
+    font-size: 0.75rem;
+  }
+
+  .sizeDefault {
+    height: 2rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .sizeSm {
+    height: 1.75rem;
+    padding: 0 0.5rem;
+  }
+
+  .sizeLg {
+    height: 2.25rem;
+    padding: 0 1rem;
+  }
+
+  .sizeIcon {
+    height: 2rem;
+    width: 2rem;
+  }
+}

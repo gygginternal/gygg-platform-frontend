@@ -88,3 +88,135 @@
   height: 24px;
   display: block;
 }
+
+@media (max-width: 1024px) {
+  .postCreateForm {
+    padding: 1rem 1.2rem 0.8rem 1.2rem;
+    border-radius: 18px;
+    gap: 0.4rem;
+  }
+
+  .postCreateRow {
+    gap: 0.8rem;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .postInput {
+    font-size: 1rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: 10px;
+    margin-right: 0.8rem;
+  }
+
+  .postButton {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    border-radius: 18px;
+  }
+
+  .postCreateActions {
+    margin-left: 50px;
+    gap: 0.4rem;
+  }
+
+  .iconBtn {
+    padding: 3px;
+  }
+
+  .iconBtn img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .postCreateForm {
+    padding: 0.8rem 1rem 0.6rem 1rem;
+    border-radius: 16px;
+    gap: 0.3rem;
+  }
+
+  .postCreateRow {
+    gap: 0.6rem;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  .postInput {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: 8px;
+    margin-right: 0.6rem;
+  }
+
+  .postButton {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    border-radius: 16px;
+  }
+
+  .postCreateActions {
+    margin-left: 44px;
+    gap: 0.3rem;
+  }
+
+  .iconBtn {
+    padding: 2px;
+  }
+
+  .iconBtn img {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .postCreateForm {
+    padding: 0.6rem 0.8rem 0.5rem 0.8rem;
+    border-radius: 14px;
+    gap: 0.2rem;
+  }
+
+  .postCreateRow {
+    gap: 0.5rem;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .postInput {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    margin-right: 0.5rem;
+  }
+
+  .postButton {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.7rem;
+    border-radius: 14px;
+  }
+
+  .postCreateActions {
+    margin-left: 38px;
+    gap: 0.2rem;
+  }
+
+  .iconBtn {
+    padding: 1px;
+  }
+
+  .iconBtn img {
+    width: 16px;
+    height: 16px;
+  }
+}

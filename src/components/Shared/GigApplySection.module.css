@@ -79,3 +79,23 @@
 .cancelButton:hover {
   background-color: #dc2626;
 }
+
+@media (max-width: 768px) {
+  .acceptButton,
+  .declineButton,
+  .applyButton,
+  .cancelButton {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .acceptButton,
+  .declineButton,
+  .applyButton,
+  .cancelButton {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+  }
+}

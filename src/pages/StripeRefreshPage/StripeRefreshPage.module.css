@@ -38,3 +38,72 @@
 .button:hover {
   background-color: #0056b3;
 }
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 18px;
+    max-width: 550px;
+    margin: 45px auto;
+  }
+
+  .title {
+    font-size: 1.6em;
+    margin-bottom: 12px;
+  }
+
+  .message {
+    font-size: 1em;
+    margin-bottom: 20px;
+  }
+
+  .button {
+    padding: 9px 18px;
+    font-size: 0.95em;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+    max-width: 500px;
+    margin: 40px auto;
+  }
+
+  .title {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+  }
+
+  .message {
+    font-size: 0.95em;
+    margin-bottom: 18px;
+  }
+
+  .button {
+    padding: 8px 16px;
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 12px;
+    max-width: 90%;
+    margin: 30px auto;
+  }
+
+  .title {
+    font-size: 1.2em;
+    margin-bottom: 8px;
+  }
+
+  .message {
+    font-size: 0.9em;
+    margin-bottom: 15px;
+  }
+
+  .button {
+    padding: 7px 14px;
+    font-size: 0.85em;
+  }
+}

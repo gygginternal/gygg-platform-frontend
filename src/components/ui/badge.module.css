@@ -54,3 +54,17 @@
   color: #0f172a; /* text-foreground */
   border-color: #d1d5db; /* border-input */
 }
+
+@media (max-width: 768px) {
+  .base {
+    padding: 0.1rem 0.5rem;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .base {
+    padding: 0.05rem 0.4rem;
+    font-size: 0.65rem;
+  }
+}
