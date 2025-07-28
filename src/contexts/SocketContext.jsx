@@ -21,6 +21,12 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (!isLoading && user && authToken) {
+      console.log('[SocketContext] Initializing socket connection...', {
+        user: user._id,
+        hasToken: !!authToken,
+        tokenLength: authToken?.length
+      });
+      
       const newSocket = io(
         (import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000').replace(
           '/api/v1',
@@ -43,18 +49,25 @@ export const SocketProvider = ({ children }) => {
       );
 
       newSocket.on('connect', () => {
+        console.log('[SocketContext] Socket connected successfully!', newSocket.id);
         setConnected(true);
         if (user && user._id) {
+          console.log('[SocketContext] Subscribing to notifications for user:', user._id);
           newSocket.emit('subscribeToNotifications', { userId: user._id });
         }
       });
 
       newSocket.on('disconnect', reason => {
+        console.log('[SocketContext] Socket disconnected:', reason);
         setConnected(false);
       });
 
       newSocket.on('connect_error', err => {
-        console.error('[Socket] Connect error:', err);
+        console.error('[Socket] Connect error:', err.message);
+        // If authentication fails, the socket will automatically retry
+        if (err.message.includes('Authentication')) {
+          console.log('Socket authentication failed, will retry...');
+        }
       });
 
       newSocket.on('error', err => {

@@ -11,25 +11,24 @@ const socket = io(SOCKET_URL, {
   reconnectionAttempts: 5,
   reconnectionDelay: 1000,
   timeout: 10000,
-  autoConnect: true,
+  autoConnect: false, // Don't auto-connect, let SocketContext handle this
   withCredentials: true,
-  forceNew: true,
 });
 
 socket.on('connect_error', error => {
-  // console.error('Socket connection error:', error);
+  console.error('Socket connection error:', error.message);
 });
 
 socket.on('connect', () => {
-  // console.log('Socket connected successfully');
+  console.log('Socket connected successfully');
 });
 
 socket.on('disconnect', reason => {
-  // console.log('Socket disconnected:', reason);
+  console.log('Socket disconnected:', reason);
 });
 
 socket.on('error', error => {
-  // console.error('Socket error:', error);
+  console.error('Socket error:', error);
 });
 
 export default socket;

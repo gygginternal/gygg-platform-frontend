@@ -18,14 +18,7 @@ const GlobalOverrides = createGlobalStyle`
   }
 `;
 
-const NavContainer = styled(Card)`
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  padding: 16px 24px;
-  background-color: #fff !important;
-  border-bottom: none !important;
-`;
+
 
 const DesktopNav = styled(Flex)`
   display: none;

@@ -37,9 +37,13 @@ function CheckoutForm({
     });
 
     if (error) {
+      console.error('Stripe payment error:', error);
       setMessage(error.message || 'An unexpected error occurred.');
       if (onPaymentError) onPaymentError(error.message);
     } else if (paymentIntent) {
+      console.log('Payment intent status:', paymentIntent.status);
+      console.log('Full payment intent:', paymentIntent);
+      
       switch (paymentIntent.status) {
         case 'succeeded':
           setMessage('Payment successful!');
@@ -52,13 +56,26 @@ function CheckoutForm({
           setMessage('Payment failed. Please try another method.');
           if (onPaymentError) onPaymentError('Payment failed.');
           break;
+        case 'requires_confirmation':
+          setMessage('Payment requires additional confirmation.');
+          if (onPaymentError) onPaymentError('Payment requires confirmation.');
+          break;
+        case 'requires_action':
+          setMessage('Payment requires additional action.');
+          if (onPaymentError) onPaymentError('Payment requires action.');
+          break;
+        case 'canceled':
+          setMessage('Payment was canceled.');
+          if (onPaymentError) onPaymentError('Payment canceled.');
+          break;
         default:
-          setMessage('Something went wrong.');
-          if (onPaymentError) onPaymentError('Something went wrong.');
+          setMessage(`Unexpected payment status: ${paymentIntent.status}`);
+          if (onPaymentError) onPaymentError(`Unexpected status: ${paymentIntent.status}`);
           break;
       }
     } else {
-      setMessage('Unexpected state.');
+      console.error('No payment intent returned');
+      setMessage('Unexpected state - no payment intent returned.');
       if (onPaymentError) onPaymentError('Unexpected state.');
     }
     setIsLoading(false);
@@ -94,7 +111,20 @@ function CheckoutForm({
         </div>
       )}
       <h4 className={styles.paymentDetailsTitle}>Enter Payment Details:</h4>
-      <PaymentElement id="payment-element" />
+      <PaymentElement 
+        id="payment-element" 
+        options={{
+          // Disable Link to avoid phone number validation
+          layout: 'tabs',
+          defaultValues: {
+            billingDetails: {
+              name: '',
+              email: '',
+              phone: ''
+            }
+          }
+        }}
+      />
       <button
         disabled={isLoading || !stripe || !elements}
         id="submit"

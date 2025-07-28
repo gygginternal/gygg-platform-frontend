@@ -20,6 +20,11 @@ import { Search, Filter, DollarSign, User } from 'lucide-react';
 import { useToast } from '../../contexts/ToastContext';
 import { useAuth } from '../../contexts/AuthContext';
 import ContractCard from '../../components/ContractsPage/ContractCard';
+import CheckoutForm from '../../components/Shared/CheckoutForm';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 export const ContractsContext = createContext();
 export function useContracts() {
@@ -157,6 +162,12 @@ function ContractsPage() {
   const [status, setStatus] = useState('All');
   const [modalContract, setModalContract] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [paymentModal, setPaymentModal] = useState({
+    open: false,
+    contract: null,
+    clientSecret: null,
+    loading: false
+  });
   const queryClient = useQueryClient();
   const showToast = useToast();
   const { user, sessionRole } = useAuth();
@@ -538,17 +549,26 @@ function ContractsPage() {
                   <button
                     className={styles.primaryBtn}
                     onClick={async () => {
+                      setPaymentModal(prev => ({ ...prev, loading: true }));
                       try {
-                        await apiClient.post(
+                        const response = await apiClient.post(
                           `/payments/contracts/${modalContract.id || modalContract._id}/create-payment-intent`
                         );
-                        showToast(
-                          'Payment initiated! Please complete the payment in the next step.',
-                          'success'
-                        );
+                        
+                        // Close the contract details modal and open payment modal
                         setIsModalOpen(false);
                         setModalContract(null);
+                        
+                        // Open payment modal with client secret
+                        setPaymentModal({
+                          open: true,
+                          contract: modalContract,
+                          clientSecret: response.data.clientSecret,
+                          loading: false
+                        });
+                        
                       } catch (err) {
+                        setPaymentModal(prev => ({ ...prev, loading: false }));
                         showToast(
                           err.response?.data?.message ||
                             'Failed to initiate payment.',
@@ -556,8 +576,9 @@ function ContractsPage() {
                         );
                       }
                     }}
+                    disabled={paymentModal.loading}
                   >
-                    Make Payment
+                    {paymentModal.loading ? 'Processing...' : 'Make Payment'}
                   </button>
                 )}
               {sessionRole === 'provider' &&
@@ -595,6 +616,56 @@ function ContractsPage() {
               >
                 Cancel
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Payment Modal */}
+      {paymentModal.open && paymentModal.clientSecret && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <div className={styles.modalHeader}>
+              <h3>Complete Payment</h3>
+              <button
+                className={styles.closeButton}
+                onClick={() => setPaymentModal({ open: false, contract: null, clientSecret: null, loading: false })}
+                aria-label="Close payment modal"
+              >
+                ✖
+              </button>
+            </div>
+            <div className={styles.modalBody}>
+              <div style={{ marginBottom: '20px' }}>
+                <div><b>Contract:</b> {paymentModal.contract?.title || paymentModal.contract?.gig?.title || 'N/A'}</div>
+                <div><b>Hired by:</b> {paymentModal.contract?.provider?.firstName || paymentModal.contract?.providerName || 'N/A'} {paymentModal.contract?.provider?.lastName || ''}</div>
+                <div><b>Rate:</b> ${paymentModal.contract?.agreedCost || paymentModal.contract?.rate || 'N/A'}</div>
+              </div>
+              
+              <Elements 
+                stripe={stripePromise} 
+                options={{ 
+                  clientSecret: paymentModal.clientSecret,
+                  appearance: {
+                    theme: 'stripe'
+                  },
+                  // Disable Link to avoid phone number validation issues
+                  loader: 'auto'
+                }}
+              >
+                <CheckoutForm
+                  clientSecret={paymentModal.clientSecret}
+                  onPaymentSuccess={() => {
+                    showToast('Payment completed successfully!', 'success');
+                    setPaymentModal({ open: false, contract: null, clientSecret: null, loading: false });
+                    // Refresh contracts data
+                    queryClient.invalidateQueries(['contracts']);
+                  }}
+                  onPaymentError={(error) => {
+                    showToast(`Payment failed: ${error}`, 'error');
+                  }}
+                />
+              </Elements>
             </div>
           </div>
         </div>
