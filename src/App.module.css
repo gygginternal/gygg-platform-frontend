@@ -76,29 +76,6 @@
   }
 }
 
-/* Container with header padding responsive */
-.containerWithHeaderPadding {
-  padding-top: 70px;
-}
-
-@media (min-width: 480px) {
-  .containerWithHeaderPadding {
-    padding-top: 75px;
-  }
-}
-
-@media (min-width: 768px) {
-  .containerWithHeaderPadding {
-    padding-top: 84px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .containerWithHeaderPadding {
-    padding-top: 90px;
-  }
-}
-
 /* Header separator responsive */
 .headerSeparator {
   border: 0;

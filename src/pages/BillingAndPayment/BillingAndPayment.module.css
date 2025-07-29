@@ -112,6 +112,11 @@ th {
   background: #fff;
 }
 
+td {
+  color: #333;
+  font-weight: 400;
+}
+
 tr:not(:last-child) td {
   border-bottom: 1px solid #f3f3f3;
 }

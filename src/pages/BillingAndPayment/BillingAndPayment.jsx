@@ -100,57 +100,98 @@ function WithdrawModal({ open, onClose, available, onConfirm }) {
   );
 }
 
-function InvoiceModal({ open, onClose, payment }) {
+function InvoiceModal({ open, onClose, payment, showToast }) {
   if (!open || !payment) return null;
+  
   // Use real fields from payment object
   const total = (payment.amount || 0) / 100;
   const tax = (payment.taxAmount || 0) / 100;
   const platformFee = (payment.applicationFeeAmount || 0) / 100;
   const net = (payment.amountReceivedByPayee || 0) / 100;
+  
+  const handleDownloadPDF = async () => {
+    try {
+      const response = await apiClient.get(`/payments/${payment._id}/invoice-pdf`, {
+        responseType: 'blob',
+        timeout: 30000 // 30 second timeout
+      });
+      
+      // Check if response is actually a PDF
+      if (response.data.type !== 'application/pdf' && response.data.size < 100) {
+        throw new Error('Invalid PDF response');
+      }
+      
+      // Create blob link to download
+      const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `gygg-invoice-${payment._id?.slice(-8) || 'unknown'}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+      
+      // Show success message
+      showToast('Invoice PDF downloaded successfully!', 'success');
+    } catch (error) {
+      console.error('Error downloading PDF:', error);
+      // Show user-friendly error using toast instead of alert
+      const errorMessage = error.response?.data?.message || 'Unable to generate PDF at this time. Please try again later.';
+      showToast(errorMessage, 'error');
+    }
+  };
+  
   return (
     <div className={styles.modalOverlay}>
-      <div className={styles.invoiceModalCard}>
-        <div className={styles.invoiceModalHeader}>
-          <span style={{ fontWeight: 600, fontSize: 24 }}>Invoice</span>
-          <button className={styles.modalClose} onClick={onClose}>
-            &times;
+      <div className={styles.modalCard}>
+        <div className={styles.modalHeader}>
+          <h3>Invoice #{payment._id?.slice(-5) || '—'}</h3>
+          <button
+            className={styles.modalClose}
+            onClick={onClose}
+            aria-label="Close invoice modal"
+          >
+            ✖
           </button>
         </div>
-        <div className={styles.invoiceModalBody}>
-          <div style={{ marginBottom: 12, color: '#555', fontWeight: 500 }}>
-            #{payment.invoiceNumber || payment._id?.slice(-5) || '—'}
+        <div className={styles.modalBody}>
+          <div style={{ marginBottom: '20px' }}>
+            <div><b>Contract:</b> {payment.contract?.title || payment.gig?.title || 'N/A'}</div>
+            <div><b>Date:</b> {payment.createdAt ? new Date(payment.createdAt).toLocaleDateString() : 'N/A'}</div>
+            <div><b>Status:</b> {payment.status}</div>
           </div>
-          <div className={styles.invoiceRow}>
-            <span style={{ color: '#888' }}>Gig title</span>
-            <span style={{ fontWeight: 500 }}>
-              {payment.contract?.title || payment.gig?.title || 'N/A'}
-            </span>
-          </div>
-          <div className={styles.invoiceRow}>
-            <span>Your total earnings</span>
-            <span style={{ fontWeight: 600 }}>${total.toFixed(2)}</span>
-          </div>
-          <div className={styles.invoiceRow}>
-            <span>Tax</span>
-            <span style={{ fontWeight: 600 }}>${tax.toFixed(2)}</span>
-          </div>
-          <div className={styles.invoiceRow}>
-            <span>Platform fee</span>
-            <span style={{ fontWeight: 600 }}>${platformFee.toFixed(2)}</span>
-          </div>
-          <div className={styles.invoiceRow}>
-            <span>Your earnings after fees and taxes</span>
-            <span style={{ fontWeight: 700, fontSize: 22 }}>
-              {net.toFixed(2)}
-            </span>
+          
+          <div style={{ borderTop: '1px solid #eee', paddingTop: '20px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+              <span>Total Amount:</span>
+              <span style={{ fontWeight: '600' }}>${total.toFixed(2)}</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+              <span>Tax:</span>
+              <span style={{ fontWeight: '600' }}>${tax.toFixed(2)}</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+              <span>Platform Fee:</span>
+              <span style={{ fontWeight: '600' }}>${platformFee.toFixed(2)}</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #eee', paddingTop: '10px', marginTop: '10px' }}>
+              <span style={{ fontWeight: '700' }}>Net Amount:</span>
+              <span style={{ fontWeight: '700', fontSize: '18px', color: '#1db954' }}>${net.toFixed(2)}</span>
+            </div>
           </div>
         </div>
-        <div className={styles.invoiceModalFooter}>
+        <div className={styles.modalFooter}>
           <button
-            className={styles.downloadBtn}
-            onClick={() => window.open(payment.invoiceUrl, '_blank')}
+            className={styles.modalConfirm}
+            onClick={handleDownloadPDF}
           >
             Download PDF
+          </button>
+          <button
+            className={styles.modalCancel}
+            onClick={onClose}
+          >
+            Close
           </button>
         </div>
       </div>
@@ -320,6 +361,7 @@ export default function BillingAndPayment() {
         open={invoiceModal.open}
         onClose={() => setInvoiceModal({ open: false, payment: null })}
         payment={invoiceModal.payment}
+        showToast={showToast}
       />
       <div className={styles.searchAndFilters}>
         <div className={styles.searchBar}>
@@ -461,9 +503,9 @@ export default function BillingAndPayment() {
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>Hired by</th>
+                <th>{sessionRole === 'tasker' ? 'Provider' : 'Tasker'}</th>
                 <th>Date</th>
-                <th>Contract detail</th>
+                <th>Contract Detail</th>
                 <th>Amount</th>
                 <th>Invoice</th>
                 {view === 'spent' && isProvider && <th>Release Payment</th>}
@@ -514,15 +556,19 @@ export default function BillingAndPayment() {
               ) : (
                 _transactions.map((inv, idx) => (
                   <tr key={inv._id || idx}>
-                    <td>
-                      {inv.payer?.firstName || ''} {inv.payer?.lastName || ''}
+                    <td style={{ color: '#333', fontWeight: '500' }}>
+                      {/* Show provider name for taskers, tasker name for providers */}
+                      {sessionRole === 'tasker' 
+                        ? `${inv.payer?.firstName || ''} ${inv.payer?.lastName || ''}`.trim() || 'N/A'
+                        : `${inv.payee?.firstName || ''} ${inv.payee?.lastName || ''}`.trim() || 'N/A'
+                      }
                     </td>
-                    <td>
+                    <td style={{ color: '#333' }}>
                       {inv.createdAt
                         ? new Date(inv.createdAt).toLocaleDateString()
                         : ''}
                     </td>
-                    <td className={styles.contractDetail}>
+                    <td className={styles.contractDetail} style={{ color: '#333' }}>
                       {inv.contract?.title || inv.gig?.title || 'N/A'}
                     </td>
                     <td

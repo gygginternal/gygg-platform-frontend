@@ -655,11 +655,23 @@ function ContractsPage() {
               >
                 <CheckoutForm
                   clientSecret={paymentModal.clientSecret}
-                  onPaymentSuccess={() => {
-                    showToast('Payment completed successfully!', 'success');
-                    setPaymentModal({ open: false, contract: null, clientSecret: null, loading: false });
-                    // Refresh contracts data
-                    queryClient.invalidateQueries(['contracts']);
+                  onPaymentSuccess={async (paymentIntentId) => {
+                    try {
+                      // Confirm payment success with backend
+                      await apiClient.post('/payments/confirm-payment-success', {
+                        paymentIntentId: paymentIntentId
+                      });
+                      
+                      showToast('Payment completed successfully! Contract has been completed.', 'success');
+                      setPaymentModal({ open: false, contract: null, clientSecret: null, loading: false });
+                      
+                      // Refresh contracts data
+                      queryClient.invalidateQueries(['contracts']);
+                    } catch (error) {
+                      console.error('Error confirming payment:', error);
+                      showToast('Payment succeeded but there was an issue updating the contract. Please contact support.', 'warning');
+                      setPaymentModal({ open: false, contract: null, clientSecret: null, loading: false });
+                    }
                   }}
                   onPaymentError={(error) => {
                     showToast(`Payment failed: ${error}`, 'error');
