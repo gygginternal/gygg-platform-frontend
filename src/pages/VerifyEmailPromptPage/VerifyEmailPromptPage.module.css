@@ -186,6 +186,48 @@
   color: #b45309;
 }
 
+.emailInput {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid #555;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 0.875rem;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 1rem;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.emailInput:focus {
+  outline: none;
+  border-color: #d99633;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.emailInput::placeholder {
+  color: #aaa;
+}
+
+/* Success and error state icons */
+.iconContainer .successIcon {
+  color: #4ade80;
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+.iconContainer .errorIcon {
+  color: #ef4444;
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+/* Loading animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /* Responsive adjustments for screens up to 1024px */
 @media (max-width: 1024px) {
   .container {

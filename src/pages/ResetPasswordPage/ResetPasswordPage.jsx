@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import apiClient from '../api/axiosConfig';
 import { useToast } from '../contexts/ToastContext';
 import styles from './ResetPasswordPage.module.css';
 
 function ResetPasswordPage() {
-  const { token } = useParams();
+  const { token: paramToken } = useParams();
+  const [searchParams] = useSearchParams();
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [loading, setLoading] = useState(false);
+  const [token, setToken] = useState('');
   const { showToast } = useToast();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Get token from either URL params or query params
+    const resetToken = paramToken || searchParams.get('token');
+    if (resetToken) {
+      setToken(resetToken);
+    } else {
+      showToast('Invalid reset link. Please request a new password reset.', 'error');
+      navigate('/forgot-password');
+    }
+  }, [paramToken, searchParams, navigate, showToast]);
 
   const handleSubmit = async e => {
     e.preventDefault();

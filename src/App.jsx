@@ -22,6 +22,7 @@ import JoinPage from './pages/JoinPage/JoinPage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import VerifyEmailPromptPage from './pages/VerifyEmailPromptPage/VerifyEmailPromptPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage';
+import ResetPasswordPage from './pages/ResetPasswordPage/ResetPasswordPage';
 import TaskerOnboardingPage from './pages/OnboardingPages/TaskerOnboardingPage';
 import ProviderOnboardingPage from './pages/OnboardingPages/ProviderOnboardingPage';
 import GigCreateOptionsPage from './pages/GigCreateOptionsPage/GigCreateOptionsPage';
@@ -126,7 +127,12 @@ function AppWithNavigation() {
               path="/verify-email-prompt"
               element={<VerifyEmailPromptPage />}
             />
+            <Route
+              path="/verify-email"
+              element={<VerifyEmailPromptPage />}
+            />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
 
             <Route path="/terms" element={<TermsOfUsePage />} />
             <Route path="/privacy" element={<PrivacyPolicyPage />} />
