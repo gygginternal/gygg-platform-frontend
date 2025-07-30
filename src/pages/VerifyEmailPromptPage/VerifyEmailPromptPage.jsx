@@ -29,45 +29,26 @@ function VerifyEmailPromptPage() {
       if (urlEmail) {
         setEmail(decodeURIComponent(urlEmail));
       }
-    } else if (message && message.includes('verified successfully')) {
-      setPageStatus('success');
-      setStatusMessage(message);
-    } else if (message && message.includes('already verified')) {
+    } else if (message && (message.includes('verified successfully') || message.includes('already verified'))) {
       setPageStatus('success');
       setStatusMessage(message);
     }
   }, [searchParams]);
 
-  const handleTokenVerification = async (token) => {
-    try {
-      setPageStatus('loading');
-      setStatusMessage('Verifying your email...');
-      
-      // Call the backend API to verify the token
-      const response = await apiClient.get(`/users/verifyEmail/${token}`);
-      
-      if (response.data.status === 'success') {
-        setPageStatus('success');
-        setStatusMessage('Email verified successfully! You can now log in.');
-        logger.info('Email verification successful');
-      }
-    } catch (error) {
-      logger.error('Email verification failed:', error);
-      setPageStatus('error');
-      
-      if (error.response?.status === 400) {
-        const errorMessage = error.response.data.message || 'Verification failed';
-        setStatusMessage(errorMessage);
-        
-        // If token expired, try to extract email for resend functionality
-        if (errorMessage.includes('expired')) {
-          // You might want to extract email from the error response if available
-          setStatusMessage('Your verification link has expired. Please request a new one.');
-        }
-      } else {
-        setStatusMessage('Verification failed. Please try again or request a new verification email.');
-      }
-    }
+  const handleTokenVerification = (token) => {
+    // Instead of making an API call, redirect to the backend verification endpoint
+    // The backend will handle the verification and redirect back to the frontend
+    setPageStatus('loading');
+    setStatusMessage('Verifying your email...');
+    
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+    const verificationUrl = `${backendUrl}/users/verifyEmail/${token}`;
+    
+    logger.info('Redirecting to verification URL:', verificationUrl);
+    
+    // Redirect to the backend verification endpoint
+    // The backend will verify the token and redirect back to the appropriate frontend page
+    window.location.href = verificationUrl;
   };
 
   const handleResendEmail = async () => {
