@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
-import apiClient from '../api/axiosConfig';
-import { useToast } from '../contexts/ToastContext';
+import apiClient from '../../api/axiosConfig';
+import { useToast } from '../../contexts/ToastContext';
 import styles from './ResetPasswordPage.module.css';
 
 function ResetPasswordPage() {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import apiClient from '../api/axiosConfig';
+import apiClient from '../../api/axiosConfig';
 import styles from './InvoicePage.module.css';
 
 function InvoicePage({ paymentId }) {
