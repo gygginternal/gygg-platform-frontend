@@ -42,7 +42,9 @@ function VerifyEmailPromptPage() {
     setStatusMessage('Verifying your email...');
     
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
-    const verificationUrl = `${backendUrl}/users/verifyEmail/${token}`;
+    // Remove any trailing slash from backendUrl and construct the verification URL
+    const cleanBackendUrl = backendUrl.endsWith('/') ? backendUrl.slice(0, -1) : backendUrl;
+    const verificationUrl = `${cleanBackendUrl}/users/verifyEmail/${token}`;
     
     logger.info('Redirecting to verification URL:', verificationUrl);
     
