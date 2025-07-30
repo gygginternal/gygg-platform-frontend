@@ -18,7 +18,7 @@ function LoginPage() {
   const { login, selectSessionRole } = useAuth();
   const location = useLocation();
   const selectedRole = location.state?.selectedRole || null;
-  const showToast = useToast();
+  const { showToast } = useToast();
 
   // Handler expected by our InputField component
   const handleChange = (name, value) => {

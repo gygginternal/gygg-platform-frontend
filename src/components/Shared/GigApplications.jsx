@@ -234,7 +234,7 @@ TaskerModal.propTypes = {
 
 export const GigApplications = ({ gigId, onOffer, onReject }) => {
   const { user } = useAuth();
-  const showToast = useToast();
+  const { showToast } = useToast();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [currentPage, setCurrentPage] = useState(1);

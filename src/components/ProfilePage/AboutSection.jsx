@@ -25,7 +25,7 @@ function AboutSection({ userToDisplay, isOwnProfile, onUpdate }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editedBio, setEditedBio] = useState('');
   const [saveLoading, setSaveLoading] = useState(false);
-  const showToast = useToast();
+  const { showToast } = useToast();
 
   // Initialize displayBio and editedBio when userToDisplay changes
   const displayBio = userToDisplay?.bio

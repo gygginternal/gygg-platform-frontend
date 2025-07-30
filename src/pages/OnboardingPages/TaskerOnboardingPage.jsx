@@ -58,7 +58,7 @@ function TaskerOnboardingPage() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const showToast = useToast();
+  const { showToast } = useToast();
 
   // All useEffect hooks must be at the top
   useEffect(() => {

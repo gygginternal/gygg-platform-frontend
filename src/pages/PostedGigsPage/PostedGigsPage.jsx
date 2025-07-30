@@ -18,7 +18,7 @@ function isValidObjectId(id) {
 
 const PostedGigsPage = () => {
   const { user } = useAuth();
-  const showToast = useToast();
+  const { showToast } = useToast();
   const location = useLocation();
   const navigate = useNavigate();
   const params = new URLSearchParams(location.search);

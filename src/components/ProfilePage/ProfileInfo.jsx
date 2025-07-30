@@ -46,7 +46,7 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate, showMessage
   const [profileImagePreview, setProfileImagePreview] = useState(null);
   const fileInputRef = useRef(null);
   const [saveLoading, setSaveLoading] = useState(false);
-  const showToast = useToast();
+  const { showToast } = useToast();
 
   // Populate form state with user data when the userToDisplay prop changes
   useEffect(() => {

@@ -24,14 +24,46 @@ export default defineConfig({
   build: {
     outDir: 'build',
     sourcemap: true,
+    chunkSizeWarningLimit: 1000, // Increase warning limit to 1MB
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          router: ['react-router-dom'],
-          ui: ['antd', '@headlessui/react', '@radix-ui/react-slot'],
-          icons: ['lucide-react', 'react-icons'],
-          utils: ['axios', 'date-fns', 'uuid']
+        manualChunks: (id) => {
+          // Vendor chunks
+          if (id.includes('node_modules')) {
+            // React ecosystem
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
+              return 'react-vendor';
+            }
+            // UI libraries
+            if (id.includes('antd') || id.includes('@headlessui') || id.includes('@radix-ui') || id.includes('flowbite')) {
+              return 'ui-vendor';
+            }
+            // Icons
+            if (id.includes('lucide-react') || id.includes('react-icons')) {
+              return 'icons-vendor';
+            }
+            // Utilities
+            if (id.includes('axios') || id.includes('date-fns') || id.includes('uuid') || id.includes('socket.io')) {
+              return 'utils-vendor';
+            }
+            // Query and state management
+            if (id.includes('@tanstack/react-query') || id.includes('styled-components')) {
+              return 'state-vendor';
+            }
+            // Everything else
+            return 'vendor';
+          }
+          
+          // App chunks
+          if (id.includes('/pages/')) {
+            return 'pages';
+          }
+          if (id.includes('/components/')) {
+            return 'components';
+          }
+          if (id.includes('/contexts/')) {
+            return 'contexts';
+          }
         }
       }
     }

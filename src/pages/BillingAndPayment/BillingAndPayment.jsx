@@ -213,7 +213,7 @@ const typeOptions = ['all', 'payment', 'withdrawal'];
 
 export default function BillingAndPayment() {
   const { user, sessionRole } = useAuth();
-  const showToast = useToast();
+  const { showToast } = useToast();
   const [_transactions, setTransactions] = useState([]);
   const [_loading, setLoading] = useState(false);
   const [_error, setError] = useState('');

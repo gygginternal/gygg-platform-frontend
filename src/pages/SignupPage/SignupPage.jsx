@@ -12,7 +12,7 @@ import useErrorHandler from '../../hooks/useErrorHandler';
 function SignupPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const showToast = useToast();
+  const { showToast } = useToast();
   const selectedRole = location.state?.selectedRole || 'tasker';
 
   const [formData, setFormData] = useState({

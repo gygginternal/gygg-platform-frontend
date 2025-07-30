@@ -25,7 +25,7 @@ const exampleTitles = [
 ];
 
 function ModernGigCreateForm({ onGigCreated }) {
-  const showToast = useToast();
+  const { showToast } = useToast();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState(initialGigFormData);
   const [loading, setLoading] = useState(false);

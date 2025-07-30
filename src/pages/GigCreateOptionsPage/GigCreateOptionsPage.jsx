@@ -20,7 +20,7 @@ function GigCreateOptionsPage() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const showToast = useToast();
+  const { showToast } = useToast();
 
   const handleInputChange = e => {
     const { name, value, type, checked } = e.target;

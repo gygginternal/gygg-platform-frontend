@@ -15,7 +15,7 @@ function AlbumSection({ userIdToView, isOwnProfile, onUpdate }) {
   const [currentPage, setCurrentPage] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const itemsPerPage = 3;
-  const showToast = useToast();
+  const { showToast } = useToast();
 
   // Memoize fetchAlbum with useCallback
   const fetchAlbum = useCallback(async () => {

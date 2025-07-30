@@ -169,7 +169,7 @@ function ContractsPage() {
     loading: false
   });
   const queryClient = useQueryClient();
-  const showToast = useToast();
+  const { showToast } = useToast();
   const { user, sessionRole } = useAuth();
 
   const tabOptions = [
