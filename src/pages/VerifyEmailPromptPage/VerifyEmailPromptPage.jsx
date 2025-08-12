@@ -25,7 +25,18 @@ function VerifyEmailPromptPage() {
       handleTokenVerification(token);
     } else if (error) {
       setPageStatus('error');
-      setStatusMessage(message || 'Verification failed');
+      let errorMessage = message || 'Verification failed';
+      
+      // Provide better error messages and guidance
+      if (message && message.includes('not found')) {
+        errorMessage = 'This verification link is invalid or has already been used. If you need to verify your email, please request a new verification link below.';
+      } else if (message && message.includes('expired')) {
+        errorMessage = 'Your verification link has expired. Please request a new verification link below.';
+      } else if (message && message.includes('Too many verification attempts')) {
+        errorMessage = message; // Use the detailed rate limiting message from backend
+      }
+      
+      setStatusMessage(errorMessage);
       if (urlEmail) {
         setEmail(decodeURIComponent(urlEmail));
       }
@@ -44,7 +55,7 @@ function VerifyEmailPromptPage() {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     // Remove any trailing slash from backendUrl and construct the verification URL
     const cleanBackendUrl = backendUrl.endsWith('/') ? backendUrl.slice(0, -1) : backendUrl;
-    const verificationUrl = `${cleanBackendUrl}/users/verifyEmail/${token}`;
+    const verificationUrl = `${cleanBackendUrl}/api/v1/users/verifyEmail/${token}`;
     
     logger.info('Redirecting to verification URL:', verificationUrl);
     
@@ -54,7 +65,14 @@ function VerifyEmailPromptPage() {
   };
 
   const handleResendEmail = async () => {
-    if (!email || email === 'your account email') {
+    if (!email || email === 'your account email' || email.trim() === '') {
+      setResendStatus('Error: Please enter a valid email address');
+      return;
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
       setResendStatus('Error: Please enter a valid email address');
       return;
     }
@@ -62,15 +80,21 @@ function VerifyEmailPromptPage() {
     setResendLoading(true);
     setResendStatus('');
     try {
-      await apiClient.post('/users/resendVerificationEmail', { email });
+      await apiClient.post('/users/resendVerificationEmail', { email: email.trim() });
       setResendStatus(
         'Verification email re-sent successfully! Check your inbox and spam folder.'
       );
       logger.info('Resent verification email for:', email);
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message ||
-        'Failed to re-send email. Please try again later.';
+      let errorMessage = 'Failed to re-send email. Please try again later.';
+      
+      if (error.response?.status === 429) {
+        // Rate limiting error
+        errorMessage = error.response?.data?.message || 'Too many verification attempts. Please wait before requesting another email.';
+      } else if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      }
+      
       setResendStatus(`Error: ${errorMessage}`);
       logger.error(
         'Failed to resend verification email:',
