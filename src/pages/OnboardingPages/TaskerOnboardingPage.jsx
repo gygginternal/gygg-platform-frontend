@@ -463,15 +463,30 @@ function TaskerOnboardingPage() {
   if (!user) return <p>Loading user data...</p>; // Or redirect if not tasker
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={{
+      width: '100vw',
+      maxWidth: '100vw',
+      overflowX: 'hidden',
+      boxSizing: 'border-box'
+    }}>
       <ProgressHeader
         step={currentStep}
         totalSteps={TOTAL_STEPS}
         onNavigate={handleNavigation}
         canGoNext
       />
-      <main className={styles.formContainer}>
-        <form className={styles.form} onSubmit={e => e.preventDefault()}>
+      <main className={styles.formContainer} style={{
+        width: '100%',
+        maxWidth: 'calc(100vw - 4rem)',
+        overflowX: 'hidden',
+        boxSizing: 'border-box'
+      }}>
+        <form className={styles.form} onSubmit={e => e.preventDefault()} style={{
+          width: '100%',
+          maxWidth: '100%',
+          overflowX: 'hidden',
+          boxSizing: 'border-box'
+        }}>
           {' '}
           {/* Prevent default on main form, handle submit via button */}
           {error && <p className={styles['error-message']}>{error}</p>}

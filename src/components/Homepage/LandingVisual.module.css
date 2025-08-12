@@ -47,18 +47,70 @@
   position: relative;
   width: 80%;
   max-width: 350px;
-  aspect-ratio: 1 / 1;
+  /* Remove fixed aspect ratio to let image maintain natural proportions */
   margin-top: 1rem;
   z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* The actual image */
 .image {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto; /* Maintain aspect ratio */
+  max-width: 100%;
+  object-fit: contain; /* Prevent stretching */
   border-radius: 8px;
+  /* Add subtle shadow for better visual appeal */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  /* Smooth loading transition */
+  transition: opacity 0.3s ease-in-out;
+  /* Ensure image doesn't exceed container */
+  max-height: 100%;
+  /* Center the image within its container */
+  margin: 0 auto;
+}
+
+/* Loading state */
+.image:not([src]) {
+  opacity: 0;
+}
+
+/* Image placeholder for error states */
+.imagePlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 200px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  color: #666;
+  font-family: 'Inter', sans-serif;
+}
+
+.imagePlaceholder span {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.imagePlaceholder p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Fallback for browsers that don't support object-fit */
+@supports not (object-fit: contain) {
+  .image {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 100%;
+  }
 }
 
 /* Responsive Design */
@@ -76,8 +128,12 @@
   }
 
   .imageWrapper {
+    width: 70%;
     max-width: 300px;
-    aspect-ratio: 1 / 1;
+  }
+  
+  .image {
+    max-height: 250px; /* Limit height on tablets */
   }
 }
 
@@ -93,11 +149,21 @@
   }
 
   .imageWrapper {
+    width: 65%;
     max-width: 220px;
   }
+  
+  .image {
+    max-height: 180px; /* Limit height on tablet/mobile */
+  }
 
+  /* Keep border visible but adjust size for tablet */
   .border {
-    display: none;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border-width: 6px; /* Slightly thinner border */
   }
 }
 
@@ -108,7 +174,45 @@
   }
 
   .imageWrapper {
-    max-width: 200px;
+    width: 60%;
+    max-width: 180px;
     margin-top: 0.5rem;
+  }
+  
+  .image {
+    max-height: 150px; /* Smaller height on small screens */
+    border-radius: 6px; /* Slightly smaller border radius */
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 320px) {
+  .imageWrapper {
+    width: 55%;
+    max-width: 140px;
+  }
+  
+  .image {
+    max-height: 120px;
+    border-radius: 4px;
+  }
+}
+
+/* Specific styling for 768px screens (common tablet size) */
+@media (width: 768px) {
+  .border {
+    border-width: 7px; /* Slightly thicker for this specific size */
+    border-color: #d99633;
+  }
+}
+
+/* Large screens - prevent image from getting too big */
+@media (min-width: 1440px) {
+  .imageWrapper {
+    max-width: 400px;
+  }
+  
+  .image {
+    max-height: 350px;
   }
 }

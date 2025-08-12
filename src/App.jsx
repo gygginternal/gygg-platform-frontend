@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -14,6 +15,7 @@ import ThemeProvider from './styles/ThemeProvider.jsx';
 import './styles/global.css';
 import { SocketProvider } from './contexts/SocketContext';
 import Navigation from './components/Navigation';
+import { applyEmergencyFix } from './utils/viewportFix';
 
 // Pages
 import HomePage from './pages/HomePage/HomePage';
@@ -313,18 +315,25 @@ function AppWithNavigation() {
   );
 }
 
-const App = () => (
-  <Router>
-    <ThemeProvider>
-      <AuthProvider>
-        <ToastProvider>
-          <SocketProvider>
-            <AppWithNavigation />
-          </SocketProvider>
-        </ToastProvider>
-      </AuthProvider>
-    </ThemeProvider>
-  </Router>
-);
+const App = () => {
+  // Apply emergency viewport fix
+  React.useEffect(() => {
+    applyEmergencyFix();
+  }, []);
+
+  return (
+    <Router>
+      <ThemeProvider>
+        <AuthProvider>
+          <ToastProvider>
+            <SocketProvider>
+              <AppWithNavigation />
+            </SocketProvider>
+          </ToastProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </Router>
+  );
+};
 
 export default App;

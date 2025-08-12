@@ -614,7 +614,12 @@ function ProviderOnboardingPage() {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={{
+      width: '100vw',
+      maxWidth: '100vw',
+      overflowX: 'hidden',
+      boxSizing: 'border-box'
+    }}>
       <ProgressHeader
         step={currentStep}
         totalSteps={TOTAL_PROVIDER_STEPS}
@@ -622,8 +627,18 @@ function ProviderOnboardingPage() {
         canGoNext={loading ? false : canGoNextForCurrentStep}
         canGoBack={currentStep > 1}
       />
-      <main className={styles.formContainer}>
-        <div className={styles.form}>
+      <main className={styles.formContainer} style={{
+        width: '100%',
+        maxWidth: 'calc(100vw - 4rem)',
+        overflowX: 'hidden',
+        boxSizing: 'border-box'
+      }}>
+        <div className={styles.form} style={{
+          width: '100%',
+          maxWidth: '100%',
+          overflowX: 'hidden',
+          boxSizing: 'border-box'
+        }}>
           {' '}
           {/* Using .form from Tasker CSS */}
           {error && <p className={styles.errorMessage}>{error}</p>}

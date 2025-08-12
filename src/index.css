@@ -8,6 +8,12 @@
 /* Import container queries */
 @import './styles/container-queries.css';
 
+/* Import responsive fixes for white space issues */
+@import './styles/responsive-fixes.css';
+
+/* Import emergency viewport fix - HIGHEST PRIORITY */
+@import './styles/emergency-viewport-fix.css';
+
 /* Basic CSS Reset & Box-Sizing */
 *,
 *::before,
@@ -15,6 +21,16 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* Prevent any element from causing horizontal overflow */
+* {
+  max-width: 100%;
+}
+
+/* Allow specific elements to exceed if needed */
+html, body, .container, .full-width {
+  max-width: none;
 }
 
 /* Global Image Reset */
@@ -83,7 +99,18 @@ img {
 html {
   font-size: 16px;
   width: 100%;
+  max-width: 100%;
   overflow-x: hidden; /* Prevent horizontal scroll for the entire page */
+  position: relative;
+}
+
+/* Root element styling */
+#root {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
 }
 
 /* Base Body Styles */
@@ -106,6 +133,9 @@ body {
   line-height: 1.6;
   color: #333; /* Default text color for the app */
   background-color: #f0f2f5;
+  width: 100%;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  min-height: 100vh;
 }
 /* 
 div {
