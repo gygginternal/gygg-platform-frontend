@@ -93,7 +93,7 @@ function JoinPage() {
         {message && <p className={styles.message}>{message}</p>}
         <p className={styles.loginText}>
           Already have an account?{' '}
-          <Link to="/login" className={styles.link}>
+          <Link to="/choose" className={styles.link}>
             Log In
           </Link>
         </p>

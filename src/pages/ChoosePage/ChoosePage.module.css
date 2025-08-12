@@ -180,13 +180,14 @@
 
 .link {
   color: #d99633;
-  text-decoration: underline;
+  text-decoration: none;
   transition: color 0.3s ease;
   text-decoration: none;
 }
 
 .link:hover {
   color: #b45309;
+  text-decoration: none;
 }
 
 @media (max-width: 1024px) {

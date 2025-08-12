@@ -6,7 +6,7 @@ import { validateContent } from '../../utils/contentFilter';
 import styles from './InputField.module.css';
 
 const COUNTRY_OPTIONS = [
-  { code: '+1', label: '+1', flag: 'US' },
+  { code: '+1', label: '+1', flag: 'CA' },
 ];
 
 const InputField = ({
@@ -44,6 +44,9 @@ const InputField = ({
   const isPhoneInput = variant === 'phone';
   const isPasswordInput = variant === 'password' || type === 'password';
   const isTextarea = type === 'textarea';
+  
+  // Check if we should use white text styling
+  const shouldUseWhiteText = labelColor === 'white';
 
   // Parse phone number from value prop
   const parsePhoneNumber = useCallback(
@@ -69,12 +72,12 @@ const InputField = ({
 
   // Initialize phone number state
   useEffect(() => {
-    if (isPhoneInput) {
+    if (isPhoneInput && value !== countryCode + localNumber) {
       const { code, number } = parsePhoneNumber(value);
       setCountryCode(code);
       setLocalNumber(number);
     }
-  }, [value, isPhoneInput, parsePhoneNumber]);
+  }, [value, isPhoneInput, parsePhoneNumber, countryCode, localNumber]);
 
   // Handle country code change
   const handleCountryCodeChange = useCallback(
@@ -92,15 +95,19 @@ const InputField = ({
     e => {
       const digits = e.target.value.replace(/\D/g, '');
       const limitedDigits = maxLength ? digits.slice(0, maxLength) : digits;
-      setLocalNumber(limitedDigits);
+      
+      // Only update if the value actually changed to prevent double-typing
+      if (limitedDigits !== localNumber) {
+        setLocalNumber(limitedDigits);
 
-      if (onChange) {
-        const fullPhoneNumber = countryCode + limitedDigits;
-        // Phone number formatted and updated
-        onChange(name, fullPhoneNumber, { isContentValid: true });
+        if (onChange) {
+          const fullPhoneNumber = countryCode + limitedDigits;
+          // Phone number formatted and updated
+          onChange(name, fullPhoneNumber, { isContentValid: true });
+        }
       }
     },
-    [name, countryCode, maxLength, onChange]
+    [name, countryCode, maxLength, onChange, localNumber]
   );
 
   // Content validation function
@@ -207,7 +214,7 @@ const InputField = ({
       return (
         <textarea
           {...commonProps}
-          className={`${styles.input} ${styles.textarea}`}
+          className={`${styles.input} ${styles.textarea} ${shouldUseWhiteText ? styles.whiteText : ''}`}
           rows={rows}
         />
       );
@@ -218,7 +225,7 @@ const InputField = ({
         {...commonProps}
         type={getInputType()}
         inputMode={isPhoneInput ? 'tel' : undefined}
-        className={styles.input}
+        className={`${styles.input} ${shouldUseWhiteText ? styles.whiteText : ''}`}
         min={type === 'number' ? min : undefined}
         max={type === 'number' || type === 'date' ? max : undefined}
         step={type === 'number' ? step : undefined}
@@ -239,12 +246,12 @@ const InputField = ({
         </label>
       )}
 
-      <div className={`${styles.inputContainer} ${error ? styles.error : ''} ${contentWarning ? styles.contentWarning : ''}`}>
+      <div className={`${styles.inputContainer} ${error ? styles.error : ''} ${contentWarning ? styles.contentWarning : ''} ${shouldUseWhiteText ? styles.whiteTextContainer : ''}`}>
         {isPhoneInput && (
           <select
             value={countryCode}
             onChange={e => handleCountryCodeChange(e.target.value)}
-            className={styles.countrySelect}
+            className={`${styles.countrySelect} ${shouldUseWhiteText ? styles.whiteText : ''}`}
             disabled={disabled}
             aria-label="Country code"
           >

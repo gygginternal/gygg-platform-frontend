@@ -1,6 +1,7 @@
 /* Container */
 .pageContainer {
   display: flex;
+  flex-direction: row;
   width: 100vw;
   min-height: 100vh;
   margin: 0;

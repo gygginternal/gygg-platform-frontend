@@ -112,6 +112,42 @@
   box-sizing: border-box;
 }
 
+/* Override for white background with black text when used in signup */
+.input.whiteText {
+  color: #111827 !important;
+  background-color: #ffffff !important;
+}
+
+.input.whiteText::placeholder {
+  color: #6b7280;
+}
+
+/* White background container styling */
+.inputContainer.whiteTextContainer {
+  background-color: #ffffff;
+  border-color: #d99633;
+}
+
+/* Country select white background styling */
+.countrySelect.whiteText {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+  border-right-color: #d99633;
+}
+
+.countrySelect.whiteText:hover {
+  background-color: #f9fafb !important;
+}
+
+.countrySelect.whiteText:focus {
+  background-color: #ffffff !important;
+}
+
+.countrySelect.whiteText option {
+  background-color: #ffffff;
+  color: #111827;
+}
+
 .input::placeholder {
   color: #9ca3af;
 }
@@ -151,13 +187,13 @@
   background: #ffffff;
   border: none;
   border-left: 1.5px solid #d99633;
-  color: #111827;
+  color: #6b7280;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .togglePassword:hover {
-  color: #fff !important;
+  color: #ffffff !important;
   background-color: #d99633;
 }
 
@@ -170,6 +206,23 @@
 .togglePassword:disabled {
   color: #d1d5db;
   cursor: not-allowed;
+}
+
+/* Password toggle styling for white background inputs */
+.whiteTextContainer .togglePassword {
+  background: #ffffff;
+  color: #6b7280;
+  border-left-color: #d99633;
+}
+
+.whiteTextContainer .togglePassword:hover {
+  color: #ffffff !important;
+  background-color: #d99633;
+}
+
+.whiteTextContainer .togglePassword:focus {
+  color: #d99633;
+  background: #ffffff;
 }
 
 /* Error and Helper Text */

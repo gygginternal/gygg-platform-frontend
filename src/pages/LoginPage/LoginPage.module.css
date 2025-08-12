@@ -20,16 +20,15 @@
   font-weight: 900;
   color: #d89362;
   text-decoration: none;
-  /* margin-bottom removed as logo is absolute */
   position: absolute; /* Position at top-left */
   top: 1.5rem;
-  left: 1.5rem;
+  left: 1rem; 
   z-index: 10;
 }
 
 .logo img {
   display: block;
-  max-width: 150px; /* Use max-width for responsiveness */
+  max-width: 150px; /* 150px - Use max-width for responsiveness */
   width: 100%; /* Allows it to scale down */
   height: auto;
 }
