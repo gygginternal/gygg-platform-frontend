@@ -331,6 +331,145 @@
 }
 
 /* --- Responsive Adjustments --- */
+
+/* Large screens - add more padding for better spacing */
+@media (min-width: 1440px) {
+  .container {
+    padding: 4rem 6rem; /* More generous padding on large screens */
+  }
+  
+  .formContainer {
+    max-width: min(900px, 100vw - 12rem); /* Wider form container */
+    margin-top: 2rem; /* More space below progress header */
+  }
+  
+  .form {
+    padding: 3.5rem 4rem; /* More internal padding */
+    gap: 2rem; /* Larger gaps between elements */
+  }
+  
+  .title {
+    font-size: clamp(2rem, 4vw, 2.5rem); /* Larger title on big screens */
+    margin-bottom: 1rem;
+  }
+  
+  .subtitle {
+    font-size: 1.125rem; /* Larger subtitle */
+    margin-bottom: 2rem;
+  }
+  
+  .grid {
+    gap: 2rem; /* More space between grid items */
+  }
+  
+  .input, .inputDropdown, .select, .textarea {
+    padding: 1rem 1.25rem; /* More generous input padding */
+    font-size: 1rem; /* Larger text in inputs */
+  }
+  
+  .imageRow {
+    gap: 2rem; /* More space between images */
+    margin: 2rem 0; /* More vertical spacing */
+  }
+  
+  .imagePreview, .imageUpload {
+    width: min(350px, 100%); /* Larger images on big screens */
+    height: 200px;
+  }
+}
+
+/* Extra large screens - even more padding */
+@media (min-width: 1920px) {
+  .container {
+    padding: 5rem 8rem; /* Maximum padding for very large screens */
+  }
+  
+  .formContainer {
+    max-width: min(1000px, 100vw - 16rem); /* Even wider on ultra-wide screens */
+    margin-top: 2.5rem; /* Even more space below progress header */
+  }
+  
+  .form {
+    padding: 4rem 5rem; /* Maximum internal padding */
+    gap: 2.5rem; /* Largest gaps */
+  }
+  
+  .title {
+    font-size: clamp(2.25rem, 4vw, 3rem); /* Even larger title */
+    margin-bottom: 1.25rem;
+  }
+  
+  .subtitle {
+    font-size: 1.25rem; /* Larger subtitle */
+    margin-bottom: 2.5rem;
+  }
+  
+  .grid {
+    gap: 2.5rem; /* Maximum space between grid items */
+  }
+  
+  .input, .inputDropdown, .select, .textarea {
+    padding: 1.125rem 1.5rem; /* Maximum input padding */
+    font-size: 1.125rem; /* Larger text in inputs */
+  }
+  
+  .imageRow {
+    gap: 2.5rem; /* Maximum space between images */
+    margin: 2.5rem 0; /* Maximum vertical spacing */
+  }
+  
+  .imagePreview, .imageUpload {
+    width: min(400px, 100%); /* Maximum image size */
+    height: 225px;
+  }
+}
+
+/* Desktop screens - moderate increase in padding */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .container {
+    padding: 3rem 4rem; /* Moderate padding increase */
+  }
+  
+  .formContainer {
+    max-width: min(850px, 100vw - 8rem);
+    margin-top: 1.75rem;
+  }
+  
+  .form {
+    padding: 3rem; /* Moderate internal padding */
+    gap: 1.75rem;
+  }
+  
+  .title {
+    font-size: clamp(1.875rem, 4vw, 2.25rem); /* Slightly larger title */
+    margin-bottom: 0.875rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem; /* Standard subtitle size */
+    margin-bottom: 1.75rem;
+  }
+  
+  .grid {
+    gap: 1.75rem; /* More space between grid items */
+  }
+  
+  .input, .inputDropdown, .select, .textarea {
+    padding: 0.95rem 1.125rem; /* Moderate input padding */
+    font-size: 0.9375rem; /* Slightly larger text */
+  }
+  
+  .imageRow {
+    gap: 1.75rem; /* More space between images */
+    margin: 1.75rem 0; /* More vertical spacing */
+  }
+  
+  .imagePreview, .imageUpload {
+    width: min(325px, 100%); /* Moderate image size */
+    height: 185px;
+  }
+}
+
 @media (max-width: 1024px) {
   .container {
     padding: 1.5rem;

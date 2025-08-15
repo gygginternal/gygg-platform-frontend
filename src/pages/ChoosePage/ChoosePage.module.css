@@ -66,7 +66,7 @@
   width: 100%;
   margin-top: 2rem;
   margin-bottom: 2.5rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* Keep cards in same row */
 }
 
 .card {
@@ -75,6 +75,7 @@
   padding: 2rem 1.5rem;
   width: 100%;
   max-width: 400px;
+  flex: 1; /* Allow cards to grow equally */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -229,13 +230,24 @@
     max-width: 7.5rem;
   }
   .cardContainer {
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
+    gap: 1.25rem; /* Smaller gap for tablet */
     margin-bottom: 1.5rem;
+    flex-wrap: nowrap; /* Keep side by side on tablet */
   }
   .card {
-    max-width: 90%;
-    width: 100%;
+    max-width: none; /* Remove max-width constraint */
+  }
+}
+/* Mobile breakpoint for stacking cards */
+@media (max-width: 480px) {
+  .cardContainer {
+    flex-direction: column; /* Stack cards vertically on mobile */
+    align-items: center;
+    gap: 1rem; /* Gap between stacked cards */
+    margin-bottom: 1rem;
+  }
+  .card {
+    max-width: 95%; /* Make cards almost full width on very small screens */
+    flex: none; /* Remove flex grow on mobile */
   }
 }

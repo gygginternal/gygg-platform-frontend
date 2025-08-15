@@ -180,66 +180,68 @@ function Header() {
   return (
     <>
       <header className={styles.header}>
-        <button
-          onClick={toggleSidebar}
-          className={styles.menuButton}
-          aria-label="Toggle Menu"
-        >
-          <img
-            src="/assets/menu.svg"
-            alt="Menu"
-            className={styles.menuIcon}
-            width={32}
-            height={32}
-          />
-        </button>
-
-        <Link to="/" className={styles.logoLink}>
-          <img
-            src="/assets/gygg-logo.svg"
-            alt="Gygg Logo"
-            className={styles.headerLogo}
-            height={50}
-          />
-        </Link>
-
-        <form className={styles.searchContainer} onSubmit={handleSearchSubmit}>
-          <div className={styles.searchBox}>
+        <div className={styles.headerLeft}>
+          <button
+            onClick={toggleSidebar}
+            className={styles.menuButton}
+            aria-label="Toggle Menu"
+          >
             <img
-              src="/assets/search-outline.svg"
-              alt="Search"
-              width={20}
-              height={20}
+              src="/assets/menu.svg"
+              alt="Menu"
+              className={styles.menuIcon}
+              width={32}
+              height={32}
             />
-            <input
-              type="text"
-              placeholder={
-                user?.role.includes('provider')
-                  ? 'Search Taskers'
-                  : 'Search Gigs'
-              }
-              className={styles.searchInput}
-              value={searchTerm}
-              onChange={handleSearchInputChange}
-            />
-          </div>
-          <button type="submit" className={styles.searchButton}>
-            Search
           </button>
-        </form>
+
+          <Link to="/" className={styles.logoLink}>
+            <img
+              src="/assets/gygg-logo.svg"
+              alt="Gygg Logo"
+              className={styles.headerLogo}
+              height={50}
+            />
+          </Link>
+        </div>
+
+        <div className={styles.headerCenter}>
+          <form className={styles.searchContainer} onSubmit={handleSearchSubmit}>
+            <div className={styles.searchBox}>
+              <img
+                src="/assets/search-outline.svg"
+                alt="Search"
+                width={20}
+                height={20}
+              />
+              <input
+                type="text"
+                placeholder={
+                  user?.role.includes('provider')
+                    ? 'Search Taskers'
+                    : 'Search Gigs'
+                }
+                className={styles.searchInput}
+                value={searchTerm}
+                onChange={handleSearchInputChange}
+              />
+            </div>
+            <button type="submit" className={styles.searchButton}>
+              Search
+            </button>
+          </form>
+        </div>
 
         <div className={styles.headerControls}>
           {user && (
             <>
-              <div style={{ position: 'relative' }}>
-                <div
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => setShowNotifications(prev => !prev)}
-                  onKeyDown={e => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      setShowNotifications(prev => !prev);
-                    }
+              <div className={styles.notificationContainer}>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setShowNotifications(prev => !prev);
                   }}
                   className={styles.notificationIcon}
                   aria-label="Open notifications"
@@ -255,7 +257,7 @@ function Header() {
                       {unreadNotificationCount}
                     </span>
                   )}
-                </div>
+                </button>
                 {showNotifications && (
                   <div
                     className={styles.notificationDropdown}
@@ -344,27 +346,27 @@ function Header() {
                                 tabIndex={0}
                                 aria-label={notification.message}
                               >
-{(() => {
+                                {(() => {
                                   // Always use consistent icons based on notification type
                                   let iconSrc = '/assets/comment.svg'; // default
-                                  
-                                  if (notification.type === 'new_message' || 
-                                      notification.message?.toLowerCase().includes('message')) {
+
+                                  if (notification.type === 'new_message' ||
+                                    notification.message?.toLowerCase().includes('message')) {
                                     iconSrc = '/assets/message.svg';
-                                  } else if (notification.type === 'post_liked' || 
-                                            notification.message?.toLowerCase().includes('liked')) {
+                                  } else if (notification.type === 'post_liked' ||
+                                    notification.message?.toLowerCase().includes('liked')) {
                                     iconSrc = '/assets/heart-filled.svg';
-                                  } else if (notification.type === 'new_comment' || 
-                                            notification.message?.toLowerCase().includes('comment')) {
+                                  } else if (notification.type === 'new_comment' ||
+                                    notification.message?.toLowerCase().includes('comment')) {
                                     iconSrc = '/assets/comment.svg';
                                   } else if (notification.type === 'application_received' ||
-                                            notification.message?.toLowerCase().includes('applied')) {
+                                    notification.message?.toLowerCase().includes('applied')) {
                                     iconSrc = '/assets/applied-user.svg';
                                   } else if (notification.type === 'gig_posted' ||
-                                            notification.message?.toLowerCase().includes('gig')) {
+                                    notification.message?.toLowerCase().includes('gig')) {
                                     iconSrc = '/assets/briefcase.svg';
                                   }
-                                  
+
                                   return (
                                     <img
                                       src={iconSrc}
@@ -395,8 +397,13 @@ function Header() {
 
               <div className={styles.iconWithDropdown} ref={profileDropdownRef}>
                 <button
+                  type="button"
                   className={styles.iconButton}
-                  onClick={() => setIsProfileOpen(prev => !prev)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setIsProfileOpen(prev => !prev);
+                  }}
                   aria-label="Profile Menu"
                 >
                   <img

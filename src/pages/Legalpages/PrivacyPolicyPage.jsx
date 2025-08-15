@@ -6,69 +6,99 @@ import { Link } from 'react-router-dom';
 function PrivacyPolicyPage() {
   const privacyContent = `
         <h2>Privacy Policy</h2>
-        <p><strong>Last Updated: June 13, 2025 </strong></p>
+        <p><strong>Last Updated: August 12, 2025</strong></p>
 
-        <p>At Gygg Platform ("we", "us", "our"), we respect your privacy and are committed to protecting your personal data. This Privacy Policy will inform you as to how we look after your personal data when you visit our website or use our services (regardless of where you visit it from) and tell you about your privacy rights and how the law protects you.</p>
+        <p>At Gygg Inc. ("Gygg", "we", "us", "our"), we respect your privacy and are committed to protecting your personal information. This Privacy Policy explains what data we collect, how we use it, how we protect it, and your rights.
+By using Gygg’s website, mobile applications, or services (the “Service”), you agree to the practices described below. If you do not agree, you must stop using the Service.</p>
 
-        <h3>1. Important Information and Who We Are</h3>
-        <p><strong>Purpose of this Privacy Policy:</strong> This Privacy Policy aims to give you information on how Gygg Platform collects and processes your personal data through your use of this platform, including any data you may provide when you sign up, post a gig, apply for a gig, or use our services.</p>
-        <p><strong>Controller:</strong> Gygg Inc. is the controller and responsible for your personal data.</p>
-        <p><strong>Contact Details:</strong> Gygg Inc., [Your Address], hello@gygg.co</p>
+        <h3>1. Who We Are and How to Contact Us</h3>
+        <p>Gygg Inc. is the data controller for your personal information (under PIPEDA, GDPR, or other applicable laws).</p>
+        <p>Gygg Inc.</p>
+        <p>Email: hello@gygg.co</p>
 
-        <h3>2. The Data We Collect About You</h3>
-        <p>Personal data, or personal information, means any information about an individual from which that person can be identified. We may collect, use, store and transfer different kinds of personal data about you which we have grouped together as follows:</p>
+        <h3>2. Scope and Legal Compliance</h3>
+        <p>This Privacy Policy applies to all users of Gygg worldwide.</p>
         <ul>
-            <li><strong>Identity Data</strong> includes first name, last name, username or similar identifier, date of birth.</li>
-            <li><strong>Contact Data</strong> includes billing address, delivery address, email address, and telephone numbers.</li>
-            <li><strong>Financial Data</strong> includes payment card details (processed by Stripe, we do not store full card numbers) and bank account details for payouts (managed via Stripe Connect).</li>
-            <li><strong>Transaction Data</strong> includes details about payments to and from you and other details of services you have purchased or provided through our platform.</li>
-            <li><strong>Technical Data</strong> includes internet protocol (IP) address, your login data, browser type and version, time zone setting and location, browser plug-in types and versions, operating system and platform, and other technology on the devices you use to access this platform.</li>
-            <li><strong>Profile Data</strong> includes your username and password, gigs posted or applied for, your interests, preferences (including peoplePreference, hobbies, skills), feedback, and review responses.</li>
-            <li><strong>Usage Data</strong> includes information about how you use our website, products, and services.</li>
-            <li><strong>Marketing and Communications Data</strong> includes your preferences in receiving marketing from us and our third parties and your communication preferences.</li>
-        </ul>
-        <p>We also collect, use, and share "Aggregated Data" such as statistical or demographic data for any purpose.</p>
-
-        <h3>3. How Your Personal Data Is Collected</h3>
-        <p>We use different methods to collect data from and about you including through:</p>
-        <ul>
-            <li><strong>Direct interactions.</strong> You may give us your Identity, Contact, Profile and Financial Data by filling in forms or by corresponding with us by post, phone, email or otherwise.</li>
-            <li><strong>Automated technologies or interactions.</strong> As you interact with our platform, we will automatically collect Technical Data about your equipment, browsing actions and patterns.</li>
-            <li><strong>Third parties or publicly available sources.</strong> We may receive personal data about you from various third parties like Stripe (for payment processing and identity verification for Connect).</li>
+        <li>For Canadian residents, we comply with PIPEDA and any applicable provincial privacy laws.</li>
+        <li>For EU/UK residents, we comply with GDPR.</li>
+        <li>For California residents, we comply with CCPA/CPRA.</li>
         </ul>
 
-        <h3>4. How We Use Your Personal Data</h3>
-        <p>We will only use your personal data when the law allows us to. Most commonly, we will use your personal data in the following circumstances:</p>
+        <h3>3. Data We Collect</h3>
+        <p>We may collect the following categories of personal information:</p>
         <ul>
-            <li>To register you as a new user.</li>
-            <li>To manage your relationship with us, including notifying you about changes to our terms or privacy policy.</li>
-            <li>To enable you to participate in posting or applying for gigs.</li>
-            <li>To process and deliver payments, fees, and charges.</li>
-            <li>To administer and protect our business and this platform (including troubleshooting, data analysis, testing, system maintenance, support, reporting and hosting of data).</li>
+            <li><strong>Identity Data</strong> Name, username, gender, date of birth, government-issued ID (for verification), photo, age confirmation.</li>
+            <li><strong>Contact Data</strong> Email, phone number, billing and service addresses.</li>
+            <li><strong>Financial Data</strong> Bank account/payout details, partial payment card data (processed via Stripe).</li>
+            <li><strong>Transaction Data</strong> Records of gigs posted, accepted, payments, refunds.</li>
+            <li><strong>Technical Data</strong>  IP address, device type, operating system, browser type, location, analytics data.</li>
+            <li><strong>Profile Data</strong> Skills, experience, preferences, reviews, ratings, chat/messages.</li>
+            <li><strong>Background Check Data</strong> When required, identity verification results and, if applicable, criminal record check results (processed via approved third-party providers).</li>
+            <li><strong>Usage Data</strong> Pages viewed, features used, time on site/app.</li>
+            <li><strong>Marketing and Communications Data</strong> Marketing preferences, opt-ins, unsubscribes.
+We may also use Aggregated Data (non-identifiable statistics) for analytics and marketing.</li>
+        </ul>
+        
+        <h3>4. How We Collect Data</h3>
+        <ul>
+            <li>Directly from you (registration, gig posting, profile creation, communications)</li>
+            <li>Automatically (cookies, analytics tools, server logs)</li>
+            <li>From third parties (payment processors, ID verification providers, public records)</li>
         </ul>
 
-        <h3>5. Disclosures of Your Personal Data</h3>
-        <p>We may share your personal data with the parties set out below for the purposes set out in this privacy policy:</p>
+        <h3>5. How We Use Your Data</h3>
+        <p>We use your personal information to:</p>
+        <ol style="margin-left: 40px;">
+            <li>Create and manage your account</li>
+            <li>Facilitate gig postings, matches, communication, and payments</li>
+            <li>Verify your identity and eligibility to use the Service</li>
+            <li>Process payments and send payouts</li>
+            <li>Ensure safety and prevent fraud</li>
+            <li>Send service updates, policy changes, and marketing (if opted in)</li>
+            <li>Meet legal, tax, and compliance obligations</li>
+        </ol>
+        <p>We do not sell your personal information</p>
+
+        <h3>6. When We Share Your Data</h3>
+        <p>We may share your information with:</p>
         <ul>
-            <li>Service providers acting as processors (e.g., Stripe for payment processing, AWS for hosting).</li>
-            <li>Professional advisers including lawyers, bankers, auditors, and insurers.</li>
-            <li>Regulators and other authorities.</li>
+            <li><strong>Other Users:</strong> Limited profile data (e.g., name, photo, skills, city, reviews) to facilitate gigs</li>
+            <li><strong>Service Providers:</strong> Stripe, AWS, identity verification providers, customer support systems</li>
+            <li><strong>Legal Authorities:</strong> When required by law or to protect safety</li>
+            <li><strong>Advisors/Insurers:</strong> For legal, accounting, or insurance purposes</li>
         </ul>
 
-        <h3>6. Data Security</h3>
-        <p>We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorized way, altered or disclosed.</p>
+        <h3>7. Location of Storage & Transfers</h3>
+        <p>Your data may be stored in Canada, the United States, or other countries where our service providers operate.
+        If transferred outside Canada, we ensure adequate safeguards under PIPEDA, GDPR, or other applicable frameworks.</p>
 
-        <h3>7. Data Retention</h3>
-        <p>We will only retain your personal data for as long as reasonably necessary to fulfil the purposes we collected it for, including for the purposes of satisfying any legal, regulatory, tax, accounting or reporting requirements.</p>
+        <h3>8. Cookies & Tracking</h3>
+        <p>We use cookies and similar tools for:</p>
+        <ul>
+              <li>Essential site functions</li>
+              <li>Analytics (e.g., Google Analytics, Mixpanel)</li>
+              <li>Security and fraud prevention</li>
+        </ul>
+        <p>You can adjust cookie settings in your browser, but disabling them may affect site functionality.</p>
 
-        <h3>8. Your Legal Rights</h3>
-        <p>Under certain circumstances, you have rights under data protection laws in relation to your personal data, including the right to request access, correction, erasure, restriction, transfer, or to object to processing.</p>
+        <h3>9. Retention of Your Data</h3>
+        <ul>
+                <li><strong>Account data:</strong> kept while actively using the Service and for up to 2 years after closure</li>
+                <li><strong>Financial and transaction records:</strong> kept for 7 years to comply with tax and legal requirements</li>
+                <li><strong>Verification records:</strong> kept for 90 days after completion, unless dispute or claim is pending</li>        
+        </ul>
 
-        <h3>9. Changes to The Privacy Policy</h3>
-        <p>We keep our privacy policy under regular review. This version was last updated on June 13, 2025.</p>
-
-        <h3>10. Contact Us</h3>
-        <p>If you have any questions about this privacy policy or our privacy practices, please contact us at: hello@gygg.co</p>
+        <h3>10. Your Rights</h3>
+        <p>Under applicable laws, you may:</p>
+        <ul>
+                  <li>Access your data</li>
+                  <li>Request correction or deletion</li>
+                  <li>Object to processing</li>
+                  <li>Withdraw consent for marketing</li>
+                  <li>Request data portability (GDPR)</li>
+                  <li>File a complaint with the relevant privacy authority</li>
+        </ul>
+        <p>Requests can be made at hello@gygg.co.</p>
     `;
 
   return (

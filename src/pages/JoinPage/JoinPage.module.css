@@ -67,7 +67,7 @@
   width: 100%;
   margin-top: 2rem;
   margin-bottom: 2.5rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* Keep cards in same row */
 }
 
 .card {
@@ -76,6 +76,7 @@
   padding: 2rem 1.5rem;
   width: 100%;
   max-width: 400px;
+  flex: 1; /* Allow cards to grow equally */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -209,10 +210,11 @@
   }
   .cardContainer {
     gap: 1.5rem; /* Reduce gap slightly */
+    flex-wrap: nowrap; /* Keep cards in same row */
   }
   .card {
     padding: 1.75rem 1.25rem; /* Slightly reduced card padding */
-    max-width: 380px; /* Slightly reduce max-width if two cards side-by-side are too wide */
+    max-width: 350px; /* Reduce max-width for better fit */
   }
   .cardTitle {
     font-size: 1.0625rem; /* ~17px, still good for post text/header */
@@ -240,14 +242,12 @@
     max-width: 7.5rem; /* Smaller logo for tablets */
   }
   .cardContainer {
-    flex-direction: column; /* Stack cards vertically */
-    align-items: center;
-    gap: 1.5rem;
+    gap: 1.25rem; /* Smaller gap for tablet */
     margin-bottom: 1.5rem;
+    flex-wrap: nowrap; /* Keep side by side on tablet */
   }
   .card {
-    max-width: 90%; /* Take more width on tablet */
-    width: 100%;
+    max-width: none; /* Remove max-width constraint */
     padding: 1.5rem 1rem;
   }
   .title {
@@ -289,12 +289,15 @@
     margin-top: 1rem;
   }
   .cardContainer {
-    gap: 1rem; /* Even less gap between stacked cards */
+    flex-direction: column; /* Stack cards vertically on mobile */
+    align-items: center;
+    gap: 1rem; /* Gap between stacked cards */
     margin-bottom: 1rem;
   }
   .card {
-    padding: 1rem 0.75rem; /* Significantly reduced card padding for small screens */
+    padding: 1rem 0.75rem; /* Reduced card padding for small screens */
     max-width: 95%; /* Make cards almost full width on very small screens */
+    flex: none; /* Remove flex grow on mobile */
   }
   .cardLogo {
     width: 40px; /* Smaller icon for mobile, still within 40-60px avatar range */

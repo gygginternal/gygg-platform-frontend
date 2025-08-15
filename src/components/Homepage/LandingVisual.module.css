@@ -27,7 +27,8 @@
 
 /* Main visual text */
 .text {
-  font-size: clamp(1.8rem, 4vw, 2.25rem); /* Facebook header style */
+  font-size: clamp(1.8rem, 4vw, 2.25rem);
+  /* Facebook header style */
   margin: 0 5%;
   text-align: center;
   font-family: 'Inter', sans-serif;
@@ -59,9 +60,11 @@
 .image {
   display: block;
   width: 100%;
-  height: auto; /* Maintain aspect ratio */
+  height: auto;
+  /* Maintain aspect ratio */
   max-width: 100%;
-  object-fit: contain; /* Prevent stretching */
+  object-fit: contain;
+  /* Prevent stretching */
   border-radius: 8px;
   /* Add subtle shadow for better visual appeal */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -131,9 +134,10 @@
     width: 70%;
     max-width: 300px;
   }
-  
+
   .image {
-    max-height: 250px; /* Limit height on tablets */
+    max-height: 250px;
+    /* Limit height on tablets */
   }
 }
 
@@ -152,9 +156,10 @@
     width: 65%;
     max-width: 220px;
   }
-  
+
   .image {
-    max-height: 180px; /* Limit height on tablet/mobile */
+    max-height: 180px;
+    /* Limit height on tablet/mobile */
   }
 
   /* Keep border visible but adjust size for tablet */
@@ -163,7 +168,8 @@
     left: 10px;
     right: 10px;
     bottom: 10px;
-    border-width: 6px; /* Slightly thinner border */
+    border-width: 6px;
+    /* Slightly thinner border */
   }
 }
 
@@ -178,10 +184,12 @@
     max-width: 180px;
     margin-top: 0.5rem;
   }
-  
+
   .image {
-    max-height: 150px; /* Smaller height on small screens */
-    border-radius: 6px; /* Slightly smaller border radius */
+    max-height: 150px;
+    /* Smaller height on small screens */
+    border-radius: 6px;
+    /* Slightly smaller border radius */
   }
 }
 
@@ -191,7 +199,7 @@
     width: 55%;
     max-width: 140px;
   }
-  
+
   .image {
     max-height: 120px;
     border-radius: 4px;
@@ -201,7 +209,8 @@
 /* Specific styling for 768px screens (common tablet size) */
 @media (width: 768px) {
   .border {
-    border-width: 7px; /* Slightly thicker for this specific size */
+    border-width: 7px;
+    /* Slightly thicker for this specific size */
     border-color: #d99633;
   }
 }
@@ -211,7 +220,7 @@
   .imageWrapper {
     max-width: 400px;
   }
-  
+
   .image {
     max-height: 350px;
   }

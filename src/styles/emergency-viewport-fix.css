@@ -93,8 +93,20 @@ input, textarea, select, button {
 
 /* Dropdown and modal fixes */
 [class*="dropdown"], [class*="modal"], [class*="popup"] {
-  max-width: 100vw !important;
+  max-width: none !important;
+  width: auto !important;
   box-sizing: border-box !important;
+  position: absolute !important;
+  overflow: visible !important;
+}
+
+/* Specific header dropdown fixes */
+[class*="notificationDropdown"], [class*="profileDropdown"] {
+  max-width: none !important;
+  width: auto !important;
+  position: absolute !important;
+  overflow: visible !important;
+  z-index: 9999 !important;
 }
 
 /* Progress header and navigation fixes */
