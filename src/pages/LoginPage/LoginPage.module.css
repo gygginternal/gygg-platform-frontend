@@ -39,11 +39,54 @@
   justify-content: center;
   align-items: center;
   gap: 1.25rem; /* ~20px gap */
-  max-width: 450px;
-  width: 100%;
+  width: 450px;
   padding: 1.875rem; /* ~30px padding */
   border-radius: 10px;
   background-color: transparent;
+}
+
+/* Adjust form container for larger input fields */
+@media (min-width: 1200px) {
+  .formContainer {
+    max-width: 500px; /* Larger form container for bigger inputs */
+  }
+  
+  .form {
+    max-width: 450px; /* Accommodate larger input fields */
+    width: 450px; /* Fixed width for larger inputs */
+  }
+}
+
+/* Even larger for very large screens */
+@media (min-width: 1440px) {
+  .formContainer {
+    max-width: 550px; /* Even larger form container */
+  }
+  
+  .form {
+    max-width: 500px; /* Accommodate even larger input fields */
+    width: 500px; /* Fixed width for largest inputs */
+  }
+}
+
+/* Custom input styling for LoginPage */
+.loginInput {
+  width: 100%; /* Default full width for smaller screens */
+}
+
+/* Override InputField width for LoginPage on large screens */
+@media (min-width: 1200px) {
+  .loginInput {
+    max-width: 400px !important;
+    width: 400px !important;
+  }
+}
+
+@media (min-width: 1440px) {
+  .loginInput {
+    max-width: 450px !important;
+    width: 450px !important;
+  }
 }
 
 .title {
@@ -61,6 +104,7 @@
   background-color: transparent !important;
   border: none !important;
   padding: 0 !important;
+  align-items: center;
   border-radius: 0 !important;
   box-shadow: none !important;
   display: flex;
@@ -73,7 +117,7 @@
 .forgotPasswordWrapper {
   width: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center; /* Center the forgot password link */
   margin-bottom: 0.3125rem; /* ~5px */
 }
 
@@ -90,6 +134,7 @@
   /* Facebook Comments 13-14px */
   color: #d99633;
   cursor: pointer;
+  align-self: center;
   font-size: 0.875rem; /* 14px */
   text-decoration: underline;
   font-family: 'Inter', sans-serif;
@@ -107,7 +152,6 @@
   background-color: #d99633;
   border: none;
   border-radius: 12px;
-  width: 100%;
   height: 2.8125rem; /* 45px */
   font-size: 0.875rem; /* 14px */
   font-weight: 700;

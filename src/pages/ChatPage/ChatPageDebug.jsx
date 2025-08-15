@@ -25,7 +25,7 @@ const ChatPageDebug = () => {
         
         // Test 3: API test (simple fetch)
         try {
-          const response = await fetch('/api/v1/chat/conversations', {
+          const response = await fetch('/chat/conversations', {
             headers: {
               'Authorization': `Bearer ${localStorage.getItem('token')}`,
               'Content-Type': 'application/json'

@@ -16,7 +16,7 @@ const ChatPageTest = () => {
       setLoading(true);
       try {
         console.log('Fetching contacts...');
-        const res = await apiClient.get('/api/v1/chat/conversations');
+        const res = await apiClient.get('/chat/conversations');
         console.log('Response:', res.data);
         
         if (res.data && res.data.data && res.data.data.conversations) {

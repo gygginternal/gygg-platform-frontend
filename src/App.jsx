@@ -23,6 +23,7 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import JoinPage from './pages/JoinPage/JoinPage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import VerifyEmailPromptPage from './pages/VerifyEmailPromptPage/VerifyEmailPromptPage';
+import VerifyEmailPage from './pages/VerifyEmailPage/VerifyEmailPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage/ResetPasswordPage';
 import TaskerOnboardingPage from './pages/OnboardingPages/TaskerOnboardingPage';
@@ -131,7 +132,7 @@ function AppWithNavigation() {
             />
             <Route
               path="/verify-email"
-              element={<VerifyEmailPromptPage />}
+              element={<VerifyEmailPage />}
             />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />

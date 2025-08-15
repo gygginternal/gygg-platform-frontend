@@ -55,9 +55,11 @@ function VerifyEmailPromptPage() {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     // Remove any trailing slash from backendUrl and construct the verification URL
     const cleanBackendUrl = backendUrl.endsWith('/') ? backendUrl.slice(0, -1) : backendUrl;
-    const verificationUrl = `${cleanBackendUrl}/api/v1/users/verifyEmail/${token}`;
+    const verificationUrl = `${cleanBackendUrl}/users/verifyEmail/${token}`;
     
-    logger.info('Redirecting to verification URL:', verificationUrl);
+    logger.info('Backend URL from env:', backendUrl);
+    logger.info('Clean Backend URL:', cleanBackendUrl);
+    logger.info('Final verification URL:', verificationUrl);
     
     // Redirect to the backend verification endpoint
     // The backend will verify the token and redirect back to the appropriate frontend page
@@ -79,6 +81,7 @@ function VerifyEmailPromptPage() {
 
     setResendLoading(true);
     setResendStatus('');
+    
     try {
       await apiClient.post('/users/resendVerificationEmail', { email: email.trim() });
       setResendStatus(

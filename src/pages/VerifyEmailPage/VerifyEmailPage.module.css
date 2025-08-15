@@ -1,4 +1,4 @@
-/* src/pages/ForgotPasswordPage.module.css */
+/* src/pages/VerifyEmailPage.module.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 /* Setting a base font size for rem calculations if not set globally */
@@ -101,7 +101,6 @@
 .submitButton {
   color: #fff;
   cursor: pointer;
-  align-self: center;
   background-color: #d99633;
   border: none;
   border-radius: 0.75rem; /* 12px */
@@ -116,7 +115,7 @@
     transform 0.1s ease;
   margin-top: 0.625rem; /* 10px */
   padding: 0 1.5rem; /* Add horizontal padding */
-  width: 240px;
+  width: auto; /* Remove full width */
 }
 .submitButton:hover:not(:disabled) {
   background-color: #b45309;
@@ -170,11 +169,11 @@
   /* Facebook Post text (main body) 14-16px */
   font-size: 1rem; /* 16px */
   text-align: center;
-  align-self: center;
   padding: 0.9375rem; /* 15px */
   background-color: rgba(0, 100, 120, 0.3);
   border-radius: 0.3125rem; /* 5px */
-  width: 600px;
+  width: auto; /* Remove full width */
+  max-width: 90%; /* Add max-width for better control */
   line-height: 1.5;
 }
 

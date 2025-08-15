@@ -111,6 +111,7 @@ function LoginPage() {
             onChange={handleChange}
             required
             labelColor="#fff"
+            className={styles.loginInput}
           />
           <InputField
             label="Password"
@@ -122,6 +123,7 @@ function LoginPage() {
             icon="password"
             required // Use icon prop
             labelColor="#fff"
+            className={styles.loginInput}
           />
 
           {/* Error display */}

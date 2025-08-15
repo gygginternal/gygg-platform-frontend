@@ -2,8 +2,17 @@ import axios from 'axios';
 
 const getToken = () => localStorage.getItem('authToken');
 
+// Use the VITE_BACKEND_URL as-is since it already includes /api/v1
+const getBaseURL = () => {
+  const backendURL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+  const cleanURL = backendURL.endsWith('/') ? backendURL.slice(0, -1) : backendURL;
+  return cleanURL;
+};
+
+const baseURL = getBaseURL();
+
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL,
+  baseURL: baseURL,
   headers: { 'Content-Type': 'application/json' },
   timeout: 30000, // 30 second timeout
 });

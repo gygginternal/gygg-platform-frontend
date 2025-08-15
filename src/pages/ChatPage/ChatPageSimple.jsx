@@ -13,7 +13,7 @@ const ChatPageSimple = () => {
         setStatus('Testing API connection...');
         console.log('Testing API...');
         
-        const response = await apiClient.get('/api/v1/chat/conversations');
+        const response = await apiClient.get('/chat/conversations');
         console.log('API Response:', response);
         
         if (response.data && response.data.data && response.data.data.conversations) {
