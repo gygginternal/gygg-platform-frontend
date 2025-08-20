@@ -54,7 +54,7 @@ function TermsOfUsePage() {
     `;
 
   return (
-    <div className={styles.legalPageContainer}>
+    <div className={styles.legalContainer}>
       <div className={styles.logo}>
         <Link to="/">
           <img
