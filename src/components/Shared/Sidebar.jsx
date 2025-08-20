@@ -24,7 +24,7 @@ Icon.propTypes = {
   className: PropTypes.string,
 };
 
-function Sidebar({ isOpen }) {
+function Sidebar({ isOpen, toggleSidebar }) {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, sessionRole } = useAuth();
@@ -86,60 +86,67 @@ function Sidebar({ isOpen }) {
   const handleNavigation = path => {
     navigate(path);
     if (isOpen && window.innerWidth < 768) {
-      // toggleSidebar(); // Uncomment if toggleSidebar prop is passed and works
+      toggleSidebar();
     }
   };
 
   return (
-    <nav
-      className={`${styles.sidebar} ${isOpen ? styles.open : styles.collapsed}`}
-    >
-      {navItems.map(item => {
-        const isSelected = getSelectedItem(item.path);
-        return (
-          <div
-            key={item.key}
-            role="button"
-            tabIndex={0}
-            onClick={() => handleNavigation(item.path)}
-            onKeyDown={e => {
-              if (e.key === 'Enter' || e.key === ' ')
-                handleNavigation(item.path);
-            }}
-            className={`${styles.navItem} ${isSelected ? styles.selected : ''}`}
-          >
-            <div className={styles.navItemContent}>
-              <Icon
-                className={
-                  isSelected ? styles.selectedIcon : styles.defaultIcon
-                }
-                src={item.icon}
-                alt={item.text}
-              />
-              {item.unread && (
-                <span
-                  style={{
-                    display: 'inline-block',
-                    background: '#ff3b30',
-                    borderRadius: '50%',
-                    width: 10,
-                    height: 10,
-                    marginLeft: 4,
-                    verticalAlign: 'middle',
-                  }}
+    <>
+      <nav
+        className={`${styles.sidebar} ${isOpen ? styles.open : styles.collapsed}`}
+      >
+        {navItems.map(item => {
+          const isSelected = getSelectedItem(item.path);
+          return (
+            <div
+              key={item.key}
+              role="button"
+              tabIndex={0}
+              onClick={() => handleNavigation(item.path)}
+              onKeyDown={e => {
+                if (e.key === 'Enter' || e.key === ' ')
+                  handleNavigation(item.path);
+              }}
+              className={`${styles.navItem} ${isSelected ? styles.selected : ''}`}
+            >
+              <div className={styles.navItemContent}>
+                <Icon
+                  className={
+                    isSelected ? styles.selectedIcon : styles.defaultIcon
+                  }
+                  src={item.icon}
+                  alt={item.text}
                 />
-              )}
-              {isOpen && <span className={styles.navText}>{item.text}</span>}
+                {item.unread && (
+                  <span
+                    style={{
+                      display: 'inline-block',
+                      background: '#ff3b30',
+                      borderRadius: '50%',
+                      width: 10,
+                      height: 10,
+                      marginLeft: 4,
+                      verticalAlign: 'middle',
+                    }}
+                  />
+                )}
+                {isOpen && <span className={styles.navText}>{item.text}</span>}
+              </div>
             </div>
-          </div>
-        );
-      })}
-    </nav>
+          );
+        })}
+      </nav>
+      <div
+        className={`${styles.sidebarOverlay} ${isOpen ? styles.open : ''}`}
+        onClick={toggleSidebar}
+      />
+    </>
   );
 }
 
 Sidebar.propTypes = {
   isOpen: PropTypes.bool.isRequired,
+  toggleSidebar: PropTypes.func.isRequired,
 };
 
 export default Sidebar;

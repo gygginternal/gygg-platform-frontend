@@ -184,11 +184,6 @@
     left: 0;
   }
 
-  .sidebar.collapsed {
-    left: -16rem;
-    width: 16rem;
-  }
-
   .sidebar.open .navItemContent {
     justify-content: flex-start;
     padding: 1rem 1.25rem; /* 16px 20px */
@@ -297,23 +292,4 @@
   }
 }
 
-/* Overlay backdrop for mobile */
-@media (max-width: 768px) {
-  .sidebar::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-    z-index: -1;
-  }
-
-  .sidebar.open::before {
-    opacity: 1;
-    visibility: visible;
-  }
-}
+/* Overlay backdrop for mobile - handled by .sidebarOverlay in JSX */
