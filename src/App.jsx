@@ -16,6 +16,7 @@ import { SocketProvider } from './contexts/SocketContext';
 import Navigation from './components/Navigation';
 
 // Pages
+
 import HomePage from './pages/HomePage/HomePage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import JoinPage from './pages/JoinPage/JoinPage';
