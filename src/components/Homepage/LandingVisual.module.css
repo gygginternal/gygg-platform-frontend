@@ -95,10 +95,6 @@
   .imageWrapper {
     max-width: 220px;
   }
-
-  .border {
-    display: none;
-  }
 }
 
 @media (max-width: 480px) {
