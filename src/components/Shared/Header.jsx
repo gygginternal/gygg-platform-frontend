@@ -231,7 +231,7 @@ function Header() {
         <div className={styles.headerControls}>
           {user && (
             <>
-              <div style={{ position: 'relative' }}>
+              <div className={styles.notificationContainer}>
                 <div
                   role="button"
                   tabIndex={0}

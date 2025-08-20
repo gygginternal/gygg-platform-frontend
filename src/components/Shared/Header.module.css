@@ -207,6 +207,7 @@
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   backdrop-filter: blur(20px);
   animation: slideInNotification 0.2s ease-out;
+  max-height: 80vh;
 }
 .notificationHeader {
   font-weight: 700;
@@ -548,12 +549,22 @@
     width: 1.75rem; /* 28px */
     height: 1.75rem; /* 28px */
   }
+  
+  /* Notification container positioning fix for mobile */
+  .notificationContainer {
+    position: static !important;
+  }
+  
   .notificationDropdown {
+    position: fixed !important;
     width: calc(100vw - 20px);
     left: 10px !important;
     right: 10px !important;
-    top: 3.75rem !important;
+    top: 3.5rem !important;
     transform: none !important;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    border-radius: 8px;
   }
   .dropdown {
     top: 2rem; /* 32px */
@@ -625,6 +636,23 @@
   }
   .dropdownItem span {
     font-size: 0.8125rem; /* 13px */
+  }
+  
+  /* Notification dropdown for extra small screens */
+  .notificationContainer {
+    position: static !important;
+  }
+  
+  .notificationDropdown {
+    position: fixed !important;
+    width: calc(100vw - 16px);
+    left: 8px !important;
+    right: 8px !important;
+    top: 3.25rem !important;
+    transform: none !important;
+    max-height: calc(100vh - 3.5rem);
+    overflow-y: auto;
+    border-radius: 6px;
   }
 }
 
@@ -1061,7 +1089,9 @@
     width: calc(100vw - 20px);
     left: 10px !important;
     right: 10px !important;
-    top: 60px !important;
+    top: 3.5rem !important;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
   }
   
   .modernHeader {
@@ -1084,6 +1114,26 @@
   
   .iconFallback {
     font-size: 16px;
+  }
+  
+  /* Ensure notification items are properly sized on mobile */
+  .notificationDropdownItem {
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  
+  .notificationDropdownItem img {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .notificationDropdownItem span {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  
+  .notificationTime {
+    font-size: 11px;
   }
 }
 
