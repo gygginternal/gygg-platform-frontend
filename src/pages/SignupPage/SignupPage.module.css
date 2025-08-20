@@ -171,7 +171,6 @@
 @media (max-width: 1024px) {
   .container {
     padding: 1rem; /* 16px */
-    padding-top: 4rem; /* Ensure logo doesn't overlap */
   }
   .logo {
     top: 1.25rem; /* Slightly adjusted logo position */
@@ -203,7 +202,6 @@
 @media (max-width: 768px) {
   .container {
     padding: 0.75rem; /* Further reduced padding */
-    padding-top: 4rem; /* Ensure logo doesn't overlap */
   }
   .logo {
     top: 1rem;
@@ -214,7 +212,6 @@
   }
   .formContainer {
     padding-bottom: 1.25rem; /* ~20px */
-    max-width: 90%; /* Take more width on tablet */
     gap: 1rem; /* ~16px gap */
   }
   .title {
@@ -251,7 +248,6 @@
 @media (max-width: 480px) {
   .container {
     padding: 0.5rem; /* Minimal padding */
-    padding-top: 3.5rem; /* Adjust for potentially smaller logo */
   }
   .logo {
     top: 1rem;

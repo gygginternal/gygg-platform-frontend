@@ -39,7 +39,7 @@
   justify-content: center;
   align-items: center;
   gap: 1.25rem; /* ~20px gap */
-  max-width: 450px;
+  max-width: 28.125rem;
   width: 100%;
   padding: 1.875rem; /* ~30px padding */
   border-radius: 10px;
@@ -162,7 +162,7 @@
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
   .container {
-    padding: 15px; /* Slightly less padding */
+    padding: 1rem; /* Slightly less padding */
   }
   .logo {
     top: 1.25rem;
@@ -170,10 +170,10 @@
   }
   .formContainer {
     padding: 1.5625rem; /* ~25px padding */
-    max-width: 400px;
+    max-width: 25rem;
   }
   .title {
-    font-size: 1.75rem; /* 28px */
+    font-size: clamp(1.75rem, 4.5vw, 1.9rem); /* Ranging from 28px to 30.4px */
     margin-bottom: 1rem;
   }
   /* Font sizes for button, error, signup text and forgot password remain optimal */
@@ -190,7 +190,6 @@
   }
   .formContainer {
     padding: 1.25rem; /* ~20px padding */
-    max-width: 90%; /* Take more width on tablet */
     gap: 1rem; /* ~16px gap */
   }
   .title {
@@ -226,7 +225,7 @@
     padding: 10px; /* Minimal padding */
   }
   .formContainer {
-    padding: 1rem 0.75rem; /* Reduced padding */
+    padding: 1rem; /* Reduced padding */
     max-width: 95%; /* Almost full width on very small screens */
     gap: 0.75rem; /* ~12px gap */
   }

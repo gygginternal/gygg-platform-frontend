@@ -133,7 +133,6 @@
   }
 
   .title {
-    font-size: clamp(2rem, 8vw, 2.5rem); /* Slightly smaller title */
     padding-bottom: 1rem;
   }
 
@@ -157,10 +156,6 @@
 
   .actions {
     padding: 20px; /* Ensure there is still some padding */
-  }
-
-  .title {
-    font-size: 1.75rem;
   }
 
   .signup,
