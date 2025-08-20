@@ -246,9 +246,7 @@
     margin-bottom: 1.5rem;
   }
   .card {
-    max-width: 90%; /* Take more width on tablet */
-    width: 100%;
-    padding: 1.5rem 1rem;
+    max-width: 380px;
   }
   .title {
     /* Responsive clamp still within Facebook Header range (16px to 20.8px) */
@@ -293,8 +291,8 @@
     margin-bottom: 1rem;
   }
   .card {
-    padding: 1rem 0.75rem; /* Significantly reduced card padding for small screens */
-    max-width: 95%; /* Make cards almost full width on very small screens */
+    max-width: 320px;           
+    padding: 1.25rem 1rem;   
   }
   .cardLogo {
     width: 40px; /* Smaller icon for mobile, still within 40-60px avatar range */
