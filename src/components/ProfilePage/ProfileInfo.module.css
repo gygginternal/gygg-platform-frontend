@@ -438,6 +438,7 @@
 @media (max-width: 1024px) {
   .profileCard {
     padding: 1rem; /* 16px */
+    margin-top: 1rem;
     margin-bottom: 1rem; /* 16px */
   }
   .profileHeader {
@@ -554,6 +555,7 @@
 @media (max-width: 768px) {
   .profileCard {
     padding: 0.8rem; /* 12.8px */
+    margin-top: 0rem;
     margin-bottom: 0.8rem; /* 12.8px */
   }
   .profileHeader {
