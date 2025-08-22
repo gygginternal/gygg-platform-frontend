@@ -316,14 +316,16 @@ const GigsAppliedPage = () => {
           {/* Filters */}
           <div className={styles.filtersSection}>
             <div className={styles.searchContainer}>
-              <Search size={20} className={styles.searchIcon} />
-              <input
-                type="text"
-                placeholder="Search gigs, categories, or clients..."
-                value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
-                className={styles.searchInput}
-              />
+              <div className={styles.searchBar}>
+                <Search size={20} className={styles.searchIcon} />
+                <input
+                  type="text"
+                  placeholder="Search gigs, categories, or clients..."
+                  value={searchTerm}
+                  onChange={e => setSearchTerm(e.target.value)}
+                  className={styles.searchInput}
+                />
+              </div>
             </div>
             <div className={styles.filterControls}>
               <div className={styles.filterGroup}>
