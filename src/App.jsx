@@ -67,6 +67,7 @@ function AppLayout({ children }) {
 
   const noHeaderPaths = ['/onboarding/tasker', '/onboarding/provider'];
   const gigsPagePaths = ['/gigs'];
+  const fullWidthPaths = ['/onboarding/tasker', '/onboarding/provider'];
 
   const showHeader =
     authToken &&
@@ -77,6 +78,11 @@ function AppLayout({ children }) {
     location.pathname.startsWith(path)
   );
 
+  // Check if current path needs full width (no container constraints)
+  const isFullWidthPage = fullWidthPaths.some(path =>
+    location.pathname.startsWith(path)
+  );
+
   const mainStyle = {
     paddingTop: showHeader ? '84px' : '0',
   };
@@ -84,6 +90,16 @@ function AppLayout({ children }) {
   if (isLoading && !authToken) {
     return (
       <div className={styles.loadingApplication}>Loading Application...</div>
+    );
+  }
+
+  // For full-width pages (onboarding), don't apply container constraints
+  if (isFullWidthPage) {
+    return (
+      <>
+        {showHeader && <Header />}
+        {children}
+      </>
     );
   }
 

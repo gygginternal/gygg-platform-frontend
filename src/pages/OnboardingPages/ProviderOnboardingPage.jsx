@@ -614,22 +614,24 @@ function ProviderOnboardingPage() {
   }
 
   return (
-    <div className={styles.container}>
-      <ProgressHeader
-        step={currentStep}
-        totalSteps={TOTAL_PROVIDER_STEPS}
-        onNavigate={handleStepNavigation}
-        canGoNext={loading ? false : canGoNextForCurrentStep}
-        canGoBack={currentStep > 1}
-      />
-      <main className={styles.formContainer}>
-        <div className={styles.form}>
-          {' '}
-          {/* Using .form from Tasker CSS */}
-          {error && <p className={styles.errorMessage}>{error}</p>}
-          {renderStepContent()}
-        </div>
-      </main>
+    <div className={styles.fullWidthWrapper}>
+      <div className={styles.container}>
+        <ProgressHeader
+          step={currentStep}
+          totalSteps={TOTAL_PROVIDER_STEPS}
+          onNavigate={handleStepNavigation}
+          canGoNext={loading ? false : canGoNextForCurrentStep}
+          canGoBack={currentStep > 1}
+        />
+        <main className={styles.formContainer}>
+          <div className={styles.form}>
+            {' '}
+            {/* Using .form from Tasker CSS */}
+            {error && <p className={styles.errorMessage}>{error}</p>}
+            {renderStepContent()}
+          </div>
+        </main>
+      </div>
     </div>
   );
 }

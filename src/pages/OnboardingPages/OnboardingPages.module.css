@@ -1,23 +1,50 @@
 /* src/pages/Onboarding.module.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
+/* Ensure no white areas on larger screens */
+:global(html), :global(body) {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background: linear-gradient(to bottom, #3c4a53, #0f212d);
+}
+
+:global(#root) {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #3c4a53, #0f212d);
+}
+
+/* Full-width container wrapper */
+.fullWidthWrapper {
+  width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, #3c4a53, #0f212d);
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
 /* --- General Page Layout --- */
 .container {
-  /* Outermost wrapper for the entire page */
+  /* Inner container for the page content */
   min-height: 100vh;
-  max-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background: linear-gradient(#3c4a53, #0f212d);
   padding: 2rem;
   font-family: 'Inter', sans-serif;
   box-sizing: border-box;
   width: 100%;
-  overflow-y: auto; /* Allow scrolling for content */
-  -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
-  overflow-x: hidden; /* Hide horizontal overflow */
+  margin: 0 auto;
+  max-width: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
   font-size: 16px; /* Base font size for rem units (1rem = 16px) */
 }
 
@@ -25,9 +52,11 @@
   /* Wrapper for the form content itself */
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   width: 100%;
   max-width: 800px; /* Wider max width for overall form content */
-  margin-top: 1.5rem; /* Space below ProgressHeader (if used) */
+  margin: 1.5rem auto 0 auto; /* Center horizontally with auto margins */
+  flex: 1; /* Take remaining space */
 }
 
 .form {
@@ -325,6 +354,47 @@
   color: red;
   text-align: center;
   margin-bottom: 1rem;
+}
+
+/* --- Large Screen Adjustments --- */
+@media (min-width: 1200px) {
+  .container {
+    padding: 3rem;
+  }
+  
+  .formContainer {
+    max-width: 900px;
+    margin-top: 2rem;
+  }
+  
+  .form {
+    padding: 3rem;
+    max-width: 48rem; /* Slightly wider for large screens */
+  }
+  
+  .title {
+    font-size: 2.25rem; /* 36px */
+  }
+  
+  .subtitle {
+    font-size: 1rem; /* 16px */
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    padding: 4rem;
+  }
+  
+  .formContainer {
+    max-width: 1000px;
+    margin-top: 2.5rem;
+  }
+  
+  .form {
+    padding: 3.5rem;
+    max-width: 52rem; /* Even wider for very large screens */
+  }
 }
 
 /* --- Responsive Adjustments --- */
