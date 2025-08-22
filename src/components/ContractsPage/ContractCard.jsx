@@ -100,7 +100,11 @@ export default function ContractCard({ contract, onClick }) {
       {/* Client Info */}
       <div className={styles.clientInfo}>
         <div className={styles.clientAvatar}>
-          {contract.hiredBy?.[0] || 'C'}
+          {contract.provider?.profileImage ? (
+            <img src={contract.provider.profileImage} alt={`${contract.provider.firstName}'s profile`} className={styles.avatarImage} />
+          ) : (
+            contract.provider?.firstName?.[0] || 'U'
+          )}
         </div>
         <div className={styles.clientDetails}>
           <span className={styles.clientName}>

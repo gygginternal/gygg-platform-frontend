@@ -212,6 +212,7 @@ function ContractsPage() {
         id: c.id || c.contractId || Math.random(),
         title: c.gigTitle || c.title || 'Contract',
         hiredBy: c.provider || c.hiredBy || '',
+        provider: c.provider,
         contractId: c.id || c.contractId || '',
         status: c.status || 'Active',
         description:
