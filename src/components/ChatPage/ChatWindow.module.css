@@ -58,6 +58,28 @@
   cursor: pointer;
 }
 
+.mobileBackButton {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #374151;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  margin-right: 8px;
+}
+
+.mobileBackButton:hover {
+  background-color: #f3f4f6;
+}
+
+.mobileBackButton:active {
+  background-color: #e5e7eb;
+}
+
 .messagesContainer {
   flex: 1;
   min-height: 0;
@@ -226,21 +248,193 @@
 }
 
 /* Responsive design */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  .chatWindow {
+    border-radius: 12px;
+  }
+  
   .header {
-    padding: 8px 12px;
+    padding: 12px 16px;
+  }
+  
+  .avatar {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .contactName {
+    font-size: 15px;
+  }
+  
+  .onlineStatus {
+    font-size: 12px;
+  }
+  
+  .messagesList {
+    padding: 12px 16px;
+  }
+  
+  .message {
+    max-width: 70%;
+  }
+  
+  .messageText {
+    font-size: 14px;
+  }
+  
+  .inputContainer {
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .chatWindow {
+    border-radius: 8px;
+    border: none;
+    height: 100vh;
+    max-height: 100vh;
+  }
+  
+  .header {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f3f4f6;
+    background-color: #fafafa;
+  }
+  
+  .mobileBackButton {
+    display: flex;
+  }
+  
+  .contactName {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .onlineStatus {
+    font-size: 13px;
   }
 
   .messagesList {
-    padding: 12px;
+    padding: 8px 12px;
+    gap: 6px;
   }
 
   .inputContainer {
-    padding: 12px;
+    padding: 12px 16px;
+    background-color: #fafafa;
+    border-top: 1px solid #f3f4f6;
   }
 
   .message {
     max-width: 85%;
+    padding: 10px 14px;
+  }
+  
+  .messageText {
+    font-size: 15px;
+    line-height: 1.4;
+  }
+  
+  .messageTime {
+    font-size: 11px;
+  }
+  
+  .inputForm {
+    padding: 10px 16px;
+    border-radius: 20px;
+  }
+  
+  .messageInput {
+    font-size: 16px; /* Prevent zoom on iOS */
+    padding: 6px 0;
+  }
+  
+  .sendButton {
+    padding: 6px;
+    min-width: 36px;
+    min-height: 36px;
+  }
+  
+  .attachIcon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chatWindow {
+    border-radius: 0;
+    height: 100vh;
+    max-height: 100vh;
+  }
+  
+  .header {
+    padding: 10px 12px;
+  }
+  
+  .avatar {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .contactName {
+    font-size: 15px;
+  }
+  
+  .onlineStatus {
+    font-size: 12px;
+  }
+
+  .messagesList {
+    padding: 6px 8px;
+    gap: 4px;
+  }
+
+  .inputContainer {
+    padding: 8px 12px;
+  }
+
+  .message {
+    max-width: 90%;
+    padding: 8px 12px;
+  }
+  
+  .messageText {
+    font-size: 14px;
+  }
+  
+  .messageTime {
+    font-size: 10px;
+  }
+  
+  .inputForm {
+    padding: 8px 12px;
+    border-radius: 18px;
+    gap: 8px;
+  }
+  
+  .messageInput {
+    font-size: 16px;
+    padding: 4px 0;
+  }
+  
+  .sendButton {
+    padding: 4px;
+    min-width: 32px;
+    min-height: 32px;
+  }
+  
+  .attachIcon {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .scrollToBottomBtn {
+    bottom: 80px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
   }
 }
 

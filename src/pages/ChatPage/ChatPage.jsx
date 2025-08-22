@@ -15,6 +15,7 @@ const ChatPage = () => {
   const [selectedContact, setSelectedContact] = useState(null);
   const [messages, setMessages] = useState([]);
   const [loadingMessages, setLoadingMessages] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const {
     socket,
     onlineUsers,
@@ -26,6 +27,18 @@ const ChatPage = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
+
+  // Check if we're on mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Helper function to sort contacts by most recent message timestamp
   const sortContactsByTimestamp = (contactsArray) => {
@@ -429,28 +442,39 @@ const ChatPage = () => {
     }
   }, [contacts]);
 
+  // Handle mobile back navigation
+  const handleMobileBack = () => {
+    setSelectedContact(null);
+  };
+
   return (
-    <div className={styles.container}>
-      <ChatSidebar
-        contacts={contacts}
-        selectedContact={selectedContact}
-        onContactSelect={setSelectedContact}
-      />
-      <div className={styles.chatArea}>
-        {selectedContact ? (
-          <ChatWindow
-            contact={selectedContact}
-            messages={messages}
-            loading={loadingMessages}
-            onMessageSent={addOptimisticMessage}
-            onLoadMore={loadMoreMessages}
-            hasMore={hasMore}
-            loadingMore={loadingMore}
-          />
-        ) : (
-          <ChatEmptyState />
-        )}
-      </div>
+    <div className={`${styles.container} ${selectedContact && isMobile ? styles.chatOpen : ''}`}>
+      {(!isMobile || !selectedContact) && (
+        <ChatSidebar
+          contacts={contacts}
+          selectedContact={selectedContact}
+          onContactSelect={setSelectedContact}
+        />
+      )}
+      
+      {(!isMobile || selectedContact) && (
+        <div className={styles.chatArea}>
+          {selectedContact ? (
+            <ChatWindow
+              contact={selectedContact}
+              messages={messages}
+              loading={loadingMessages}
+              onMessageSent={addOptimisticMessage}
+              onLoadMore={loadMoreMessages}
+              hasMore={hasMore}
+              loadingMore={loadingMore}
+              onMobileBack={isMobile ? handleMobileBack : null}
+            />
+          ) : (
+            <ChatEmptyState />
+          )}
+        </div>
+      )}
     </div>
   );
 };

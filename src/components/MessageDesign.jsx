@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './MessageDesign.module.css';
+import '../styles/responsive.css';
 
 const MessageDesign = ({ messages, onClick }) => {
   const handleActionClick = message => {

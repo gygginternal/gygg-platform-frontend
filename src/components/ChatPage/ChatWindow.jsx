@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MoreVertical, Paperclip } from 'lucide-react';
+import { MoreVertical, Paperclip, ArrowLeft } from 'lucide-react';
 import apiClient from '../../api/axiosConfig';
 import styles from './ChatWindow.module.css';
 import { useSocket } from '../../contexts/SocketContext';
@@ -12,6 +12,7 @@ const ChatWindow = ({
   onLoadMore,
   hasMore,
   loadingMore,
+  onMobileBack,
 }) => {
   const [newMessage, setNewMessage] = useState('');
   const [sending, setSending] = useState(false);
@@ -272,6 +273,15 @@ const ChatWindow = ({
   return (
     <div className={styles.chatWindow}>
       <div className={styles.header}>
+        {onMobileBack && (
+          <button 
+            className={styles.mobileBackButton}
+            onClick={onMobileBack}
+            aria-label="Back to contacts"
+          >
+            <ArrowLeft size={20} />
+          </button>
+        )}
         <div className={styles.contactInfo}>
           <img
             src={contact.avatar}

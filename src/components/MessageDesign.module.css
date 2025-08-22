@@ -106,68 +106,224 @@
 }
 
 /* Responsive adjustments */
+@media (max-width: 1024px) {
+  .outerContainer {
+    max-width: 100%;
+  }
+  
+  .messageListContainer {
+    padding: 16px 20px 20px 16px;
+    border-radius: 12px;
+  }
+  
+  .messageItem {
+    gap: 16px;
+    margin-top: 24px;
+  }
+  
+  .profileImage {
+    width: 48px;
+  }
+  
+  .messageName {
+    font-size: 15px;
+    max-width: 200px;
+  }
+  
+  .messageText {
+    font-size: 14px;
+    margin-top: 8px;
+  }
+  
+  .timestamp {
+    font-size: 11px;
+  }
+}
+
 @media (max-width: 768px) {
   .flexWrapper {
     flex-direction: column;
     gap: 0;
   }
+  
   .innerContainerWrapper {
     margin-left: 0;
     width: 100%;
   }
+  
   .messageListContainer {
-    padding: 15px;
-    margin-top: 10px;
+    padding: 12px 16px 16px 12px;
+    margin-top: 8px;
+    border-radius: 8px;
   }
+  
   .messageItem {
-    gap: 10px;
-    margin-top: 20px;
+    gap: 12px;
+    margin-top: 16px;
+    padding: 8px 0;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
   }
+  
+  .messageItem:hover {
+    background-color: #f9fafb;
+  }
+  
+  .messageItem:active {
+    background-color: #f3f4f6;
+  }
+  
   .profileImage {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
   }
+  
   .messageName {
     font-size: 14px;
     max-width: none;
+    font-weight: 600;
   }
+  
   .messageText {
-    font-size: 12px;
-    margin-top: 5px;
+    font-size: 13px;
+    margin-top: 4px;
+    color: #6b7280;
+    line-height: 1.3;
   }
+  
+  .messageContentRight {
+    font-size: 11px;
+    align-items: flex-end;
+  }
+  
   .timestamp {
     font-size: 10px;
+    margin-top: 2px;
   }
+  
   .statusIcon {
     width: 16px;
     height: 16px;
-    margin-top: 5px;
+    margin-top: 6px;
   }
+  
   .messageSeparator {
     max-width: 100%;
     margin-right: 0;
-    margin-top: 10px;
+    margin-top: 8px;
+    border-color: #f3f4f6;
   }
 }
 
 @media (max-width: 480px) {
   .messageListContainer {
-    padding: 10px;
+    padding: 8px 12px 12px 8px;
+    border-radius: 6px;
   }
+  
   .messageItem {
-    margin-top: 15px;
+    margin-top: 12px;
+    gap: 10px;
+    padding: 6px 0;
   }
+  
   .profileImage {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
   }
+  
   .messageName {
     font-size: 13px;
   }
+  
   .messageText {
-    font-size: 11px;
+    font-size: 12px;
+    margin-top: 3px;
   }
+  
+  .messageContentRight {
+    font-size: 10px;
+  }
+  
   .timestamp {
     font-size: 9px;
   }
+  
+  .statusIcon {
+    width: 14px;
+    height: 14px;
+    margin-top: 4px;
+  }
+  
+  .messageSeparator {
+    margin-top: 6px;
+  }
+}
+
+/* Touch improvements for mobile */
+@media (max-width: 768px) {
+  .messageItem {
+    min-height: 60px;
+    align-items: center;
+  }
+  
+  .messageContentLeft {
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .messageTextGroup {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .messageName,
+  .messageText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+/* Accessibility improvements */
+.messageItem:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.messageItem:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Loading and empty states */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  color: #6b7280;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  color: #9ca3af;
+}
+
+.empty h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 8px 0;
+}
+
+.empty p {
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.5;
 }

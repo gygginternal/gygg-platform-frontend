@@ -9,16 +9,26 @@
   font-family:
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
     Cantarell, sans-serif;
-  /* overflow: hidden; */
+  overflow: hidden;
+  position: relative;
 }
 
 .chatArea {
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  margin-left: 16px;
 }
 
-/* Responsive design */
+/* Mobile-first responsive design */
+@media (max-width: 1200px) {
+  .container {
+    width: calc(100vw - 200px);
+    padding-left: 200px;
+  }
+}
+
 @media (max-width: 1024px) {
   .container {
     height: calc(100vh - 35px);
@@ -26,15 +36,35 @@
     padding-left: 180px;
     padding-top: 35px;
   }
+  
+  .chatArea {
+    margin-left: 12px;
+  }
 }
 
 @media (max-width: 768px) {
   .container {
-    flex-direction: column;
+    flex-direction: row;
     height: calc(100vh - 30px);
     width: 100vw;
     padding-left: 0;
     padding-top: 30px;
+    gap: 0;
+  }
+  
+  .chatArea {
+    margin-left: 0;
+    flex: 1;
+  }
+  
+  /* Hide sidebar on mobile when chat is open */
+  .container.chatOpen .sidebar {
+    display: none;
+  }
+  
+  /* Show sidebar full width when no chat is selected */
+  .container:not(.chatOpen) .chatArea {
+    display: none;
   }
 }
 
@@ -44,5 +74,32 @@
     width: 100vw;
     padding-left: 0;
     padding-top: 25px;
+    padding: 25px 8px 0 8px;
+  }
+}
+
+/* Mobile navigation states */
+.mobileBackButton {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.mobileBackButton:hover {
+  background-color: #f3f4f6;
+}
+
+@media (max-width: 768px) {
+  .mobileBackButton {
+    display: flex;
   }
 }

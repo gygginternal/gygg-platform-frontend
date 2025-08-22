@@ -89,22 +89,106 @@
 }
 
 /* Responsive design */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .container {
-    padding: 1rem;
+    padding: 1.5rem;
+    border-radius: 12px;
   }
-
+  
   .logo {
     width: 100px;
     height: 100px;
   }
-
+  
   .title {
     font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .content {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+    border-radius: 8px;
+    border: none;
+  }
+
+  .logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .content {
     max-width: 320px;
+  }
+  
+  .logoContainer {
+    margin-bottom: 1.5rem;
+  }
+  
+  .mainText {
+    font-size: 14px;
+  }
+  
+  .subText {
+    font-size: 13px;
+  }
+  
+  .footer {
+    bottom: 1rem;
+    font-size: 11px;
+  }
+  
+  .lockIcon {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.75rem;
+    border-radius: 0;
+  }
+
+  .logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .content {
+    max-width: 280px;
+  }
+  
+  .logoContainer {
+    margin-bottom: 1rem;
+  }
+  
+  .mainText {
+    font-size: 13px;
+  }
+  
+  .subText {
+    font-size: 12px;
+  }
+  
+  .footer {
+    bottom: 0.75rem;
+    font-size: 10px;
   }
 }
 
