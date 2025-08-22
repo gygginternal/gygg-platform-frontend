@@ -26,7 +26,7 @@ const NSFW_WORDS = [
   
   // Common variations and leetspeak
   'f*ck', 'f**k', 'sh*t', 's**t', 'p0rn', 'pr0n', 'n00ds', 'n00des',
-  'f4ck', 'sh1t', 'b1tch', 'd1ck', 'p*ssy', 'a$$', '@ss', 'h3ll',
+  'f4ck', 'sh1t', 'b1tch', 'd1ck', 'p*ssy',
 ];
 
 // Suspicious patterns that might indicate NSFW content

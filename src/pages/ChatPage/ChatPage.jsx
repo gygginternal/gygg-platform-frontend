@@ -27,6 +27,26 @@ const ChatPage = () => {
   const [hasMore, setHasMore] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
 
+  // Helper function to sort contacts by most recent message timestamp
+  const sortContactsByTimestamp = (contactsArray) => {
+    return contactsArray.sort((a, b) => {
+      // Parse timestamps with validation
+      const timestampA = a.lastMessageTimestamp ? new Date(a.lastMessageTimestamp) : new Date(0);
+      const timestampB = b.lastMessageTimestamp ? new Date(b.lastMessageTimestamp) : new Date(0);
+      
+      // Validate dates
+      const validTimestampA = isNaN(timestampA.getTime()) ? new Date(0) : timestampA;
+      const validTimestampB = isNaN(timestampB.getTime()) ? new Date(0) : timestampB;
+      
+      // Debug logging (remove in production)
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`Sorting: ${a.name} (${validTimestampA.toISOString()}) vs ${b.name} (${validTimestampB.toISOString()})`);
+      }
+      
+      return validTimestampB - validTimestampA; // Descending order (newest first)
+    });
+  };
+
   // Fetch contacts (conversations)
   useEffect(() => {
     const fetchContacts = async () => {
@@ -48,10 +68,15 @@ const ChatPage = () => {
                 minute: '2-digit',
               })
             : '',
+          lastMessageTimestamp: conv.lastMessage?.timestamp || new Date(0).toISOString(), // Keep raw timestamp for sorting
           isOnline: false, // Optionally, implement online status
           unreadCount: conv.unreadCount || 0,
         }));
-        setContacts(mappedContacts);
+        
+        // Sort contacts by last message timestamp (most recent first)
+        const sortedContacts = sortContactsByTimestamp(mappedContacts);
+        
+        setContacts(sortedContacts);
         // Auto-select contact if routeUserId is present
         if (routeUserId) {
           const found = mappedContacts.find(c => c.id === routeUserId);
@@ -213,8 +238,8 @@ const ChatPage = () => {
         message.sender._id === selectedContact.id || 
         message.receiver === selectedContact.id
       )) {
-        setContacts(prevContacts => 
-          prevContacts.map(contact => {
+        setContacts(prevContacts => {
+          const updatedContacts = prevContacts.map(contact => {
             if (contact.id === selectedContact.id) {
               return {
                 ...contact,
@@ -225,12 +250,23 @@ const ChatPage = () => {
                   hour: '2-digit',
                   minute: '2-digit',
                 }),
+                lastMessageTimestamp: message.timestamp,
                 unreadCount: message.sender._id === user.id ? 0 : (contact.unreadCount || 0)
               };
             }
             return contact;
-          })
-        );
+          });
+          
+          // Re-sort contacts by last message timestamp (most recent first)
+          const sortedContacts = sortContactsByTimestamp(updatedContacts);
+          
+          // Debug logging
+          if (process.env.NODE_ENV === 'development') {
+            console.log('Updated contacts order:', sortedContacts.map(c => ({ name: c.name, timestamp: c.lastMessageTimestamp })));
+          }
+          
+          return sortedContacts;
+        });
       }
     };
     
@@ -337,12 +373,12 @@ const ChatPage = () => {
                 hour: '2-digit',
                 minute: '2-digit',
               }),
+              lastMessageTimestamp: message.timestamp,
               unreadCount: message.sender._id === user.id ? 0 : (contact.unreadCount || 0) + 1
             };
             
-            // Move to top of list (most recent conversation)
-            const [updatedContact] = updatedContacts.splice(existingContactIndex, 1);
-            return [updatedContact, ...updatedContacts];
+            // Re-sort all contacts by last message timestamp (most recent first)
+            return sortContactsByTimestamp(updatedContacts);
           } else if (message.sender._id !== user.id) {
             // Add new contact if message is from someone not in contacts
             const newContact = {
@@ -356,10 +392,11 @@ const ChatPage = () => {
                 hour: '2-digit',
                 minute: '2-digit',
               }),
+              lastMessageTimestamp: message.timestamp, // Add this for proper sorting
               isOnline: false,
               unreadCount: 1
             };
-            return [newContact, ...prevContacts];
+            return sortContactsByTimestamp([newContact, ...prevContacts]);
           }
           
           return prevContacts;
@@ -379,6 +416,18 @@ const ChatPage = () => {
       // like updating a notification badge or showing a toast
     }
   }, [notification]);
+
+  // Debug: Log contacts order when it changes
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development' && contacts.length > 0) {
+      console.log('Current contacts order:', contacts.map(c => ({ 
+        name: c.name, 
+        lastMessage: c.lastMessage,
+        timestamp: c.lastMessageTimestamp,
+        displayTime: c.timestamp 
+      })));
+    }
+  }, [contacts]);
 
   return (
     <div className={styles.container}>
