@@ -302,45 +302,49 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate, showMessage
         </div>
 
         <div className={styles.profileDetails}>
-          <h1 className={styles.profileName}>{displayName}</h1>
-          <p className={styles.profileServices}>
-            <strong>Hobbies:</strong> {displayHobbiesString}
-          </p>
-          {displayLocation && displayLocation !== 'Location not set' && (
-            <div className={styles.profileLocation}>
-              <img
-                src="/assets/location.svg"
-                alt="Location"
-                className={styles.locationIcon}
-              />
-              <span>{displayLocation}</span>
-            </div>
-          )}
+          <div className={styles.profileMainInfo}>
+            <h1 className={styles.profileName}>{displayName}</h1>
+            <p className={styles.profileServices}>
+              <strong>Hobbies:</strong> {displayHobbiesString}
+            </p>
+            {displayLocation && displayLocation !== 'Location not set' && (
+              <div className={styles.profileLocation}>
+                <img
+                  src="/assets/location.svg"
+                  alt="Location"
+                  className={styles.locationIcon}
+                />
+                <span>{displayLocation}</span>
+              </div>
+            )}
+          </div>
           {showMessageButton && (
             <button
               onClick={onMessageClick}
               className={styles.messageButton}
               aria-label={`Send message to ${displayName}`}
             >
-              Message Tasker
+              Message Provider
             </button>
           )}
         </div>
 
-        <div className={styles.skillsContainer}>
-          <h2 className={styles.skillsTitle}>Skills</h2>
-          <div className={styles.skillsList}>
-            {displaySkillsArray.length > 0 ? (
-              displaySkillsArray.map((skill, index) => (
-                <span key={index} className={styles.skillTag}>
-                  {skill}
-                </span>
-              ))
-            ) : (
-              <p className={styles.noSkills}>Add your skills to get noticed!</p>
-            )}
+        {userToDisplay.role?.includes('tasker') && (
+          <div className={styles.skillsContainer}>
+            <h2 className={styles.skillsTitle}>Skills</h2>
+            <div className={styles.skillsList}>
+              {displaySkillsArray.length > 0 ? (
+                displaySkillsArray.map((skill, index) => (
+                  <span key={index} className={styles.skillTag}>
+                    {skill}
+                  </span>
+                ))
+              ) : (
+                <p className={styles.noSkills}>Add your skills to get noticed!</p>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Edit Profile Modal */}

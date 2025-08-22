@@ -11,8 +11,8 @@ const NSFW_WORDS = [
   'webcam', 'cam girl', 'cam boy', 'onlyfans', 'sugar daddy', 'sugar baby',
   
   // Profanity and offensive language
-  'fuck', 'shit', 'damn', 'hell', 'bitch', 'bastard', 'asshole', 'crap',
-  'piss', 'cock', 'dick', 'pussy', 'tits', 'boobs', 'ass', 'butt',
+  'fuck', 'shit', 'damn', 'bitch', 'bastard', 'asshole', 'crap',
+  'piss', 'cock', 'dick', 'pussy', 'tits', 'boobs',
   
   // Hate speech and discrimination
   'nazi', 'hitler', 'racist', 'nigger', 'faggot', 'retard', 'terrorist',
@@ -145,7 +145,8 @@ export const cleanText = (text, options = {}) => {
 
   // Replace NSFW words with asterisks
   allNsfwWords.forEach(word => {
-    const regex = new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+    const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`\\b${escapedWord}\\b`, 'gi');
     cleanedText = cleanedText.replace(regex, replacement);
   });
 

@@ -204,14 +204,15 @@ const GigDetailsModal = ({
           />
           <span className={styles.modalProviderName}>{name}</span>
           {user._id && (
-            <a
-              href={`/userprofile/${user._id}`}
+            <Link
+              to={`/user-profile/${user._id}`}
               className={styles.modalViewProfileBlack}
-              target="_blank"
-              rel="noopener noreferrer"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
             >
               View Profile
-            </a>
+            </Link>
           )}
           <span className={styles.modalPostedTime}>{timeAgo(createdAt)}</span>
         </div>

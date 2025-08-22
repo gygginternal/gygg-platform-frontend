@@ -74,6 +74,14 @@
   flex: 1;
   min-width: 12.5rem; /* 200px */
   margin-bottom: 1rem; /* Add some space if it wraps */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.profileMainInfo {
+  flex: 1;
 }
 
 .profileName {
@@ -116,7 +124,7 @@
 }
 
 .messageButton {
-  margin-top: 1rem;
+  margin-top: 0;
   padding: 0.75rem 1.5rem;
   background-color: #00aaba;
   color: #fff;
@@ -127,6 +135,8 @@
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0 2px 4px rgba(0, 170, 186, 0.2);
+  flex-shrink: 0;
+  height: fit-content;
 }
 
 .messageButton:hover {
@@ -690,7 +700,19 @@
     height: 6.25rem; /* 100px */
     margin-bottom: 0.5rem; /* 8px */
   }
-  .profileDetails,
+  .profileDetails {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 0.625rem; /* 10px */
+  }
+  
+  .profileMainInfo {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
   .skillsContainer {
     min-width: unset; /* Remove min-width to allow full flexibility */
     width: 100%; /* Take full width when stacked */
