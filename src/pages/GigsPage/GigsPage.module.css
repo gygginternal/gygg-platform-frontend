@@ -195,7 +195,7 @@
   .contentWrapper {
     margin-left: 10.75rem;
     max-width: 60rem;
-    padding: 0.5rem;
+    padding: 0.875rem 1rem;
     gap: 1rem;
   }
   .sidebarArea {
@@ -227,7 +227,7 @@
     margin-left: 0 !important;
     max-width: 100% !important;
     width: 100% !important;
-    padding: 0.1rem 0.1rem !important;
+    padding: 0.5rem 0.675rem !important;
     gap: 0.5rem;
   }
   .sidebarArea {
