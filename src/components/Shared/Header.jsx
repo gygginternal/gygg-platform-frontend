@@ -235,7 +235,13 @@ function Header() {
                 <div
                   role="button"
                   tabIndex={0}
-                  onClick={() => setShowNotifications(prev => !prev)}
+                  onClick={() => {
+                    if (showNotifications) {
+                      setShowNotifications(false);
+                    } else {
+                      setShowNotifications(true);
+                    }
+                  }}
                   onKeyDown={e => {
                     if (e.key === 'Enter' || e.key === ' ') {
                       setShowNotifications(prev => !prev);
@@ -374,12 +380,14 @@ function Header() {
                                     />
                                   );
                                 })()}
-                                <span>{notification.message}</span>
-                                <span className={styles.notificationTime}>
-                                  {formatNotificationTime(
-                                    notification.createdAt
-                                  )}
-                                </span>
+                                <div className={styles.notificationContent}>
+                                  <span>{notification.message}</span>
+                                  <span className={styles.notificationTimeRight}>
+                                    {formatNotificationTime(
+                                      notification.createdAt
+                                    )}
+                                  </span>
+                                </div>
                               </button>
                             </li>
                             {idx < notifications.length - 1 && (

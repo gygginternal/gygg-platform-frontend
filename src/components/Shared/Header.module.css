@@ -28,7 +28,7 @@
   height: auto; /* Maintain aspect ratio */
   margin-left: 1.875rem; /* 30px */
   display: block; /* Ensure it behaves like a block element */
-  max-height: 3.5rem; /* Max height to fit within header (e.g., 56px) */
+  max-height: 3.5rem; /* 56px */
 }
 
 .logoLink {
@@ -896,6 +896,445 @@
   margin-top: 2px;
 }
 
+.notificationContent {
+  display: flex;
+  flex-direction: row; /* Changed from column to row */
+  flex: 1;
+  justify-content: space-between; /* Added to push time to right */
+  align-items: center; /* Added to vertically align message and time */
+}
+
+.notificationDropdownItem span {
+  color: #374151;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.notificationTimeRight {
+  margin-left: auto;
+  text-align: right;
+  font-size: 12px;
+  color: #9ca3af;
+  margin-top: 0; /* Removed margin-top */
+  font-weight: 400;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.notificationDropdownItem:hover,
+.notificationDropdownItem:focus {
+  background: #f9fafb;
+  color: #374151;
+  text-decoration: none;
+}
+
+.notificationDropdownItem:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px #3b82f6;
+}
+
+.notificationUnread {
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.02) 0%, rgba(255, 255, 255, 1) 100%) !important;
+  border-left: 3px solid #3b82f6;
+}
+
+.notificationUnread .notificationDropdownItem span {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.notificationRead {
+  background: #fff !important;
+}
+
+.notificationRead .notificationDropdownItem span {
+  color: #6b7280;
+  font-weight: 400;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 0.5rem;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  width: 14rem;
+  max-width: 90vw;
+  z-index: 101;
+  padding: 0.5rem 0;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown li {
+  width: 100%;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: #222;
+  font-weight: 500;
+  transition: background 0.15s;
+  text-decoration: none;
+}
+
+.dropdownItem img {
+  width: 1.5rem;
+  height: 1.5rem;
+  filter: none;
+}
+
+.dropdownItem span {
+  color: #1e293b;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.dropdownItem:hover,
+.dropdownItem:focus {
+  background: #f3f4f6;
+  color: #1e293b;
+  text-decoration: none;
+}
+
+.headerLogo {
+  /* Facebook Profile pic thumbnails: 32-40px. Avatar in stories: 40-60px.
+     For a prominent header logo, 100px is a good balance. */
+  width: 6.25rem; /* 100px */
+  height: auto; /* Maintain aspect ratio */
+  margin-left: 1.875rem; /* 30px */
+  display: block; /* Ensure it behaves like a block element */
+  max-height: 3.5rem; /* Max height to fit within header (e.g., 56px) */
+}
+
+.logoLink {
+  /* Added to ensure logo img doesn't have default link styles */
+  display: flex;
+  align-items: center;
+  flex-shrink: 0; /* Prevent logo from shrinking */
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem; /* 4px clickable area */
+  flex-shrink: 0;
+}
+
+.menuIcon {
+  /* Facebook Top navbar icons: 20-24px. Using 24px (1.5rem) here. */
+  height: 1.5rem; /* 24px */
+  width: 1.5rem; /* 24px */
+}
+
+.menuButton:hover {
+  opacity: 0.8;
+}
+
+.searchContainer {
+  flex: 1;
+  max-width: 32.6875rem; /* 523px */
+  margin: 0 auto;
+  position: relative;
+}
+
+.searchBox {
+  background-color: #fff;
+  border: 0.0625rem solid #f6f2ed; /* 1px */
+  align-items: center;
+  height: 3.375rem; /* 54px */
+  padding: 0 1rem; /* 0 16px */
+  display: flex;
+  position: relative;
+  box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1); /* 0 2px 5px */
+  border-radius: 0.9375rem; /* 15px */
+}
+
+.searchInput {
+  color: #333;
+  border: none;
+  outline: none;
+  flex: 1;
+  margin-left: 0.625rem; /* 10px */
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 0.9375rem; /* 15px */
+  padding: 0;
+  height: 100%;
+  background-color: transparent;
+}
+
+.searchButton {
+  color: #fff;
+  cursor: pointer;
+  background-color: #00aaba;
+  border-radius: 0 0.9375rem 0.9375rem 0; /* 0 15px 15px 0 */
+  height: 3.375rem; /* 54px */
+  padding: 0 1.25rem; /* 0 20px */
+  font-weight: 700;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: -0.0625rem; /* -1px */
+  top: 0;
+  transition: background-color 0.3s ease;
+  /* Facebook Buttons 13-14px */
+  font-size: 0.875rem; /* 14px */
+}
+
+.searchButton:hover {
+  background-color: #008b8b;
+}
+
+/* No specific icon size for search button provided by user, keeping original 20px if exists */
+.searchButton img {
+  width: 1.25rem; /* 20px */
+  height: 1.25rem; /* 20px */
+}
+
+.headerControls {
+  gap: 1.25rem; /* 20px */
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.iconButton {
+  /* Base style for header control buttons */
+  background: none;
+  border: none;
+  padding: 0.25rem; /* 4px clickable area */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headerControls img {
+  object-fit: contain;
+  cursor: pointer;
+  /* Facebook Top navbar icons: 20-24px. Notifications (28px). Profile pic (36px). */
+  /* Set base sizes here, specific elements override */
+  width: 1.5rem; /* 24px default for icons */
+  height: 1.5rem; /* 24px default for icons */
+  flex-shrink: 0;
+}
+/* Specific overrides for size if different */
+.headerControls .iconButton:nth-child(1) img {
+  /* Notification icon */
+  width: 1.5rem; /* 24px (adjust from 28px to fit FB guidelines) */
+  height: 1.5rem; /* 24px */
+}
+.headerControls .iconButton:nth-child(2) img {
+  /* Profile icon (assuming order) */
+  /* Facebook Profile pic thumbnails: 32-40px. Using 36px (2.25rem). */
+  width: 2.25rem; /* 36px */
+  height: 2.25rem; /* 36px */
+  border-radius: 50%; /* Added for profile image */
+}
+
+/* Notification Dot */
+.notificationDot {
+  position: absolute;
+  top: -6px;
+  right: -2px;
+  min-width: 18px;
+  height: 18px;
+  background-color: #e0245e;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid #3d4d55;
+  z-index: 2;
+  box-shadow: 0 0 0 2px #3d4d55;
+}
+
+.iconWithDropdown {
+  position: relative;
+}
+
+.notificationDropdown {
+  position: absolute;
+  top: 2.5rem;
+  right: 0;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  width: 380px;
+  max-width: 90vw;
+  z-index: 101;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  backdrop-filter: blur(20px);
+  animation: slideInNotification 0.2s ease-out;
+  max-height: 80vh;
+}
+
+.notificationList {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e0 transparent;
+}
+
+.notificationList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.notificationList::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.notificationList::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 3px;
+}
+
+.notificationList::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+.notificationUnread {
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.02) 0%, rgba(255, 255, 255, 1) 100%) !important;
+  border-left: 3px solid #3b82f6;
+}
+
+.notificationUnread .notificationDropdownItem span {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.notificationRead {
+  background: #fff !important;
+}
+
+.notificationRead .notificationDropdownItem span {
+  color: #6b7280;
+  font-weight: 400;
+}
+.notificationList li {
+  /* padding: 0.9rem 1.5rem 0.7rem 1.5rem; */
+  border-bottom: none;
+  cursor: pointer;
+  transition: background 0.18s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  color: #000;
+  margin: 0;
+  background: #fff !important;
+}
+.notificationList li span {
+  color: #000 !important;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.notificationList li a {
+  color: #0074d9;
+  text-decoration: none;
+  font-weight: 600;
+}
+.notificationList li a:hover {
+  text-decoration: underline;
+}
+.notificationList li:last-child {
+  border-bottom: none;
+}
+.notificationList li:hover {
+  background: #eaf3ff;
+}
+.notificationTime {
+  font-size: 12px;
+  color: #9ca3af;
+  margin-top: 4px;
+  font-weight: 400;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.notificationEmpty {
+  padding: 60px 24px;
+  color: #9ca3af;
+  text-align: center;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.notificationDivider {
+  border: none;
+  border-top: 1px solid #f3f4f6;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* Modern Notification Dropdown Item */
+.notificationDropdownItem {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  gap: 12px;
+  padding: 16px 20px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  border-radius: 0;
+  position: relative;
+}
+
+.notificationDropdownItem img {
+  width: 20px;
+  height: 20px;
+  filter: none;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
 .notificationDropdownItem span {
   color: #374151;
   font-size: 14px;
@@ -903,6 +1342,638 @@
   line-height: 1.5;
   text-decoration: none;
   flex: 1;
+}
+
+.notificationDropdownItem:hover,
+.notificationDropdownItem:focus {
+  background: #f9fafb;
+  color: #374151;
+  text-decoration: none;
+}
+
+.notificationDropdownItem:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px #3b82f6;
+}
+
+/* Responsive Adjustments */
+
+/* Desktop (1024px+) - Enhanced for larger screens */
+@media (min-width: 1024px) {
+  .header {
+    height: 5.5rem; /* 88px */
+    padding: 0 2rem; /* 0 32px */
+  }
+  .headerLogo {
+    width: 7rem; /* 112px */
+    max-height: 4rem; /* 64px */
+    margin-left: 2rem; /* 32px */
+  }
+  .searchContainer {
+    max-width: 36rem; /* 576px */
+  }
+  .searchBox {
+    height: 3.5rem; /* 56px */
+    padding: 0 1.25rem; /* 0 20px */
+  }
+  .searchButton {
+    height: 3.5rem; /* 56px */
+    padding: 0 1.5rem; /* 0 24px */
+    font-size: 1rem; /* 16px */
+  }
+  .headerControls {
+    gap: 1.5rem; /* 24px */
+  }
+  .notificationDropdown {
+    width: 420px;
+    top: 3rem;
+  }
+}
+
+/* Tablet (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .header {
+    height: 4.75rem; /* 76px */
+    padding: 0 1.5rem; /* 0 24px */
+  }
+  .headerLogo {
+    width: 5.75rem; /* 92px */
+    max-height: 3.25rem; /* 52px */
+    margin-left: 1.75rem; /* 28px */
+  }
+  .menuIcon {
+    width: 1.375rem; /* 22px */
+    height: 1.375rem; /* 22px */
+  }
+  .searchContainer {
+    max-width: 30rem; /* 480px */
+  }
+  .searchBox {
+    height: 3.125rem; /* 50px */
+    padding: 0 1rem; /* 0 16px */
+    border-radius: 0.875rem; /* 14px */
+  }
+  .searchInput {
+    font-size: 0.9375rem; /* 15px */
+    margin-left: 0.625rem; /* 10px */
+  }
+  .searchButton {
+    height: 3.125rem; /* 50px */
+    padding: 0 1.125rem; /* 0 18px */
+    font-size: 0.875rem; /* 14px */
+    border-radius: 0 0.875rem 0.875rem 0; /* 0 14px 14px 0 */
+  }
+  .searchButton img {
+    width: 1.125rem; /* 18px */
+    height: 1.125rem; /* 18px */
+  }
+  .headerControls {
+    gap: 1.125rem; /* 18px */
+  }
+  .headerControls img {
+    width: 1.375rem; /* 22px */
+    height: 1.375rem; /* 22px */
+  }
+  .headerControls .iconButton:nth-child(2) img {
+    width: 2.125rem; /* 34px */
+    height: 2.125rem; /* 34px */
+  }
+  .notificationDropdown {
+    width: 360px;
+    top: 2.75rem;
+  }
+}
+
+/* Small Tablet / Large Mobile (480px - 768px) */
+@media (min-width: 480px) and (max-width: 768px) {
+  .header {
+    height: 4rem; /* 64px */
+    padding: 0 1rem; /* 0 16px */
+  }
+  .headerLogo {
+    width: 4.75rem; /* 76px */
+    max-height: 2.75rem; /* 44px */
+    margin-left: 1rem; /* 16px */
+  }
+  .menuIcon {
+    width: 1.25rem; /* 20px */
+    height: 1.25rem; /* 20px */
+  }
+  .searchContainer {
+    max-width: 22rem; /* 352px */
+  }
+  .searchBox {
+    height: 2.75rem; /* 44px */
+    padding: 0 0.75rem; /* 0 12px */
+    border-radius: 0.75rem; /* 12px */
+  }
+  .searchInput {
+    font-size: 0.875rem; /* 14px */
+    margin-left: 0.5rem; /* 8px */
+  }
+  .searchButton {
+    height: 2.75rem; /* 44px */
+    padding: 0 1rem; /* 0 16px */
+    font-size: 0.8125rem; /* 13px */
+    border-radius: 0 0.75rem 0.75rem 0; /* 0 12px 12px 0 */
+  }
+  .searchButton img {
+    width: 1.125rem; /* 18px */
+    height: 1.125rem; /* 18px */
+  }
+  .headerControls {
+    gap: 1rem; /* 16px */
+  }
+  .headerControls img {
+    width: 1.25rem; /* 20px */
+    height: 1.25rem; /* 20px */
+  }
+  .headerControls .iconButton:nth-child(2) img {
+    width: 1.875rem; /* 30px */
+    height: 1.875rem; /* 30px */
+  }
+  .notificationDropdown {
+    width: 320px;
+    top: 2.5rem;
+  }
+}
+
+/* Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+  .header {
+    height: 3.5rem; /* 56px */
+    padding: 0 0.75rem; /* 0 12px */
+  }
+  .headerLogo {
+    width: 4rem; /* 64px */
+    max-height: 2.25rem; /* 36px */
+    margin-left: 0.75rem; /* 12px */
+  }
+  .menuIcon {
+    width: 1.125rem; /* 18px */
+    height: 1.125rem; /* 18px */
+  }
+  .searchContainer {
+    display: none; /* Hide search on mobile */
+  }
+  .headerControls {
+    gap: 0.75rem; /* 12px */
+  }
+  .headerControls img {
+    width: 1.125rem; /* 18px */
+    height: 1.125rem; /* 18px */
+  }
+  .headerControls .iconButton:nth-child(2) img {
+    width: 1.75rem; /* 28px */
+    height: 1.75rem; /* 28px */
+  }
+  
+  /* Notification container positioning fix for mobile */
+  .notificationContainer {
+    position: static !important;
+  }
+  
+  .notificationDropdown {
+    position: fixed !important;
+    width: calc(100vw - 20px);
+    left: 10px !important;
+    right: 10px !important;
+    top: 3.5rem !important;
+    transform: none !important;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    border-radius: 8px;
+  }
+  .dropdown {
+    top: 2rem; /* 32px */
+    width: 10rem; /* 160px */
+    padding: 0.5rem; /* 8px */
+    left: auto;
+    right: 0;
+    transform: none;
+  }
+  .dropdownItem {
+    gap: 0.5rem; /* 8px */
+    padding: 0.5rem 0.75rem; /* 8px 12px */
+    font-size: 0.875rem; /* 14px */
+  }
+  .dropdownItem img {
+    width: 1rem; /* 16px */
+    height: 1rem; /* 16px */
+  }
+  .dropdownItem span {
+    font-size: 0.875rem; /* 14px */
+  }
+}
+
+/* Extra small mobile (max-width: 360px) */
+@media (max-width: 360px) {
+  .header {
+    height: 3.25rem; /* 52px */
+    padding: 0 0.5rem; /* 0 8px */
+  }
+  .headerLogo {
+    width: 3.5rem; /* 56px */
+    max-height: 2rem; /* 32px */
+    margin-left: 0.5rem; /* 8px */
+  }
+  .menuIcon {
+    width: 1rem; /* 16px */
+    height: 1rem; /* 16px */
+  }
+  .headerControls {
+    gap: 0.5rem; /* 8px */
+  }
+  .headerControls img {
+    width: 1rem; /* 16px */
+    height: 1rem; /* 16px */
+  }
+  .headerControls .iconButton:nth-child(2) img {
+    width: 1.5rem; /* 24px */
+    height: 1.5rem; /* 24px */
+  }
+  .notificationDot {
+    min-width: 16px;
+    height: 16px;
+    font-size: 0.75rem;
+    top: -4px;
+    right: -1px;
+  }
+  .dropdown {
+    width: 9rem; /* 144px */
+    padding: 0.375rem; /* 6px */
+  }
+  .dropdownItem {
+    gap: 0.375rem; /* 6px */
+    padding: 0.375rem 0.5rem; /* 6px 8px */
+    font-size: 0.8125rem; /* 13px */
+  }
+  .dropdownItem img {
+    width: 0.875rem; /* 14px */
+    height: 0.875rem; /* 14px */
+  }
+  .dropdownItem span {
+    font-size: 0.8125rem; /* 13px */
+  }
+  
+  /* Notification dropdown for extra small screens */
+  .notificationContainer {
+    position: static !important;
+  }
+  
+  .notificationDropdown {
+    position: fixed !important;
+    width: calc(100vw - 16px);
+    left: 8px !important;
+    right: 8px !important;
+    top: 3.25rem !important;
+    transform: none !important;
+    max-height: calc(100vh - 3.5rem);
+    overflow-y: auto;
+    border-radius: 6px;
+  }
+  
+  /* Keep notification content in same line on extra small screens */
+  .notificationContent {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .notificationDropdownItem span {
+    font-size: 12px;
+    line-height: 1.3;
+  }
+  
+  .notificationTimeRight {
+    font-size: 10px;
+    margin-top: 0;
+    flex-shrink: 0;
+  }
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 0.5rem;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  width: 14rem;
+  max-width: 90vw;
+  z-index: 101;
+  padding: 0.5rem 0;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown li {
+  width: 100%;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: #222;
+  font-weight: 500;
+  transition: background 0.15s;
+  text-decoration: none;
+}
+
+.dropdownItem img {
+  width: 1.5rem;
+  height: 1.5rem;
+  filter: none;
+}
+
+.dropdownItem span {
+  color: #1e293b;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.dropdownItem:hover,
+.dropdownItem:focus {
+  background: #f3f4f6;
+  color: #1e293b;
+  text-decoration: none;
+}
+
+/* Modern Notification System Styles */
+.notificationContainer {
+  position: relative;
+  display: inline-block;
+}
+
+@keyframes slideInNotification {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Focus styles for accessibility */
+
+/* Responsive Design for Modern Notifications */
+
+/* Tablet and smaller desktop screens */
+@media (max-width: 768px) {
+  .notificationContent {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .notificationDropdownItem span {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  
+  .notificationTimeRight {
+    font-size: 11px;
+    margin-top: 0;
+    flex-shrink: 0;
+  }
+}
+@media (max-width: 480px) {
+  
+  /* Ensure notification items are properly sized on mobile */
+  .notificationDropdownItem {
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  
+  .notificationDropdownItem img {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .notificationDropdownItem span {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  
+  .notificationTime {
+    font-size: 11px;
+  }
+  
+  /* Keep notification content in same line on mobile */
+  .notificationContent {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .notificationTimeRight {
+    font-size: 11px;
+    margin-top: 0;
+    flex-shrink: 0;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .notificationDropdown {
+    animation: none;
+  }
+}
+
+
+.notificationIcon {
+  position: relative;
+  cursor: pointer;
+}
+
+.notificationIcon:focus {
+  outline: 2px solid #00aaba;
+  border-radius: 50%;
+}
+
+.notificationIcon:focus-visible {
+  outline: 2px solid #00aaba;
+  border-radius: 50%;
+}
+
+.notificationIcon:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.notificationIcon:focus-within {
+  outline: 2px solid #00aaba;
+  border-radius: 50%;
+}
+
+.notificationIcon:active {
+  transform: scale(0.95);
+}
+
+.notificationIcon:hover {
+  opacity: 0.8;
+}
+
+.notificationIcon img {
+  width: 28px;
+  height: 28px;
+}
+
+.notificationIcon .notificationDot {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 20px;
+  height: 20px;
+  background-color: #e0245e;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid #3d4d55;
+  z-index: 2;
+}
+
+.notificationList li {
+  padding: 0;
+  border-bottom: none;
+  cursor: pointer;
+  transition: background 0.18s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  color: #000;
+  margin: 0;
+  background: #fff !important;
+}
+
+.notificationList li:hover {
+  background: #eaf3ff;
+}
+
+.notificationList li:last-child {
+  border-bottom: none;
+}
+
+.notificationList li a {
+  color: #0074d9;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.notificationList li a:hover {
+  text-decoration: underline;
+}
+
+.notificationList li span {
+  color: #000 !important;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.notificationTime {
+  font-size: 12px;
+  color: #9ca3af;
+  margin-top: 4px;
+  font-weight: 400;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.notificationEmpty {
+  padding: 60px 24px;
+  color: #9ca3af;
+  text-align: center;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.notificationDivider {
+  border: none;
+  border-top: 1px solid #f3f4f6;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.notificationDropdownItem {
+  display: flex;
+  align-items: flex-start; /* Reverted to flex-start */
+  justify-content: space-between;
+  width: 100%;
+  gap: 12px;
+  padding: 16px 20px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  border-radius: 0;
+  position: relative;
+}
+
+.notificationDropdownItem img {
+  width: 20px;
+  height: 20px;
+  filter: none;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.notificationContent {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notificationDropdownItem span {
+  color: #374151;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.notificationTimeRight {
+  margin-left: auto;
+  text-align: right;
+  font-size: 12px;
+  color: #9ca3af;
+  margin-top: 4px;
+  font-weight: 400;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .notificationDropdownItem:hover,
