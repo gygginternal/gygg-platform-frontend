@@ -10,7 +10,8 @@
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
   .settingsContainer {
-    padding: 0.8rem; /* 12.8px */
+    padding: 0.8rem;
+    padding-top: 32px;
     padding-left: 200px;
   }
 }
