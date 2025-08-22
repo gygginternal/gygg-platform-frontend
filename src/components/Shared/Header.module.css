@@ -873,7 +873,8 @@
 
 .notificationDropdownItem {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
   gap: 12px;
   padding: 16px 20px;
@@ -889,11 +890,30 @@
 }
 
 .notificationDropdownItem img {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   filter: none;
   flex-shrink: 0;
-  margin-top: 2px;
+}
+
+.notificationLeftContent {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0; /* Allow text to truncate */
+}
+
+.notificationMessage {
+  color: #374151;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-decoration: none;
+  flex: 1;
+  min-width: 0; /* Allow text to truncate */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .notificationContent {
@@ -913,13 +933,13 @@
 }
 
 .notificationTimeRight {
-  margin-left: auto;
   text-align: right;
-  font-size: 12px;
+  font-size: 14px;
   color: #9ca3af;
-  margin-top: 0; /* Removed margin-top */
   font-weight: 400;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .notificationDropdownItem:hover,
@@ -1634,22 +1654,23 @@
   }
   
   /* Keep notification content in same line on extra small screens */
-  .notificationContent {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  .notificationLeftContent {
     gap: 6px;
   }
   
-  .notificationDropdownItem span {
-    font-size: 12px;
-    line-height: 1.3;
+  .notificationMessage {
+    font-size: 13px;
+    line-height: 1.2;
   }
   
   .notificationTimeRight {
-    font-size: 10px;
-    margin-top: 0;
+    font-size: 11px;
     flex-shrink: 0;
+  }
+  
+  .notificationDropdownItem img {
+    width: 18px;
+    height: 18px;
   }
 }
 
@@ -1741,24 +1762,59 @@
 
 /* Responsive Design for Modern Notifications */
 
-/* Tablet and smaller desktop screens */
-@media (max-width: 768px) {
-  .notificationContent {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .notificationDropdownItem span {
-    font-size: 13px;
+/* Large desktop screens */
+@media (min-width: 1024px) {
+  .notificationMessage {
+    font-size: 18px;
     line-height: 1.4;
   }
   
   .notificationTimeRight {
-    font-size: 11px;
-    margin-top: 0;
+    font-size: 16px;
+  }
+  
+  .notificationDropdownItem img {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* Medium-large screens */
+@media (min-width: 769px) and (max-width: 1023px) {
+  .notificationMessage {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  
+  .notificationTimeRight {
+    font-size: 14px;
+  }
+  
+  .notificationDropdownItem img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* Tablet and smaller desktop screens */
+@media (max-width: 768px) {
+  .notificationLeftContent {
+    gap: 10px;
+  }
+  
+  .notificationMessage {
+    font-size: 15px;
+    line-height: 1.4;
+  }
+  
+  .notificationTimeRight {
+    font-size: 13px;
     flex-shrink: 0;
+  }
+  
+  .notificationDropdownItem img {
+    width: 22px;
+    height: 22px;
   }
 }
 @media (max-width: 480px) {
@@ -1769,32 +1825,23 @@
     gap: 10px;
   }
   
-  .notificationDropdownItem img {
-    width: 18px;
-    height: 18px;
-  }
-  
-  .notificationDropdownItem span {
-    font-size: 13px;
-    line-height: 1.4;
-  }
-  
-  .notificationTime {
-    font-size: 11px;
-  }
-  
-  /* Keep notification content in same line on mobile */
-  .notificationContent {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  .notificationLeftContent {
     gap: 8px;
   }
   
+  .notificationMessage {
+    font-size: 14px;
+    line-height: 1.3;
+  }
+  
   .notificationTimeRight {
-    font-size: 11px;
-    margin-top: 0;
+    font-size: 12px;
     flex-shrink: 0;
+  }
+  
+  .notificationDropdownItem img {
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -1926,7 +1973,7 @@
 
 .notificationDropdownItem {
   display: flex;
-  align-items: flex-start; /* Reverted to flex-start */
+  align-items: center;
   justify-content: space-between;
   width: 100%;
   gap: 12px;

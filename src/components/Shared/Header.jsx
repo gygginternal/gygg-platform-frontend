@@ -350,44 +350,46 @@ function Header() {
                                 tabIndex={0}
                                 aria-label={notification.message}
                               >
-{(() => {
-                                  // Always use consistent icons based on notification type
-                                  let iconSrc = '/assets/comment.svg'; // default
-                                  
-                                  if (notification.type === 'new_message' || 
-                                      notification.message?.toLowerCase().includes('message')) {
-                                    iconSrc = '/assets/message.svg';
-                                  } else if (notification.type === 'post_liked' || 
-                                            notification.message?.toLowerCase().includes('liked')) {
-                                    iconSrc = '/assets/heart-filled.svg';
-                                  } else if (notification.type === 'new_comment' || 
-                                            notification.message?.toLowerCase().includes('comment')) {
-                                    iconSrc = '/assets/comment.svg';
-                                  } else if (notification.type === 'application_received' ||
-                                            notification.message?.toLowerCase().includes('applied')) {
-                                    iconSrc = '/assets/applied-user.svg';
-                                  } else if (notification.type === 'gig_posted' ||
-                                            notification.message?.toLowerCase().includes('gig')) {
-                                    iconSrc = '/assets/briefcase.svg';
-                                  }
-                                  
-                                  return (
-                                    <img
-                                      src={iconSrc}
-                                      alt="Notification Icon"
-                                      width={24}
-                                      height={24}
-                                    />
-                                  );
-                                })()}
-                                <div className={styles.notificationContent}>
-                                  <span>{notification.message}</span>
-                                  <span className={styles.notificationTimeRight}>
-                                    {formatNotificationTime(
-                                      notification.createdAt
-                                    )}
+                                <div className={styles.notificationLeftContent}>
+                                  {(() => {
+                                    // Always use consistent icons based on notification type
+                                    let iconSrc = '/assets/comment.svg'; // default
+                                    
+                                    if (notification.type === 'new_message' || 
+                                        notification.message?.toLowerCase().includes('message')) {
+                                      iconSrc = '/assets/message.svg';
+                                    } else if (notification.type === 'post_liked' || 
+                                              notification.message?.toLowerCase().includes('liked')) {
+                                      iconSrc = '/assets/heart-filled.svg';
+                                    } else if (notification.type === 'new_comment' || 
+                                              notification.message?.toLowerCase().includes('comment')) {
+                                      iconSrc = '/assets/comment.svg';
+                                    } else if (notification.type === 'application_received' ||
+                                              notification.message?.toLowerCase().includes('applied')) {
+                                      iconSrc = '/assets/applied-user.svg';
+                                    } else if (notification.type === 'gig_posted' ||
+                                              notification.message?.toLowerCase().includes('gig')) {
+                                      iconSrc = '/assets/briefcase.svg';
+                                    }
+                                    
+                                    return (
+                                      <img
+                                        src={iconSrc}
+                                        alt="Notification Icon"
+                                        width={24}
+                                        height={24}
+                                      />
+                                    );
+                                  })()}
+                                  <span className={styles.notificationMessage}>
+                                    {notification.message}
                                   </span>
                                 </div>
+                                <span className={styles.notificationTimeRight}>
+                                  {formatNotificationTime(
+                                    notification.createdAt
+                                  )}
+                                </span>
                               </button>
                             </li>
                             {idx < notifications.length - 1 && (
