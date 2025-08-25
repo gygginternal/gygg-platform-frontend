@@ -1,0 +1,187 @@
+/* Lazy Gig Card Styles */
+.lazy-gig-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background: white;
+  position: relative;
+}
+
+.lazy-gig-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.gig-card-image-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.gig-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.lazy-gig-card:hover .gig-card-image {
+  transform: scale(1.05);
+}
+
+.gig-card-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  color: #666;
+}
+
+.placeholder-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.7;
+}
+
+.placeholder-text {
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+.gig-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: white;
+  padding: 1.5rem 1rem 1rem;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.lazy-gig-card:hover .gig-card-overlay {
+  transform: translateY(0);
+}
+
+.gig-card-content {
+  position: relative;
+  z-index: 2;
+}
+
+.gig-card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.3;
+}
+
+.gig-card-description {
+  font-size: 0.875rem;
+  margin: 0 0 1rem 0;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+.gig-card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.gig-card-price {
+  font-weight: 600;
+  color: #4ade80;
+}
+
+.gig-card-location {
+  opacity: 0.8;
+}
+
+.gig-card-footer {
+  padding: 1rem;
+}
+
+.gig-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.gig-card-tag {
+  background: #f1f5f9;
+  color: #475569;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.gig-card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.gig-card-action-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.gig-card-action-btn:hover {
+  background: #2563eb;
+}
+
+/* Loading animation for placeholder */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .gig-card-image-container {
+    height: 160px;
+  }
+  
+  .gig-card-overlay {
+    position: static;
+    transform: none;
+    background: rgba(0, 0, 0, 0.05);
+    color: #333;
+    padding: 1rem;
+  }
+  
+  .gig-card-title {
+    color: #333;
+  }
+  
+  .gig-card-description {
+    color: #666;
+  }
+  
+  .gig-card-meta {
+    color: #333;
+  }
+  
+  .gig-card-location {
+    opacity: 0.7;
+  }
+}

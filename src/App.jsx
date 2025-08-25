@@ -14,40 +14,136 @@ import ThemeProvider from './styles/ThemeProvider.jsx';
 import './styles/global.css';
 import { SocketProvider } from './contexts/SocketContext';
 import Navigation from './components/Navigation';
+import { createLazyRoute } from './components/Suspense/LazyComponentLoader';
+import { RoutePreloader } from './components/RoutePreloader';
+import { LazyLoadingMonitor } from './components/Performance';
 
-// Pages
+// Critical pages - loaded immediately (above the fold)
 import HomePage from './pages/HomePage/HomePage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import JoinPage from './pages/JoinPage/JoinPage';
-import SignupPage from './pages/SignupPage/SignupPage';
-import VerifyEmailPromptPage from './pages/VerifyEmailPromptPage/VerifyEmailPromptPage';
-import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage';
-import ResetPasswordPage from './pages/ResetPasswordPage/ResetPasswordPage';
-import TaskerOnboardingPage from './pages/OnboardingPages/TaskerOnboardingPage';
-import ProviderOnboardingPage from './pages/OnboardingPages/ProviderOnboardingPage';
-import GigCreateOptionsPage from './pages/GigCreateOptionsPage/GigCreateOptionsPage';
-import GigsPage from './pages/GigsPage/GigsPage';
-import GigCreatePage from './pages/GigCreatePage/GigCreatePage';
-import GigDetailPage from './pages/GigDetailPage/GigDetailPage';
-import MatchedGigsPage from './pages/MatchedGigsPage/MatchedGigsPage';
-import TaskerProfilePage from './pages/TaskerProfilePage/TaskerProfilePage';
-import SettingsPage from './pages/SettingsPage/SettingsPage';
-import ChatPage from './pages/ChatPage/ChatPage';
-import SocialFeedLayoutPage from './pages/SocialFeedLayoutPage/SocialFeedLayoutPage';
-import PostCreatePage from './pages/PostCreatePage/PostCreatePage';
-import StripeReturnPage from './pages/StripeReturnPage/StripeReturnPage';
-import StripeRefreshPage from './pages/StripeRefreshPage/StripeRefreshPage';
-import TermsOfUsePage from './pages/Legalpages/TermsOfUsePage';
-import PrivacyPolicyPage from './pages/Legalpages/PrivacyPolicyPage';
-import UserProfilePage from './pages/UserProfilePage/UserProfilePage';
-import GigHelperPage from './pages/GigHelperPage/GigHelperPage';
-import GigsAppliedPage from './pages/GigsAppliedPage/GigsAppliedPage';
-import PostedGigsPage from './pages/PostedGigsPage/PostedGigsPage';
-import ChoosePage from './pages/ChoosePage/ChoosePage';
 
-// Shared
+// Shared components - loaded immediately
 import Header from './components/Shared/Header';
-import ContractsPage from './pages/ContractsPage/ContractsPage';
+
+// Lazy-loaded pages - loaded on demand
+const SignupPage = createLazyRoute(() => import('./pages/SignupPage/SignupPage'), {
+  loadingText: 'Loading signup page...'
+});
+
+const VerifyEmailPromptPage = createLazyRoute(() => import('./pages/VerifyEmailPromptPage/VerifyEmailPromptPage'), {
+  loadingText: 'Loading verification page...'
+});
+
+const ForgotPasswordPage = createLazyRoute(() => import('./pages/ForgotPasswordPage/ForgotPasswordPage'), {
+  loadingText: 'Loading password reset...'
+});
+
+const ResetPasswordPage = createLazyRoute(() => import('./pages/ResetPasswordPage/ResetPasswordPage'), {
+  loadingText: 'Loading password reset...'
+});
+
+// Onboarding pages - high priority for authenticated users
+const TaskerOnboardingPage = createLazyRoute(() => import('./pages/OnboardingPages/TaskerOnboardingPage'), {
+  loadingText: 'Loading onboarding...',
+  preload: true // Preload for authenticated users
+});
+
+const ProviderOnboardingPage = createLazyRoute(() => import('./pages/OnboardingPages/ProviderOnboardingPage'), {
+  loadingText: 'Loading onboarding...',
+  preload: true // Preload for authenticated users
+});
+
+// Core app pages - medium priority
+const GigsPage = createLazyRoute(() => import('./pages/GigsPage/GigsPage'), {
+  loadingText: 'Loading gigs...',
+  preload: true
+});
+
+const GigCreatePage = createLazyRoute(() => import('./pages/GigCreatePage/GigCreatePage'), {
+  loadingText: 'Loading gig creator...'
+});
+
+const GigDetailPage = createLazyRoute(() => import('./pages/GigDetailPage/GigDetailPage'), {
+  loadingText: 'Loading gig details...'
+});
+
+const MatchedGigsPage = createLazyRoute(() => import('./pages/MatchedGigsPage/MatchedGigsPage'), {
+  loadingText: 'Loading matched gigs...'
+});
+
+const TaskerProfilePage = createLazyRoute(() => import('./pages/TaskerProfilePage/TaskerProfilePage'), {
+  loadingText: 'Loading profile...'
+});
+
+const SettingsPage = createLazyRoute(() => import('./pages/SettingsPage/SettingsPage'), {
+  loadingText: 'Loading settings...'
+});
+
+const ChatPage = createLazyRoute(() => import('./pages/ChatPage/ChatPage'), {
+  loadingText: 'Loading messages...'
+});
+
+const SocialFeedLayoutPage = createLazyRoute(() => import('./pages/SocialFeedLayoutPage/SocialFeedLayoutPage'), {
+  loadingText: 'Loading feed...',
+  preload: true // High priority for main feed
+});
+
+const PostCreatePage = createLazyRoute(() => import('./pages/PostCreatePage/PostCreatePage'), {
+  loadingText: 'Loading post creator...'
+});
+
+const ContractsPage = createLazyRoute(() => import('./pages/ContractsPage/ContractsPage'), {
+  loadingText: 'Loading contracts...'
+});
+
+// Secondary pages - lower priority
+const GigCreateOptionsPage = createLazyRoute(() => import('./pages/GigCreateOptionsPage/GigCreateOptionsPage'), {
+  loadingText: 'Loading options...'
+});
+
+const UserProfilePage = createLazyRoute(() => import('./pages/UserProfilePage/UserProfilePage'), {
+  loadingText: 'Loading user profile...'
+});
+
+const GigHelperPage = createLazyRoute(() => import('./pages/GigHelperPage/GigHelperPage'), {
+  loadingText: 'Loading gig helper...'
+});
+
+const GigsAppliedPage = createLazyRoute(() => import('./pages/GigsAppliedPage/GigsAppliedPage'), {
+  loadingText: 'Loading applied gigs...'
+});
+
+const PostedGigsPage = createLazyRoute(() => import('./pages/PostedGigsPage/PostedGigsPage'), {
+  loadingText: 'Loading posted gigs...'
+});
+
+const ChoosePage = createLazyRoute(() => import('./pages/ChoosePage/ChoosePage'), {
+  loadingText: 'Loading options...'
+});
+
+// Stripe pages - loaded on demand
+const StripeReturnPage = createLazyRoute(() => import('./pages/StripeReturnPage/StripeReturnPage'), {
+  loadingText: 'Processing payment...'
+});
+
+const StripeRefreshPage = createLazyRoute(() => import('./pages/StripeRefreshPage/StripeRefreshPage'), {
+  loadingText: 'Refreshing payment...'
+});
+
+// Legal pages - lowest priority
+const TermsOfUsePage = createLazyRoute(() => import('./pages/Legalpages/TermsOfUsePage'), {
+  loadingText: 'Loading terms...'
+});
+
+const PrivacyPolicyPage = createLazyRoute(() => import('./pages/Legalpages/PrivacyPolicyPage'), {
+  loadingText: 'Loading privacy policy...'
+});
+
+// Billing page - medium priority for authenticated users
+const BillingAndPaymentPage = createLazyRoute(() => import('./pages/BillingAndPayment/BillingAndPayment'), {
+  loadingText: 'Loading billing...'
+});
 
 // -------------------- ProtectedRoute HOC --------------------
 function ProtectedRoute({ children }) {
@@ -131,6 +227,8 @@ function AppWithNavigation() {
   return (
     <>
       {showNavigation && <Navigation />}
+      <RoutePreloader />
+      <LazyLoadingMonitor />
       <QueryClientProvider client={queryClient}>
         <AppLayout>
           <Routes>
@@ -316,6 +414,14 @@ function AppWithNavigation() {
               element={
                 <ProtectedRoute>
                   <PostedGigsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/billing"
+              element={
+                <ProtectedRoute>
+                  <BillingAndPaymentPage />
                 </ProtectedRoute>
               }
             />
