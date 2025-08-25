@@ -3,7 +3,7 @@ import styles from './TaskerList.module.css';
 import apiClient from '../api/axiosConfig';
 import GigHelperCard from './GigHelperCard';
 
-const TaskerListSafe = () => {
+const TaskerListSafe = ({ searchTerm = '' }) => {
   const [taskers, setTaskers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,19 +15,22 @@ const TaskerListSafe = () => {
         setLoading(true);
         setError(null);
         
-        console.log('Fetching taskers...');
+        console.log('Fetching taskers with search term:', searchTerm);
         
         // Simple approach - try one endpoint at a time
         let response;
         
         try {
           console.log('Trying /users/top-match-taskers...');
-          response = await apiClient.get('/users/top-match-taskers');
+          const params = searchTerm ? { search: searchTerm } : {};
+          response = await apiClient.get('/users/top-match-taskers', { params });
           console.log('Success with top-match-taskers:', response.data);
         } catch (topMatchError) {
           console.log('top-match-taskers failed, trying match-taskers...');
           try {
-            response = await apiClient.get('/users/match-taskers?limit=20');
+            const params = { limit: 20 };
+            if (searchTerm) params.search = searchTerm;
+            response = await apiClient.get('/users/match-taskers', { params });
             console.log('Success with match-taskers:', response.data);
           } catch (matchError) {
             console.error('Both endpoints failed:', matchError);
@@ -81,7 +84,7 @@ const TaskerListSafe = () => {
     };
 
     fetchTaskers();
-  }, [refreshKey]);
+  }, [refreshKey, searchTerm]);
 
   const handleRetry = () => {
     setRefreshKey(prev => prev + 1);
@@ -110,10 +113,13 @@ const TaskerListSafe = () => {
     return (
       <div className={styles.endOfResults}>
         <h3 style={{ margin: '0 0 1rem 0', fontSize: '1.25rem', fontWeight: '600' }}>
-          No Gig Helpers Available
+          {searchTerm ? 'No Search Results Found' : 'No Gig Helpers Available'}
         </h3>
         <p style={{ margin: '0', fontSize: '1rem', opacity: '0.8' }}>
-          There are currently no helpers available. Check back later or try refreshing the page.
+          {searchTerm 
+            ? `No helpers found matching "${searchTerm}". Try different keywords or browse all helpers.`
+            : 'There are currently no helpers available. Check back later or try refreshing the page.'
+          }
         </p>
       </div>
     );
