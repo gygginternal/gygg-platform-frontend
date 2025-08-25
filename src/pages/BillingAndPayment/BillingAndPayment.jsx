@@ -246,8 +246,9 @@ export default function BillingAndPayment() {
   const isProvider = user?.role?.includes('provider');
 
   // Set payer/payee filter based on view and role
-  const payer = view === 'spent' && isProvider ? user?._id : undefined;
-  const payee = view === 'earned' && isTasker ? user?._id : undefined;
+  // For users with both roles, filter based on current view
+  const payer = view === 'spent' ? user?._id : undefined;
+  const payee = view === 'earned' ? user?._id : undefined;
 
   // Move fetchPayments outside useEffect
   const fetchPayments = async () => {
@@ -269,7 +270,8 @@ export default function BillingAndPayment() {
       const res = await apiClient.get('/payments', { params });
       setTransactions(res.data.data.payments || []);
     } catch (err) {
-      setError('Failed to fetch payments.');
+      console.error('Error fetching payments:', err);
+      setError(err.response?.data?.message || 'Failed to fetch payments.');
       setTransactions([]);
     } finally {
       setLoading(false);
@@ -277,9 +279,11 @@ export default function BillingAndPayment() {
   };
 
   useEffect(() => {
-    fetchPayments();
+    if (user?._id) {
+      fetchPayments();
+    }
     // eslint-disable-next-line
-  }, [status, type, minAmount, maxAmount, search]);
+  }, [status, type, minAmount, maxAmount, search, view, user?._id]);
 
   // Calculate totals
   const total = _transactions.reduce((sum, p) => sum + (p.amount || 0), 0);
