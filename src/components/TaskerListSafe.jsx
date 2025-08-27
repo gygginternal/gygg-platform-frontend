@@ -15,26 +15,27 @@ const TaskerListSafe = ({ searchTerm = '' }) => {
         setLoading(true);
         setError(null);
         
-        console.log('Fetching taskers with search term:', searchTerm);
-        
-        // Simple approach - try one endpoint at a time
+        // Try the new public search endpoint first, then fallback to provider-specific endpoints
         let response;
         
         try {
-          console.log('Trying /users/top-match-taskers...');
-          const params = searchTerm ? { search: searchTerm } : {};
-          response = await apiClient.get('/users/top-match-taskers', { params });
-          console.log('Success with top-match-taskers:', response.data);
-        } catch (topMatchError) {
-          console.log('top-match-taskers failed, trying match-taskers...');
+          const params = { limit: 20 };
+          if (searchTerm) params.search = searchTerm;
+          response = await apiClient.get('/users/search-taskers', { params });
+        } catch (searchError) {
+          console.log('search-taskers failed, trying fallback endpoints...');
           try {
-            const params = { limit: 20 };
-            if (searchTerm) params.search = searchTerm;
-            response = await apiClient.get('/users/match-taskers', { params });
-            console.log('Success with match-taskers:', response.data);
-          } catch (matchError) {
-            console.error('Both endpoints failed:', matchError);
-            throw new Error('Unable to fetch taskers. Please try again later.');
+            const params = searchTerm ? { search: searchTerm } : {};
+            response = await apiClient.get('/users/top-match-taskers', { params });
+          } catch (topMatchError) {
+            try {
+              const params = { limit: 20 };
+              if (searchTerm) params.search = searchTerm;
+              response = await apiClient.get('/users/match-taskers', { params });
+            } catch (matchError) {
+              console.error('All endpoints failed:', matchError);
+              throw new Error('Unable to fetch taskers. Please try again later.');
+            }
           }
         }
         
