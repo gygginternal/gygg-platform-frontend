@@ -320,10 +320,17 @@ function Post({ post, onPostUpdate }) {
       if (onPostUpdate) {
         onPostUpdate({ ...post, deleted: true });
       }
+      
+      // Close the modal after successful deletion
+      setShowDeletePostModal(false);
+      
     } catch (err) {
       setInteractionError(
         err.response?.data?.message || 'Could not delete post.'
       );
+      
+      // Close the modal even on error to prevent it from staying open
+      setShowDeletePostModal(false);
     }
     setShowPostMenu(false);
   };

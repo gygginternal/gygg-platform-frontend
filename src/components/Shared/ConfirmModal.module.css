@@ -19,8 +19,8 @@
 /* Modal */
 .modal {
   background-color: #ffffff;
-  border-radius: 0.75rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
   max-width: 400px;
   width: 100%;
   max-height: 90vh;
@@ -31,20 +31,26 @@
 
 /* Header */
 .header {
-  padding: 1.5rem 1.5rem 0 1.5rem;
+  background: #16a2b8;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px 12px 0 0;
 }
 
 .title {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #111827;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
   margin: 0;
   line-height: 1.4;
 }
 
 /* Content */
 .content {
-  padding: 1rem 1.5rem 1.5rem 1.5rem;
+  padding: 1.25rem 1.5625rem 1.5rem 1.5625rem;
 }
 
 .message {
@@ -57,28 +63,31 @@
 /* Actions */
 .actions {
   display: flex;
-  gap: 0.75rem;
-  padding: 0 1.5rem 1.5rem 1.5rem;
+  gap: 0.625rem;
+  padding: 0 1.5625rem 1.5rem 1.5625rem;
   justify-content: flex-end;
+  background: #f8f9fa;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 
 /* Buttons */
 .cancelButton,
 .confirmButton {
-  padding: 0.625rem 1.25rem;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  border: 1px solid transparent;
-  min-width: 80px;
+  border: none;
+  min-width: 100px;
 }
 
 .cancelButton {
-  background-color: #f9fafb;
-  color: #374151;
-  border-color: #d1d5db;
+  background: #fff;
+  color: #222;
+  border: 1px solid #ccc;
 }
 
 .cancelButton:hover {
@@ -93,44 +102,44 @@
 
 /* Confirm Button Variants */
 .confirmButton.default {
-  background-color: #3b82f6;
-  color: #ffffff;
+  background: #222e3a;
+  color: #fff;
 }
 
 .confirmButton.default:hover {
-  background-color: #2563eb;
+  background-color: #1a252f;
 }
 
 .confirmButton.default:focus {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid #222e3a;
   outline-offset: 2px;
 }
 
 .confirmButton.danger {
-  background-color: #ef4444;
-  color: #ffffff;
+  background: #222e3a;
+  color: #fff;
 }
 
 .confirmButton.danger:hover {
-  background-color: #dc2626;
+  background-color: #1a252f;
 }
 
 .confirmButton.danger:focus {
-  outline: 2px solid #ef4444;
+  outline: 2px solid #222e3a;
   outline-offset: 2px;
 }
 
 .confirmButton.warning {
-  background-color: #f59e0b;
-  color: #ffffff;
+  background: #222e3a;
+  color: #fff;
 }
 
 .confirmButton.warning:hover {
-  background-color: #d97706;
+  background-color: #1a252f;
 }
 
 .confirmButton.warning:focus {
-  outline: 2px solid #f59e0b;
+  outline: 2px solid #222e3a;
   outline-offset: 2px;
 }
 
@@ -163,19 +172,20 @@
 
   .modal {
     max-width: 100%;
-    border-radius: 0.5rem;
+    border-radius: 10px;
   }
 
   .header {
-    padding: 1.25rem 1.25rem 0 1.25rem;
+    padding: 0.75rem 1rem;
+    border-radius: 10px 10px 0 0;
   }
 
   .title {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 
   .content {
-    padding: 0.75rem 1.25rem 1.25rem 1.25rem;
+    padding: 1rem 1.25rem 1.25rem 1.25rem;
   }
 
   .message {
@@ -185,13 +195,15 @@
   .actions {
     padding: 0 1.25rem 1.25rem 1.25rem;
     gap: 0.5rem;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
 
   .cancelButton,
   .confirmButton {
     padding: 0.5rem 1rem;
-    font-size: 0.8125rem;
-    min-width: 70px;
+    font-size: 0.875rem;
+    min-width: 80px;
   }
 }
 
