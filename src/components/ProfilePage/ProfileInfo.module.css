@@ -80,6 +80,14 @@
   gap: 1rem;
 }
 
+.profileActions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
 .profileMainInfo {
   flex: 1;
 }
@@ -125,24 +133,25 @@
 
 .messageButton {
   margin-top: 0;
-  padding: 0.75rem 1.5rem;
-  background-color: #00aaba;
+  padding: 0.5rem 1rem;
+  background-color: #6b7280;
   color: #fff;
   border: none;
-  border-radius: 8px;
-  font-size: 0.9375rem;
-  font-weight: 600;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 170, 186, 0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   flex-shrink: 0;
   height: fit-content;
+  white-space: nowrap;
 }
 
 .messageButton:hover {
-  background-color: #008a98;
+  background-color: #4b5563;
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 170, 186, 0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .messageButton:active {
@@ -711,6 +720,11 @@
   .profileMainInfo {
     width: 100%;
     margin-bottom: 0.5rem;
+  }
+  
+  .profileActions {
+    align-items: center;
+    width: 100%;
   }
   
   .skillsContainer {

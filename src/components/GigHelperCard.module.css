@@ -40,8 +40,15 @@
 
 .headerRow {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+}
+
+.profileActions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
 }
 
 .name {
@@ -52,20 +59,41 @@
 }
 
 .viewProfileLink {
-  color: #3d4d55;
+  color: #ffffff;
   font-size: 0.875rem;
   text-decoration: none;
   font-weight: 500;
-  margin-left: 1rem;
   padding: 0.25rem 0.75rem;
   border-radius: 6px;
   transition: all 0.2s ease;
-  background: #eff6ff;
+  background-color: #3D4D55;
+  white-space: nowrap;
 }
 
 .viewProfileLink:hover {
-  background: #dbeafe;
-  color: #1d4ed8;
+  background-color: #1a252a;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.messageButton {
+  background: #f9fafb;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.messageButton:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  transform: translateY(-1px);
 }
 
 .metaRow {
@@ -153,8 +181,18 @@
     width: 56px;
     height: 56px;
   }
-  .actions {
+  .headerRow {
     flex-direction: column;
+    align-items: flex-start;
     gap: 0.5rem;
+  }
+  .profileActions {
+    align-items: flex-start;
+    width: 100%;
+  }
+  .viewProfileLink,
+  .messageButton {
+    font-size: 0.8125rem;
+    padding: 0.375rem 0.75rem;
   }
 }

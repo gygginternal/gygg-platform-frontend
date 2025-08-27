@@ -22,12 +22,17 @@ const GigHelperCard = ({
         <div className={styles.profileInfo}>
           <div className={styles.headerRow}>
             <span className={styles.name}>{name}</span>
-            <Link
-              to={`/user-profile/${userId}`}
-              className={styles.viewProfileLink}
-            >
-              View Profile
-            </Link>
+            <div className={styles.profileActions}>
+              <Link
+                to={`/user-profile/${userId}`}
+                className={styles.viewProfileLink}
+              >
+                View Profile
+              </Link>
+              <button className={styles.messageButton} onClick={handleMessage}>
+                Message
+              </button>
+            </div>
           </div>
           <div className={styles.metaRow}>
             <span className={styles.rate}>{rate}</span>
@@ -38,11 +43,6 @@ const GigHelperCard = ({
         </div>
       </div>
       <div className={styles.bio}>{bio}</div>
-      <div className={styles.actions}>
-        <button className={styles.secondaryButton} onClick={handleMessage}>
-          Message
-        </button>
-      </div>
     </div>
   );
 };

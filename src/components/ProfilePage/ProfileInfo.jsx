@@ -242,9 +242,7 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate, showMessage
     : [];
 
   // Enhanced location extraction similar to TaskerListSafe
-  let displayLocation = 'Location not set';
-  
-
+  let displayLocation = 'Location not specified';
   
   if (userToDisplay.address && Object.values(userToDisplay.address).some(val => val)) {
     const parts = [];
@@ -259,7 +257,7 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate, showMessage
     // Fallback to location field if address is not available
     displayLocation = typeof userToDisplay.location === 'string' 
       ? userToDisplay.location 
-      : userToDisplay.location.city || userToDisplay.location.state || 'Location not set';
+      : userToDisplay.location.city || userToDisplay.location.state || 'Location not specified';
   } else if (userToDisplay.city || userToDisplay.state) {
     // Fallback to direct city/state fields
     const parts = [];
@@ -307,7 +305,7 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate, showMessage
             <p className={styles.profileServices}>
               <strong>Hobbies:</strong> {displayHobbiesString}
             </p>
-            {displayLocation && displayLocation !== 'Location not set' && (
+            {displayLocation && displayLocation !== 'Location not specified' && (
               <div className={styles.profileLocation}>
                 <img
                   src="/assets/location.svg"
@@ -318,15 +316,17 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate, showMessage
               </div>
             )}
           </div>
-          {showMessageButton && (
-            <button
-              onClick={onMessageClick}
-              className={styles.messageButton}
-              aria-label={`Send message to ${displayName}`}
-            >
-              Message Provider
-            </button>
-          )}
+          <div className={styles.profileActions}>
+            {showMessageButton && (
+              <button
+                onClick={onMessageClick}
+                className={styles.messageButton}
+                aria-label={`Send message to ${displayName}`}
+              >
+                Message
+              </button>
+            )}
+          </div>
         </div>
 
         {userToDisplay.role?.includes('tasker') && (

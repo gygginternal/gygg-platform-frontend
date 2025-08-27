@@ -71,7 +71,7 @@ function RecentHires({ providerId, isOwnProfile }) {
           </p>
           {isOwnProfile && (
             <Link to="/gigs/create" className={styles.createActionButton}>
-              Post Your First Gig
+              Hire someone for the Gig
             </Link>
           )}
         </div>
