@@ -73,7 +73,7 @@ const RecommendedAppliances = () => {
           ))
         ) : (
           <p className={styles.errorMessage}>
-            No recommended appliances found right now.
+            No recommended applicants found right now.
           </p>
         )}
       </div>

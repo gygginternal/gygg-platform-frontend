@@ -247,9 +247,9 @@ function Post({ post, onPostUpdate }) {
     setInteractionError('');
 
     try {
-      await apiClient.delete(`/posts/${postId}/comments/${commentIdToDelete}`);
+      await apiClient.delete(`/posts/${postId}/comments/${commentToDelete}`);
       const updatedComments = comments.filter(
-        comment => comment._id !== commentIdToDelete
+        comment => comment._id !== commentToDelete
       );
       setComments(updatedComments);
       setCommentCount(updatedComments.length);
@@ -261,7 +261,12 @@ function Post({ post, onPostUpdate }) {
           commentCount: updatedComments.length,
         });
       }
-      logger.info(`Comment ${commentIdToDelete} deleted from post ${postId}`);
+      
+      // Close the modal after successful deletion
+      setShowDeleteCommentModal(false);
+      setCommentToDelete(null);
+      
+      logger.info(`Comment ${commentToDelete} deleted from post ${postId}`);
     } catch (err) {
       setInteractionError(
         err.response?.data?.message || 'Could not delete comment.'
@@ -270,6 +275,10 @@ function Post({ post, onPostUpdate }) {
         'Error deleting comment:',
         err.response?.data || err.message
       );
+      
+      // Close the modal even on error to prevent it from staying open
+      setShowDeleteCommentModal(false);
+      setCommentToDelete(null);
     }
   };
 
