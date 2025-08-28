@@ -30,6 +30,7 @@ const NSFW_WORDS = [
 ];
 
 // Off-platform transaction prevention filters
+// Off-platform transaction prevention filters
 const OFF_PLATFORM_FILTERS = {
   // 1. Direct Contact Information
   emailDomains: [
@@ -39,7 +40,8 @@ const OFF_PLATFORM_FILTERS = {
   
   emailPhrases: [
     'email me', 'send me your email', 'drop me your email',
-    'contact me at', 'reach me at', 'my email is', 'email address'
+    'contact me at', 'reach me at', 'my email is', 'email address',
+    'etransfer to my email', 'send to my email' // Canada-specific Interac phrasing
   ],
   
   phonePhrases: [
@@ -51,18 +53,26 @@ const OFF_PLATFORM_FILTERS = {
   paymentServices: [
     'paypal', 'venmo', 'cashapp', 'zelle', 'wise', 'revolut', 
     'western union', 'moneygram', 'pay pal', 'ven moo', 'cash app',
-    'zell', 'w1se', 'rev0lut'
+    'zell', 'w1se', 'rev0lut',
+    'etransfer', 'e-transfer', 'interac', 'interac transfer', 'interac e-transfer',
+    'interac etransfer', 'interac email transfer', 'etransfer canada', 'transferwise'
   ],
   
   bankingTerms: [
     'bank transfer', 'wire transfer', 'routing number', 'account number',
-    'iban', 'swift', 'bank account', 'checking account', 'savings account'
+    'iban', 'swift', 'bank account', 'checking account', 'savings account',
+    // Canadian banks
+    'td', 'rbc', 'scotiabank', 'cibc', 'bmo', 'desjardins', 'national bank',
+    'credit union', 'simplii', 'tangerine'
   ],
   
   cryptoTerms: [
-    'crypto', 'bitcoin', 'btc', 'ethereum', 'eth', 'usdt', 'tether',
+    'crypto', 'cryptocurrency', 'digital currency',
+    'bitcoin', 'btc', 'ethereum', 'eth', 'usdt', 'tether',
     'bnb', 'doge', 'wallet address', 'seed phrase', 'metamask',
-    'trustwallet', 'coinbase', 'cryptocurrency', 'digital currency'
+    'trustwallet', 'coinbase', 
+    // More coins used in Canada
+    'usdc', 'ltc', 'litecoin', 'sol', 'solana', 'xrp', 'ripple'
   ],
   
   // 3. Social Media / Messaging Apps
@@ -84,7 +94,10 @@ const OFF_PLATFORM_FILTERS = {
     "let's connect elsewhere", "future deals outside this app", "no need to use this site",
     "i'll give you my details", "send money another way", "better deal off here",
     "cut out the middleman", "continue off the app", "work with me directly",
-    "don't go through the platform", "deal outside", "pay outside", "contact outside"
+    "don't go through the platform", "deal outside", "pay outside", "contact outside",
+    // Canada-specific
+    "send an etransfer", "pay by interac", "accepting e-transfer",
+    "direct deposit", "deposit to account", "cash only", "meet up and pay"
   ],
   
   // 5. Workarounds & Obfuscations
@@ -94,7 +107,9 @@ const OFF_PLATFORM_FILTERS = {
     'john_doe@gmail_com', 'john at gmail dot com', '(123) 456-7890',
     '{email}', '[number]', 'email at domain', 'phone at number',
     'one two three four five six seven eight nine zero', // Spelled out phone numbers
-    'whats app', 'what\'s app', 'pay pal', 'cash app', 'ven moo' // Spaced app names
+    'whats app', 'what\'s app', 'pay pal', 'cash app', 'ven moo', // Spaced app names
+    // Canada-specific workarounds
+    'e t r a n s f e r', 'etr@nsfer', 'inter@c', 'e tr@n$fer'
   ]
 };
 
