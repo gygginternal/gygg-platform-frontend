@@ -29,6 +29,101 @@ const NSFW_WORDS = [
   'f4ck', 'sh1t', 'b1tch', 'd1ck', 'p*ssy',
 ];
 
+// Off-platform transaction prevention filters
+const OFF_PLATFORM_FILTERS = {
+  // 1. Direct Contact Information
+  emailDomains: [
+    'gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 
+    'protonmail.com', 'icloud.com', 'aol.com'
+  ],
+  
+  emailPhrases: [
+    'email me', 'send me your email', 'drop me your email',
+    'contact me at', 'reach me at', 'my email is', 'email address'
+  ],
+  
+  phonePhrases: [
+    'call me', 'text me', 'sms me', 'reach me on phone',
+    'phone number', 'contact number', 'call me at', 'text me at'
+  ],
+  
+  // 2. Payment-Related Keywords
+  paymentServices: [
+    'paypal', 'venmo', 'cashapp', 'zelle', 'wise', 'revolut', 
+    'western union', 'moneygram', 'pay pal', 'ven moo', 'cash app',
+    'zell', 'w1se', 'rev0lut'
+  ],
+  
+  bankingTerms: [
+    'bank transfer', 'wire transfer', 'routing number', 'account number',
+    'iban', 'swift', 'bank account', 'checking account', 'savings account'
+  ],
+  
+  cryptoTerms: [
+    'crypto', 'bitcoin', 'btc', 'ethereum', 'eth', 'usdt', 'tether',
+    'bnb', 'doge', 'wallet address', 'seed phrase', 'metamask',
+    'trustwallet', 'coinbase', 'cryptocurrency', 'digital currency'
+  ],
+  
+  // 3. Social Media / Messaging Apps
+  socialApps: [
+    'whatsapp', 'telegram', 'signal', 'discord', 'instagram', 'facebook',
+    'snapchat', 'linkedin', 'twitter', 'x', 'wechat', 'line', 'kakaotalk',
+    'messenger', 'ig', 'insta', 'fb', 'sc', 'wa', 'li', 'x app', 't.me'
+  ],
+  
+  socialObfuscations: [
+    'whats@pp', 'wh@tsapp', 'tel3gram', 'd1scord', 'sig nal', 'lnkd',
+    'f@cebook', '1nstagram', 'tw1tter', 'sn@pchat'
+  ],
+  
+  // 4. Generic Phrases Indicating Off-Platform Move
+  offPlatformPhrases: [
+    "let's take this offline", "pay me directly", "cheaper outside platform",
+    "save on fees", "skip the fees", "don't pay here", "contact me outside",
+    "let's connect elsewhere", "future deals outside this app", "no need to use this site",
+    "i'll give you my details", "send money another way", "better deal off here",
+    "cut out the middleman", "continue off the app", "work with me directly",
+    "don't go through the platform", "deal outside", "pay outside", "contact outside"
+  ],
+  
+  // 5. Workarounds & Obfuscations
+  workarounds: [
+    'dot', 'd0t', 'at', '(at)', '[at]', 'underscore', 'slash',
+    'g m a i l', 'y a h o o', 'w h a t s a p p', 'one two three',
+    'john_doe@gmail_com', 'john at gmail dot com', '(123) 456-7890',
+    '{email}', '[number]', 'email at domain', 'phone at number',
+    'one two three four five six seven eight nine zero', // Spelled out phone numbers
+    'whats app', 'what\'s app', 'pay pal', 'cash app', 'ven moo' // Spaced app names
+  ]
+};
+
+// Regex patterns for detecting off-platform communication
+const OFF_PLATFORM_REGEX = {
+  // Phone numbers: +?d{7,15}
+  phoneNumbers: /\+?\d{7,15}/g,
+  
+  // Emails: [A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}
+  emails: /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,
+  
+  // URLs: (http(s)?://|www\.)\S+
+  urls: /(http(s)?:\/\/|www\.)\S+/gi,
+  
+  // Crypto wallets
+  ethWallet: /0x[a-fA-F0-9]{40}/g,
+  btcWallet: /(?:bc1|[13])[a-zA-HJ-NP-Z0-9]{25,39}/g,
+  
+  // Social media handles: @[A-Za-z0-9_]{2,20}
+  socialHandles: /@[A-Za-z0-9_]{2,20}/g,
+  
+  // Common obfuscation patterns
+  spacedLetters: /\b[a-z]\s+[a-z]\s+[a-z]\s+[a-z]\s+[a-z]\b/gi,
+  dotAtPattern: /\b[a-z]+\s+(?:dot|d0t)\s+[a-z]+\s+(?:at|@)\s+[a-z]+\b/gi,
+  bracketPattern: /\([^)]*@[^)]*\)/gi,
+  spelledOutNumbers: /\b(?:one|two|three|four|five|six|seven|eight|nine|zero)\s+(?:one|two|three|four|five|six|seven|eight|nine|zero)\s+(?:one|two|three|four|five|six|seven|eight|nine|zero)\s+(?:one|two|three|four|five|six|seven|eight|nine|zero)\s+(?:one|two|three|four|five|six|seven|eight|nine|zero)\s+(?:one|two|three|four|five|six|seven|eight|nine|zero)\s+(?:one|two|three|four|five|six|seven|eight|nine|zero)\s+(?:one|two|three|four|five|six|seven|eight|nine|zero)\s+(?:one|two|three|four|five|six|seven|eight|nine|zero)\s+(?:one|two|three|four|five|six|seven|eight|nine|zero)\b/gi,
+  spacedAppNames: /\b(?:whats?\s+app|pay\s+pal|cash\s+app|ven\s+moo|tele\s+gram|dis\s+cord)\b/gi
+};
+
 // Suspicious patterns that might indicate NSFW content
 const SUSPICIOUS_PATTERNS = [
   /\b(18\+|21\+|adult only|adults only)\b/i,
@@ -50,6 +145,203 @@ const CONTEXT_SENSITIVE_WORDS = [
 ];
 
 /**
+ * Check for off-platform transaction attempts
+ * @param {string} text - The text to check
+ * @returns {object} - Result object with violations and categories
+ */
+const checkOffPlatformAttempts = (text) => {
+  if (!text || typeof text !== 'string') {
+    return { violations: [], categories: [] };
+  }
+
+  const lowerText = text.toLowerCase();
+  const violations = [];
+  const categories = [];
+
+  // Check email domains
+  OFF_PLATFORM_FILTERS.emailDomains.forEach(domain => {
+    const regex = new RegExp(`@${domain.replace(/\./g, '\\.')}`, 'gi');
+    if (regex.test(text)) {
+      violations.push(`email_domain_${domain}`);
+      if (!categories.includes('direct_contact')) categories.push('direct_contact');
+    }
+  });
+
+  // Check email phrases
+  OFF_PLATFORM_FILTERS.emailPhrases.forEach(phrase => {
+    const regex = new RegExp(`\\b${phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+    if (regex.test(lowerText)) {
+      violations.push(`email_phrase_${phrase}`);
+      if (!categories.includes('direct_contact')) categories.push('direct_contact');
+    }
+  });
+
+  // Check phone phrases
+  OFF_PLATFORM_FILTERS.phonePhrases.forEach(phrase => {
+    const regex = new RegExp(`\\b${phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+    if (regex.test(lowerText)) {
+      violations.push(`phone_phrase_${phrase}`);
+      if (!categories.includes('direct_contact')) categories.push('direct_contact');
+    }
+  });
+
+  // Check payment services
+  OFF_PLATFORM_FILTERS.paymentServices.forEach(service => {
+    const regex = new RegExp(`\\b${service.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+    if (regex.test(lowerText)) {
+      violations.push(`payment_service_${service}`);
+      if (!categories.includes('payment')) categories.push('payment');
+    }
+  });
+
+  // Check banking terms
+  OFF_PLATFORM_FILTERS.bankingTerms.forEach(term => {
+    const regex = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+    if (regex.test(lowerText)) {
+      violations.push(`banking_term_${term}`);
+      if (!categories.includes('payment')) categories.push('payment');
+    }
+  });
+
+  // Check crypto terms
+  OFF_PLATFORM_FILTERS.cryptoTerms.forEach(term => {
+    const regex = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+    if (regex.test(lowerText)) {
+      violations.push(`crypto_term_${term}`);
+      if (!categories.includes('payment')) categories.push('payment');
+    }
+  });
+
+  // Check social media apps
+  OFF_PLATFORM_FILTERS.socialApps.forEach(app => {
+    const regex = new RegExp(`\\b${app.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+    if (regex.test(lowerText)) {
+      violations.push(`social_app_${app}`);
+      if (!categories.includes('social_media')) categories.push('social_media');
+    }
+  });
+
+  // Check social obfuscations
+  OFF_PLATFORM_FILTERS.socialObfuscations.forEach(obfuscation => {
+    const regex = new RegExp(`\\b${obfuscation.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+    if (regex.test(lowerText)) {
+      violations.push(`social_obfuscation_${obfuscation}`);
+      if (!categories.includes('social_media')) categories.push('social_media');
+    }
+  });
+
+  // Check off-platform phrases
+  OFF_PLATFORM_FILTERS.offPlatformPhrases.forEach(phrase => {
+    const regex = new RegExp(`\\b${phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+    if (regex.test(lowerText)) {
+      violations.push(`off_platform_phrase_${phrase}`);
+      if (!categories.includes('off_platform')) categories.push('off_platform');
+    }
+  });
+
+  // Check workarounds
+  OFF_PLATFORM_FILTERS.workarounds.forEach(workaround => {
+    const regex = new RegExp(`\\b${workaround.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+    if (regex.test(lowerText)) {
+      violations.push(`workaround_${workaround}`);
+      if (!categories.includes('obfuscation')) categories.push('obfuscation');
+    }
+  });
+
+  // Check regex patterns
+  const regexMatches = {};
+  
+  // Phone numbers
+  const phoneMatches = text.match(OFF_PLATFORM_REGEX.phoneNumbers);
+  if (phoneMatches) {
+    regexMatches.phoneNumbers = phoneMatches;
+    violations.push('phone_number_detected');
+    if (!categories.includes('direct_contact')) categories.push('direct_contact');
+  }
+
+  // Emails
+  const emailMatches = text.match(OFF_PLATFORM_REGEX.emails);
+  if (emailMatches) {
+    regexMatches.emails = emailMatches;
+    violations.push('email_address_detected');
+    if (!categories.includes('direct_contact')) categories.push('direct_contact');
+  }
+
+  // URLs
+  const urlMatches = text.match(OFF_PLATFORM_REGEX.urls);
+  if (urlMatches) {
+    regexMatches.urls = urlMatches;
+    violations.push('url_detected');
+    if (!categories.includes('external_links')) categories.push('external_links');
+  }
+
+  // Crypto wallets
+  const ethMatches = text.match(OFF_PLATFORM_REGEX.ethWallet);
+  if (ethMatches) {
+    regexMatches.ethWallets = ethMatches;
+    violations.push('crypto_wallet_eth');
+    if (!categories.includes('payment')) categories.push('payment');
+  }
+
+  const btcMatches = text.match(OFF_PLATFORM_REGEX.btcWallet);
+  if (btcMatches) {
+    regexMatches.btcWallets = btcMatches;
+    violations.push('crypto_wallet_btc');
+    if (!categories.includes('payment')) categories.push('payment');
+  }
+
+  // Social handles
+  const socialMatches = text.match(OFF_PLATFORM_REGEX.socialHandles);
+  if (socialMatches) {
+    regexMatches.socialHandles = socialMatches;
+    violations.push('social_handle_detected');
+    if (!categories.includes('social_media')) categories.push('social_media');
+  }
+
+  // Check additional obfuscation patterns
+  const spelledOutMatches = text.match(OFF_PLATFORM_REGEX.spelledOutNumbers);
+  if (spelledOutMatches) {
+    regexMatches.spelledOutNumbers = spelledOutMatches;
+    violations.push('spelled_out_phone_detected');
+    if (!categories.includes('direct_contact')) categories.push('direct_contact');
+  }
+
+  const spacedAppMatches = text.match(OFF_PLATFORM_REGEX.spacedAppNames);
+  if (spacedAppMatches) {
+    regexMatches.spacedAppNames = spacedAppMatches;
+    violations.push('spaced_app_name_detected');
+    if (!categories.includes('social_media')) categories.push('social_media');
+  }
+
+  return { violations, categories, regexMatches };
+};
+
+/**
+ * Get user-friendly message for off-platform violations
+ * @param {string} violation - The violation type
+ * @returns {string} - User-friendly error message
+ */
+const getOffPlatformViolationMessage = (violation) => {
+  if (violation.includes('direct_contact') || violation.includes('email') || violation.includes('phone')) {
+    return 'Sharing personal contact information is not allowed. Please keep all communication within the platform.';
+  }
+  
+  if (violation.includes('payment') || violation.includes('crypto') || violation.includes('banking')) {
+    return 'Discussing external payment methods or cryptocurrency is not allowed. Please use the platform\'s secure payment system.';
+  }
+  
+  if (violation.includes('social_media') || violation.includes('social_handle')) {
+    return 'Sharing social media handles or suggesting communication outside the platform is not allowed.';
+  }
+  
+  if (violation.includes('off_platform') || violation.includes('url')) {
+    return 'Attempting to move transactions outside the platform is not allowed. Please keep all business within the platform.';
+  }
+  
+  return 'This message appears to be attempting to move communication or payment outside the platform, which is not allowed.';
+};
+
+/**
  * Check if text contains NSFW content
  * @param {string} text - Text to check
  * @param {object} options - Filtering options
@@ -69,6 +361,18 @@ export const checkContent = (text, options = {}) => {
   const lowerText = text.toLowerCase();
   const violations = [];
   const suggestions = [];
+
+  // Check for off-platform transaction attempts first (highest priority)
+  const offPlatformResult = checkOffPlatformAttempts(text);
+  if (offPlatformResult.violations.length > 0) {
+    offPlatformResult.violations.forEach(violation => {
+      violations.push({
+        type: 'off_platform',
+        violation: violation,
+        message: getOffPlatformViolationMessage(violation)
+      });
+    });
+  }
 
   // Combine NSFW words with custom words
   const allNsfwWords = [...NSFW_WORDS, ...customWords];
@@ -112,18 +416,26 @@ export const checkContent = (text, options = {}) => {
 
   // Generate suggestions for clean alternatives
   if (violations.length > 0) {
-    suggestions.push(
-      'Please use professional and appropriate language.',
-      'Consider rephrasing your message to be more suitable for all audiences.',
-      'Focus on describing your service or need in a clear, professional manner.'
-    );
+    if (violations.some(v => v.type === 'off_platform')) {
+      suggestions.push(
+        'Please keep all communication and payments within the platform.',
+        'Do not share personal contact information or suggest external payment methods.',
+        'Use the platform\'s secure messaging and payment systems for all transactions.'
+      );
+    } else {
+      suggestions.push(
+        'Please use professional and appropriate language.',
+        'Consider rephrasing your message to be more suitable for all audiences.',
+        'Focus on describing your service or need in a clear, professional manner.'
+      );
+    }
   }
 
   return {
     isClean: violations.length === 0,
     violations,
     suggestions,
-    severity: violations.length > 0 ? (violations.some(v => v.type === 'explicit') ? 'high' : 'medium') : 'none'
+    severity: violations.length > 0 ? (violations.some(v => v.type === 'off_platform' || v.type === 'explicit') ? 'high' : 'medium') : 'none'
   };
 };
 
