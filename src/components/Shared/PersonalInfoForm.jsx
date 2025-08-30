@@ -9,8 +9,8 @@ import FormInput from './FormInput';
 import CountrySelect from './CountrySelect';
 import CountryCodeSelect from './CountryCodeSelect';
 import AddressInput from './AddressInput';
-import logger from '../../utils/logger'; // Optional logger, adjust path as needed
-import { StripeOnboarding } from '../StripeOnboarding'; // Import StripeOnboarding if needed
+import logger from '../../utils/logger';
+import { StripeEmbeddedOnboarding } from '../StripeEmbeddedOnboarding';
 import PropTypes from 'prop-types';
 
 function PersonalInfoForm() {
@@ -218,15 +218,22 @@ function PersonalInfoForm() {
 
   // renderStripeSection should be defined or imported if used
   const renderStripeSection = () => {
-    // Conditionally render StripeOnboarding only if user is a tasker
-    if (user?.role?.includes('tasker')) {
-      return <StripeOnboarding />;
+    // Conditionally render StripeEmbeddedOnboarding only if user is a tasker or provider
+    if (user?.role?.includes('tasker') || user?.role?.includes('provider')) {
+      return <StripeEmbeddedOnboarding />;
     }
-    return <p>Payout information is only applicable for Taskers.</p>; // Or null
+    return <p>Payment information is only applicable for Taskers and Providers.</p>; // Or null
   };
 
   return (
     <div className={`${styles.container} card`}>
+      <div style={{ padding: '10px', backgroundColor: '#e0e0e0', margin: '10px 0', borderRadius: '4px' }}>
+        <p>Debug: Active Tab = {activeTab}</p>
+        <p>Debug: User Roles = {user?.role?.join(', ') || 'No roles'}</p>
+        <p>Debug: Can see Withdraw tab = {user?.role?.includes('tasker') ? 'Yes' : 'No'}</p>
+        <p>Debug: Can see Payment tab = {user?.role?.includes('provider') ? 'Yes' : 'No'}</p>
+      </div>
+      
       <div className={styles.tabs}>
         <div
           className={
@@ -294,8 +301,8 @@ function PersonalInfoForm() {
         {activeTab === 'personal' ? (
           <div className={styles.tabContent}>
             {/* <h2>Personal Information</h2>
-                        {error && <p className="error-message">{error}</p>}
-                        {success && <p className="success-message">{success}</p>}
+                        {error && <p className="error-message">{error}</p>
+                        {success && <p className="success-message">{success}</p>
                         <h4 className={styles.subheading}>Basic Info</h4> */}
             <div className={styles.inputGroup}>
               <label htmlFor="p-email">Email Address</label>
@@ -432,7 +439,7 @@ function PersonalInfoForm() {
             <h4 className={styles.subheading}>
               Payment Method (Stripe Connect)
             </h4>
-            <StripeOnboarding />
+            <StripeEmbeddedOnboarding />
           </div>
         ) : null}
       </form>

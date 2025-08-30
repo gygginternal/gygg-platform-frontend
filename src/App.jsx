@@ -22,6 +22,7 @@ import { LazyLoadingMonitor } from './components/Performance';
 import HomePage from './pages/HomePage/HomePage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import JoinPage from './pages/JoinPage/JoinPage';
+import TestStripeComponent from './pages/TestStripeComponent';
 
 // Shared components - loaded immediately
 import Header from './components/Shared/Header';
@@ -265,6 +266,14 @@ function AppWithNavigation() {
               element={
                 <ProtectedRoute>
                   <SettingsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/test-stripe"
+              element={
+                <ProtectedRoute>
+                  <TestStripeComponent />
                 </ProtectedRoute>
               }
             />
