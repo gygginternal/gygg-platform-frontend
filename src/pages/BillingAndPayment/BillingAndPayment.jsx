@@ -4,7 +4,7 @@ import { useToast } from '../../contexts/ToastContext';
 import apiClient from '../../api/axiosConfig';
 import styles from './BillingAndPayment.module.css';
 import BillingTable from '../../components/Billing/BillingTable';
-import { Filter, Search } from 'lucide-react';
+import { Filter, Search, DollarSign, TrendingUp, TrendingDown, Wallet, CreditCard } from 'lucide-react';
 
 function WithdrawModal({ open, onClose, available, onConfirm }) {
   const [custom, setCustom] = useState(false);
@@ -199,6 +199,123 @@ function InvoiceModal({ open, onClose, payment, showToast }) {
   );
 }
 
+// Earnings Summary Component
+function EarningsSummary({ summary, period, onPeriodChange, isTasker, isProvider }) {
+  const periods = [
+    { value: 'week', label: 'This Week' },
+    { value: 'month', label: 'This Month' },
+    { value: 'year', label: 'This Year' },
+    { value: 'all', label: 'All Time' }
+  ];
+
+  return (
+    <div className={styles.earningsCard}>
+      <div className={styles.earningsHeader}>
+        <h3>Earnings Summary</h3>
+        <select 
+          value={period} 
+          onChange={(e) => onPeriodChange(e.target.value)}
+          className={styles.periodSelect}
+        >
+          {periods.map(p => (
+            <option key={p.value} value={p.value}>{p.label}</option>
+          ))}
+        </select>
+      </div>
+      
+      <div className={styles.summaryGrid}>
+        {isTasker && summary.tasker && (
+          <>
+            <div className={styles.summaryCard}>
+              <div className={styles.summaryIcon}>
+                <TrendingUp size={24} color="#4caf50" />
+              </div>
+              <div className={styles.summaryContent}>
+                <div className={styles.summaryValue}>${summary.tasker.totalEarnedFormatted}</div>
+                <div className={styles.summaryLabel}>Total Earned</div>
+              </div>
+            </div>
+            
+            <div className={styles.summaryCard}>
+              <div className={styles.summaryIcon}>
+                <Wallet size={24} color="#2196f3" />
+              </div>
+              <div className={styles.summaryContent}>
+                <div className={styles.summaryValue}>${summary.tasker.availableBalanceFormatted}</div>
+                <div className={styles.summaryLabel}>Available Balance</div>
+              </div>
+            </div>
+            
+            <div className={styles.summaryCard}>
+              <div className={styles.summaryIcon}>
+                <CreditCard size={24} color="#ff9800" />
+              </div>
+              <div className={styles.summaryContent}>
+                <div className={styles.summaryValue}>{summary.tasker.totalContracts}</div>
+                <div className={styles.summaryLabel}>Completed Contracts</div>
+              </div>
+            </div>
+            
+            <div className={styles.summaryCard}>
+              <div className={styles.summaryIcon}>
+                <DollarSign size={24} color="#9c27b0" />
+              </div>
+              <div className={styles.summaryContent}>
+                <div className={styles.summaryValue}>${summary.tasker.averageEarningFormatted}</div>
+                <div className={styles.summaryLabel}>Average per Contract</div>
+              </div>
+            </div>
+          </>
+        )}
+        
+        {isProvider && summary.provider && (
+          <>
+            <div className={styles.summaryCard}>
+              <div className={styles.summaryIcon}>
+                <TrendingDown size={24} color="#f44336" />
+              </div>
+              <div className={styles.summaryContent}>
+                <div className={styles.summaryValue}>${summary.provider.totalSpentFormatted}</div>
+                <div className={styles.summaryLabel}>Total Spent</div>
+              </div>
+            </div>
+            
+            <div className={styles.summaryCard}>
+              <div className={styles.summaryIcon}>
+                <DollarSign size={24} color="#4caf50" />
+              </div>
+              <div className={styles.summaryContent}>
+                <div className={styles.summaryValue}>${summary.provider.totalServiceCostsFormatted}</div>
+                <div className={styles.summaryLabel}>Service Costs</div>
+              </div>
+            </div>
+            
+            <div className={styles.summaryCard}>
+              <div className={styles.summaryIcon}>
+                <CreditCard size={24} color="#ff9800" />
+              </div>
+              <div className={styles.summaryContent}>
+                <div className={styles.summaryValue}>{summary.provider.totalContracts}</div>
+                <div className={styles.summaryLabel}>Total Contracts</div>
+              </div>
+            </div>
+            
+            <div className={styles.summaryCard}>
+              <div className={styles.summaryIcon}>
+                <DollarSign size={24} color="#9c27b0" />
+              </div>
+              <div className={styles.summaryContent}>
+                <div className={styles.summaryValue}>${summary.provider.averageSpentFormatted}</div>
+                <div className={styles.summaryLabel}>Average per Contract</div>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 const statusOptions = [
   'all',
   'pending_contract',
@@ -209,7 +326,7 @@ const statusOptions = [
   'requires_action',
   'cancelled',
 ];
-const typeOptions = ['all', 'payment', 'withdrawal'];
+const typeOptions = ['all', 'earned', 'spent', 'withdrawals'];
 
 export default function BillingAndPayment() {
   const { user, sessionRole } = useAuth();
@@ -240,6 +357,14 @@ export default function BillingAndPayment() {
   });
   const [unpaidContracts, setUnpaidContracts] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
+  
+  // New state for earnings summary
+  const [earningsSummary, setEarningsSummary] = useState(null);
+  const [summaryPeriod, setSummaryPeriod] = useState('month');
+  const [summaryLoading, setSummaryLoading] = useState(false);
+  const [balance, setBalance] = useState(null);
+  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState(null);
 
   // Determine if user has both roles
   const isTasker = user?.role?.includes('tasker');
@@ -250,25 +375,52 @@ export default function BillingAndPayment() {
   const payer = view === 'spent' ? user?._id : undefined;
   const payee = view === 'earned' ? user?._id : undefined;
 
-  // Move fetchPayments outside useEffect
+  // Fetch earnings summary
+  const fetchEarningsSummary = async () => {
+    setSummaryLoading(true);
+    try {
+      const res = await apiClient.get('/payments/earnings-summary', {
+        params: { period: summaryPeriod }
+      });
+      setEarningsSummary(res.data.data.summary);
+    } catch (err) {
+      console.error('Error fetching earnings summary:', err);
+      showToast('Failed to fetch earnings summary', 'error');
+    } finally {
+      setSummaryLoading(false);
+    }
+  };
+
+  // Fetch balance for taskers
+  const fetchBalance = async () => {
+    if (!isTasker) return;
+    try {
+      const res = await apiClient.get('/payments/balance');
+      setBalance(res.data.data);
+    } catch (err) {
+      console.error('Error fetching balance:', err);
+    }
+  };
+
+  // Move fetchPayments outside useEffect - now uses payment history endpoint
   const fetchPayments = async () => {
     setLoading(true);
     setError('');
     try {
       const params = {
+        page,
+        limit: 10,
         status: status !== 'all' ? status : undefined,
         type: type !== 'all' ? type : undefined,
-        minAmount: minAmount || undefined,
-        maxAmount: maxAmount || undefined,
-        search: search || undefined,
-        payer,
-        payee,
+        startDate: undefined, // Can be added for date filtering
+        endDate: undefined,
       };
       Object.keys(params).forEach(
         key => params[key] === undefined && delete params[key]
       );
-      const res = await apiClient.get('/payments', { params });
+      const res = await apiClient.get('/payments/payment-history', { params });
       setTransactions(res.data.data.payments || []);
+      setPagination(res.data.data.pagination);
     } catch (err) {
       console.error('Error fetching payments:', err);
       setError(err.response?.data?.message || 'Failed to fetch payments.');
@@ -281,23 +433,57 @@ export default function BillingAndPayment() {
   useEffect(() => {
     if (user?._id) {
       fetchPayments();
+      fetchEarningsSummary();
+      fetchBalance();
     }
     // eslint-disable-next-line
-  }, [status, type, minAmount, maxAmount, search, view, user?._id]);
+  }, [status, type, page, user?._id]);
 
-  // Calculate totals
-  const total = _transactions.reduce((sum, p) => sum + (p.amount || 0), 0);
-  const available = total / 100;
+  useEffect(() => {
+    if (user?._id) {
+      fetchEarningsSummary();
+    }
+    // eslint-disable-next-line
+  }, [summaryPeriod, user?._id]);
+
+  // Calculate totals from earnings summary or fallback to transactions
+  const getDisplayAmount = () => {
+    if (earningsSummary) {
+      if (view === 'earned' && earningsSummary.tasker) {
+        return parseFloat(earningsSummary.tasker.totalEarnedFormatted);
+      } else if (view === 'spent' && earningsSummary.provider) {
+        return parseFloat(earningsSummary.provider.totalSpentFormatted);
+      }
+    }
+    // Fallback to transaction calculation
+    const total = _transactions.reduce((sum, p) => sum + (p.amount || 0), 0);
+    return total / 100;
+  };
+
+  const available = getDisplayAmount();
 
   // Color for summary
   const summaryColor =
     view === 'earned' ? styles.summaryValueEarned : styles.summaryValueSpent;
 
-  const handleWithdraw = amount => {
-    setShowWithdraw(false);
-    setWithdrawSuccess(true);
-    setTimeout(() => setWithdrawSuccess(false), 2000);
-    // Withdrawal processing - integrate with payment provider
+  const handleWithdraw = async (amount) => {
+    try {
+      await apiClient.post('/payments/withdraw', { amount });
+      setShowWithdraw(false);
+      setWithdrawSuccess(true);
+      setTimeout(() => setWithdrawSuccess(false), 3000);
+      showToast(`Withdrawal of $${amount.toFixed(2)} initiated successfully!`, 'success');
+      
+      // Refresh data
+      fetchBalance();
+      fetchEarningsSummary();
+      fetchPayments();
+    } catch (err) {
+      showToast(
+        err.response?.data?.message || 'Failed to process withdrawal.',
+        'error'
+      );
+    }
   };
 
   // Add release payment handler
@@ -358,7 +544,7 @@ export default function BillingAndPayment() {
       <WithdrawModal
         open={showWithdraw && view === 'earned'}
         onClose={() => setShowWithdraw(false)}
-        available={available}
+        available={balance?.available ? parseFloat(balance.available) : 0}
         onConfirm={handleWithdraw}
       />
       <InvoiceModal
@@ -367,6 +553,22 @@ export default function BillingAndPayment() {
         payment={invoiceModal.payment}
         showToast={showToast}
       />
+      
+      {/* Earnings Summary Section */}
+      {summaryLoading ? (
+        <div className={styles.loadingCard}>
+          <div className={styles.loadingSpinner}></div>
+          <p>Loading earnings summary...</p>
+        </div>
+      ) : earningsSummary ? (
+        <EarningsSummary
+          summary={earningsSummary}
+          period={summaryPeriod}
+          onPeriodChange={setSummaryPeriod}
+          isTasker={isTasker}
+          isProvider={isProvider}
+        />
+      ) : null}
       <div className={styles.searchAndFilters}>
         <div className={styles.searchBar}>
           <Search className={styles.searchIcon} />
@@ -481,9 +683,9 @@ export default function BillingAndPayment() {
             <button
               className={styles.withdrawBtn}
               onClick={() => setShowWithdraw(true)}
-              disabled={available <= 0}
+              disabled={!balance || parseFloat(balance.available) <= 0}
             >
-              Withdraw
+              Withdraw {balance && `($${balance.available} available)`}
             </button>
           )}
         </div>
@@ -638,6 +840,30 @@ export default function BillingAndPayment() {
               )}
             </tbody>
           </table>
+        )}
+        
+        {/* Pagination */}
+        {pagination && pagination.totalPages > 1 && (
+          <div className={styles.pagination}>
+            <button
+              onClick={() => setPage(page - 1)}
+              disabled={page <= 1}
+              className={styles.paginationBtn}
+            >
+              Previous
+            </button>
+            <span className={styles.paginationInfo}>
+              Page {pagination.currentPage} of {pagination.totalPages} 
+              ({pagination.totalItems} total)
+            </span>
+            <button
+              onClick={() => setPage(page + 1)}
+              disabled={page >= pagination.totalPages}
+              className={styles.paginationBtn}
+            >
+              Next
+            </button>
+          </div>
         )}
       </div>
       {/* Release Payment Modal */}
