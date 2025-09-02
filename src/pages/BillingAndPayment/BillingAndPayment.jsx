@@ -163,20 +163,25 @@ function InvoiceModal({ open, onClose, payment, showToast }) {
           
           <div style={{ borderTop: '1px solid #eee', paddingTop: '20px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-              <span>Total Amount:</span>
-              <span style={{ fontWeight: '600' }}>${total.toFixed(2)}</span>
+              <span>Service Amount:</span>
+              <span style={{ fontWeight: '600', color: '#1db954' }}>${total.toFixed(2)}</span>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-              <span>Tax:</span>
-              <span style={{ fontWeight: '600' }}>${tax.toFixed(2)}</span>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-              <span>Platform Fee:</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', color: '#666' }}>
+              <span>Platform Fee (to platform):</span>
               <span style={{ fontWeight: '600' }}>${platformFee.toFixed(2)}</span>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #eee', paddingTop: '10px', marginTop: '10px' }}>
-              <span style={{ fontWeight: '700' }}>Net Amount:</span>
-              <span style={{ fontWeight: '700', fontSize: '18px', color: '#1db954' }}>${net.toFixed(2)}</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', color: '#666' }}>
+              <span>Tax (paid by provider):</span>
+              <span style={{ fontWeight: '600' }}>${tax.toFixed(2)}</span>
+            </div>
+            <div style={{ borderTop: '1px solid #eee', paddingTop: '10px', marginTop: '10px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
+                <span style={{ fontWeight: '700' }}>You Receive:</span>
+                <span style={{ fontWeight: '700', fontSize: '18px', color: '#1db954' }}>${net.toFixed(2)}</span>
+              </div>
+              <div style={{ fontSize: '12px', color: '#666', textAlign: 'center' }}>
+                ✓ Full service amount with no deductions!
+              </div>
             </div>
           </div>
         </div>

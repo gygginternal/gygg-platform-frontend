@@ -344,50 +344,81 @@ function ContractsPage() {
               </div>
             </div>
             
-            {/* Stats Cards */}
-            {activeTab === 'contracts' && (
-              <div className={styles.statsGrid}>
-                <div className={styles.statCard}>
-                  <div className={styles.statNumber}>{contracts.length}</div>
-                  <div className={styles.statLabel}>Total</div>
-                  <div className={styles.statDot} style={{ backgroundColor: '#2196f3' }}></div>
-                </div>
-                <div className={styles.statCard}>
-                  <div className={styles.statNumber}>
-                    {contracts.filter(c => c.status?.toLowerCase() === 'active').length}
-                  </div>
-                  <div className={styles.statLabel}>Active</div>
-                  <div className={styles.statDot} style={{ backgroundColor: '#4caf50' }}></div>
-                </div>
-                <div className={styles.statCard}>
-                  <div className={styles.statNumber}>
-                    {contracts.filter(c => c.status?.toLowerCase() === 'completed').length}
-                  </div>
-                  <div className={styles.statLabel}>Completed</div>
-                  <div className={styles.statDot} style={{ backgroundColor: '#2196f3' }}></div>
-                </div>
-                <div className={styles.statCard}>
-                  <div className={styles.statNumber}>
-                    {contracts.filter(c => c.status?.toLowerCase().includes('cancelled')).length}
-                  </div>
-                  <div className={styles.statLabel}>Cancelled</div>
-                  <div className={styles.statDot} style={{ backgroundColor: '#f44336' }}></div>
-                </div>
-                <div className={styles.statCard}>
-                  <div className={styles.statNumber}>
-                    {contracts.filter(c => c.status?.toLowerCase() === 'pending_payment').length}
-                  </div>
-                  <div className={styles.statLabel}>Pending Payment</div>
-                  <div className={styles.statDot} style={{ backgroundColor: '#9c27b0' }}></div>
-                </div>
-              </div>
-            )}
-            
             <TabNavigation
               activeTab={activeTab}
               onTabChange={setActiveTab}
               tabs={tabOptions}
             />
+            {activeTab === 'contracts' && (
+              <>
+                {/* Stats Cards - moved inside All Contracts tab */}
+                <div className={styles.statsGrid}>
+                  <div 
+                    className={styles.statCard}
+                    style={{ 
+                      '--stat-color': '#2196f3', 
+                      '--stat-color-light': '#42a5f5' 
+                    }}
+                  >
+                    <div className={styles.statNumber}>{contracts.length}</div>
+                    <div className={styles.statLabel}>Total</div>
+                    <div className={styles.statDot} style={{ backgroundColor: '#2196f3' }}></div>
+                  </div>
+                  <div 
+                    className={styles.statCard}
+                    style={{ 
+                      '--stat-color': '#4caf50', 
+                      '--stat-color-light': '#66bb6a' 
+                    }}
+                  >
+                    <div className={styles.statNumber}>
+                      {contracts.filter(c => c.status?.toLowerCase() === 'active').length}
+                    </div>
+                    <div className={styles.statLabel}>Active</div>
+                    <div className={styles.statDot} style={{ backgroundColor: '#4caf50' }}></div>
+                  </div>
+                  <div 
+                    className={styles.statCard}
+                    style={{ 
+                      '--stat-color': '#00bcd4', 
+                      '--stat-color-light': '#26c6da' 
+                    }}
+                  >
+                    <div className={styles.statNumber}>
+                      {contracts.filter(c => c.status?.toLowerCase() === 'completed').length}
+                    </div>
+                    <div className={styles.statLabel}>Completed</div>
+                    <div className={styles.statDot} style={{ backgroundColor: '#00bcd4' }}></div>
+                  </div>
+                  <div 
+                    className={styles.statCard}
+                    style={{ 
+                      '--stat-color': '#f44336', 
+                      '--stat-color-light': '#ef5350' 
+                    }}
+                  >
+                    <div className={styles.statNumber}>
+                      {contracts.filter(c => c.status?.toLowerCase().includes('cancelled')).length}
+                    </div>
+                    <div className={styles.statLabel}>Cancelled</div>
+                    <div className={styles.statDot} style={{ backgroundColor: '#f44336' }}></div>
+                  </div>
+                  <div 
+                    className={styles.statCard}
+                    style={{ 
+                      '--stat-color': '#9c27b0', 
+                      '--stat-color-light': '#ab47bc' 
+                    }}
+                  >
+                    <div className={styles.statNumber}>
+                      {contracts.filter(c => c.status?.toLowerCase() === 'pending_payment').length}
+                    </div>
+                    <div className={styles.statLabel}>Pending Payment</div>
+                    <div className={styles.statDot} style={{ backgroundColor: '#9c27b0' }}></div>
+                  </div>
+                </div>
+              </>
+            )}
             {activeTab === 'contracts' && (
               <div className={styles.searchAndFilters}>
                 <div className={styles.searchBar}>

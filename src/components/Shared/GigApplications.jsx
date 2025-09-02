@@ -43,6 +43,17 @@ function TaskerCard({ tasker, onAccept, onReject, onClick }) {
     }
   };
 
+  // Get compatibility color based on score
+  const getCompatibilityColor = (score) => {
+    if (score >= 80) return '#22c55e'; // Green
+    if (score >= 60) return '#f59e0b'; // Yellow
+    if (score >= 40) return '#f97316'; // Orange
+    return '#ef4444'; // Red
+  };
+
+  const compatibilityScore = tasker.compatibilityScore || 0;
+  const matchingHobbies = tasker.matchingHobbies || [];
+
   return (
     <div
       className={styles.offerCard}
@@ -59,6 +70,15 @@ function TaskerCard({ tasker, onAccept, onReject, onClick }) {
             alt={`${tasker.name || 'Tasker'}'s profile`}
             className={styles.offerCardImage}
           />
+          {/* Compatibility Badge */}
+          {compatibilityScore > 0 && (
+            <div 
+              className={styles.compatibilityBadge}
+              style={{ backgroundColor: getCompatibilityColor(compatibilityScore) }}
+            >
+              {compatibilityScore}% Match
+            </div>
+          )}
         </div>
         <div className={styles.offerCardDetails}>
           <div className={styles.offerCardHeader}>
@@ -78,7 +98,9 @@ function TaskerCard({ tasker, onAccept, onReject, onClick }) {
               <h2 className={styles.offerCardTitle}>
                 {tasker.name || 'Unknown Tasker'}
               </h2>
-              <p className={styles.offerCardRate}>{tasker.rate || 'N/A'}</p>
+              <p className={styles.offerCardRate}>
+                {tasker.rating > 0 ? `⭐ ${tasker.rating.toFixed(1)} (${tasker.ratingCount} reviews)` : 'No ratings yet'}
+              </p>
               {tasker.location &&
                 tasker.location.trim().split(',').filter(Boolean).length >
                   0 && (
@@ -89,12 +111,31 @@ function TaskerCard({ tasker, onAccept, onReject, onClick }) {
                 )}
             </div>
           </div>
+          
+          {/* Matching Hobbies */}
+          {matchingHobbies.length > 0 && (
+            <div className={styles.matchingHobbies}>
+              <span className={styles.matchingLabel}>Shared interests:</span>
+              {matchingHobbies.slice(0, 3).map(hobby => (
+                <Badge key={hobby} variant="success" className={styles.hobbyBadge}>
+                  {hobby}
+                </Badge>
+              ))}
+              {matchingHobbies.length > 3 && (
+                <span className={styles.moreCount}>+{matchingHobbies.length - 3} more</span>
+              )}
+            </div>
+          )}
+          
           <div className={styles.providerServicesGap}>
-            {(tasker.services || []).map(service => (
+            {(tasker.services || []).slice(0, 4).map(service => (
               <Badge key={service} variant="outline" className={styles.badge}>
                 {service}
               </Badge>
             ))}
+            {tasker.services && tasker.services.length > 4 && (
+              <span className={styles.moreServices}>+{tasker.services.length - 4} more</span>
+            )}
           </div>
         </div>
       </div>
