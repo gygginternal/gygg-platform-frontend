@@ -227,13 +227,6 @@ function PersonalInfoForm() {
 
   return (
     <div className={`${styles.container} card`}>
-      <div style={{ padding: '10px', backgroundColor: '#e0e0e0', margin: '10px 0', borderRadius: '4px' }}>
-        <p>Debug: Active Tab = {activeTab}</p>
-        <p>Debug: User Roles = {user?.role?.join(', ') || 'No roles'}</p>
-        <p>Debug: Can see Withdraw tab = {user?.role?.includes('tasker') ? 'Yes' : 'No'}</p>
-        <p>Debug: Can see Payment tab = {user?.role?.includes('provider') ? 'Yes' : 'No'}</p>
-      </div>
-      
       <div className={styles.tabs}>
         <div
           className={
