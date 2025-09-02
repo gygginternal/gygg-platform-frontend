@@ -16,7 +16,7 @@ function SettingsPage() {
             className={`${tabsStyles.tab} ${activeTab === 'profile' ? tabsStyles.activeTab : ''}`}
             onClick={() => setActiveTab('profile')}
           >
-            Profile Information
+            Personal Information
           </button>
           <button
             className={`${tabsStyles.tab} ${activeTab === 'payment' ? tabsStyles.activeTab : ''}`}

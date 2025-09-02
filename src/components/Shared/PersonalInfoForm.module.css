@@ -19,40 +19,7 @@
   box-sizing: border-box; /* Ensures padding is included in width */
 }
 
-.tabs {
-  display: flex;
-  gap: 1.5625rem; /* 25px */
-  margin-bottom: 1.5625rem; /* 25px */
-  border-bottom: 0.0625rem solid #eee; /* 1px */
-  flex-shrink: 0;
-  flex-wrap: wrap; /* Allow tabs to wrap */
-}
-
-.activeTab,
-.inactiveTab {
-  /* Facebook Side menu / nav labels: 14-16px */
-  font-size: 0.9375rem; /* 15px */
-  padding-bottom: 0.625rem; /* 10px */
-  cursor: pointer;
-  white-space: nowrap; /* Prevent tab text from wrapping */
-}
-
-.activeTab {
-  font-weight: 600;
-  border-bottom: 0.1875rem solid #00aaba; /* 3px */
-  color: #00aaba;
-  margin-bottom: -0.0625rem; /* -1px Align with border */
-}
-
-.inactiveTab {
-  color: #666;
-  border-bottom: 0.1875rem solid transparent; /* 3px */
-}
-
-.inactiveTab:hover {
-  color: #3d4d55;
-  border-bottom-color: #ddd;
-}
+/* Removed nested tabs styles - using top-level tabs only */
 
 .form {
   display: flex;
@@ -61,7 +28,6 @@
 }
 
 .tabContent {
-  padding-top: 0.9375rem; /* 15px */
   display: flex;
   flex-direction: column;
   gap: 0.9375rem; /* 15px */
@@ -218,17 +184,7 @@
     padding: 1rem;
     margin: 0 auto;
   }
-  .tabs {
-    gap: 1.25rem; /* 20px */
-    margin-bottom: 1.25rem; /* 20px */
-  }
-  .activeTab,
-  .inactiveTab {
-    font-size: 0.875rem; /* 14px */
-    padding-bottom: 0.5rem; /* 8px */
-  }
   .tabContent {
-    padding-top: 0.75rem; /* 12px */
     gap: 0.75rem; /* 12px */
   }
   .row {
@@ -282,18 +238,7 @@
     margin: 0 auto;
     min-height: 20rem;
   }
-  .tabs {
-    gap: 0.9375rem; /* 15px */
-    margin-bottom: 1rem; /* 16px */
-    justify-content: center; /* Center tabs if they wrap */
-  }
-  .activeTab,
-  .inactiveTab {
-    font-size: 0.8125rem; /* 13px */
-    padding-bottom: 0.4rem; /* 6.4px */
-  }
   .tabContent {
-    padding-top: 0.625rem; /* 10px */
     gap: 0.625rem; /* 10px */
   }
   .row {
@@ -353,17 +298,7 @@
     margin: 0 auto;
     min-height: 16rem;
   }
-  .tabs {
-    gap: 0.625rem; /* 10px */
-    margin-bottom: 0.8rem; /* 12.8px */
-  }
-  .activeTab,
-  .inactiveTab {
-    font-size: 0.75rem; /* 12px */
-    padding-bottom: 0.3rem; /* 4.8px */
-  }
   .tabContent {
-    padding-top: 0.5rem; /* 8px */
     gap: 0.5rem; /* 8px */
   }
   .row {
