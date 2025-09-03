@@ -41,91 +41,205 @@
 }
 
 .header {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  padding: 2rem 2.5rem;
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+  border-radius: 24px;
+  border: 1px solid rgba(229, 231, 235, 0.6);
+  box-shadow: 
+    0 8px 16px rgba(0, 0, 0, 0.04),
+    0 4px 8px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981, #06b6d4, #3b82f6, #8b5cf6, #f59e0b);
+  background-size: 300% 100%;
+  animation: gradientShift 4s ease-in-out infinite;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.03) 0%, transparent 70%);
+  animation: rotate 30s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-6px); }
+  60% { transform: translateY(-3px); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(5deg); }
 }
 
 .title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #1f2937;
-  margin-bottom: 0.5rem;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 1rem;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.05em;
+  background: linear-gradient(135deg, #111827 0%, #374151 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.title::before {
+  content: '🤝';
+  font-size: 2.25rem;
+  animation: float 3s ease-in-out infinite;
+  -webkit-text-fill-color: initial;
 }
 
 .subtitle {
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   color: #6b7280;
   margin: 0;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.6;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.subtitle::before {
+  content: '🔍';
+  font-size: 1.125rem;
+  animation: bounce 2.5s infinite;
 }
 
 /* Search Container */
 .searchContainer {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .searchBar {
   position: relative;
   display: flex;
   align-items: center;
-  background: white;
-  border: 2px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 0.75rem 1rem;
-  transition: all 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #ffffff 0%, #fefefe 100%);
+  border: 2px solid rgba(229, 231, 235, 0.8);
+  border-radius: 20px;
+  padding: 1rem 1.25rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.04),
+    0 2px 4px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.searchBar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.05), transparent);
+  transition: left 0.5s;
+}
+
+.searchBar:focus-within::before {
+  left: 100%;
 }
 
 .searchBar:focus-within {
   border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  box-shadow: 
+    0 0 0 4px rgba(59, 130, 246, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
 }
 
 .searchIcon {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   color: #6b7280;
-  margin-right: 0.75rem;
+  margin-right: 1rem;
   flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.searchBar:focus-within .searchIcon {
+  color: #3b82f6;
+  transform: scale(1.1);
 }
 
 .searchInput {
   flex: 1;
   border: none;
   outline: none;
-  font-size: 1rem;
+  font-size: 1.0625rem;
   color: #1f2937;
   background: transparent;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 500;
 }
 
 .searchInput::placeholder {
   color: #9ca3af;
+  font-weight: 400;
 }
 
 .clearButton {
-  background: none;
-  border: none;
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  border: 1px solid #d1d5db;
   color: #6b7280;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   cursor: pointer;
-  padding: 0.25rem;
-  margin-left: 0.5rem;
-  border-radius: 4px;
-  transition: all 0.2s ease;
+  padding: 0.375rem;
+  margin-left: 0.75rem;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .clearButton:hover {
   color: #374151;
-  background: #f3f4f6;
+  background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+  transform: scale(1.05) rotate(90deg);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive Breakpoints */
@@ -164,14 +278,27 @@
     margin-bottom: 1rem;
   }
 
+  .header {
+    padding: 1.75rem 2rem;
+  }
+
   .title {
-    font-size: 1.75rem;
-    font-weight: 700;
+    font-size: 2.125rem;
+    font-weight: 800;
+  }
+
+  .title::before {
+    font-size: 1.875rem;
   }
 
   .subtitle {
-    font-size: 1rem;
+    font-size: 1.0625rem;
     color: #6b7280;
+  }
+
+  .searchBar {
+    padding: 0.875rem 1.125rem;
+    border-radius: 18px;
   }
 }
 
@@ -198,13 +325,53 @@
     min-width: 0;
   }
 
+  .header {
+    padding: 1.25rem 1.5rem;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+  }
+
+  .header::before {
+    height: 3px;
+  }
+
   .title {
+    font-size: 1.625rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .title::before {
     font-size: 1.5rem;
-    font-weight: 700;
   }
 
   .subtitle {
     font-size: 0.9375rem;
     color: #6b7280;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .searchContainer {
+    margin-bottom: 2rem;
+  }
+
+  .searchBar {
+    padding: 0.75rem 1rem;
+    border-radius: 16px;
+  }
+
+  .searchInput {
+    font-size: 1rem;
+  }
+
+  .clearButton {
+    width: 28px;
+    height: 28px;
+    font-size: 1.125rem;
   }
 }

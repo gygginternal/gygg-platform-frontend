@@ -149,7 +149,7 @@ const PostedGigsPage = () => {
               <div className={styles.applicationsTitle}>
                 <h1 className={styles.title}>Applications</h1>
                 <p className={styles.subtitle}>
-                  Review applications for "{selectedGigTitle}"
+                  Review applications for <strong>"{selectedGigTitle}"</strong>
                 </p>
               </div>
             </div>
