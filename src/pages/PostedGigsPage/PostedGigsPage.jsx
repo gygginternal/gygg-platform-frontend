@@ -234,7 +234,7 @@ const PostedGigsPage = () => {
                     <div className={styles.gigCardMeta}>
                       <div className={styles.metaItem}>
                         <DollarSign size={16} />
-                        <span>${gig.cost || 'N/A'}</span>
+                        <span>{gig.cost || 'N/A'}</span>
                       </div>
                       <div className={styles.metaItem}>
                         <Calendar size={16} />
