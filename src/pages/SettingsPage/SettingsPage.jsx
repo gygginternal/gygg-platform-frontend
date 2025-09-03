@@ -3,38 +3,37 @@ import React, { useState } from 'react';
 import styles from './SettingsPage.module.css';
 import PersonalInfoForm from '../../components/Shared/PersonalInfoForm';
 import { StripeConnectOnboarding } from '../../components/StripeConnectOnboarding';
-import tabsStyles from './SettingsTabs.module.css';
 
 function SettingsPage() {
   const [activeTab, setActiveTab] = useState('profile');
 
   return (
     <div className={styles.settingsContainer}>
-      <div className={tabsStyles.tabsContainer}>
-        <div className={tabsStyles.tabs}>
+      <div className={styles.tabsContainer}>
+        <div className={styles.tabs}>
           <button
-            className={`${tabsStyles.tab} ${activeTab === 'profile' ? tabsStyles.activeTab : ''}`}
+            className={`${styles.tab} ${activeTab === 'profile' ? styles.activeTab : ''}`}
             onClick={() => setActiveTab('profile')}
           >
             Personal Information
           </button>
           <button
-            className={`${tabsStyles.tab} ${activeTab === 'payment' ? tabsStyles.activeTab : ''}`}
+            className={`${styles.tab} ${activeTab === 'payment' ? styles.activeTab : ''}`}
             onClick={() => setActiveTab('payment')}
           >
             Payment Information
           </button>
         </div>
         
-        <div className={tabsStyles.tabContent}>
+        <div className={styles.tabContent}>
           {activeTab === 'profile' && (
-            <div className={tabsStyles.tabPanel}>
+            <div className={styles.noBox}>
               <PersonalInfoForm />
             </div>
           )}
           
           {activeTab === 'payment' && (
-            <div className={tabsStyles.tabPanel}>
+            <div className={styles.tabPanel}>
               <h2>Payment Information</h2>
               <p>Manage your payment methods and Stripe account settings.</p>
               <StripeConnectOnboarding />
