@@ -2,15 +2,30 @@
   display: flex;
   height: calc(100vh - 41px);
   width: calc(100vw - 220px);
+  max-width: calc(100vw - 220px);
   padding-left: 220px;
   padding-top: 41px;
-  background-color: #f0f2f5;
+  background: linear-gradient(135deg, #f0f2f5 0%, #e8eaed 100%);
   color: #111;
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-    Cantarell, sans-serif;
-  overflow: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  overflow-x: hidden;
+  overflow-y: hidden;
   position: relative;
+  box-sizing: border-box;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.03) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.03) 0%, transparent 50%),
+              radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .chatArea {
@@ -18,14 +33,24 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
-  margin-left: 16px;
+  max-width: 100%;
+  margin-left: 20px;
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 /* Mobile-first responsive design */
 @media (max-width: 1200px) {
   .container {
     width: calc(100vw - 200px);
+    max-width: calc(100vw - 200px);
     padding-left: 200px;
+  }
+  
+  .chatArea {
+    max-width: 100%;
   }
 }
 
@@ -33,12 +58,14 @@
   .container {
     height: calc(100vh - 35px);
     width: calc(100vw - 180px);
+    max-width: calc(100vw - 180px);
     padding-left: 180px;
     padding-top: 35px;
   }
   
   .chatArea {
     margin-left: 12px;
+    max-width: 100%;
   }
 }
 
@@ -47,14 +74,17 @@
     flex-direction: row;
     height: calc(100vh - 30px);
     width: 100vw;
+    max-width: 100vw;
     padding-left: 0;
     padding-top: 30px;
     gap: 0;
+    background: linear-gradient(135deg, #f0f2f5 0%, #e8eaed 100%);
   }
   
   .chatArea {
     margin-left: 0;
     flex: 1;
+    max-width: 100%;
   }
   
   /* Hide sidebar on mobile when chat is open */
@@ -72,6 +102,7 @@
   .container {
     height: calc(100vh - 25px);
     width: 100vw;
+    max-width: 100vw;
     padding-left: 0;
     padding-top: 25px;
     padding: 25px 8px 0 8px;
