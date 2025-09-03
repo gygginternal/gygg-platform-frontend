@@ -7,7 +7,7 @@ import styles from './PersonalInfoForm.module.css';
 import logger from '../../utils/logger';
 import PropTypes from 'prop-types';
 
-function PersonalInfoForm() {
+function PersonalInfoForm({ fullWidth = false }) {
   const { user, updateUser } = useAuth();
   const { showToast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
@@ -179,7 +179,7 @@ function PersonalInfoForm() {
   };
 
   return (
-    <div className={`${styles.container} card`}>
+    <div className={`${styles.container} ${fullWidth ? styles.fullWidth : ''} card`}>
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.tabContent}>
           <div className={styles.inputGroup}>
@@ -332,7 +332,7 @@ function PersonalInfoForm() {
 }
 
 PersonalInfoForm.propTypes = {
-  // No props to add PropTypes for, but ensure accessibility and remove unused imports if any.
+  fullWidth: PropTypes.bool,
 };
 
 export default PersonalInfoForm;

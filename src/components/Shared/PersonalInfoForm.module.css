@@ -19,6 +19,18 @@
   box-sizing: border-box; /* Ensures padding is included in width */
 }
 
+.container.fullWidth {
+  max-width: none;
+  min-height: auto;
+  margin: 0;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  width: 100%;
+  height: 100%;
+}
+
 /* Removed nested tabs styles - using top-level tabs only */
 
 .form {
@@ -184,6 +196,11 @@
     padding: 1rem;
     margin: 0 auto;
   }
+  .container.fullWidth {
+    max-width: none;
+    padding: 0;
+    margin: 0;
+  }
   .tabContent {
     gap: 0.75rem; /* 12px */
   }
@@ -237,6 +254,12 @@
     padding: 0.8rem;
     margin: 0 auto;
     min-height: 20rem;
+  }
+  .container.fullWidth {
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+    min-height: auto;
   }
   .tabContent {
     gap: 0.625rem; /* 10px */
@@ -297,6 +320,11 @@
     padding: 0.6rem;
     margin: 0 auto;
     min-height: 16rem;
+  }
+  .container.fullWidth {
+    padding: 0;
+    margin: 0;
+    min-height: auto;
   }
   .tabContent {
     gap: 0.5rem; /* 8px */

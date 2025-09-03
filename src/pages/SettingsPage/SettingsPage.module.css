@@ -5,7 +5,7 @@
   padding-top: 41px; /* 16px */
   box-sizing: border-box; /* Ensure padding is included in width */
   width: 100%; /* Take full width of its parent (e.g., mainFeedArea) */
-  margin-left: 320px;
+  margin-left: 200px;
 }
 
 .tabsContainer {
@@ -58,7 +58,7 @@
 }
 
 .noBox {
-  /* Remove the box styling from PersonalInfoForm */
+  /* Remove the box styling from PersonalInfoForm and make it take full container size */
   max-width: none !important;
   min-height: auto !important;
   margin: 0 !important;
@@ -66,6 +66,15 @@
   padding: 0 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.noBox > div {
+  /* Make sure the immediate child (PersonalInfoForm container) also takes full size */
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
 }
 
 .tabPanel h2 {
