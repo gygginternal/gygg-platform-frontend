@@ -115,14 +115,14 @@ export function StripeConnectOnboarding() {
   // Handle onboarding exit
   const handleOnboardingExit = async () => {
     console.log('User exited onboarding flow');
-    
+
     // Reset the instance
     setStripeConnectInstance(null);
     setShowOnboarding(false);
 
     // Check if onboarding is complete
     const status = await fetchAccountStatus();
-    
+
     if (status && status.detailsSubmitted) {
       console.log('Onboarding completed successfully');
       setSuccess(true);
@@ -132,7 +132,7 @@ export function StripeConnectOnboarding() {
   };
 
   // Handle step changes for analytics/tracking
-  const handleStepChange = (stepChange) => {
+  const handleStepChange = stepChange => {
     console.log(`Onboarding step: ${stepChange.step}`);
     // You can add analytics tracking here
     // analytics.track('onboarding_step', { step: stepChange.step });
@@ -294,7 +294,7 @@ export function StripeConnectOnboarding() {
                 // Optional: Configure collection options
                 collectionOptions={{
                   fields: 'eventually_due', // Collect all requirements upfront
-                  futureRequirements: 'include' // Include future compliance requirements
+                  futureRequirements: 'include', // Include future compliance requirements
                 }}
               />
             </ConnectComponentsProvider>

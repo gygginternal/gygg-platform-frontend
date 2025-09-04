@@ -35,14 +35,14 @@ const VirtualizedList = ({
         result.push({
           index: i,
           item: items[i],
-          top: i * itemHeight
+          top: i * itemHeight,
         });
       }
     }
     return result;
   }, [items, startIndex, endIndex, itemHeight]);
 
-  const handleScroll = (e) => {
+  const handleScroll = e => {
     const newScrollTop = e.target.scrollTop;
     setScrollTop(newScrollTop);
     setIsScrolling(true);
@@ -76,8 +76,10 @@ const VirtualizedList = ({
   const containerClasses = [
     'virtualized-list',
     className,
-    isScrolling ? 'virtualized-list-scrolling' : ''
-  ].filter(Boolean).join(' ');
+    isScrolling ? 'virtualized-list-scrolling' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <div
@@ -87,26 +89,23 @@ const VirtualizedList = ({
       onScroll={handleScroll}
       {...props}
     >
-      <div
-        className="virtualized-list-inner"
-        style={{ height: totalHeight }}
-      >
+      <div className="virtualized-list-inner" style={{ height: totalHeight }}>
         {visibleItems.map(({ index, item, top }) => (
           <div
             key={index}
             className="virtualized-list-item"
             style={{
               position: 'absolute',
-              top: top,
+              top,
               left: 0,
               right: 0,
-              height: itemHeight
+              height: itemHeight,
             }}
           >
             {renderItem(item, index)}
           </div>
         ))}
-        
+
         {/* Loading indicator */}
         {isLoading && (
           <div
@@ -119,7 +118,7 @@ const VirtualizedList = ({
               height: 60,
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
             }}
           >
             <div className="loading-spinner-small">

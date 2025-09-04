@@ -20,7 +20,10 @@ function ResetPasswordPage() {
     if (resetToken) {
       setToken(resetToken);
     } else {
-      showToast('Invalid reset link. Please request a new password reset.', 'error');
+      showToast(
+        'Invalid reset link. Please request a new password reset.',
+        'error'
+      );
       navigate('/forgot-password');
     }
   }, [paramToken, searchParams, navigate, showToast]);

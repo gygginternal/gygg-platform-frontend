@@ -14,12 +14,14 @@ const ChatSidebar = ({ contacts, selectedContact, onContactSelect }) => {
     const searchLower = searchTerm.toLowerCase().trim();
     return contacts.filter(contact => {
       const nameMatch = contact.name.toLowerCase().includes(searchLower);
-      const messageMatch = contact.lastMessage?.toLowerCase().includes(searchLower);
+      const messageMatch = contact.lastMessage
+        ?.toLowerCase()
+        .includes(searchLower);
       return nameMatch || messageMatch;
     });
   }, [contacts, searchTerm]);
 
-  const handleSearchChange = (e) => {
+  const handleSearchChange = e => {
     setSearchTerm(e.target.value);
   };
 
@@ -76,48 +78,48 @@ const ChatSidebar = ({ contacts, selectedContact, onContactSelect }) => {
           </div>
         ) : (
           filteredContacts.map(contact => (
-          <div
-            key={contact.id}
-            className={`${styles.contactItem} ${
-              selectedContact && selectedContact.id === contact.id
-                ? styles.selected
-                : ''
-            }`}
-            onClick={() => onContactSelect(contact)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={e => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                onContactSelect(contact);
-              }
-            }}
-          >
-            <div className={styles.avatarContainer}>
-              <img
-                src={contact.avatar}
-                alt={contact.name}
-                className={styles.avatar}
-              />
-              {contact.isOnline && <div className={styles.onlineIndicator} />}
-            </div>
+            <div
+              key={contact.id}
+              className={`${styles.contactItem} ${
+                selectedContact && selectedContact.id === contact.id
+                  ? styles.selected
+                  : ''
+              }`}
+              onClick={() => onContactSelect(contact)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  onContactSelect(contact);
+                }
+              }}
+            >
+              <div className={styles.avatarContainer}>
+                <img
+                  src={contact.avatar}
+                  alt={contact.name}
+                  className={styles.avatar}
+                />
+                {contact.isOnline && <div className={styles.onlineIndicator} />}
+              </div>
 
-            <div className={styles.contactInfo}>
-              <div className={styles.contactHeader}>
-                <span className={styles.contactName}>{contact.name}</span>
-                <span className={styles.timestamp}>{contact.timestamp}</span>
-              </div>
-              <div className={styles.lastMessageContainer}>
-                <span className={styles.lastMessage}>
-                  {contact.lastMessage}
-                </span>
-                {contact.unreadCount ? (
-                  <div className={styles.unreadBadge}>
-                    {contact.unreadCount}
-                  </div>
-                ) : null}
+              <div className={styles.contactInfo}>
+                <div className={styles.contactHeader}>
+                  <span className={styles.contactName}>{contact.name}</span>
+                  <span className={styles.timestamp}>{contact.timestamp}</span>
+                </div>
+                <div className={styles.lastMessageContainer}>
+                  <span className={styles.lastMessage}>
+                    {contact.lastMessage}
+                  </span>
+                  {contact.unreadCount ? (
+                    <div className={styles.unreadBadge}>
+                      {contact.unreadCount}
+                    </div>
+                  ) : null}
+                </div>
               </div>
             </div>
-          </div>
           ))
         )}
       </div>

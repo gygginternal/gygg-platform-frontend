@@ -2,12 +2,12 @@ import React from 'react';
 import { LazyImage } from './index';
 import './LazyGigCard.css';
 
-const LazyGigCard = ({ 
-  gig, 
-  onClick, 
+const LazyGigCard = ({
+  gig,
+  onClick,
   className = '',
   showPlaceholder = true,
-  ...props 
+  ...props
 }) => {
   const handleCardClick = () => {
     onClick?.(gig);
@@ -21,7 +21,7 @@ const LazyGigCard = ({
   );
 
   return (
-    <div 
+    <div
       className={`lazy-gig-card ${className}`}
       onClick={handleCardClick}
       {...props}
@@ -42,7 +42,7 @@ const LazyGigCard = ({
             console.debug('Gig image failed to load:', gig.title);
           }}
         />
-        
+
         {/* Overlay content */}
         <div className="gig-card-overlay">
           <div className="gig-card-content">
@@ -62,7 +62,7 @@ const LazyGigCard = ({
           </div>
         </div>
       </div>
-      
+
       {/* Card footer */}
       <div className="gig-card-footer">
         <div className="gig-card-tags">
@@ -73,9 +73,9 @@ const LazyGigCard = ({
           ))}
         </div>
         <div className="gig-card-actions">
-          <button 
+          <button
             className="gig-card-action-btn"
-            onClick={(e) => {
+            onClick={e => {
               e.stopPropagation();
               // Handle action
             }}

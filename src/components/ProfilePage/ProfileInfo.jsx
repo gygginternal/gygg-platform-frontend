@@ -26,7 +26,13 @@ const decodeHTMLEntities = text => {
 // This component is designed to be used on the logged-in user's own profile/dashboard page.
 // If you want to display *another* user's profile, you'd create a separate component
 // or modify this one to accept a `userIdToView` prop and fetch that user's data.
-function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate, showMessageButton, onMessageClick }) {
+function ProfileInfo({
+  userToDisplay,
+  isOwnProfile,
+  onProfileUpdate,
+  showMessageButton,
+  onMessageClick,
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // State for editable fields within the modal
@@ -243,21 +249,28 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate, showMessage
 
   // Enhanced location extraction similar to TaskerListSafe
   let displayLocation = 'Location not specified';
-  
-  if (userToDisplay.address && Object.values(userToDisplay.address).some(val => val)) {
+
+  if (
+    userToDisplay.address &&
+    Object.values(userToDisplay.address).some(val => val)
+  ) {
     const parts = [];
     if (userToDisplay.address.city) parts.push(userToDisplay.address.city);
     if (userToDisplay.address.state) parts.push(userToDisplay.address.state);
-    if (userToDisplay.address.country) parts.push(userToDisplay.address.country);
-    
+    if (userToDisplay.address.country)
+      parts.push(userToDisplay.address.country);
+
     if (parts.length > 0) {
       displayLocation = parts.join(', ');
     }
   } else if (userToDisplay.location) {
     // Fallback to location field if address is not available
-    displayLocation = typeof userToDisplay.location === 'string' 
-      ? userToDisplay.location 
-      : userToDisplay.location.city || userToDisplay.location.state || 'Location not specified';
+    displayLocation =
+      typeof userToDisplay.location === 'string'
+        ? userToDisplay.location
+        : userToDisplay.location.city ||
+          userToDisplay.location.state ||
+          'Location not specified';
   } else if (userToDisplay.city || userToDisplay.state) {
     // Fallback to direct city/state fields
     const parts = [];
@@ -305,16 +318,17 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate, showMessage
             <p className={styles.profileServices}>
               <strong>Hobbies:</strong> {displayHobbiesString}
             </p>
-            {displayLocation && displayLocation !== 'Location not specified' && (
-              <div className={styles.profileLocation}>
-                <img
-                  src="/assets/location.svg"
-                  alt="Location"
-                  className={styles.locationIcon}
-                />
-                <span>{displayLocation}</span>
-              </div>
-            )}
+            {displayLocation &&
+              displayLocation !== 'Location not specified' && (
+                <div className={styles.profileLocation}>
+                  <img
+                    src="/assets/location.svg"
+                    alt="Location"
+                    className={styles.locationIcon}
+                  />
+                  <span>{displayLocation}</span>
+                </div>
+              )}
           </div>
           <div className={styles.profileActions}>
             {showMessageButton && (
@@ -340,7 +354,9 @@ function ProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate, showMessage
                   </span>
                 ))
               ) : (
-                <p className={styles.noSkills}>Add your skills to get noticed!</p>
+                <p className={styles.noSkills}>
+                  Add your skills to get noticed!
+                </p>
               )}
             </div>
           </div>

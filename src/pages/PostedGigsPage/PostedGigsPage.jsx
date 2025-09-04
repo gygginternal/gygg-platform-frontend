@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Calendar, DollarSign, MapPin, Users, Eye } from 'lucide-react';
+import {
+  ArrowLeft,
+  Calendar,
+  DollarSign,
+  MapPin,
+  Users,
+  Eye,
+} from 'lucide-react';
 import apiClient from '../../api/axiosConfig';
 import { GigApplications } from '../../components/Shared/GigApplications';
 import styles from './PostedGigsPage.module.css';
@@ -29,7 +36,9 @@ const PostedGigsPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [selectedGigId, setSelectedGigId] = useState(
-    isValidObjectId(gigIdFromQuery) && viewFromQuery === 'applications' ? gigIdFromQuery : null
+    isValidObjectId(gigIdFromQuery) && viewFromQuery === 'applications'
+      ? gigIdFromQuery
+      : null
   );
   const [selectedGigTitle, setSelectedGigTitle] = useState('');
   const [selectedGigForModal, setSelectedGigForModal] = useState(null);
@@ -54,7 +63,11 @@ const PostedGigsPage = () => {
 
   useEffect(() => {
     // If gigId is in query and valid, show popup for that gig (but not if view=applications)
-    if (isValidObjectId(gigIdFromQuery) && postedGigs.length > 0 && viewFromQuery !== 'applications') {
+    if (
+      isValidObjectId(gigIdFromQuery) &&
+      postedGigs.length > 0 &&
+      viewFromQuery !== 'applications'
+    ) {
       const gig = postedGigs.find(g => g._id === gigIdFromQuery);
       if (gig) {
         // Fetch full gig details and show modal
@@ -73,7 +86,7 @@ const PostedGigsPage = () => {
     }
   }, [selectedGigId, postedGigs]);
 
-  const fetchGigDetails = async (gigId) => {
+  const fetchGigDetails = async gigId => {
     try {
       const res = await apiClient.get(`/gigs/${gigId}`);
       setSelectedGigForModal(res.data.data.gig);
@@ -91,7 +104,7 @@ const PostedGigsPage = () => {
     }
   };
 
-  const handleGigCardClick = async (gig) => {
+  const handleGigCardClick = async gig => {
     await fetchGigDetails(gig._id);
   };
 
@@ -187,7 +200,7 @@ const PostedGigsPage = () => {
               <div className={styles.errorIcon}>⚠️</div>
               <h3>Something went wrong</h3>
               <p>{error}</p>
-              <button 
+              <button
                 className={styles.retryButton}
                 onClick={() => window.location.reload()}
               >
@@ -198,8 +211,10 @@ const PostedGigsPage = () => {
             <div className={styles.emptyState}>
               <div className={styles.emptyIcon}>📝</div>
               <h3>No gigs posted yet</h3>
-              <p>Start by creating your first gig to find helpers for your tasks</p>
-              <button 
+              <p>
+                Start by creating your first gig to find helpers for your tasks
+              </p>
+              <button
                 className={styles.createGigButton}
                 onClick={() => navigate('/gigs/create')}
               >
@@ -209,8 +224,8 @@ const PostedGigsPage = () => {
           ) : (
             <div className={styles.gigsGrid}>
               {postedGigs.map(gig => (
-                <div 
-                  key={gig._id} 
+                <div
+                  key={gig._id}
                   className={styles.gigCard}
                   onClick={() => handleGigCardClick(gig)}
                   style={{ cursor: 'pointer' }}
@@ -218,7 +233,9 @@ const PostedGigsPage = () => {
                   <div className={styles.gigCardHeader}>
                     <h3 className={styles.gigCardTitle}>{gig.title}</h3>
                     <div className={styles.gigCardStatus}>
-                      <span className={`${styles.statusBadge} ${styles[gig.status || 'open']}`}>
+                      <span
+                        className={`${styles.statusBadge} ${styles[gig.status || 'open']}`}
+                      >
                         {gig.status === 'open' ? 'Active' : gig.status}
                       </span>
                     </div>
@@ -226,8 +243,8 @@ const PostedGigsPage = () => {
 
                   <div className={styles.gigCardContent}>
                     <p className={styles.gigCardDescription}>
-                      {gig.description?.length > 120 
-                        ? `${gig.description.substring(0, 120)}...` 
+                      {gig.description?.length > 120
+                        ? `${gig.description.substring(0, 120)}...`
                         : gig.description || 'No description provided'}
                     </p>
 
@@ -238,7 +255,9 @@ const PostedGigsPage = () => {
                       </div>
                       <div className={styles.metaItem}>
                         <Calendar size={16} />
-                        <span>{new Date(gig.createdAt).toLocaleDateString()}</span>
+                        <span>
+                          {new Date(gig.createdAt).toLocaleDateString()}
+                        </span>
                       </div>
                       {gig.location && (
                         <div className={styles.metaItem}>
@@ -259,7 +278,7 @@ const PostedGigsPage = () => {
                   <div className={styles.gigCardActions}>
                     <button
                       className={styles.viewApplicationsButton}
-                      onClick={(e) => {
+                      onClick={e => {
                         e.stopPropagation();
                         handleGigClick(gig);
                       }}
@@ -275,7 +294,7 @@ const PostedGigsPage = () => {
           )}
         </div>
       </div>
-      
+
       <ProviderGigDetailsModal
         gig={selectedGigForModal}
         open={modalOpen}

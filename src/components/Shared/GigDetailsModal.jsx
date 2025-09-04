@@ -207,7 +207,7 @@ const GigDetailsModal = ({
             <Link
               to={`/user-profile/${user._id}`}
               className={styles.modalViewProfileBlack}
-              onClick={(e) => {
+              onClick={e => {
                 e.stopPropagation();
               }}
             >

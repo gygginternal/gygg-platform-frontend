@@ -24,14 +24,14 @@ function SettingsPage() {
             Payment Information
           </button>
         </div>
-        
+
         <div className={styles.tabContent}>
           {activeTab === 'profile' && (
             <div className={styles.noBox}>
               <PersonalInfoForm />
             </div>
           )}
-          
+
           {activeTab === 'payment' && (
             <div className={styles.tabPanel}>
               <h2>Payment Information</h2>

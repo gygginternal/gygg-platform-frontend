@@ -354,24 +354,45 @@ function Header() {
                                   {(() => {
                                     // Always use consistent icons based on notification type
                                     let iconSrc = '/assets/comment.svg'; // default
-                                    
-                                    if (notification.type === 'new_message' || 
-                                        notification.message?.toLowerCase().includes('message')) {
+
+                                    if (
+                                      notification.type === 'new_message' ||
+                                      notification.message
+                                        ?.toLowerCase()
+                                        .includes('message')
+                                    ) {
                                       iconSrc = '/assets/message.svg';
-                                    } else if (notification.type === 'post_liked' || 
-                                              notification.message?.toLowerCase().includes('liked')) {
+                                    } else if (
+                                      notification.type === 'post_liked' ||
+                                      notification.message
+                                        ?.toLowerCase()
+                                        .includes('liked')
+                                    ) {
                                       iconSrc = '/assets/heart-filled.svg';
-                                    } else if (notification.type === 'new_comment' || 
-                                              notification.message?.toLowerCase().includes('comment')) {
+                                    } else if (
+                                      notification.type === 'new_comment' ||
+                                      notification.message
+                                        ?.toLowerCase()
+                                        .includes('comment')
+                                    ) {
                                       iconSrc = '/assets/comment.svg';
-                                    } else if (notification.type === 'application_received' ||
-                                              notification.message?.toLowerCase().includes('applied')) {
+                                    } else if (
+                                      notification.type ===
+                                        'application_received' ||
+                                      notification.message
+                                        ?.toLowerCase()
+                                        .includes('applied')
+                                    ) {
                                       iconSrc = '/assets/applied-user.svg';
-                                    } else if (notification.type === 'gig_posted' ||
-                                              notification.message?.toLowerCase().includes('gig')) {
+                                    } else if (
+                                      notification.type === 'gig_posted' ||
+                                      notification.message
+                                        ?.toLowerCase()
+                                        .includes('gig')
+                                    ) {
                                       iconSrc = '/assets/briefcase.svg';
                                     }
-                                    
+
                                     return (
                                       <img
                                         src={iconSrc}

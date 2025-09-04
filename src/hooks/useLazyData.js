@@ -16,7 +16,7 @@ const useLazyData = (fetchFunction, options = {}) => {
     onSuccess,
     onError,
     retryCount = 3,
-    retryDelay = 1000
+    retryDelay = 1000,
   } = options;
 
   const [data, setData] = useState(null);
@@ -24,7 +24,7 @@ const useLazyData = (fetchFunction, options = {}) => {
   const [error, setError] = useState(null);
   const [isInView, setIsInView] = useState(false);
   const [hasTriggered, setHasTriggered] = useState(false);
-  
+
   const elementRef = useRef(null);
   const observerRef = useRef(null);
   const retryTimeoutRef = useRef(null);
@@ -57,12 +57,21 @@ const useLazyData = (fetchFunction, options = {}) => {
     } finally {
       setLoading(false);
     }
-  }, [fetchFunction, enabled, triggerOnce, hasTriggered, onSuccess, onError, retryCount, retryDelay]);
+  }, [
+    fetchFunction,
+    enabled,
+    triggerOnce,
+    hasTriggered,
+    onSuccess,
+    onError,
+    retryCount,
+    retryDelay,
+  ]);
 
   // Set up intersection observer
   useEffect(() => {
     const currentElement = elementRef.current;
-    
+
     if (!currentElement || !('IntersectionObserver' in window)) {
       // Fallback for browsers without IntersectionObserver
       setIsInView(true);
@@ -73,7 +82,7 @@ const useLazyData = (fetchFunction, options = {}) => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsInView(true);
-          
+
           if (triggerOnce) {
             observerRef.current?.unobserve(currentElement);
           }
@@ -83,7 +92,7 @@ const useLazyData = (fetchFunction, options = {}) => {
       },
       {
         threshold,
-        rootMargin
+        rootMargin,
       }
     );
 
@@ -135,7 +144,7 @@ const useLazyData = (fetchFunction, options = {}) => {
     elementRef,
     retry,
     refresh,
-    hasTriggered
+    hasTriggered,
   };
 };
 

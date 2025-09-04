@@ -5,9 +5,7 @@ import ErrorDisplay from './ErrorDisplay';
 import { validateContent } from '../../utils/contentFilter';
 import styles from './InputField.module.css';
 
-const COUNTRY_OPTIONS = [
-  { code: '+1', label: '+1', flag: 'CA' },
-];
+const COUNTRY_OPTIONS = [{ code: '+1', label: '+1', flag: 'CA' }];
 
 const InputField = ({
   label,
@@ -44,7 +42,7 @@ const InputField = ({
   const isPhoneInput = variant === 'phone';
   const isPasswordInput = variant === 'password' || type === 'password';
   const isTextarea = type === 'textarea';
-  
+
   // Check if we should use white text styling
   const shouldUseWhiteText = labelColor === 'white';
 
@@ -95,7 +93,7 @@ const InputField = ({
     e => {
       const digits = e.target.value.replace(/\D/g, '');
       const limitedDigits = maxLength ? digits.slice(0, maxLength) : digits;
-      
+
       // Only update if the value actually changed to prevent double-typing
       if (limitedDigits !== localNumber) {
         setLocalNumber(limitedDigits);
@@ -112,8 +110,14 @@ const InputField = ({
 
   // Content validation function
   const validateInputContent = useCallback(
-    (text) => {
-      if (!enableContentFilter || !text || type === 'password' || type === 'email' || isPhoneInput) {
+    text => {
+      if (
+        !enableContentFilter ||
+        !text ||
+        type === 'password' ||
+        type === 'email' ||
+        isPhoneInput
+      ) {
         setContentWarning(null);
         setIsContentValid(true);
         return true;
@@ -122,14 +126,14 @@ const InputField = ({
       const validation = validateContent(text, {
         minSafetyScore: 70,
         strictMode: false,
-        ...contentFilterOptions
+        ...contentFilterOptions,
       });
 
       if (!validation.isValid) {
         setContentWarning({
           message: validation.message,
           suggestions: validation.suggestions,
-          severity: validation.safetyScore < 30 ? 'high' : 'medium'
+          severity: validation.safetyScore < 30 ? 'high' : 'medium',
         });
         setIsContentValid(false);
         return false;
@@ -246,7 +250,9 @@ const InputField = ({
         </label>
       )}
 
-      <div className={`${styles.inputContainer} ${error ? styles.error : ''} ${contentWarning ? styles.contentWarning : ''} ${shouldUseWhiteText ? styles.whiteTextContainer : ''}`}>
+      <div
+        className={`${styles.inputContainer} ${error ? styles.error : ''} ${contentWarning ? styles.contentWarning : ''} ${shouldUseWhiteText ? styles.whiteTextContainer : ''}`}
+      >
         {isPhoneInput && (
           <select
             value={countryCode}
@@ -284,32 +290,33 @@ const InputField = ({
 
       {error && (
         <div id={`${name}-error`}>
-          <ErrorDisplay 
-            errors={error} 
-            variant="field"
-            showIcon={false}
-          />
+          <ErrorDisplay errors={error} variant="field" showIcon={false} />
         </div>
       )}
 
       {contentWarning && (
         <div className={styles.contentWarningContainer}>
-          <div className={`${styles.contentWarningMessage} ${styles[contentWarning.severity]}`}>
+          <div
+            className={`${styles.contentWarningMessage} ${styles[contentWarning.severity]}`}
+          >
             <AlertTriangle size={14} className={styles.warningIcon} />
             <span>{contentWarning.message}</span>
           </div>
-          {contentWarning.suggestions && contentWarning.suggestions.length > 0 && (
-            <div className={styles.contentSuggestions}>
-              <p className={styles.suggestionsTitle}>Suggestions:</p>
-              <ul className={styles.suggestionsList}>
-                {contentWarning.suggestions.slice(0, 2).map((suggestion, index) => (
-                  <li key={index} className={styles.suggestionItem}>
-                    {suggestion}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          {contentWarning.suggestions &&
+            contentWarning.suggestions.length > 0 && (
+              <div className={styles.contentSuggestions}>
+                <p className={styles.suggestionsTitle}>Suggestions:</p>
+                <ul className={styles.suggestionsList}>
+                  {contentWarning.suggestions
+                    .slice(0, 2)
+                    .map((suggestion, index) => (
+                      <li key={index} className={styles.suggestionItem}>
+                        {suggestion}
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            )}
         </div>
       )}
 

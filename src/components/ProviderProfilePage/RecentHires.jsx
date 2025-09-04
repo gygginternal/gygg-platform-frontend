@@ -130,7 +130,7 @@ function RecentHires({ providerId, isOwnProfile }) {
           </div>
         ))}
       </div>
-      
+
       {hires.length > 0 && totalPages > 1 && (
         <div className={styles.paginationDots}>
           {Array.from({ length: totalPages }).map((_, idx) => (

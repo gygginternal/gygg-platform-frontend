@@ -26,56 +26,72 @@ const InfiniteScroll = ({
   const containerRef = useRef(null);
   const loadingRef = useRef(false);
 
-  const handleScroll = useCallback((e) => {
-    onScroll(e);
-    
-    if (loadingRef.current || !hasMore) return;
+  const handleScroll = useCallback(
+    e => {
+      onScroll(e);
 
-    const { scrollTop, scrollHeight, clientHeight } = e.target;
-    
-    let shouldLoadMore = false;
-    
-    if (reverse) {
-      // For reverse infinite scroll (chat-like)
-      shouldLoadMore = scrollTop <= (scrollHeight - clientHeight) * (1 - threshold);
-    } else {
-      // Normal infinite scroll
-      shouldLoadMore = scrollTop >= scrollHeight * threshold - clientHeight;
-    }
+      if (loadingRef.current || !hasMore) return;
 
-    if (shouldLoadMore) {
-      loadingRef.current = true;
-      setIsLoading(true);
-      
-      Promise.resolve(loadMore()).finally(() => {
-        setIsLoading(false);
-        loadingRef.current = false;
-      });
-    }
-  }, [hasMore, loadMore, threshold, reverse, onScroll]);
+      const { scrollTop, scrollHeight, clientHeight } = e.target;
+
+      let shouldLoadMore = false;
+
+      if (reverse) {
+        // For reverse infinite scroll (chat-like)
+        shouldLoadMore =
+          scrollTop <= (scrollHeight - clientHeight) * (1 - threshold);
+      } else {
+        // Normal infinite scroll
+        shouldLoadMore = scrollTop >= scrollHeight * threshold - clientHeight;
+      }
+
+      if (shouldLoadMore) {
+        loadingRef.current = true;
+        setIsLoading(true);
+
+        Promise.resolve(loadMore()).finally(() => {
+          setIsLoading(false);
+          loadingRef.current = false;
+        });
+      }
+    },
+    [hasMore, loadMore, threshold, reverse, onScroll]
+  );
 
   // Pull to refresh handlers
-  const handleTouchStart = useCallback((e) => {
-    if (!pullDownToRefresh || !refreshFunction) return;
-    setStartY(e.touches[0].clientY);
-  }, [pullDownToRefresh, refreshFunction]);
+  const handleTouchStart = useCallback(
+    e => {
+      if (!pullDownToRefresh || !refreshFunction) return;
+      setStartY(e.touches[0].clientY);
+    },
+    [pullDownToRefresh, refreshFunction]
+  );
 
-  const handleTouchMove = useCallback((e) => {
-    if (!pullDownToRefresh || !refreshFunction || isRefreshing) return;
-    
-    const currentY = e.touches[0].clientY;
-    const diff = currentY - startY;
-    const { scrollTop } = containerRef.current;
-    
-    if (scrollTop === 0 && diff > 0) {
-      e.preventDefault();
-      setPullDistance(Math.min(diff, releaseToRefreshThreshold));
-    }
-  }, [pullDownToRefresh, refreshFunction, isRefreshing, startY, releaseToRefreshThreshold]);
+  const handleTouchMove = useCallback(
+    e => {
+      if (!pullDownToRefresh || !refreshFunction || isRefreshing) return;
+
+      const currentY = e.touches[0].clientY;
+      const diff = currentY - startY;
+      const { scrollTop } = containerRef.current;
+
+      if (scrollTop === 0 && diff > 0) {
+        e.preventDefault();
+        setPullDistance(Math.min(diff, releaseToRefreshThreshold));
+      }
+    },
+    [
+      pullDownToRefresh,
+      refreshFunction,
+      isRefreshing,
+      startY,
+      releaseToRefreshThreshold,
+    ]
+  );
 
   const handleTouchEnd = useCallback(() => {
     if (!pullDownToRefresh || !refreshFunction || isRefreshing) return;
-    
+
     if (pullDistance >= pullDownToRefreshThreshold) {
       setIsRefreshing(true);
       Promise.resolve(refreshFunction()).finally(() => {
@@ -85,17 +101,27 @@ const InfiniteScroll = ({
     } else {
       setPullDistance(0);
     }
-  }, [pullDownToRefresh, refreshFunction, isRefreshing, pullDistance, pullDownToRefreshThreshold]);
+  }, [
+    pullDownToRefresh,
+    refreshFunction,
+    isRefreshing,
+    pullDistance,
+    pullDownToRefreshThreshold,
+  ]);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     container.addEventListener('scroll', handleScroll, { passive: true });
-    
+
     if (pullDownToRefresh) {
-      container.addEventListener('touchstart', handleTouchStart, { passive: true });
-      container.addEventListener('touchmove', handleTouchMove, { passive: false });
+      container.addEventListener('touchstart', handleTouchStart, {
+        passive: true,
+      });
+      container.addEventListener('touchmove', handleTouchMove, {
+        passive: false,
+      });
       container.addEventListener('touchend', handleTouchEnd, { passive: true });
     }
 
@@ -107,14 +133,22 @@ const InfiniteScroll = ({
         container.removeEventListener('touchend', handleTouchEnd);
       }
     };
-  }, [handleScroll, handleTouchStart, handleTouchMove, handleTouchEnd, pullDownToRefresh]);
+  }, [
+    handleScroll,
+    handleTouchStart,
+    handleTouchMove,
+    handleTouchEnd,
+    pullDownToRefresh,
+  ]);
 
   const containerClasses = [
     'infinite-scroll',
     className,
     reverse ? 'infinite-scroll-reverse' : '',
-    isRefreshing ? 'infinite-scroll-refreshing' : ''
-  ].filter(Boolean).join(' ');
+    isRefreshing ? 'infinite-scroll-refreshing' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   const defaultLoader = (
     <div className="infinite-scroll-loader">
@@ -129,23 +163,24 @@ const InfiniteScroll = ({
   );
 
   const pullToRefreshIndicator = (
-    <div 
+    <div
       className="pull-to-refresh-indicator"
       style={{
         transform: `translateY(${pullDistance}px)`,
-        opacity: pullDistance / pullDownToRefreshThreshold
+        opacity: pullDistance / pullDownToRefreshThreshold,
       }}
     >
-      <div className={`refresh-icon ${pullDistance >= pullDownToRefreshThreshold ? 'ready' : ''}`}>
+      <div
+        className={`refresh-icon ${pullDistance >= pullDownToRefreshThreshold ? 'ready' : ''}`}
+      >
         {isRefreshing ? '⟳' : '↓'}
       </div>
       <span className="refresh-text">
-        {isRefreshing 
-          ? 'Refreshing...' 
-          : pullDistance >= pullDownToRefreshThreshold 
-            ? 'Release to refresh' 
-            : 'Pull to refresh'
-        }
+        {isRefreshing
+          ? 'Refreshing...'
+          : pullDistance >= pullDownToRefreshThreshold
+            ? 'Release to refresh'
+            : 'Pull to refresh'}
       </span>
     </div>
   );
@@ -156,20 +191,20 @@ const InfiniteScroll = ({
       className={containerClasses}
       style={{
         ...style,
-        transform: pullDownToRefresh ? `translateY(${Math.min(pullDistance, releaseToRefreshThreshold)}px)` : undefined
+        transform: pullDownToRefresh
+          ? `translateY(${Math.min(pullDistance, releaseToRefreshThreshold)}px)`
+          : undefined,
       }}
       {...props}
     >
       {pullDownToRefresh && pullToRefreshIndicator}
-      
+
       {reverse && isLoading && (loader || defaultLoader)}
-      
-      <div className="infinite-scroll-content">
-        {children}
-      </div>
-      
+
+      <div className="infinite-scroll-content">{children}</div>
+
       {!reverse && isLoading && (loader || defaultLoader)}
-      
+
       {!hasMore && !isLoading && (endMessage || defaultEndMessage)}
     </div>
   );

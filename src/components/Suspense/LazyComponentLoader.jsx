@@ -3,10 +3,7 @@ import LoadingSpinner from './LoadingSpinner';
 import ErrorBoundary from './ErrorBoundary';
 
 // Higher-order component for lazy loading with enhanced loading states
-const withLazyLoading = (
-  importFunc, 
-  options = {}
-) => {
+const withLazyLoading = (importFunc, options = {}) => {
   const {
     loadingComponent: CustomLoading,
     errorComponent: CustomError,
@@ -14,7 +11,7 @@ const withLazyLoading = (
     spinnerSize = 'medium',
     spinnerColor = 'primary',
     retryable = true,
-    preload = false
+    preload = false,
   } = options;
 
   const LazyComponent = lazy(importFunc);
@@ -24,9 +21,9 @@ const withLazyLoading = (
     importFunc();
   }
 
-  const WrappedComponent = (props) => {
+  const WrappedComponent = props => {
     const fallback = CustomLoading || (
-      <LoadingSpinner 
+      <LoadingSpinner
         size={spinnerSize}
         color={spinnerColor}
         text={loadingText}
@@ -34,10 +31,7 @@ const withLazyLoading = (
     );
 
     return (
-      <ErrorBoundary 
-        fallback={CustomError}
-        retryable={retryable}
-      >
+      <ErrorBoundary fallback={CustomError} retryable={retryable}>
         <Suspense fallback={fallback}>
           <LazyComponent {...props} />
         </Suspense>
@@ -47,7 +41,7 @@ const withLazyLoading = (
 
   // Add preload method to component
   WrappedComponent.preload = importFunc;
-  
+
   return WrappedComponent;
 };
 
@@ -57,7 +51,7 @@ const createLazyRoute = (importFunc, options = {}) => {
     loadingText: 'Loading page...',
     spinnerSize: 'large',
     fullScreen: true,
-    ...options
+    ...options,
   });
 };
 
@@ -66,7 +60,7 @@ const createLazyModal = (importFunc, options = {}) => {
   return withLazyLoading(importFunc, {
     loadingText: 'Loading modal...',
     spinnerSize: 'medium',
-    ...options
+    ...options,
   });
 };
 
@@ -75,15 +69,15 @@ const createLazyWidget = (importFunc, options = {}) => {
   return withLazyLoading(importFunc, {
     loadingText: 'Loading widget...',
     spinnerSize: 'small',
-    ...options
+    ...options,
   });
 };
 
 // Progressive loading component for multiple lazy components
-const ProgressiveLoader = ({ 
-  components, 
+const ProgressiveLoader = ({
+  components,
   onProgress,
-  loadingText = 'Loading components...' 
+  loadingText = 'Loading components...',
 }) => {
   const [loadedCount, setLoadedCount] = React.useState(0);
   const [errors, setErrors] = React.useState([]);
@@ -110,10 +104,7 @@ const ProgressiveLoader = ({
     <div className="progressive-loader">
       <LoadingSpinner text={loadingText} />
       <div className="progress-bar">
-        <div 
-          className="progress-fill" 
-          style={{ width: `${progress}%` }}
-        />
+        <div className="progress-fill" style={{ width: `${progress}%` }} />
       </div>
       <p className="progress-text">
         {loadedCount} of {components.length} components loaded
@@ -123,7 +114,9 @@ const ProgressiveLoader = ({
           <p>Some components failed to load:</p>
           <ul>
             {errors.map(({ index, error }) => (
-              <li key={index}>Component {index + 1}: {error.message}</li>
+              <li key={index}>
+                Component {index + 1}: {error.message}
+              </li>
             ))}
           </ul>
         </div>
@@ -137,5 +130,5 @@ export {
   createLazyRoute,
   createLazyModal,
   createLazyWidget,
-  ProgressiveLoader
+  ProgressiveLoader,
 };

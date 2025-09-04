@@ -24,7 +24,7 @@ const LazyImage = ({
 
   useEffect(() => {
     const currentImg = imgRef.current;
-    
+
     if (!currentImg || !('IntersectionObserver' in window)) {
       // Fallback for browsers without IntersectionObserver
       setIsInView(true);
@@ -40,7 +40,7 @@ const LazyImage = ({
       },
       {
         threshold,
-        rootMargin
+        rootMargin,
       }
     );
 
@@ -53,12 +53,12 @@ const LazyImage = ({
     };
   }, [threshold, rootMargin]);
 
-  const handleLoad = (e) => {
+  const handleLoad = e => {
     setIsLoaded(true);
     onLoad(e);
   };
 
-  const handleError = (e) => {
+  const handleError = e => {
     setHasError(true);
     onError(e);
   };
@@ -67,20 +67,18 @@ const LazyImage = ({
     'lazy-image',
     className,
     isLoaded ? 'lazy-image-loaded' : '',
-    hasError ? 'lazy-image-error' : ''
-  ].filter(Boolean).join(' ');
+    hasError ? 'lazy-image-error' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   const imageStyle = {
     ...style,
-    '--fade-duration': `${fadeInDuration}ms`
+    '--fade-duration': `${fadeInDuration}ms`,
   };
 
   return (
-    <div 
-      ref={imgRef}
-      className="lazy-image-container"
-      style={imageStyle}
-    >
+    <div ref={imgRef} className="lazy-image-container" style={imageStyle}>
       {/* Placeholder */}
       {showPlaceholder && !isLoaded && !hasError && (
         <div className="lazy-image-placeholder">

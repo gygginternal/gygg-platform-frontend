@@ -152,7 +152,10 @@ function Feed() {
       } else {
         // Show success message via toast instead of alert
         if (window.showToast) {
-          window.showToast("Post created successfully! Refresh or switch to 'Recents' to see it immediately.", { type: 'success' });
+          window.showToast(
+            "Post created successfully! Refresh or switch to 'Recents' to see it immediately.",
+            { type: 'success' }
+          );
         }
       }
       setPostText(''); // Clear input field

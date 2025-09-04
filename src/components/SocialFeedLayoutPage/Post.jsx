@@ -261,11 +261,11 @@ function Post({ post, onPostUpdate }) {
           commentCount: updatedComments.length,
         });
       }
-      
+
       // Close the modal after successful deletion
       setShowDeleteCommentModal(false);
       setCommentToDelete(null);
-      
+
       logger.info(`Comment ${commentToDelete} deleted from post ${postId}`);
     } catch (err) {
       setInteractionError(
@@ -275,7 +275,7 @@ function Post({ post, onPostUpdate }) {
         'Error deleting comment:',
         err.response?.data || err.message
       );
-      
+
       // Close the modal even on error to prevent it from staying open
       setShowDeleteCommentModal(false);
       setCommentToDelete(null);
@@ -320,15 +320,14 @@ function Post({ post, onPostUpdate }) {
       if (onPostUpdate) {
         onPostUpdate({ ...post, deleted: true });
       }
-      
+
       // Close the modal after successful deletion
       setShowDeletePostModal(false);
-      
     } catch (err) {
       setInteractionError(
         err.response?.data?.message || 'Could not delete post.'
       );
-      
+
       // Close the modal even on error to prevent it from staying open
       setShowDeletePostModal(false);
     }
@@ -541,7 +540,7 @@ function Post({ post, onPostUpdate }) {
                   See more comments
                 </button>
               )}
-              
+
               {/* Show "See less comments" button when showing more than 3 comments */}
               {visibleCommentsCount > 3 && comments.length > 3 && (
                 <button

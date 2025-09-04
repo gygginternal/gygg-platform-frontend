@@ -6,20 +6,25 @@ import LoadingSpinner from '../Suspense/LoadingSpinner';
 const LazyBillingTable = ({ transactions, loading, ...props }) => {
   const placeholder = (
     <div style={{ padding: '2rem', textAlign: 'center' }}>
-      <div style={{ 
-        background: '#f5f5f5', 
-        borderRadius: '8px', 
-        padding: '3rem',
-        margin: '1rem 0'
-      }}>
-        <div style={{ 
-          width: '100%', 
-          height: '200px', 
-          background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
-          backgroundSize: '200% 100%',
-          animation: 'shimmer 1.5s infinite',
-          borderRadius: '4px'
-        }} />
+      <div
+        style={{
+          background: '#f5f5f5',
+          borderRadius: '8px',
+          padding: '3rem',
+          margin: '1rem 0',
+        }}
+      >
+        <div
+          style={{
+            width: '100%',
+            height: '200px',
+            background:
+              'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
+            backgroundSize: '200% 100%',
+            animation: 'shimmer 1.5s infinite',
+            borderRadius: '4px',
+          }}
+        />
         <p style={{ marginTop: '1rem', color: '#666' }}>
           Loading billing data...
         </p>
@@ -28,10 +33,7 @@ const LazyBillingTable = ({ transactions, loading, ...props }) => {
   );
 
   const loadingComponent = (
-    <LoadingSpinner 
-      size="medium" 
-      text="Loading transactions..." 
-    />
+    <LoadingSpinner size="medium" text="Loading transactions..." />
   );
 
   return (
@@ -48,11 +50,7 @@ const LazyBillingTable = ({ transactions, loading, ...props }) => {
         console.debug('Billing table loaded');
       }}
     >
-      <BillingTable 
-        transactions={transactions} 
-        loading={loading} 
-        {...props} 
-      />
+      <BillingTable transactions={transactions} loading={loading} {...props} />
     </LazySection>
   );
 };

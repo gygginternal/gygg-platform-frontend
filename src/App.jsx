@@ -28,123 +28,198 @@ import TestStripeComponent from './pages/TestStripeComponent';
 import Header from './components/Shared/Header';
 
 // Lazy-loaded pages - loaded on demand
-const SignupPage = createLazyRoute(() => import('./pages/SignupPage/SignupPage'), {
-  loadingText: 'Loading signup page...'
-});
+const SignupPage = createLazyRoute(
+  () => import('./pages/SignupPage/SignupPage'),
+  {
+    loadingText: 'Loading signup page...',
+  }
+);
 
-const VerifyEmailPromptPage = createLazyRoute(() => import('./pages/VerifyEmailPromptPage/VerifyEmailPromptPage'), {
-  loadingText: 'Loading verification page...'
-});
+const VerifyEmailPromptPage = createLazyRoute(
+  () => import('./pages/VerifyEmailPromptPage/VerifyEmailPromptPage'),
+  {
+    loadingText: 'Loading verification page...',
+  }
+);
 
-const ForgotPasswordPage = createLazyRoute(() => import('./pages/ForgotPasswordPage/ForgotPasswordPage'), {
-  loadingText: 'Loading password reset...'
-});
+const ForgotPasswordPage = createLazyRoute(
+  () => import('./pages/ForgotPasswordPage/ForgotPasswordPage'),
+  {
+    loadingText: 'Loading password reset...',
+  }
+);
 
-const ResetPasswordPage = createLazyRoute(() => import('./pages/ResetPasswordPage/ResetPasswordPage'), {
-  loadingText: 'Loading password reset...'
-});
+const ResetPasswordPage = createLazyRoute(
+  () => import('./pages/ResetPasswordPage/ResetPasswordPage'),
+  {
+    loadingText: 'Loading password reset...',
+  }
+);
 
 // Onboarding pages - high priority for authenticated users
-const TaskerOnboardingPage = createLazyRoute(() => import('./pages/OnboardingPages/TaskerOnboardingPage'), {
-  loadingText: 'Loading onboarding...',
-  preload: true // Preload for authenticated users
-});
+const TaskerOnboardingPage = createLazyRoute(
+  () => import('./pages/OnboardingPages/TaskerOnboardingPage'),
+  {
+    loadingText: 'Loading onboarding...',
+    preload: true, // Preload for authenticated users
+  }
+);
 
-const ProviderOnboardingPage = createLazyRoute(() => import('./pages/OnboardingPages/ProviderOnboardingPage'), {
-  loadingText: 'Loading onboarding...',
-  preload: true // Preload for authenticated users
-});
+const ProviderOnboardingPage = createLazyRoute(
+  () => import('./pages/OnboardingPages/ProviderOnboardingPage'),
+  {
+    loadingText: 'Loading onboarding...',
+    preload: true, // Preload for authenticated users
+  }
+);
 
 // Core app pages - medium priority
 const GigsPage = createLazyRoute(() => import('./pages/GigsPage/GigsPage'), {
   loadingText: 'Loading gigs...',
-  preload: true
+  preload: true,
 });
 
-const GigCreatePage = createLazyRoute(() => import('./pages/GigCreatePage/GigCreatePage'), {
-  loadingText: 'Loading gig creator...'
-});
+const GigCreatePage = createLazyRoute(
+  () => import('./pages/GigCreatePage/GigCreatePage'),
+  {
+    loadingText: 'Loading gig creator...',
+  }
+);
 
-const GigDetailPage = createLazyRoute(() => import('./pages/GigDetailPage/GigDetailPage'), {
-  loadingText: 'Loading gig details...'
-});
+const GigDetailPage = createLazyRoute(
+  () => import('./pages/GigDetailPage/GigDetailPage'),
+  {
+    loadingText: 'Loading gig details...',
+  }
+);
 
-const MatchedGigsPage = createLazyRoute(() => import('./pages/MatchedGigsPage/MatchedGigsPage'), {
-  loadingText: 'Loading matched gigs...'
-});
+const MatchedGigsPage = createLazyRoute(
+  () => import('./pages/MatchedGigsPage/MatchedGigsPage'),
+  {
+    loadingText: 'Loading matched gigs...',
+  }
+);
 
-const TaskerProfilePage = createLazyRoute(() => import('./pages/TaskerProfilePage/TaskerProfilePage'), {
-  loadingText: 'Loading profile...'
-});
+const TaskerProfilePage = createLazyRoute(
+  () => import('./pages/TaskerProfilePage/TaskerProfilePage'),
+  {
+    loadingText: 'Loading profile...',
+  }
+);
 
-const SettingsPage = createLazyRoute(() => import('./pages/SettingsPage/SettingsPage'), {
-  loadingText: 'Loading settings...'
-});
+const SettingsPage = createLazyRoute(
+  () => import('./pages/SettingsPage/SettingsPage'),
+  {
+    loadingText: 'Loading settings...',
+  }
+);
 
 const ChatPage = createLazyRoute(() => import('./pages/ChatPage/ChatPage'), {
-  loadingText: 'Loading messages...'
+  loadingText: 'Loading messages...',
 });
 
-const SocialFeedLayoutPage = createLazyRoute(() => import('./pages/SocialFeedLayoutPage/SocialFeedLayoutPage'), {
-  loadingText: 'Loading feed...',
-  preload: true // High priority for main feed
-});
+const SocialFeedLayoutPage = createLazyRoute(
+  () => import('./pages/SocialFeedLayoutPage/SocialFeedLayoutPage'),
+  {
+    loadingText: 'Loading feed...',
+    preload: true, // High priority for main feed
+  }
+);
 
-const PostCreatePage = createLazyRoute(() => import('./pages/PostCreatePage/PostCreatePage'), {
-  loadingText: 'Loading post creator...'
-});
+const PostCreatePage = createLazyRoute(
+  () => import('./pages/PostCreatePage/PostCreatePage'),
+  {
+    loadingText: 'Loading post creator...',
+  }
+);
 
-const ContractsPage = createLazyRoute(() => import('./pages/ContractsPage/ContractsPage'), {
-  loadingText: 'Loading contracts...'
-});
+const ContractsPage = createLazyRoute(
+  () => import('./pages/ContractsPage/ContractsPage'),
+  {
+    loadingText: 'Loading contracts...',
+  }
+);
 
 // Secondary pages - lower priority
-const GigCreateOptionsPage = createLazyRoute(() => import('./pages/GigCreateOptionsPage/GigCreateOptionsPage'), {
-  loadingText: 'Loading options...'
-});
+const GigCreateOptionsPage = createLazyRoute(
+  () => import('./pages/GigCreateOptionsPage/GigCreateOptionsPage'),
+  {
+    loadingText: 'Loading options...',
+  }
+);
 
-const UserProfilePage = createLazyRoute(() => import('./pages/UserProfilePage/UserProfilePage'), {
-  loadingText: 'Loading user profile...'
-});
+const UserProfilePage = createLazyRoute(
+  () => import('./pages/UserProfilePage/UserProfilePage'),
+  {
+    loadingText: 'Loading user profile...',
+  }
+);
 
-const GigHelperPage = createLazyRoute(() => import('./pages/GigHelperPage/GigHelperPage'), {
-  loadingText: 'Loading gig helper...'
-});
+const GigHelperPage = createLazyRoute(
+  () => import('./pages/GigHelperPage/GigHelperPage'),
+  {
+    loadingText: 'Loading gig helper...',
+  }
+);
 
-const GigsAppliedPage = createLazyRoute(() => import('./pages/GigsAppliedPage/GigsAppliedPage'), {
-  loadingText: 'Loading applied gigs...'
-});
+const GigsAppliedPage = createLazyRoute(
+  () => import('./pages/GigsAppliedPage/GigsAppliedPage'),
+  {
+    loadingText: 'Loading applied gigs...',
+  }
+);
 
-const PostedGigsPage = createLazyRoute(() => import('./pages/PostedGigsPage/PostedGigsPage'), {
-  loadingText: 'Loading posted gigs...'
-});
+const PostedGigsPage = createLazyRoute(
+  () => import('./pages/PostedGigsPage/PostedGigsPage'),
+  {
+    loadingText: 'Loading posted gigs...',
+  }
+);
 
-const ChoosePage = createLazyRoute(() => import('./pages/ChoosePage/ChoosePage'), {
-  loadingText: 'Loading options...'
-});
+const ChoosePage = createLazyRoute(
+  () => import('./pages/ChoosePage/ChoosePage'),
+  {
+    loadingText: 'Loading options...',
+  }
+);
 
 // Stripe pages - loaded on demand
-const StripeReturnPage = createLazyRoute(() => import('./pages/StripeReturnPage/StripeReturnPage'), {
-  loadingText: 'Processing payment...'
-});
+const StripeReturnPage = createLazyRoute(
+  () => import('./pages/StripeReturnPage/StripeReturnPage'),
+  {
+    loadingText: 'Processing payment...',
+  }
+);
 
-const StripeRefreshPage = createLazyRoute(() => import('./pages/StripeRefreshPage/StripeRefreshPage'), {
-  loadingText: 'Refreshing payment...'
-});
+const StripeRefreshPage = createLazyRoute(
+  () => import('./pages/StripeRefreshPage/StripeRefreshPage'),
+  {
+    loadingText: 'Refreshing payment...',
+  }
+);
 
 // Legal pages - lowest priority
-const TermsOfUsePage = createLazyRoute(() => import('./pages/Legalpages/TermsOfUsePage'), {
-  loadingText: 'Loading terms...'
-});
+const TermsOfUsePage = createLazyRoute(
+  () => import('./pages/Legalpages/TermsOfUsePage'),
+  {
+    loadingText: 'Loading terms...',
+  }
+);
 
-const PrivacyPolicyPage = createLazyRoute(() => import('./pages/Legalpages/PrivacyPolicyPage'), {
-  loadingText: 'Loading privacy policy...'
-});
+const PrivacyPolicyPage = createLazyRoute(
+  () => import('./pages/Legalpages/PrivacyPolicyPage'),
+  {
+    loadingText: 'Loading privacy policy...',
+  }
+);
 
 // Billing page - medium priority for authenticated users
-const BillingAndPaymentPage = createLazyRoute(() => import('./pages/BillingAndPayment/BillingAndPayment'), {
-  loadingText: 'Loading billing...'
-});
+const BillingAndPaymentPage = createLazyRoute(
+  () => import('./pages/BillingAndPayment/BillingAndPayment'),
+  {
+    loadingText: 'Loading billing...',
+  }
+);
 
 // -------------------- ProtectedRoute HOC --------------------
 function ProtectedRoute({ children }) {
@@ -242,10 +317,7 @@ function AppWithNavigation() {
               path="/verify-email-prompt"
               element={<VerifyEmailPromptPage />}
             />
-            <Route
-              path="/verify-email"
-              element={<VerifyEmailPromptPage />}
-            />
+            <Route path="/verify-email" element={<VerifyEmailPromptPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
 

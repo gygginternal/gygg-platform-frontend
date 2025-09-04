@@ -24,9 +24,9 @@ export const SocketProvider = ({ children }) => {
       console.log('[SocketContext] Initializing socket connection...', {
         user: user._id,
         hasToken: !!authToken,
-        tokenLength: authToken?.length
+        tokenLength: authToken?.length,
       });
-      
+
       const newSocket = io(
         (import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000').replace(
           '/api/v1',
@@ -49,10 +49,16 @@ export const SocketProvider = ({ children }) => {
       );
 
       newSocket.on('connect', () => {
-        console.log('[SocketContext] Socket connected successfully!', newSocket.id);
+        console.log(
+          '[SocketContext] Socket connected successfully!',
+          newSocket.id
+        );
         setConnected(true);
         if (user && user._id) {
-          console.log('[SocketContext] Subscribing to notifications for user:', user._id);
+          console.log(
+            '[SocketContext] Subscribing to notifications for user:',
+            user._id
+          );
           newSocket.emit('subscribeToNotifications', { userId: user._id });
         }
       });
@@ -78,9 +84,9 @@ export const SocketProvider = ({ children }) => {
         // Add timestamp to ensure we have the latest message data
         const messageWithTimestamp = {
           ...message,
-          receivedAt: Date.now() // Add client-side timestamp for deduplication
+          receivedAt: Date.now(), // Add client-side timestamp for deduplication
         };
-        
+
         setNewMessage(messageWithTimestamp);
         newMessageHandlers.current.forEach(h => h(messageWithTimestamp));
       });
@@ -94,10 +100,10 @@ export const SocketProvider = ({ children }) => {
           setTypingUser(userId);
           // Clear typing indicator after 3 seconds
           setTimeout(() => {
-            setTypingUser(prev => prev === userId ? null : prev);
+            setTypingUser(prev => (prev === userId ? null : prev));
           }, 3000);
         } else {
-          setTypingUser(prev => prev === userId ? null : prev);
+          setTypingUser(prev => (prev === userId ? null : prev));
         }
       });
 

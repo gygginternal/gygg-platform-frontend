@@ -13,10 +13,12 @@ const RoutePreloader = () => {
     // Preload critical routes based on user role and current location
     const preloadRoutes = async () => {
       const currentPath = location.pathname;
-      
+
       // Always preload feed for authenticated users
       if (currentPath !== '/feed') {
-        const SocialFeedLayoutPage = await import('../../pages/SocialFeedLayoutPage/SocialFeedLayoutPage');
+        const SocialFeedLayoutPage = await import(
+          '../../pages/SocialFeedLayoutPage/SocialFeedLayoutPage'
+        );
       }
 
       // Preload based on user roles
@@ -26,10 +28,14 @@ const RoutePreloader = () => {
           const GigsPage = await import('../../pages/GigsPage/GigsPage');
         }
         if (currentPath !== '/posted-gigs') {
-          const PostedGigsPage = await import('../../pages/PostedGigsPage/PostedGigsPage');
+          const PostedGigsPage = await import(
+            '../../pages/PostedGigsPage/PostedGigsPage'
+          );
         }
         if (currentPath !== '/contracts') {
-          const ContractsPage = await import('../../pages/ContractsPage/ContractsPage');
+          const ContractsPage = await import(
+            '../../pages/ContractsPage/ContractsPage'
+          );
         }
       }
 
@@ -39,10 +45,14 @@ const RoutePreloader = () => {
           const GigsPage = await import('../../pages/GigsPage/GigsPage');
         }
         if (currentPath !== '/gigs-applied') {
-          const GigsAppliedPage = await import('../../pages/GigsAppliedPage/GigsAppliedPage');
+          const GigsAppliedPage = await import(
+            '../../pages/GigsAppliedPage/GigsAppliedPage'
+          );
         }
         if (currentPath !== '/profile') {
-          const TaskerProfilePage = await import('../../pages/TaskerProfilePage/TaskerProfilePage');
+          const TaskerProfilePage = await import(
+            '../../pages/TaskerProfilePage/TaskerProfilePage'
+          );
         }
       }
 
@@ -51,27 +61,32 @@ const RoutePreloader = () => {
         const ChatPage = await import('../../pages/ChatPage/ChatPage');
       }
       if (currentPath !== '/settings') {
-        const SettingsPage = await import('../../pages/SettingsPage/SettingsPage');
+        const SettingsPage = await import(
+          '../../pages/SettingsPage/SettingsPage'
+        );
       }
       if (currentPath !== '/billing') {
-        const BillingAndPaymentPage = await import('../../pages/BillingAndPayment/BillingAndPayment');
+        const BillingAndPaymentPage = await import(
+          '../../pages/BillingAndPayment/BillingAndPayment'
+        );
       }
     };
 
     // Delay preloading to avoid interfering with initial page load
     const timeoutId = setTimeout(preloadRoutes, 2000);
-    
+
     return () => clearTimeout(timeoutId);
   }, [authToken, user, location.pathname]);
 
   // Preload routes on hover/focus for better UX
   useEffect(() => {
-    const handleLinkHover = async (event) => {
+    const handleLinkHover = async event => {
       const link = event.target.closest('a[href]');
       if (!link) return;
 
       const href = link.getAttribute('href');
-      if (!href || href.startsWith('http') || href.startsWith('mailto:')) return;
+      if (!href || href.startsWith('http') || href.startsWith('mailto:'))
+        return;
 
       // Preload route based on href
       try {
@@ -80,7 +95,9 @@ const RoutePreloader = () => {
             await import('../../pages/GigsPage/GigsPage');
             break;
           case '/feed':
-            await import('../../pages/SocialFeedLayoutPage/SocialFeedLayoutPage');
+            await import(
+              '../../pages/SocialFeedLayoutPage/SocialFeedLayoutPage'
+            );
             break;
           case '/messages':
             await import('../../pages/ChatPage/ChatPage');

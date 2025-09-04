@@ -16,31 +16,39 @@ const TaskerList = () => {
       try {
         setLoading(true);
         setError(null);
-        
+
         console.log('Fetching taskers...');
         console.log('Current user:', user);
         console.log('User role:', user?.role);
-        
+
         // Try multiple endpoints in order of preference
         let response;
         let endpointUsed = '';
-        
+
         try {
           console.log('Trying /users/top-match-taskers...');
           response = await apiClient.get('/users/top-match-taskers');
           endpointUsed = 'top-match-taskers';
           console.log('Success with top-match-taskers:', response.data);
         } catch (topMatchError) {
-          console.log('top-match-taskers failed:', topMatchError.response?.status, topMatchError.response?.data);
-          
+          console.log(
+            'top-match-taskers failed:',
+            topMatchError.response?.status,
+            topMatchError.response?.data
+          );
+
           try {
             console.log('Trying /users/match-taskers...');
             response = await apiClient.get('/users/match-taskers?limit=50');
             endpointUsed = 'match-taskers';
             console.log('Success with match-taskers:', response.data);
           } catch (matchError) {
-            console.log('match-taskers failed:', matchError.response?.status, matchError.response?.data);
-            
+            console.log(
+              'match-taskers failed:',
+              matchError.response?.status,
+              matchError.response?.data
+            );
+
             // Try without authentication as a last resort (if there's a public endpoint)
             try {
               console.log('Trying public user search...');
@@ -49,17 +57,21 @@ const TaskerList = () => {
               endpointUsed = 'public-users';
               console.log('Success with public users:', response.data);
             } catch (publicError) {
-              console.log('Public users failed:', publicError.response?.status, publicError.response?.data);
+              console.log(
+                'Public users failed:',
+                publicError.response?.status,
+                publicError.response?.data
+              );
               throw matchError; // Throw the original match error
             }
           }
         }
-        
+
         // Handle different response structures
         let taskersData = [];
         console.log('Processing response from:', endpointUsed);
         console.log('Response structure:', response.data);
-        
+
         if (response.data?.data?.taskers) {
           // This is the correct structure for top-match-taskers
           taskersData = response.data.data.taskers;
@@ -85,27 +97,26 @@ const TaskerList = () => {
           }
           console.log('Single tasker or other structure found');
         }
-        
+
         console.log('Final taskers data:', taskersData);
-        
+
         // Ensure we have valid tasker data
-        const validTaskers = taskersData.filter(tasker => 
-          tasker && 
-          tasker._id && 
-          (tasker.firstName || tasker.fullName)
+        const validTaskers = taskersData.filter(
+          tasker =>
+            tasker && tasker._id && (tasker.firstName || tasker.fullName)
         );
-        
+
         console.log('Valid taskers after filtering:', validTaskers.length);
         setTaskers(validTaskers);
       } catch (err) {
         console.error('Error fetching taskers:', err);
         console.error('Error response:', err.response?.data);
         console.error('Error status:', err.response?.status);
-        
+
         setError(
           err.response?.data?.message ||
-          err.message ||
-          'Failed to fetch taskers. Please try again.'
+            err.message ||
+            'Failed to fetch taskers. Please try again.'
         );
       } finally {
         setLoading(false);
@@ -143,11 +154,18 @@ const TaskerList = () => {
   if (taskers.length === 0) {
     return (
       <div className={styles.endOfResults}>
-        <h3 style={{ margin: '0 0 1rem 0', fontSize: '1.25rem', fontWeight: '600' }}>
+        <h3
+          style={{
+            margin: '0 0 1rem 0',
+            fontSize: '1.25rem',
+            fontWeight: '600',
+          }}
+        >
           No Gig Helpers Available
         </h3>
         <p style={{ margin: '0', fontSize: '1rem', opacity: '0.8' }}>
-          There are currently no helpers available in your area. Check back later or try expanding your search criteria.
+          There are currently no helpers available in your area. Check back
+          later or try expanding your search criteria.
         </p>
       </div>
     );
@@ -160,7 +178,11 @@ const TaskerList = () => {
           key={tasker._id}
           userId={tasker._id}
           profileImage={tasker.profileImage || '/default.jpg'}
-          name={tasker.fullName || `${tasker.firstName || ''}${tasker.lastName ? ` ${tasker.lastName[0]}.` : ''}`.trim() || 'Anonymous User'}
+          name={
+            tasker.fullName ||
+            `${tasker.firstName || ''}${tasker.lastName ? ` ${tasker.lastName[0]}.` : ''}`.trim() ||
+            'Anonymous User'
+          }
           rate={
             tasker.ratePerHour
               ? `$${tasker.ratePerHour}/hr`

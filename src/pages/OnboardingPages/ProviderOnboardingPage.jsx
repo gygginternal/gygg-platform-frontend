@@ -361,7 +361,9 @@ function ProviderOnboardingPage() {
 
       logger.debug('Submitting first gig:', gigPayload);
       const gigResponse = await apiClient.post('/gigs', gigPayload);
-      showToast('Profile setup complete and your first gig has been posted!', { type: 'success' });
+      showToast('Profile setup complete and your first gig has been posted!', {
+        type: 'success',
+      });
       navigate('/feed');
     } catch (err) {
       setError(

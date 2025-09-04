@@ -15,8 +15,8 @@ class ErrorBoundary extends React.Component {
     // You can also log the error to an error reporting service
     console.error('ErrorBoundary caught an error:', error, errorInfo);
     this.setState({
-      error: error,
-      errorInfo: errorInfo
+      error,
+      errorInfo,
     });
   }
 
@@ -24,25 +24,43 @@ class ErrorBoundary extends React.Component {
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return (
-        <div style={{ 
-          padding: '20px', 
-          background: '#fee2e2', 
-          border: '1px solid #fecaca',
-          borderRadius: '8px',
-          margin: '20px'
-        }}>
-          <h2 style={{ color: '#dc2626', marginBottom: '10px' }}>Something went wrong.</h2>
-          <details style={{ whiteSpace: 'pre-wrap', fontSize: '14px', color: '#7f1d1d' }}>
+        <div
+          style={{
+            padding: '20px',
+            background: '#fee2e2',
+            border: '1px solid #fecaca',
+            borderRadius: '8px',
+            margin: '20px',
+          }}
+        >
+          <h2 style={{ color: '#dc2626', marginBottom: '10px' }}>
+            Something went wrong.
+          </h2>
+          <details
+            style={{
+              whiteSpace: 'pre-wrap',
+              fontSize: '14px',
+              color: '#7f1d1d',
+            }}
+          >
             <summary style={{ cursor: 'pointer', marginBottom: '10px' }}>
               Click to see error details
             </summary>
-            <div style={{ background: '#fef2f2', padding: '10px', borderRadius: '4px' }}>
-              <strong>Error:</strong> {this.state.error && this.state.error.toString()}
+            <div
+              style={{
+                background: '#fef2f2',
+                padding: '10px',
+                borderRadius: '4px',
+              }}
+            >
+              <strong>Error:</strong>{' '}
+              {this.state.error && this.state.error.toString()}
               <br />
-              <strong>Component Stack:</strong> {this.state.errorInfo.componentStack}
+              <strong>Component Stack:</strong>{' '}
+              {this.state.errorInfo.componentStack}
             </div>
           </details>
-          <button 
+          <button
             onClick={() => window.location.reload()}
             style={{
               background: '#dc2626',
@@ -51,7 +69,7 @@ class ErrorBoundary extends React.Component {
               padding: '8px 16px',
               borderRadius: '4px',
               cursor: 'pointer',
-              marginTop: '10px'
+              marginTop: '10px',
             }}
           >
             Reload Page

@@ -26,11 +26,15 @@ function GigDetailPage() {
     try {
       // Fetch Gig Details
       const gigResponse = await apiClient.get(`/gigs/${gigId}`);
-      const gig = gigResponse.data.data.gig;
+      const { gig } = gigResponse.data.data;
       setGigData(gig);
 
       // Check if user is a provider and owns this gig
-      if (user && user.role?.includes('provider') && gig.postedBy?._id === user._id) {
+      if (
+        user &&
+        user.role?.includes('provider') &&
+        gig.postedBy?._id === user._id
+      ) {
         // Redirect to posted gigs page with this gig selected
         navigate(`/posted-gigs?gigId=${gigId}`, { replace: true });
         return;

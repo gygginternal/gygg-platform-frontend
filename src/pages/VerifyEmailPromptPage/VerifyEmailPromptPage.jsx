@@ -26,39 +26,50 @@ function VerifyEmailPromptPage() {
     } else if (error) {
       setPageStatus('error');
       let errorMessage = message || 'Verification failed';
-      
+
       // Provide better error messages and guidance
       if (message && message.includes('not found')) {
-        errorMessage = 'This verification link is invalid or has already been used. If you need to verify your email, please request a new verification link below.';
+        errorMessage =
+          'This verification link is invalid or has already been used. If you need to verify your email, please request a new verification link below.';
       } else if (message && message.includes('expired')) {
-        errorMessage = 'Your verification link has expired. Please request a new verification link below.';
-      } else if (message && message.includes('Too many verification attempts')) {
+        errorMessage =
+          'Your verification link has expired. Please request a new verification link below.';
+      } else if (
+        message &&
+        message.includes('Too many verification attempts')
+      ) {
         errorMessage = message; // Use the detailed rate limiting message from backend
       }
-      
+
       setStatusMessage(errorMessage);
       if (urlEmail) {
         setEmail(decodeURIComponent(urlEmail));
       }
-    } else if (message && (message.includes('verified successfully') || message.includes('already verified'))) {
+    } else if (
+      message &&
+      (message.includes('verified successfully') ||
+        message.includes('already verified'))
+    ) {
       setPageStatus('success');
       setStatusMessage(message);
     }
   }, [searchParams]);
 
-  const handleTokenVerification = (token) => {
+  const handleTokenVerification = token => {
     // Instead of making an API call, redirect to the backend verification endpoint
     // The backend will handle the verification and redirect back to the frontend
     setPageStatus('loading');
     setStatusMessage('Verifying your email...');
-    
+
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     // Remove any trailing slash from backendUrl and construct the verification URL
-    const cleanBackendUrl = backendUrl.endsWith('/') ? backendUrl.slice(0, -1) : backendUrl;
+    const cleanBackendUrl = backendUrl.endsWith('/')
+      ? backendUrl.slice(0, -1)
+      : backendUrl;
     const verificationUrl = `${cleanBackendUrl}/api/v1/users/verifyEmail/${token}`;
-    
+
     logger.info('Redirecting to verification URL:', verificationUrl);
-    
+
     // Redirect to the backend verification endpoint
     // The backend will verify the token and redirect back to the appropriate frontend page
     window.location.href = verificationUrl;
@@ -80,21 +91,25 @@ function VerifyEmailPromptPage() {
     setResendLoading(true);
     setResendStatus('');
     try {
-      await apiClient.post('/users/resendVerificationEmail', { email: email.trim() });
+      await apiClient.post('/users/resendVerificationEmail', {
+        email: email.trim(),
+      });
       setResendStatus(
         'Verification email re-sent successfully! Check your inbox and spam folder.'
       );
       logger.info('Resent verification email for:', email);
     } catch (error) {
       let errorMessage = 'Failed to re-send email. Please try again later.';
-      
+
       if (error.response?.status === 429) {
         // Rate limiting error
-        errorMessage = error.response?.data?.message || 'Too many verification attempts. Please wait before requesting another email.';
+        errorMessage =
+          error.response?.data?.message ||
+          'Too many verification attempts. Please wait before requesting another email.';
       } else if (error.response?.data?.message) {
         errorMessage = error.response.data.message;
       }
-      
+
       setResendStatus(`Error: ${errorMessage}`);
       logger.error(
         'Failed to resend verification email:',
@@ -112,10 +127,19 @@ function VerifyEmailPromptPage() {
           <>
             <h1 className={styles.title}>Verifying Your Email</h1>
             <div className={styles.iconContainer}>
-              <div style={{ fontSize: '4rem', color: '#d99633', animation: 'spin 1s linear infinite' }}>⟳</div>
+              <div
+                style={{
+                  fontSize: '4rem',
+                  color: '#d99633',
+                  animation: 'spin 1s linear infinite',
+                }}
+              >
+                ⟳
+              </div>
             </div>
             <p className={styles.instructionText}>
-              {statusMessage || 'Please wait while we verify your email address...'}
+              {statusMessage ||
+                'Please wait while we verify your email address...'}
             </p>
           </>
         );
@@ -130,19 +154,30 @@ function VerifyEmailPromptPage() {
                 alt="Success"
                 width={80}
                 height={80}
-                onError={(e) => {
+                onError={e => {
                   // Fallback to a simple checkmark if icon doesn't exist
                   e.target.style.display = 'none';
                   e.target.nextSibling.style.display = 'block';
                 }}
               />
-              <div style={{ display: 'none', fontSize: '4rem', color: '#4ade80' }}>✓</div>
+              <div
+                style={{ display: 'none', fontSize: '4rem', color: '#4ade80' }}
+              >
+                ✓
+              </div>
             </div>
-            <p className={styles.instructionText}>
-              {statusMessage}
-            </p>
+            <p className={styles.instructionText}>{statusMessage}</p>
             <div className={styles.form}>
-              <Link to="/login" className={styles.submitButton} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Link
+                to="/login"
+                className={styles.submitButton}
+                style={{
+                  textDecoration: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
                 Continue to Login
               </Link>
             </div>
@@ -159,22 +194,24 @@ function VerifyEmailPromptPage() {
                 alt="Error"
                 width={80}
                 height={80}
-                onError={(e) => {
+                onError={e => {
                   // Fallback to a simple X if icon doesn't exist
                   e.target.style.display = 'none';
                   e.target.nextSibling.style.display = 'block';
                 }}
               />
-              <div style={{ display: 'none', fontSize: '4rem', color: '#ef4444' }}>✗</div>
+              <div
+                style={{ display: 'none', fontSize: '4rem', color: '#ef4444' }}
+              >
+                ✗
+              </div>
             </div>
-            <p className={styles.instructionText}>
-              {statusMessage}
-            </p>
+            <p className={styles.instructionText}>{statusMessage}</p>
             <div className={styles.form}>
               <input
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
                 placeholder="Enter your email address"
                 className={styles.emailInput}
                 style={{
@@ -185,7 +222,7 @@ function VerifyEmailPromptPage() {
                   backgroundColor: 'rgba(255, 255, 255, 0.1)',
                   color: '#fff',
                   fontSize: '0.875rem',
-                  marginBottom: '1rem'
+                  marginBottom: '1rem',
                 }}
               />
               <button
@@ -296,9 +333,7 @@ function VerifyEmailPromptPage() {
           height={60}
         />
       </Link>
-      <section className={styles.formContainer}>
-        {renderContent()}
-      </section>
+      <section className={styles.formContainer}>{renderContent()}</section>
     </main>
   );
 }

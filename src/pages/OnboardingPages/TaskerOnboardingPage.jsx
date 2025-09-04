@@ -465,21 +465,21 @@ function TaskerOnboardingPage() {
   return (
     <div className={styles.fullWidthWrapper}>
       <div className={styles.container}>
-      <ProgressHeader
-        step={currentStep}
-        totalSteps={TOTAL_STEPS}
-        onNavigate={handleNavigation}
-        canGoNext
-      />
-      <main className={styles.formContainer}>
-        <form className={styles.form} onSubmit={e => e.preventDefault()}>
-          {' '}
-          {/* Prevent default on main form, handle submit via button */}
-          {error && <p className={styles['error-message']}>{error}</p>}
-          {renderStepContent()}
-          {/* Navigation buttons are now in ProgressHeader */}
-        </form>
-      </main>
+        <ProgressHeader
+          step={currentStep}
+          totalSteps={TOTAL_STEPS}
+          onNavigate={handleNavigation}
+          canGoNext
+        />
+        <main className={styles.formContainer}>
+          <form className={styles.form} onSubmit={e => e.preventDefault()}>
+            {' '}
+            {/* Prevent default on main form, handle submit via button */}
+            {error && <p className={styles['error-message']}>{error}</p>}
+            {renderStepContent()}
+            {/* Navigation buttons are now in ProgressHeader */}
+          </form>
+        </main>
       </div>
     </div>
   );

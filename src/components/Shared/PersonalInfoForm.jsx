@@ -59,7 +59,7 @@ function PersonalInfoForm({ fullWidth = false }) {
     setError('');
     setSuccess('');
   };
-  
+
   const handlePasswordChange = e => {
     const { name, value } = e.target;
     setPasswordInfo(prev => ({ ...prev, [name]: value }));
@@ -86,14 +86,14 @@ function PersonalInfoForm({ fullWidth = false }) {
       postalCode: personalInfo.postalCode.trim(),
       country: personalInfo.country.trim(),
     };
-    
+
     const hasAddressData = Object.values(addressPayload).some(val => val);
 
     const personalPayload = {
       firstName: personalInfo.firstName.trim(),
       lastName: personalInfo.lastName.trim(),
     };
-    
+
     if (hasAddressData) {
       personalPayload.address = addressPayload;
     }
@@ -152,9 +152,7 @@ function PersonalInfoForm({ fullWidth = false }) {
           passwordUpdated = true;
         } catch (err) {
           logger.error('Error updating password:', err);
-          setError(
-            err.response?.data?.message || 'Failed to update password.'
-          );
+          setError(err.response?.data?.message || 'Failed to update password.');
           encounteredError = true;
         }
       }
@@ -179,7 +177,9 @@ function PersonalInfoForm({ fullWidth = false }) {
   };
 
   return (
-    <div className={`${styles.container} ${fullWidth ? styles.fullWidth : ''} card`}>
+    <div
+      className={`${styles.container} ${fullWidth ? styles.fullWidth : ''} card`}
+    >
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.tabContent}>
           <div className={styles.inputGroup}>
@@ -219,7 +219,7 @@ function PersonalInfoForm({ fullWidth = false }) {
           <h4 className={styles.subheading}>Change Password (Optional)</h4>
           {error && <p className={styles['error-message']}>{error}</p>}
           {success && <p className={styles['success-message']}>{success}</p>}
-          
+
           <div className={styles.row}>
             <div className={styles.inputGroup}>
               <label htmlFor="currentPassword">Current Password</label>
@@ -244,8 +244,10 @@ function PersonalInfoForm({ fullWidth = false }) {
               />
             </div>
           </div>
-          
-          <div className={`${styles.inputGroup} ${styles.confirmPasswordGroup}`}>
+
+          <div
+            className={`${styles.inputGroup} ${styles.confirmPasswordGroup}`}
+          >
             <label htmlFor="confirmNewPassword">Confirm New Password</label>
             <input
               id="confirmNewPassword"
@@ -266,7 +268,7 @@ function PersonalInfoForm({ fullWidth = false }) {
               onChange={handlePersonalInfoChange}
             />
           </div>
-          
+
           <div className={styles.row}>
             <div className={styles.inputGroup}>
               <label htmlFor="p-city">City</label>
@@ -287,7 +289,7 @@ function PersonalInfoForm({ fullWidth = false }) {
               />
             </div>
           </div>
-          
+
           <div className={styles.row}>
             <div className={styles.inputGroup}>
               <label htmlFor="p-postalCode">Postal Code</label>

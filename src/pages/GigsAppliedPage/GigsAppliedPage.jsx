@@ -3,12 +3,7 @@ import apiClient from '../../api/axiosConfig';
 import styles from './GigsAppliedPage.module.css';
 import ProfileSidebar from '../../components/Shared/ProfileSidebar';
 import { useAuth } from '../../contexts/AuthContext';
-import {
-  Search,
-  Filter,
-  DollarSign,
-  User,
-} from 'lucide-react';
+import { Search, Filter, DollarSign, User } from 'lucide-react';
 import { TabNavigation } from '../../components/Shared/TabNavigation';
 import BillingAndPayment from '../BillingAndPayment/BillingAndPayment';
 import { CATEGORY_ENUM } from '../../constants/categories';
@@ -121,17 +116,17 @@ const GigsAppliedPage = () => {
     }
 
     if (priceRange !== 'Any') {
-        const [min, max] = priceRange.replace(/\$/g, '').split(' - ');
-        filtered = filtered.filter(app => {
-            const price = app.isHourly ? app.ratePerHour : app.cost;
-            if (priceRange.startsWith('Under')) {
-                return price < 20;
-            }
-            if (priceRange.endsWith('+')) {
-                return price >= 100;
-            }
-            return price >= min && price <= max;
-        });
+      const [min, max] = priceRange.replace(/\$/g, '').split(' - ');
+      filtered = filtered.filter(app => {
+        const price = app.isHourly ? app.ratePerHour : app.cost;
+        if (priceRange.startsWith('Under')) {
+          return price < 20;
+        }
+        if (priceRange.endsWith('+')) {
+          return price >= 100;
+        }
+        return price >= min && price <= max;
+      });
     }
 
     return filtered;
@@ -163,9 +158,8 @@ const GigsAppliedPage = () => {
     in_progress: applications.filter(
       app => app.applicationStatus === 'in_progress'
     ).length,
-    completed: applications.filter(
-      app => app.applicationStatus === 'completed'
-    ).length,
+    completed: applications.filter(app => app.applicationStatus === 'completed')
+      .length,
   };
 
   return (
@@ -203,7 +197,9 @@ const GigsAppliedPage = () => {
                   ></div>
                 </div>
                 <div className={styles.statCard}>
-                  <div className={styles.statNumber}>{statusCounts.pending}</div>
+                  <div className={styles.statNumber}>
+                    {statusCounts.pending}
+                  </div>
                   <div className={styles.statLabel}>Pending</div>
                   <div
                     className={styles.statDot}
@@ -211,7 +207,9 @@ const GigsAppliedPage = () => {
                   ></div>
                 </div>
                 <div className={styles.statCard}>
-                  <div className={styles.statNumber}>{statusCounts.accepted}</div>
+                  <div className={styles.statNumber}>
+                    {statusCounts.accepted}
+                  </div>
                   <div className={styles.statLabel}>Accepted</div>
                   <div
                     className={styles.statDot}
@@ -229,7 +227,9 @@ const GigsAppliedPage = () => {
                   ></div>
                 </div>
                 <div className={styles.statCard}>
-                  <div className={styles.statNumber}>{statusCounts.completed}</div>
+                  <div className={styles.statNumber}>
+                    {statusCounts.completed}
+                  </div>
                   <div className={styles.statLabel}>Completed</div>
                   <div
                     className={styles.statDot}
@@ -285,7 +285,13 @@ const GigsAppliedPage = () => {
                     <div className={styles.filterSection}>
                       <h3>Price Range</h3>
                       <div className={styles.priceRangeList}>
-                        {['Any', 'Under $20', '$20 - $50', '$50 - $100', '$100+'].map(range => (
+                        {[
+                          'Any',
+                          'Under $20',
+                          '$20 - $50',
+                          '$50 - $100',
+                          '$100+',
+                        ].map(range => (
                           <button
                             key={range}
                             className={`${styles.priceRangeButton} ${
@@ -301,7 +307,14 @@ const GigsAppliedPage = () => {
                     <div className={styles.filterSection}>
                       <h3>Status</h3>
                       <div className={styles.priceRangeList}>
-                        {['All', 'Pending', 'Accepted', 'In Progress', 'Completed', 'Cancelled'].map(opt => (
+                        {[
+                          'All',
+                          'Pending',
+                          'Accepted',
+                          'In Progress',
+                          'Completed',
+                          'Cancelled',
+                        ].map(opt => (
                           <button
                             key={opt}
                             className={`${styles.priceRangeButton} ${

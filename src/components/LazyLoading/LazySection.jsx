@@ -24,7 +24,7 @@ const LazySection = ({
 
   useEffect(() => {
     const currentSection = sectionRef.current;
-    
+
     if (!currentSection || !('IntersectionObserver' in window)) {
       // Fallback for browsers without IntersectionObserver
       setIsInView(true);
@@ -35,7 +35,7 @@ const LazySection = ({
       ([entry]) => {
         if (entry.isIntersecting) {
           onIntersect(entry);
-          
+
           if (delay > 0) {
             timeoutRef.current = setTimeout(() => {
               setIsInView(true);
@@ -53,7 +53,7 @@ const LazySection = ({
       },
       {
         threshold,
-        rootMargin
+        rootMargin,
       }
     );
 
@@ -85,8 +85,10 @@ const LazySection = ({
     'lazy-section',
     className,
     isInView ? 'lazy-section-in-view' : '',
-    isLoaded ? 'lazy-section-loaded' : ''
-  ].filter(Boolean).join(' ');
+    isLoaded ? 'lazy-section-loaded' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   const defaultPlaceholder = (
     <div className="lazy-section-placeholder">
@@ -99,27 +101,17 @@ const LazySection = ({
   );
 
   const defaultLoading = (
-    <LoadingSpinner 
-      size="small" 
-      text="Loading section..." 
-    />
+    <LoadingSpinner size="small" text="Loading section..." />
   );
 
   return (
-    <div 
-      ref={sectionRef}
-      className={sectionClasses}
-      style={style}
-      {...props}
-    >
+    <div ref={sectionRef} className={sectionClasses} style={style} {...props}>
       {!isInView && (placeholder || defaultPlaceholder)}
-      
+
       {isInView && !isLoaded && (loadingComponent || defaultLoading)}
-      
+
       {isInView && isLoaded && (
-        <div className="lazy-section-content">
-          {children}
-        </div>
+        <div className="lazy-section-content">{children}</div>
       )}
     </div>
   );

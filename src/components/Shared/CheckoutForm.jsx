@@ -43,7 +43,7 @@ function CheckoutForm({
     } else if (paymentIntent) {
       console.log('Payment intent status:', paymentIntent.status);
       console.log('Full payment intent:', paymentIntent);
-      
+
       switch (paymentIntent.status) {
         case 'succeeded':
           setMessage('Payment successful!');
@@ -70,7 +70,8 @@ function CheckoutForm({
           break;
         default:
           setMessage(`Unexpected payment status: ${paymentIntent.status}`);
-          if (onPaymentError) onPaymentError(`Unexpected status: ${paymentIntent.status}`);
+          if (onPaymentError)
+            onPaymentError(`Unexpected status: ${paymentIntent.status}`);
           break;
       }
     } else {
@@ -111,8 +112,8 @@ function CheckoutForm({
         </div>
       )}
       <h4 className={styles.paymentDetailsTitle}>Enter Payment Details:</h4>
-      <PaymentElement 
-        id="payment-element" 
+      <PaymentElement
+        id="payment-element"
         options={{
           // Disable Link to avoid phone number validation
           layout: 'tabs',
@@ -120,9 +121,9 @@ function CheckoutForm({
             billingDetails: {
               name: '',
               email: '',
-              phone: ''
-            }
-          }
+              phone: '',
+            },
+          },
         }}
       />
       <button

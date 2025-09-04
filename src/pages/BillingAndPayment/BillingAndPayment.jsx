@@ -4,7 +4,15 @@ import { useToast } from '../../contexts/ToastContext';
 import apiClient from '../../api/axiosConfig';
 import styles from './BillingAndPayment.module.css';
 import BillingTable from '../../components/Billing/BillingTable';
-import { Filter, Search, DollarSign, TrendingUp, TrendingDown, Wallet, CreditCard } from 'lucide-react';
+import {
+  Filter,
+  Search,
+  DollarSign,
+  TrendingUp,
+  TrendingDown,
+  Wallet,
+  CreditCard,
+} from 'lucide-react';
 
 function WithdrawModal({ open, onClose, available, onConfirm }) {
   const [custom, setCustom] = useState(false);
@@ -102,45 +110,58 @@ function WithdrawModal({ open, onClose, available, onConfirm }) {
 
 function InvoiceModal({ open, onClose, payment, showToast }) {
   if (!open || !payment) return null;
-  
+
   // Use real fields from payment object
   const total = (payment.amount || 0) / 100;
   const tax = (payment.taxAmount || 0) / 100;
   const platformFee = (payment.applicationFeeAmount || 0) / 100;
   const net = (payment.amountReceivedByPayee || 0) / 100;
-  
+
   const handleDownloadPDF = async () => {
     try {
-      const response = await apiClient.get(`/payments/${payment._id}/invoice-pdf`, {
-        responseType: 'blob',
-        timeout: 30000 // 30 second timeout
-      });
-      
+      const response = await apiClient.get(
+        `/payments/${payment._id}/invoice-pdf`,
+        {
+          responseType: 'blob',
+          timeout: 30000, // 30 second timeout
+        }
+      );
+
       // Check if response is actually a PDF
-      if (response.data.type !== 'application/pdf' && response.data.size < 100) {
+      if (
+        response.data.type !== 'application/pdf' &&
+        response.data.size < 100
+      ) {
         throw new Error('Invalid PDF response');
       }
-      
+
       // Create blob link to download
-      const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+      const url = window.URL.createObjectURL(
+        new Blob([response.data], { type: 'application/pdf' })
+      );
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `gygg-invoice-${payment._id?.slice(-8) || 'unknown'}.pdf`);
+      link.setAttribute(
+        'download',
+        `gygg-invoice-${payment._id?.slice(-8) || 'unknown'}.pdf`
+      );
       document.body.appendChild(link);
       link.click();
       link.remove();
       window.URL.revokeObjectURL(url);
-      
+
       // Show success message
       showToast('Invoice PDF downloaded successfully!', 'success');
     } catch (error) {
       console.error('Error downloading PDF:', error);
       // Show user-friendly error using toast instead of alert
-      const errorMessage = error.response?.data?.message || 'Unable to generate PDF at this time. Please try again later.';
+      const errorMessage =
+        error.response?.data?.message ||
+        'Unable to generate PDF at this time. Please try again later.';
       showToast(errorMessage, 'error');
     }
   };
-  
+
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalCard}>
@@ -156,46 +177,96 @@ function InvoiceModal({ open, onClose, payment, showToast }) {
         </div>
         <div className={styles.modalBody}>
           <div style={{ marginBottom: '20px' }}>
-            <div><b>Contract:</b> {payment.contract?.title || payment.gig?.title || 'N/A'}</div>
-            <div><b>Date:</b> {payment.createdAt ? new Date(payment.createdAt).toLocaleDateString() : 'N/A'}</div>
-            <div><b>Status:</b> {payment.status}</div>
+            <div>
+              <b>Contract:</b>{' '}
+              {payment.contract?.title || payment.gig?.title || 'N/A'}
+            </div>
+            <div>
+              <b>Date:</b>{' '}
+              {payment.createdAt
+                ? new Date(payment.createdAt).toLocaleDateString()
+                : 'N/A'}
+            </div>
+            <div>
+              <b>Status:</b> {payment.status}
+            </div>
           </div>
-          
+
           <div style={{ borderTop: '1px solid #eee', paddingTop: '20px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                marginBottom: '10px',
+              }}
+            >
               <span>Service Amount:</span>
-              <span style={{ fontWeight: '600', color: '#1db954' }}>${total.toFixed(2)}</span>
+              <span style={{ fontWeight: '600', color: '#1db954' }}>
+                ${total.toFixed(2)}
+              </span>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', color: '#666' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                marginBottom: '10px',
+                color: '#666',
+              }}
+            >
               <span>Platform Fee (to platform):</span>
-              <span style={{ fontWeight: '600' }}>${platformFee.toFixed(2)}</span>
+              <span style={{ fontWeight: '600' }}>
+                ${platformFee.toFixed(2)}
+              </span>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', color: '#666' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                marginBottom: '10px',
+                color: '#666',
+              }}
+            >
               <span>Tax (paid by provider):</span>
               <span style={{ fontWeight: '600' }}>${tax.toFixed(2)}</span>
             </div>
-            <div style={{ borderTop: '1px solid #eee', paddingTop: '10px', marginTop: '10px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
+            <div
+              style={{
+                borderTop: '1px solid #eee',
+                paddingTop: '10px',
+                marginTop: '10px',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  marginBottom: '5px',
+                }}
+              >
                 <span style={{ fontWeight: '700' }}>You Receive:</span>
-                <span style={{ fontWeight: '700', fontSize: '18px', color: '#1db954' }}>${net.toFixed(2)}</span>
+                <span
+                  style={{
+                    fontWeight: '700',
+                    fontSize: '18px',
+                    color: '#1db954',
+                  }}
+                >
+                  ${net.toFixed(2)}
+                </span>
               </div>
-              <div style={{ fontSize: '12px', color: '#666', textAlign: 'center' }}>
+              <div
+                style={{ fontSize: '12px', color: '#666', textAlign: 'center' }}
+              >
                 ✓ Full service amount with no deductions!
               </div>
             </div>
           </div>
         </div>
         <div className={styles.modalFooter}>
-          <button
-            className={styles.modalConfirm}
-            onClick={handleDownloadPDF}
-          >
+          <button className={styles.modalConfirm} onClick={handleDownloadPDF}>
             Download PDF
           </button>
-          <button
-            className={styles.modalCancel}
-            onClick={onClose}
-          >
+          <button className={styles.modalCancel} onClick={onClose}>
             Close
           </button>
         </div>
@@ -205,29 +276,37 @@ function InvoiceModal({ open, onClose, payment, showToast }) {
 }
 
 // Earnings Summary Component
-function EarningsSummary({ summary, period, onPeriodChange, isTasker, isProvider }) {
+function EarningsSummary({
+  summary,
+  period,
+  onPeriodChange,
+  isTasker,
+  isProvider,
+}) {
   const periods = [
     { value: 'week', label: 'This Week' },
     { value: 'month', label: 'This Month' },
     { value: 'year', label: 'This Year' },
-    { value: 'all', label: 'All Time' }
+    { value: 'all', label: 'All Time' },
   ];
 
   return (
     <div className={styles.earningsCard}>
       <div className={styles.earningsHeader}>
         <h3>Earnings Summary</h3>
-        <select 
-          value={period} 
-          onChange={(e) => onPeriodChange(e.target.value)}
+        <select
+          value={period}
+          onChange={e => onPeriodChange(e.target.value)}
           className={styles.periodSelect}
         >
           {periods.map(p => (
-            <option key={p.value} value={p.value}>{p.label}</option>
+            <option key={p.value} value={p.value}>
+              {p.label}
+            </option>
           ))}
         </select>
       </div>
-      
+
       <div className={styles.summaryGrid}>
         {isTasker && summary.tasker && (
           <>
@@ -236,43 +315,51 @@ function EarningsSummary({ summary, period, onPeriodChange, isTasker, isProvider
                 <TrendingUp size={24} color="#4caf50" />
               </div>
               <div className={styles.summaryContent}>
-                <div className={styles.summaryValue}>${summary.tasker.totalEarnedFormatted}</div>
+                <div className={styles.summaryValue}>
+                  ${summary.tasker.totalEarnedFormatted}
+                </div>
                 <div className={styles.summaryLabel}>Total Earned</div>
               </div>
             </div>
-            
+
             <div className={styles.summaryCard}>
               <div className={styles.summaryIcon}>
                 <Wallet size={24} color="#2196f3" />
               </div>
               <div className={styles.summaryContent}>
-                <div className={styles.summaryValue}>${summary.tasker.availableBalanceFormatted}</div>
+                <div className={styles.summaryValue}>
+                  ${summary.tasker.availableBalanceFormatted}
+                </div>
                 <div className={styles.summaryLabel}>Available Balance</div>
               </div>
             </div>
-            
+
             <div className={styles.summaryCard}>
               <div className={styles.summaryIcon}>
                 <CreditCard size={24} color="#ff9800" />
               </div>
               <div className={styles.summaryContent}>
-                <div className={styles.summaryValue}>{summary.tasker.totalContracts}</div>
+                <div className={styles.summaryValue}>
+                  {summary.tasker.totalContracts}
+                </div>
                 <div className={styles.summaryLabel}>Completed Contracts</div>
               </div>
             </div>
-            
+
             <div className={styles.summaryCard}>
               <div className={styles.summaryIcon}>
                 <DollarSign size={24} color="#9c27b0" />
               </div>
               <div className={styles.summaryContent}>
-                <div className={styles.summaryValue}>${summary.tasker.averageEarningFormatted}</div>
+                <div className={styles.summaryValue}>
+                  ${summary.tasker.averageEarningFormatted}
+                </div>
                 <div className={styles.summaryLabel}>Average per Contract</div>
               </div>
             </div>
           </>
         )}
-        
+
         {isProvider && summary.provider && (
           <>
             <div className={styles.summaryCard}>
@@ -280,37 +367,45 @@ function EarningsSummary({ summary, period, onPeriodChange, isTasker, isProvider
                 <TrendingUp size={24} color="#4caf50" />
               </div>
               <div className={styles.summaryContent}>
-                <div className={styles.summaryValue}>${summary.provider.totalSpentFormatted}</div>
+                <div className={styles.summaryValue}>
+                  ${summary.provider.totalSpentFormatted}
+                </div>
                 <div className={styles.summaryLabel}>Total Spent</div>
               </div>
             </div>
-            
+
             <div className={styles.summaryCard}>
               <div className={styles.summaryIcon}>
                 <DollarSign size={24} color="#4caf50" />
               </div>
               <div className={styles.summaryContent}>
-                <div className={styles.summaryValue}>${summary.provider.totalServiceCostsFormatted}</div>
+                <div className={styles.summaryValue}>
+                  ${summary.provider.totalServiceCostsFormatted}
+                </div>
                 <div className={styles.summaryLabel}>Service Costs</div>
               </div>
             </div>
-            
+
             <div className={styles.summaryCard}>
               <div className={styles.summaryIcon}>
                 <CreditCard size={24} color="#ff9800" />
               </div>
               <div className={styles.summaryContent}>
-                <div className={styles.summaryValue}>{summary.provider.totalContracts}</div>
+                <div className={styles.summaryValue}>
+                  {summary.provider.totalContracts}
+                </div>
                 <div className={styles.summaryLabel}>Total Contracts</div>
               </div>
             </div>
-            
+
             <div className={styles.summaryCard}>
               <div className={styles.summaryIcon}>
                 <DollarSign size={24} color="#9c27b0" />
               </div>
               <div className={styles.summaryContent}>
-                <div className={styles.summaryValue}>${summary.provider.averageSpentFormatted}</div>
+                <div className={styles.summaryValue}>
+                  ${summary.provider.averageSpentFormatted}
+                </div>
                 <div className={styles.summaryLabel}>Average per Contract</div>
               </div>
             </div>
@@ -362,7 +457,7 @@ export default function BillingAndPayment() {
   });
   const [unpaidContracts, setUnpaidContracts] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
-  
+
   // New state for earnings summary
   const [earningsSummary, setEarningsSummary] = useState(null);
   const [summaryPeriod, setSummaryPeriod] = useState('month');
@@ -385,7 +480,7 @@ export default function BillingAndPayment() {
     setSummaryLoading(true);
     try {
       const res = await apiClient.get('/payments/earnings-summary', {
-        params: { period: summaryPeriod }
+        params: { period: summaryPeriod },
       });
       setEarningsSummary(res.data.data.summary);
     } catch (err) {
@@ -471,14 +566,17 @@ export default function BillingAndPayment() {
   const summaryColor =
     view === 'earned' ? styles.summaryValueEarned : styles.summaryValueSpent;
 
-  const handleWithdraw = async (amount) => {
+  const handleWithdraw = async amount => {
     try {
       await apiClient.post('/payments/withdraw', { amount });
       setShowWithdraw(false);
       setWithdrawSuccess(true);
       setTimeout(() => setWithdrawSuccess(false), 3000);
-      showToast(`Withdrawal of $${amount.toFixed(2)} initiated successfully!`, 'success');
-      
+      showToast(
+        `Withdrawal of $${amount.toFixed(2)} initiated successfully!`,
+        'success'
+      );
+
       // Refresh data
       fetchBalance();
       fetchEarningsSummary();
@@ -558,7 +656,7 @@ export default function BillingAndPayment() {
         payment={invoiceModal.payment}
         showToast={showToast}
       />
-      
+
       {/* Earnings Summary Section */}
       {summaryLoading ? (
         <div className={styles.loadingCard}>
@@ -769,17 +867,21 @@ export default function BillingAndPayment() {
                   <tr key={inv._id || idx}>
                     <td style={{ color: '#333', fontWeight: '500' }}>
                       {/* Show provider name for taskers, tasker name for providers */}
-                      {sessionRole === 'tasker' 
-                        ? `${inv.payer?.firstName || ''} ${inv.payer?.lastName || ''}`.trim() || 'N/A'
-                        : `${inv.payee?.firstName || ''} ${inv.payee?.lastName || ''}`.trim() || 'N/A'
-                      }
+                      {sessionRole === 'tasker'
+                        ? `${inv.payer?.firstName || ''} ${inv.payer?.lastName || ''}`.trim() ||
+                          'N/A'
+                        : `${inv.payee?.firstName || ''} ${inv.payee?.lastName || ''}`.trim() ||
+                          'N/A'}
                     </td>
                     <td style={{ color: '#333' }}>
                       {inv.createdAt
                         ? new Date(inv.createdAt).toLocaleDateString()
                         : ''}
                     </td>
-                    <td className={styles.contractDetail} style={{ color: '#333' }}>
+                    <td
+                      className={styles.contractDetail}
+                      style={{ color: '#333' }}
+                    >
                       {inv.contract?.title || inv.gig?.title || 'N/A'}
                     </td>
                     <td
@@ -846,7 +948,7 @@ export default function BillingAndPayment() {
             </tbody>
           </table>
         )}
-        
+
         {/* Pagination */}
         {pagination && pagination.totalPages > 1 && (
           <div className={styles.pagination}>
@@ -858,8 +960,8 @@ export default function BillingAndPayment() {
               Previous
             </button>
             <span className={styles.paginationInfo}>
-              Page {pagination.currentPage} of {pagination.totalPages} 
-              ({pagination.totalItems} total)
+              Page {pagination.currentPage} of {pagination.totalPages}(
+              {pagination.totalItems} total)
             </span>
             <button
               onClick={() => setPage(page + 1)}

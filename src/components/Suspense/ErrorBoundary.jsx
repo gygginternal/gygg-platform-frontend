@@ -4,10 +4,10 @@ import './ErrorBoundary.css';
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
-      hasError: false, 
-      error: null, 
-      errorInfo: null 
+    this.state = {
+      hasError: false,
+      error: null,
+      errorInfo: null,
     };
   }
 
@@ -17,8 +17,8 @@ class ErrorBoundary extends React.Component {
 
   componentDidCatch(error, errorInfo) {
     this.setState({
-      error: error,
-      errorInfo: errorInfo
+      error,
+      errorInfo,
     });
 
     // Log error to monitoring service
@@ -28,24 +28,24 @@ class ErrorBoundary extends React.Component {
   }
 
   handleRetry = () => {
-    this.setState({ 
-      hasError: false, 
-      error: null, 
-      errorInfo: null 
+    this.setState({
+      hasError: false,
+      error: null,
+      errorInfo: null,
     });
   };
 
   render() {
     if (this.state.hasError) {
-      const { 
-        fallback: CustomFallback, 
+      const {
+        fallback: CustomFallback,
         showDetails = false,
-        retryable = true 
+        retryable = true,
       } = this.props;
 
       if (CustomFallback) {
         return (
-          <CustomFallback 
+          <CustomFallback
             error={this.state.error}
             errorInfo={this.state.errorInfo}
             onRetry={this.handleRetry}
@@ -61,12 +61,9 @@ class ErrorBoundary extends React.Component {
             <p className="error-message">
               We're sorry, but something unexpected happened. Please try again.
             </p>
-            
+
             {retryable && (
-              <button 
-                className="error-retry-btn"
-                onClick={this.handleRetry}
-              >
+              <button className="error-retry-btn" onClick={this.handleRetry}>
                 Try Again
               </button>
             )}

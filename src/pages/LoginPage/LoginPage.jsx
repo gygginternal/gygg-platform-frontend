@@ -13,7 +13,8 @@ import useErrorHandler from '../../hooks/useErrorHandler';
 function LoginPage() {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
-  const { errors, hasErrors, setError, handleApiError, clearOnInputChange } = useErrorHandler();
+  const { errors, hasErrors, setError, handleApiError, clearOnInputChange } =
+    useErrorHandler();
   const navigate = useNavigate();
   const { login, selectSessionRole } = useAuth();
   const location = useLocation();
@@ -74,7 +75,11 @@ function LoginPage() {
     } catch (err) {
       logger.error('Login error:', err.response?.data || err.message);
       handleApiError(err);
-      showToast(err.response?.data?.message || 'Login failed. Please check credentials or network.', { type: 'error' });
+      showToast(
+        err.response?.data?.message ||
+          'Login failed. Please check credentials or network.',
+        { type: 'error' }
+      );
     } finally {
       setLoading(false);
     }
@@ -125,12 +130,7 @@ function LoginPage() {
           />
 
           {/* Error display */}
-          {hasErrors && (
-            <ErrorDisplay 
-              errors={errors} 
-              variant="inline"
-            />
-          )}
+          {hasErrors && <ErrorDisplay errors={errors} variant="inline" />}
 
           <div className={styles.footer}>
             {/* Forgot Password Link */}

@@ -11,7 +11,7 @@ export default function GigHelperPage() {
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
   const searchTermFromUrl = searchParams.get('search') || '';
-  
+
   const [searchTerm, setSearchTerm] = useState(searchTermFromUrl);
 
   // Update URL when search term changes
@@ -23,7 +23,7 @@ export default function GigHelperPage() {
     navigate(`?${params.toString()}`, { replace: true });
   }, [searchTerm, navigate]);
 
-  const handleSearch = (e) => {
+  const handleSearch = e => {
     setSearchTerm(e.target.value);
   };
 
@@ -42,13 +42,12 @@ export default function GigHelperPage() {
             <div className={styles.header}>
               <h1 className={styles.title}>Gig Helpers</h1>
               <p className={styles.subtitle}>
-                {searchTerm 
+                {searchTerm
                   ? `Search results for "${searchTerm}"`
-                  : 'Find helpers for your gigs based on their skills and preferences'
-                }
+                  : 'Find helpers for your gigs based on their skills and preferences'}
               </p>
             </div>
-            
+
             {/* Search Bar */}
             <div className={styles.searchContainer}>
               <div className={styles.searchBar}>
@@ -71,7 +70,7 @@ export default function GigHelperPage() {
                 )}
               </div>
             </div>
-            
+
             <TaskerListSafe searchTerm={searchTerm} />
           </main>
         </div>

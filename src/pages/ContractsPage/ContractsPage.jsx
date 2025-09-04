@@ -166,7 +166,7 @@ function ContractsPage() {
     open: false,
     contract: null,
     clientSecret: null,
-    loading: false
+    loading: false,
   });
   const queryClient = useQueryClient();
   const { showToast } = useToast();
@@ -334,16 +334,14 @@ function ContractsPage() {
                   <DollarSign size={24} />
                 </div>
                 <div>
-                  <h1 className={styles.dashboardTitle}>
-                    Contracts Dashboard
-                  </h1>
+                  <h1 className={styles.dashboardTitle}>Contracts Dashboard</h1>
                   <p className={styles.dashboardSubtitle}>
                     Track and manage your active and completed contracts
                   </p>
                 </div>
               </div>
             </div>
-            
+
             <TabNavigation
               activeTab={activeTab}
               onTabChange={setActiveTab}
@@ -353,68 +351,99 @@ function ContractsPage() {
               <>
                 {/* Stats Cards - moved inside All Contracts tab */}
                 <div className={styles.statsGrid}>
-                  <div 
+                  <div
                     className={styles.statCard}
-                    style={{ 
-                      '--stat-color': '#2196f3', 
-                      '--stat-color-light': '#42a5f5' 
+                    style={{
+                      '--stat-color': '#2196f3',
+                      '--stat-color-light': '#42a5f5',
                     }}
                   >
                     <div className={styles.statNumber}>{contracts.length}</div>
                     <div className={styles.statLabel}>Total</div>
-                    <div className={styles.statDot} style={{ backgroundColor: '#2196f3' }}></div>
+                    <div
+                      className={styles.statDot}
+                      style={{ backgroundColor: '#2196f3' }}
+                    ></div>
                   </div>
-                  <div 
+                  <div
                     className={styles.statCard}
-                    style={{ 
-                      '--stat-color': '#4caf50', 
-                      '--stat-color-light': '#66bb6a' 
+                    style={{
+                      '--stat-color': '#4caf50',
+                      '--stat-color-light': '#66bb6a',
                     }}
                   >
                     <div className={styles.statNumber}>
-                      {contracts.filter(c => c.status?.toLowerCase() === 'active').length}
+                      {
+                        contracts.filter(
+                          c => c.status?.toLowerCase() === 'active'
+                        ).length
+                      }
                     </div>
                     <div className={styles.statLabel}>Active</div>
-                    <div className={styles.statDot} style={{ backgroundColor: '#4caf50' }}></div>
+                    <div
+                      className={styles.statDot}
+                      style={{ backgroundColor: '#4caf50' }}
+                    ></div>
                   </div>
-                  <div 
+                  <div
                     className={styles.statCard}
-                    style={{ 
-                      '--stat-color': '#00bcd4', 
-                      '--stat-color-light': '#26c6da' 
+                    style={{
+                      '--stat-color': '#00bcd4',
+                      '--stat-color-light': '#26c6da',
                     }}
                   >
                     <div className={styles.statNumber}>
-                      {contracts.filter(c => c.status?.toLowerCase() === 'completed').length}
+                      {
+                        contracts.filter(
+                          c => c.status?.toLowerCase() === 'completed'
+                        ).length
+                      }
                     </div>
                     <div className={styles.statLabel}>Completed</div>
-                    <div className={styles.statDot} style={{ backgroundColor: '#00bcd4' }}></div>
+                    <div
+                      className={styles.statDot}
+                      style={{ backgroundColor: '#00bcd4' }}
+                    ></div>
                   </div>
-                  <div 
+                  <div
                     className={styles.statCard}
-                    style={{ 
-                      '--stat-color': '#f44336', 
-                      '--stat-color-light': '#ef5350' 
+                    style={{
+                      '--stat-color': '#f44336',
+                      '--stat-color-light': '#ef5350',
                     }}
                   >
                     <div className={styles.statNumber}>
-                      {contracts.filter(c => c.status?.toLowerCase().includes('cancelled')).length}
+                      {
+                        contracts.filter(c =>
+                          c.status?.toLowerCase().includes('cancelled')
+                        ).length
+                      }
                     </div>
                     <div className={styles.statLabel}>Cancelled</div>
-                    <div className={styles.statDot} style={{ backgroundColor: '#f44336' }}></div>
+                    <div
+                      className={styles.statDot}
+                      style={{ backgroundColor: '#f44336' }}
+                    ></div>
                   </div>
-                  <div 
+                  <div
                     className={styles.statCard}
-                    style={{ 
-                      '--stat-color': '#9c27b0', 
-                      '--stat-color-light': '#ab47bc' 
+                    style={{
+                      '--stat-color': '#9c27b0',
+                      '--stat-color-light': '#ab47bc',
                     }}
                   >
                     <div className={styles.statNumber}>
-                      {contracts.filter(c => c.status?.toLowerCase() === 'pending_payment').length}
+                      {
+                        contracts.filter(
+                          c => c.status?.toLowerCase() === 'pending_payment'
+                        ).length
+                      }
                     </div>
                     <div className={styles.statLabel}>Pending Payment</div>
-                    <div className={styles.statDot} style={{ backgroundColor: '#9c27b0' }}></div>
+                    <div
+                      className={styles.statDot}
+                      style={{ backgroundColor: '#9c27b0' }}
+                    ></div>
                   </div>
                 </div>
               </>
@@ -509,10 +538,13 @@ function ContractsPage() {
                         <DollarSign size={48} />
                       </div>
                       <h3>No Contracts Found</h3>
-                      <p>You don't have any contracts matching your current filters.</p>
+                      <p>
+                        You don't have any contracts matching your current
+                        filters.
+                      </p>
                     </div>
                   ) : (
-                    filteredContracts.map((contract) => (
+                    filteredContracts.map(contract => (
                       <ContractCard
                         key={contract.id}
                         contract={{
@@ -526,7 +558,7 @@ function ContractsPage() {
                           started: contract.started,
                           location: contract.location,
                           duration: contract.duration,
-                          category: contract.category
+                          category: contract.category,
                         }}
                         onClick={() => {
                           setModalContract(contract);
@@ -586,19 +618,18 @@ function ContractsPage() {
                         const response = await apiClient.post(
                           `/payments/contracts/${modalContract.id || modalContract._id}/create-payment-intent`
                         );
-                        
+
                         // Close the contract details modal and open payment modal
                         setIsModalOpen(false);
                         setModalContract(null);
-                        
+
                         // Open payment modal with client secret
                         setPaymentModal({
                           open: true,
                           contract: modalContract,
                           clientSecret: response.data.clientSecret,
-                          loading: false
+                          loading: false,
                         });
-                        
                       } catch (err) {
                         setPaymentModal(prev => ({ ...prev, loading: false }));
                         showToast(
@@ -661,7 +692,14 @@ function ContractsPage() {
               <h3>Complete Payment</h3>
               <button
                 className={styles.closeButton}
-                onClick={() => setPaymentModal({ open: false, contract: null, clientSecret: null, loading: false })}
+                onClick={() =>
+                  setPaymentModal({
+                    open: false,
+                    contract: null,
+                    clientSecret: null,
+                    loading: false,
+                  })
+                }
                 aria-label="Close payment modal"
               >
                 ✖
@@ -669,43 +707,78 @@ function ContractsPage() {
             </div>
             <div className={styles.modalBody}>
               <div style={{ marginBottom: '20px' }}>
-                <div><b>Contract:</b> {paymentModal.contract?.title || paymentModal.contract?.gig?.title || 'N/A'}</div>
-                <div><b>Hired by:</b> {paymentModal.contract?.provider?.firstName || paymentModal.contract?.providerName || 'N/A'} {paymentModal.contract?.provider?.lastName || ''}</div>
-                <div><b>Rate:</b> ${paymentModal.contract?.agreedCost || paymentModal.contract?.rate || 'N/A'}</div>
+                <div>
+                  <b>Contract:</b>{' '}
+                  {paymentModal.contract?.title ||
+                    paymentModal.contract?.gig?.title ||
+                    'N/A'}
+                </div>
+                <div>
+                  <b>Hired by:</b>{' '}
+                  {paymentModal.contract?.provider?.firstName ||
+                    paymentModal.contract?.providerName ||
+                    'N/A'}{' '}
+                  {paymentModal.contract?.provider?.lastName || ''}
+                </div>
+                <div>
+                  <b>Rate:</b> $
+                  {paymentModal.contract?.agreedCost ||
+                    paymentModal.contract?.rate ||
+                    'N/A'}
+                </div>
               </div>
-              
-              <Elements 
-                stripe={stripePromise} 
-                options={{ 
+
+              <Elements
+                stripe={stripePromise}
+                options={{
                   clientSecret: paymentModal.clientSecret,
                   appearance: {
-                    theme: 'stripe'
+                    theme: 'stripe',
                   },
                   // Disable Link to avoid phone number validation issues
-                  loader: 'auto'
+                  loader: 'auto',
                 }}
               >
                 <CheckoutForm
                   clientSecret={paymentModal.clientSecret}
-                  onPaymentSuccess={async (paymentIntentId) => {
+                  onPaymentSuccess={async paymentIntentId => {
                     try {
                       // Confirm payment success with backend
-                      await apiClient.post('/payments/confirm-payment-success', {
-                        paymentIntentId: paymentIntentId
+                      await apiClient.post(
+                        '/payments/confirm-payment-success',
+                        {
+                          paymentIntentId,
+                        }
+                      );
+
+                      showToast(
+                        'Payment completed successfully! Contract has been completed.',
+                        'success'
+                      );
+                      setPaymentModal({
+                        open: false,
+                        contract: null,
+                        clientSecret: null,
+                        loading: false,
                       });
-                      
-                      showToast('Payment completed successfully! Contract has been completed.', 'success');
-                      setPaymentModal({ open: false, contract: null, clientSecret: null, loading: false });
-                      
+
                       // Refresh contracts data
                       queryClient.invalidateQueries(['contracts']);
                     } catch (error) {
                       console.error('Error confirming payment:', error);
-                      showToast('Payment succeeded but there was an issue updating the contract. Please contact support.', 'warning');
-                      setPaymentModal({ open: false, contract: null, clientSecret: null, loading: false });
+                      showToast(
+                        'Payment succeeded but there was an issue updating the contract. Please contact support.',
+                        'warning'
+                      );
+                      setPaymentModal({
+                        open: false,
+                        contract: null,
+                        clientSecret: null,
+                        loading: false,
+                      });
                     }
                   }}
-                  onPaymentError={(error) => {
+                  onPaymentError={error => {
                     showToast(`Payment failed: ${error}`, 'error');
                   }}
                 />

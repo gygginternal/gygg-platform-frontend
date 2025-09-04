@@ -33,29 +33,39 @@ const ChatPage = () => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    
+
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   // Helper function to sort contacts by most recent message timestamp
-  const sortContactsByTimestamp = (contactsArray) => {
+  const sortContactsByTimestamp = contactsArray => {
     return contactsArray.sort((a, b) => {
       // Parse timestamps with validation
-      const timestampA = a.lastMessageTimestamp ? new Date(a.lastMessageTimestamp) : new Date(0);
-      const timestampB = b.lastMessageTimestamp ? new Date(b.lastMessageTimestamp) : new Date(0);
-      
+      const timestampA = a.lastMessageTimestamp
+        ? new Date(a.lastMessageTimestamp)
+        : new Date(0);
+      const timestampB = b.lastMessageTimestamp
+        ? new Date(b.lastMessageTimestamp)
+        : new Date(0);
+
       // Validate dates
-      const validTimestampA = isNaN(timestampA.getTime()) ? new Date(0) : timestampA;
-      const validTimestampB = isNaN(timestampB.getTime()) ? new Date(0) : timestampB;
-      
+      const validTimestampA = isNaN(timestampA.getTime())
+        ? new Date(0)
+        : timestampA;
+      const validTimestampB = isNaN(timestampB.getTime())
+        ? new Date(0)
+        : timestampB;
+
       // Debug logging (remove in production)
       if (process.env.NODE_ENV === 'development') {
-        console.log(`Sorting: ${a.name} (${validTimestampA.toISOString()}) vs ${b.name} (${validTimestampB.toISOString()})`);
+        console.log(
+          `Sorting: ${a.name} (${validTimestampA.toISOString()}) vs ${b.name} (${validTimestampB.toISOString()})`
+        );
       }
-      
+
       return validTimestampB - validTimestampA; // Descending order (newest first)
     });
   };
@@ -70,9 +80,10 @@ const ChatPage = () => {
           id: conv.otherParty._id,
           name: `${conv.otherParty.firstName} ${conv.otherParty.lastName}`,
           avatar: conv.otherParty.profileImage || '/default-avatar.png',
-          lastMessage: conv.lastMessage?.type === 'image' 
-            ? '📷 Image' 
-            : conv.lastMessage?.content || '',
+          lastMessage:
+            conv.lastMessage?.type === 'image'
+              ? '📷 Image'
+              : conv.lastMessage?.content || '',
           timestamp: conv.lastMessage?.timestamp
             ? new Date(conv.lastMessage.timestamp).toLocaleString([], {
                 month: 'short',
@@ -81,14 +92,15 @@ const ChatPage = () => {
                 minute: '2-digit',
               })
             : '',
-          lastMessageTimestamp: conv.lastMessage?.timestamp || new Date(0).toISOString(), // Keep raw timestamp for sorting
+          lastMessageTimestamp:
+            conv.lastMessage?.timestamp || new Date(0).toISOString(), // Keep raw timestamp for sorting
           isOnline: false, // Optionally, implement online status
           unreadCount: conv.unreadCount || 0,
         }));
-        
+
         // Sort contacts by last message timestamp (most recent first)
         const sortedContacts = sortContactsByTimestamp(mappedContacts);
-        
+
         setContacts(sortedContacts);
         // Auto-select contact if routeUserId is present
         if (routeUserId) {
@@ -128,12 +140,12 @@ const ChatPage = () => {
     if (!selectedContact) return;
     if (pageOverride > 1) setLoadingMore(true);
     else setLoadingMessages(true);
-    
+
     try {
       const res = await apiClient.get(
         `/chat/history?userId=${selectedContact.id}&page=${pageOverride}`
       );
-      
+
       const mappedMessages = res.data.data.messages.map(msg => ({
         id: msg._id,
         text: msg.content,
@@ -146,22 +158,24 @@ const ChatPage = () => {
         }),
         isSent: msg.sender._id === user.id,
         status: 'sent', // All fetched messages are sent
-        tempId: null // No temp ID for real messages
+        tempId: null, // No temp ID for real messages
       }));
-      
+
       if (prepend) {
         // For pagination (loading older messages), prepend to beginning
         setMessages(prev => {
           // Remove duplicates and maintain chronological order
           const existingIds = new Set(prev.map(m => m.id));
-          const newMessages = mappedMessages.filter(m => !existingIds.has(m.id));
+          const newMessages = mappedMessages.filter(
+            m => !existingIds.has(m.id)
+          );
           return [...newMessages, ...prev];
         });
       } else {
         // For initial load, replace all messages
         setMessages(mappedMessages);
       }
-      
+
       setHasMore(mappedMessages.length === 50); // Has more if we got full page
       setPage(pageOverride);
     } catch (err) {
@@ -199,14 +213,18 @@ const ChatPage = () => {
   // Facebook-style message handling with optimistic updates
   useEffect(() => {
     if (!selectedContact) return;
-    
+
     // Handler for new messages - Facebook Messenger style
     const handleNewMessage = message => {
       // Check if message is for current conversation
-      const isForCurrentChat = 
-        (message.sender && message.sender._id === selectedContact.id && message.receiver === user.id) ||
-        (message.sender && message.sender._id === user.id && message.receiver === selectedContact.id);
-      
+      const isForCurrentChat =
+        (message.sender &&
+          message.sender._id === selectedContact.id &&
+          message.receiver === user.id) ||
+        (message.sender &&
+          message.sender._id === user.id &&
+          message.receiver === selectedContact.id);
+
       if (isForCurrentChat) {
         const newMsg = {
           id: message._id,
@@ -220,43 +238,52 @@ const ChatPage = () => {
           }),
           isSent: message.sender._id === user.id,
           status: 'sent',
-          tempId: null
+          tempId: null,
         };
-        
+
         setMessages(prevMsgs => {
           // Check for duplicates by ID or tempId
           const existsById = prevMsgs.some(msg => msg.id === newMsg.id);
           if (existsById) return prevMsgs;
-          
+
           // If this is our own message, replace any temp message
           if (newMsg.isSent) {
-            const withoutTemp = prevMsgs.filter(msg => 
-              !(msg.tempId && msg.isSent && !msg.id && 
-                Math.abs(new Date(msg.timestamp) - new Date(newMsg.timestamp)) < 5000)
+            const withoutTemp = prevMsgs.filter(
+              msg =>
+                !(
+                  msg.tempId &&
+                  msg.isSent &&
+                  !msg.id &&
+                  Math.abs(
+                    new Date(msg.timestamp) - new Date(newMsg.timestamp)
+                  ) < 5000
+                )
             );
-            return [...withoutTemp, newMsg].sort((a, b) => 
-              new Date(a.timestamp) - new Date(b.timestamp)
+            return [...withoutTemp, newMsg].sort(
+              (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
             );
           }
-          
+
           // For received messages, just add and sort
-          return [...prevMsgs, newMsg].sort((a, b) => 
-            new Date(a.timestamp) - new Date(b.timestamp)
+          return [...prevMsgs, newMsg].sort(
+            (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
           );
         });
       }
-      
+
       // Update sidebar for current conversation
-      if (selectedContact && (
-        message.sender._id === selectedContact.id || 
-        message.receiver === selectedContact.id
-      )) {
+      if (
+        selectedContact &&
+        (message.sender._id === selectedContact.id ||
+          message.receiver === selectedContact.id)
+      ) {
         setContacts(prevContacts => {
           const updatedContacts = prevContacts.map(contact => {
             if (contact.id === selectedContact.id) {
               return {
                 ...contact,
-                lastMessage: message.type === 'image' ? '📷 Image' : message.content,
+                lastMessage:
+                  message.type === 'image' ? '📷 Image' : message.content,
                 timestamp: new Date(message.timestamp).toLocaleString([], {
                   month: 'short',
                   day: 'numeric',
@@ -264,25 +291,32 @@ const ChatPage = () => {
                   minute: '2-digit',
                 }),
                 lastMessageTimestamp: message.timestamp,
-                unreadCount: message.sender._id === user.id ? 0 : (contact.unreadCount || 0)
+                unreadCount:
+                  message.sender._id === user.id ? 0 : contact.unreadCount || 0,
               };
             }
             return contact;
           });
-          
+
           // Re-sort contacts by last message timestamp (most recent first)
           const sortedContacts = sortContactsByTimestamp(updatedContacts);
-          
+
           // Debug logging
           if (process.env.NODE_ENV === 'development') {
-            console.log('Updated contacts order:', sortedContacts.map(c => ({ name: c.name, timestamp: c.lastMessageTimestamp })));
+            console.log(
+              'Updated contacts order:',
+              sortedContacts.map(c => ({
+                name: c.name,
+                timestamp: c.lastMessageTimestamp,
+              }))
+            );
           }
-          
+
           return sortedContacts;
         });
       }
     };
-    
+
     // Handler for message updates
     const handleMessageUpdate = updatedMsg => {
       setMessages(prevMsgs =>
@@ -296,22 +330,27 @@ const ChatPage = () => {
                   hour: '2-digit',
                   minute: '2-digit',
                 }),
-                status: 'sent'
+                status: 'sent',
               }
             : msg
         )
       );
     };
-    
+
     // Register handlers
     const unregisterNew = registerNewMessageHandler(handleNewMessage);
     const unregisterUpdate = registerMessageUpdateHandler(handleMessageUpdate);
-    
+
     return () => {
       unregisterNew();
       unregisterUpdate();
     };
-  }, [selectedContact, user.id, registerNewMessageHandler, registerMessageUpdateHandler]);
+  }, [
+    selectedContact,
+    user.id,
+    registerNewMessageHandler,
+    registerMessageUpdateHandler,
+  ]);
 
   // Optimistic message sending function
   const addOptimisticMessage = (content, type = 'text', attachment = null) => {
@@ -328,9 +367,9 @@ const ChatPage = () => {
         minute: '2-digit',
       }),
       isSent: true,
-      status: 'sending'
+      status: 'sending',
     };
-    
+
     setMessages(prev => [...prev, optimisticMsg]);
     return tempId;
   };
@@ -362,24 +401,31 @@ const ChatPage = () => {
   useEffect(() => {
     const handleGlobalNewMessage = message => {
       // Update sidebar for messages not in current conversation
-      const isCurrentChat = selectedContact && 
+      const isCurrentChat =
+        selectedContact &&
         ((message.sender && message.sender._id === selectedContact.id) ||
-         (message.receiver === selectedContact.id));
-      
+          message.receiver === selectedContact.id);
+
       if (!isCurrentChat) {
         // Find the contact in sidebar and update
-        const otherUserId = message.sender._id === user.id ? message.receiver : message.sender._id;
-        
+        const otherUserId =
+          message.sender._id === user.id
+            ? message.receiver
+            : message.sender._id;
+
         setContacts(prevContacts => {
-          const existingContactIndex = prevContacts.findIndex(c => c.id === otherUserId);
-          
+          const existingContactIndex = prevContacts.findIndex(
+            c => c.id === otherUserId
+          );
+
           if (existingContactIndex >= 0) {
             // Update existing contact
             const updatedContacts = [...prevContacts];
             const contact = updatedContacts[existingContactIndex];
             updatedContacts[existingContactIndex] = {
               ...contact,
-              lastMessage: message.type === 'image' ? '📷 Image' : message.content,
+              lastMessage:
+                message.type === 'image' ? '📷 Image' : message.content,
               timestamp: new Date(message.timestamp).toLocaleString([], {
                 month: 'short',
                 day: 'numeric',
@@ -387,18 +433,24 @@ const ChatPage = () => {
                 minute: '2-digit',
               }),
               lastMessageTimestamp: message.timestamp,
-              unreadCount: message.sender._id === user.id ? 0 : (contact.unreadCount || 0) + 1
+              unreadCount:
+                message.sender._id === user.id
+                  ? 0
+                  : (contact.unreadCount || 0) + 1,
             };
-            
+
             // Re-sort all contacts by last message timestamp (most recent first)
             return sortContactsByTimestamp(updatedContacts);
           } else if (message.sender._id !== user.id) {
             // Add new contact if message is from someone not in contacts
             const newContact = {
               id: message.sender._id,
-              name: message.sender.firstName + ' ' + (message.sender.lastName || ''),
+              name: `${message.sender.firstName} ${
+                message.sender.lastName || ''
+              }`,
               avatar: message.sender.profileImage?.url || '/default-avatar.png',
-              lastMessage: message.type === 'image' ? '📷 Image' : message.content,
+              lastMessage:
+                message.type === 'image' ? '📷 Image' : message.content,
               timestamp: new Date(message.timestamp).toLocaleString([], {
                 month: 'short',
                 day: 'numeric',
@@ -407,16 +459,16 @@ const ChatPage = () => {
               }),
               lastMessageTimestamp: message.timestamp, // Add this for proper sorting
               isOnline: false,
-              unreadCount: 1
+              unreadCount: 1,
             };
             return sortContactsByTimestamp([newContact, ...prevContacts]);
           }
-          
+
           return prevContacts;
         });
       }
     };
-    
+
     const unregisterGlobal = registerNewMessageHandler(handleGlobalNewMessage);
     return () => unregisterGlobal();
   }, [selectedContact, user.id, registerNewMessageHandler]);
@@ -433,12 +485,15 @@ const ChatPage = () => {
   // Debug: Log contacts order when it changes
   useEffect(() => {
     if (process.env.NODE_ENV === 'development' && contacts.length > 0) {
-      console.log('Current contacts order:', contacts.map(c => ({ 
-        name: c.name, 
-        lastMessage: c.lastMessage,
-        timestamp: c.lastMessageTimestamp,
-        displayTime: c.timestamp 
-      })));
+      console.log(
+        'Current contacts order:',
+        contacts.map(c => ({
+          name: c.name,
+          lastMessage: c.lastMessage,
+          timestamp: c.lastMessageTimestamp,
+          displayTime: c.timestamp,
+        }))
+      );
     }
   }, [contacts]);
 
@@ -448,7 +503,9 @@ const ChatPage = () => {
   };
 
   return (
-    <div className={`${styles.container} ${selectedContact && isMobile ? styles.chatOpen : ''}`}>
+    <div
+      className={`${styles.container} ${selectedContact && isMobile ? styles.chatOpen : ''}`}
+    >
       {(!isMobile || !selectedContact) && (
         <ChatSidebar
           contacts={contacts}
@@ -456,7 +513,7 @@ const ChatPage = () => {
           onContactSelect={setSelectedContact}
         />
       )}
-      
+
       {(!isMobile || selectedContact) && (
         <div className={styles.chatArea}>
           {selectedContact ? (

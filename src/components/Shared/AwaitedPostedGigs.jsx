@@ -66,7 +66,7 @@ const AwaitedPostedGigs = () => {
                 <Link
                   to={`/gigs/${gig._id}`}
                   className={`${styles.viewGigLink} ${styles.underline}`}
-                  onClick={(e) => handleGigClick(gig, e)}
+                  onClick={e => handleGigClick(gig, e)}
                 >
                   <p className={styles.awaitedDescription}>{gig.title}</p>
                 </Link>
@@ -79,7 +79,7 @@ const AwaitedPostedGigs = () => {
           </p>
         )}
       </div>
-      
+
       <ProviderGigDetailsModal
         gig={selectedGig}
         open={modalOpen}

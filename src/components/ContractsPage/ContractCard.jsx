@@ -1,6 +1,15 @@
 import React from 'react';
 import styles from './ContractCard.module.css';
-import { MapPin, DollarSign, Clock, Calendar, User, CheckCircle, AlertCircle, Clock as ClockIcon } from 'lucide-react';
+import {
+  MapPin,
+  DollarSign,
+  Clock,
+  Calendar,
+  User,
+  CheckCircle,
+  AlertCircle,
+  Clock as ClockIcon,
+} from 'lucide-react';
 
 export default function ContractCard({ contract, onClick }) {
   // Define status configuration for styling
@@ -44,7 +53,7 @@ export default function ContractCard({ contract, onClick }) {
     bgColor: '#f5f5f5',
     icon: Clock,
   };
-  
+
   const StatusIcon = config.icon;
 
   // Handle click event
@@ -55,7 +64,7 @@ export default function ContractCard({ contract, onClick }) {
   };
 
   // Handle keyboard navigation for accessibility
-  const handleKeyDown = (e) => {
+  const handleKeyDown = e => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       if (onClick) {
@@ -82,7 +91,7 @@ export default function ContractCard({ contract, onClick }) {
             </span>
           </div>
         </div>
-        <div 
+        <div
           className={styles.statusBadge}
           style={{
             backgroundColor: config.bgColor,
@@ -101,7 +110,11 @@ export default function ContractCard({ contract, onClick }) {
       <div className={styles.clientInfo}>
         <div className={styles.clientAvatar}>
           {contract.provider?.profileImage ? (
-            <img src={contract.provider.profileImage} alt={`${contract.provider.firstName}'s profile`} className={styles.avatarImage} />
+            <img
+              src={contract.provider.profileImage}
+              alt={`${contract.provider.firstName}'s profile`}
+              className={styles.avatarImage}
+            />
           ) : (
             contract.provider?.firstName?.[0] || 'U'
           )}

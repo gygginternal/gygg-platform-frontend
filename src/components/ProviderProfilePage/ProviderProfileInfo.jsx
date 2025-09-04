@@ -88,7 +88,9 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
         return;
       }
       if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
-        showToast('Invalid file type. Please select JPG, PNG, or WEBP.', { type: 'error' });
+        showToast('Invalid file type. Please select JPG, PNG, or WEBP.', {
+          type: 'error',
+        });
         return;
       }
       setProfileImageFile(file);
@@ -159,7 +161,8 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
 
   if (!userToDisplay) return null;
 
-  const displayName = `${userToDisplay.firstName || ''} ${userToDisplay.lastName || ''}`.trim();
+  const displayName =
+    `${userToDisplay.firstName || ''} ${userToDisplay.lastName || ''}`.trim();
   const displayLocation =
     userToDisplay.address &&
     Object.values(userToDisplay.address).some(val => val)
@@ -182,7 +185,7 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
           />
         </button>
       )}
-      
+
       <div className={styles.profileImageWrapper}>
         {userToDisplay.profileImage ? (
           <img
@@ -195,17 +198,17 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
           <div className={styles.avatarPlaceholder} />
         )}
       </div>
-      
+
       <div className={styles.profileInfoContent}>
         <div className={styles.profileName}>{displayName}</div>
-        
+
         {displayLocation && displayLocation !== 'Location not set' && (
           <div className={styles.profileLocation}>
             <MapPin size={18} className={styles.locationIcon} />
             <span>{displayLocation}</span>
           </div>
         )}
-        
+
         {userToDisplay.bio && (
           <div className={styles.profileBio}>
             {decodeHTMLEntities(userToDisplay.bio)}
@@ -331,7 +334,12 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
                   id="street"
                   className={styles.textInput}
                   value={editedAddress.street}
-                  onChange={e => setEditedAddress(prev => ({ ...prev, street: e.target.value }))}
+                  onChange={e =>
+                    setEditedAddress(prev => ({
+                      ...prev,
+                      street: e.target.value,
+                    }))
+                  }
                   placeholder="Street Address"
                   disabled={saveLoading}
                 />
@@ -347,7 +355,12 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
                     id="city"
                     className={styles.textInput}
                     value={editedAddress.city}
-                    onChange={e => setEditedAddress(prev => ({ ...prev, city: e.target.value }))}
+                    onChange={e =>
+                      setEditedAddress(prev => ({
+                        ...prev,
+                        city: e.target.value,
+                      }))
+                    }
                     placeholder="City"
                     disabled={saveLoading}
                   />
@@ -362,7 +375,12 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
                     id="state"
                     className={styles.textInput}
                     value={editedAddress.state}
-                    onChange={e => setEditedAddress(prev => ({ ...prev, state: e.target.value }))}
+                    onChange={e =>
+                      setEditedAddress(prev => ({
+                        ...prev,
+                        state: e.target.value,
+                      }))
+                    }
                     placeholder="State/Province"
                     disabled={saveLoading}
                   />
@@ -379,7 +397,12 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
                     id="postalCode"
                     className={styles.textInput}
                     value={editedAddress.postalCode}
-                    onChange={e => setEditedAddress(prev => ({ ...prev, postalCode: e.target.value }))}
+                    onChange={e =>
+                      setEditedAddress(prev => ({
+                        ...prev,
+                        postalCode: e.target.value,
+                      }))
+                    }
                     placeholder="Postal Code"
                     disabled={saveLoading}
                   />
@@ -394,14 +417,19 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
                     id="country"
                     className={styles.textInput}
                     value={editedAddress.country}
-                    onChange={e => setEditedAddress(prev => ({ ...prev, country: e.target.value }))}
+                    onChange={e =>
+                      setEditedAddress(prev => ({
+                        ...prev,
+                        country: e.target.value,
+                      }))
+                    }
                     placeholder="Country"
                     disabled={saveLoading}
                   />
                 </div>
               </div>
             </div>
-            
+
             <div className={styles.modalFooter}>
               <button
                 onClick={handleCancel}

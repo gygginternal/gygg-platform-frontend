@@ -11,11 +11,7 @@ const timeAgo = date => {
   return `Posted ${Math.floor(diff / 86400)} days ago`;
 };
 
-const ProviderGigDetailsModal = ({
-  gig,
-  open,
-  onClose,
-}) => {
+const ProviderGigDetailsModal = ({ gig, open, onClose }) => {
   const navigate = useNavigate();
   const modalRef = useRef(null);
 
@@ -66,7 +62,7 @@ const ProviderGigDetailsModal = ({
   }, [open, onClose]);
 
   if (!open || !gig) return null;
-  
+
   const {
     _id,
     title,
@@ -121,12 +117,12 @@ const ProviderGigDetailsModal = ({
     // Use provider's city directly instead of gig location
     const providerAddress = user.address;
     if (!providerAddress) return 'Location not specified';
-    
+
     const parts = [];
     if (providerAddress.city) parts.push(providerAddress.city);
     if (providerAddress.state) parts.push(providerAddress.state);
     if (providerAddress.country) parts.push(providerAddress.country);
-    
+
     return parts.length > 0 ? parts.join(', ') : 'Location not specified';
   };
 
@@ -192,10 +188,7 @@ const ProviderGigDetailsModal = ({
           )}
         </div>
         <div className={styles.modalActions}>
-          <button
-            className={styles.modalCloseButton}
-            onClick={onClose}
-          >
+          <button className={styles.modalCloseButton} onClick={onClose}>
             Close
           </button>
           <button

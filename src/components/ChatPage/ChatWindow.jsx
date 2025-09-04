@@ -3,7 +3,10 @@ import { MoreVertical, Paperclip, ArrowLeft } from 'lucide-react';
 import apiClient from '../../api/axiosConfig';
 import styles from './ChatWindow.module.css';
 import { useSocket } from '../../contexts/SocketContext';
-import { checkMessageContent, showContentWarning } from '../../utils/contentFilter';
+import {
+  checkMessageContent,
+  showContentWarning,
+} from '../../utils/contentFilter';
 
 const ChatWindow = ({
   contact,
@@ -63,10 +66,10 @@ const ChatWindow = ({
       const messageText = newMessage.trim();
       setNewMessage(''); // Clear input immediately
       setContentWarning('');
-      
+
       // Add optimistic message immediately (Facebook style)
       const tempId = onMessageSent ? onMessageSent(messageText, 'text') : null;
-      
+
       // Ensure auto-scroll when user sends a message
       setShouldAutoScroll(true);
       setIsUserScrolling(false);
@@ -83,7 +86,8 @@ const ChatWindow = ({
         if (tempId && onMessageSent) {
           // You could implement a removeOptimisticMessage function here
         }
-        const errorMessage = err.response?.data?.message || 'Failed to send message';
+        const errorMessage =
+          err.response?.data?.message || 'Failed to send message';
         setContentWarning(errorMessage);
         setNewMessage(messageText); // Restore message on error
       }
@@ -92,9 +96,9 @@ const ChatWindow = ({
 
   // Emit typing event and check content
   const handleTyping = e => {
-    const value = e.target.value;
+    const { value } = e.target;
     setNewMessage(value);
-    
+
     // Real-time content checking for warnings
     if (value.trim()) {
       const contentCheck = checkMessageContent(value);
@@ -106,48 +110,50 @@ const ChatWindow = ({
     } else {
       setContentWarning('');
     }
-    
+
     if (socket && contact) {
       // Clear previous timeout
       if (typingTimeoutRef.current) {
         clearTimeout(typingTimeoutRef.current);
       }
-      
+
       // Emit typing indicator
       if (value.trim().length > 0) {
-        socket.emit('chat:typing', { 
-          to: contact.id, 
+        socket.emit('chat:typing', {
+          to: contact.id,
           userId: socket.user?.id,
-          isTyping: true 
+          isTyping: true,
         });
-        
+
         // Stop typing after 2 seconds of no activity
         typingTimeoutRef.current = setTimeout(() => {
-          socket.emit('chat:typing', { 
-            to: contact.id, 
+          socket.emit('chat:typing', {
+            to: contact.id,
             userId: socket.user?.id,
-            isTyping: false 
+            isTyping: false,
           });
         }, 2000);
       } else {
-        socket.emit('chat:typing', { 
-          to: contact.id, 
+        socket.emit('chat:typing', {
+          to: contact.id,
           userId: socket.user?.id,
-          isTyping: false 
+          isTyping: false,
         });
       }
     }
   };
 
   // Handle image upload
-  const handleImageUpload = async (event) => {
+  const handleImageUpload = async event => {
     const file = event.target.files[0];
     if (!file) return;
 
     // Validate file type
     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
     if (!allowedTypes.includes(file.type)) {
-      setContentWarning('Please select a valid image file (JPG, PNG, GIF, WEBP)');
+      setContentWarning(
+        'Please select a valid image file (JPG, PNG, GIF, WEBP)'
+      );
       return;
     }
 
@@ -163,21 +169,27 @@ const ChatWindow = ({
       const formData = new FormData();
       formData.append('chatImage', file);
 
-      const uploadResponse = await apiClient.post('/chat/upload-image', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const uploadResponse = await apiClient.post(
+        '/chat/upload-image',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
 
       const { url, fileName, fileType, fileSize } = uploadResponse.data.data;
 
       // Add optimistic image message
-      const tempId = onMessageSent ? onMessageSent(fileName, 'image', {
-        url,
-        fileName,
-        fileType,
-        fileSize,
-      }) : null;
+      const tempId = onMessageSent
+        ? onMessageSent(fileName, 'image', {
+            url,
+            fileName,
+            fileType,
+            fileSize,
+          })
+        : null;
 
       // Ensure auto-scroll when user sends an image
       setShouldAutoScroll(true);
@@ -196,7 +208,8 @@ const ChatWindow = ({
         },
       });
     } catch (err) {
-      const errorMessage = err.response?.data?.message || 'Failed to upload image';
+      const errorMessage =
+        err.response?.data?.message || 'Failed to upload image';
       setContentWarning(errorMessage);
     } finally {
       setUploadingImage(false);
@@ -220,7 +233,7 @@ const ChatWindow = ({
     const { scrollTop, scrollHeight, clientHeight } = el;
     const isAtBottom = scrollHeight - scrollTop - clientHeight < 50; // 50px threshold
     const isScrollingUp = scrollTop < lastScrollTop.current;
-    
+
     lastScrollTop.current = scrollTop;
 
     // Update auto-scroll behavior based on user's scroll position
@@ -246,7 +259,7 @@ const ChatWindow = ({
     if (scrollTop === 0 && hasMore && !loadingMore) {
       const previousScrollHeight = scrollHeight;
       onLoadMore && onLoadMore();
-      
+
       // Maintain scroll position after loading more messages
       setTimeout(() => {
         if (el) {
@@ -274,7 +287,7 @@ const ChatWindow = ({
     <div className={styles.chatWindow}>
       <div className={styles.header}>
         {onMobileBack && (
-          <button 
+          <button
             className={styles.mobileBackButton}
             onClick={onMobileBack}
             aria-label="Back to contacts"
@@ -321,12 +334,15 @@ const ChatWindow = ({
                       src={message.attachment.url}
                       alt={message.attachment.fileName || 'Image'}
                       className={styles.messageImage}
-                      onError={(e) => {
+                      onError={e => {
                         e.target.style.display = 'none';
                         e.target.nextSibling.style.display = 'block';
                       }}
                     />
-                    <div className={styles.imageError} style={{ display: 'none' }}>
+                    <div
+                      className={styles.imageError}
+                      style={{ display: 'none' }}
+                    >
                       📷 Image failed to load
                     </div>
                   </div>
@@ -334,9 +350,13 @@ const ChatWindow = ({
                   <span className={styles.messageText}>{message.text}</span>
                 )}
                 <div className={styles.messageFooter}>
-                  <span className={styles.messageTime}>{message.displayTime || message.timestamp}</span>
+                  <span className={styles.messageTime}>
+                    {message.displayTime || message.timestamp}
+                  </span>
                   {message.isSent && (
-                    <span className={`${styles.messageStatus} ${styles[message.status || 'sent']}`}>
+                    <span
+                      className={`${styles.messageStatus} ${styles[message.status || 'sent']}`}
+                    >
                       {message.status === 'sending' ? '⏳' : '✓'}
                     </span>
                   )}
@@ -350,7 +370,7 @@ const ChatWindow = ({
           )}
           <div ref={messagesEndRef} />
         </div>
-        
+
         {/* Scroll to bottom button */}
         {!shouldAutoScroll && (
           <button
@@ -369,12 +389,10 @@ const ChatWindow = ({
 
       <div className={styles.inputContainer}>
         {contentWarning && (
-          <div className={styles.contentWarning}>
-            ⚠️ {contentWarning}
-          </div>
+          <div className={styles.contentWarning}>⚠️ {contentWarning}</div>
         )}
         <form onSubmit={handleSendMessage} className={styles.inputForm}>
-          <Paperclip 
+          <Paperclip
             className={`${styles.attachIcon} ${uploadingImage ? styles.uploading : ''}`}
             onClick={handleAttachmentClick}
             title="Upload image"
@@ -390,10 +408,14 @@ const ChatWindow = ({
             type="text"
             value={newMessage}
             onChange={handleTyping}
-            placeholder={uploadingImage ? "Uploading image..." : "Type your message here..."}
+            placeholder={
+              uploadingImage
+                ? 'Uploading image...'
+                : 'Type your message here...'
+            }
             className={`${styles.messageInput} ${contentWarning ? styles.warningInput : ''}`}
             disabled={uploadingImage}
-            onKeyDown={(e) => {
+            onKeyDown={e => {
               if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
                 handleSendMessage(e);

@@ -1,23 +1,23 @@
 import React from 'react';
 import './LoadingSpinner.css';
 
-const LoadingSpinner = ({ 
-  size = 'medium', 
-  color = 'primary', 
+const LoadingSpinner = ({
+  size = 'medium',
+  color = 'primary',
   text = 'Loading...',
   showText = true,
-  fullScreen = false 
+  fullScreen = false,
 }) => {
   const sizeClasses = {
     small: 'spinner-small',
     medium: 'spinner-medium',
-    large: 'spinner-large'
+    large: 'spinner-large',
   };
 
   const colorClasses = {
     primary: 'spinner-primary',
     secondary: 'spinner-secondary',
-    accent: 'spinner-accent'
+    accent: 'spinner-accent',
   };
 
   const spinnerClass = `loading-spinner ${sizeClasses[size]} ${colorClasses[color]}`;

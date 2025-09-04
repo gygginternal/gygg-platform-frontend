@@ -56,7 +56,7 @@ export function StripeEmbeddedOnboarding() {
     if (pollIntervalRef.current) {
       clearInterval(pollIntervalRef.current);
     }
-    
+
     pollIntervalRef.current = setInterval(async () => {
       const isComplete = await checkOnboardingStatus();
       if (isComplete) {
@@ -80,55 +80,58 @@ export function StripeEmbeddedOnboarding() {
       setLoading(true);
       setError(null);
       setSuccess(false);
-      
+
       // Create connected account if needed
       await apiClient.post('/payments/create-connected-account');
-      
+
       // Get account session/link
       // Try embedded first, fall back to redirect if embedded is not supported
       try {
-        const response = await apiClient.post('/payments/initiate-account-session?embedded=true');
+        const response = await apiClient.post(
+          '/payments/initiate-account-session?embedded=true'
+        );
         console.log('Account session response:', response);
         const { clientSecret, url } = response.data.data;
         console.log('Client secret:', clientSecret);
         console.log('URL:', url);
-        
+
         // If we got a URL, use redirect approach
         if (url) {
           window.location.href = url;
           return;
         }
-        
+
         // If we got a client secret, try embedded approach
         if (clientSecret) {
           // Load Stripe
           const stripe = await getStripe();
-          
+
           // Clear existing content
           if (onboardingRef.current) {
             onboardingRef.current.innerHTML = '';
           }
-          
+
           // Try different methods to initialize embedded onboarding
           let onboarding;
-          
+
           // Method 1: initEmbeddedAccountOnboarding
           if (typeof stripe.initEmbeddedAccountOnboarding === 'function') {
             try {
               console.log('Trying initEmbeddedAccountOnboarding...');
               onboarding = await stripe.initEmbeddedAccountOnboarding({
-                clientSecret
+                clientSecret,
               });
             } catch (err) {
               console.log('initEmbeddedAccountOnboarding failed:', err);
               throw err;
             }
-          } 
+          }
           // Method 2: connectEmbeddedAccountSession
           else if (typeof stripe.connectEmbeddedAccountSession === 'function') {
             try {
               console.log('Trying connectEmbeddedAccountSession...');
-              const result = await stripe.connectEmbeddedAccountSession(clientSecret);
+              const result =
+                await stripe.connectEmbeddedAccountSession(clientSecret);
               if (result.error) {
                 throw new Error(result.error.message);
               }
@@ -138,35 +141,46 @@ export function StripeEmbeddedOnboarding() {
               console.log('connectEmbeddedAccountSession failed:', err);
               throw err;
             }
-          } 
+          }
           // No valid method found
           else {
-            throw new Error('No valid embedded onboarding method found in Stripe.js');
+            throw new Error(
+              'No valid embedded onboarding method found in Stripe.js'
+            );
           }
-          
+
           // Mount embedded onboarding (only for initEmbeddedAccountOnboarding)
           if (onboarding && typeof onboarding.mount === 'function') {
             onboarding.mount(onboardingRef.current);
           }
         }
       } catch (embeddedError) {
-        console.log('Embedded onboarding failed, trying redirect approach:', embeddedError);
+        console.log(
+          'Embedded onboarding failed, trying redirect approach:',
+          embeddedError
+        );
         // Fall back to redirect approach
-        const redirectResponse = await apiClient.post('/payments/initiate-account-session');
+        const redirectResponse = await apiClient.post(
+          '/payments/initiate-account-session'
+        );
         if (redirectResponse.data.data.url) {
           window.location.href = redirectResponse.data.data.url;
           return;
         }
         throw embeddedError;
       }
-      
+
       // Start polling for completion
       startPolling();
-      
+
       setLoading(false);
     } catch (err) {
       console.error('Error initiating onboarding:', err);
-      setError(err.response?.data?.message || err.message || 'Failed to initiate onboarding');
+      setError(
+        err.response?.data?.message ||
+          err.message ||
+          'Failed to initiate onboarding'
+      );
       setLoading(false);
     }
   };
@@ -174,18 +188,18 @@ export function StripeEmbeddedOnboarding() {
   // Handle exit
   const handleExit = () => {
     stopPolling();
-    
+
     if (onboardingRef.current) {
       onboardingRef.current.innerHTML = '';
     }
-    
+
     fetchAccountStatus();
   };
 
   // Cleanup
   useEffect(() => {
     fetchAccountStatus();
-    
+
     return () => {
       stopPolling();
       if (onboardingRef.current) {
@@ -199,9 +213,9 @@ export function StripeEmbeddedOnboarding() {
     const handleBeforeUnload = () => {
       stopPolling();
     };
-    
+
     window.addEventListener('beforeunload', handleBeforeUnload);
-    
+
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
@@ -226,48 +240,68 @@ export function StripeEmbeddedOnboarding() {
     <div className={styles.container}>
       <div className={styles.onboardingCard}>
         <h3>Complete Your Stripe Setup</h3>
-        <p>To receive payments, please complete your Stripe account verification.</p>
-        
+        <p>
+          To receive payments, please complete your Stripe account verification.
+        </p>
+
         {accountStatus && (
           <div className={styles.statusDetails}>
             <h4>Current Status</h4>
             <div className={styles.statusRow}>
               <span>Payouts Enabled:</span>
-              <span className={accountStatus.payoutsEnabled ? styles.statusYes : styles.statusNo}>
+              <span
+                className={
+                  accountStatus.payoutsEnabled
+                    ? styles.statusYes
+                    : styles.statusNo
+                }
+              >
                 {accountStatus.payoutsEnabled ? 'Yes' : 'No'}
               </span>
             </div>
             <div className={styles.statusRow}>
               <span>Charges Enabled:</span>
-              <span className={accountStatus.chargesEnabled ? styles.statusYes : styles.statusNo}>
+              <span
+                className={
+                  accountStatus.chargesEnabled
+                    ? styles.statusYes
+                    : styles.statusNo
+                }
+              >
                 {accountStatus.chargesEnabled ? 'Yes' : 'No'}
               </span>
             </div>
             <div className={styles.statusRow}>
               <span>Details Submitted:</span>
-              <span className={accountStatus.detailsSubmitted ? styles.statusYes : styles.statusNo}>
+              <span
+                className={
+                  accountStatus.detailsSubmitted
+                    ? styles.statusYes
+                    : styles.statusNo
+                }
+              >
                 {accountStatus.detailsSubmitted ? 'Yes' : 'No'}
               </span>
             </div>
           </div>
         )}
-        
+
         {error && (
           <div className={styles.error}>
             <p>{error}</p>
           </div>
         )}
-        
-        <button 
-          className={styles.onboardButton} 
+
+        <button
+          className={styles.onboardButton}
           onClick={initiateOnboarding}
           disabled={loading}
         >
           {loading ? 'Processing...' : 'Start Onboarding'}
         </button>
-        
-        <div 
-          ref={onboardingRef} 
+
+        <div
+          ref={onboardingRef}
           className={styles.embeddedOnboarding}
           style={{ minHeight: '500px', marginTop: '20px' }}
         ></div>

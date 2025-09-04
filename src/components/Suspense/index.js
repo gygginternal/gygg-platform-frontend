@@ -7,5 +7,5 @@ export {
   createLazyRoute,
   createLazyModal,
   createLazyWidget,
-  ProgressiveLoader
+  ProgressiveLoader,
 } from './LazyComponentLoader';
