@@ -1,6 +1,7 @@
 .sidebar {
-  width: 340px;
-  max-width: 340px;
+  width: 420px;
+  max-width: 420px;
+  min-width: 360px;
   height: 100%;
   min-height: 0;
   background: #ffffff;
@@ -14,6 +15,59 @@
   flex-shrink: 0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   position: relative;
+}
+
+/* Large screen optimizations */
+@media (min-width: 1800px) {
+  .sidebar {
+    width: 450px;
+    max-width: 450px;
+  }
+  
+  .header {
+    padding: 1.125rem;
+  }
+  
+  .contactItem {
+    padding: 0.875rem 1.125rem;
+  }
+  
+  .avatar {
+    width: 52px;
+    height: 52px;
+  }
+  
+  .contactName {
+    font-size: 1.0625rem;
+  }
+}
+
+@media (min-width: 2000px) {
+  .sidebar {
+    width: 480px;
+    max-width: 480px;
+  }
+  
+  .header {
+    padding: 1.25rem;
+  }
+  
+  .contactItem {
+    padding: 1rem 1.25rem;
+  }
+  
+  .avatar {
+    width: 56px;
+    height: 56px;
+  }
+  
+  .contactName {
+    font-size: 1.125rem;
+  }
+  
+  .lastMessage {
+    font-size: 0.9375rem;
+  }
 }
 
 .header {
@@ -300,24 +354,41 @@
   margin-left: 8px;
 }
 
-/* Responsive design */
+/* Enhanced responsive design for better width utilization */
+@media (max-width: 1600px) {
+  .sidebar {
+    width: 400px;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .sidebar {
+    width: 380px;
+    max-width: 380px;
+  }
+}
+
 @media (max-width: 1200px) {
   .sidebar {
-    width: 320px;
+    width: 360px;
+    max-width: 360px;
   }
 }
 
 @media (max-width: 1024px) {
   .sidebar {
-    width: 300px;
+    width: 340px;
+    max-width: 340px;
+    min-width: 320px;
   }
   
   .header {
-    padding: 12px;
+    padding: 0.875rem;
   }
   
   .contactItem {
-    padding: 10px 12px;
+    padding: 0.75rem 0.875rem;
   }
   
   .avatar {
@@ -326,15 +397,15 @@
   }
   
   .contactName {
-    font-size: 14px;
+    font-size: 0.9375rem;
   }
   
   .lastMessage {
-    font-size: 12px;
+    font-size: 0.8125rem;
   }
   
   .timestamp {
-    font-size: 11px;
+    font-size: 0.75rem;
   }
 }
 
@@ -342,59 +413,59 @@
   .sidebar {
     width: 100%;
     max-width: none;
-    border-radius: 12px;
+    border-radius: 10px;
     margin: 0;
   }
   
   .header {
-    padding: 16px;
+    padding: 1rem;
     border-bottom: 1px solid #f3f4f6;
   }
   
   .searchInput {
-    padding: 12px 40px 12px 16px;
+    padding: 0.875rem 2.5rem 0.875rem 1rem;
     font-size: 16px; /* Prevent zoom on iOS */
     border-radius: 10px;
   }
   
   .contactItem {
-    padding: 12px 16px;
+    padding: 0.875rem 1rem;
     border-bottom: 1px solid #f9fafb;
   }
   
   .avatar {
-    width: 48px;
-    height: 48px;
+    width: 50px;
+    height: 50px;
   }
   
   .contactName {
-    font-size: 15px;
+    font-size: 0.9375rem;
     font-weight: 500;
   }
   
   .lastMessage {
-    font-size: 13px;
+    font-size: 0.8125rem;
   }
   
   .timestamp {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
   
   .noResults {
-    padding: 40px 20px;
+    padding: 2.5rem 1.25rem;
   }
   
   .noResultsIcon {
-    font-size: 40px;
-    margin-bottom: 12px;
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
   }
   
   .noResultsText {
-    font-size: 15px;
+    font-size: 0.9375rem;
   }
   
   .noResultsSubtext {
-    font-size: 13px;
+    font-size: 0.8125rem;
   }
 }
 

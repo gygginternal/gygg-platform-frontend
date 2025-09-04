@@ -4,8 +4,8 @@
 .profilePageContainer {
   display: flex;
   justify-content: center;
-  padding: 3.5rem 0.75rem 0; /* 56px top + 12px sides */
-  min-height: calc(100vh - 3.5rem);
+  padding: 2rem 0.75rem 0; /* Reduced top padding to 2rem */
+  min-height: calc(100vh - 2rem);
   background-color: #f0f2f5;
   box-sizing: border-box;
 }
@@ -23,8 +23,8 @@
 /* Small Mobile to Tablet (480px - 768px) */
 @media (min-width: 480px) {
   .profilePageContainer {
-    padding: 4rem 1rem 0; /* 64px top + 16px sides */
-    min-height: calc(100vh - 4rem);
+    padding: 2.25rem 1rem 0; /* Adjusted top padding */
+    min-height: calc(100vh - 2.25rem);
   }
 
   .content {
@@ -37,8 +37,8 @@
 /* Tablet (768px - 1024px) */
 @media (min-width: 768px) {
   .profilePageContainer {
-    padding: 4.75rem 1.5rem 0 2.5rem; 
-    min-height: calc(100vh - 4.75rem);
+    padding: 2.5rem 1.5rem 0 2.5rem; 
+    min-height: calc(100vh - 2.5rem);
   }
 
   .content {
@@ -51,8 +51,8 @@
 /* Desktop (1024px+) */
 @media (min-width: 1024px) {
   .profilePageContainer {
-    padding: 5.5rem 2rem 0; /* 88px top + 32px sides */
-    min-height: calc(100vh - 5.5rem);
+    padding: 2.75rem 2rem 0; /* Adjusted top padding */
+    min-height: calc(100vh - 2.75rem);
   }
 
   .content {

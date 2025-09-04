@@ -2,8 +2,8 @@
 .providerProfilePageContainer {
   display: flex;
   justify-content: center;
-  padding-top: 41px;
-  min-height: calc(100vh - 41px);
+  padding-top: 2rem; /* Reduced from 41px to 2rem */
+  min-height: calc(100vh - 2rem);
   background-color: #f0f2f5;
   box-sizing: border-box;
 }
@@ -26,8 +26,8 @@
 
 @media (max-width: 1024px) {
   .providerProfilePageContainer {
-    padding-top: 4.5rem;
-    min-height: calc(100vh - 4.5rem);
+    padding-top: 2.25rem; /* Adjusted top padding */
+    min-height: calc(100vh - 2.25rem);
   }
   .providerContent {
     max-width: 950px;
@@ -41,8 +41,8 @@
 }
 @media (max-width: 768px) {
   .providerProfilePageContainer {
-    padding-top: 4rem;
-    min-height: calc(100vh - 4rem);
+    padding-top: 2.15rem; /* Adjusted top padding */
+    min-height: calc(100vh - 2.15rem);
   }
   .providerContent {
     padding: 0.875rem;
@@ -51,8 +51,8 @@
 }
 @media (max-width: 480px) {
   .providerProfilePageContainer {
-    padding-top: 3.5rem;
-    min-height: calc(100vh - 3.5rem);
+    padding-top: 2.1rem; /* Adjusted top padding */
+    min-height: calc(100vh - 2.1rem);
   }
   .providerContent {
     padding: 0.75rem;
