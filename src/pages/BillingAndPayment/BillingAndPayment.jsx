@@ -277,7 +277,7 @@ function EarningsSummary({ summary, period, onPeriodChange, isTasker, isProvider
           <>
             <div className={styles.summaryCard}>
               <div className={styles.summaryIcon}>
-                <TrendingDown size={24} color="#f44336" />
+                <TrendingUp size={24} color="#4caf50" />
               </div>
               <div className={styles.summaryContent}>
                 <div className={styles.summaryValue}>${summary.provider.totalSpentFormatted}</div>
