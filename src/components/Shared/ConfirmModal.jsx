@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styles from './ConfirmModal.module.css';
 
@@ -16,6 +16,54 @@ const ConfirmModal = ({
   onCancel,
   variant = 'default' // 'default', 'danger', 'warning'
 }) => {
+  const modalRef = useRef(null);
+
+  // Prevent background scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      // Focus the modal for accessibility
+      if (modalRef.current) modalRef.current.focus();
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  // Trap focus inside modal
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleTab = e => {
+      if (!modalRef.current) return;
+      const focusableEls = Array.from(
+        modalRef.current.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+      );
+      const [firstEl] = focusableEls;
+      const lastEl = focusableEls[focusableEls.length - 1];
+      if (e.key === 'Tab') {
+        if (e.shiftKey) {
+          if (document.activeElement === firstEl) {
+            e.preventDefault();
+            lastEl.focus();
+          }
+        } else {
+          if (document.activeElement === lastEl) {
+            e.preventDefault();
+            firstEl.focus();
+          }
+        }
+      } else if (e.key === 'Escape') {
+        onCancel();
+      }
+    };
+    document.addEventListener('keydown', handleTab);
+    return () => document.removeEventListener('keydown', handleTab);
+  }, [isOpen, onCancel]);
+
   if (!isOpen) return null;
 
   const handleBackdropClick = (e) => {
@@ -33,17 +81,33 @@ const ConfirmModal = ({
   };
 
   return (
-    <div className={styles.backdrop} onClick={handleBackdropClick}>
-      <div className={styles.modal}>
-        <div className={styles.header}>
-          <h3 className={styles.title}>{title}</h3>
+    <div 
+      className={styles.modalOverlay} 
+      onClick={handleBackdropClick}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div 
+        className={styles.modalContent} 
+        ref={modalRef} 
+        tabIndex={-1}
+      >
+        <div className={styles.modalHeader}>
+          <h3 className={styles.modalTitle}>{title}</h3>
+          <button
+            className={styles.closeButton}
+            onClick={onCancel}
+            aria-label="Close modal"
+          >
+            ✖
+          </button>
         </div>
         
-        <div className={styles.content}>
-          <p className={styles.message}>{message}</p>
+        <div className={styles.modalContentBody}>
+          <p className={styles.modalMessage}>{message}</p>
         </div>
         
-        <div className={styles.actions}>
+        <div className={styles.modalActions}>
           <button
             type="button"
             className={styles.cancelButton}
