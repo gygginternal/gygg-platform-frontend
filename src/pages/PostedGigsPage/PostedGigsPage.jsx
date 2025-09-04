@@ -159,12 +159,11 @@ const PostedGigsPage = () => {
                 <ArrowLeft size={20} />
                 Back to My Posted Gigs
               </button>
-              <div className={styles.applicationsTitle}>
-                <h1 className={styles.title}>Applications</h1>
-                <p className={styles.subtitle}>
-                  Review applications for <strong>"{selectedGigTitle}"</strong>
-                </p>
-              </div>
+
+              <h1 className={styles.title}>Applications</h1>
+              <p className={styles.subtitle}>
+                Review applications for <strong>"{selectedGigTitle}"</strong>
+              </p>
             </div>
             <div className={styles.applicationsContainer}>
               <GigApplications gigId={selectedGigId} />
