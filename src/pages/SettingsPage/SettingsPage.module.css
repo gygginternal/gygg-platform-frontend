@@ -1,11 +1,23 @@
 /* src/pages/SettingsPage.module.css */
+
+/* Base styles - Mobile first */
 .settingsContainer {
   /* Add general padding to give space around the content */
   background-color: #f0f2f5;
-  padding-top: 41px; /* 16px */
+  padding: 2rem 0.75rem 0; /* Reduced top padding to 2rem */
   box-sizing: border-box; /* Ensure padding is included in width */
   width: 100%; /* Take full width of its parent (e.g., mainFeedArea) */
-  margin-left: 200px;
+  min-height: calc(100vh - 2rem);
+}
+
+.content {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .tabsContainer {
@@ -91,64 +103,61 @@
   line-height: 1.5;
 }
 
-/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
-@media (max-width: 1024px) {
+/* Small Mobile to Tablet (480px - 768px) */
+@media (min-width: 480px) {
   .settingsContainer {
-    padding: 0.8rem;
-    padding-top: 32px;
-    padding-left: 200px;
-    margin-left: 200px;
+    padding: 2.25rem 1rem 0; /* Adjusted top padding */
+    min-height: calc(100vh - 2.25rem);
   }
-}
+  
+  .content {
+    max-width: 600px;
+    padding: 1rem;
+    gap: 1rem;
+  }
 
-/* Responsive adjustments for screens up to 768px (Tablets) */
-@media (max-width: 768px) {
-  .settingsContainer {
-    padding: 0.6rem; /* 9.6px */
-    padding-left: 100px;
-    margin-left: 100px;
-  }
-  
-  .tabs {
-    flex-direction: column;
-  }
-  
   .tab {
-    text-align: left;
-    border-bottom: 1px solid #e0e0e0;
-  }
-  
-  .tab:last-child {
-    border-bottom: none;
-  }
-  
-  .tab.activeTab::after {
-    bottom: auto;
-    top: 0;
-    left: 0;
-    right: auto;
-    width: 3px;
-    height: 100%;
+    padding: 14px 20px;
+    font-size: 15px;
   }
   
   .tabContent {
-    padding: 16px;
-  }
-  
-  .tabPanel h2 {
-    font-size: 20px;
-  }
-  
-  .tabPanel p {
-    font-size: 14px;
+    padding: 20px;
   }
 }
 
-/* Responsive adjustments for screens up to 480px (Mobile Phones) */
-@media (max-width: 480px) {
+/* Tablet (768px - 1024px) */
+@media (min-width: 768px) {
   .settingsContainer {
-    padding: 0.4rem; /* 6.4px */
-    margin-left: 0;
-    padding-left: 0.4rem;
+    padding: 2.5rem 1.5rem 0 1.5rem; /* Adjusted top padding */
+    min-height: calc(100vh - 2.5rem);
+  }
+  
+  .content {
+    max-width: 750px;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+  
+  .tabContent {
+    padding: 22px;
+  }
+}
+
+/* Desktop (1024px+) */
+@media (min-width: 1024px) {
+  .settingsContainer {
+    padding: 2.75rem 2rem 0; /* Adjusted top padding */
+    min-height: calc(100vh - 2.75rem);
+  }
+  
+  .content {
+    max-width: 900px;
+    padding: 2rem;
+    gap: 2rem;
+  }
+  
+  .tabContent {
+    padding: 24px;
   }
 }
