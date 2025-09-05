@@ -66,7 +66,7 @@ function VerifyEmailPromptPage() {
     const cleanBackendUrl = backendUrl.endsWith('/')
       ? backendUrl.slice(0, -1)
       : backendUrl;
-    const verificationUrl = `${cleanBackendUrl}/api/v1/users/verifyEmail/${token}`;
+    const verificationUrl = `${cleanBackendUrl}/users/verifyEmail/${token}`;
 
     logger.info('Redirecting to verification URL:', verificationUrl);
 
@@ -169,7 +169,7 @@ function VerifyEmailPromptPage() {
             <p className={styles.instructionText}>{statusMessage}</p>
             <div className={styles.form}>
               <Link
-                to="/login"
+                to="/choose"
                 className={styles.submitButton}
                 style={{
                   textDecoration: 'none',
@@ -245,7 +245,7 @@ function VerifyEmailPromptPage() {
               )}
             </div>
             <p className={styles.retryText}>
-              <Link className={styles.link} to="/login">
+              <Link className={styles.link} to="/choose">
                 Back to Login
               </Link>{' '}
               or{' '}
@@ -309,7 +309,7 @@ function VerifyEmailPromptPage() {
                 Resend email
               </span>
               . You can also{' '}
-              <Link className={styles.link} to="/login">
+              <Link className={styles.link} to="/choose">
                 Log In
               </Link>{' '}
               or{' '}
