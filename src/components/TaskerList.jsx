@@ -21,38 +21,38 @@ const TaskerList = () => {
         console.log('Current user:', user);
         console.log('User role:', user?.role);
 
-        // Try multiple endpoints in order of preference
+        // Use the improved match-taskers endpoint with better compatibility logic
         let response;
         let endpointUsed = '';
 
         try {
-          console.log('Trying /users/top-match-taskers...');
-          response = await apiClient.get('/users/top-match-taskers');
-          endpointUsed = 'top-match-taskers';
-          console.log('Success with top-match-taskers:', response.data);
-        } catch (topMatchError) {
+          console.log('Fetching taskers with improved compatibility matching...');
+          response = await apiClient.get('/users/match-taskers?limit=50');
+          endpointUsed = 'match-taskers';
+          console.log('Success with match-taskers:', response.data);
+        } catch (matchError) {
           console.log(
-            'top-match-taskers failed:',
-            topMatchError.response?.status,
-            topMatchError.response?.data
+            'match-taskers failed:',
+            matchError.response?.status,
+            matchError.response?.data
           );
 
+          // Fallback to top-match-taskers if match-taskers fails
           try {
-            console.log('Trying /users/match-taskers...');
-            response = await apiClient.get('/users/match-taskers?limit=50');
-            endpointUsed = 'match-taskers';
-            console.log('Success with match-taskers:', response.data);
-          } catch (matchError) {
+            console.log('Trying fallback /users/top-match-taskers...');
+            response = await apiClient.get('/users/top-match-taskers');
+            endpointUsed = 'top-match-taskers';
+            console.log('Success with top-match-taskers:', response.data);
+          } catch (topMatchError) {
             console.log(
-              'match-taskers failed:',
-              matchError.response?.status,
-              matchError.response?.data
+              'top-match-taskers failed:',
+              topMatchError.response?.status,
+              topMatchError.response?.data
             );
 
-            // Try without authentication as a last resort (if there's a public endpoint)
+            // Last resort: try public endpoint
             try {
-              console.log('Trying public user search...');
-              // This might not exist, but worth trying
+              console.log('Trying public user search as last resort...');
               response = await apiClient.get('/users?role=tasker&limit=50');
               endpointUsed = 'public-users';
               console.log('Success with public users:', response.data);
@@ -67,15 +67,25 @@ const TaskerList = () => {
           }
         }
 
-        // Handle different response structures
+        // Handle response structure (now standardized)
         let taskersData = [];
         console.log('Processing response from:', endpointUsed);
         console.log('Response structure:', response.data);
 
         if (response.data?.data?.taskers) {
-          // This is the correct structure for top-match-taskers
+          // Standard structure for both endpoints
           taskersData = response.data.data.taskers;
           console.log('Found taskers in data.taskers:', taskersData.length);
+          
+          // Log compatibility scores for debugging
+          if (taskersData.length > 0 && taskersData[0].compatibilityScore !== undefined) {
+            console.log('Compatibility scores:', taskersData.slice(0, 5).map(t => ({
+              name: t.fullName || t.firstName,
+              compatibilityScore: t.compatibilityScore,
+              hobbyMatches: t.hobbyMatches,
+              personalityMatches: t.personalityMatches
+            })));
+          }
         } else if (response.data?.data?.matches) {
           taskersData = response.data.data.matches;
           console.log('Found matches:', taskersData.length);
@@ -192,6 +202,9 @@ const TaskerList = () => {
           }
           location={tasker.address?.city || tasker.address?.state || ''}
           bio={tasker.bio || 'No bio provided.'}
+          compatibilityScore={tasker.compatibilityScore}
+          hobbyMatches={tasker.hobbyMatches}
+          personalityMatches={tasker.personalityMatches}
           onMessage={() => {
             /* TODO: handle message */
           }}
