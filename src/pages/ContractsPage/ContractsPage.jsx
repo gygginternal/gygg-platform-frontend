@@ -215,6 +215,8 @@ function ContractsPage() {
         displayName: c.displayName,
         displayImage: c.displayImage,
         provider: c.provider,
+        providerId: c.providerId,
+        taskerId: c.taskerId,
         contractId: c.id || c.contractId,
         status: c.status || 'Active',
         description: c.description || 'Contract details',
@@ -554,6 +556,8 @@ function ContractsPage() {
                           hiredBy: contract.hiredBy,
                           displayName: contract.displayName,
                           displayImage: contract.displayImage,
+                          providerId: contract.providerId,
+                          taskerId: contract.taskerId,
                           contractId: contract.contractId,
                           status: contract.status,
                           rate: contract.rate,
@@ -599,14 +603,23 @@ function ContractsPage() {
                 <b>Title:</b> {modalContract.gigTitle || modalContract.title}
               </div>
               <div>
-                <b>Hired by:</b>{' '}
-                {modalContract.provider || modalContract.hiredBy}
+                <b>{sessionRole === 'provider' ? 'Working with:' : 'Hired by:'}:</b>{' '}
+                {modalContract.displayName || modalContract.hiredBy}
               </div>
               <div>
                 <b>Rate:</b> {modalContract.rate}
               </div>
               <div>
                 <b>Status:</b> {modalContract.status}
+              </div>
+              <div>
+                <b>Location:</b> {modalContract.location}
+              </div>
+              <div>
+                <b>Duration:</b> {modalContract.duration}
+              </div>
+              <div>
+                <b>Earned:</b> {modalContract.earned}
               </div>
             </div>
             <div className={styles.modalActions}>
@@ -661,6 +674,31 @@ function ContractsPage() {
                     Approve Completion
                   </button>
                 )}
+              {sessionRole === 'provider' &&
+                modalContract.status?.toLowerCase() === 'pending_payment' && (
+                  <button
+                    className={styles.primaryBtn}
+                    onClick={async () => {
+                      try {
+                        await apiClient.patch(
+                          `/contracts/${modalContract.id || modalContract._id}/pay-tasker`
+                        );
+                        showToast('Payment released to tasker successfully!', 'success');
+                        setIsModalOpen(false);
+                        setModalContract(null);
+                        // Refresh contracts list
+                        window.location.reload();
+                      } catch (err) {
+                        showToast(
+                          err.response?.data?.message || 'Failed to pay tasker.',
+                          'error'
+                        );
+                      }
+                    }}
+                  >
+                    Pay Tasker
+                  </button>
+                )}
               {sessionRole === 'tasker' &&
                 modalContract.status?.toLowerCase() === 'active' && (
                   <button
@@ -674,6 +712,21 @@ function ContractsPage() {
                     Submit as Complete
                   </button>
                 )}
+              <button
+                className={styles.secondaryBtn}
+                onClick={() => {
+                  // Navigate to messages/chat with the other party
+                  const otherPartyId = sessionRole === 'provider' 
+                    ? modalContract.taskerId 
+                    : modalContract.providerId;
+                  if (otherPartyId) {
+                    // You can implement navigation to chat here
+                    showToast('Message feature coming soon!', 'info');
+                  }
+                }}
+              >
+                Message
+              </button>
               <button
                 className={styles.secondaryBtn}
                 onClick={() => {
