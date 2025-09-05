@@ -114,16 +114,26 @@ const ProviderGigDetailsModal = ({ gig, open, onClose }) => {
       : null;
 
   const formatLocation = () => {
-    // Use provider's city directly instead of gig location
+    // Use gig's location if available, otherwise fall back to provider's address
+    const gigLocation = gig.location;
+    
+    if (gigLocation && (gigLocation.city || gigLocation.state)) {
+      const parts = [];
+      if (gigLocation.city) parts.push(gigLocation.city);
+      if (gigLocation.state) parts.push(gigLocation.state);
+      return parts.join(', ');
+    }
+    
+    // Fallback to provider's address if gig location is not available
     const providerAddress = user.address;
-    if (!providerAddress) return 'Location not specified';
-
-    const parts = [];
-    if (providerAddress.city) parts.push(providerAddress.city);
-    if (providerAddress.state) parts.push(providerAddress.state);
-    if (providerAddress.country) parts.push(providerAddress.country);
-
-    return parts.length > 0 ? parts.join(', ') : 'Location not specified';
+    if (providerAddress && (providerAddress.city || providerAddress.state)) {
+      const parts = [];
+      if (providerAddress.city) parts.push(providerAddress.city);
+      if (providerAddress.state) parts.push(providerAddress.state);
+      return parts.join(', ');
+    }
+    
+    return 'Location not specified';
   };
 
   const handleViewApplications = () => {

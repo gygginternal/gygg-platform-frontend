@@ -267,7 +267,7 @@ const PostedGigsPage = () => {
                           {new Date(gig.createdAt).toLocaleDateString()}
                         </span>
                       </div>
-                      {gig.location && (
+                      {gig.location && gig.location !== ', ' && (
                         <div className={styles.metaItem}>
                           <MapPin size={16} />
                           <span>{gig.location}</span>

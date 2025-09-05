@@ -17,6 +17,9 @@ const initialGigFormData = {
   gigDuration: '',
   gigDescription: '',
   priceRange: '',
+  gigCity: '',
+  gigState: '',
+  isRemote: false,
 };
 
 const exampleTitles = [
@@ -94,9 +97,16 @@ function ModernGigCreateForm({ onGigCreated }) {
       title: formData.gigTitle.trim(),
       description: formData.gigDescription.trim(),
       category: formData.gigCategory,
-      isRemote: false, // Default value, can be made configurable later
+      isRemote: Boolean(formData.isRemote),
       skills: [], // Default empty array, can be made configurable later
     };
+
+    // Add location if provided
+    if (formData.gigCity || formData.gigState) {
+      payload.location = {};
+      if (formData.gigCity) payload.location.city = formData.gigCity.trim();
+      if (formData.gigState) payload.location.state = formData.gigState.trim();
+    }
 
     // Handle payment type properly
     if (formData.gigPaymentType === 'hourly') {
@@ -334,6 +344,38 @@ function ModernGigCreateForm({ onGigCreated }) {
                 ))}
               </div>
             </div>
+
+            <div className={styles.inputGroup}>
+              <h3 className={styles.inputTitle}>
+                Where is this gig located? (Optional)
+              </h3>
+              <div className={styles.locationInputs}>
+                <input
+                  type="text"
+                  className={styles.locationInput}
+                  value={formData.gigCity}
+                  onChange={e => handleInputChange('gigCity', e.target.value)}
+                  placeholder="City (e.g., Toronto)"
+                />
+                <input
+                  type="text"
+                  className={styles.locationInput}
+                  value={formData.gigState}
+                  onChange={e => handleInputChange('gigState', e.target.value)}
+                  placeholder="Province/State (e.g., ON)"
+                />
+              </div>
+              <div className={styles.remoteOption}>
+                <label className={styles.checkboxLabel}>
+                  <input
+                    type="checkbox"
+                    checked={formData.isRemote}
+                    onChange={e => handleInputChange('isRemote', e.target.checked)}
+                  />
+                  <span>This is a remote gig (can be done from anywhere)</span>
+                </label>
+              </div>
+            </div>
           </div>
         );
 
@@ -526,6 +568,38 @@ function ModernGigCreateForm({ onGigCreated }) {
                 <div className={styles.reviewContent}>
                   <div className={styles.reviewText}>
                     {formData.gigCategory || 'No category selected'}
+                  </div>
+                  <button
+                    className={styles.editButton}
+                    onClick={() => setCurrentStep(2)}
+                    type="button"
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                      <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Location */}
+              <div className={styles.reviewItem}>
+                <h3 className={styles.reviewLabel}>Location</h3>
+                <div className={styles.reviewContent}>
+                  <div className={styles.reviewText}>
+                    {formData.isRemote 
+                      ? 'Remote (can be done from anywhere)'
+                      : formData.gigCity || formData.gigState
+                        ? `${formData.gigCity || ''}${formData.gigCity && formData.gigState ? ', ' : ''}${formData.gigState || ''}`
+                        : 'Location not specified'
+                    }
                   </div>
                   <button
                     className={styles.editButton}
