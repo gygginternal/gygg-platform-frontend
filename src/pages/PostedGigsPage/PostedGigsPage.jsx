@@ -230,11 +230,16 @@ const PostedGigsPage = () => {
                 >
                   <div className={styles.gigCardHeader}>
                     <h3 className={styles.gigCardTitle}>{gig.title}</h3>
-                    <div className={styles.gigCardStatus}>
+                    <div className={styles.gigCardBadges}>
                       <span
                         className={`${styles.statusBadge} ${styles[gig.status || 'open']}`}
                       >
                         {gig.status === 'open' ? 'Active' : gig.status}
+                      </span>
+                      <span
+                        className={`${styles.paymentTypeBadge} ${gig.isHourly ? styles.hourly : styles.fixed}`}
+                      >
+                        {gig.isHourly ? 'Hourly' : 'Fixed'}
                       </span>
                     </div>
                   </div>
@@ -249,7 +254,12 @@ const PostedGigsPage = () => {
                     <div className={styles.gigCardMeta}>
                       <div className={styles.metaItem}>
                         <DollarSign size={16} />
-                        <span>{gig.cost || 'N/A'}</span>
+                        <span>
+                          {gig.isHourly 
+                            ? `$${gig.ratePerHour || 0}/hr${gig.estimatedHours ? ` (Est. ${gig.estimatedHours}h)` : ''}`
+                            : `$${gig.cost || 0}`
+                          }
+                        </span>
                       </div>
                       <div className={styles.metaItem}>
                         <Calendar size={16} />

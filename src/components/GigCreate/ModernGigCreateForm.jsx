@@ -89,24 +89,26 @@ function ModernGigCreateForm({ onGigCreated }) {
     setLoading(true);
     setError('');
 
-    // Prepare the payload according to backend expectations
+    // Prepare the payload with proper hourly vs fixed payment handling
     const payload = {
       title: formData.gigTitle.trim(),
       description: formData.gigDescription.trim(),
       category: formData.gigCategory,
-      // Backend expects 'cost' field - use the appropriate value based on payment type
-      cost:
-        formData.gigPaymentType === 'fixed'
-          ? parseFloat(formData.gigCost)
-          : parseFloat(formData.gigRatePerHour),
-      // Add optional fields that backend accepts
       isRemote: false, // Default value, can be made configurable later
       skills: [], // Default empty array, can be made configurable later
     };
 
-    // Only include duration if it's an hourly payment and duration is specified
-    if (formData.gigPaymentType === 'hourly' && formData.gigDuration) {
-      payload.duration = parseFloat(formData.gigDuration);
+    // Handle payment type properly
+    if (formData.gigPaymentType === 'hourly') {
+      payload.isHourly = true;
+      payload.ratePerHour = parseFloat(formData.gigRatePerHour);
+      // Add estimated duration for hourly gigs
+      if (formData.gigDuration) {
+        payload.estimatedHours = parseFloat(formData.gigDuration);
+      }
+    } else {
+      payload.isHourly = false;
+      payload.cost = parseFloat(formData.gigCost);
     }
 
     console.log('Submitting gig payload:', payload);
@@ -235,7 +237,9 @@ function ModernGigCreateForm({ onGigCreated }) {
 
             <div className={styles.inputGroup}>
               <h3 className={styles.inputTitle}>
-                What is the price range for this gig?
+                {formData.gigPaymentType === 'hourly' 
+                  ? 'What is your hourly rate?' 
+                  : 'What is the total cost for this gig?'}
               </h3>
               <div className={styles.priceInputContainer}>
                 {formData.gigPaymentType === 'hourly' ? (
@@ -246,8 +250,9 @@ function ModernGigCreateForm({ onGigCreated }) {
                     onChange={e =>
                       handleInputChange('gigRatePerHour', e.target.value)
                     }
-                    placeholder="Enter hourly rate"
+                    placeholder="Enter hourly rate (e.g., 25)"
                     min="1"
+                    step="0.01"
                   />
                 ) : (
                   <input
@@ -255,8 +260,9 @@ function ModernGigCreateForm({ onGigCreated }) {
                     className={styles.priceInput}
                     value={formData.gigCost}
                     onChange={e => handleInputChange('gigCost', e.target.value)}
-                    placeholder="Enter fixed amount"
+                    placeholder="Enter total amount (e.g., 150)"
                     min="1"
+                    step="0.01"
                   />
                 )}
                 <div className={styles.priceDropdown}>
@@ -265,7 +271,32 @@ function ModernGigCreateForm({ onGigCreated }) {
                   </select>
                 </div>
               </div>
+              {formData.gigPaymentType === 'hourly' && (
+                <div className={styles.hourlyNote}>
+                  <small>💡 You'll be paid based on actual hours worked and approved by the provider</small>
+                </div>
+              )}
             </div>
+
+            {formData.gigPaymentType === 'hourly' && (
+              <div className={styles.inputGroup}>
+                <h3 className={styles.inputTitle}>
+                  Estimated hours needed (optional)
+                </h3>
+                <input
+                  type="number"
+                  className={styles.durationInput}
+                  value={formData.gigDuration}
+                  onChange={e => handleInputChange('gigDuration', e.target.value)}
+                  placeholder="Enter estimated hours (e.g., 4)"
+                  min="0.5"
+                  step="0.5"
+                />
+                <small className={styles.durationNote}>
+                  This helps providers understand the scope. Final payment will be based on actual hours worked.
+                </small>
+              </div>
+            )}
 
             <div className={styles.inputGroup}>
               <h3 className={styles.inputTitle}>
@@ -458,11 +489,13 @@ function ModernGigCreateForm({ onGigCreated }) {
 
               {/* Budget Range */}
               <div className={styles.reviewItem}>
-                <h3 className={styles.reviewLabel}>Budget range</h3>
+                <h3 className={styles.reviewLabel}>
+                  {formData.gigPaymentType === 'hourly' ? 'Hourly Rate' : 'Total Budget'}
+                </h3>
                 <div className={styles.reviewContent}>
                   <div className={styles.reviewText}>
                     {formData.gigPaymentType === 'hourly'
-                      ? `$${formData.gigRatePerHour || '0'}/hr`
+                      ? `$${formData.gigRatePerHour || '0'}/hr${formData.gigDuration ? ` (Est. ${formData.gigDuration} hours)` : ''}`
                       : `$${formData.gigCost || '0'}`}
                   </div>
                   <button

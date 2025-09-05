@@ -237,8 +237,11 @@
   flex: 1;
 }
 
-.gigCardStatus {
+.gigCardBadges {
   flex-shrink: 0;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .statusBadge {
@@ -263,6 +266,26 @@
 .statusBadge.completed {
   background: #dbeafe;
   color: #1e40af;
+}
+
+/* Payment type badges */
+.paymentTypeBadge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.paymentTypeBadge.hourly {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.paymentTypeBadge.fixed {
+  background: #e0e7ff;
+  color: #3730a3;
 }
 
 .gigCardContent {

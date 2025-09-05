@@ -13,7 +13,12 @@ function MatchedGigCard({ gig }) {
         <Link to={`/gigs/${gig._id}`}>{gig.title}</Link>
       </h4>
       <p>Category: {gig.category}</p>
-      <p>Cost: ${gig.cost}</p>
+      <p>
+        {gig.isHourly 
+          ? `Rate: $${gig.ratePerHour || 0}/hr${gig.estimatedHours ? ` (Est. ${gig.estimatedHours}h)` : ''}`
+          : `Cost: $${gig.cost || 0}`
+        }
+      </p>
       <p>Status: {gig.status}</p>
       {provider && (
         <div className={styles.providerInfo}>

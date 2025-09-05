@@ -21,7 +21,12 @@ function GigList({ gigs, loading, error, title = 'Available Gigs' }) {
               Category: {gig.category}{' '}
               {gig.subcategory ? `(${gig.subcategory})` : ''}
             </p>
-            <p>Cost: ${gig.cost}</p>
+            <p>
+              {gig.isHourly 
+                ? `Rate: $${gig.ratePerHour || 0}/hr${gig.estimatedHours ? ` (Est. ${gig.estimatedHours}h)` : ''}`
+                : `Cost: $${gig.cost || 0}`
+              }
+            </p>
             <p>
               Status:{' '}
               <span style={{ textTransform: 'capitalize', fontWeight: '500' }}>
