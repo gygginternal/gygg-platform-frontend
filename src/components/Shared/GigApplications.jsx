@@ -64,6 +64,7 @@ function TaskerCard({ tasker, onAccept, onReject, onClick }) {
       onKeyDown={handleKeyDown}
     >
       <div className={styles.offerCardContent}>
+        {/* Profile Image */}
         <div className={styles.offerCardImageContainer}>
           <img
             src={tasker.image || '/placeholder.svg'}
@@ -82,73 +83,59 @@ function TaskerCard({ tasker, onAccept, onReject, onClick }) {
             </div>
           )}
         </div>
+        
+        {/* Main Content */}
         <div className={styles.offerCardDetails}>
+          {/* Header with name and rate */}
           <div className={styles.offerCardHeader}>
-            <div>
-              <StatusBadge
-                className={styles.statusBadgeMargin}
-                status={
-                  tasker.status === 'accepted'
-                    ? 'Accepted'
-                    : tasker.status === 'rejected'
-                      ? 'Rejected'
-                      : tasker.status === 'pending'
-                        ? 'Pending'
-                        : 'Active'
-                }
-              />
-              <h2 className={styles.offerCardTitle}>
-                {tasker.name || 'Unknown Tasker'}
-              </h2>
-              <p className={styles.offerCardRate}>
-                {tasker.rating > 0
-                  ? `⭐ ${tasker.rating.toFixed(1)} (${tasker.ratingCount} reviews)`
-                  : 'No ratings yet'}
-              </p>
-              {tasker.location &&
-                tasker.location.trim().split(',').filter(Boolean).length >
-                  0 && (
-                  <div className={styles.location}>
-                    <MapPin className={styles.locationIcon} />
-                    <span>{tasker.location}</span>
-                  </div>
-                )}
-            </div>
+            <h2 className={styles.offerCardTitle}>
+              {tasker.name || 'Unknown Tasker'}
+            </h2>
+            <p className={styles.offerCardRate}>
+              {tasker.ratePerHour ? `$${tasker.ratePerHour}/hr` : 'No ratings yet'}
+            </p>
           </div>
 
-          {/* Matching Hobbies */}
-          {matchingHobbies.length > 0 && (
-            <div className={styles.matchingHobbies}>
-              <span className={styles.matchingLabel}>Shared interests:</span>
-              {matchingHobbies.slice(0, 3).map(hobby => (
-                <Badge
-                  key={hobby}
-                  variant="success"
-                  className={styles.hobbyBadge}
-                >
-                  {hobby}
-                </Badge>
-              ))}
-              {matchingHobbies.length > 3 && (
-                <span className={styles.moreCount}>
-                  +{matchingHobbies.length - 3} more
-                </span>
+          {/* Meta information */}
+          <div className={styles.offerCardMeta}>
+            {tasker.location &&
+              tasker.location.trim().split(',').filter(Boolean).length > 0 && (
+                <div className={styles.location}>
+                  <MapPin className={styles.locationIcon} />
+                  <span>{tasker.location}</span>
+                </div>
               )}
-            </div>
+          </div>
+
+          {/* Description */}
+          {tasker.description && (
+            <p className={styles.offerCardDescription}>
+              {tasker.description}
+            </p>
           )}
 
-          <div className={styles.providerServicesGap}>
-            {(tasker.services || []).slice(0, 4).map(service => (
-              <Badge key={service} variant="outline" className={styles.badge}>
-                {service}
-              </Badge>
-            ))}
-            {tasker.services && tasker.services.length > 4 && (
-              <span className={styles.moreServices}>
-                +{tasker.services.length - 4} more
-              </span>
-            )}
-          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className={styles.offerCardActions}>
+          <button 
+            className={styles.viewProfileButton}
+            onClick={(e) => {
+              e.stopPropagation();
+              // Handle view profile action
+            }}
+          >
+            View Profile
+          </button>
+          <button 
+            className={styles.messageButton}
+            onClick={(e) => {
+              e.stopPropagation();
+              // Handle message action
+            }}
+          >
+            Message
+          </button>
         </div>
       </div>
     </div>
@@ -180,20 +167,19 @@ function TaskerModal({
       aria-labelledby="modal-title"
     >
       <div className={styles.modalContent} tabIndex={-1}>
-        <button
-          className={styles.closeButton}
-          onClick={onClose}
-          onKeyDown={e => {
-            if (e.key === 'Escape') {
-              onClose();
-            }
-          }}
-        >
-          &times;
-        </button>
-
         <div className={styles.modalHeader}>
           <h2 id="modal-title">Tasker Details</h2>
+          <button
+            className={styles.closeButton}
+            onClick={onClose}
+            onKeyDown={e => {
+              if (e.key === 'Escape') {
+                onClose();
+              }
+            }}
+          >
+            ✖
+          </button>
         </div>
 
         <div className={styles.modalBody}>

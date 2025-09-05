@@ -72,12 +72,11 @@ const ProviderGigDetailsModal = ({ gig, open, onClose }) => {
     ratePerHour,
     duration,
     createdAt,
-    provider,
     postedBy,
     applicationCount = 0,
   } = gig;
 
-  const user = provider || postedBy || {};
+  const user = postedBy || {};
   const name =
     user.name ||
     user.fullName ||

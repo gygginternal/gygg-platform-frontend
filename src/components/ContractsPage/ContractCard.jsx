@@ -87,7 +87,7 @@ export default function ContractCard({ contract, onClick }) {
         <div className={styles.categorySection}>
           <div className={styles.categoryInfo}>
             <span className={styles.categoryName}>
-              {contract.category?.toUpperCase() || 'CONTRACT'}
+              {contract.gigCategory?.toUpperCase() || 'CONTRACT'}
             </span>
           </div>
         </div>
@@ -104,24 +104,24 @@ export default function ContractCard({ contract, onClick }) {
       </div>
 
       {/* Contract Title */}
-      <h3 className={styles.contractTitle}>{contract.title}</h3>
+      <h3 className={styles.contractTitle}>{contract.gigTitle}</h3>
 
       {/* Client Info */}
       <div className={styles.clientInfo}>
         <div className={styles.clientAvatar}>
-          {contract.provider?.profileImage ? (
+          {contract.displayImage ? (
             <img
-              src={contract.provider.profileImage}
-              alt={`${contract.provider.firstName}'s profile`}
+              src={contract.displayImage}
+              alt={`${contract.displayName}'s profile`}
               className={styles.avatarImage}
             />
           ) : (
-            contract.provider?.firstName?.[0] || 'U'
+            contract.displayName?.[0] || 'U'
           )}
         </div>
         <div className={styles.clientDetails}>
           <span className={styles.clientName}>
-            Hired by <b>{contract.hiredBy}</b>
+            <b>{contract.hiredBy || contract.displayName}</b>
           </span>
         </div>
         <div className={styles.timeInfo}>
@@ -132,12 +132,7 @@ export default function ContractCard({ contract, onClick }) {
         </div>
       </div>
 
-      {/* Contract Details */}
-      <div className={styles.contractDetails}>
-        <div className={styles.contractId}>
-          Contract ID: <span>{contract.contractId}</span>
-        </div>
-      </div>
+      {/* Contract Details - Contract ID hidden for simplicity */}
 
       {/* Footer with Location and Price */}
       <div className={styles.cardFooter}>

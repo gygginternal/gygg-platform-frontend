@@ -6,68 +6,73 @@
   padding: 0.5rem 0;
 }
 
-/* Simple Application Card */
+/* Application Card - Horizontal Layout */
 .offerCard {
   background: #ffffff;
-  border-radius: 8px;
+  border-radius: 12px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border: 1px solid #e5e7eb;
   cursor: pointer;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  transition: box-shadow 0.2s ease;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  position: relative;
 }
 
 .offerCard:hover {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: #d1d5db;
 }
 
 .offerCardContent {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   padding: 1.5rem;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .offerCardImageContainer {
   flex-shrink: 0;
   width: 80px;
   height: 80px;
+  position: relative;
 }
 
 .offerCardImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 50%;
   border: 2px solid #ffffff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .offerCardDetails {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
   min-width: 0;
+  gap: 0.75rem;
 }
 
 .offerCardHeader {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .offerCardTitle {
   font-size: 1.25rem;
   font-weight: 600;
   color: #1f2937;
-  margin: 0 0 0.5rem 0;
-  line-height: 1.4;
+  margin: 0;
+  line-height: 1.3;
 }
 
 .offerCardRate {
+  display: inline-flex;
+  align-items: center;
   color: #059669;
   font-weight: 600;
   font-size: 0.875rem;
@@ -78,18 +83,58 @@
   border: 1px solid #a7f3d0;
 }
 
+.offerCardActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+
+.viewProfileButton {
+  background: #374151;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.viewProfileButton:hover {
+  background: #1f2937;
+}
+
+.messageButton {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.messageButton:hover {
+  background: #e5e7eb;
+}
+
+.offerCardMeta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 .location {
   display: flex;
   align-items: center;
   color: #6b7280;
   font-size: 0.875rem;
   gap: 0.5rem;
-  margin-top: 0.5rem;
-  padding: 0.25rem 0.5rem;
-  background: #f9fafb;
-  border-radius: 6px;
-  border: 1px solid #e5e7eb;
-  width: fit-content;
 }
 
 .locationIcon {
@@ -97,6 +142,59 @@
   width: 16px;
   color: #9ca3af;
   flex-shrink: 0;
+}
+
+.offerCardDescription {
+  color: #6b7280;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Compatibility Badge */
+.compatibilityBadge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #22c55e;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .offerCardContent {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .offerCardImageContainer {
+    width: 60px;
+    height: 60px;
+  }
+
+  .offerCardActions {
+    flex-direction: row;
+    align-self: stretch;
+    justify-content: space-between;
+  }
+
+  .viewProfileButton,
+  .messageButton {
+    flex: 1;
+    margin: 0 0.25rem;
+  }
+
+  .offerCardHeader {
+    flex-wrap: wrap;
+  }
 }
 
 .offerCardDescription {
@@ -227,141 +325,169 @@
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
-  padding: 1rem;
+  z-index: 9999;
 }
 
 .modalContent {
-  background: #ffffff;
-  border-radius: 8px;
-  max-width: 650px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  max-width: 600px;
+  width: 95vw;
+  padding: 0;
+  overflow: hidden;
   position: relative;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
 }
 
 .closeButton {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: #f3f4f6;
-  border: 1px solid #d1d5db;
-  width: 32px;
-  height: 32px;
-  border-radius: 4px;
-  font-size: 1rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.8rem;
   cursor: pointer;
-  color: #6b7280;
-  z-index: 10;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: auto;
+  box-shadow: none;
+  border-radius: 0;
+  width: auto;
+  height: auto;
+  transition: color 0.2s;
 }
 
 .closeButton:hover {
-  background: #e5e7eb;
-  color: #374151;
+  background: none;
+  color: #e0f7fa;
 }
 
 .modalHeader {
-  padding: 2rem 2rem 1rem 2rem;
-  border-bottom: 1px solid #f3f4f6;
+  background: #16a2b8;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  border-radius: 12px 12px 0 0;
 }
 
 .modalHeader h2 {
-  margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  color: #1f2937;
+  margin: 0;
+  color: #fff;
 }
 
 .modalBody {
-  padding: 2rem;
+  padding: 1.5rem;
 }
 
 .modalTaskerInfo {
   display: flex;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-  padding: 1.5rem;
-  background: #f9fafb;
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0 1rem 0;
+  font-size: 1rem;
+  color: #222;
 }
 
 .modalTaskerImage {
-  width: 100px;
-  height: 100px;
-  border-radius: 8px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
   object-fit: cover;
-  flex-shrink: 0;
-  border: 2px solid #ffffff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 2px solid #eee;
 }
 
 .modalTaskerDetails h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.25rem;
+  margin: 0 0 0.25rem 0;
+  font-size: 1.1rem;
   font-weight: 600;
-  color: #1f2937;
+  color: #222;
 }
 
 .modalTaskerLocation {
-  color: #6b7280;
-  margin: 0 0 0.5rem 0;
+  color: #666;
+  margin: 0 0 0.25rem 0;
   font-size: 0.875rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 
 .modalTaskerDescription {
-  color: #4b5563;
+  color: #555;
   margin: 0;
   font-size: 0.875rem;
-  line-height: 1.5;
+  line-height: 1.4;
+  font-style: italic;
 }
 
 .modalServices {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f3f4f6;
 }
 
 .modalServices h4 {
   margin: 0 0 0.75rem 0;
   font-size: 1rem;
   font-weight: 600;
-  color: #1f2937;
+  color: #222;
 }
 
 .modalServicesList {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .modalActions {
   display: flex;
-  gap: 1rem;
   justify-content: flex-end;
-  padding-top: 1.5rem;
-  border-top: 1px solid #f3f4f6;
+  gap: 0.625rem;
+  padding: 1.25rem 1.5rem 1.5rem 1.5rem;
+  background: #f8f9fa;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 
 .modalActions .button {
-  min-width: 120px;
-  padding: 0.75rem 1.25rem;
-  border-radius: 6px;
-  font-weight: 500;
-  font-size: 0.875rem;
+  min-width: 100px;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.rejectButton {
+  background: #fff;
+  color: #222;
+  border: 1px solid #ccc !important;
+}
+
+.rejectButton:hover {
+  background: #f5f5f5;
+}
+
+.acceptButton {
+  background: #222e3a;
+  color: #fff;
+}
+
+.acceptButton:hover {
+  background: #1a252f;
 }
 
 .applicationsList {

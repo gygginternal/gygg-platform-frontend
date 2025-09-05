@@ -26,12 +26,11 @@ const TaskCard = ({ gig }) => {
     minPrice,
     maxPrice,
     createdAt,
-    provider,
     postedBy,
   } = gig;
 
-  // Use provider if present, otherwise postedBy
-  const user = provider || postedBy || {};
+  // Use postedBy for provider information
+  const user = postedBy || {};
 
   // Provider name logic
   const name =

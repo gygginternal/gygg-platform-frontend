@@ -209,15 +209,15 @@ function ContractsPage() {
     );
     apiClient.get('/contracts/my-contracts', { params }).then(res => {
       const mapped = res.data.data.contracts.map(c => ({
-        id: c.id || c.contractId || Math.random(),
-        title: c.gigTitle || c.title || 'Contract',
-        hiredBy: c.provider || c.hiredBy || '',
+        id: c.id || c.contractId,
+        title: c.gigTitle || 'Contract',
+        hiredBy: c.hiredBy || c.displayName || '',
+        displayName: c.displayName,
+        displayImage: c.displayImage,
         provider: c.provider,
-        contractId: c.id || c.contractId || '',
+        contractId: c.id || c.contractId,
         status: c.status || 'Active',
-        description:
-          c.description ||
-          'Looking for a reliable dog sitter to take care of my baby Mia (Puppy Poodle) while I am away for work. Details can be discussed in messages.',
+        description: c.description || 'Contract details',
         started: c.createdAt
           ? new Date(c.createdAt).toLocaleDateString('en-US', {
               month: 'long',
@@ -225,10 +225,10 @@ function ContractsPage() {
               year: 'numeric',
             })
           : '',
-        location: c.location || 'Thornhill',
-        rate: c.rate || '$23/hr',
-        duration: c.duration || '4 hours',
-        earned: c.earned || '$96',
+        location: c.location || 'Location TBD',
+        rate: c.rate || 'Rate TBD',
+        duration: c.duration || 'Duration TBD',
+        earned: c.earned || '$0',
         category: c.gigCategory || 'Other',
         cost: c.gigCost || 0,
       }));
@@ -549,8 +549,11 @@ function ContractsPage() {
                         key={contract.id}
                         contract={{
                           id: contract.id,
+                          gigTitle: contract.title,
                           title: contract.title,
                           hiredBy: contract.hiredBy,
+                          displayName: contract.displayName,
+                          displayImage: contract.displayImage,
                           contractId: contract.contractId,
                           status: contract.status,
                           rate: contract.rate,
@@ -558,6 +561,7 @@ function ContractsPage() {
                           started: contract.started,
                           location: contract.location,
                           duration: contract.duration,
+                          gigCategory: contract.category,
                           category: contract.category,
                         }}
                         onClick={() => {
