@@ -23,13 +23,7 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
   const [editedFirstName, setEditedFirstName] = useState('');
   const [editedLastName, setEditedLastName] = useState('');
   const [editedBio, setEditedBio] = useState('');
-  const [editedAddress, setEditedAddress] = useState({
-    street: '',
-    city: '',
-    state: '',
-    postalCode: '',
-    country: '',
-  });
+  
   const [profileImageFile, setProfileImageFile] = useState(null);
   const [profileImagePreview, setProfileImagePreview] = useState(null);
   const fileInputRef = useRef(null);
@@ -42,11 +36,6 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
       setEditedFirstName(userToDisplay.firstName || '');
       setEditedLastName(userToDisplay.lastName || '');
       setEditedBio(decodeHTMLEntities(userToDisplay.bio) || '');
-      setEditedAddress(
-        userToDisplay.address
-          ? { ...userToDisplay.address }
-          : { street: '', city: '', state: '', postalCode: '', country: '' }
-      );
       setProfileImagePreview(
         userToDisplay.profileImage &&
           userToDisplay.profileImage !== 'default.jpg'
@@ -62,11 +51,6 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
     setEditedFirstName(userToDisplay.firstName || '');
     setEditedLastName(userToDisplay.lastName || '');
     setEditedBio(decodeHTMLEntities(userToDisplay.bio) || '');
-    setEditedAddress(
-      userToDisplay.address
-        ? { ...userToDisplay.address }
-        : { street: '', city: '', state: '', postalCode: '', country: '' }
-    );
     setProfileImagePreview(
       userToDisplay.profileImage && userToDisplay.profileImage !== 'default.jpg'
         ? userToDisplay.profileImage
@@ -125,11 +109,6 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
     payload.append('firstName', editedFirstName.trim());
     payload.append('lastName', editedLastName.trim());
     payload.append('bio', editedBio.trim());
-
-    // Append address fields
-    Object.keys(editedAddress).forEach(key => {
-      payload.append(`address[${key}]`, editedAddress[key].trim());
-    });
 
     // Append profile image file IF a new one was selected
     if (profileImageFile) {
@@ -322,111 +301,6 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
                   placeholder="Tell us about yourself..."
                   disabled={saveLoading}
                 />
-              </div>
-
-              {/* Address Fields */}
-              <div className={styles.formGroup}>
-                <label htmlFor="street" className={styles.rowLabel}>
-                  Street Address:
-                </label>
-                <input
-                  type="text"
-                  id="street"
-                  className={styles.textInput}
-                  value={editedAddress.street}
-                  onChange={e =>
-                    setEditedAddress(prev => ({
-                      ...prev,
-                      street: e.target.value,
-                    }))
-                  }
-                  placeholder="Street Address"
-                  disabled={saveLoading}
-                />
-              </div>
-
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}>
-                  <label htmlFor="city" className={styles.rowLabel}>
-                    City:
-                  </label>
-                  <input
-                    type="text"
-                    id="city"
-                    className={styles.textInput}
-                    value={editedAddress.city}
-                    onChange={e =>
-                      setEditedAddress(prev => ({
-                        ...prev,
-                        city: e.target.value,
-                      }))
-                    }
-                    placeholder="City"
-                    disabled={saveLoading}
-                  />
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="state" className={styles.rowLabel}>
-                    State/Province:
-                  </label>
-                  <input
-                    type="text"
-                    id="state"
-                    className={styles.textInput}
-                    value={editedAddress.state}
-                    onChange={e =>
-                      setEditedAddress(prev => ({
-                        ...prev,
-                        state: e.target.value,
-                      }))
-                    }
-                    placeholder="State/Province"
-                    disabled={saveLoading}
-                  />
-                </div>
-              </div>
-
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}>
-                  <label htmlFor="postalCode" className={styles.rowLabel}>
-                    Postal Code:
-                  </label>
-                  <input
-                    type="text"
-                    id="postalCode"
-                    className={styles.textInput}
-                    value={editedAddress.postalCode}
-                    onChange={e =>
-                      setEditedAddress(prev => ({
-                        ...prev,
-                        postalCode: e.target.value,
-                      }))
-                    }
-                    placeholder="Postal Code"
-                    disabled={saveLoading}
-                  />
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="country" className={styles.rowLabel}>
-                    Country:
-                  </label>
-                  <input
-                    type="text"
-                    id="country"
-                    className={styles.textInput}
-                    value={editedAddress.country}
-                    onChange={e =>
-                      setEditedAddress(prev => ({
-                        ...prev,
-                        country: e.target.value,
-                      }))
-                    }
-                    placeholder="Country"
-                    disabled={saveLoading}
-                  />
-                </div>
               </div>
             </div>
 

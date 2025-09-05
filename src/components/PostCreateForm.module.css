@@ -89,6 +89,62 @@
   display: block;
 }
 
+.contentWarning {
+  border: 1px solid #f59e0b !important;
+  background: #fef3c7 !important;
+}
+
+.contentWarningContainer {
+  margin-top: 0.5rem;
+  margin-left: 60px;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background: #fffbeb;
+  border: 1px solid #fbbf24;
+}
+
+.contentWarningMessage {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #92400e;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.contentWarningMessage.medium {
+  color: #92400e;
+}
+
+.contentWarningMessage.high {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+.contentSuggestions {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #fbbf24;
+}
+
+.suggestionsTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #92400e;
+  margin-bottom: 0.25rem;
+}
+
+.suggestionsList {
+  margin: 0;
+  padding-left: 1rem;
+}
+
+.suggestionItem {
+  font-size: 0.8rem;
+  color: #92400e;
+  margin-bottom: 0.25rem;
+}
+
 @media (max-width: 1024px) {
   .postCreateForm {
     padding: 1rem 1.2rem 0.8rem 1.2rem;
