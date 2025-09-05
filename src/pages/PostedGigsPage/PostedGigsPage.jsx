@@ -208,7 +208,6 @@ const PostedGigsPage = () => {
             </div>
           ) : postedGigs.length === 0 ? (
             <div className={styles.emptyState}>
-              <div className={styles.emptyIcon}>📝</div>
               <h3>No gigs posted yet</h3>
               <p>
                 Start by creating your first gig to find helpers for your tasks
