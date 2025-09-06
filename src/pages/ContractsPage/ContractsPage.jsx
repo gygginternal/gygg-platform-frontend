@@ -5,7 +5,7 @@ import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns'; // Import date-fns for formatting dates
 import apiClient from '../../api/axiosConfig';
 import styles from './ContractsPage.module.css';
@@ -171,6 +171,7 @@ function ContractsPage() {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
   const { user, sessionRole } = useAuth();
+  const navigate = useNavigate();
 
   const tabOptions = [
     { id: 'contracts', label: 'All Contracts' },
@@ -720,8 +721,13 @@ function ContractsPage() {
                     ? modalContract.taskerId 
                     : modalContract.providerId;
                   if (otherPartyId) {
-                    // You can implement navigation to chat here
-                    showToast('Message feature coming soon!', 'info');
+                    // Close the modal first
+                    setIsModalOpen(false);
+                    setModalContract(null);
+                    // Navigate to chat with the specific user
+                    navigate(`/messages/${otherPartyId}`);
+                  } else {
+                    showToast('Unable to find the other party to message.', 'error');
                   }
                 }}
               >

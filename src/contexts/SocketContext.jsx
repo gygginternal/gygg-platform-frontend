@@ -81,6 +81,14 @@ export const SocketProvider = ({ children }) => {
       });
 
       newSocket.on('newChatMessage', message => {
+        console.log('[SocketContext] Received newChatMessage:', {
+          messageId: message._id,
+          senderId: message.sender?._id,
+          receiverId: message.receiver,
+          content: message.content?.substring(0, 50) + '...',
+          timestamp: message.timestamp
+        });
+
         // Add timestamp to ensure we have the latest message data
         const messageWithTimestamp = {
           ...message,
@@ -88,6 +96,7 @@ export const SocketProvider = ({ children }) => {
         };
 
         setNewMessage(messageWithTimestamp);
+        console.log('[SocketContext] Calling', newMessageHandlers.current.length, 'message handlers');
         newMessageHandlers.current.forEach(h => h(messageWithTimestamp));
       });
 
