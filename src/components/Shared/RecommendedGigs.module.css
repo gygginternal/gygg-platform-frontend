@@ -58,9 +58,9 @@
 .gigItem .gigIcon,
 .gigItem .gigAvatar {
   /* Facebook Comment/reaction icons: 16px. Or Profile pic thumbnails: 32-40px.
-       Using 1.5rem (24px) for a small gig icon. */
-  width: 1.5rem; /* 24px */
-  height: 1.5rem; /* 24px */
+       Using 2.5rem (40px) for a small gig icon. */
+  width: 2.5rem; /* 40px */
+  height: 2.5rem; /* 40px */
   object-fit: cover;
   border-radius: 50%; /* If circular */
   flex-shrink: 0;
@@ -76,8 +76,8 @@
 }
 
 .gigAvatar {
-  width: 56px;
-  height: 56px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
@@ -95,8 +95,8 @@
 }
 
 .viewGigLink {
-  font-size: 0.875rem;
-  font-weight: bold;
+  font-size: 0.75rem;
+  font-weight: normal;
   color: #3d4d55;
   text-decoration: underline;
   margin-top: 0.5rem;
@@ -147,7 +147,7 @@
     font-size: 0.6875rem; /* ~11px */
   }
   .viewGigLink {
-    font-size: 0.8125rem; /* 13px */
+    font-size: 0.75rem; /* 12px */
     margin-top: 0.4rem; /* 6.4px */
   }
   .errorMessage {
@@ -181,14 +181,14 @@
   }
   .gigItem .gigIcon,
   .gigItem .gigAvatar {
-    width: 1.25rem; /* 20px */
-    height: 1.25rem; /* 20px */
+    width: 2.25rem; /* 36px */
+    height: 2.25rem; /* 36px */
   }
   .gigDescription {
     font-size: 0.625rem; /* 10px */
   }
   .viewGigLink {
-    font-size: 0.75rem; /* 12px */
+    font-size: 0.6875rem; /* ~11px */
     margin-top: 0.3rem; /* 4.8px */
   }
   .errorMessage {
@@ -222,14 +222,14 @@
   }
   .gigItem .gigIcon,
   .gigItem .gigAvatar {
-    width: 1.125rem; /* 18px */
-    height: 1.125rem; /* 18px */
+    width: 1.75rem; /* 28px */
+    height: 1.75rem; /* 28px */
   }
   .gigDescription {
     font-size: 0.5625rem; /* ~9px */
   }
   .viewGigLink {
-    font-size: 0.6875rem; /* ~11px */
+    font-size: 0.625rem; /* 10px */
     margin-top: 0.25rem; /* 4px */
   }
   .errorMessage {

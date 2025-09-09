@@ -52,8 +52,8 @@ const RecommendedGigs = () => {
           <p className={styles.errorMessage}>
             {error?.message || 'Failed to load recommended gigs.'}
           </p>
-        ) : recommendedGigs && recommendedGigs.length > 0 ? (
-          recommendedGigs.slice(0, 3).map(gig => {
+        ) : recommendedGigs && recommendedGigs.gigs && recommendedGigs.gigs.length > 0 ? (
+          recommendedGigs.gigs.slice(0, 3).map(gig => {
             console.log('Recommended gig:', gig);
             const poster = gig.poster || {};
             const profileImage = poster.profileImage || '/default.jpg';
@@ -69,8 +69,8 @@ const RecommendedGigs = () => {
                   src={profileImage}
                   alt={posterName}
                   className={styles.gigAvatar}
-                  width={56}
-                  height={56}
+                  width={64}
+                  height={64}
                 />
                 <div className={styles.gigContent}>
                   <div className={styles.gigDescription}>
@@ -82,9 +82,7 @@ const RecommendedGigs = () => {
                     state={{ gigId: gig._id }}
                     className={styles.viewGigLink}
                   >
-                    <b>
-                      <u>View gig detail</u>
-                    </b>
+                    <u>View gig detail</u>
                   </Link>
                 </div>
               </div>
