@@ -15,23 +15,14 @@ const RecommendedAppliances = () => {
     queryKey: ['recommendedAppliances'],
     queryFn: async () => {
       const response = await apiClient.get('/applications/top-match');
-      return response.data;
+      console.log('Recommended appliances response:', response.data);
+      return response.data.data.applications;
     },
     onError: err => {
       logger.error('Error fetching recommended appliances:', err);
+      console.error('Error fetching recommended appliances:', err);
     },
   });
-
-  const formatApplianceDescription = appliance => {
-    const posterName = [appliance.poster?.firstName, appliance.poster?.lastName]
-      .filter(Boolean)
-      .join(' ');
-    const location =
-      appliance.poster?.address?.city || appliance.poster?.address?.state || '';
-    return `${posterName}${
-      location ? ` from ${location}` : ''
-    } needs help with "${appliance.title}"`;
-  };
 
   return (
     <section className={styles.appliancesSection}>
@@ -58,15 +49,22 @@ const RecommendedAppliances = () => {
         ) : recommendedAppliances?.length > 0 ? (
           recommendedAppliances.map(appliance => (
             <div key={appliance.id} className={styles.applianceItem}>
-              <div>
+              <img
+                src={appliance.image || '/default.jpg'}
+                alt={appliance.name}
+                className={styles.applianceAvatar}
+                width={64}
+                height={64}
+              />
+              <div className={styles.applianceContent}>
                 <p className={styles.applianceDescription}>
-                  {formatApplianceDescription(appliance)}
+                  {appliance.name} applied to your gig "{appliance.gigTitle}"
                 </p>
                 <Link
-                  to={`/appliances/${appliance._id}`}
+                  to={`/applications/${appliance.id}`}
                   className={styles.viewApplianceLink}
                 >
-                  View appliance detail
+                  <u>View application detail</u>
                 </Link>
               </div>
             </div>

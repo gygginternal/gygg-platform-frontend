@@ -59,10 +59,14 @@
 }
 
 .applianceItem {
-  margin-bottom: 1rem; /* 16px */
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
 }
+
 .applianceItem:last-child {
-  margin-bottom: 0; /* Remove margin from the last item */
+  margin-bottom: 0;
 }
 
 .applianceDescription {
@@ -76,7 +80,6 @@
 
 .viewApplianceLink {
   color: #3d4d55;
-  margin-top: 0.5rem; /* 8px */
   /* Facebook Buttons 13-14px. Using 14px. */
   font-size: 0.875rem; /* 14px */
   font-weight: 700;
@@ -127,6 +130,13 @@
     margin-top: 0.875rem; /* 14px */
   }
   .applianceItem {
+    gap: 0.625rem;
+  }
+  .applianceAvatar {
+    width: 56px;
+    height: 56px;
+  }
+  .applianceItem {
     margin-bottom: 0.875rem; /* 14px */
   }
   .applianceDescription {
@@ -164,6 +174,13 @@
   }
   .appliancesList {
     margin-top: 0.75rem; /* 12px */
+  }
+  .applianceItem {
+    gap: 0.5rem;
+  }
+  .applianceAvatar {
+    width: 48px;
+    height: 48px;
   }
   .applianceItem {
     margin-bottom: 0.75rem; /* 12px */
@@ -205,6 +222,13 @@
     margin-top: 0.625rem; /* 10px */
   }
   .applianceItem {
+    gap: 0.4rem;
+  }
+  .applianceAvatar {
+    width: 40px;
+    height: 40px;
+  }
+  .applianceItem {
     margin-bottom: 0.625rem; /* 10px */
   }
   .applianceDescription {
@@ -218,6 +242,18 @@
     font-size: 0.6875rem; /* ~11px */
     padding: 0.25rem; /* 4px */
   }
+}
+
+.applianceAvatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.applianceContent {
+  flex: 1;
 }
 
 .mt20 {
