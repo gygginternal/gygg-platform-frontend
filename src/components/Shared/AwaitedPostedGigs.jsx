@@ -27,6 +27,9 @@ const AwaitedPostedGigs = () => {
     },
   });
 
+  // Limit to 3 most recent gigs
+  const recentGigs = awaitedGigs?.slice(0, 3) || [];
+
   const handleGigClick = async (gig, e) => {
     e.preventDefault();
     try {
@@ -59,8 +62,8 @@ const AwaitedPostedGigs = () => {
           <p className={styles.errorMessage}>
             {error?.message || 'Failed to load awaited posted gigs.'}
           </p>
-        ) : awaitedGigs?.length > 0 ? (
-          awaitedGigs.map(gig => (
+        ) : recentGigs?.length > 0 ? (
+          recentGigs.map(gig => (
             <div key={gig._id} className={styles.awaitedItem}>
               <div>
                 <Link

@@ -3,7 +3,7 @@ import styles from './GigsPage.module.css';
 import { TaskList } from '../../components/TaskList';
 import ProfileSidebar from '../../components/Shared/ProfileSidebar';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Search, Filter, MapPin, DollarSign, Clock } from 'lucide-react';
+import { Search, Filter, MapPin } from 'lucide-react';
 import { CATEGORY_ENUM } from '../../constants/categories';
 import GigDetailsModal from '../../components/Shared/GigDetailsModal';
 import apiClient from '../../api/axiosConfig';
@@ -27,16 +27,22 @@ export default function GigsPage() {
   const categories = ['All', ...CATEGORY_ENUM];
   const priceRanges = ['Any', 'Under $20', '$20 - $50', '$50 - $100', '$100+'];
 
+  // Update URL when search term changes
   useEffect(() => {
     const params = new URLSearchParams();
-    if (searchTerm) params.set('search', searchTerm);
-    if (selectedCategory && selectedCategory !== 'All')
+    if (searchTerm) {
+      params.set('search', searchTerm);
+    }
+    if (selectedCategory && selectedCategory !== 'All') {
       params.set('category', selectedCategory);
-    if (selectedLocation) params.set('location', selectedLocation);
-    if (priceRange && priceRange !== 'Any')
+    }
+    if (selectedLocation) {
+      params.set('location', selectedLocation);
+    }
+    if (priceRange && priceRange !== 'Any') {
       params.set('priceRange', priceRange);
-
-    navigate(`?${params.toString()}`);
+    }
+    navigate(`?${params.toString()}`, { replace: true });
   }, [searchTerm, selectedCategory, selectedLocation, priceRange, navigate]);
 
   useEffect(() => {
@@ -73,6 +79,10 @@ export default function GigsPage() {
     setPriceRange('Any');
   };
 
+  const clearSearch = () => {
+    setSearchTerm('');
+  };
+
   return (
     <div className={styles.pageContainer}>
       <div className={styles.contentWrapper}>
@@ -80,7 +90,17 @@ export default function GigsPage() {
           <ProfileSidebar />
         </aside>
         <main className={styles.mainFeedArea}>
-          <div className={styles.searchAndFilters}>
+          <div className={styles.header}>
+            <h1 className={styles.title}>Available Gigs</h1>
+            <p className={styles.subtitle}>
+              {searchTerm
+                ? `Search results for "${searchTerm}"`
+                : 'Browse available gigs posted by users'}
+            </p>
+          </div>
+
+          {/* Search Bar */}
+          <div className={styles.searchContainer}>
             <div className={styles.searchBar}>
               <Search className={styles.searchIcon} />
               <input
@@ -90,6 +110,15 @@ export default function GigsPage() {
                 onChange={handleSearch}
                 className={styles.searchInput}
               />
+              {searchTerm && (
+                <button
+                  className={styles.clearButton}
+                  onClick={clearSearch}
+                  aria-label="Clear search"
+                >
+                  ×
+                </button>
+              )}
               <button
                 className={styles.filterButton}
                 onClick={() => setShowFilters(!showFilters)}
