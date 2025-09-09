@@ -19,7 +19,9 @@ const TaskCard = ({ gig, onClick }) => {
     location,
     cost,
     ratePerHour,
+    estimatedHours,
     duration,
+    isHourly,
     price,
     minPrice,
     maxPrice,
@@ -39,43 +41,6 @@ const TaskCard = ({ gig, onClick }) => {
     (user.firstName && user.lastName
       ? `${user.firstName} ${user.lastName}`
       : 'Anonymous');
-
-  // Format price/cost/rate
-  let rate = '';
-  if (
-    typeof cost === 'number' &&
-    !isNaN(cost) &&
-    (typeof ratePerHour !== 'number' || isNaN(ratePerHour)) &&
-    (typeof duration !== 'number' || isNaN(duration))
-  ) {
-    rate = `${cost} (fixed)`;
-  } else if (
-    typeof ratePerHour === 'number' &&
-    !isNaN(ratePerHour) &&
-    typeof duration === 'number' &&
-    !isNaN(duration)
-  ) {
-    rate = `${ratePerHour}/hr · ${duration} hrs`;
-  } else if (minPrice && maxPrice && minPrice !== maxPrice) {
-    rate = `${minPrice}-${maxPrice}/hr`;
-  } else if (price) {
-    rate = `${price}/hr`;
-  } else if (minPrice) {
-    rate = `${minPrice}/hr`;
-  } else {
-    rate = '—';
-  }
-
-  // Format location
-  const formatLocation = loc => {
-    if (!loc) return 'Location not specified';
-    if (typeof loc === 'string') return loc;
-    const parts = [];
-    if (loc.city) parts.push(loc.city);
-    if (loc.state) parts.push(loc.state);
-    if (loc.country) parts.push(loc.country);
-    return parts.length > 0 ? parts.join(', ') : 'Location not specified';
-  };
 
   return (
     <div
@@ -97,8 +62,8 @@ const TaskCard = ({ gig, onClick }) => {
           <span className={`${styles.statusBadge} ${styles.open}`}>
             Open
           </span>
-          <span className={`${styles.paymentTypeBadge} ${rate.includes('/hr') ? styles.hourly : styles.fixed}`}>
-            {rate.includes('/hr') ? 'Hourly' : 'Fixed'}
+          <span className={`${styles.paymentTypeBadge} ${isHourly ? styles.hourly : styles.fixed}`}>
+            {isHourly ? 'Hourly' : 'Fixed'}
           </span>
         </div>
       </div>
@@ -120,12 +85,28 @@ const TaskCard = ({ gig, onClick }) => {
             <span>{timeAgo(createdAt)}</span>
           </div>
           <div className={styles.metaItem}>
-            <span className={styles.rateDisplay}>{rate}</span>
+            <span>
+              {isHourly 
+                ? `$${ratePerHour || 0}/hr${estimatedHours ? ` (Est. ${estimatedHours}h)` : ''}`
+                : `$${cost || 0}`
+              }
+            </span>
           </div>
         </div>
       </div>
     </div>
   );
+};
+
+// Move the formatLocation function outside of the component
+const formatLocation = loc => {
+  if (!loc) return 'Location not specified';
+  if (typeof loc === 'string') return loc;
+  const parts = [];
+  if (loc.city) parts.push(loc.city);
+  if (loc.state) parts.push(loc.state);
+  if (loc.country) parts.push(loc.country);
+  return parts.length > 0 ? parts.join(', ') : 'Location not specified';
 };
 
 TaskCard.propTypes = {
@@ -143,7 +124,9 @@ TaskCard.propTypes = {
     ]),
     cost: PropTypes.number,
     ratePerHour: PropTypes.number,
+    estimatedHours: PropTypes.number,
     duration: PropTypes.number,
+    isHourly: PropTypes.bool,
     price: PropTypes.number,
     minPrice: PropTypes.number,
     maxPrice: PropTypes.number,

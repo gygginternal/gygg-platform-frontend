@@ -253,7 +253,6 @@ const PostedGigsPage = () => {
 
                     <div className={styles.gigCardMeta}>
                       <div className={styles.metaItem}>
-                        <DollarSign size={16} />
                         <span>
                           {gig.isHourly 
                             ? `$${gig.ratePerHour || 0}/hr${gig.estimatedHours ? ` (Est. ${gig.estimatedHours}h)` : ''}`
