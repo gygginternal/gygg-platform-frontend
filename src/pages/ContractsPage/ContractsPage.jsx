@@ -1,5 +1,4 @@
 import React, { useState, createContext, useContext, useEffect } from 'react';
-// import cn from "classnames"; // No longer needed
 import {
   useInfiniteQuery,
   useMutation,
@@ -16,7 +15,7 @@ import Toggle from '../../components/Shared/Toggle';
 import { StatusBadge } from '../../components/Shared/StatusBadge'; // Adjust the import path
 import BillingAndPayment from '../BillingAndPayment/BillingAndPayment';
 import { CATEGORY_ENUM } from '../../constants/categories';
-import { Search, Filter, DollarSign, User } from 'lucide-react';
+import { Search, Filter } from 'lucide-react';
 import { useToast } from '../../contexts/ToastContext';
 import { useAuth } from '../../contexts/AuthContext';
 import ContractCard from '../../components/ContractsPage/ContractCard';
@@ -144,7 +143,6 @@ const statusOptions = [
   'pending_acceptance',
   'pending_payment',
   'submitted',
-  'approved',
 ];
 
 function ContractsPage() {
@@ -331,18 +329,11 @@ function ContractsPage() {
             className={`${styles.mainFeedArea} ${styles.mainFeedAreaMarginLeft}`}
           >
             {/* Dashboard Header */}
-            <div className={styles.dashboardHeader}>
-              <div className={styles.headerContent}>
-                <div className={styles.headerIcon}>
-                  <DollarSign size={24} />
-                </div>
-                <div>
-                  <h1 className={styles.dashboardTitle}>Contracts Dashboard</h1>
-                  <p className={styles.dashboardSubtitle}>
-                    Track and manage your active and completed contracts
-                  </p>
-                </div>
-              </div>
+            <div className={styles.header}>
+              <h1 className={styles.title}>Contracts</h1>
+              <p className={styles.subtitle}>
+                Track and manage your active and completed contracts
+              </p>
             </div>
 
             <TabNavigation
@@ -354,27 +345,11 @@ function ContractsPage() {
               <>
                 {/* Stats Cards - moved inside All Contracts tab */}
                 <div className={styles.statsGrid}>
-                  <div
-                    className={styles.statCard}
-                    style={{
-                      '--stat-color': '#2196f3',
-                      '--stat-color-light': '#42a5f5',
-                    }}
-                  >
+                  <div className={styles.statCard}>
                     <div className={styles.statNumber}>{contracts.length}</div>
                     <div className={styles.statLabel}>Total</div>
-                    <div
-                      className={styles.statDot}
-                      style={{ backgroundColor: '#2196f3' }}
-                    ></div>
                   </div>
-                  <div
-                    className={styles.statCard}
-                    style={{
-                      '--stat-color': '#4caf50',
-                      '--stat-color-light': '#66bb6a',
-                    }}
-                  >
+                  <div className={styles.statCard}>
                     <div className={styles.statNumber}>
                       {
                         contracts.filter(
@@ -383,18 +358,8 @@ function ContractsPage() {
                       }
                     </div>
                     <div className={styles.statLabel}>Active</div>
-                    <div
-                      className={styles.statDot}
-                      style={{ backgroundColor: '#4caf50' }}
-                    ></div>
                   </div>
-                  <div
-                    className={styles.statCard}
-                    style={{
-                      '--stat-color': '#00bcd4',
-                      '--stat-color-light': '#26c6da',
-                    }}
-                  >
+                  <div className={styles.statCard}>
                     <div className={styles.statNumber}>
                       {
                         contracts.filter(
@@ -403,18 +368,8 @@ function ContractsPage() {
                       }
                     </div>
                     <div className={styles.statLabel}>Completed</div>
-                    <div
-                      className={styles.statDot}
-                      style={{ backgroundColor: '#00bcd4' }}
-                    ></div>
                   </div>
-                  <div
-                    className={styles.statCard}
-                    style={{
-                      '--stat-color': '#f44336',
-                      '--stat-color-light': '#ef5350',
-                    }}
-                  >
+                  <div className={styles.statCard}>
                     <div className={styles.statNumber}>
                       {
                         contracts.filter(c =>
@@ -423,18 +378,8 @@ function ContractsPage() {
                       }
                     </div>
                     <div className={styles.statLabel}>Cancelled</div>
-                    <div
-                      className={styles.statDot}
-                      style={{ backgroundColor: '#f44336' }}
-                    ></div>
                   </div>
-                  <div
-                    className={styles.statCard}
-                    style={{
-                      '--stat-color': '#9c27b0',
-                      '--stat-color-light': '#ab47bc',
-                    }}
-                  >
+                  <div className={styles.statCard}>
                     <div className={styles.statNumber}>
                       {
                         contracts.filter(
@@ -443,10 +388,6 @@ function ContractsPage() {
                       }
                     </div>
                     <div className={styles.statLabel}>Pending Payment</div>
-                    <div
-                      className={styles.statDot}
-                      style={{ backgroundColor: '#9c27b0' }}
-                    ></div>
                   </div>
                 </div>
               </>
@@ -537,9 +478,6 @@ function ContractsPage() {
                 <div className={styles.applicationsList}>
                   {filteredContracts.length === 0 ? (
                     <div className={styles.emptyState}>
-                      <div className={styles.emptyIcon}>
-                        <DollarSign size={48} />
-                      </div>
                       <h3>No Contracts Found</h3>
                       <p>
                         You don't have any contracts matching your current

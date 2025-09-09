@@ -3,7 +3,7 @@ import apiClient from '../../api/axiosConfig';
 import styles from './GigsAppliedPage.module.css';
 import ProfileSidebar from '../../components/Shared/ProfileSidebar';
 import { useAuth } from '../../contexts/AuthContext';
-import { Search, Filter, DollarSign, User } from 'lucide-react';
+import { Search, Filter } from 'lucide-react';
 import { TabNavigation } from '../../components/Shared/TabNavigation';
 import BillingAndPayment from '../BillingAndPayment/BillingAndPayment';
 import { CATEGORY_ENUM } from '../../constants/categories';
@@ -134,16 +134,18 @@ const GigsAppliedPage = () => {
 
   if (user && !user.role?.includes('tasker')) {
     return (
-      <div style={{ display: 'flex', gap: '32px' }}>
-        <aside style={{ flex: '0 0 260px' }}>
-          <ProfileSidebar />
-        </aside>
-        <main style={{ flex: 1 }}>
-          <div className={styles.container}>
-            <h2>Applications Dashboard</h2>
-            <p>This page is only available for taskers.</p>
-          </div>
-        </main>
+      <div className={styles.pageContainer}>
+        <div className={styles.contentWrapper}>
+          <aside className={styles.sidebarArea}>
+            <ProfileSidebar />
+          </aside>
+          <main className={styles.mainFeedArea}>
+            <div className={styles.container}>
+              <h2>Gigs Applied</h2>
+              <p>This page is only available for taskers.</p>
+            </div>
+          </main>
+        </div>
       </div>
     );
   }
@@ -170,20 +172,11 @@ const GigsAppliedPage = () => {
             <ProfileSidebar />
           </aside>
           <main className={styles.mainFeedArea}>
-            <div className={styles.dashboardHeader}>
-              <div className={styles.headerContent}>
-                <div className={styles.headerIcon}>
-                  <User size={24} />
-                </div>
-                <div>
-                  <h1 className={styles.dashboardTitle}>
-                    Applications Dashboard
-                  </h1>
-                  <p className={styles.dashboardSubtitle}>
-                    Track and manage your gig applications
-                  </p>
-                </div>
-              </div>
+            <div className={styles.header}>
+              <h1 className={styles.title}>Gigs Applied</h1>
+              <p className={styles.subtitle}>
+                Track and manage your gig applications
+              </p>
             </div>
 
             {activeTab === 'gigs' && (
@@ -191,50 +184,30 @@ const GigsAppliedPage = () => {
                 <div className={styles.statCard}>
                   <div className={styles.statNumber}>{statusCounts.total}</div>
                   <div className={styles.statLabel}>Total</div>
-                  <div
-                    className={styles.statDot}
-                    style={{ backgroundColor: '#2196f3' }}
-                  ></div>
                 </div>
                 <div className={styles.statCard}>
                   <div className={styles.statNumber}>
                     {statusCounts.pending}
                   </div>
                   <div className={styles.statLabel}>Pending</div>
-                  <div
-                    className={styles.statDot}
-                    style={{ backgroundColor: '#ff9800' }}
-                  ></div>
                 </div>
                 <div className={styles.statCard}>
                   <div className={styles.statNumber}>
                     {statusCounts.accepted}
                   </div>
                   <div className={styles.statLabel}>Accepted</div>
-                  <div
-                    className={styles.statDot}
-                    style={{ backgroundColor: '#4caf50' }}
-                  ></div>
                 </div>
                 <div className={styles.statCard}>
                   <div className={styles.statNumber}>
                     {statusCounts.in_progress}
                   </div>
                   <div className={styles.statLabel}>In Progress</div>
-                  <div
-                    className={styles.statDot}
-                    style={{ backgroundColor: '#9c27b0' }}
-                  ></div>
                 </div>
                 <div className={styles.statCard}>
                   <div className={styles.statNumber}>
                     {statusCounts.completed}
                   </div>
                   <div className={styles.statLabel}>Completed</div>
-                  <div
-                    className={styles.statDot}
-                    style={{ backgroundColor: '#2196f3' }}
-                  ></div>
                 </div>
               </div>
             )}
@@ -342,14 +315,14 @@ const GigsAppliedPage = () => {
               <>
                 <div className={styles.applicationsList}>
                   {loading ? (
-                    <div className={styles.spinnerWrapper}>
-                      <div className={styles.spinner}></div>
+                    <div className={styles.loadingState}>
+                      <div className={styles.loadingSpinner}></div>
+                      <p>Loading your applied gigs...</p>
                     </div>
                   ) : error ? (
                     <p className={styles.error}>{error}</p>
                   ) : filteredApplications.length === 0 ? (
                     <div className={styles.emptyState}>
-                      <DollarSign size={48} />
                       <h3>No Applications Found</h3>
                       <p>
                         You haven't applied to any gigs matching your current

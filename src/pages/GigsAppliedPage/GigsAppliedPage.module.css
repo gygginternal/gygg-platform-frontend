@@ -1,12 +1,10 @@
-/* frontend/src/pages/ContractsPage.module.css */
-
 /* Base styles for the overall page container */
 .pageContainer {
   padding-top: 41px;
   min-height: calc(100vh - 2rem);
   box-sizing: border-box;
-  background-color: #f0f2f5;
-  font-family: 'Inter', sans-serif;
+  background-color: #f5f5f5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .contentWrapper {
@@ -17,8 +15,8 @@
   margin-left: 12.75rem;
   margin-right: auto;
   margin-top: 0rem;
-  padding: 0.625rem;
-  gap: 1.25rem;
+  padding: 1rem;
+  gap: 1.5rem;
   box-sizing: border-box;
 }
 
@@ -35,637 +33,37 @@
   max-width: none;
   margin-right: 0;
   padding-bottom: 0;
-}
-
-.mainFeedAreaMarginLeft {
-  margin-left: 1.25rem;
-  /* ml-5 */
-}
-
-/* Job Listings styles (from JobListingsPage and JobListingItem) */
-.jobListingsContainer {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-.jobSeparator {
-  margin-top: 0.5rem;
-  border: 0;
-  border-top: 1px solid #eee;
-}
-
-.jobTitleLink {
-  font-size: 1.2rem;
-  text-decoration: none;
-  font-weight: 700;
-  color: #10b3c6;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.jobTitleLink:hover {
-  color: #0e8fa3;
-}
-
-.jobDetailsRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 0.5rem;
-}
-
-.jobDetailItem {
-  display: flex;
-  align-items: center;
-}
-
-.jobDetailItemMarginTop {
-  margin-top: 1.25rem;
-}
-
-.jobDetailLabel {
-  font-size: 0.95rem;
-  color: #b0b8c1;
-}
-
-.jobDetailValue {
-  font-weight: 600;
-  margin-left: 0.5rem;
-  color: #222;
-}
-
-.jobStatusContainer {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Figma-style contract card */
-.jobListingsContainer>div {
-  background: #fff;
-  border-radius: 1.25rem;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
-  padding: 1.5rem 1.25rem;
-  transition:
-    box-shadow 0.2s,
-    transform 0.2s;
-}
-
-.jobListingsContainer>div:hover {
-  box-shadow: 0 8px 32px rgba(16, 179, 198, 0.1);
-  transform: translateY(-2px) scale(1.01);
-}
-
-.loadingMessage,
-.errorMessage {
-  text-align: center;
+/* Header Section */
+.header {
+  text-align: left;
   padding: 2rem;
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.5rem 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.subtitle {
   font-size: 1.125rem;
-  color: #555;
-}
-
-.errorMessage {
-  color: #dc3545;
-}
-
-.emptyState {
-  text-align: center;
-  color: #b0b8c1;
-  font-size: 1.1rem;
-  padding: 2.5rem 0;
-}
-
-/* Filter Section styles */
-.filterSection {
-  margin-top: 1.25rem;
-  margin-bottom: 0;
-  padding: 1.2rem 1.5rem;
-  background-color: #fff;
-  border-radius: 1rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.toggleButton {
-  /* Base styles for the Toggle component */
-  padding: 0.5rem 1rem;
-  /* px-4 py-2 */
-  border-radius: 0.375rem;
-  /* rounded */
-  font-size: 0.875rem;
-  /* text-sm */
-  font-weight: 500;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  color: #333;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  margin-left: 0.75rem;
-  /* ml-3 */
-}
-
-.toggleButtonCompleted.data-state-on {
-  background-color: #3b82f6;
-  /* bg-blue-500 */
-  color: white;
-  border-color: #3b82f6;
-  /* border-blue-500 */
-}
-
-.toggleButtonActive.data-state-on {
-  background-color: #22c55e;
-  /* bg-green-500 */
-  color: white;
-  border-color: #22c55e;
-  /* border-green-500 */
-}
-
-.toggleButtonCancelled.data-state-on {
-  background-color: #ef4444;
-  /* bg-red-500 */
-  color: white;
-  border-color: #ef4444;
-  /* border-red-500 */
-}
-
-.toggleButton+.toggleButton {
-  /* For spacing between toggle buttons */
-  margin-left: 0.75rem;
-  /* mx-3 */
-  margin-top: 0.75rem;
-  /* my-3 on small screens if they wrap */
-}
-
-/* Load More button styles */
-.loadMoreContainer {
-  text-align: center;
-  margin-top: 1rem;
-  /* mt-4 */
-}
-
-.loadMoreButton {
-  padding: 0.5rem 1rem;
-  /* px-4 py-2 */
-  background-color: #3b82f6;
-  /* bg-blue-500 */
-  color: white;
-  border-radius: 0.375rem;
-  /* rounded */
-  transition: background-color 0.2s ease;
-  border: none;
-  cursor: pointer;
-}
-
-.loadMoreButton:hover {
-  background-color: #2563eb;
-  /* hover:bg-blue-600 */
-}
-
-.loadMoreButton:disabled {
-  background-color: #9ca3af;
-  /* bg-gray-400 */
-  cursor: not-allowed;
-  opacity: 0.7;
-}
-
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  .pageContainer {
-    padding-top: 0.875rem;
-    min-height: calc(100vh - 2rem);
-  }
-
-  .contentWrapper {
-    margin-left: 10.75rem;
-    max-width: 60rem;
-    padding: 0.5rem;
-    gap: 1rem;
-  }
-
-  .sidebarArea {
-    width: 15rem;
-  }
-
-  .statsGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .statsGrid .statCard:nth-child(4),
-  .statsGrid .statCard:nth-child(5) {
-    grid-column: span 1;
-  }
-
-  .contractsCard {
-    padding: 1.5rem 1.5rem 0.5rem 1.5rem;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .contractRow {
-    padding: 1.2rem 1.5rem;
-    margin-bottom: 1.2rem;
-  }
-
-  .contractTitle {
-    font-size: 1.05rem;
-  }
-
-  .contractDetailsRow {
-    gap: 2rem;
-    font-size: 0.95rem;
-  }
-
-  .contractDetailLabel {
-    font-size: 0.9rem;
-  }
-
-  .contractRate,
-  .contractEarned {
-    font-size: 0.95rem;
-  }
-
-  .contractStatusBadge {
-    font-size: 0.85rem;
-    min-width: 80px;
-  }
-
-  .contractStarted {
-    font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .pageContainer {
-    padding-top: 0.75rem;
-    min-height: calc(100vh - 2rem);
-  }
-
-  .contentWrapper {
-    max-width: 100%;
-    padding: 0.625rem 0.9375rem;
-    gap: 0.75rem;
-  }
-
-  .sidebarArea {
-    margin-bottom: 1rem;
-  }
-
-  .statsGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .statCard {
-    padding: 16px;
-  }
-
-  .statNumber {
-    font-size: 28px;
-  }
-
-  .dashboardHeader {
-    padding: 20px;
-  }
-
-  .headerIcon {
-    width: 40px;
-    height: 40px;
-  }
-
-  .dashboardTitle {
-    font-size: 20px;
-  }
-
-  .contractsCard {
-    padding: 1rem 1rem 0.5rem 1rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .contractRow {
-    padding: 1rem 1.2rem;
-    margin-bottom: 1rem;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .contractTitle {
-    font-size: 1rem;
-    margin-bottom: 0.2rem;
-  }
-
-  .contractDetailsRow {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-  }
-
-  .contractDetailLabel {
-    font-size: 0.85rem;
-  }
-
-  .contractRate,
-  .contractEarned {
-    font-size: 0.9rem;
-  }
-
-  .contractStatusBadge {
-    font-size: 0.8rem;
-    min-width: 70px;
-    margin-left: 0;
-    margin-top: 0.5rem;
-  }
-
-  .contractStarted {
-    font-size: 0.85rem;
-    margin-left: 0;
-    margin-top: 0.2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .pageContainer {
-    padding-top: 0 !important;
-    min-height: calc(100vh - 2rem);
-  }
-
-  .contentWrapper {
-    margin-left: 0 !important;
-    max-width: 100% !important;
-    width: 100% !important;
-    padding: 0.1rem 0.1rem !important;
-    gap: 0.5rem;
-  }
-
-  .sidebarArea {
-    display: none;
-  }
-
-  .mainFeedArea {
-    width: 100% !important;
-    min-width: 0;
-  }
-
-  .statsGrid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .statCard {
-    padding: 16px;
-  }
-
-  .statNumber {
-    font-size: 24px;
-    margin-bottom: 4px;
-  }
-
-  .statLabel {
-    font-size: 12px;
-  }
-
-  .dashboardHeader {
-    padding: 16px;
-    margin-bottom: 16px;
-  }
-
-  .headerIcon {
-    width: 36px;
-    height: 36px;
-  }
-
-  .dashboardTitle {
-    font-size: 18px;
-  }
-
-  .dashboardSubtitle {
-    font-size: 12px;
-  }
-
-  .contractsCard {
-    padding: 0.8rem 0.8rem 0.4rem 0.8rem;
-    margin-top: 0.8rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .contractRow {
-    padding: 0.8rem 1rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .contractTitle {
-    font-size: 0.9rem;
-  }
-
-  .contractDetailsRow {
-    font-size: 0.8rem;
-  }
-
-  .contractDetailLabel {
-    font-size: 0.75rem;
-  }
-
-  .contractRate,
-  .contractEarned {
-    font-size: 0.8rem;
-  }
-
-  .contractStatusBadge {
-    font-size: 0.7rem;
-    min-width: 60px;
-  }
-
-  .contractStarted {
-    font-size: 0.75rem;
-  }
-}
-
-.contractsCard {
-  background: #fff;
-  border-radius: 1.25rem;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
-  padding: 2rem 2rem 0.5rem 2rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-
-.contractsList {
-  display: flex;
-  flex-direction: column;
-}
-
-.contractRow {
-  background: #fff;
-  border-radius: 1.25rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-  padding: 1.5rem 2rem;
-  margin-bottom: 1.5rem;
-  transition:
-    box-shadow 0.22s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.18s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-  border: 1px solid #f0f2f5;
-  display: flex;
-  flex-direction: column;
-}
-
-.contractRow:hover,
-.contractRow:focus {
-  box-shadow:
-    0 8px 32px rgba(16, 179, 198, 0.13),
-    0 2px 8px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px) scale(1.015);
-  border-color: #d0eaff;
-}
-
-.contractMain {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.contractTitle {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #222;
-  margin-bottom: 0.2rem;
-}
-
-.contractDetailsRow {
-  display: flex;
-  align-items: center;
-  gap: 2.5rem;
-  font-size: 1rem;
-  color: #888;
-  margin-bottom: 0.1rem;
-}
-
-.contractDetailLabel {
-  color: #888;
-  font-size: 1rem;
-}
-
-.contractRate {
-  color: #ff9900;
-  font-weight: 700;
-  margin-left: 0.2rem;
-}
-
-.contractEarned {
-  color: #ff9900;
-  font-weight: 700;
-  margin-left: 0.2rem;
-}
-
-.contractStatusBadge {
-  margin-left: auto;
-  background: #e6f8fa;
-  color: #10b3c6;
-  border-radius: 999px;
-  padding: 0.25em 1.1em;
-  font-size: 0.95rem;
-  font-weight: 600;
-  border: 1.5px solid #10b3c6;
-  min-width: 90px;
-  text-align: center;
-}
-
-.contractStarted {
-  margin-left: auto;
-  color: #888;
-  font-size: 1rem;
-}
-
-.contractDivider {
-  border-bottom: 1.5px solid #f0f2f5;
-  margin: 0.5rem 0 0 0;
-}
-
-/* Applied Gigs style for Contracts Page */
-.applicationsList {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 24px;
-}
-
-/* Empty state styling */
-.emptyState {
-  text-align: center;
-  color: #9ca3af;
-  font-size: 16px;
-  padding: 64px 32px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  background: #fff;
-  border-radius: 16px;
-  border: 1px solid #e5e7eb;
-  margin-top: 24px;
-}
-
-.emptyState h3 {
-  font-size: 18px;
-  font-weight: 600;
-  color: #374151;
-  margin: 0;
-}
-
-.emptyState p {
-  font-size: 14px;
   color: #6b7280;
   margin: 0;
-  max-width: 400px;
+  font-weight: 400;
   line-height: 1.5;
-}
-
-.emptyIcon {
-  color: #d1d5db;
-  margin-bottom: 8px;
-}
-
-/* Dashboard Header */
-.dashboardHeader {
-  background: #fff;
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  border: 1px solid #e5e7eb;
-}
-
-.headerContent {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.headerIcon {
-  width: 48px;
-  height: 48px;
-  background: #6366f1;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-}
-
-.dashboardTitle {
-  font-size: 24px;
-  font-weight: 700;
-  color: #111827;
-  margin: 0;
-}
-
-.dashboardSubtitle {
-  font-size: 14px;
-  color: #6b7280;
-  margin: 4px 0 0 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* Stats Grid */
@@ -677,16 +75,12 @@
 }
 
 .statCard {
-  background: #fff;
+  background: #ffffff;
   border-radius: 12px;
   padding: 20px;
   text-align: center;
   border: 1px solid #e5e7eb;
-  position: relative;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-  animation: fadeInUp 0.3s ease-out;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .statCard:hover {
@@ -707,114 +101,57 @@
   font-weight: 500;
 }
 
-.statDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  position: absolute;
-  top: 16px;
-  right: 16px;
-}
-
-/* Animation for stats cards */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.statCard:nth-child(1) {
-  animation-delay: 0.1s;
-}
-
-.statCard:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.statCard:nth-child(3) {
-  animation-delay: 0.3s;
-}
-
-.statCard:nth-child(4) {
-  animation-delay: 0.4s;
-}
-
-.statCard:nth-child(5) {
-  animation-delay: 0.5s;
-}
-
-/* Search bar polish */
-.filterSection {
-  margin-top: 1.25rem;
-  margin-bottom: 0;
-  padding: 1.2rem 1.5rem;
-  background-color: #fff;
-  border-radius: 1rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-/* Tabs polish (already styled, but ensure font and underline) */
-/* .tab, .active, .activeIndicator in TabNavigation.module.css */
-
-/* --- Modern filter and layout styles copied from GigsPage.module.css --- */
-
+/* Search bar */
 .searchAndFilters {
   background: white;
   border-radius: 0.75rem;
-  padding: 0.5rem 1rem;
+  padding: 1rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-top: 0.75rem;
   margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 100%;
 }
 
 .searchBar {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0;
-  width: 100%;
+  background: #ffffff;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.searchBar:focus-within {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .searchIcon {
-  color: #666;
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 20px;
+  height: 20px;
+  color: #6b7280;
+  margin-right: 0.75rem;
   flex-shrink: 0;
 }
 
 .searchInput {
   flex: 1;
-  padding: 0.5rem 1rem;
-  border: 1px solid #ddd;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
-  transition: border-color 0.2s;
-  height: 2.25rem;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  color: #1f2937;
+  background: transparent;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-.searchInput:focus {
-  outline: none;
-  border-color: #3d4d55;
+.searchInput::placeholder {
+  color: #9ca3af;
 }
 
 .filterButton {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
   background: #f8f9fa;
   border: 1px solid #ddd;
   border-radius: 0.5rem;
@@ -822,7 +159,7 @@
   font-size: 0.875rem;
   cursor: pointer;
   transition: all 0.2s;
-  height: 2.25rem;
+  margin-left: 0.75rem;
 }
 
 .filterButton:hover {
@@ -903,125 +240,224 @@
   background: #60727c;
 }
 
-/* --- Modal Styles (copied from ProfileInfo.module.css for consistency) --- */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+/* Applications List */
+.applicationsList {
   display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+/* Empty state */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  padding: 1.25rem;
-  overflow-y: auto;
-  box-sizing: border-box;
+  padding: 3rem 2rem;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border: 1px solid #e5e7eb;
 }
 
-.modalContent {
-  background-color: #fff;
-  width: 100%;
-  max-width: 37.5rem;
-  border-radius: 1.25rem;
-  box-shadow:
-    0 8px 32px rgba(16, 179, 198, 0.13),
-    0 2px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  max-height: 90vh;
-  padding: 0;
-}
-
-.modalHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(90deg, #00aaba 60%, #1ec8e7 100%);
-  color: #fff;
-  padding: 1.25rem 1.75rem 1rem 1.75rem;
-  border-radius: 1.25rem 1.25rem 0 0;
-  flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.modalHeader h3 {
-  margin: 0;
-  font-size: 1.35rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-}
-
-.closeButton {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: #fff;
-  cursor: pointer;
-  padding: 0.25rem 0.75rem;
-  border-radius: 0.5rem;
-  transition: background 0.2s;
-}
-
-.closeButton:hover {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.modalBody {
-  padding: 2rem 2rem 1.5rem 2rem;
-  color: #222;
-  font-size: 1.08rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
-  background: #fff;
-}
-
-.modalBody b {
+.emptyState h3 {
+  font-size: 1.25rem;
   font-weight: 600;
-  color: #222;
+  color: #1f2937;
+  margin: 0 0 0.5rem 0;
 }
 
-.modalActions {
+.emptyState p {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin: 0 0 1.5rem 0;
+  max-width: 400px;
+}
+
+/* Loading State */
+.loadingState {
   display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  padding: 1.25rem 2rem 1.75rem 2rem;
-  background: none;
-  border-radius: 0 0 1.25rem 1.25rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border: 1px solid #e5e7eb;
 }
 
-.secondaryBtn {
-  background: #f5f6fa;
-  color: #222;
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.7rem 1.5rem;
+.loadingSpinner {
+  width: 32px;
+  height: 32px;
+  border: 2px solid #e5e7eb;
+  border-top: 2px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loadingState p {
+  color: #6b7280;
   font-size: 1rem;
-  font-weight: 500;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  transition:
-    background 0.18s,
-    color 0.18s;
-  cursor: pointer;
+  margin: 0;
 }
 
-.secondaryBtn:hover {
-  background: #e4e8ee;
-  color: #111;
+/* Error message */
+.error {
+  color: #ef4444;
+  text-align: center;
+  padding: 2rem;
+  font-size: 1rem;
 }
 
-@media (max-width: 600px) {
-  .modalContent {
-    max-width: 98vw;
+/* Responsive design */
+@media (max-width: 1024px) {
+  .pageContainer {
+    padding-top: 0.875rem;
+    min-height: calc(100vh - 2rem);
+  }
+  
+  .contentWrapper {
+    margin-left: 10.75rem;
+    max-width: 60rem;
     padding: 0.5rem;
+    gap: 1rem;
+  }
+  
+  .sidebarArea {
+    width: 15rem;
   }
 
-  .modalBody,
-  .modalActions {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+  .statsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .statsGrid .statCard:nth-child(4),
+  .statsGrid .statCard:nth-child(5) {
+    grid-column: span 1;
+  }
+
+  .header {
+    padding: 1.75rem 2rem;
+  }
+
+  .title {
+    font-size: 2.125rem;
+  }
+
+  .subtitle {
+    font-size: 1.0625rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .pageContainer {
+    padding-top: 0.75rem;
+    min-height: calc(100vh - 2rem);
+  }
+  
+  .contentWrapper {
+    max-width: 100%;
+    padding: 0.625rem 0.9375rem;
+    gap: 0.75rem;
+  }
+  
+  .sidebarArea {
+    margin-bottom: 1rem;
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .statCard {
+    padding: 16px;
+  }
+
+  .statNumber {
+    font-size: 28px;
+  }
+
+  .header {
+    padding: 1.5rem 1.75rem;
+  }
+
+  .title {
+    font-size: 1.875rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageContainer {
+    padding-top: 0 !important;
+    min-height: calc(100vh - 2rem);
+  }
+  
+  .contentWrapper {
+    margin-left: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0.1rem 0.1rem !important;
+    gap: 0.5rem;
+  }
+  
+  .sidebarArea {
+    display: none;
+  }
+  
+  .mainFeedArea {
+    width: 100% !important;
+    min-width: 0;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .statCard {
+    padding: 16px;
+  }
+
+  .statNumber {
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+
+  .statLabel {
+    font-size: 12px;
+  }
+
+  .header {
+    padding: 1.25rem 1.5rem;
+    border-radius: 20px;
+    margin-bottom: 0.75rem;
+  }
+
+  .title {
+    font-size: 1.625rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .subtitle {
+    font-size: 0.9375rem;
+  }
+
+  .emptyState,
+  .loadingState {
+    padding: 2rem 1rem;
   }
 }

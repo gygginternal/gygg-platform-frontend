@@ -3,15 +3,9 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../contexts/ToastContext';
 import apiClient from '../../api/axiosConfig';
 import styles from './BillingAndPayment.module.css';
-import BillingTable from '../../components/Billing/BillingTable';
 import {
   Filter,
   Search,
-  DollarSign,
-  TrendingUp,
-  TrendingDown,
-  Wallet,
-  CreditCard,
 } from 'lucide-react';
 
 function WithdrawModal({ open, onClose, available, onConfirm }) {
@@ -311,9 +305,6 @@ function EarningsSummary({
         {isTasker && summary.tasker && (
           <>
             <div className={styles.summaryCard}>
-              <div className={styles.summaryIcon}>
-                <TrendingUp size={24} color="#4caf50" />
-              </div>
               <div className={styles.summaryContent}>
                 <div className={styles.summaryValue}>
                   ${summary.tasker.totalEarnedFormatted}
@@ -323,9 +314,6 @@ function EarningsSummary({
             </div>
 
             <div className={styles.summaryCard}>
-              <div className={styles.summaryIcon}>
-                <Wallet size={24} color="#2196f3" />
-              </div>
               <div className={styles.summaryContent}>
                 <div className={styles.summaryValue}>
                   ${summary.tasker.availableBalanceFormatted}
@@ -335,9 +323,6 @@ function EarningsSummary({
             </div>
 
             <div className={styles.summaryCard}>
-              <div className={styles.summaryIcon}>
-                <CreditCard size={24} color="#ff9800" />
-              </div>
               <div className={styles.summaryContent}>
                 <div className={styles.summaryValue}>
                   {summary.tasker.totalContracts}
@@ -347,9 +332,6 @@ function EarningsSummary({
             </div>
 
             <div className={styles.summaryCard}>
-              <div className={styles.summaryIcon}>
-                <DollarSign size={24} color="#9c27b0" />
-              </div>
               <div className={styles.summaryContent}>
                 <div className={styles.summaryValue}>
                   ${summary.tasker.averageEarningFormatted}
@@ -363,9 +345,6 @@ function EarningsSummary({
         {isProvider && summary.provider && (
           <>
             <div className={styles.summaryCard}>
-              <div className={styles.summaryIcon}>
-                <TrendingUp size={24} color="#4caf50" />
-              </div>
               <div className={styles.summaryContent}>
                 <div className={styles.summaryValue}>
                   ${summary.provider.totalSpentFormatted}
@@ -375,9 +354,6 @@ function EarningsSummary({
             </div>
 
             <div className={styles.summaryCard}>
-              <div className={styles.summaryIcon}>
-                <DollarSign size={24} color="#4caf50" />
-              </div>
               <div className={styles.summaryContent}>
                 <div className={styles.summaryValue}>
                   ${summary.provider.totalServiceCostsFormatted}
@@ -387,9 +363,6 @@ function EarningsSummary({
             </div>
 
             <div className={styles.summaryCard}>
-              <div className={styles.summaryIcon}>
-                <CreditCard size={24} color="#ff9800" />
-              </div>
               <div className={styles.summaryContent}>
                 <div className={styles.summaryValue}>
                   {summary.provider.totalContracts}
@@ -399,9 +372,6 @@ function EarningsSummary({
             </div>
 
             <div className={styles.summaryCard}>
-              <div className={styles.summaryIcon}>
-                <DollarSign size={24} color="#9c27b0" />
-              </div>
               <div className={styles.summaryContent}>
                 <div className={styles.summaryValue}>
                   ${summary.provider.averageSpentFormatted}
@@ -573,7 +543,7 @@ export default function BillingAndPayment() {
       setWithdrawSuccess(true);
       setTimeout(() => setWithdrawSuccess(false), 3000);
       showToast(
-        `Withdrawal of $${amount.toFixed(2)} initiated successfully!`,
+        `Withdrawal of ${amount.toFixed(2)} initiated successfully!`,
         'success'
       );
 
@@ -788,7 +758,7 @@ export default function BillingAndPayment() {
               onClick={() => setShowWithdraw(true)}
               disabled={!balance || parseFloat(balance.available) <= 0}
             >
-              Withdraw {balance && `($${balance.available} available)`}
+              Withdraw {balance && `(${balance.available} available)`}
             </button>
           )}
         </div>
