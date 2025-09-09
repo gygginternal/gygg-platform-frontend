@@ -33,6 +33,12 @@
   color: #991b1b;
 }
 
+.service {
+  background-color: #D99633;
+  border-color: #B08461;
+  color: #fff;
+}
+
 @media (max-width: 1024px) {
   .badge {
     padding: 0.1rem 0.5rem;

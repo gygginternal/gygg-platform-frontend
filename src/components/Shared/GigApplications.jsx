@@ -204,7 +204,7 @@ function TaskerModal({
             <h4>Skills & Services:</h4>
             <div className={styles.modalServicesList}>
               {(tasker.services || []).map(service => (
-                <Badge key={service} variant="outline" className={styles.badge}>
+                <Badge key={service} variant="service">
                   {service}
                 </Badge>
               ))}

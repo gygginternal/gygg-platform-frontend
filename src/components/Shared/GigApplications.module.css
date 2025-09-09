@@ -455,7 +455,6 @@
   justify-content: flex-end;
   gap: 0.625rem;
   padding: 1.25rem 1.5rem 1.5rem 1.5rem;
-  background: #f8f9fa;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
 }
