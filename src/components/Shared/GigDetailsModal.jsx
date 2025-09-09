@@ -65,12 +65,20 @@ const GigDetailsModal = ({
           }
         }
       } else if (e.key === 'Escape') {
-        onClose();
+        handleClose();
       }
     };
     document.addEventListener('keydown', handleTab);
     return () => document.removeEventListener('keydown', handleTab);
-  }, [open, onClose]);
+  }, [open]);
+
+  const handleClose = () => {
+    // Reset any feedback when closing
+    setFeedback('');
+    if (onClose) {
+      onClose();
+    }
+  };
 
   if (!open || !gig) return null;
   const {
@@ -104,14 +112,14 @@ const GigDetailsModal = ({
     (typeof ratePerHour !== 'number' || isNaN(ratePerHour)) &&
     (typeof duration !== 'number' || isNaN(duration))
   ) {
-    pay = `$${cost} (fixed)`;
+    pay = `${cost} (fixed)`;
   } else if (
     typeof ratePerHour === 'number' &&
     !isNaN(ratePerHour) &&
     typeof duration === 'number' &&
     !isNaN(duration)
   ) {
-    pay = `$${ratePerHour}/hr`;
+    pay = `${ratePerHour}/hr`;
   } else {
     pay = '—';
   }
@@ -163,7 +171,7 @@ const GigDetailsModal = ({
       setFeedback('Application retracted.');
       if (onApply) onApply();
       setTimeout(() => {
-        onClose();
+        handleClose();
       }, 1000);
     } catch (err) {
       setFeedback(
@@ -174,20 +182,35 @@ const GigDetailsModal = ({
     }
   };
 
+  // Handle clicks on the overlay (background)
+  const handleOverlayClick = (e) => {
+    // Only close if the user clicked directly on the overlay, not on the modal content
+    if (e.target === e.currentTarget) {
+      handleClose();
+    }
+  };
+
   return (
     <div
       className={styles.modalOverlay}
       role="dialog"
       aria-modal="true"
       style={{ zIndex: 9999, display: open ? 'flex' : 'none' }}
+      onClick={handleOverlayClick}
     >
-      <div className={styles.modalContent} ref={modalRef} tabIndex={-1}>
+      <div 
+        className={styles.modalContent} 
+        ref={modalRef} 
+        tabIndex={-1}
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className={styles.modalHeader}>
           <h2 className={styles.modalTitle}>Gig Detail</h2>
           <button
             className={styles.closeButton}
-            onClick={onClose}
+            onClick={handleClose}
             aria-label="Close modal"
+            type="button"
           >
             ✖
           </button>
@@ -208,6 +231,7 @@ const GigDetailsModal = ({
               className={styles.modalViewProfileBlack}
               onClick={e => {
                 e.stopPropagation();
+                handleClose();
               }}
             >
               View Profile
@@ -237,6 +261,7 @@ const GigDetailsModal = ({
               className={styles.modalApplyButton}
               onClick={handleRetract}
               disabled={loading}
+              type="button"
             >
               {loading ? 'Retracting...' : 'Retract'}
             </button>
@@ -245,6 +270,7 @@ const GigDetailsModal = ({
               className={styles.modalApplyButton}
               onClick={handleApply}
               disabled={loading}
+              type="button"
             >
               {loading ? 'Applying...' : 'Apply'}
             </button>

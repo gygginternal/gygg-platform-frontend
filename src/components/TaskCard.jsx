@@ -1,7 +1,5 @@
 // src/components/GigsPage/TaskCard.js
-import { useState } from 'react';
 import styles from './TaskCard.module.css';
-import GigDetailsModal from './Shared/GigDetailsModal';
 import PropTypes from 'prop-types';
 import { MapPin, Clock } from 'lucide-react';
 
@@ -14,8 +12,7 @@ const timeAgo = date => {
   return `Posted ${Math.floor(diff / 86400)} days ago`;
 };
 
-const TaskCard = ({ gig }) => {
-  const [modalOpen, setModalOpen] = useState(false);
+const TaskCard = ({ gig, onClick }) => {
   const {
     _id,
     title,
@@ -42,12 +39,6 @@ const TaskCard = ({ gig }) => {
     (user.firstName && user.lastName
       ? `${user.firstName} ${user.lastName}`
       : 'Anonymous');
-
-  // Profile image fallback
-  const profileImage =
-    user.profileImage && user.profileImage !== 'default.jpg'
-      ? user.profileImage
-      : '/default-profile.png';
 
   // Format price/cost/rate
   let rate = '';
@@ -86,68 +77,54 @@ const TaskCard = ({ gig }) => {
     return parts.length > 0 ? parts.join(', ') : 'Location not specified';
   };
 
-  const handleCardClick = e => {
-    setModalOpen(true);
-  };
-
-  const handleCloseModal = () => setModalOpen(false);
-  const handleApply = () => {
-    setModalOpen(false);
-  };
-
   return (
-    <>
-      <div
-        role="button"
-        tabIndex={0}
-        onClick={() => handleCardClick(gig)}
-        onKeyDown={e => {
-          if (e.key === 'Enter' || e.key === ' ') handleCardClick(gig);
-        }}
-        className={styles.gigCard}
-        aria-label={`View details for ${gig.title}`}
-      >
-        <div className={styles.gigCardHeader}>
-          <h3 className={styles.gigCardTitle}>{title}</h3>
-          <div className={styles.gigCardBadges}>
-            <span className={`${styles.statusBadge} ${styles.open}`}>
-              Open
-            </span>
-            <span className={`${styles.paymentTypeBadge} ${rate.includes('/hr') ? styles.hourly : styles.fixed}`}>
-              {rate.includes('/hr') ? 'Hourly' : 'Fixed'}
-            </span>
-          </div>
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={() => onClick && onClick(gig)}
+      onKeyDown={e => {
+        if ((e.key === 'Enter' || e.key === ' ') && onClick) {
+          e.preventDefault();
+          onClick(gig);
+        }
+      }}
+      className={styles.gigCard}
+      aria-label={`View details for ${gig.title}`}
+    >
+      <div className={styles.gigCardHeader}>
+        <h3 className={styles.gigCardTitle}>{title}</h3>
+        <div className={styles.gigCardBadges}>
+          <span className={`${styles.statusBadge} ${styles.open}`}>
+            Open
+          </span>
+          <span className={`${styles.paymentTypeBadge} ${rate.includes('/hr') ? styles.hourly : styles.fixed}`}>
+            {rate.includes('/hr') ? 'Hourly' : 'Fixed'}
+          </span>
         </div>
+      </div>
 
-        <div className={styles.gigCardContent}>
-          <p className={styles.gigCardDescription}>
-            {description?.length > 120
-              ? `${description.substring(0, 120)}...`
-              : description || 'No description provided'}
-          </p>
+      <div className={styles.gigCardContent}>
+        <p className={styles.gigCardDescription}>
+          {description?.length > 120
+            ? `${description.substring(0, 120)}...`
+            : description || 'No description provided'}
+        </p>
 
-          <div className={styles.gigCardMeta}>
-            <div className={styles.metaItem}>
-              <MapPin size={16} />
-              <span>{formatLocation(location)}</span>
-            </div>
-            <div className={styles.metaItem}>
-              <Clock size={16} />
-              <span>{timeAgo(createdAt)}</span>
-            </div>
-            <div className={styles.metaItem}>
-              <span className={styles.rateDisplay}>{rate}</span>
-            </div>
+        <div className={styles.gigCardMeta}>
+          <div className={styles.metaItem}>
+            <MapPin size={16} />
+            <span>{formatLocation(location)}</span>
+          </div>
+          <div className={styles.metaItem}>
+            <Clock size={16} />
+            <span>{timeAgo(createdAt)}</span>
+          </div>
+          <div className={styles.metaItem}>
+            <span className={styles.rateDisplay}>{rate}</span>
           </div>
         </div>
       </div>
-      <GigDetailsModal
-        gig={gig}
-        open={modalOpen}
-        onClose={handleCloseModal}
-        onApply={handleApply}
-      />
-    </>
+    </div>
   );
 };
 
@@ -178,6 +155,7 @@ TaskCard.propTypes = {
     postedBy: PropTypes.object,
     category: PropTypes.string,
   }).isRequired,
+  onClick: PropTypes.func,
 };
 
 export default TaskCard;

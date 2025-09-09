@@ -194,16 +194,9 @@ export const TaskList = ({
           {gigs.map(gig => (
             <div
               key={gig._id}
-              role="button"
-              tabIndex={0}
-              onClick={() => handleTaskClick(gig)}
-              onKeyDown={e => {
-                if (e.key === 'Enter' || e.key === ' ') handleTaskClick(gig);
-              }}
               className={styles.taskItem}
-              aria-label={`View details for ${gig.title}`}
             >
-              <TaskCard gig={gig} />
+              <TaskCard gig={gig} onClick={handleTaskClick} />
             </div>
           ))}
           {isLoadingMore && (
