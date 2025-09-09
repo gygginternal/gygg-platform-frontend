@@ -3,6 +3,7 @@ import { useState } from 'react';
 import styles from './TaskCard.module.css';
 import GigDetailsModal from './Shared/GigDetailsModal';
 import PropTypes from 'prop-types';
+import { MapPin, Clock } from 'lucide-react';
 
 // Utility to format "time ago"
 const timeAgo = date => {
@@ -27,6 +28,8 @@ const TaskCard = ({ gig }) => {
     maxPrice,
     createdAt,
     postedBy,
+    category,
+    description,
   } = gig;
 
   // Use postedBy for provider information
@@ -54,20 +57,20 @@ const TaskCard = ({ gig }) => {
     (typeof ratePerHour !== 'number' || isNaN(ratePerHour)) &&
     (typeof duration !== 'number' || isNaN(duration))
   ) {
-    rate = `$${cost} (fixed)`;
+    rate = `${cost} (fixed)`;
   } else if (
     typeof ratePerHour === 'number' &&
     !isNaN(ratePerHour) &&
     typeof duration === 'number' &&
     !isNaN(duration)
   ) {
-    rate = `$${ratePerHour}/hr · ${duration} hrs`;
+    rate = `${ratePerHour}/hr · ${duration} hrs`;
   } else if (minPrice && maxPrice && minPrice !== maxPrice) {
-    rate = `$${minPrice}-${maxPrice}/hr`;
+    rate = `${minPrice}-${maxPrice}/hr`;
   } else if (price) {
-    rate = `$${price}/hr`;
+    rate = `${price}/hr`;
   } else if (minPrice) {
-    rate = `$${minPrice}/hr`;
+    rate = `${minPrice}/hr`;
   } else {
     rate = '—';
   }
@@ -101,22 +104,40 @@ const TaskCard = ({ gig }) => {
         onKeyDown={e => {
           if (e.key === 'Enter' || e.key === ' ') handleCardClick(gig);
         }}
-        className={styles.card}
+        className={styles.gigCard}
         aria-label={`View details for ${gig.title}`}
       >
-        <img src={profileImage} alt={name} className={styles.profileImage} />
-        <div className={styles.content}>
-          <div className={styles.header}>
-            <span className={styles.name}>{name}</span>
-            <span className={styles.cardTitle}>{title}</span>
-          </div>
-          <div className={styles.rate}>{rate}</div>
-          <div className={styles.meta}>
-            <span className={styles.location}>
-              <span className={styles.icon}>📍</span>
-              {formatLocation(location)}
+        <div className={styles.gigCardHeader}>
+          <h3 className={styles.gigCardTitle}>{title}</h3>
+          <div className={styles.gigCardBadges}>
+            <span className={`${styles.statusBadge} ${styles.open}`}>
+              Open
             </span>
-            <span className={styles.time}>{timeAgo(createdAt)}</span>
+            <span className={`${styles.paymentTypeBadge} ${rate.includes('/hr') ? styles.hourly : styles.fixed}`}>
+              {rate.includes('/hr') ? 'Hourly' : 'Fixed'}
+            </span>
+          </div>
+        </div>
+
+        <div className={styles.gigCardContent}>
+          <p className={styles.gigCardDescription}>
+            {description?.length > 120
+              ? `${description.substring(0, 120)}...`
+              : description || 'No description provided'}
+          </p>
+
+          <div className={styles.gigCardMeta}>
+            <div className={styles.metaItem}>
+              <MapPin size={16} />
+              <span>{formatLocation(location)}</span>
+            </div>
+            <div className={styles.metaItem}>
+              <Clock size={16} />
+              <span>{timeAgo(createdAt)}</span>
+            </div>
+            <div className={styles.metaItem}>
+              <span className={styles.rateDisplay}>{rate}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -134,6 +155,7 @@ TaskCard.propTypes = {
   gig: PropTypes.shape({
     _id: PropTypes.string,
     title: PropTypes.string,
+    description: PropTypes.string,
     location: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.shape({
@@ -154,6 +176,7 @@ TaskCard.propTypes = {
     ]),
     provider: PropTypes.object,
     postedBy: PropTypes.object,
+    category: PropTypes.string,
   }).isRequired,
 };
 

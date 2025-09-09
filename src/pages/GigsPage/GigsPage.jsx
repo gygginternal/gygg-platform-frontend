@@ -187,13 +187,15 @@ export default function GigsPage() {
             )}
           </div>
 
-          <TaskList
-            initialSearchTerm={searchTerm}
-            category={selectedCategory}
-            location={selectedLocation}
-            priceRange={priceRange}
-            onGigClick={gig => setSelectedGig(gig)}
-          />
+          <div className={styles.gigsContainer}>
+            <TaskList
+              initialSearchTerm={searchTerm}
+              category={selectedCategory}
+              location={selectedLocation}
+              priceRange={priceRange}
+              onGigClick={gig => setSelectedGig(gig)}
+            />
+          </div>
           <GigDetailsModal
             gig={selectedGig}
             open={!!selectedGig}
