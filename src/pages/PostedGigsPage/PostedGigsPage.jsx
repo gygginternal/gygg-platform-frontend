@@ -15,6 +15,7 @@ import ProfileSidebar from '../../components/Shared/ProfileSidebar';
 import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../contexts/ToastContext';
 import ProviderGigDetailsModal from '../../components/Shared/ProviderGigDetailsModal';
+import Button from '../../components/Shared/Button';
 
 // Utility to check for valid MongoDB ObjectId
 function isValidObjectId(id) {
@@ -188,6 +189,16 @@ const PostedGigsPage = () => {
               Manage your posted gigs and view applications from taskers
             </p>
           </div>
+          {user && user.role?.includes('provider') && (
+            <div className={styles.buttonContainer}>
+              <Button
+                onClick={() => navigate('/gigs/create')}
+                className={styles.postGigButton}
+              >
+                + Post a Gig
+              </Button>
+            </div>
+          )}
 
           {loading ? (
             <div className={styles.loadingState}>
