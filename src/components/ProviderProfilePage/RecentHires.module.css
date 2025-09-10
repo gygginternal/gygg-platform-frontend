@@ -5,6 +5,7 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   padding: 1rem; /* 16px */
   margin: 1rem 0; /* 16px */
+  box-sizing: border-box;
 }
 
 .sectionTitle {
@@ -13,6 +14,7 @@
   color: #1f2937;
   margin-bottom: 1rem; /* 16px */
   margin-top: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .hiresList {
@@ -125,6 +127,13 @@
   gap: 0.125rem; /* 2px */
 }
 
+.noRating {
+  font-weight: 400;
+  color: #9ca3af;
+  font-size: 0.875rem; /* 14px */
+  font-style: italic;
+}
+
 .hireDate {
   color: #9ca3af;
   font-size: 0.75rem; /* 12px */
@@ -186,6 +195,7 @@
   transition: background-color 0.2s ease;
   border: none;
   cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .createActionButton:hover {
@@ -193,6 +203,53 @@
   color: #fff;
   text-decoration: none;
 }
+
+/* Pagination Styles */
+.paginationDots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+  gap: 8px;
+}
+
+.dotButton {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #cbd5e0;
+  display: inline-block;
+  transition: background 0.2s, width 0.2s;
+}
+
+.activeDot {
+  width: 28px;
+  height: 12px;
+  border-radius: 8px;
+  background: #4299e1;
+  display: inline-block;
+  transition: background 0.2s, width 0.2s;
+}
+
+.dotButton:hover .dot {
+  background: #a0aec0;
+}
+
+.dotButton:hover .activeDot {
+  background: #3182ce;
+}
+
 /* Small Mobile to Tablet (480px - 768px) */
 @media (min-width: 480px) {
   .recentHiresSection {
@@ -353,49 +410,4 @@
   .hireDate {
     font-size: 0.9375rem; /* 15px */
   }
-}/* Pag
-ination Styles */
-.paginationDots {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 24px;
-  gap: 8px;
-}
-
-.dotButton {
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 0 4px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #cbd5e0;
-  display: inline-block;
-  transition: background 0.2s, width 0.2s;
-}
-
-.activeDot {
-  width: 28px;
-  height: 12px;
-  border-radius: 8px;
-  background: #4299e1;
-  display: inline-block;
-  transition: background 0.2s, width 0.2s;
-}
-
-.dotButton:hover .dot {
-  background: #a0aec0;
-}
-
-.dotButton:hover .activeDot {
-  background: #3182ce;
 }

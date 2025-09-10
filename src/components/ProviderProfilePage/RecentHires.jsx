@@ -20,32 +20,62 @@ function RecentHires({ providerId, isOwnProfile }) {
         const res = await apiClient.get('/contracts/my-contracts', {
           params: { status: 'completed', limit: 20 },
         });
-        // Filter contracts where provider matches
+        
+        // Log the response for debugging
+        console.log('Contracts response:', res.data);
+        
+        // Filter contracts where the logged-in user is the provider
         const contracts = res.data.data.contracts.filter(
-          c => c.provider === providerId
+          c => c.providerId === providerId || c.provider === providerId
         );
+        
+        // Log the filtered contracts
+        console.log('Filtered contracts:', contracts);
+        
         // Extract unique taskers and their contracts
         const uniqueTaskers = [];
         const seen = new Set();
         for (const contract of contracts) {
-          if (contract.tasker && !seen.has(contract.tasker)) {
+          // Get tasker details from the contract
+          // Tasker information might be in different fields depending on how the API returns data
+          const taskerInfo = contract.tasker || contract.taskerDetails || {};
+          
+          // Extract tasker name
+          let taskerName = 'Unknown Tasker';
+          if (taskerInfo.fullName) {
+            taskerName = taskerInfo.fullName;
+          } else if (taskerInfo.firstName || taskerInfo.lastName) {
+            taskerName = `${taskerInfo.firstName || ''} ${taskerInfo.lastName || ''}`.trim();
+          } else if (taskerInfo.displayName) {
+            taskerName = taskerInfo.displayName;
+          } else if (contract.taskerName) {
+            taskerName = contract.taskerName;
+          }
+          
+          // Get the tasker ID - could be in different fields
+          const taskerId = contract.taskerId || taskerInfo._id || taskerInfo.id || contract.tasker;
+          
+          // Get actual rating or default to 0 if not available
+          const rating = contract.rating && contract.rating > 0 ? contract.rating : 0;
+          
+          // Only add if we haven't seen this tasker yet
+          if (taskerId && !seen.has(taskerId)) {
             uniqueTaskers.push({
-              tasker: contract.tasker,
-              gigTitle: contract.gigTitle || contract.title,
-              review: contract.review || contract.description || '',
-              rating: contract.rating || 5,
-              date:
-                contract.completedAt ||
-                contract.updatedAt ||
-                contract.createdAt,
-              gigId: contract.gigId,
+              taskerId: taskerId,
+              taskerName: taskerName,
+              gigTitle: contract.gig?.title || contract.gigTitle || contract.title || 'Untitled Gig',
+              review: contract.review || contract.description || 'No review provided',
+              rating: rating,
+              date: contract.completedAt || contract.updatedAt || contract.createdAt,
+              gigId: contract.gig?._id || contract.gigId || contract.gig,
             });
-            seen.add(contract.tasker);
+            seen.add(taskerId);
           }
         }
         setHires(uniqueTaskers);
         setPage(0);
       } catch (err) {
+        console.error('Error fetching recent hires:', err);
         setError('Could not load recent hires.');
       } finally {
         setLoading(false);
@@ -98,26 +128,31 @@ function RecentHires({ providerId, isOwnProfile }) {
               <span className={styles.gigTitleLink}>{hire.gigTitle}</span>
             )}
             <div className={styles.gigDoneBy}>
-              Gig done by <b>{hire.tasker}</b>
+              Gig done by <b>{hire.taskerName}</b>
             </div>
             <div className={styles.reviewText}>
-              {hire.review ||
-                'I am an easygoing and organized person who loves staying active and exploring new hobbies.'}
+              {hire.review}
             </div>
             <div className={styles.ratingRow}>
-              <span className={styles.ratingValue}>
-                {hire.rating.toFixed(1)}
-              </span>
-              <span className={styles.stars}>
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    size={16}
-                    fill={i < Math.round(hire.rating) ? '#FFA726' : '#E0E0E0'}
-                    color={i < Math.round(hire.rating) ? '#FFA726' : '#E0E0E0'}
-                  />
-                ))}
-              </span>
+              {hire.rating > 0 ? (
+                <>
+                  <span className={styles.ratingValue}>
+                    {hire.rating.toFixed(1)}
+                  </span>
+                  <span className={styles.stars}>
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        size={16}
+                        fill={i < Math.round(hire.rating) ? '#FFA726' : '#E0E0E0'}
+                        color={i < Math.round(hire.rating) ? '#FFA726' : '#E0E0E0'}
+                      />
+                    ))}
+                  </span>
+                </>
+              ) : (
+                <span className={styles.noRating}>Not rated yet</span>
+              )}
               <span className={styles.hireDate}>
                 {hire.date
                   ? new Date(hire.date).toLocaleDateString('en-US', {

@@ -90,36 +90,61 @@
   align-items: flex-end;
 }
 
-.viewProfileButton {
-  background: #374151;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 500;
+.viewProfileButton,
+.messageButton {
+  /* Match platform button styling with rectangular shape */
+  padding: 0.5rem 1rem; /* 8px 16px */
+  border-radius: 0.375rem; /* 6px - more rectangular shape */
+  font-weight: 600;
+  font-size: 0.875rem; /* 14px */
   cursor: pointer;
-  transition: background-color 0.2s;
+  border: none;
+  transition: 
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.1s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  box-sizing: border-box;
+  min-width: 120px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.viewProfileButton:hover {
-  background: #1f2937;
+.viewProfileButton {
+  background-color: #3d4d55; /* Theme color */
+  color: #fff;
+}
+
+.viewProfileButton:hover:not(:disabled) {
+  background-color: #28343a; /* Darker hover */
+  transform: translateY(-1px);
+}
+
+.viewProfileButton:active:not(:disabled) {
+  transform: translateY(0px);
 }
 
 .messageButton {
-  background: #f3f4f6;
-  color: #374151;
+  background-color: #f0f0f0;
+  color: #3d4d55;
   border: 1px solid #d1d5db;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
 }
 
-.messageButton:hover {
-  background: #e5e7eb;
+.messageButton:hover:not(:disabled) {
+  background-color: #e0e0e0;
+  transform: translateY(-1px);
+}
+
+.messageButton:active:not(:disabled) {
+  transform: translateY(0px);
+}
+
+.viewProfileButton:disabled,
+.messageButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 .offerCardMeta {
@@ -173,6 +198,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
+    padding: 1rem;
   }
 
   .offerCardImageContainer {
@@ -184,16 +210,43 @@
     flex-direction: row;
     align-self: stretch;
     justify-content: space-between;
+    width: 100%;
   }
 
   .viewProfileButton,
   .messageButton {
     flex: 1;
     margin: 0 0.25rem;
+    padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
+    font-size: 0.8125rem; /* 13px */
+    border-radius: 0.25rem; /* 4px - more rectangular shape */
+    min-width: auto;
   }
 
   .offerCardHeader {
     flex-wrap: wrap;
+  }
+}
+
+/* Responsive adjustments for screens up to 480px (Mobile Phones) */
+@media (max-width: 480px) {
+  .offerCardContent {
+    padding: 0.75rem;
+  }
+  
+  .offerCardActions {
+    flex-direction: column;
+    align-self: flex-end;
+    width: auto;
+  }
+  
+  .viewProfileButton,
+  .messageButton {
+    width: 100%;
+    margin: 0.25rem 0;
+    padding: 0.35rem 0.7rem; /* 5.6px 11.2px */
+    font-size: 0.75rem; /* 12px */
+    border-radius: 0.25rem; /* 4px - more rectangular shape */
   }
 }
 

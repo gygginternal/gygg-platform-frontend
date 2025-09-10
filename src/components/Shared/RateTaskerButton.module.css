@@ -1,0 +1,42 @@
+.rateTaskerContainer {
+  margin-top: 1rem;
+}
+
+.rateTaskerButton {
+  background-color: #3d4d55;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.rateTaskerButton:hover {
+  background-color: #2c3a40;
+}
+
+.reviewFormContainer {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background-color: #f9fafb;
+}
+
+.cancelButton {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.cancelButton:hover {
+  background-color: #dc2626;
+}

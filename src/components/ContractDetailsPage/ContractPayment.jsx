@@ -4,6 +4,7 @@ import CheckoutForm from '../Shared/CheckoutForm';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import apiClient from '../../api/axiosConfig';
+import RateTaskerButton from '../Shared/RateTaskerButton';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
@@ -14,20 +15,35 @@ const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
   const [error, setError] = useState(null);
   const [releaseLoading, setReleaseLoading] = useState(false);
   const [releaseMessage, setReleaseMessage] = useState('');
+  const [showRating, setShowRating] = useState(false);
+  const [contract, setContract] = useState(null);
 
   useEffect(() => {
     async function fetchPayment() {
       setLoading(true);
       setError(null);
       try {
-        const res = await apiClient.get(
+        // Fetch payment info
+        const paymentRes = await apiClient.get(
           `/payments/contracts/${contractId}/payment`
         );
-        setPayment(res.data.data.payment);
-        if (res.data.data.payment.status === 'requires_payment_method') {
-          setClientSecret(res.data.data.payment.stripePaymentIntentSecret);
+        setPayment(paymentRes.data.data.payment);
+        if (paymentRes.data.data.payment.status === 'requires_payment_method') {
+          setClientSecret(paymentRes.data.data.payment.stripePaymentIntentSecret);
         } else {
           setClientSecret(null);
+        }
+        
+        // Fetch contract info to check status
+        const contractRes = await apiClient.get(`/contracts/${contractId}`);
+        setContract(contractRes.data.data.contract);
+        
+        // Check if contract is completed and user is provider to show rating button
+        if (contractRes.data.data.contract.status === 'completed' && isProvider) {
+          setShowRating(true);
+        } else if (paymentRes.data.data.payment.status === 'succeeded' && isProvider) {
+          // Fallback to payment status if contract status isn't completed yet
+          setShowRating(true);
         }
       } catch (err) {
         setError('Failed to fetch payment info.');
@@ -35,7 +51,7 @@ const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
       setLoading(false);
     }
     if (contractId) fetchPayment();
-  }, [contractId]);
+  }, [contractId, isProvider]);
 
   const handlePaymentSuccess = () => {
     setTimeout(() => window.location.reload(), 1000); // Refresh to update status
@@ -47,11 +63,30 @@ const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
     try {
       await apiClient.post(`/payments/contracts/${contractId}/release`);
       setReleaseMessage('Payment released to tasker!');
+      
+      // After releasing payment, fetch updated contract to check if it's completed
+      try {
+        const contractRes = await apiClient.get(`/contracts/${contractId}`);
+        setContract(contractRes.data.data.contract);
+        // Show rating button if contract is now completed
+        if (contractRes.data.data.contract.status === 'completed') {
+          setShowRating(true);
+        }
+      } catch (err) {
+        // If we can't fetch contract, still show rating button based on payment status
+        setShowRating(true);
+      }
+      
       if (onPaymentReleased) onPaymentReleased();
     } catch (err) {
       setReleaseMessage('Failed to release payment.');
     }
     setReleaseLoading(false);
+  };
+
+  const handleRatingSubmitted = () => {
+    setReleaseMessage('Thank you for rating the tasker!');
+    // Optionally refresh the page or update state
   };
 
   if (loading) return <div>Loading payment info...</div>;
@@ -92,6 +127,12 @@ const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
       )}
       {releaseMessage && (
         <div className={styles.releaseMessage}>{releaseMessage}</div>
+      )}
+      {showRating && (
+        <RateTaskerButton 
+          contractId={contractId} 
+          onRatingSubmitted={handleRatingSubmitted} 
+        />
       )}
     </section>
   );
