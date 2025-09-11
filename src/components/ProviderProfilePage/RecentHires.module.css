@@ -20,7 +20,7 @@
 .hiresList {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.75rem; /* 12px */
+  gap: 1rem; /* 16px */
 }
 
 .hireCard {
@@ -40,6 +40,28 @@
   border-color: #d1d5db;
 }
 
+.hireHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.avatarContainer {
+  position: relative;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.taskerAvatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .avatarPlaceholder {
   width: 2.5rem; /* 40px */
   height: 2.5rem; /* 40px */
@@ -49,6 +71,11 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  color: #6b7280;
+  font-weight: 500;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .hireInfo {
@@ -83,24 +110,16 @@
   text-decoration: underline;
 }
 
-.gigDoneBy {
-  color: #6b7280;
-  font-size: 0.8125rem; /* 13px */
-  margin-bottom: 0.75rem; /* 12px */
-  font-weight: 400;
-  line-height: 1.3;
-}
-
-.gigDoneBy b {
-  color: #374151;
-  font-weight: 600;
+.reviewSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .reviewText {
   color: #4b5563;
   font-size: 0.8125rem; /* 13px */
   line-height: 1.5;
-  margin-bottom: 1rem; /* 16px */
   flex-grow: 1;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -112,7 +131,6 @@
   display: flex;
   align-items: center;
   gap: 0.5rem; /* 8px */
-  margin-top: auto;
   flex-wrap: wrap;
 }
 
@@ -137,9 +155,10 @@
 .hireDate {
   color: #9ca3af;
   font-size: 0.75rem; /* 12px */
-  margin-left: auto;
   font-weight: 400;
 }
+
+/* Review status styles removed as they are no longer displayed */
 
 .state {
   color: #888;
@@ -272,6 +291,16 @@
     gap: 1rem; /* 16px */
   }
   
+  .avatarContainer {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .taskerAvatar {
+    width: 3rem;
+    height: 3rem;
+  }
+  
   .avatarPlaceholder {
     width: 3rem; /* 48px */
     height: 3rem; /* 48px */
@@ -283,10 +312,6 @@
   
   .gigTitleLink {
     font-size: 1rem; /* 16px */
-  }
-  
-  .gigDoneBy {
-    font-size: 0.875rem; /* 14px */
   }
   
   .reviewText {
@@ -323,6 +348,16 @@
     padding: 1.5rem; /* 24px */
   }
   
+  .avatarContainer {
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+  
+  .taskerAvatar {
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+  
   .avatarPlaceholder {
     width: 3.25rem; /* 52px */
     height: 3.25rem; /* 52px */
@@ -334,10 +369,6 @@
   
   .gigTitleLink {
     font-size: 1.0625rem; /* 17px */
-  }
-  
-  .gigDoneBy {
-    font-size: 0.9375rem; /* 15px */
   }
   
   .reviewText {
@@ -379,6 +410,16 @@
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   }
   
+  .avatarContainer {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  
+  .taskerAvatar {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  
   .avatarPlaceholder {
     width: 3.5rem; /* 56px */
     height: 3.5rem; /* 56px */
@@ -390,11 +431,6 @@
   
   .gigTitleLink {
     font-size: 1.125rem; /* 18px */
-    margin-bottom: 1rem; /* 16px */
-  }
-  
-  .gigDoneBy {
-    font-size: 1rem; /* 16px */
     margin-bottom: 1rem; /* 16px */
   }
   

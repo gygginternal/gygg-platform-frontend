@@ -2,14 +2,13 @@
 import styles from './ReviewCard.module.css'; // Create CSS Module
 import PropTypes from 'prop-types';
 
-// Reusable Star Display Component (or import from ReviewItem)
+// Reusable Star Display Component
 const DisplayRating = ({ rating }) => {
-  const stars = Math.round(rating || 0); // Round to nearest star for simple display
+  const stars = Math.round(rating || 0);
   return (
     <span className={styles.starRating}>
-      {' '}
       {'★'.repeat(stars)}
-      {'☆'.repeat(Math.max(0, 5 - stars))}{' '}
+      {'☆'.repeat(Math.max(0, 5 - stars))}
     </span>
   );
 };
@@ -31,32 +30,38 @@ function ReviewCard({ review }) {
   const formattedDate = review.createdAt
     ? new Date(review.createdAt).toLocaleDateString()
     : '';
+    
+  // Get first initial for avatar if no image
+  const reviewerInitial = reviewerName.charAt(0).toUpperCase();
 
   return (
     <div className={styles.reviewItem}>
-      {/* Row 1: Name */}
-      <div className={styles.reviewRow}>
-        <h3 className={styles.name}>{reviewerName}</h3>
+      <div className={styles.reviewHeader}>
+        <div className={styles.reviewerInfo}>
+          {review.reviewer?.profileImage ? (
+            <img 
+              src={review.reviewer.profileImage} 
+              alt={reviewerName}
+              className={styles.reviewerAvatar}
+            />
+          ) : (
+            <div className={styles.reviewerAvatar}>
+              {reviewerInitial}
+            </div>
+          )}
+          <h3 className={styles.reviewerName}>{reviewerName}</h3>
+        </div>
+        <div className={styles.reviewMeta}>
+          <span className={styles.reviewRating}>{review.rating?.toFixed(1)}</span>
+          <DisplayRating rating={review.rating} />
+        </div>
       </div>
-
-      {/* Row 2: Job, Rating, Stars, Date */}
-      <div className={styles.reviewRow}>
-        {/* Use Gig Title for "job" */}
-        <p className={styles.job}>{gigTitle}</p>
-        <span className={styles.separator}> | </span>
-        {/* Display rating value and stars */}
-        <p className={styles.rating}>{review.rating?.toFixed(1)}</p>
-        <DisplayRating rating={review.rating} />
-        <span className={styles.separator}>|</span>
-        <p className={styles.date}>{formattedDate}</p>
-      </div>
-
-      {/* Row 3: Review Description */}
-      <div className={styles.reviewRow}>
-        <p className={styles.reviewText}>
-          {review.comment || 'No comment provided.'}
-        </p>
-      </div>
+      
+      <p className={styles.reviewJob}>{gigTitle}</p>
+      <p className={styles.reviewText}>
+        {review.comment || 'No comment provided.'}
+      </p>
+      <p className={styles.reviewDate}>{formattedDate}</p>
     </div>
   );
 }
@@ -67,6 +72,7 @@ ReviewCard.propTypes = {
       fullName: PropTypes.string,
       firstName: PropTypes.string,
       lastName: PropTypes.string,
+      profileImage: PropTypes.string,
     }),
     gig: PropTypes.shape({
       title: PropTypes.string,

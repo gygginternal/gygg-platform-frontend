@@ -140,6 +140,13 @@ const ContractsPage = createLazyRoute(
   }
 );
 
+const RateTaskerPage = createLazyRoute(
+  () => import('./pages/RateTaskerPage/RateTaskerPage'),
+  {
+    loadingText: 'Loading rating page...',
+  }
+);
+
 // Secondary pages - lower priority
 const GigCreateOptionsPage = createLazyRoute(
   () => import('./pages/GigCreateOptionsPage/GigCreateOptionsPage'),
@@ -420,6 +427,14 @@ function AppWithNavigation() {
               element={
                 <ProtectedRoute>
                   <ContractsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/contracts/:contractId/rate-tasker"
+              element={
+                <ProtectedRoute>
+                  <RateTaskerPage />
                 </ProtectedRoute>
               }
             />

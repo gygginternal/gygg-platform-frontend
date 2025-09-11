@@ -87,7 +87,7 @@ function ReviewForm({ contractId, review, onSuccess }) {
 
   return (
     // Apply card styling or custom styling as needed
-    <form onSubmit={handleSubmit} className={styles.reviewFormCard}>
+    <form id="review-form" onSubmit={handleSubmit} className={styles.reviewFormCard}>
       <h4>Leave a Review for the Tasker</h4>
       {error && <p className={styles.errorMessage}>{error}</p>}{' '}
       {/* Use className for styling */}
@@ -95,19 +95,7 @@ function ReviewForm({ contractId, review, onSuccess }) {
         <label className={styles.label} htmlFor={`rating-${contractId}`}>
           Rating:*
         </label>
-        <select
-          id={`rating-${contractId}`}
-          value={rating}
-          onChange={e => setRating(Number(e.target.value))}
-          disabled={loading}
-          className={styles.select}
-        >
-          {[1, 2, 3, 4, 5].map(n => (
-            <option key={n} value={n}>
-              {n}
-            </option>
-          ))}
-        </select>
+        <StarRatingInput rating={rating} setRating={setRating} disabled={loading} />
       </div>
       <div className={styles.formGroup}>
         <label htmlFor={`comment-${contractId}`} className={styles.label}>

@@ -7,9 +7,25 @@ import ReviewCard from './ReviewCard';
 import PropTypes from 'prop-types';
 import logger from '../../utils/logger';
 
+// Reusable Star Display Component
+const DisplayRating = ({ rating }) => {
+  const stars = Math.round(rating || 0);
+  return (
+    <span className={styles.starRating}>
+      {'★'.repeat(stars)}
+      {'☆'.repeat(Math.max(0, 5 - stars))}
+    </span>
+  );
+};
+
+DisplayRating.propTypes = {
+  rating: PropTypes.number.isRequired,
+};
+
 function ReviewsSection({ userIdToView, isOwnProfile }) {
   // Accept userIdToView and isOwnProfile
   const [reviews, setReviews] = useState([]);
+  const [averageRating, setAverageRating] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const { user: _loggedInUser } = useAuth();
@@ -32,10 +48,13 @@ function ReviewsSection({ userIdToView, isOwnProfile }) {
           `ReviewsSection: Fetching reviews for taskerId (reviewee): ${targetUserIdForReviews}`
         );
         // Fetch reviews where the targetUserId is the reviewee (Tasker)
-        const response = await apiClient.get(
-          `/reviews?taskerId=${targetUserIdForReviews}`
-        );
-        setReviews(response.data.data.reviews || []);
+        const [reviewsResponse, averageResponse] = await Promise.all([
+          apiClient.get(`/reviews?taskerId=${targetUserIdForReviews}`),
+          apiClient.get(`/reviews/average/${targetUserIdForReviews}`)
+        ]);
+        
+        setReviews(reviewsResponse.data.data.reviews || []);
+        setAverageRating(averageResponse.data.data.averageRating || 0);
       } catch (err) {
         logger.error('ReviewsSection: Error fetching reviews:', err);
         setError('Could not load reviews.');
@@ -46,8 +65,6 @@ function ReviewsSection({ userIdToView, isOwnProfile }) {
     };
 
     // Only fetch if a target user is specified
-    // Also, reviews are typically for taskers, so you might add that check.
-    // However, your UserProfilePage already checks if profileUser is a tasker before rendering this.
     fetchReviews();
   }, [targetUserIdForReviews]);
 
@@ -72,6 +89,13 @@ function ReviewsSection({ userIdToView, isOwnProfile }) {
     <section className={styles.reviewsCard}>
       <div className={styles.reviewsHeader}>
         <h2>Reviews Received</h2>
+        {reviews.length > 0 && (
+          <div className={styles.reviewsSummary}>
+            <span className={styles.averageRating}>{averageRating.toFixed(1)}</span>
+            <DisplayRating rating={averageRating} />
+            <span className={styles.reviewsCount}>({reviews.length} reviews)</span>
+          </div>
+        )}
       </div>
       <div className={styles.reviewsGrid}>{renderContent()}</div>
     </section>

@@ -1,187 +1,132 @@
-/* src/pages/ProfilePage.module.css or shared component styles */
-
-/* Setting a base font size for rem calculations if not set globally */
-:root {
-  font-size: 16px; /* 1rem = 16px */
-}
-
+/* Base styles - Mobile first */
 .reviewItem {
-  width: 100%; /* Full width */
-  padding: 1rem; /* 16px */
+  width: 100%;
+  padding: 1.25rem;
   background: #fff;
-  transition: transform 0.2s ease-in-out;
-  border-radius: 0.5rem; /* 8px */
-  border-bottom: 0.0625rem solid #ddd; /* 1px Light gray bottom border */
-  box-sizing: border-box; /* Ensures padding is included in width */
-}
-
-.reviewItem:last-child {
-  border-bottom: none; /* Removes border from the last review to avoid extra line */
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
 }
 
 .reviewItem:hover {
-  transform: scale(1.02); /* Slight scale on hover */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
 }
 
-.reviewRow {
+.reviewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.reviewerInfo {
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* 8px Slightly increased gap for spacing between elements in the row */
-  flex-wrap: wrap; /* Allow wrapping on smaller screens, especially for many small info bits */
-  margin-bottom: 0.5rem; /* Space below this row */
+  gap: 0.75rem;
 }
 
-.name {
-  /* Facebook Header (profile names etc.) 16-18px */
-  font-size: 1.125rem; /* 18px */
-  font-weight: bold;
-  color: #333;
-  flex-shrink: 0; /* Prevent name from shrinking */
-  min-width: 0; /* Allow text to truncate */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.job {
+.reviewerAvatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
   font-weight: 500;
-  color: #777;
-  /* Facebook Comments 13-14px. This is secondary info. */
-  font-size: 0.875rem; /* 14px */
-  flex-shrink: 0;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-.rating {
-  font-weight: bold;
-  color: #d99633;
-  /* Facebook Comments 13-14px */
-  font-size: 0.875rem; /* 14px */
-  flex-shrink: 0;
+.reviewerName {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
 }
 
-.stars {
-  color: #ffd700;
-  /* If this is a font-based star icon, size should align with 'Post action icons' (16-20px) or 'Comment/reaction icons' (16px) */
-  /* Or the same size as the rating text. Let's make it align with rating text for now. */
-  font-size: 0.875rem; /* 14px */
-  flex-shrink: 0;
+.reviewMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.date {
-  font-style: italic;
-  color: #666;
-  /* Facebook Timestamps and meta info: 12px */
-  font-size: 0.75rem; /* 12px */
-  flex-shrink: 0;
-}
-
-.separator {
-  color: #777;
-  /* Small, discreet separator. Use 12px for text. */
-  font-size: 0.75rem; /* 12px */
-  line-height: 1; /* Keep it compact */
-  flex-shrink: 0;
-}
-
-.reviewText {
-  /* Facebook Post text (main body): 14-16px */
-  font-size: 0.9375rem; /* 15px (closer to 16px than 14px for main body) */
-  color: #536471;
-  line-height: 1.4;
-  margin-top: 0.5rem; /* Added space above text */
+.reviewRating {
+  font-weight: 600;
+  color: #f59e0b;
+  font-size: 1rem;
 }
 
 .starRating {
-  color: gold;
-  font-size: 0.875rem; /* 14px */
+  color: #f59e0b;
+  font-size: 1rem;
 }
 
-/* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
-@media (max-width: 1024px) {
-  .reviewItem {
-    padding: 0.875rem; /* 14px */
-    border-radius: 0.4rem; /* ~6.4px */
-  }
-  .reviewRow {
-    gap: 0.4rem; /* 6.4px */
-    margin-bottom: 0.4rem; /* 6.4px */
-  }
-  .name {
-    font-size: 1rem; /* 16px */
-  }
-  .job,
-  .rating,
-  .stars {
-    font-size: 0.8125rem; /* 13px */
-  }
-  .date,
-  .separator {
-    font-size: 0.6875rem; /* ~11px */
-  }
-  .reviewText {
-    font-size: 0.875rem; /* 14px */
-    margin-top: 0.4rem; /* 6.4px */
-  }
+.reviewDate {
+  color: #6b7280;
+  font-size: 0.8125rem;
 }
 
-/* Responsive adjustments for screens up to 768px (Tablets) */
-@media (max-width: 768px) {
+.reviewJob {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.reviewText {
+  font-size: 0.9375rem;
+  color: #374151;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Tablet (768px - 1024px) */
+@media (min-width: 768px) {
   .reviewItem {
-    padding: 0.75rem; /* 12px */
-    border-radius: 0.35rem; /* ~5.6px */
+    padding: 1.5rem;
   }
-  .reviewRow {
-    gap: 0.3rem; /* 4.8px */
-    margin-bottom: 0.3rem; /* 4.8px */
-    /* If many items, consider stacking. For now, keep as flex. */
-    /* flex-wrap: wrap; */
+  
+  .reviewerName {
+    font-size: 1.125rem;
   }
-  .name {
-    font-size: 0.9375rem; /* 15px */
+  
+  .reviewRating {
+    font-size: 1.125rem;
   }
-  .job,
-  .rating,
-  .stars {
-    font-size: 0.75rem; /* 12px */
+  
+  .starRating {
+    font-size: 1.125rem;
   }
-  .date,
-  .separator {
-    font-size: 0.625rem; /* 10px */
+  
+  .reviewJob {
+    font-size: 0.9375rem;
   }
+  
   .reviewText {
-    font-size: 0.8125rem; /* 13px */
-    margin-top: 0.3rem; /* 4.8px */
+    font-size: 1rem;
   }
 }
 
-/* Responsive adjustments for screens up to 480px (Mobile Phones) */
-@media (max-width: 480px) {
+/* Desktop (1024px+) */
+@media (min-width: 1024px) {
   .reviewItem {
-    padding: 0.625rem; /* 10px */
-    border-radius: 0.3rem; /* ~4.8px */
+    padding: 1.75rem;
   }
-  .reviewRow {
-    gap: 0.25rem; /* 4px */
-    margin-bottom: 0.25rem; /* 4px */
+  
+  .reviewerAvatar {
+    width: 3rem;
+    height: 3rem;
   }
-  .name {
-    font-size: 0.875rem; /* 14px */
+  
+  .reviewerName {
+    font-size: 1.25rem;
   }
-  .job,
-  .rating,
-  .stars {
-    font-size: 0.6875rem; /* ~11px */
-  }
-  .date,
-  .separator {
-    font-size: 0.5625rem; /* ~9px */
-  }
+  
   .reviewText {
-    font-size: 0.75rem; /* 12px */
-    margin-top: 0.25rem; /* 4px */
+    font-size: 1.0625rem;
   }
 }

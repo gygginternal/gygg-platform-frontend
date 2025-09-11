@@ -651,26 +651,48 @@ function ContractsPage() {
                     Submit as Complete
                   </button>
                 )}
-              <button
-                className={styles.secondaryBtn}
-                onClick={() => {
-                  // Navigate to messages/chat with the other party
-                  const otherPartyId = sessionRole === 'provider' 
-                    ? modalContract.taskerId 
-                    : modalContract.providerId;
-                  if (otherPartyId) {
-                    // Close the modal first
-                    setIsModalOpen(false);
-                    setModalContract(null);
-                    // Navigate to chat with the specific user
-                    navigate(`/messages/${otherPartyId}`);
-                  } else {
-                    showToast('Unable to find the other party to message.', 'error');
-                  }
-                }}
-              >
-                Message
-              </button>
+              
+              {/* Show Rate Tasker button for completed contracts (only for providers) */}
+              {sessionRole === 'provider' &&
+                modalContract.status?.toLowerCase() === 'completed' && (
+                  <button
+                    className={styles.primaryBtn}
+                    onClick={() => {
+                      // Close the modal first
+                      setIsModalOpen(false);
+                      setModalContract(null);
+                      // Navigate to the rate tasker page
+                      navigate(`/contracts/${modalContract.id || modalContract._id}/rate-tasker`);
+                    }}
+                  >
+                    Rate Tasker
+                  </button>
+                )}
+              
+              {/* Only show Message button for non-completed contracts */}
+              {modalContract.status?.toLowerCase() !== 'completed' && (
+                <button
+                  className={styles.secondaryBtn}
+                  onClick={() => {
+                    // Navigate to messages/chat with the other party
+                    const otherPartyId = sessionRole === 'provider' 
+                      ? modalContract.taskerId 
+                      : modalContract.providerId;
+                    if (otherPartyId) {
+                      // Close the modal first
+                      setIsModalOpen(false);
+                      setModalContract(null);
+                      // Navigate to chat with the specific user
+                      navigate(`/messages/${otherPartyId}`);
+                    } else {
+                      showToast('Unable to find the other party to message.', 'error');
+                    }
+                  }}
+                >
+                  Message
+                </button>
+              )}
+              
               <button
                 className={styles.secondaryBtn}
                 onClick={() => {

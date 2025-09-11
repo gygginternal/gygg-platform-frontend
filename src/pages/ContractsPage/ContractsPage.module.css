@@ -844,7 +844,27 @@
   padding: 1.25rem 2rem 1.75rem 2rem;
   background: none;
   border-radius: 0 0 1.25rem 1.25rem;
+  flex-wrap: wrap;
 }
+
+.primaryBtn {
+  background: linear-gradient(90deg, #00aaba 0%, #1ec8e7 100%);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: background 0.18s, color 0.18s;
+  cursor: pointer;
+}
+
+.primaryBtn:hover {
+  background: linear-gradient(90deg, #009aa0 0%, #1cb8d7 100%);
+  color: white;
+}
+
 .secondaryBtn {
   background: #f5f6fa;
   color: #222;
@@ -862,6 +882,22 @@
 .secondaryBtn:hover {
   background: #e4e8ee;
   color: #111;
+}
+
+@media (max-width: 600px) {
+  .modalActions {
+    flex-direction: column;
+  }
+  
+  .modalContent {
+    max-width: 98vw;
+    padding: 0.5rem;
+  }
+  .modalBody,
+  .modalActions {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
 }
 
 @media (max-width: 600px) {
