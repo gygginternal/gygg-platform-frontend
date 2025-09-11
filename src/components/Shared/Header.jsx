@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Search, Bell, Menu, X } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useSocket } from '../../contexts/SocketContext';
+import apiClient from '../../api/axiosConfig';
 import styles from './Header.module.css';
 import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
 import Sidebar from './Sidebar';
@@ -58,7 +59,7 @@ function Header() {
         (res.data.data.notifications || []).filter(n => !n.isRead).length
       );
     } catch (err) {
-      // console.error('Error fetching notifications:', err);
+      console.error('Error fetching notifications:', err);
     }
   };
 
@@ -77,6 +78,15 @@ function Header() {
       // console.error('Error marking notifications as read:', err);
     }
   };
+
+  // Mark notifications as read when they're displayed in the dropdown (but not automatically)
+  // This useEffect will track which notifications have been viewed and mark them as read
+  useEffect(() => {
+    if (showNotifications && notifications.length > 0) {
+      // We could implement logic here to mark notifications as read when they're scrolled into view
+      // For now, we'll let users click individual notifications to mark them as read
+    }
+  }, [showNotifications, notifications]);
 
   useEffect(() => {
     if (!user) return;
@@ -104,12 +114,13 @@ function Header() {
     }
   }, [liveNotifications]);
 
-  // No need for socket event listeners here; handled by context
-
   // Handle notification dropdown open/close
   useEffect(() => {
     if (!showNotifications) return;
-    markAllAsRead();
+    
+    // Don't automatically mark all as read when opening the dropdown
+    // Only mark individual notifications as read when they're clicked/viewed
+    
     const handleClickOutside = event => {
       if (
         notificationDropdownRef.current &&
