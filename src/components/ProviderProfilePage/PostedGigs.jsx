@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './PostedGigs.module.css';
 import apiClient from '../../api/axiosConfig';
 import { Link, useNavigate } from 'react-router-dom';
+import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
 
 const STATUS_LABELS = {
   active: 'Active',
@@ -139,7 +140,7 @@ function PostedGigs({ providerId, isOwnProfile }) {
             onClick={() => handleGigClick(gig._id)}
           >
             <div className={styles.gigContent}>
-              <h3 className={styles.gigTitle}>{gig.title}</h3>
+              <h3 className={styles.gigTitle}>{decodeHTMLEntities(gig.title)}</h3>
               <div className={styles.gigMeta}>
                 <span
                   className={styles.statusBadge}

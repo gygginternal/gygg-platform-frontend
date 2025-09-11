@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dialog } from '@headlessui/react';
 import styles from './BillingModal.module.css';
+import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
 
 export const BillingModal = ({ isOpen, onClose, gig }) => {
   if (!gig) return null;
@@ -30,7 +31,7 @@ export const BillingModal = ({ isOpen, onClose, gig }) => {
           <section className={styles.section}>
             <div className={styles.flexRow}>
               <p className={styles.label}>Gig title</p>
-              <p className={styles.value}>{gig.gig.title || 'N/A'}</p>
+              <p className={styles.value}>{decodeHTMLEntities(gig.gig.title) || 'N/A'}</p>
             </div>
           </section>
 

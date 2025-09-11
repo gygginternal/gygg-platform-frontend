@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSocket } from '../../contexts/SocketContext';
 import { useAuth } from '../../contexts/AuthContext';
+import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
 
 const WebSocketDebugger = () => {
   const { socket, connected, notification, notifications } = useSocket();
@@ -44,7 +45,7 @@ const WebSocketDebugger = () => {
 
   useEffect(() => {
     if (notification) {
-      addLog(`New notification received: ${notification.message}`, 'success');
+      addLog(`New notification received: ${decodeHTMLEntities(notification.message)}`, 'success');
     }
   }, [notification]);
 
@@ -148,7 +149,7 @@ const WebSocketDebugger = () => {
               marginBottom: '2px',
             }}
           >
-            [{log.timestamp}] {log.message}
+            [{log.timestamp}] {decodeHTMLEntities(log.message)}
           </div>
         ))}
       </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './ErrorDisplay.module.css';
+import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
 
 /**
  * Standardized Error Display Component
@@ -59,12 +60,12 @@ const ErrorDisplay = ({
 
       <div className={styles.content}>
         {errorList.length === 1 ? (
-          <p className={styles.errorMessage}>{errorList[0]}</p>
+          <p className={styles.errorMessage}>{decodeHTMLEntities(errorList[0])}</p>
         ) : (
           <div className={styles.errorList}>
             {errorList.map((error, index) => (
               <p key={index} className={styles.errorMessage}>
-                {error}
+                {decodeHTMLEntities(error)}
               </p>
             ))}
           </div>

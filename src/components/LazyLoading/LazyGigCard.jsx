@@ -1,6 +1,7 @@
 import React from 'react';
 import { LazyImage } from './index';
 import './LazyGigCard.css';
+import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
 
 const LazyGigCard = ({
   gig,
@@ -29,34 +30,34 @@ const LazyGigCard = ({
       <div className="gig-card-image-container">
         <LazyImage
           src={gig.imageUrl || gig.image}
-          alt={gig.title || 'Gig image'}
+          alt={decodeHTMLEntities(gig.title) || 'Gig image'}
           placeholder={showPlaceholder ? placeholderImage : null}
           className="gig-card-image"
           threshold={0.1}
           rootMargin="100px"
           fadeInDuration={400}
           onLoad={() => {
-            console.debug('Gig image loaded:', gig.title);
+            console.debug('Gig image loaded:', decodeHTMLEntities(gig.title));
           }}
           onError={() => {
-            console.debug('Gig image failed to load:', gig.title);
+            console.debug('Gig image failed to load:', decodeHTMLEntities(gig.title));
           }}
         />
 
         {/* Overlay content */}
         <div className="gig-card-overlay">
           <div className="gig-card-content">
-            <h3 className="gig-card-title">{gig.title}</h3>
+            <h3 className="gig-card-title">{decodeHTMLEntities(gig.title)}</h3>
             <p className="gig-card-description">
-              {gig.description?.substring(0, 100)}
-              {gig.description?.length > 100 ? '...' : ''}
+              {decodeHTMLEntities(gig.description)?.substring(0, 100)}
+              {decodeHTMLEntities(gig.description)?.length > 100 ? '...' : ''}
             </p>
             <div className="gig-card-meta">
               <span className="gig-card-price">
                 ${gig.price || gig.cost || 'N/A'}
               </span>
               <span className="gig-card-location">
-                {gig.location || 'Remote'}
+                {decodeHTMLEntities(gig.location) || 'Remote'}
               </span>
             </div>
           </div>

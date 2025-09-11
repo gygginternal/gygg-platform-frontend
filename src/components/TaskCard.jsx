@@ -2,6 +2,7 @@
 import styles from './TaskCard.module.css';
 import PropTypes from 'prop-types';
 import { MapPin, Clock } from 'lucide-react';
+import { decodeHTMLEntities } from '../utils/htmlEntityDecoder';
 
 // Utility to format "time ago"
 const timeAgo = date => {
@@ -54,10 +55,10 @@ const TaskCard = ({ gig, onClick }) => {
         }
       }}
       className={styles.gigCard}
-      aria-label={`View details for ${gig.title}`}
+      aria-label={`View details for ${decodeHTMLEntities(gig.title)}`}
     >
       <div className={styles.gigCardHeader}>
-        <h3 className={styles.gigCardTitle}>{title}</h3>
+        <h3 className={styles.gigCardTitle}>{decodeHTMLEntities(title)}</h3>
         <div className={styles.gigCardBadges}>
           <span className={`${styles.statusBadge} ${styles.open}`}>
             Open
@@ -70,9 +71,9 @@ const TaskCard = ({ gig, onClick }) => {
 
       <div className={styles.gigCardContent}>
         <p className={styles.gigCardDescription}>
-          {description?.length > 120
-            ? `${description.substring(0, 120)}...`
-            : description || 'No description provided'}
+          {decodeHTMLEntities(description)?.length > 120
+            ? `${decodeHTMLEntities(description).substring(0, 120)}...`
+            : decodeHTMLEntities(description) || 'No description provided'}
         </p>
 
         <div className={styles.gigCardMeta}>
@@ -101,11 +102,11 @@ const TaskCard = ({ gig, onClick }) => {
 // Move the formatLocation function outside of the component
 const formatLocation = loc => {
   if (!loc) return 'Location not specified';
-  if (typeof loc === 'string') return loc;
+  if (typeof loc === 'string') return decodeHTMLEntities(loc);
   const parts = [];
-  if (loc.city) parts.push(loc.city);
-  if (loc.state) parts.push(loc.state);
-  if (loc.country) parts.push(loc.country);
+  if (loc.city) parts.push(decodeHTMLEntities(loc.city));
+  if (loc.state) parts.push(decodeHTMLEntities(loc.state));
+  if (loc.country) parts.push(decodeHTMLEntities(loc.country));
   return parts.length > 0 ? parts.join(', ') : 'Location not specified';
 };
 

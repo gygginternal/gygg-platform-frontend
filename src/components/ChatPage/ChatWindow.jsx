@@ -7,6 +7,7 @@ import {
   checkMessageContent,
   showContentWarning,
 } from '../../utils/contentFilter';
+import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
 
 const ChatWindow = ({
   contact,
@@ -302,7 +303,7 @@ const ChatWindow = ({
             className={styles.avatar}
           />
           <div className={styles.contactDetails}>
-            <span className={styles.contactName}>{contact.name}</span>
+            <span className={styles.contactName}>{decodeHTMLEntities(contact.name)}</span>
             {contact.isOnline && (
               <span className={styles.onlineStatus}>Online</span>
             )}
@@ -347,7 +348,7 @@ const ChatWindow = ({
                     </div>
                   </div>
                 ) : (
-                  <span className={styles.messageText}>{message.text}</span>
+                  <span className={styles.messageText}>{decodeHTMLEntities(message.text)}</span>
                 )}
                 <div className={styles.messageFooter}>
                   <span className={styles.messageTime}>

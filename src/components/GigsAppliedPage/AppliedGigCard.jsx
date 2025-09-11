@@ -1,6 +1,7 @@
 import React from 'react';
 import { Clock, MapPin, Briefcase } from 'lucide-react';
 import styles from './AppliedGigCard.module.css';
+import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
 
 const AppliedGigCard = ({ gig, onClick }) => {
   const {
@@ -36,7 +37,7 @@ const AppliedGigCard = ({ gig, onClick }) => {
         <span className={styles.statusBadge}>{status}</span>
       </div>
       <div className={styles.cardBody}>
-        <h3 className={styles.title}>{title}</h3>
+        <h3 className={styles.title}>{decodeHTMLEntities(title)}</h3>
         <div className={styles.detailsRow}>
           <div className={styles.hiredBy}>
             <div className={styles.hiredByAvatar}>
@@ -51,8 +52,8 @@ const AppliedGigCard = ({ gig, onClick }) => {
               )}
             </div>
             <span className={styles.hiredByName}>
-              {postedBy?.firstName || 'Unknown'}{' '}
-              {postedBy?.lastName || 'Client'}
+              {decodeHTMLEntities(postedBy?.firstName) || 'Unknown'}{' '}
+              {decodeHTMLEntities(postedBy?.lastName) || 'Client'}
             </span>
           </div>
           <div className={styles.timeInfo}>
@@ -65,7 +66,7 @@ const AppliedGigCard = ({ gig, onClick }) => {
           <div className={styles.metaInfo}>
             <span>
               <MapPin size={14} />
-              {location?.city || location?.address || 'Location TBD'}
+              {decodeHTMLEntities(location?.city) || decodeHTMLEntities(location?.address) || 'Location TBD'}
             </span>
             <span>
               <Briefcase size={14} />

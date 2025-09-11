@@ -3,6 +3,19 @@ import styles from './TaskerList.module.css';
 import apiClient from '../api/axiosConfig';
 import GigHelperCard from './GigHelperCard';
 
+// Helper function to decode HTML entities
+const decodeHTMLEntities = text => {
+  if (typeof text !== 'string' || !text) return '';
+  try {
+    const element = document.createElement('div');
+    element.innerHTML = text;
+    return element.textContent || element.innerText || '';
+  } catch (e) {
+    console.error('Error decoding HTML entities:', e);
+    return text;
+  }
+};
+
 const TaskerListSafe = ({ searchTerm = '' }) => {
   const [taskers, setTaskers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -150,14 +163,14 @@ const TaskerListSafe = ({ searchTerm = '' }) => {
         try {
           // Safe data extraction
           const displayName =
-            tasker.fullName ||
-            `${tasker.firstName || ''}${tasker.lastName ? ` ${tasker.lastName[0]}.` : ''}`.trim() ||
+            decodeHTMLEntities(tasker.fullName) ||
+            decodeHTMLEntities(`${tasker.firstName || ''}${tasker.lastName ? ` ${tasker.lastName[0]}.` : ''}`.trim()) ||
             'Anonymous User';
 
           const displayRate = tasker.ratePerHour
-            ? `$${tasker.ratePerHour}/hr`
+            ? `${tasker.ratePerHour}/hr`
             : tasker.rateRange
-              ? `$${tasker.rateRange}/hr`
+              ? `${tasker.rateRange}/hr`
               : tasker.rating
                 ? `⭐ ${Number(tasker.rating).toFixed(1)} (${tasker.ratingCount || 0} reviews)`
                 : 'Rate not specified';
@@ -167,9 +180,9 @@ const TaskerListSafe = ({ searchTerm = '' }) => {
 
           if (tasker.address) {
             const parts = [];
-            if (tasker.address.city) parts.push(tasker.address.city);
-            if (tasker.address.state) parts.push(tasker.address.state);
-            if (tasker.address.country) parts.push(tasker.address.country);
+            if (tasker.address.city) parts.push(decodeHTMLEntities(tasker.address.city));
+            if (tasker.address.state) parts.push(decodeHTMLEntities(tasker.address.state));
+            if (tasker.address.country) parts.push(decodeHTMLEntities(tasker.address.country));
 
             if (parts.length > 0) {
               displayLocation = parts.join(', ');
@@ -178,32 +191,29 @@ const TaskerListSafe = ({ searchTerm = '' }) => {
             // Fallback to location field if address is not available
             displayLocation =
               typeof tasker.location === 'string'
-                ? tasker.location
-                : tasker.location.city ||
-                  tasker.location.state ||
+                ? decodeHTMLEntities(tasker.location)
+                : decodeHTMLEntities(tasker.location.city) ||
+                  decodeHTMLEntities(tasker.location.state) ||
                   'Location not specified';
           } else if (tasker.city || tasker.state) {
             // Fallback to direct city/state fields
             const parts = [];
-            if (tasker.city) parts.push(tasker.city);
-            if (tasker.state) parts.push(tasker.state);
+            if (tasker.city) parts.push(decodeHTMLEntities(tasker.city));
+            if (tasker.state) parts.push(decodeHTMLEntities(tasker.state));
             displayLocation = parts.join(', ');
           }
 
           return (
-            <GigHelperCard
-              key={tasker._id}
-              userId={tasker._id}
-              profileImage={tasker.profileImage || '/default.jpg'}
-              name={displayName}
-              rate={displayRate}
-              location={displayLocation}
-              bio={tasker.bio || 'No bio provided.'}
-              onMessage={() => {
-                console.log('Message clicked for:', tasker._id);
-              }}
-            />
-          );
+      <GigHelperCard
+        key={tasker._id}
+        userId={tasker._id}
+        profileImage={tasker.profileImage || '/default.jpg'}
+        name={decodeHTMLEntities(displayName)}
+        rate={decodeHTMLEntities(displayRate)}
+        location={decodeHTMLEntities(displayLocation)}
+        bio={decodeHTMLEntities(tasker.bio || 'No bio provided.')}
+      />
+    );
         } catch (cardError) {
           console.error('Error rendering tasker card:', cardError, tasker);
           return (

@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from './MessageThread.module.css'; // Your CSS Module
 import { useAuth } from '../contexts/AuthContext'; // To get current user ID
 import PropTypes from 'prop-types';
+import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
 
 // interface Message {
 //   _id: string;
@@ -61,7 +62,7 @@ function MessageThread({ messages = [] }) {
             {!isContinuous && ( // Only show avatar for the first message in a group
               <img
                 src={msg.sender?.profileImage || '/default.png'}
-                alt={msg.sender?.firstName || 'User'}
+                alt={decodeHTMLEntities(msg.sender?.firstName) || 'User'}
                 className={styles.avatar}
                 onError={handleImageError}
               />
@@ -70,11 +71,11 @@ function MessageThread({ messages = [] }) {
               {!isContinuous && ( // Only show name for the first message in a group
                 <div className={styles.messageHeader}>
                   <h3 className={styles.userName}>
-                    {msg.sender?.firstName || 'User'}
+                    {decodeHTMLEntities(msg.sender?.firstName) || 'User'}
                   </h3>
                 </div>
               )}
-              <p className={styles.messageText}>{msg.content}</p>
+              <p className={styles.messageText}>{decodeHTMLEntities(msg.content)}</p>
               {/* Show timestamp on hover or always */}
               <time className={styles.timestamp}>
                 {formatTimestamp(msg.timestamp || msg.createdAt)}

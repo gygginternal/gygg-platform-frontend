@@ -1,6 +1,7 @@
 import React from 'react';
 import { Check, X } from 'lucide-react';
 import styles from './NotificationItem.module.css';
+import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
 
 const NotificationItem = ({
   notification,
@@ -57,7 +58,7 @@ const NotificationItem = ({
       </div>
 
       <div className={styles.notificationContent}>
-        <p className={styles.message}>{notification.message}</p>
+        <p className={styles.message}>{decodeHTMLEntities(notification.message)}</p>
         <span className={styles.time}>
           {formatTimeAgo(notification.createdAt)}
         </span>

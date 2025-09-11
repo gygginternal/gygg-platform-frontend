@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import styles from './Header.module.css';
-import Sidebar from './Sidebar';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Search, Bell, Menu, X } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import apiClient from '../../api/axiosConfig';
 import { useSocket } from '../../contexts/SocketContext';
+import styles from './Header.module.css';
+import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
+import Sidebar from './Sidebar';
 
 function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -403,7 +404,7 @@ function Header() {
                                     );
                                   })()}
                                   <span className={styles.notificationMessage}>
-                                    {notification.message}
+                                    {decodeHTMLEntities(notification.message)}
                                   </span>
                                 </div>
                                 <span className={styles.notificationTimeRight}>

@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Search, MoreVertical } from 'lucide-react';
 import styles from './ChatSidebar.module.css';
+import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
 
 const ChatSidebar = ({ contacts, selectedContact, onContactSelect }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -13,8 +14,8 @@ const ChatSidebar = ({ contacts, selectedContact, onContactSelect }) => {
 
     const searchLower = searchTerm.toLowerCase().trim();
     return contacts.filter(contact => {
-      const nameMatch = contact.name.toLowerCase().includes(searchLower);
-      const messageMatch = contact.lastMessage
+      const nameMatch = decodeHTMLEntities(contact.name).toLowerCase().includes(searchLower);
+      const messageMatch = decodeHTMLEntities(contact.lastMessage)
         ?.toLowerCase()
         .includes(searchLower);
       return nameMatch || messageMatch;
@@ -97,7 +98,7 @@ const ChatSidebar = ({ contacts, selectedContact, onContactSelect }) => {
               <div className={styles.avatarContainer}>
                 <img
                   src={contact.avatar}
-                  alt={contact.name}
+                  alt={decodeHTMLEntities(contact.name)}
                   className={styles.avatar}
                 />
                 {contact.isOnline && <div className={styles.onlineIndicator} />}
@@ -105,12 +106,12 @@ const ChatSidebar = ({ contacts, selectedContact, onContactSelect }) => {
 
               <div className={styles.contactInfo}>
                 <div className={styles.contactHeader}>
-                  <span className={styles.contactName}>{contact.name}</span>
+                  <span className={styles.contactName}>{decodeHTMLEntities(contact.name)}</span>
                   <span className={styles.timestamp}>{contact.timestamp}</span>
                 </div>
                 <div className={styles.lastMessageContainer}>
                   <span className={styles.lastMessage}>
-                    {contact.lastMessage}
+                    {decodeHTMLEntities(contact.lastMessage)}
                   </span>
                   {contact.unreadCount ? (
                     <div className={styles.unreadBadge}>

@@ -18,6 +18,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { GigApplySection } from './Shared/GigApplySection';
 import ReviewSection from './ReviewSection';
 import PropTypes from 'prop-types';
+import { decodeHTMLEntities } from '../utils/htmlEntityDecoder';
 
 const stripePromise = loadStripe(
   'pk_test_51RgsCzCar68v7b8ot0KNr8l9NTWwDsURWgVctgW2wN45rZLxejGqO6s4e44z7KjhAHxjvZ1DOvbggzcPgXMUrusy00h5KCJqtc'
@@ -253,10 +254,10 @@ function GigDetailPage() {
         <div className={styles.gigContent}>
           <div className={styles.gigDetailsSection}>
             {/* Gig Info */}
-            <h1 className={styles.gigTitle}>{gigData.title}</h1>
-            <p className={styles.gigDescription}>{gigData.description}</p>
+            <h1 className={styles.gigTitle}>{decodeHTMLEntities(gigData.title)}</h1>
+            <p className={styles.gigDescription}>{decodeHTMLEntities(gigData.description)}</p>
             <p className={styles.gigLocation}>
-              <strong>Location:</strong> {gigData.location}
+              <strong>Location:</strong> {decodeHTMLEntities(gigData.location)}
             </p>
             <p className={styles.gigBudget}>
               <strong>Budget:</strong> $
@@ -265,7 +266,7 @@ function GigDetailPage() {
                 : 'N/A'}
             </p>
             <p className={styles.gigCategory}>
-              <strong>Category:</strong> {gigData.category}
+              <strong>Category:</strong> {decodeHTMLEntities(gigData.category)}
             </p>
 
             {/* Payment Breakdown */}

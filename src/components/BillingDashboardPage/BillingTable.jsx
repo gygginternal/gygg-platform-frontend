@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import { BillingModal } from './BillingModal';
 import { Pagination } from 'antd';
 import styles from './BillingTable.module.css';
+import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
 
 export const BillingTable = () => {
   const [selectedGig, setSelectedGig] = useState(null);
@@ -76,7 +77,7 @@ export const BillingTable = () => {
                 <td className={styles.bodyCell}>
                   {format(new Date(row.createdAt), 'MM-dd-yyyy')}
                 </td>
-                <td className={styles.bodyCell}>{row?.gig?.title || 'N/A'}</td>
+                <td className={styles.bodyCell}>{decodeHTMLEntities(row?.gig?.title) || 'N/A'}</td>
                 <td
                   className={`${styles.bodyCell} ${styles.invoiceLink}`}
                   onClick={() => setSelectedGig(row)}

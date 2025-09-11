@@ -10,6 +10,7 @@ import {
   AlertCircle,
   Clock as ClockIcon,
 } from 'lucide-react';
+import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
 
 export default function ContractCard({ contract, onClick }) {
   // Define status configuration for styling
@@ -87,7 +88,7 @@ export default function ContractCard({ contract, onClick }) {
         <div className={styles.categorySection}>
           <div className={styles.categoryInfo}>
             <span className={styles.categoryName}>
-              {contract.gigCategory?.toUpperCase() || 'CONTRACT'}
+              {decodeHTMLEntities(contract.gigCategory?.toUpperCase()) || 'CONTRACT'}
             </span>
           </div>
         </div>
@@ -104,7 +105,7 @@ export default function ContractCard({ contract, onClick }) {
       </div>
 
       {/* Contract Title */}
-      <h3 className={styles.contractTitle}>{contract.gigTitle}</h3>
+      <h3 className={styles.contractTitle}>{decodeHTMLEntities(contract.gigTitle)}</h3>
 
       {/* Client Info */}
       <div className={styles.clientInfo}>
@@ -112,7 +113,7 @@ export default function ContractCard({ contract, onClick }) {
           {contract.displayImage ? (
             <img
               src={contract.displayImage}
-              alt={`${contract.displayName}'s profile`}
+              alt={`${decodeHTMLEntities(contract.displayName)}'s profile`}
               className={styles.avatarImage}
             />
           ) : (
@@ -121,7 +122,7 @@ export default function ContractCard({ contract, onClick }) {
         </div>
         <div className={styles.clientDetails}>
           <span className={styles.clientName}>
-            <b>{contract.hiredBy || contract.displayName}</b>
+            <b>{decodeHTMLEntities(contract.hiredBy) || decodeHTMLEntities(contract.displayName)}</b>
           </span>
         </div>
         <div className={styles.timeInfo}>
@@ -139,21 +140,21 @@ export default function ContractCard({ contract, onClick }) {
         <div className={styles.locationPrice}>
           <div className={styles.location}>
             <MapPin size={14} />
-            <span>{contract.location || 'Location TBD'}</span>
+            <span>{decodeHTMLEntities(contract.location) || 'Location TBD'}</span>
           </div>
           <div className={styles.duration}>
             <Clock size={14} />
-            <span>{contract.duration || 'Flexible'}</span>
+            <span>{decodeHTMLEntities(contract.duration) || 'Flexible'}</span>
           </div>
         </div>
         <div className={styles.priceSection}>
           <div className={styles.price}>
             <DollarSign size={16} />
-            <span className={styles.amount}>{contract.rate}</span>
+            <span className={styles.amount}>{decodeHTMLEntities(contract.rate)}</span>
           </div>
           <div className={styles.earned}>
             <span>Earned</span>
-            <span className={styles.earnedAmount}>{contract.earned}</span>
+            <span className={styles.earnedAmount}>{decodeHTMLEntities(contract.earned)}</span>
           </div>
         </div>
       </div>

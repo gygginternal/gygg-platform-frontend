@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styles from './GigList.module.css';
+import { decodeHTMLEntities } from '../utils/htmlEntityDecoder';
 
 function GigList({ gigs, loading, error, title = 'Available Gigs' }) {
   if (loading) return <p>Loading gigs...</p>;
@@ -15,11 +16,11 @@ function GigList({ gigs, loading, error, title = 'Available Gigs' }) {
         {gigs.map(gig => (
           <li key={gig.id || gig._id} className={styles.listItemCard}>
             <h4>
-              <Link to={`/gigs/${gig.id || gig._id}`}>{gig.title}</Link>
+              <Link to={`/gigs/${gig.id || gig._id}`}>{decodeHTMLEntities(gig.title)}</Link>
             </h4>
             <p>
-              Category: {gig.category}{' '}
-              {gig.subcategory ? `(${gig.subcategory})` : ''}
+              Category: {decodeHTMLEntities(gig.category)}{' '}
+              {gig.subcategory ? `(${decodeHTMLEntities(gig.subcategory)})` : ''}
             </p>
             <p>
               {gig.isHourly 
@@ -33,9 +34,9 @@ function GigList({ gigs, loading, error, title = 'Available Gigs' }) {
                 {gig.status}
               </span>
             </p>
-            <p>Posted by: {gig.postedBy?.fullName || 'N/A'}</p>
+            <p>Posted by: {gig.postedBy?.fullName ? decodeHTMLEntities(gig.postedBy.fullName) : 'N/A'}</p>
             {gig.assignedTo && (
-              <p>Tasker: {gig.assignedTo?.fullName || 'N/A'}</p>
+              <p>Tasker: {gig.assignedTo?.fullName ? decodeHTMLEntities(gig.assignedTo.fullName) : 'N/A'}</p>
             )}
           </li>
         ))}

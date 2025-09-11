@@ -3,6 +3,7 @@ import styles from './TaskerList.module.css';
 import apiClient from '../api/axiosConfig';
 import GigHelperCard from './GigHelperCard';
 import { useAuth } from '../contexts/AuthContext';
+import { decodeHTMLEntities } from '../utils/htmlEntityDecoder';
 
 const TaskerList = () => {
   const { user } = useAuth();
@@ -189,19 +190,19 @@ const TaskerList = () => {
           userId={tasker._id}
           profileImage={tasker.profileImage || '/default.jpg'}
           name={
-            tasker.fullName ||
-            `${tasker.firstName || ''}${tasker.lastName ? ` ${tasker.lastName[0]}.` : ''}`.trim() ||
+            decodeHTMLEntities(tasker.fullName) ||
+            decodeHTMLEntities(`${tasker.firstName || ''}${tasker.lastName ? ` ${tasker.lastName[0]}.` : ''}`.trim()) ||
             'Anonymous User'
           }
           rate={
             tasker.ratePerHour
-              ? `$${tasker.ratePerHour}/hr`
+              ? `${tasker.ratePerHour}/hr`
               : tasker.rateRange
-                ? `$${tasker.rateRange}/hr`
+                ? `${tasker.rateRange}/hr`
                 : ''
           }
-          location={tasker.address?.city || tasker.address?.state || ''}
-          bio={tasker.bio || 'No bio provided.'}
+          location={decodeHTMLEntities(tasker.address?.city) || decodeHTMLEntities(tasker.address?.state) || ''}
+          bio={decodeHTMLEntities(tasker.bio) || 'No bio provided.'}
           compatibilityScore={tasker.compatibilityScore}
           hobbyMatches={tasker.hobbyMatches}
           personalityMatches={tasker.personalityMatches}

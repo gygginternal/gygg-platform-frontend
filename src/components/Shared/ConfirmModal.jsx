@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styles from './ConfirmModal.module.css';
+import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
 
 /**
  * Confirmation Modal Component
@@ -104,7 +105,7 @@ const ConfirmModal = ({
         </div>
         
         <div className={styles.modalContentBody}>
-          <p className={styles.modalMessage}>{message}</p>
+          <p className={styles.modalMessage}>{decodeHTMLEntities(message)}</p>
         </div>
         
         <div className={styles.modalActions}>

@@ -3,6 +3,7 @@ import styles from './RecentHires.module.css';
 import apiClient from '../../api/axiosConfig';
 import { Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
 
 function RecentHires({ providerId, isOwnProfile }) {
   const [hires, setHires] = useState([]);
@@ -108,10 +109,10 @@ function RecentHires({ providerId, isOwnProfile }) {
             return {
               contractId: contract.id || contract._id || contract.contractId,
               taskerId: taskerId,
-              taskerName: taskerName,
+              taskerName: decodeHTMLEntities(taskerName),
               taskerImage: taskerImage,
-              gigTitle: gigTitle,
-              review: reviewData?.comment || 'No review provided',
+              gigTitle: decodeHTMLEntities(gigTitle),
+              review: decodeHTMLEntities(reviewData?.comment) || 'No review provided',
               rating: reviewData?.rating || 0,
               date: contract.completedAt || contract.updatedAt || contract.createdAt,
               gigId: gigId,
@@ -193,7 +194,7 @@ function RecentHires({ providerId, isOwnProfile }) {
               </div>
             )}
               <div className={styles.hireInfo}>
-                <div className={styles.hireName}>{hire.taskerName}</div>
+                <div className={styles.hireName}>{decodeHTMLEntities(hire.taskerName)}</div>
                 <div className={styles.hireDate}>
                   {hire.date
                     ? new Date(hire.date).toLocaleDateString('en-US', {
@@ -206,13 +207,13 @@ function RecentHires({ providerId, isOwnProfile }) {
               </div>
             </div>
             
-            {hire.gigId ? (
-              <a href={`/gigs/${hire.gigId}`} className={styles.gigTitleLink}>
-                {hire.gigTitle}
-              </a>
-            ) : (
-              <span className={styles.gigTitleLink}>{hire.gigTitle}</span>
-            )}
+                          {hire.gigId ? (
+                <a href={`/gigs/${hire.gigId}`} className={styles.gigTitleLink}>
+                  {decodeHTMLEntities(hire.gigTitle)}
+                </a>
+              ) : (
+                <span className={styles.gigTitleLink}>{decodeHTMLEntities(hire.gigTitle)}</span>
+              )}
             
             <div className={styles.reviewSection}>
               <div className={styles.ratingRow}>
@@ -238,7 +239,7 @@ function RecentHires({ providerId, isOwnProfile }) {
               </div>
               
               <div className={styles.reviewText}>
-                {hire.review}
+                {decodeHTMLEntities(hire.review)}
               </div>
             </div>
           </div>
