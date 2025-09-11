@@ -174,13 +174,13 @@
 }
 
 .messageInput:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: #536471;
+  box-shadow: 0 0 0 3px rgba(83, 100, 113, 0.1);
 }
 
 .sendButton {
   padding: 0.75rem; /* 12px */
-  background-color: #3b82f6;
+  background-color: #536471;
   color: white;
   border: none;
   border-radius: 50%;
@@ -197,7 +197,7 @@
 }
 
 .sendButton:hover:not(:disabled) {
-  background-color: #2563eb;
+  background-color: #45525d;
   transform: scale(1.05);
 }
 

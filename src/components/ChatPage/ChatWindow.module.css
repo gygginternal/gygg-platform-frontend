@@ -173,7 +173,7 @@
 }
 
 .sent .message {
-  background: #3b82f6;
+  background: #536471;
   color: #ffffff;
   border-bottom-right-radius: 4px;
   margin-left: auto;
@@ -259,9 +259,9 @@
 }
 
 .inputForm:focus-within {
-  border-color: #3b82f6;
+  border-color: #536471;
   background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 3px rgba(83, 100, 113, 0.1);
 }
 
 .attachIcon {
@@ -274,8 +274,8 @@
 }
 
 .attachIcon:hover {
-  color: #3b82f6;
-  background: rgba(59, 130, 246, 0.1);
+  color: #536471;
+  background: rgba(83, 100, 113, 0.1);
 }
 
 .sendButton {
@@ -299,13 +299,13 @@
 
 .sendButton:not(:disabled):hover {
   background: #e5e7eb;
-  color: #3b82f6;
+  color: #536471;
 }
 
 .sendButtonActive {
-  background: #3b82f6;
+  background: #536471;
   color: #ffffff;
-  border-color: #3b82f6;
+  border-color: #536471;
 }
 
 .sendButtonActive:not(:disabled):hover {
@@ -605,7 +605,7 @@
 }
 
 .attachIcon.uploading {
-  color: #007bff !important;
+  color: #536471 !important;
   animation: pulse 1.5s infinite;
 }
 
