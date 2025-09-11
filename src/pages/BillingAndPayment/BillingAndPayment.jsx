@@ -441,10 +441,19 @@ export default function BillingAndPayment() {
   const isTasker = user?.role?.includes('tasker');
   const isProvider = user?.role?.includes('provider');
 
-  // Set payer/payee filter based on view and role
-  // For users with both roles, filter based on current view
-  const payer = view === 'spent' ? user?._id : undefined;
-  const payee = view === 'earned' ? user?._id : undefined;
+  // Debounce search term to avoid excessive API calls
+  useEffect(() => {
+    console.log('Search term changed:', search);
+    const handler = setTimeout(() => {
+      console.log('Setting debounced search to:', search);
+      setDebouncedSearch(search);
+    }, 300);
+
+    // Cleanup function to clear the timeout if search changes before the delay
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [search]); // Only re-run the effect if search changes
 
   // Fetch earnings summary
   const fetchEarningsSummary = async () => {
@@ -481,8 +490,11 @@ export default function BillingAndPayment() {
       const params = {
         page,
         limit: 10,
+        search: search || undefined,
         status: status !== 'all' ? status : undefined,
         type: type !== 'all' ? type : undefined,
+        minAmount: minAmount ? parseFloat(minAmount) : undefined,
+        maxAmount: maxAmount ? parseFloat(maxAmount) : undefined,
         startDate: undefined, // Can be added for date filtering
         endDate: undefined,
       };
@@ -508,7 +520,7 @@ export default function BillingAndPayment() {
       fetchBalance();
     }
     // eslint-disable-next-line
-  }, [status, type, page, user?._id]);
+  }, [status, type, page, user?._id, search, minAmount, maxAmount]);
 
   useEffect(() => {
     if (user?._id) {
@@ -652,7 +664,10 @@ export default function BillingAndPayment() {
             type="text"
             placeholder="Search payments..."
             value={search}
-            onChange={e => setSearch(e.target.value)}
+            onChange={e => {
+              setSearch(e.target.value);
+              setPage(1); // Reset to first page when searching
+            }}
             className={styles.searchInput}
           />
           <button
@@ -671,7 +686,10 @@ export default function BillingAndPayment() {
                   <button
                     key={opt}
                     className={`${styles.priceRangeButton} ${status === opt ? styles.selected : ''}`}
-                    onClick={() => setStatus(opt)}
+                    onClick={() => {
+                      setStatus(opt);
+                      setPage(1); // Reset to first page when changing filters
+                    }}
                   >
                     {opt.charAt(0).toUpperCase() +
                       opt.slice(1).replace(/_/g, ' ')}
@@ -686,7 +704,10 @@ export default function BillingAndPayment() {
                   <button
                     key={opt}
                     className={`${styles.priceRangeButton} ${type === opt ? styles.selected : ''}`}
-                    onClick={() => setType(opt)}
+                    onClick={() => {
+                      setType(opt);
+                      setPage(1); // Reset to first page when changing filters
+                    }}
                   >
                     {opt.charAt(0).toUpperCase() + opt.slice(1)}
                   </button>
@@ -700,7 +721,10 @@ export default function BillingAndPayment() {
                   type="number"
                   placeholder="Min"
                   value={minAmount}
-                  onChange={e => setMinAmount(e.target.value)}
+                  onChange={e => {
+                    setMinAmount(e.target.value);
+                    setPage(1); // Reset to first page when changing filters
+                  }}
                   className={styles.searchInput}
                   style={{ width: 100 }}
                 />
@@ -708,7 +732,10 @@ export default function BillingAndPayment() {
                   type="number"
                   placeholder="Max"
                   value={maxAmount}
-                  onChange={e => setMaxAmount(e.target.value)}
+                  onChange={e => {
+                    setMaxAmount(e.target.value);
+                    setPage(1); // Reset to first page when changing filters
+                  }}
                   className={styles.searchInput}
                   style={{ width: 100 }}
                 />
@@ -722,6 +749,7 @@ export default function BillingAndPayment() {
                 setMinAmount('');
                 setMaxAmount('');
                 setSearch('');
+                setPage(1); // Reset to first page when clearing filters
               }}
             >
               Clear All Filters
