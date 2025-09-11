@@ -563,44 +563,6 @@ function ContractsPage() {
             </div>
             <div className={styles.modalActions}>
               {sessionRole === 'provider' &&
-                ['active', 'submitted'].includes(
-                  modalContract.status?.toLowerCase()
-                ) && (
-                  <button
-                    className={styles.primaryBtn}
-                    onClick={async () => {
-                      setPaymentModal(prev => ({ ...prev, loading: true }));
-                      try {
-                        const response = await apiClient.post(
-                          `/payments/contracts/${modalContract.id || modalContract._id}/create-payment-intent`
-                        );
-
-                        // Close the contract details modal and open payment modal
-                        setIsModalOpen(false);
-                        setModalContract(null);
-
-                        // Open payment modal with client secret
-                        setPaymentModal({
-                          open: true,
-                          contract: modalContract,
-                          clientSecret: response.data.clientSecret,
-                          loading: false,
-                        });
-                      } catch (err) {
-                        setPaymentModal(prev => ({ ...prev, loading: false }));
-                        showToast(
-                          err.response?.data?.message ||
-                            'Failed to initiate payment.',
-                          'error'
-                        );
-                      }
-                    }}
-                    disabled={paymentModal.loading}
-                  >
-                    {paymentModal.loading ? 'Processing...' : 'Make Payment'}
-                  </button>
-                )}
-              {sessionRole === 'provider' &&
                 modalContract.status?.toLowerCase() === 'submitted' && (
                   <button
                     className={styles.primaryBtn}

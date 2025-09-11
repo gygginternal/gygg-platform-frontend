@@ -87,8 +87,7 @@ function ReviewForm({ contractId, review, onSuccess }) {
 
   return (
     // Apply card styling or custom styling as needed
-    <form id="review-form" onSubmit={handleSubmit} className={styles.reviewFormCard}>
-      <h4>Leave a Review for the Tasker</h4>
+    <form id="review-form" onSubmit={handleSubmit} className={styles.reviewForm}>
       {error && <p className={styles.errorMessage}>{error}</p>}{' '}
       {/* Use className for styling */}
       <div className={styles.formGroup}>
@@ -111,9 +110,6 @@ function ReviewForm({ contractId, review, onSuccess }) {
           disabled={loading}
         />
       </div>
-      <button type="submit" disabled={loading} className={styles.submitButton}>
-        {loading ? 'Submitting...' : review ? 'Update' : 'Submit'} Review
-      </button>
       {review && (
         <button
           type="button"

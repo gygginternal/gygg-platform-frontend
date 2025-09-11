@@ -112,8 +112,7 @@ const RateTaskerPage = () => {
             </div>
             
             {contract && (
-              <div className={styles.contractInfo}>
-                <h2>{contract.gig?.title}</h2>
+              <div className={styles.combinedInfo}>
                 <div className={styles.taskerInfo}>
                   {contract.tasker?.profileImage ? (
                     <img 
@@ -128,18 +127,18 @@ const RateTaskerPage = () => {
                   )}
                   <div>
                     <h3>{contract.tasker?.firstName} {contract.tasker?.lastName}</h3>
-                    <p>Tasker</p>
+                    <p>{contract.gig?.title}</p>
                   </div>
+                </div>
+                
+                <div className={styles.reviewFormContainer}>
+                  <ReviewForm 
+                    contractId={contractId}
+                    onSuccess={handleRatingSuccess}
+                  />
                 </div>
               </div>
             )}
-            
-            <div className={styles.reviewFormContainer}>
-              <ReviewForm 
-                contractId={contractId}
-                onSuccess={handleRatingSuccess}
-              />
-            </div>
             
             <div className={styles.actions}>
               <a 
