@@ -862,7 +862,7 @@ export default function BillingAndPayment() {
                         fontWeight: 600,
                       }}
                     >
-                      {view === 'earned' ? '+' : '-'}$
+                      $
                       {((inv.amount || 0) / 100).toFixed(2)}
                     </td>
                     <td>
