@@ -238,7 +238,7 @@
 }
 .notificationUnread {
   background: linear-gradient(90deg, rgba(59, 130, 246, 0.02) 0%, rgba(255, 255, 255, 1) 100%) !important;
-  border-left: 3px solid #3b82f6;
+  
 }
 
 .notificationUnread .notificationDropdownItem span {
@@ -956,7 +956,7 @@
 
 .notificationUnread {
   background: linear-gradient(90deg, rgba(59, 130, 246, 0.02) 0%, rgba(255, 255, 255, 1) 100%) !important;
-  border-left: 3px solid #3b82f6;
+  
 }
 
 .notificationUnread .notificationDropdownItem span {
@@ -1257,7 +1257,7 @@
 }
 .notificationUnread {
   background: linear-gradient(90deg, rgba(59, 130, 246, 0.02) 0%, rgba(255, 255, 255, 1) 100%) !important;
-  border-left: 3px solid #3b82f6;
+  
 }
 
 .notificationUnread .notificationDropdownItem span {
@@ -2037,7 +2037,7 @@
 
 .notificationUnread {
   background: linear-gradient(90deg, rgba(59, 130, 246, 0.02) 0%, rgba(255, 255, 255, 1) 100%) !important;
-  border-left: 3px solid #3b82f6;
+  
 }
 
 .notificationUnread .notificationDropdownItem span {
