@@ -53,7 +53,7 @@ const AwaitedPostedGigs = () => {
         <div className={styles.sectionIcon}>
           <img src="/assets/lamp-on.svg" alt="Lamp" width={20} height={20} />
         </div>
-        <h4 className={styles.sectionTitle}>Awaited Posted Gigs</h4>
+        <h4 className={styles.sectionTitle}>Posted Gigs</h4>
       </div>
       <div className={styles.awaitedList}>
         {isLoading ? (
@@ -68,7 +68,7 @@ const AwaitedPostedGigs = () => {
               <div>
                 <Link
                   to={`/gigs/${gig._id}`}
-                  className={`${styles.viewGigLink} ${styles.underline}`}
+                  className={`${styles.viewGigLink}`}
                   onClick={e => handleGigClick(gig, e)}
                 >
                   <p className={styles.awaitedDescription}>{gig.title}</p>

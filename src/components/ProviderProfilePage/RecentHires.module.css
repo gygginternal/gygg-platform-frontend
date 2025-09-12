@@ -105,11 +105,6 @@
   overflow: hidden;
 }
 
-.gigTitleLink:hover {
-  color: #3b82f6;
-  text-decoration: underline;
-}
-
 .reviewSection {
   display: flex;
   flex-direction: column;

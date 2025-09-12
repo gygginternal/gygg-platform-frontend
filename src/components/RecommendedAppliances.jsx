@@ -36,7 +36,7 @@ const RecommendedAppliances = () => {
           />
         </div>
         <h4 className={styles.sectionTitle}>
-          Top matched people applied to your gig
+          Top matches among applicants to your gig
         </h4>
       </div>
       <div className={styles.appliancesList}>

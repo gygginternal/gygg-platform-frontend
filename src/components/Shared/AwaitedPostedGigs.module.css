@@ -88,10 +88,6 @@
   text-decoration: underline;
 }
 
-.underline {
-  text-decoration: underline !important;
-}
-
 .errorMessage {
   /* Facebook Comments 13-14px. Using 14px. */
   font-size: 0.875rem; /* 14px */
