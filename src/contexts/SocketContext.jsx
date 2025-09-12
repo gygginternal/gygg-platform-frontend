@@ -21,12 +21,6 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (!isLoading && user && authToken) {
-      console.log('[SocketContext] Initializing socket connection...', {
-        user: user._id,
-        hasToken: !!authToken,
-        tokenLength: authToken?.length,
-      });
-
       const newSocket = io(
         (import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000').replace(
           '/api/v1',
@@ -49,22 +43,13 @@ export const SocketProvider = ({ children }) => {
       );
 
       newSocket.on('connect', () => {
-        console.log(
-          '[SocketContext] Socket connected successfully!',
-          newSocket.id
-        );
         setConnected(true);
         if (user && user._id) {
-          console.log(
-            '[SocketContext] Subscribing to notifications for user:',
-            user._id
-          );
           newSocket.emit('subscribeToNotifications', { userId: user._id });
         }
       });
 
       newSocket.on('disconnect', reason => {
-        console.log('[SocketContext] Socket disconnected:', reason);
         setConnected(false);
       });
 
@@ -72,7 +57,7 @@ export const SocketProvider = ({ children }) => {
         console.error('[Socket] Connect error:', err.message);
         // If authentication fails, the socket will automatically retry
         if (err.message.includes('Authentication')) {
-          console.log('Socket authentication failed, will retry...');
+          // Silent retry
         }
       });
 
@@ -81,14 +66,6 @@ export const SocketProvider = ({ children }) => {
       });
 
       newSocket.on('newChatMessage', message => {
-        console.log('[SocketContext] Received newChatMessage:', {
-          messageId: message._id,
-          senderId: message.sender?._id,
-          receiverId: message.receiver,
-          content: message.content?.substring(0, 50) + '...',
-          timestamp: message.timestamp
-        });
-
         // Add timestamp to ensure we have the latest message data
         const messageWithTimestamp = {
           ...message,
@@ -96,7 +73,6 @@ export const SocketProvider = ({ children }) => {
         };
 
         setNewMessage(messageWithTimestamp);
-        console.log('[SocketContext] Calling', newMessageHandlers.current.length, 'message handlers');
         newMessageHandlers.current.forEach(h => h(messageWithTimestamp));
       });
 
@@ -126,7 +102,7 @@ export const SocketProvider = ({ children }) => {
       });
 
       newSocket.on('notification:unreadCountUpdated', () => {
-        console.log('Unread count updated notification received');
+        // Silent update
       });
 
       newSocket.on('chat:messageUpdated', message => {

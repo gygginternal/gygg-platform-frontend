@@ -32,13 +32,6 @@ export function StripeConnectOnboarding() {
       const accountData = response.data.data || response.data;
       setAccountStatus(accountData);
 
-      // Debug logging to understand the account status
-      console.log('Full Response:', response.data);
-      console.log('Account Data:', accountData);
-      console.log('Details Submitted:', accountData?.detailsSubmitted);
-      console.log('Charges Enabled:', accountData?.chargesEnabled);
-      console.log('Payouts Enabled:', accountData?.payoutsEnabled);
-
       // If account is fully onboarded, show success state
       if (
         accountData &&
@@ -46,17 +39,9 @@ export function StripeConnectOnboarding() {
         accountData.chargesEnabled &&
         accountData.payoutsEnabled
       ) {
-        console.log('✅ All conditions met - Setting success state to true');
         setSuccess(true);
         setError(null);
       } else {
-        console.log('❌ Conditions not met - Setting success state to false');
-        console.log('Missing conditions:', {
-          hasAccountData: !!accountData,
-          detailsSubmitted: accountData?.detailsSubmitted,
-          chargesEnabled: accountData?.chargesEnabled,
-          payoutsEnabled: accountData?.payoutsEnabled
-        });
         setSuccess(false);
       }
 
@@ -156,21 +141,17 @@ export function StripeConnectOnboarding() {
     setLoading(false);
 
     if (status && status.detailsSubmitted && status.chargesEnabled && status.payoutsEnabled) {
-      console.log('Onboarding completed successfully');
       setSuccess(true);
       setError(null);
     } else if (status && status.detailsSubmitted) {
-      console.log('Onboarding partially complete - pending verification');
       setError('Your account setup is in progress. Stripe is reviewing your information. This may take a few minutes to complete.');
     } else {
-      console.log('Onboarding incomplete - user may need to return later');
       setError('Onboarding was not completed. You can continue the setup process anytime by clicking the button below.');
     }
   };
 
   // Handle step changes for analytics/tracking
   const handleStepChange = stepChange => {
-    console.log(`Onboarding step: ${stepChange.step}`);
     // You can add analytics tracking here
     // analytics.track('onboarding_step', { step: stepChange.step });
   };

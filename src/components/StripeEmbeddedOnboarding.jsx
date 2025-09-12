@@ -90,10 +90,7 @@ export function StripeEmbeddedOnboarding() {
         const response = await apiClient.post(
           '/payments/initiate-account-session?embedded=true'
         );
-        console.log('Account session response:', response);
         const { clientSecret, url } = response.data.data;
-        console.log('Client secret:', clientSecret);
-        console.log('URL:', url);
 
         // If we got a URL, use redirect approach
         if (url) {
@@ -114,34 +111,40 @@ export function StripeEmbeddedOnboarding() {
           // Try different methods to initialize embedded onboarding
           let onboarding;
 
-          // Method 1: initEmbeddedAccountOnboarding
-          if (typeof stripe.initEmbeddedAccountOnboarding === 'function') {
-            try {
-              console.log('Trying initEmbeddedAccountOnboarding...');
+          try {
               onboarding = await stripe.initEmbeddedAccountOnboarding({
                 clientSecret,
+                onLoad: () => {
+                  setLoading(false);
+                  setError(null);
+                },
+                onError: err => {
+                  setError(`Onboarding error: ${err.message}`);
+                  setLoading(false);
+                },
               });
             } catch (err) {
-              console.log('initEmbeddedAccountOnboarding failed:', err);
+              // Try alternative method
               throw err;
             }
-          }
-          // Method 2: connectEmbeddedAccountSession
-          else if (typeof stripe.connectEmbeddedAccountSession === 'function') {
-            try {
-              console.log('Trying connectEmbeddedAccountSession...');
-              const result =
-                await stripe.connectEmbeddedAccountSession(clientSecret);
-              if (result.error) {
-                throw new Error(result.error.message);
+          // Method 2: connectEmbeddedAccountSession (fallback)
+            if (!onboarding && typeof stripe.connectEmbeddedAccountSession === 'function') {
+              try {
+                onboarding = await stripe.connectEmbeddedAccountSession({
+                  clientSecret,
+                  onLoad: () => {
+                    setLoading(false);
+                    setError(null);
+                  },
+                  onError: err => {
+                    setError(`Account session error: ${err.message}`);
+                    setLoading(false);
+                  },
+                });
+              } catch (err) {
+                throw err;
               }
-              // This method doesn't return an object to mount, it handles UI automatically
-              return;
-            } catch (err) {
-              console.log('connectEmbeddedAccountSession failed:', err);
-              throw err;
             }
-          }
           // No valid method found
           else {
             throw new Error(
@@ -155,10 +158,6 @@ export function StripeEmbeddedOnboarding() {
           }
         }
       } catch (embeddedError) {
-        console.log(
-          'Embedded onboarding failed, trying redirect approach:',
-          embeddedError
-        );
         // Fall back to redirect approach
         const redirectResponse = await apiClient.post(
           '/payments/initiate-account-session'

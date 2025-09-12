@@ -18,51 +18,27 @@ const TaskerList = () => {
         setLoading(true);
         setError(null);
 
-        console.log('Fetching taskers...');
-        console.log('Current user:', user);
-        console.log('User role:', user?.role);
-
         // Use the improved match-taskers endpoint with better compatibility logic
         let response;
         let endpointUsed = '';
 
         try {
-          console.log('Fetching taskers with improved compatibility matching...');
           response = await apiClient.get('/users/match-taskers?limit=50');
           endpointUsed = 'match-taskers';
-          console.log('Success with match-taskers:', response.data);
         } catch (matchError) {
-          console.log(
-            'match-taskers failed:',
-            matchError.response?.status,
-            matchError.response?.data
-          );
-
           // Fallback to top-match-taskers if match-taskers fails
           try {
-            console.log('Trying fallback /users/top-match-taskers...');
             response = await apiClient.get('/users/top-match-taskers');
             endpointUsed = 'top-match-taskers';
-            console.log('Success with top-match-taskers:', response.data);
           } catch (topMatchError) {
-            console.log(
-              'top-match-taskers failed:',
-              topMatchError.response?.status,
               topMatchError.response?.data
             );
 
             // Last resort: try public endpoint
             try {
-              console.log('Trying public user search as last resort...');
               response = await apiClient.get('/users?role=tasker&limit=50');
               endpointUsed = 'public-users';
-              console.log('Success with public users:', response.data);
             } catch (publicError) {
-              console.log(
-                'Public users failed:',
-                publicError.response?.status,
-                publicError.response?.data
-              );
               throw matchError; // Throw the original match error
             }
           }
@@ -78,27 +54,15 @@ const TaskerList = () => {
           taskersData = response.data.data.taskers;
           console.log('Found taskers in data.taskers:', taskersData.length);
           
-          // Log compatibility scores for debugging
-          if (taskersData.length > 0 && taskersData[0].compatibilityScore !== undefined) {
-            console.log('Compatibility scores:', taskersData.slice(0, 5).map(t => ({
-              name: t.fullName || t.firstName,
-              compatibilityScore: t.compatibilityScore,
-              hobbyMatches: t.hobbyMatches,
-              personalityMatches: t.personalityMatches
-            })));
-          }
+          // Log compatibility scores for debugging (removed for production)
         } else if (response.data?.data?.matches) {
           taskersData = response.data.data.matches;
-          console.log('Found matches:', taskersData.length);
         } else if (response.data?.data && Array.isArray(response.data.data)) {
           taskersData = response.data.data;
-          console.log('Found array in data.data:', taskersData.length);
         } else if (response.data?.taskers) {
           taskersData = response.data.taskers;
-          console.log('Found taskers directly:', taskersData.length);
         } else if (Array.isArray(response.data)) {
           taskersData = response.data;
-          console.log('Response is direct array:', taskersData.length);
         } else if (response.data?.data) {
           // Single tasker object or other structure
           if (Array.isArray(response.data.data)) {
@@ -106,18 +70,13 @@ const TaskerList = () => {
           } else {
             taskersData = [response.data.data];
           }
-          console.log('Single tasker or other structure found');
         }
-
-        console.log('Final taskers data:', taskersData);
 
         // Ensure we have valid tasker data
         const validTaskers = taskersData.filter(
           tasker =>
             tasker && tasker._id && (tasker.firstName || tasker.fullName)
         );
-
-        console.log('Valid taskers after filtering:', validTaskers.length);
         setTaskers(validTaskers);
       } catch (err) {
         console.error('Error fetching taskers:', err);
@@ -159,8 +118,7 @@ const TaskerList = () => {
     return <div className={styles.loadingMessage}>Loading taskers...</div>;
   }
 
-  // Debug info (remove in production)
-  console.log('Current taskers state:', taskers);
+  // Debug info (removed for production)
 
   if (taskers.length === 0) {
     return (

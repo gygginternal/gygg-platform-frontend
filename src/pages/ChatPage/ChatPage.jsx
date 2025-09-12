@@ -203,10 +203,8 @@ const ChatPage = () => {
   useEffect(() => {
     if (socket && selectedContact && user) {
       const room = `chat:${user.id}:${selectedContact.id}`;
-      console.log('[ChatPage] Joining chat room:', room);
       socket.emit('join', room);
       return () => {
-        console.log('[ChatPage] Leaving chat room:', room);
         socket.emit('leave', room);
       };
     }
@@ -218,14 +216,6 @@ const ChatPage = () => {
 
     // Handler for new messages - Facebook Messenger style
     const handleNewMessage = message => {
-      console.log('[ChatPage] Processing new message:', {
-        messageId: message._id,
-        senderId: message.sender?._id,
-        receiverId: message.receiver,
-        selectedContactId: selectedContact.id,
-        currentUserId: user.id,
-        content: message.content?.substring(0, 30) + '...'
-      });
 
       // Check if message is for current conversation
       const isForCurrentChat =
@@ -235,8 +225,6 @@ const ChatPage = () => {
         (message.sender &&
           message.sender._id === user.id &&
           message.receiver === selectedContact.id);
-
-      console.log('[ChatPage] Is message for current chat:', isForCurrentChat);
 
       if (isForCurrentChat) {
         const newMsg = {
@@ -351,12 +339,10 @@ const ChatPage = () => {
     };
 
     // Register handlers
-    console.log('[ChatPage] Registering message handlers for contact:', selectedContact.id);
     const unregisterNew = registerNewMessageHandler(handleNewMessage);
     const unregisterUpdate = registerMessageUpdateHandler(handleMessageUpdate);
 
     return () => {
-      console.log('[ChatPage] Unregistering message handlers for contact:', selectedContact.id);
       unregisterNew();
       unregisterUpdate();
     };

@@ -71,13 +71,7 @@ function RecentHires({ providerId, isOwnProfile }) {
               }
             }
             
-            // Debug logging
-            console.log('Tasker data for contract:', contract.id || contract._id, {
-              tasker: contract.tasker,
-              taskerName,
-              taskerImage,
-              taskerId
-            });
+            // Debug logging removed for production
             
             // Extract gig information
             let gigTitle = 'Untitled Gig';

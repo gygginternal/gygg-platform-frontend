@@ -121,11 +121,8 @@ function ModernGigCreateForm({ onGigCreated }) {
       payload.cost = parseFloat(formData.gigCost);
     }
 
-    console.log('Submitting gig payload:', payload);
-
     try {
       const response = await apiClient.post('/gigs', payload);
-      console.log('Gig created successfully:', response.data);
 
       // Show success message
       showToast('Gig posted successfully!', { type: 'success' });

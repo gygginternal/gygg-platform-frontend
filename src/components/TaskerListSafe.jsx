@@ -76,8 +76,6 @@ const TaskerListSafe = ({ searchTerm = '' }) => {
           taskersData = [];
         }
 
-        console.log('Found taskers:', taskersData.length);
-
         // Filter valid taskers
         const validTaskers = taskersData.filter(tasker => {
           return (
@@ -86,19 +84,6 @@ const TaskerListSafe = ({ searchTerm = '' }) => {
             tasker._id &&
             (tasker.firstName || tasker.fullName)
           );
-        });
-
-        console.log('Valid taskers:', validTaskers.length);
-
-        // Debug: Log location data for first few taskers
-        validTaskers.slice(0, 3).forEach((tasker, index) => {
-          console.log(`Tasker ${index + 1} location data:`, {
-            address: tasker.address,
-            location: tasker.location,
-            city: tasker.city,
-            state: tasker.state,
-            name: tasker.firstName || tasker.fullName,
-          });
         });
 
         setTaskers(validTaskers);
