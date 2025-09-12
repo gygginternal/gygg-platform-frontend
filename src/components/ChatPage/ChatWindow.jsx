@@ -309,7 +309,7 @@ const ChatWindow = ({
             )}
           </div>
         </div>
-        <MoreVertical className={styles.moreIcon} />
+        {/* MoreVertical className={styles.moreIcon} - Commented out until delete chat functionality is implemented */}
       </div>
 
       <div className={styles.messagesContainer}>
