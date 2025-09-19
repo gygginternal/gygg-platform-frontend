@@ -3,6 +3,26 @@ import PropTypes from 'prop-types';
 import styles from './GigPostReview.module.css';
 
 function GigPostReview({ gigData, onEditStep }) {
+  // Format location display
+  const getLocationDisplay = () => {
+    if (gigData.isRemote) {
+      return 'Remote (can be done from anywhere)';
+    }
+    
+    const city = gigData.gigCity?.trim();
+    const state = gigData.gigState?.trim();
+    
+    if (city && state) {
+      return `${city}, ${state}`;
+    } else if (city) {
+      return city;
+    } else if (state) {
+      return state;
+    }
+    
+    return 'Location not specified';
+  };
+
   return (
     <div className={styles.reviewSection}>
       <h3 className={styles.reviewSubTitle}>Review Your Gig Details</h3>
@@ -10,7 +30,7 @@ function GigPostReview({ gigData, onEditStep }) {
         <span>
           <strong>Gig Title:</strong> {gigData.gigTitle || 'N/A'}
         </span>
-        <button onClick={() => onEditStep(4)} className={styles.editStepButton}>
+        <button onClick={() => onEditStep(1)} className={styles.editStepButton}>
           Edit
         </button>
       </div>
@@ -18,7 +38,7 @@ function GigPostReview({ gigData, onEditStep }) {
         <span>
           <strong>Timeline:</strong> {gigData.gigTimeline || 'N/A'}
         </span>
-        <button onClick={() => onEditStep(4)} className={styles.editStepButton}>
+        <button onClick={() => onEditStep(1)} className={styles.editStepButton}>
           Edit
         </button>
       </div>
@@ -26,7 +46,7 @@ function GigPostReview({ gigData, onEditStep }) {
         <span>
           <strong>Category:</strong> {gigData.gigCategory || 'N/A'}
         </span>
-        <button onClick={() => onEditStep(4)} className={styles.editStepButton}>
+        <button onClick={() => onEditStep(1)} className={styles.editStepButton}>
           Edit
         </button>
       </div>
@@ -37,7 +57,7 @@ function GigPostReview({ gigData, onEditStep }) {
             {gigData.gigDescription || 'N/A'}
           </p>
         </span>
-        <button onClick={() => onEditStep(5)} className={styles.editStepButton}>
+        <button onClick={() => onEditStep(2)} className={styles.editStepButton}>
           Edit
         </button>
       </div>
@@ -45,22 +65,30 @@ function GigPostReview({ gigData, onEditStep }) {
         <span>
           <strong>Payment Structure:</strong> {gigData.gigPaymentType || 'N/A'}
         </span>
-        <button onClick={() => onEditStep(5)} className={styles.editStepButton}>
+        <button onClick={() => onEditStep(2)} className={styles.editStepButton}>
           Edit
         </button>
       </div>
       <div className={styles.reviewItem}>
         <span>
           <strong>Budget:</strong>
-          {gigData.gigPaymentType === 'fixed' && ` $${gigData.gigCost || '0'}`}
+          {gigData.gigPaymentType === 'fixed' && ` ${gigData.gigCost || '0'}`}
           {gigData.gigPaymentType === 'hourly' &&
-            ` $${gigData.gigRatePerHour || '0'} /hr`}
+            ` ${gigData.gigRatePerHour || '0'} /hr`}
         </span>
-        <button onClick={() => onEditStep(5)} className={styles.editStepButton}>
+        <button onClick={() => onEditStep(2)} className={styles.editStepButton}>
           Edit
         </button>
       </div>
-      {/* Add display for other gig fields if collected (location, skills required etc.) */}
+      <div className={styles.reviewItem}>
+        <span>
+          <strong>Location:</strong> {getLocationDisplay()}
+        </span>
+        <button onClick={() => onEditStep(2)} className={styles.editStepButton}>
+          Edit
+        </button>
+      </div>
+      {/* Add display for other gig fields if collected (skills required etc.) */}
     </div>
   );
 }
