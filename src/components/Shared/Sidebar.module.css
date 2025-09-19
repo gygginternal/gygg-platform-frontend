@@ -116,6 +116,20 @@
   filter: brightness(0) invert(1); /* White icon for selected */
 }
 
+.doubleArrowClose{
+  color: #000;
+  width: 1.5em;
+  height: 1.5em;
+  cursor: pointer;
+  align-self: flex-end;
+  margin: 1rem 1.5rem; /* Add margin to position it nicely */
+}
+
+/* Hide the close icon in collapsed state */
+.sidebar.collapsed .doubleArrowClose {
+  display: none;
+}
+
 /* --- Responsive Adjustments for Sidebar --- */
 
 /* Desktop (1024px+) - Enhanced for larger screens */
@@ -141,6 +155,9 @@
     width: 1.625rem; /* 26px */
     height: 1.625rem; /* 26px */
   }
+  .doubleArrowClose {
+    margin: 1.125rem 1.75rem; /* Match the padding of nav items */
+  }
 }
 
 /* Tablet (768px - 1024px) */
@@ -165,6 +182,9 @@
   .defaultIcon {
     width: 1.375rem; /* 22px */
     height: 1.375rem; /* 22px */
+  }
+  .doubleArrowClose {
+    margin: 1rem 1.5rem; /* Match the padding of nav items */
   }
 }
 
@@ -207,6 +227,10 @@
   .defaultIcon {
     width: 1.125rem; /* 18px */
     height: 1.125rem; /* 18px */
+  }
+
+  .doubleArrowClose {
+    margin: 0.875rem 1.125rem; /* Match the padding of nav items */
   }
 }
 
@@ -261,6 +285,10 @@
   .navItem {
     min-height: 3rem; /* 48px - better touch target */
   }
+
+  .doubleArrowClose {
+    margin: 0.75rem 1rem; /* Match the padding of nav items */
+  }
 }
 
 /* Extra small mobile (max-width: 360px) */
@@ -289,6 +317,10 @@
 
   .navItem {
     min-height: 2.75rem; /* 44px */
+  }
+
+  .doubleArrowClose {
+    margin: 0.625rem 0.875rem; /* Match the padding of nav items */
   }
 }
 
