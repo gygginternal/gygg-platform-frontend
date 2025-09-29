@@ -292,4 +292,63 @@
   }
 }
 
+/* Sidebar toggle button */
+.sidebarToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 1rem 1.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  position: relative;
+}
+
+.sidebar.collapsed .sidebarToggle {
+  padding: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .sidebarToggle {
+    padding: 1.125rem 1.75rem;
+  }
+  .sidebar.collapsed .sidebarToggle {
+    padding: 1.125rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .sidebarToggle {
+    padding: 1rem 1.5rem;
+  }
+  .sidebar.collapsed .sidebarToggle {
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+  .sidebarToggle {
+    padding: 1rem 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebarToggle {
+    padding: 1rem 1rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .sidebarToggle {
+    padding: 0.625rem 0.875rem;
+  }
+}
+
+/* Double left arrow icon styling */
+.doubleLeftArrow {
+  filter: brightness(0) invert(0);
+  object-fit: contain;
+  display: block;
+}
+
 /* Overlay backdrop for mobile - handled by .sidebarOverlay in JSX */

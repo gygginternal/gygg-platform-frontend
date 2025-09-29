@@ -37,7 +37,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
   };
 
   const navItems = [
-    { key: 'home', path: '/feed', icon: '/assets/home.svg', text: 'Home' },
+    { key: 'home', path: '/feed', icon: '/assets/home.svg', text: 'Home (Social Feed)' },
     {
       key: 'messages',
       path: '/messages',
@@ -135,6 +135,23 @@ function Sidebar({ isOpen, toggleSidebar }) {
             </div>
           );
         })}
+        {isOpen && (
+          <div
+            role="button"
+            tabIndex={0}
+            onClick={toggleSidebar}
+            onKeyDown={e => {
+              if (e.key === 'Enter' || e.key === ' ') toggleSidebar();
+            }}
+            className={styles.sidebarToggle}
+          >
+            <Icon
+              className={styles.doubleLeftArrow}
+              src="/assets/double-left-arrow.svg"
+              alt="Collapse Sidebar"
+            />
+          </div>
+        )}
       </nav>
       <div
         className={`${styles.sidebarOverlay} ${isOpen ? styles.open : ''}`}
