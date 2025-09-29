@@ -7,14 +7,13 @@ import { useSocket } from '../../contexts/SocketContext';
 import apiClient from '../../api/axiosConfig';
 import PropTypes from 'prop-types';
 
-const Icon = ({ src, alt, className, onClick }) => (
+const Icon = ({ src, alt, className }) => (
   <img
     src={src}
     alt={alt}
     width={24}
     height={24}
     className={className}
-    onClick={onClick}
     onError={e => (e.target.style.display = 'none')}
   />
 );
@@ -23,7 +22,6 @@ Icon.propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
   className: PropTypes.string,
-  onClick: PropTypes.func,
 };
 
 function Sidebar({ isOpen, toggleSidebar }) {
@@ -39,7 +37,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
   };
 
   const navItems = [
-    { key: 'home', path: '/feed', icon: '/assets/home.svg', text: 'Home (Social Feed)' },
+    { key: 'home', path: '/feed', icon: '/assets/home.svg', text: 'Home' },
     {
       key: 'messages',
       path: '/messages',
@@ -137,14 +135,6 @@ function Sidebar({ isOpen, toggleSidebar }) {
             </div>
           );
         })}
-        {isOpen && (
-          <Icon       
-            className={styles.doubleArrowClose}
-            src="/assets/double-arrow-left.svg"
-            alt="Close Menu"
-            onClick={toggleSidebar}
-          />
-        )}
       </nav>
       <div
         className={`${styles.sidebarOverlay} ${isOpen ? styles.open : ''}`}

@@ -4,9 +4,6 @@ import styles from './GigPostDetailsBudget.module.css';
 
 function GigPostDetailsBudget({ formData, onInputChange }) {
   const handleSelectChange = e => onInputChange(e.target.name, e.target.value);
-  const handleInputChange = e => onInputChange(e.target.name, e.target.value);
-  const handleCheckboxChange = e => onInputChange(e.target.name, e.target.checked);
-  
   return (
     <>
       <div className={styles.formGroup}>
@@ -93,45 +90,6 @@ function GigPostDetailsBudget({ formData, onInputChange }) {
           required
           placeholder="Provide all necessary details..."
         />
-      </div>
-      
-      {/* Location Fields */}
-      <div className={styles.formGroup}>
-        <label className={styles.label}>
-          Where is this gig located?*
-        </label>
-        <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
-          <input
-            type="text"
-            name="gigCity"
-            value={formData.gigCity || ''}
-            onChange={handleInputChange}
-            placeholder="City (e.g., Toronto)*"
-            className={styles.input}
-            style={{ flex: 1 }}
-            required={!formData.isRemote}
-          />
-          <input
-            type="text"
-            name="gigState"
-            value={formData.gigState || ''}
-            onChange={handleInputChange}
-            placeholder="Province/State (e.g., ON)*"
-            className={styles.input}
-            style={{ flex: 1 }}
-            required={!formData.isRemote}
-          />
-        </div>
-        <label className={styles.label} style={{ display: 'flex', alignItems: 'center', fontWeight: 'normal' }}>
-          <input
-            type="checkbox"
-            name="isRemote"
-            checked={formData.isRemote || false}
-            onChange={handleCheckboxChange}
-            style={{ marginRight: '0.5rem' }}
-          />
-          This is a remote gig (can be done from anywhere)
-        </label>
       </div>
     </>
   );

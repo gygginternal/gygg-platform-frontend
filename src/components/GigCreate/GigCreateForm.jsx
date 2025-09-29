@@ -18,9 +18,6 @@ const initialGigFormData = {
   gigRatePerHour: '',
   gigDuration: '',
   gigDescription: '',
-  gigCity: '',
-  gigState: '',
-  isRemote: false,
 };
 
 function GigCreateForm({ onGigCreated }) {
@@ -52,12 +49,6 @@ function GigCreateForm({ onGigCreated }) {
             parseFloat(formData.gigRatePerHour) <= 0))
       ) {
         setError('Gig description and valid budget details are required.');
-        return;
-      }
-      
-      // Validate location fields
-      if (!formData.isRemote && (!formData.gigCity?.trim() || !formData.gigState?.trim())) {
-        setError('Please provide the city and state/province for this gig, or mark it as remote.');
         return;
       }
     }
@@ -93,16 +84,7 @@ function GigCreateForm({ onGigCreated }) {
         formData.gigPaymentType === 'hourly'
           ? parseFloat(formData.gigDuration)
           : undefined,
-      isRemote: Boolean(formData.isRemote),
     };
-
-    // Add location if provided
-    if (formData.gigCity || formData.gigState) {
-      payload.location = {};
-      if (formData.gigCity) payload.location.city = formData.gigCity.trim();
-      if (formData.gigState) payload.location.state = formData.gigState.trim();
-    }
-
     Object.keys(payload).forEach(
       key => payload[key] === undefined && delete payload[key]
     );
