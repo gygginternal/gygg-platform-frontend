@@ -44,6 +44,9 @@ const initialProviderFormData = {
   gigRatePerHour: '',
   gigDescription: '',
   gigDuration: '',
+  gigCity: '',
+  gigState: '',
+  isRemote: false,
   // Add other Gig fields as needed: isRemote, location (for gig), skillsRequired (from tasker)
 };
 
@@ -354,7 +357,16 @@ function ProviderOnboardingPage() {
           formData.gigPaymentType === 'hourly'
             ? parseFloat(formData.gigDuration)
             : undefined,
+        isRemote: Boolean(formData.isRemote),
       };
+
+      // Add location if provided
+      if (formData.gigCity || formData.gigState) {
+        gigPayload.location = {};
+        if (formData.gigCity) gigPayload.location.city = formData.gigCity.trim();
+        if (formData.gigState) gigPayload.location.state = formData.gigState.trim();
+      }
+
       Object.keys(gigPayload).forEach(
         key => gigPayload[key] === undefined && delete gigPayload[key]
       );

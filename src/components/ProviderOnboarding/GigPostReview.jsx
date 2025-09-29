@@ -60,7 +60,20 @@ function GigPostReview({ gigData, onEditStep }) {
           Edit
         </button>
       </div>
-      {/* Add display for other gig fields if collected (location, skills required etc.) */}
+      <div className={styles.reviewItem}>
+        <span>
+          <strong>Location:</strong>{' '}
+          {gigData.isRemote 
+            ? 'Remote (can be done from anywhere)'
+            : gigData.gigCity || gigData.gigState
+              ? `${gigData.gigCity || ''}${gigData.gigCity && gigData.gigState ? ', ' : ''}${gigData.gigState || ''}`
+              : 'Location not specified'
+          }
+        </span>
+        <button onClick={() => onEditStep(5)} className={styles.editStepButton}>
+          Edit
+        </button>
+      </div>
     </div>
   );
 }

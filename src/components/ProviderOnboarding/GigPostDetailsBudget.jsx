@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import styles from './GigPostDetailsBudget.module.css';
 
 function GigPostDetailsBudget({ formData, onInputChange }) {
-  const handleSelectChange = e => onInputChange(e.target.name, e.target.value);
+  const handleFieldChange = e => {
+    const { name, value, type, checked } = e.target;
+    onInputChange(name, type === 'checkbox' ? checked : value);
+  };
   return (
     <>
       <div className={styles.formGroup}>
@@ -14,7 +17,7 @@ function GigPostDetailsBudget({ formData, onInputChange }) {
           id="gigPaymentType"
           name="gigPaymentType"
           value={formData.gigPaymentType}
-          onChange={handleSelectChange}
+          onChange={handleFieldChange}
           className={styles.select}
           required
         >
@@ -32,7 +35,7 @@ function GigPostDetailsBudget({ formData, onInputChange }) {
             id="gigCost"
             name="gigCost"
             value={formData.gigCost}
-            onChange={handleSelectChange}
+            onChange={handleFieldChange}
             min="1"
             step="0.01"
             className={styles.input}
@@ -51,7 +54,7 @@ function GigPostDetailsBudget({ formData, onInputChange }) {
               id="gigRatePerHour"
               name="gigRatePerHour"
               value={formData.gigRatePerHour}
-              onChange={handleSelectChange}
+              onChange={handleFieldChange}
               min="1"
               step="0.01"
               className={styles.input}
@@ -67,7 +70,7 @@ function GigPostDetailsBudget({ formData, onInputChange }) {
               id="gigDuration"
               name="gigDuration"
               value={formData.gigDuration || ''}
-              onChange={handleSelectChange}
+              onChange={handleFieldChange}
               min="1"
               step="1"
               className={styles.input}
@@ -84,12 +87,47 @@ function GigPostDetailsBudget({ formData, onInputChange }) {
           id="gigDescription"
           name="gigDescription"
           value={formData.gigDescription}
-          onChange={handleSelectChange}
+          onChange={handleFieldChange}
           rows={7}
           className={styles.textarea}
           required
           placeholder="Provide all necessary details..."
         />
+      </div>
+      
+      <div className={styles.formGroup}>
+        <label className={styles.label}>
+          Where is this gig located? (Optional)
+        </label>
+        <div style={{ display: 'flex', gap: '1em', marginBottom: '1em' }}>
+          <input
+            type="text"
+            name="gigCity"
+            value={formData.gigCity}
+            onChange={handleFieldChange}
+            className={styles.input}
+            placeholder="City (e.g., Toronto)"
+            style={{ flex: 1 }}
+          />
+          <input
+            type="text"
+            name="gigState"
+            value={formData.gigState}
+            onChange={handleFieldChange}
+            className={styles.input}
+            placeholder="Province/State (e.g., ON)"
+            style={{ flex: 1 }}
+          />
+        </div>
+        <label className={styles.label} style={{ display: 'flex', alignItems: 'center', gap: '0.5em' }}>
+          <input
+            type="checkbox"
+            name="isRemote"
+            checked={formData.isRemote}
+            onChange={handleFieldChange}
+          />
+          <span>This is a remote gig (can be done from anywhere)</span>
+        </label>
       </div>
     </>
   );
