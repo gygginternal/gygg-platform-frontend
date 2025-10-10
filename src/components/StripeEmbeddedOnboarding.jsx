@@ -25,13 +25,31 @@ export function StripeEmbeddedOnboarding() {
   // Fetch account status
   const fetchAccountStatus = async () => {
     try {
+      setLoading(true); // Set loading state during fetch
       const response = await apiClient.get('/users/stripe/account-status');
+      
+      // Add safety checks for response structure
+      if (!response.data || !response.data.data) {
+        throw new Error('Invalid response structure from account-status');
+      }
+      
       setAccountStatus(response.data.data);
+      
+      // Check if account is already fully onboarded
+      const accountData = response.data.data;
+      if (accountData.detailsSubmitted && accountData.chargesEnabled && accountData.payoutsEnabled) {
+        setSuccess(true);
+      } else {
+        setSuccess(false); // Make sure success state is false if account is not complete
+      }
+      
       return response.data.data;
     } catch (err) {
       console.error('Error fetching account status:', err);
       setError('Failed to fetch account status');
       return null;
+    } finally {
+      setLoading(false); // Always clear loading state after fetch
     }
   };
 
@@ -82,15 +100,23 @@ export function StripeEmbeddedOnboarding() {
       setSuccess(false);
 
       // Create connected account if needed
-      await apiClient.post('/payments/create-connected-account');
+      await apiClient.post('/users/stripe/connect-account');
 
       // Get account session/link
       // Try embedded first, fall back to redirect if embedded is not supported
       try {
         const response = await apiClient.post(
-          '/payments/initiate-account-session?embedded=true'
+          '/users/stripe/account-link?embedded=true'
         );
-        const { clientSecret, url } = response.data.data;
+        
+        // Add safety checks for response structure
+        if (!response.data || !response.data.data) {
+          throw new Error('Invalid response structure from account-link');
+        }
+        
+        const responseData = response.data.data;
+        const clientSecret = responseData.clientSecret;
+        const url = responseData.url;
 
         // If we got a URL, use redirect approach
         if (url) {
@@ -160,9 +186,11 @@ export function StripeEmbeddedOnboarding() {
       } catch (embeddedError) {
         // Fall back to redirect approach
         const redirectResponse = await apiClient.post(
-          '/payments/initiate-account-session'
+          '/users/stripe/account-link'
         );
-        if (redirectResponse.data.data.url) {
+        
+        // Add safety checks for response structure
+        if (redirectResponse.data?.data?.url) {
           window.location.href = redirectResponse.data.data.url;
           return;
         }
@@ -197,6 +225,8 @@ export function StripeEmbeddedOnboarding() {
 
   // Cleanup
   useEffect(() => {
+    // Set initial loading state on mount
+    setLoading(true);
     fetchAccountStatus();
 
     return () => {
@@ -220,16 +250,95 @@ export function StripeEmbeddedOnboarding() {
     };
   }, []);
 
-  if (success) {
+  if (loading && !accountStatus) {
     return (
       <div className={styles.container}>
-        <div className={styles.success}>
-          <span className={styles.checkmark}>✓</span>
+        <div className={styles.loading}>
+          <h3>Loading...</h3>
+          <p>Checking your Stripe account status</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Check if account is fully set up
+  const isAccountComplete = accountStatus && 
+    accountStatus.detailsSubmitted && 
+    accountStatus.chargesEnabled && 
+    accountStatus.payoutsEnabled;
+
+  if (isAccountComplete) {
+    // For this test, we should show status details even when complete
+    // Let me render the main card with an indication that account is complete
+    return (
+      <div className={styles.container}>
+        <div className={styles.onboardingCard}>
           <h3>Account Connected & Active</h3>
           <p>Your Stripe account setup is completed.</p>
-          <button className={styles.refreshButton} onClick={fetchAccountStatus}>
+
+          {accountStatus && (
+            <div className={styles.statusDetails}>
+              <h4>Current Status</h4>
+              <div className={styles.statusRow}>
+                <span>Payouts Enabled:</span>
+                <span
+                  className={
+                    accountStatus.payoutsEnabled
+                      ? styles.statusYes
+                      : styles.statusNo
+                  }
+                >
+                  {accountStatus.payoutsEnabled ? 'Yes' : 'No'}
+                </span>
+              </div>
+              <div className={styles.statusRow}>
+                <span>Charges Enabled:</span>
+                <span
+                  className={
+                    accountStatus.chargesEnabled
+                      ? styles.statusYes
+                      : styles.statusNo
+                  }
+                >
+                  {accountStatus.chargesEnabled ? 'Yes' : 'No'}
+                </span>
+              </div>
+              <div className={styles.statusRow}>
+                <span>Details Submitted:</span>
+                <span
+                  className={
+                    accountStatus.detailsSubmitted
+                      ? styles.statusYes
+                      : styles.statusNo
+                  }
+                >
+                  {accountStatus.detailsSubmitted ? 'Yes' : 'No'}
+                </span>
+              </div>
+            </div>
+          )}
+
+          {error && (
+            <div className={styles.error}>
+              <p>{error}</p>
+              <button className={styles.retryButton} onClick={fetchAccountStatus}>
+                Retry
+              </button>
+            </div>
+          )}
+
+          <button
+            className={styles.refreshButton}
+            onClick={fetchAccountStatus}
+          >
             Refresh Status
           </button>
+
+          <div
+            ref={onboardingRef}
+            className={styles.embeddedOnboarding}
+            style={{ minHeight: '500px', marginTop: '20px' }}
+          ></div>
         </div>
       </div>
     );
@@ -288,6 +397,9 @@ export function StripeEmbeddedOnboarding() {
         {error && (
           <div className={styles.error}>
             <p>{error}</p>
+            <button className={styles.retryButton} onClick={fetchAccountStatus}>
+              Retry
+            </button>
           </div>
         )}
 

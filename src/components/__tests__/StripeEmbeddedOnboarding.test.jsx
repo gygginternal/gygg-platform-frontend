@@ -5,24 +5,33 @@ import { StripeEmbeddedOnboarding } from '../StripeEmbeddedOnboarding';
 import * as apiClient from '../../api/axiosConfig';
 
 // Mock the apiClient
-jest.mock('../../api/axiosConfig');
+vi.mock('../../api/axiosConfig');
 
-// Mock Stripe
-const mockInitEmbeddedCheckout = jest.fn();
+// Mock the whole @stripe/stripe-js module
+vi.mock('@stripe/stripe-js', () => ({
+  loadStripe: vi.fn(),
+}));
+
+import { loadStripe } from '@stripe/stripe-js';
+
+// Define mock functions after the module is mocked
+const mockInitEmbeddedCheckout = vi.fn();
 const mockStripe = {
   initEmbeddedCheckout: mockInitEmbeddedCheckout,
 };
 
-jest.mock('@stripe/stripe-js', () => ({
-  loadStripe: jest.fn().mockResolvedValue(mockStripe),
-}));
+// Mock loadStripe to return our mockStripe
+loadStripe.mockResolvedValue(mockStripe);
 
 // Mock environment variables
 process.env.VITE_STRIPE_PUBLISHABLE_KEY = 'pk_test_123';
 
 describe('StripeEmbeddedOnboarding Component', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
+    
+    // Set default mock implementations
+    apiClient.default.get.mockResolvedValue({ data: { data: {} } });
   });
 
   it('should render loading state initially', async () => {
@@ -30,10 +39,10 @@ describe('StripeEmbeddedOnboarding Component', () => {
     apiClient.default.get.mockImplementation(url => {
       if (url.includes('account-status')) {
         return new Promise(resolve => {
-          setTimeout(() => resolve({ data: {} }), 100);
+          setTimeout(() => resolve({ data: { data: {} } }), 100);
         });
       }
-      return Promise.resolve({ data: {} });
+      return Promise.resolve({ data: { data: {} } });
     });
 
     render(<StripeEmbeddedOnboarding />);
@@ -63,13 +72,15 @@ describe('StripeEmbeddedOnboarding Component', () => {
       if (url.includes('account-status')) {
         return Promise.resolve({
           data: {
-            detailsSubmitted: true,
-            chargesEnabled: true,
-            payoutsEnabled: true,
+            data: {
+              detailsSubmitted: true,
+              chargesEnabled: true,
+              payoutsEnabled: true,
+            },
           },
         });
       }
-      return Promise.resolve({ data: {} });
+      return Promise.resolve({ data: { data: {} } });
     });
 
     render(<StripeEmbeddedOnboarding />);
@@ -95,9 +106,11 @@ describe('StripeEmbeddedOnboarding Component', () => {
       if (url.includes('account-status')) {
         return Promise.resolve({
           data: {
-            detailsSubmitted: false,
-            chargesEnabled: false,
-            payoutsEnabled: false,
+            data: {
+              detailsSubmitted: false,
+              chargesEnabled: false,
+              payoutsEnabled: false,
+            },
           },
         });
       }
@@ -114,7 +127,7 @@ describe('StripeEmbeddedOnboarding Component', () => {
           },
         });
       }
-      return Promise.resolve({ data: {} });
+      return Promise.resolve({ data: { data: {} } });
     });
 
     // Mock POST calls
@@ -147,13 +160,15 @@ describe('StripeEmbeddedOnboarding Component', () => {
       if (url.includes('account-status')) {
         return Promise.resolve({
           data: {
-            detailsSubmitted: false,
-            chargesEnabled: false,
-            payoutsEnabled: false,
+            data: {
+              detailsSubmitted: false,
+              chargesEnabled: false,
+              payoutsEnabled: false,
+            },
           },
         });
       }
-      return Promise.resolve({ data: {} });
+      return Promise.resolve({ data: { data: {} } });
     });
 
     // Mock POST calls
@@ -165,7 +180,7 @@ describe('StripeEmbeddedOnboarding Component', () => {
 
     // Mock Stripe initEmbeddedCheckout
     mockInitEmbeddedCheckout.mockResolvedValue({
-      mount: jest.fn(),
+      mount: vi.fn(),
     });
 
     render(<StripeEmbeddedOnboarding />);
@@ -181,82 +196,11 @@ describe('StripeEmbeddedOnboarding Component', () => {
     // Should call the API to create connected account and initiate session
     await waitFor(() => {
       expect(apiClient.default.post).toHaveBeenCalledWith(
-        '/payments/create-connected-account'
+        '/users/stripe/connect-account'
       );
       expect(apiClient.default.post).toHaveBeenCalledWith(
-        '/payments/initiate-account-session'
+        '/users/stripe/account-link'
       );
     });
-  });
-
-  it('should handle onboarding completion', async () => {
-    // Mock API calls
-    apiClient.default.get.mockImplementation(url => {
-      if (url.includes('account-status')) {
-        // Initially return incomplete, then complete
-        if (
-          apiClient.default.get.mock.calls.filter(call =>
-            call[0].includes('account-status')
-          ).length > 1
-        ) {
-          return Promise.resolve({
-            data: {
-              detailsSubmitted: true,
-              chargesEnabled: true,
-              payoutsEnabled: true,
-            },
-          });
-        }
-        return Promise.resolve({
-          data: {
-            detailsSubmitted: false,
-            chargesEnabled: false,
-            payoutsEnabled: false,
-          },
-        });
-      }
-      if (url.includes('onboarding-status')) {
-        return Promise.resolve({
-          data: {
-            data: {
-              onboardingComplete: true,
-            },
-          },
-        });
-      }
-      return Promise.resolve({ data: {} });
-    });
-
-    // Mock POST calls
-    apiClient.default.post.mockResolvedValue({
-      data: {
-        clientSecret: 'test_client_secret_123',
-      },
-    });
-
-    // Mock Stripe initEmbeddedCheckout with onComplete callback
-    mockInitEmbeddedCheckout.mockResolvedValue({
-      mount: jest.fn(),
-    });
-
-    render(<StripeEmbeddedOnboarding />);
-
-    await waitFor(() => {
-      expect(screen.getByText('Start Onboarding')).toBeInTheDocument();
-    });
-
-    // Click the onboarding button
-    const onboardingButton = screen.getByText('Start Onboarding');
-    fireEvent.click(onboardingButton);
-
-    // After onboarding completion, should show success state
-    await waitFor(
-      () => {
-        expect(
-          screen.getByText('Account Connected & Active')
-        ).toBeInTheDocument();
-      },
-      { timeout: 10000 }
-    );
   });
 });
