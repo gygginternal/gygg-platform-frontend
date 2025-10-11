@@ -4,11 +4,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import styles from './UserProfilePage.module.css';
 import { useAuth } from '../../contexts/AuthContext';
 
-import ProfileInfo from '../../components/ProfilePage/ProfileInfo';
-import AboutSection from '../../components/ProfilePage/AboutSection';
-import PostsSection from '../../components/ProfilePage/PostsSection';
-import AlbumSection from '../../components/ProfilePage/AlbumSection';
-import ReviewsSection from '../../components/ProfilePage/ReviewsSection';
+import ProfileInfo from '../../components/features/ProfilePage/ProfileInfo';
+import AboutSection from '../../components/features/ProfilePage/AboutSection';
+import PostsSection from '../../components/features/ProfilePage/PostsSection';
+import AlbumSection from '../../components/features/ProfilePage/AlbumSection';
+import ReviewsSection from '../../components/features/ProfilePage/ReviewsSection';
 
 import apiClient from '../../api/axiosConfig';
 import logger from '../../utils/logger';

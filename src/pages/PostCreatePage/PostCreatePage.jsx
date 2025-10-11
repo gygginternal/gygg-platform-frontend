@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import PostCreateForm from '../../components/PostCreateForm';
+import PostCreateForm from '../../components/common/PostCreateForm';
 
 function PostCreatePage() {
   const navigate = useNavigate();

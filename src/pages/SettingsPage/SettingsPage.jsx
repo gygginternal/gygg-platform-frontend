@@ -1,8 +1,8 @@
 // src/pages/SettingsPage/SettingsPage.jsx
 import React, { useState } from 'react';
 import styles from './SettingsPage.module.css';
-import PersonalInfoForm from '../../components/Shared/PersonalInfoForm';
-import { StripeConnectOnboarding } from '../../components/StripeConnectOnboarding';
+import PersonalInfoForm from '../../components/common/PersonalInfoForm';
+import { StripeConnectOnboarding } from '../../components/common/StripeConnectOnboarding';
 
 function SettingsPage() {
   const [activeTab, setActiveTab] = useState('profile');

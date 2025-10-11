@@ -1,6 +1,6 @@
 // src/pages/EmbeddedOnboardingTest.jsx
 import React from 'react';
-import { StripeConnectOnboarding } from '../components/StripeConnectOnboarding';
+import { StripeConnectOnboarding } from '../components/common/StripeConnectOnboarding';
 
 export function EmbeddedOnboardingTest() {
   return (

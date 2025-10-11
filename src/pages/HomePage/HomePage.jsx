@@ -5,8 +5,8 @@ import { useAuth } from '../../contexts/AuthContext'; // Import useAuth
 
 // Import styles
 import styles from './HomePage.module.css';
-import LandingVisual from '../../components/Homepage/LandingVisual';
-import LandingActions from '../../components/Homepage/LandingActions';
+import LandingVisual from '../../components/features/Homepage/LandingVisual';
+import LandingActions from '../../components/features/Homepage/LandingActions';
 
 // Main HomePage component
 function HomePage() {

@@ -1,12 +1,12 @@
 import React, { useState, createContext, useContext, useEffect } from 'react';
 import apiClient from '../../api/axiosConfig';
 import styles from './GigsAppliedPage.module.css';
-import ProfileSidebar from '../../components/Shared/ProfileSidebar';
+import ProfileSidebar from '../../components/common/ProfileSidebar';
 import { useAuth } from '../../contexts/AuthContext';
 import { Search, Filter } from 'lucide-react';
 import { CATEGORY_ENUM } from '../../constants/categories';
-import AppliedGigCard from '../../components/GigsAppliedPage/AppliedGigCard';
-import GigDetailsModal from '../../components/Shared/GigDetailsModal';
+import AppliedGigCard from '../../components/features/GigsAppliedPage/AppliedGigCard';
+import GigDetailsModal from '../../components/common/GigDetailsModal';
 
 export const GigsAppliedContext = createContext();
 export function useGigsApplied() {

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styles from './GigHelperPage.module.css';
-import ProfileSidebar from '../../components/Shared/ProfileSidebar';
+import ProfileSidebar from '../../components/common/ProfileSidebar';
 import { useLocation, useNavigate } from 'react-router-dom';
-import TaskerListSafe from '../../components/TaskerListSafe';
-import ErrorBoundary from '../../components/ErrorBoundary';
+import TaskerListSafe from '../../components/common/TaskerListSafe';
+import ErrorBoundary from '../../components/common/ErrorBoundary';
 import { Search } from 'lucide-react';
 
 export default function GigHelperPage() {

@@ -1,6 +1,6 @@
 // TestStripeComponent.jsx
 import React from 'react';
-import { StripeEmbeddedOnboarding } from '../components/StripeEmbeddedOnboarding';
+import { StripeEmbeddedOnboarding } from '../components/common/StripeEmbeddedOnboarding';
 
 function TestStripeComponent() {
   return (

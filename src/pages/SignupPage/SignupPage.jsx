@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './SignupPage.module.css';
-import InputField from '../../components/Shared/InputField';
-import ErrorDisplay from '../../components/Shared/ErrorDisplay';
+import InputField from '../../components/common/InputField';
+import ErrorDisplay from '../../components/common/ErrorDisplay';
 import apiClient from '../../api/axiosConfig';
 import logger from '../../utils/logger';
 import { useToast } from '../../contexts/ToastContext';

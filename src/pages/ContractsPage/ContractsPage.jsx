@@ -8,18 +8,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns'; // Import date-fns for formatting dates
 import apiClient from '../../api/axiosConfig';
 import styles from './ContractsPage.module.css';
-import ProfileSidebar from '../../components/Shared/ProfileSidebar';
-import { TabNavigation } from '../../components/Shared/TabNavigation'; // Import the TabNavigation component
-import InputField from '../../components/Shared/InputField';
-import Toggle from '../../components/Shared/Toggle';
-import { StatusBadge } from '../../components/Shared/StatusBadge'; // Adjust the import path
+import ProfileSidebar from '../../components/common/ProfileSidebar';
+import { TabNavigation } from '../../components/common/TabNavigation'; // Import the TabNavigation component
+import InputField from '../../components/common/InputField';
+import Toggle from '../../components/common/Toggle';
+import { StatusBadge } from '../../components/common/StatusBadge'; // Adjust the import path
 import BillingAndPayment from '../BillingAndPayment/BillingAndPayment';
 import { CATEGORY_ENUM } from '../../constants/categories';
 import { Search, Filter } from 'lucide-react';
 import { useToast } from '../../contexts/ToastContext';
 import { useAuth } from '../../contexts/AuthContext';
-import ContractCard from '../../components/ContractsPage/ContractCard';
-import CheckoutForm from '../../components/Shared/CheckoutForm';
+import ContractCard from '../../components/features/ContractsPage/ContractCard';
+import CheckoutForm from '../../components/common/CheckoutForm';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 

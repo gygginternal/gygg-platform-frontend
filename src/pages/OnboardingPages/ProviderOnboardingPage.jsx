@@ -2,14 +2,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './OnboardingPages.module.css'; //
-import ProgressHeader from '../../components/Shared/ProgressHeader';
-import InputField from '../../components/Shared/InputField';
-import AddressInput from '../../components/Shared/AddressInput';
+import ProgressHeader from '../../components/common/ProgressHeader';
+import InputField from '../../components/common/InputField';
+import AddressInput from '../../components/common/AddressInput';
 // PersonalityForm and BioAndPictureForm are removed as their content/styling is now managed directly/inlined.
-import { AutoComplete } from '../../components/Shared/AutoComplete';
-import GigPostTimelineCategory from '../../components/ProviderOnboarding/GigPostTimelineCategory';
-import GigPostDetailsBudget from '../../components/ProviderOnboarding/GigPostDetailsBudget';
-import GigPostReview from '../../components/ProviderOnboarding/GigPostReview';
+import { AutoComplete } from '../../components/common/AutoComplete';
+import GigPostTimelineCategory from '../../components/features/ProviderOnboarding/GigPostTimelineCategory';
+import GigPostDetailsBudget from '../../components/features/ProviderOnboarding/GigPostDetailsBudget';
+import GigPostReview from '../../components/features/ProviderOnboarding/GigPostReview';
 
 import { useAuth } from '../../contexts/AuthContext';
 import apiClient from '../../api/axiosConfig';

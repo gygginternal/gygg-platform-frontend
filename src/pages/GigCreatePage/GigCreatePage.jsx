@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import styles from './GigCreatePage.module.css'; // CSS for the page layout
 // Header and main navigation Sidebar are assumed to be part of App.js global layout
 // import Header from '../../components/Shared/Header';
-import ProfileSidebar from '../../components/Shared/ProfileSidebar'; // The static info sidebar
-import ModernGigCreateForm from '../../components/GigCreate/ModernGigCreateForm'; // The new modern multi-step form component
+import ProfileSidebar from '../../components/common/ProfileSidebar'; // The static info sidebar
+import ModernGigCreateForm from '../../components/features/GigCreate/ModernGigCreateForm'; // The new modern multi-step form component
 
 function GigCreatePage() {
   const navigate = useNavigate();

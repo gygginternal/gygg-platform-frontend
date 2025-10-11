@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import styles from './ProviderProfilePage.module.css';
 import { useAuth } from '../../contexts/AuthContext';
 import apiClient from '../../api/axiosConfig';
-import ProviderProfileInfo from '../../components/ProviderProfilePage/ProviderProfileInfo';
-import RecentHires from '../../components/ProviderProfilePage/RecentHires';
-import PostedGigs from '../../components/ProviderProfilePage/PostedGigs';
-import RecentProviderPostSection from '../../components/ProviderProfilePage/RecentProviderPostSection';
+import ProviderProfileInfo from '../../components/features/ProviderProfilePage/ProviderProfileInfo';
+import RecentHires from '../../components/features/ProviderProfilePage/RecentHires';
+import PostedGigs from '../../components/features/ProviderProfilePage/PostedGigs';
+import RecentProviderPostSection from '../../components/features/ProviderProfilePage/RecentProviderPostSection';
 import { useParams } from 'react-router-dom';
 
 function ProviderProfilePage({ providerId: propProviderId }) {

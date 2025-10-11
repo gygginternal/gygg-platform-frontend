@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import GigDetail from '../../components/GigDetail'; // The component rendering details and actions
+import GigDetail from '../../components/common/GigDetail'; // The component rendering details and actions
 import apiClient from '../../api/axiosConfig';
 import { useAuth } from '../../contexts/AuthContext';
 import { Elements } from '@stripe/react-stripe-js';

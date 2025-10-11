@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import ChatSidebar from '../../components/ChatPage/ChatSidebar';
-import ChatWindow from '../../components/ChatPage/ChatWindow';
-import ChatEmptyState from '../../components/ChatPage/ChatEmptyState';
+import ChatSidebar from '../../components/features/ChatPage/ChatSidebar';
+import ChatWindow from '../../components/features/ChatPage/ChatWindow';
+import ChatEmptyState from '../../components/features/ChatPage/ChatEmptyState';
 import styles from './ChatPage.module.css';
 import apiClient from '../../api/axiosConfig';
 import { useAuth } from '../../contexts/AuthContext';

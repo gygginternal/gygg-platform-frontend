@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import apiClient from '../../api/axiosConfig';
-import MatchedGigCard from '../../components/MatchedGigCard'; // Assuming you have this component
+import MatchedGigCard from '../../components/common/MatchedGigCard'; // Assuming you have this component
 import styles from './MatchedGigsPage.module.css'; // Import CSS Modules
 
 function MatchedGigsPage() {

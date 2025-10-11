@@ -2,10 +2,10 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './OnboardingPages.module.css'; // Create this CSS for overall page
-import ProgressHeader from '../../components/Shared/ProgressHeader';
-import InputField from '../../components/Shared/InputField';
-import TaskSelector from '../../components/TaskerOnboarding/TaskSelector';
-import { AutoComplete } from '../../components/Shared/AutoComplete';
+import ProgressHeader from '../../components/common/ProgressHeader';
+import InputField from '../../components/common/InputField';
+import TaskSelector from '../../components/features/TaskerOnboarding/TaskSelector';
+import { AutoComplete } from '../../components/common/AutoComplete';
 import { useAuth } from '../../contexts/AuthContext';
 import apiClient from '../../api/axiosConfig';
 import logger from '../../utils/logger';

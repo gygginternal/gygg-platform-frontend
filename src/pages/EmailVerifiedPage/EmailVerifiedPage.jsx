@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import apiClient from '../../api/axiosConfig';
 import logger from '../../utils/logger';
-import ResendVerificationButton from '../../components/ResendVerificationButton';
+import ResendVerificationButton from '../../components/common/ResendVerificationButton';
 // import styles from './VerifyEmailPromptPage.module.css'; // Reuse styles or create new
 import styles from './EmailVerifiedPage.module.css'; // New dedicated styles
 

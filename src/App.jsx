@@ -13,10 +13,10 @@ import { ToastProvider } from './contexts/ToastContext';
 import ThemeProvider from './styles/ThemeProvider.jsx';
 import './styles/global.css';
 import { SocketProvider } from './contexts/SocketContext';
-import Navigation from './components/Navigation';
-import { createLazyRoute } from './components/Suspense/LazyComponentLoader';
-import { RoutePreloader } from './components/RoutePreloader';
-import { LazyLoadingMonitor } from './components/Performance';
+import Navigation from './components/common/Navigation';
+import { createLazyRoute } from './components/common/Suspense/LazyComponentLoader';
+import { RoutePreloader } from './components/common/RoutePreloader';
+import { LazyLoadingMonitor } from './components/common/Performance';
 
 // Critical pages - loaded immediately (above the fold)
 import HomePage from './pages/HomePage/HomePage';
@@ -25,7 +25,7 @@ import JoinPage from './pages/JoinPage/JoinPage';
 import TestStripeComponent from './pages/TestStripeComponent';
 
 // Shared components - loaded immediately
-import Header from './components/Shared/Header';
+import Header from './components/common/Header';
 
 // Lazy-loaded pages - loaded on demand
 const SignupPage = createLazyRoute(

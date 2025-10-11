@@ -4,11 +4,11 @@ import styles from './ProfilePage.module.css';
 import { useAuth } from '../../contexts/AuthContext';
 
 // Import components
-import ProfileInfo from '../../components/ProfilePage/ProfileInfo'; // Adjust path if it moved
-import AboutSection from '../../components/ProfilePage/AboutSection';
-import PostsSection from '../../components/ProfilePage/PostsSection';
-import AlbumSection from '../../components/ProfilePage/AlbumSection';
-import ReviewsSection from '../../components/ProfilePage/ReviewsSection';
+import ProfileInfo from '../../components/features/ProfilePage/ProfileInfo'; // Adjust path if it moved
+import AboutSection from '../../components/features/ProfilePage/AboutSection';
+import PostsSection from '../../components/features/ProfilePage/PostsSection';
+import AlbumSection from '../../components/features/ProfilePage/AlbumSection';
+import ReviewsSection from '../../components/features/ProfilePage/ReviewsSection';
 import ProviderProfilePage from '../ProviderProfilePage/ProviderProfilePage';
 
 function ProfilePage() {

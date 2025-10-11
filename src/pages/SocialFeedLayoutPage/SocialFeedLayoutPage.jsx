@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './SocialFeedLayoutPage.module.css';
-import Feed from '../../components/SocialFeedLayoutPage/Feed';
-import ProfileSidebar from '../../components/Shared/ProfileSidebar';
+import Feed from '../../components/features/SocialFeedLayoutPage/Feed';
+import ProfileSidebar from '../../components/common/ProfileSidebar';
 
 export default function SocialFeedLayoutPage() {
   return (

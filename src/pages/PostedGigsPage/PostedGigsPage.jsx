@@ -9,13 +9,13 @@ import {
   Eye,
 } from 'lucide-react';
 import apiClient from '../../api/axiosConfig';
-import { GigApplications } from '../../components/Shared/GigApplications';
+import { GigApplications } from '../../components/common/GigApplications';
 import styles from './PostedGigsPage.module.css';
-import ProfileSidebar from '../../components/Shared/ProfileSidebar';
+import ProfileSidebar from '../../components/common/ProfileSidebar';
 import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../contexts/ToastContext';
-import ProviderGigDetailsModal from '../../components/Shared/ProviderGigDetailsModal';
-import Button from '../../components/Shared/Button';
+import ProviderGigDetailsModal from '../../components/common/ProviderGigDetailsModal';
+import Button from '../../components/common/Button';
 
 // Utility to check for valid MongoDB ObjectId
 function isValidObjectId(id) {

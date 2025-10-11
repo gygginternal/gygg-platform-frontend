@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom'; // Use react-router-dom
 import styles from './LoginPage.module.css'; // Create this CSS Module
-import InputField from '../../components/Shared/InputField'; // Adjust path if needed
-import ErrorDisplay from '../../components/Shared/ErrorDisplay';
+import InputField from '../../components/common/InputField'; // Adjust path if needed
+import ErrorDisplay from '../../components/common/ErrorDisplay';
 import { useAuth } from '../../contexts/AuthContext'; // Adjust path if needed
 import apiClient from '../../api/axiosConfig'; // Adjust path if needed
 import logger from '../../utils/logger'; // Optional: Adjust path if needed

@@ -1,9 +1,9 @@
 import { MapPin, User, ArrowLeft } from 'lucide-react';
-import { Card, CardContent, CardHeader } from '../../components/ui/card';
+import { Card, CardContent, CardHeader } from '../../components/common/ui/card';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns'; // Import date-fns for formatting dates
 import styles from './ContractDetailsPage.module.css'; // Import CSS Modules
-import ContractPayment from '../../components/ContractDetailsPage/ContractPayment';
+import ContractPayment from '../../components/features/ContractDetailsPage/ContractPayment';
 
 export default function ContractDetailsPage({ gig, contract, user, children }) {
   if (!gig) return null;

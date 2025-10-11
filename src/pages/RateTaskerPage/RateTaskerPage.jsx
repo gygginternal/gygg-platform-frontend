@@ -4,8 +4,8 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../contexts/ToastContext';
 import apiClient from '../../api/axiosConfig';
 import styles from './RateTaskerPage.module.css';
-import ProfileSidebar from '../../components/Shared/ProfileSidebar';
-import ReviewForm from '../../components/ReviewForm';
+import ProfileSidebar from '../../components/common/ProfileSidebar';
+import ReviewForm from '../../components/common/ReviewForm';
 
 const RateTaskerPage = () => {
   const { contractId } = useParams();
