@@ -207,14 +207,14 @@ const StripeRefreshPage = createLazyRoute(
 
 // Legal pages - lowest priority
 const TermsOfUsePage = createLazyRoute(
-  () => import('./pages/Legalpages/TermsOfUsePage'),
+  () => import('./pages/LegalPages/TermsOfUsePage'),
   {
     loadingText: 'Loading terms...',
   }
 );
 
 const PrivacyPolicyPage = createLazyRoute(
-  () => import('./pages/Legalpages/PrivacyPolicyPage'),
+  () => import('./pages/LegalPages/PrivacyPolicyPage'),
   {
     loadingText: 'Loading privacy policy...',
   }
