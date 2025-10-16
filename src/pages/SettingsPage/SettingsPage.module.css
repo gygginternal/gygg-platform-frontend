@@ -62,7 +62,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background-color: #00AABA;
+  background-color: #00aaba;
 }
 
 .tabContent {
@@ -109,7 +109,7 @@
     padding: 2.25rem 1rem 0; /* Adjusted top padding */
     min-height: calc(100vh - 2.25rem);
   }
-  
+
   .content {
     max-width: 600px;
     padding: 1rem;
@@ -120,7 +120,7 @@
     padding: 14px 20px;
     font-size: 15px;
   }
-  
+
   .tabContent {
     padding: 20px;
   }
@@ -132,13 +132,13 @@
     padding: 2.5rem 1.5rem 0 1.5rem; /* Adjusted top padding */
     min-height: calc(100vh - 2.5rem);
   }
-  
+
   .content {
     max-width: 750px;
     padding: 1.5rem;
     gap: 1.5rem;
   }
-  
+
   .tabContent {
     padding: 22px;
   }
@@ -150,13 +150,13 @@
     padding: 2.75rem 2rem 0; /* Adjusted top padding */
     min-height: calc(100vh - 2.75rem);
   }
-  
+
   .content {
     max-width: 900px;
     padding: 2rem;
     gap: 2rem;
   }
-  
+
   .tabContent {
     padding: 24px;
   }

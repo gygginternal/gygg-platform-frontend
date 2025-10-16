@@ -66,7 +66,9 @@ const AppliedGigCard = ({ gig, onClick }) => {
           <div className={styles.metaInfo}>
             <span>
               <MapPin size={14} />
-              {decodeHTMLEntities(location?.city) || decodeHTMLEntities(location?.address) || 'Location TBD'}
+              {decodeHTMLEntities(location?.city) ||
+                decodeHTMLEntities(location?.address) ||
+                'Location TBD'}
             </span>
             <span>
               <Briefcase size={14} />

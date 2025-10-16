@@ -75,9 +75,7 @@ import App from '../App';
 
 describe('App Component', () => {
   const wrapper = ({ children }) => (
-    <QueryClientProvider client={queryClient}>
-      {children}
-    </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 
   beforeEach(() => {
@@ -86,7 +84,7 @@ describe('App Component', () => {
 
   it('renders without crashing', () => {
     render(<App />, { wrapper });
-    
+
     // Check if the router wrapper is present
     expect(screen.getByTestId('router')).toBeInTheDocument();
   });

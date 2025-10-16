@@ -37,7 +37,12 @@ function Sidebar({ isOpen, toggleSidebar }) {
   };
 
   const navItems = [
-    { key: 'home', path: '/feed', icon: '/assets/home.svg', text: 'Home (Social Feed)' },
+    {
+      key: 'home',
+      path: '/feed',
+      icon: '/assets/home.svg',
+      text: 'Home (Social Feed)',
+    },
     {
       key: 'messages',
       path: '/messages',

@@ -14,7 +14,9 @@ const ChatSidebar = ({ contacts, selectedContact, onContactSelect }) => {
 
     const searchLower = searchTerm.toLowerCase().trim();
     return contacts.filter(contact => {
-      const nameMatch = decodeHTMLEntities(contact.name).toLowerCase().includes(searchLower);
+      const nameMatch = decodeHTMLEntities(contact.name)
+        .toLowerCase()
+        .includes(searchLower);
       const messageMatch = decodeHTMLEntities(contact.lastMessage)
         ?.toLowerCase()
         .includes(searchLower);
@@ -106,7 +108,9 @@ const ChatSidebar = ({ contacts, selectedContact, onContactSelect }) => {
 
               <div className={styles.contactInfo}>
                 <div className={styles.contactHeader}>
-                  <span className={styles.contactName}>{decodeHTMLEntities(contact.name)}</span>
+                  <span className={styles.contactName}>
+                    {decodeHTMLEntities(contact.name)}
+                  </span>
                   <span className={styles.timestamp}>{contact.timestamp}</span>
                 </div>
                 <div className={styles.lastMessageContainer}>

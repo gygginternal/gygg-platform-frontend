@@ -31,7 +31,9 @@ export const BillingModal = ({ isOpen, onClose, gig }) => {
           <section className={styles.section}>
             <div className={styles.flexRow}>
               <p className={styles.label}>Gig title</p>
-              <p className={styles.value}>{decodeHTMLEntities(gig.gig.title) || 'N/A'}</p>
+              <p className={styles.value}>
+                {decodeHTMLEntities(gig.gig.title) || 'N/A'}
+              </p>
             </div>
           </section>
 

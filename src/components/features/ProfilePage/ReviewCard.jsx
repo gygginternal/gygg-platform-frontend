@@ -30,7 +30,7 @@ function ReviewCard({ review }) {
   const formattedDate = review.createdAt
     ? new Date(review.createdAt).toLocaleDateString()
     : '';
-    
+
   // Get first initial for avatar if no image
   const reviewerInitial = reviewerName.charAt(0).toUpperCase();
 
@@ -39,24 +39,24 @@ function ReviewCard({ review }) {
       <div className={styles.reviewHeader}>
         <div className={styles.reviewerInfo}>
           {review.reviewer?.profileImage ? (
-            <img 
-              src={review.reviewer.profileImage} 
+            <img
+              src={review.reviewer.profileImage}
               alt={reviewerName}
               className={styles.reviewerAvatar}
             />
           ) : (
-            <div className={styles.reviewerAvatar}>
-              {reviewerInitial}
-            </div>
+            <div className={styles.reviewerAvatar}>{reviewerInitial}</div>
           )}
           <h3 className={styles.reviewerName}>{reviewerName}</h3>
         </div>
         <div className={styles.reviewMeta}>
-          <span className={styles.reviewRating}>{review.rating?.toFixed(1)}</span>
+          <span className={styles.reviewRating}>
+            {review.rating?.toFixed(1)}
+          </span>
           <DisplayRating rating={review.rating} />
         </div>
       </div>
-      
+
       <p className={styles.reviewJob}>{gigTitle}</p>
       <p className={styles.reviewText}>
         {review.comment || 'No comment provided.'}

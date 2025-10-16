@@ -67,24 +67,24 @@
   .reviewsCard {
     padding: 2rem;
   }
-  
+
   .reviewsHeader {
     font-size: 1.5rem;
     margin-bottom: 2rem;
   }
-  
+
   .reviewsHeader h2 {
     font-size: 1.5rem;
   }
-  
+
   .averageRating {
     font-size: 1.75rem;
   }
-  
+
   .starRating {
     font-size: 1.5rem;
   }
-  
+
   .reviewsGrid {
     gap: 1.5rem;
   }
@@ -95,11 +95,11 @@
   .reviewsCard {
     padding: 2.5rem;
   }
-  
+
   .reviewsHeader {
     margin-bottom: 2.5rem;
   }
-  
+
   .reviewsGrid {
     gap: 2rem;
   }

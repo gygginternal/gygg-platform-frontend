@@ -272,7 +272,9 @@
   border: none;
   cursor: pointer;
   font-weight: 500;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
 }
 
 .saveButton {

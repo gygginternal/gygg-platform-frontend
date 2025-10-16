@@ -4,7 +4,8 @@
   min-height: calc(100vh - 2rem);
   box-sizing: border-box;
   background-color: #f5f5f5;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* Header Section */
@@ -23,7 +24,8 @@
   font-weight: 600;
   color: #1f2937;
   margin: 0 0 0.5rem 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .subtitle {
@@ -32,7 +34,8 @@
   margin: 0;
   font-weight: 400;
   line-height: 1.5;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .card {
@@ -141,7 +144,7 @@ tr:not(:last-child) td {
 }
 
 .viewLink {
-  background: #3D4D55;
+  background: #3d4d55;
   color: #ffffff;
   text-decoration: none;
   font-weight: 500;
@@ -154,7 +157,7 @@ tr:not(:last-child) td {
 }
 
 .viewLink:hover {
-  background: #2C383E;
+  background: #2c383e;
 }
 
 .toggleView {
@@ -691,7 +694,7 @@ tr:not(:last-child) td {
 
 /* Enhanced Withdraw Button */
 .withdrawBtn {
-  background: #3D4D55;
+  background: #3d4d55;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -704,7 +707,7 @@ tr:not(:last-child) td {
 }
 
 .withdrawBtn:hover:not(:disabled) {
-  background: #2C383E;
+  background: #2c383e;
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(61, 77, 85, 0.3);
 }
@@ -737,8 +740,12 @@ tr:not(:last-child) td {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Responsive Design */
@@ -746,24 +753,24 @@ tr:not(:last-child) td {
   .summaryGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .summaryRow {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
   }
-  
+
   .pagination {
     flex-direction: column;
     gap: 12px;
   }
-  
+
   .earningsHeader {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
   }
-  
+
   .header {
     padding: 1.25rem 1.5rem;
     border-radius: 20px;

@@ -11,7 +11,9 @@
   padding: 0.75rem; /* 12px */
   box-sizing: border-box;
   background-color: #fff;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .inputContainer:focus-within {
@@ -21,7 +23,13 @@
 
 .input {
   color: #374151;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
   font-size: 0.875rem; /* 14px */
   font-weight: 400;
   border: none;
@@ -90,17 +98,17 @@
     gap: 0.75rem; /* 12px */
     border-radius: 0.875rem; /* 14px */
   }
-  
+
   .input {
     font-size: 0.9375rem; /* 15px */
   }
-  
+
   .actionButton {
     padding: 0.625rem; /* 10px */
     min-width: 2.5rem; /* 40px */
     min-height: 2.5rem; /* 40px */
   }
-  
+
   .actionIcon {
     width: 1.25rem; /* 20px */
     height: 1.25rem; /* 20px */
@@ -116,17 +124,17 @@
     gap: 1rem; /* 16px */
     border-radius: 1rem; /* 16px */
   }
-  
+
   .input {
     font-size: 1rem; /* 16px */
   }
-  
+
   .actionButton {
     padding: 0.75rem; /* 12px */
     min-width: 2.75rem; /* 44px */
     min-height: 2.75rem; /* 44px */
   }
-  
+
   .actionIcon {
     width: 1.375rem; /* 22px */
     height: 1.375rem; /* 22px */
@@ -142,21 +150,21 @@
     gap: 1.25rem; /* 20px */
     border-radius: 1.25rem; /* 20px */
   }
-  
+
   .input {
     font-size: 1.125rem; /* 18px */
   }
-  
+
   .actionButton {
     padding: 0.875rem; /* 14px */
     min-width: 3rem; /* 48px */
     min-height: 3rem; /* 48px */
   }
-  
+
   .actionButton:hover:not(:disabled) {
     transform: scale(1.05);
   }
-  
+
   .actionIcon {
     width: 1.5rem; /* 24px */
     height: 1.5rem; /* 24px */

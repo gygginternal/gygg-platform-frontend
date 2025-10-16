@@ -117,10 +117,10 @@ function Header() {
   // Handle notification dropdown open/close
   useEffect(() => {
     if (!showNotifications) return;
-    
+
     // Don't automatically mark all as read when opening the dropdown
     // Only mark individual notifications as read when they're clicked/viewed
-    
+
     const handleClickOutside = event => {
       if (
         notificationDropdownRef.current &&

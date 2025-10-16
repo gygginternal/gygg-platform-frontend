@@ -31,6 +31,8 @@ const TaskerList = () => {
             response = await apiClient.get('/users/top-match-taskers');
             endpointUsed = 'top-match-taskers';
           } catch (topMatchError) {
+            console.error(
+              'Top match endpoint failed:',
               topMatchError.response?.data
             );
 
@@ -53,7 +55,7 @@ const TaskerList = () => {
           // Standard structure for both endpoints
           taskersData = response.data.data.taskers;
           console.log('Found taskers in data.taskers:', taskersData.length);
-          
+
           // Log compatibility scores for debugging (removed for production)
         } else if (response.data?.data?.matches) {
           taskersData = response.data.data.matches;
@@ -149,7 +151,9 @@ const TaskerList = () => {
           profileImage={tasker.profileImage || '/default.jpg'}
           name={
             decodeHTMLEntities(tasker.fullName) ||
-            decodeHTMLEntities(`${tasker.firstName || ''}${tasker.lastName ? ` ${tasker.lastName[0]}.` : ''}`.trim()) ||
+            decodeHTMLEntities(
+              `${tasker.firstName || ''}${tasker.lastName ? ` ${tasker.lastName[0]}.` : ''}`.trim()
+            ) ||
             'Anonymous User'
           }
           rate={
@@ -159,7 +163,11 @@ const TaskerList = () => {
                 ? `${tasker.rateRange}/hr`
                 : ''
           }
-          location={decodeHTMLEntities(tasker.address?.city) || decodeHTMLEntities(tasker.address?.state) || ''}
+          location={
+            decodeHTMLEntities(tasker.address?.city) ||
+            decodeHTMLEntities(tasker.address?.state) ||
+            ''
+          }
           bio={decodeHTMLEntities(tasker.bio) || 'No bio provided.'}
           compatibilityScore={tasker.compatibilityScore}
           hobbyMatches={tasker.hobbyMatches}

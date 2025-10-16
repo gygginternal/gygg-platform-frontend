@@ -177,15 +177,11 @@ const GigsAppliedPage = () => {
                 <div className={styles.statLabel}>Total</div>
               </div>
               <div className={styles.statCard}>
-                <div className={styles.statNumber}>
-                  {statusCounts.pending}
-                </div>
+                <div className={styles.statNumber}>{statusCounts.pending}</div>
                 <div className={styles.statLabel}>Pending</div>
               </div>
               <div className={styles.statCard}>
-                <div className={styles.statNumber}>
-                  {statusCounts.accepted}
-                </div>
+                <div className={styles.statNumber}>{statusCounts.accepted}</div>
                 <div className={styles.statLabel}>Accepted</div>
               </div>
               <div className={styles.statCard}>

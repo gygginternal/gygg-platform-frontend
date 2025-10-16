@@ -153,8 +153,8 @@
   }
 }
 
-@media (max-width:980px) {
-  .pageContainer{
+@media (max-width: 980px) {
+  .pageContainer {
     flex-direction: column;
   }
 }

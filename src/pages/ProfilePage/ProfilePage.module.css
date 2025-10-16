@@ -37,7 +37,7 @@
 /* Tablet (768px - 1024px) */
 @media (min-width: 768px) {
   .profilePageContainer {
-    padding: 2.5rem 1.5rem 0 2.5rem; 
+    padding: 2.5rem 1.5rem 0 2.5rem;
     min-height: calc(100vh - 2.5rem);
   }
 

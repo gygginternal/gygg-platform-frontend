@@ -242,13 +242,13 @@
 @media (max-width: 480px) {
   .content {
     padding: 1.5rem 1rem 3rem; /* tighter side + bottom spacing */
-    padding-top: 3.5rem;       /* account for logo */
+    padding-top: 3.5rem; /* account for logo */
   }
 
   .title {
-    font-size: 1rem;           /* ~16px */
-    margin-bottom: 1.25rem;    /* smaller spacing below title */
-    text-align: center;        /* center titles for mobile */
+    font-size: 1rem; /* ~16px */
+    margin-bottom: 1.25rem; /* smaller spacing below title */
+    text-align: center; /* center titles for mobile */
   }
 
   .logo {
@@ -257,22 +257,22 @@
   }
 
   .logo img {
-    max-width: 6rem;           /* shrink logo image */
+    max-width: 6rem; /* shrink logo image */
   }
 
   .cardContainer {
     flex-direction: column;
     align-items: center;
-    gap: 1rem;                 
+    gap: 1rem;
     margin-bottom: 1rem;
   }
 
   .card {
-    max-width: 320px;           
-    padding: 1.25rem 1rem;     /* smaller padding inside */
+    max-width: 320px;
+    padding: 1.25rem 1rem; /* smaller padding inside */
   }
 
   .cardTitle {
-    font-size: 0.9375rem;      /* ~15px */
+    font-size: 0.9375rem; /* ~15px */
   }
 }

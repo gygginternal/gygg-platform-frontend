@@ -192,10 +192,7 @@ export const TaskList = ({
       {gigs.length > 0 ? (
         <>
           {gigs.map(gig => (
-            <div
-              key={gig._id}
-              className={styles.taskItem}
-            >
+            <div key={gig._id} className={styles.taskItem}>
               <TaskCard gig={gig} onClick={handleTaskClick} />
             </div>
           ))}

@@ -22,8 +22,6 @@ export function StripeConnectOnboarding() {
   const isProvider = user?.role?.includes('provider');
   const isTasker = user?.role?.includes('tasker');
 
-
-
   // Fetch account status
   const fetchAccountStatus = async () => {
     try {
@@ -48,7 +46,9 @@ export function StripeConnectOnboarding() {
       return accountData;
     } catch (err) {
       console.error('Error fetching account status:', err);
-      setError('Failed to fetch account status. Please check your connection and try again.');
+      setError(
+        'Failed to fetch account status. Please check your connection and try again.'
+      );
       setSuccess(false);
       return null;
     }
@@ -140,13 +140,22 @@ export function StripeConnectOnboarding() {
     const status = await fetchAccountStatus();
     setLoading(false);
 
-    if (status && status.detailsSubmitted && status.chargesEnabled && status.payoutsEnabled) {
+    if (
+      status &&
+      status.detailsSubmitted &&
+      status.chargesEnabled &&
+      status.payoutsEnabled
+    ) {
       setSuccess(true);
       setError(null);
     } else if (status && status.detailsSubmitted) {
-      setError('Your account setup is in progress. Stripe is reviewing your information. This may take a few minutes to complete.');
+      setError(
+        'Your account setup is in progress. Stripe is reviewing your information. This may take a few minutes to complete.'
+      );
     } else {
-      setError('Onboarding was not completed. You can continue the setup process anytime by clicking the button below.');
+      setError(
+        'Onboarding was not completed. You can continue the setup process anytime by clicking the button below.'
+      );
     }
   };
 
@@ -197,15 +206,14 @@ export function StripeConnectOnboarding() {
           <span className={styles.checkmark}>✓</span>
           <h3>Onboarding Completed Successfully!</h3>
           <p>
-            {isProvider 
+            {isProvider
               ? 'Your Stripe account is now fully set up. You can pay taskers easily on the platform for their services.'
               : isTasker
                 ? 'Your Stripe account is now fully set up and ready to receive payments. You can start accepting payments for your gigs immediately.'
-                : 'Your Stripe account is now fully set up and ready for payments.'
-            }
+                : 'Your Stripe account is now fully set up and ready for payments.'}
           </p>
-          <button 
-            className={styles.refreshButton} 
+          <button
+            className={styles.refreshButton}
             onClick={refreshStatus}
             disabled={loading}
           >
@@ -267,12 +275,11 @@ export function StripeConnectOnboarding() {
             : 'Complete Your Payment Setup'}
         </h3>
         <p>
-          {isProvider 
+          {isProvider
             ? 'To make payments to taskers, please complete your Stripe account setup.'
             : isTasker
               ? 'To receive payments, please complete your Stripe account verification.'
-              : 'Please complete your Stripe account setup to enable payments.'
-          }
+              : 'Please complete your Stripe account setup to enable payments.'}
         </p>
 
         {accountStatus && (
@@ -341,9 +348,11 @@ export function StripeConnectOnboarding() {
           </div>
         )}
 
-        {!showOnboarding && (
+        {!showOnboarding &&
           // Only show the main button if there's no error with a retry button
-          !error || (!error.includes('not completed') && !error.includes('in progress')) ? (
+          (!error ||
+          (!error.includes('not completed') &&
+            !error.includes('in progress')) ? (
             <button
               className={styles.onboardButton}
               onClick={initializeConnect}
@@ -357,9 +366,8 @@ export function StripeConnectOnboarding() {
                     ? 'Update Payment Info'
                     : 'Start Onboarding'}
             </button>
-          ) : null
-        )}
-        
+          ) : null)}
+
         {showOnboarding && (
           <div className={styles.onboardingWrapper}>
             <ConnectComponentsProvider connectInstance={stripeConnectInstance}>

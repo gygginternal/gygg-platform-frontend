@@ -60,7 +60,9 @@ const ErrorDisplay = ({
 
       <div className={styles.content}>
         {errorList.length === 1 ? (
-          <p className={styles.errorMessage}>{decodeHTMLEntities(errorList[0])}</p>
+          <p className={styles.errorMessage}>
+            {decodeHTMLEntities(errorList[0])}
+          </p>
         ) : (
           <div className={styles.errorList}>
             {errorList.map((error, index) => (

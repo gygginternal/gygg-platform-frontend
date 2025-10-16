@@ -244,8 +244,8 @@ function ModernGigCreateForm({ onGigCreated }) {
 
             <div className={styles.inputGroup}>
               <h3 className={styles.inputTitle}>
-                {formData.gigPaymentType === 'hourly' 
-                  ? 'What is your hourly rate?' 
+                {formData.gigPaymentType === 'hourly'
+                  ? 'What is your hourly rate?'
                   : 'What is the total cost for this gig?'}
               </h3>
               <div className={styles.priceInputContainer}>
@@ -280,7 +280,10 @@ function ModernGigCreateForm({ onGigCreated }) {
               </div>
               {formData.gigPaymentType === 'hourly' && (
                 <div className={styles.hourlyNote}>
-                  <small>💡 You'll be paid based on actual hours worked and approved by the provider</small>
+                  <small>
+                    💡 You'll be paid based on actual hours worked and approved
+                    by the provider
+                  </small>
                 </div>
               )}
             </div>
@@ -294,13 +297,16 @@ function ModernGigCreateForm({ onGigCreated }) {
                   type="number"
                   className={styles.durationInput}
                   value={formData.gigDuration}
-                  onChange={e => handleInputChange('gigDuration', e.target.value)}
+                  onChange={e =>
+                    handleInputChange('gigDuration', e.target.value)
+                  }
                   placeholder="Enter estimated hours (e.g., 4)"
                   min="0.5"
                   step="0.5"
                 />
                 <small className={styles.durationNote}>
-                  This helps providers understand the scope. Final payment will be based on actual hours worked.
+                  This helps providers understand the scope. Final payment will
+                  be based on actual hours worked.
                 </small>
               </div>
             )}
@@ -367,7 +373,9 @@ function ModernGigCreateForm({ onGigCreated }) {
                   <input
                     type="checkbox"
                     checked={formData.isRemote}
-                    onChange={e => handleInputChange('isRemote', e.target.checked)}
+                    onChange={e =>
+                      handleInputChange('isRemote', e.target.checked)
+                    }
                   />
                   <span>This is a remote gig (can be done from anywhere)</span>
                 </label>
@@ -529,7 +537,9 @@ function ModernGigCreateForm({ onGigCreated }) {
               {/* Budget Range */}
               <div className={styles.reviewItem}>
                 <h3 className={styles.reviewLabel}>
-                  {formData.gigPaymentType === 'hourly' ? 'Hourly Rate' : 'Total Budget'}
+                  {formData.gigPaymentType === 'hourly'
+                    ? 'Hourly Rate'
+                    : 'Total Budget'}
                 </h3>
                 <div className={styles.reviewContent}>
                   <div className={styles.reviewText}>
@@ -591,12 +601,11 @@ function ModernGigCreateForm({ onGigCreated }) {
                 <h3 className={styles.reviewLabel}>Location</h3>
                 <div className={styles.reviewContent}>
                   <div className={styles.reviewText}>
-                    {formData.isRemote 
+                    {formData.isRemote
                       ? 'Remote (can be done from anywhere)'
                       : formData.gigCity || formData.gigState
                         ? `${formData.gigCity || ''}${formData.gigCity && formData.gigState ? ', ' : ''}${formData.gigState || ''}`
-                        : 'Location not specified'
-                    }
+                        : 'Location not specified'}
                   </div>
                   <button
                     className={styles.editButton}

@@ -75,7 +75,9 @@ function MessageThread({ messages = [] }) {
                   </h3>
                 </div>
               )}
-              <p className={styles.messageText}>{decodeHTMLEntities(msg.content)}</p>
+              <p className={styles.messageText}>
+                {decodeHTMLEntities(msg.content)}
+              </p>
               {/* Show timestamp on hover or always */}
               <time className={styles.timestamp}>
                 {formatTimestamp(msg.timestamp || msg.createdAt)}

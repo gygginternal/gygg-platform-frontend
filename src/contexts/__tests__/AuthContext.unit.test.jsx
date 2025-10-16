@@ -6,10 +6,16 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 const mockLocalStorage = (() => {
   let store = {};
   return {
-    getItem: (key) => store[key] || null,
-    setItem: (key, value) => { store[key] = value.toString(); },
-    removeItem: (key) => { delete store[key]; },
-    clear: () => { store = {}; },
+    getItem: key => store[key] || null,
+    setItem: (key, value) => {
+      store[key] = value.toString();
+    },
+    removeItem: key => {
+      delete store[key];
+    },
+    clear: () => {
+      store = {};
+    },
   };
 })();
 
@@ -22,7 +28,7 @@ vi.mock('../src/api/axiosConfig', () => ({
     post: vi.fn(),
     patch: vi.fn(),
     delete: vi.fn(),
-  }
+  },
 }));
 
 // Mock the logger
@@ -32,13 +38,11 @@ vi.mock('../src/utils/logger', () => ({
     debug: vi.fn(),
     warn: vi.fn(),
     error: vi.fn(),
-  }
+  },
 }));
 
 describe('AuthContext', () => {
-  const wrapper = ({ children }) => (
-    <AuthProvider>{children}</AuthProvider>
-  );
+  const wrapper = ({ children }) => <AuthProvider>{children}</AuthProvider>;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -47,7 +51,7 @@ describe('AuthContext', () => {
 
   it('should provide initial auth state', () => {
     const { result } = renderHook(() => useAuth(), { wrapper });
-    
+
     expect(result.current.authToken).toBeNull();
     expect(result.current.user).toBeNull();
     expect(result.current.isLoading).toBe(true);
@@ -56,7 +60,7 @@ describe('AuthContext', () => {
   it('should handle login', () => {
     const { result } = renderHook(() => useAuth(), { wrapper });
     const mockUser = { id: '123', email: 'test@example.com', role: ['tasker'] };
-    
+
     act(() => {
       result.current.login('token123', mockUser);
     });
@@ -68,7 +72,7 @@ describe('AuthContext', () => {
 
   it('should handle logout', () => {
     const { result } = renderHook(() => useAuth(), { wrapper });
-    
+
     // First login
     const mockUser = { id: '123', email: 'test@example.com', role: ['tasker'] };
     act(() => {
@@ -90,8 +94,12 @@ describe('AuthContext', () => {
 
   it('should set session role for single-role user on login', () => {
     const { result } = renderHook(() => useAuth(), { wrapper });
-    const singleRoleUser = { id: '123', email: 'test@example.com', role: ['tasker'] };
-    
+    const singleRoleUser = {
+      id: '123',
+      email: 'test@example.com',
+      role: ['tasker'],
+    };
+
     act(() => {
       result.current.login('token123', singleRoleUser);
     });
@@ -102,8 +110,12 @@ describe('AuthContext', () => {
 
   it('should not set session role for multi-role user on login', () => {
     const { result } = renderHook(() => useAuth(), { wrapper });
-    const multiRoleUser = { id: '123', email: 'test@example.com', role: ['tasker', 'provider'] };
-    
+    const multiRoleUser = {
+      id: '123',
+      email: 'test@example.com',
+      role: ['tasker', 'provider'],
+    };
+
     act(() => {
       result.current.login('token123', multiRoleUser);
     });
@@ -113,7 +125,7 @@ describe('AuthContext', () => {
 
   it('should allow manual session role selection', () => {
     const { result } = renderHook(() => useAuth(), { wrapper });
-    
+
     act(() => {
       result.current.selectSessionRole('provider');
     });
@@ -124,7 +136,7 @@ describe('AuthContext', () => {
 
   it('should clear session role', () => {
     const { result } = renderHook(() => useAuth(), { wrapper });
-    
+
     // Set a session role first
     act(() => {
       result.current.selectSessionRole('provider');

@@ -77,7 +77,9 @@ export const BillingTable = () => {
                 <td className={styles.bodyCell}>
                   {format(new Date(row.createdAt), 'MM-dd-yyyy')}
                 </td>
-                <td className={styles.bodyCell}>{decodeHTMLEntities(row?.gig?.title) || 'N/A'}</td>
+                <td className={styles.bodyCell}>
+                  {decodeHTMLEntities(row?.gig?.title) || 'N/A'}
+                </td>
                 <td
                   className={`${styles.bodyCell} ${styles.invoiceLink}`}
                   onClick={() => setSelectedGig(row)}

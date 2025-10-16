@@ -40,7 +40,10 @@ const LazyGigCard = ({
             console.debug('Gig image loaded:', decodeHTMLEntities(gig.title));
           }}
           onError={() => {
-            console.debug('Gig image failed to load:', decodeHTMLEntities(gig.title));
+            console.debug(
+              'Gig image failed to load:',
+              decodeHTMLEntities(gig.title)
+            );
           }}
         />
 

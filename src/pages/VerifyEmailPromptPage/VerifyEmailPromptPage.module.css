@@ -196,7 +196,9 @@
   font-size: 0.875rem;
   font-family: 'Inter', sans-serif;
   margin-bottom: 1rem;
-  transition: border-color 0.3s ease, background-color 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease;
 }
 
 .emailInput:focus {
@@ -224,8 +226,12 @@
 
 /* Loading animation */
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Responsive adjustments for screens up to 1024px */

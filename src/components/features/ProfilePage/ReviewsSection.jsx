@@ -50,9 +50,9 @@ function ReviewsSection({ userIdToView, isOwnProfile }) {
         // Fetch reviews where the targetUserId is the reviewee (Tasker)
         const [reviewsResponse, averageResponse] = await Promise.all([
           apiClient.get(`/reviews?taskerId=${targetUserIdForReviews}`),
-          apiClient.get(`/reviews/average/${targetUserIdForReviews}`)
+          apiClient.get(`/reviews/average/${targetUserIdForReviews}`),
         ]);
-        
+
         setReviews(reviewsResponse.data.data.reviews || []);
         setAverageRating(averageResponse.data.data.averageRating || 0);
       } catch (err) {
@@ -91,9 +91,13 @@ function ReviewsSection({ userIdToView, isOwnProfile }) {
         <h2>Reviews Received</h2>
         {reviews.length > 0 && (
           <div className={styles.reviewsSummary}>
-            <span className={styles.averageRating}>{averageRating.toFixed(1)}</span>
+            <span className={styles.averageRating}>
+              {averageRating.toFixed(1)}
+            </span>
             <DisplayRating rating={averageRating} />
-            <span className={styles.reviewsCount}>({reviews.length} reviews)</span>
+            <span className={styles.reviewsCount}>
+              ({reviews.length} reviews)
+            </span>
           </div>
         )}
       </div>

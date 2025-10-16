@@ -23,7 +23,7 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
   const [editedFirstName, setEditedFirstName] = useState('');
   const [editedLastName, setEditedLastName] = useState('');
   const [editedBio, setEditedBio] = useState('');
-  
+
   const [profileImageFile, setProfileImageFile] = useState(null);
   const [profileImagePreview, setProfileImagePreview] = useState(null);
   const fileInputRef = useRef(null);

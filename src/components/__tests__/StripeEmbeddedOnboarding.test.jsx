@@ -29,7 +29,7 @@ process.env.VITE_STRIPE_PUBLISHABLE_KEY = 'pk_test_123';
 describe('StripeEmbeddedOnboarding Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    
+
     // Set default mock implementations
     apiClient.default.get.mockResolvedValue({ data: { data: {} } });
   });

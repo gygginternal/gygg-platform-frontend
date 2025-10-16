@@ -140,7 +140,9 @@ function PostedGigs({ providerId, isOwnProfile }) {
             onClick={() => handleGigClick(gig._id)}
           >
             <div className={styles.gigContent}>
-              <h3 className={styles.gigTitle}>{decodeHTMLEntities(gig.title)}</h3>
+              <h3 className={styles.gigTitle}>
+                {decodeHTMLEntities(gig.title)}
+              </h3>
               <div className={styles.gigMeta}>
                 <span
                   className={styles.statusBadge}

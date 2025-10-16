@@ -14,10 +14,9 @@ function MatchedGigCard({ gig }) {
       </h4>
       <p>Category: {gig.category}</p>
       <p>
-        {gig.isHourly 
+        {gig.isHourly
           ? `Rate: $${gig.ratePerHour || 0}/hr${gig.estimatedHours ? ` (Est. ${gig.estimatedHours}h)` : ''}`
-          : `Cost: $${gig.cost || 0}`
-        }
+          : `Cost: $${gig.cost || 0}`}
       </p>
       <p>Status: {gig.status}</p>
       {provider && (

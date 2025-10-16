@@ -58,7 +58,9 @@ const NotificationItem = ({
       </div>
 
       <div className={styles.notificationContent}>
-        <p className={styles.message}>{decodeHTMLEntities(notification.message)}</p>
+        <p className={styles.message}>
+          {decodeHTMLEntities(notification.message)}
+        </p>
         <span className={styles.time}>
           {formatTimeAgo(notification.createdAt)}
         </span>

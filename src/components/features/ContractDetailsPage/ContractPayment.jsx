@@ -32,14 +32,16 @@ const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
         );
         const paymentData = paymentRes.data.data.payment;
         setPayment(paymentData);
-        
+
         // Check payment provider and set appropriate data
         if (paymentData.paymentProvider === 'nuvei') {
           setPaymentProvider('nuvei');
           // For Nuvei, we'll fetch session info separately
           if (paymentData.status === 'requires_payment_method') {
             try {
-              const sessionRes = await apiClient.get(`/payments/nuvei/session/${paymentData.nuveiSessionId}`);
+              const sessionRes = await apiClient.get(
+                `/payments/nuvei/session/${paymentData.nuveiSessionId}`
+              );
               setNuveiPaymentConfig(sessionRes.data.data);
             } catch (err) {
               console.error('Error fetching Nuvei session:', err);
@@ -54,13 +56,16 @@ const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
             setClientSecret(null);
           }
         }
-        
+
         // Fetch contract info to check status
         const contractRes = await apiClient.get(`/contracts/${contractId}`);
         setContract(contractRes.data.data.contract);
-        
+
         // Check if contract is completed and user is provider to show rating button
-        if (contractRes.data.data.contract.status === 'completed' && isProvider) {
+        if (
+          contractRes.data.data.contract.status === 'completed' &&
+          isProvider
+        ) {
           setShowRating(true);
         } else if (paymentData.status === 'succeeded' && isProvider) {
           // Fallback to payment status if contract status isn't completed yet
@@ -78,7 +83,7 @@ const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
     setTimeout(() => window.location.reload(), 1000); // Refresh to update status
   };
 
-  const handlePaymentError = (error) => {
+  const handlePaymentError = error => {
     console.error('Payment error:', error);
   };
 
@@ -88,7 +93,7 @@ const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
     try {
       await apiClient.post(`/payments/contracts/${contractId}/release`);
       setReleaseMessage('Payment released to tasker!');
-      
+
       // After releasing payment, fetch updated contract to check if it's completed
       try {
         const contractRes = await apiClient.get(`/contracts/${contractId}`);
@@ -101,7 +106,7 @@ const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
         // If we can't fetch contract, still show rating button based on payment status
         setShowRating(true);
       }
-      
+
       if (onPaymentReleased) onPaymentReleased();
     } catch (err) {
       setReleaseMessage('Failed to release payment.');
@@ -130,7 +135,7 @@ const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
       <div>
         Payout to Tasker: ${(payment.amountReceivedByPayee / 100).toFixed(2)}
       </div>
-      
+
       <div className={styles.paymentProviderSelector}>
         <label>
           <input
@@ -138,7 +143,7 @@ const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
             name="paymentProvider"
             value="stripe"
             checked={paymentProvider === 'stripe'}
-            onChange={(e) => setPaymentProvider(e.target.value)}
+            onChange={e => setPaymentProvider(e.target.value)}
             disabled={payment.status !== 'requires_payment_method'}
           />
           Stripe
@@ -149,7 +154,7 @@ const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
             name="paymentProvider"
             value="nuvei"
             checked={paymentProvider === 'nuvei'}
-            onChange={(e) => setPaymentProvider(e.target.value)}
+            onChange={e => setPaymentProvider(e.target.value)}
             disabled={payment.status !== 'requires_payment_method'}
           />
           Nuvei (with InstaDebit)
@@ -168,7 +173,7 @@ const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
               />
             </Elements>
           )}
-          
+
           {paymentProvider === 'nuvei' && (
             <NuveiPaymentForm
               contractId={contractId}
@@ -193,9 +198,9 @@ const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
         <div className={styles.releaseMessage}>{releaseMessage}</div>
       )}
       {showRating && (
-        <RateTaskerButton 
-          contractId={contractId} 
-          onRatingSubmitted={handleRatingSubmitted} 
+        <RateTaskerButton
+          contractId={contractId}
+          onRatingSubmitted={handleRatingSubmitted}
         />
       )}
     </section>

@@ -22,7 +22,9 @@ function TaskerCard({ tasker }) {
           </h4>
           <p className={styles.paragraph}>
             <i>
-              &ldquo;{decodeHTMLEntities(tasker.peoplePreference) || 'No preference specified'}
+              &ldquo;
+              {decodeHTMLEntities(tasker.peoplePreference) ||
+                'No preference specified'}
               &rdquo;
             </i>
           </p>
@@ -41,7 +43,8 @@ function TaskerCard({ tasker }) {
       {tasker.hobbies?.length > 0 && (
         <p className={styles.paragraph}>
           <span className={styles.textMuted}>
-            Hobbies: {tasker.hobbies.map(hobby => decodeHTMLEntities(hobby)).join(', ')}
+            Hobbies:{' '}
+            {tasker.hobbies.map(hobby => decodeHTMLEntities(hobby)).join(', ')}
           </span>
         </p>
       )}

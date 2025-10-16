@@ -265,10 +265,9 @@ const PostedGigsPage = () => {
                     <div className={styles.gigCardMeta}>
                       <div className={styles.metaItem}>
                         <span>
-                          {gig.isHourly 
+                          {gig.isHourly
                             ? `$${gig.ratePerHour || 0}/hr${gig.estimatedHours ? ` (Est. ${gig.estimatedHours}h)` : ''}`
-                            : `$${gig.cost || 0}`
-                          }
+                            : `$${gig.cost || 0}`}
                         </span>
                       </div>
                       <div className={styles.metaItem}>

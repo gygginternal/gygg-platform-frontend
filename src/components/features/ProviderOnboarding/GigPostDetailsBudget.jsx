@@ -94,7 +94,7 @@ function GigPostDetailsBudget({ formData, onInputChange }) {
           placeholder="Provide all necessary details..."
         />
       </div>
-      
+
       <div className={styles.formGroup}>
         <label className={styles.label}>
           Where is this gig located? (Optional)
@@ -119,7 +119,10 @@ function GigPostDetailsBudget({ formData, onInputChange }) {
             style={{ flex: 1 }}
           />
         </div>
-        <label className={styles.label} style={{ display: 'flex', alignItems: 'center', gap: '0.5em' }}>
+        <label
+          className={styles.label}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.5em' }}
+        >
           <input
             type="checkbox"
             name="isRemote"

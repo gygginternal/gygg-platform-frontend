@@ -21,100 +21,125 @@ function RecentHires({ providerId, isOwnProfile }) {
       try {
         // Fetch completed contracts for this provider with pagination
         const res = await apiClient.get('/contracts/my-contracts', {
-          params: { 
-            status: 'completed', 
+          params: {
+            status: 'completed',
             page: page,
-            limit: HIRES_PER_PAGE
+            limit: HIRES_PER_PAGE,
           },
         });
-        
+
         const contracts = res.data.data.contracts;
         setTotalPages(res.data.data.totalPages);
         setTotalCount(res.data.data.total);
-        
+
         // Filter contracts to only include those where the current user is the provider
-        const providerContracts = contracts.filter(contract => 
-          contract.providerId === providerId || contract.provider === providerId
+        const providerContracts = contracts.filter(
+          contract =>
+            contract.providerId === providerId ||
+            contract.provider === providerId
         );
-        
+
         // Transform contracts to hires with review information
         const hiresWithReviews = await Promise.all(
-          providerContracts.map(async (contract) => {
+          providerContracts.map(async contract => {
             // Extract tasker information
             let taskerName = 'Unknown Tasker';
             let taskerImage = null;
             let taskerId = null;
-            
+
             // Handle populated tasker object
             if (contract.tasker && typeof contract.tasker === 'object') {
               const firstName = contract.tasker.firstName || '';
               const lastName = contract.tasker.lastName || '';
-              taskerName = [firstName, lastName].filter(Boolean).join(' ') || 'Unknown Tasker';
+              taskerName =
+                [firstName, lastName].filter(Boolean).join(' ') ||
+                'Unknown Tasker';
               taskerImage = contract.tasker.profileImage || null;
               taskerId = contract.tasker._id || contract.tasker.id;
-            } 
+            }
             // Handle tasker as string ID
-            else if (typeof contract.tasker === 'string' && contract.tasker.length > 0) {
+            else if (
+              typeof contract.tasker === 'string' &&
+              contract.tasker.length > 0
+            ) {
               taskerName = contract.tasker;
               taskerId = contract.tasker;
             }
-            
+
             // Validate taskerImage to ensure it's a proper URL
             if (taskerImage) {
               // Remove any invalid image URLs
               const trimmedImage = taskerImage.trim();
-              if (trimmedImage === 'null' || trimmedImage === 'undefined' || trimmedImage === '' || 
-                  (!trimmedImage.startsWith('http') && !trimmedImage.startsWith('/'))) {
+              if (
+                trimmedImage === 'null' ||
+                trimmedImage === 'undefined' ||
+                trimmedImage === '' ||
+                (!trimmedImage.startsWith('http') &&
+                  !trimmedImage.startsWith('/'))
+              ) {
                 taskerImage = null;
               } else {
                 taskerImage = trimmedImage;
               }
             }
-            
+
             // Debug logging removed for production
-            
+
             // Extract gig information
             let gigTitle = 'Untitled Gig';
             let gigId = null;
-            
+
             // Handle populated gig object
-            if (contract.gig && typeof contract.gig === 'object' && contract.gig.title) {
+            if (
+              contract.gig &&
+              typeof contract.gig === 'object' &&
+              contract.gig.title
+            ) {
               gigTitle = contract.gig.title;
               gigId = contract.gig._id || contract.gig.id;
-            } 
+            }
             // Handle gigTitle field
             else if (contract.gigTitle) {
               gigTitle = contract.gigTitle;
             }
-            
+
             // Check if a review exists for this contract
             let reviewData = null;
             let hasReview = false;
             try {
-              const reviewRes = await apiClient.get(`/reviews?contract=${contract.id || contract._id || contract.contractId}`);
-              if (reviewRes.data.data.reviews && reviewRes.data.data.reviews.length > 0) {
+              const reviewRes = await apiClient.get(
+                `/reviews?contract=${contract.id || contract._id || contract.contractId}`
+              );
+              if (
+                reviewRes.data.data.reviews &&
+                reviewRes.data.data.reviews.length > 0
+              ) {
                 reviewData = reviewRes.data.data.reviews[0];
                 hasReview = true;
               }
             } catch (reviewErr) {
               // No review found, which is fine
             }
-            
+
             return {
               contractId: contract.id || contract._id || contract.contractId,
               taskerId: taskerId,
               taskerName: decodeHTMLEntities(taskerName),
               taskerImage: taskerImage,
               gigTitle: decodeHTMLEntities(gigTitle),
-              review: decodeHTMLEntities(reviewData?.comment) || 'No review provided',
+              review:
+                decodeHTMLEntities(reviewData?.comment) || 'No review provided',
               rating: reviewData?.rating || 0,
-              date: contract.completedAt || contract.updatedAt || contract.createdAt,
+              date:
+                contract.completedAt ||
+                contract.updatedAt ||
+                contract.createdAt,
               gigId: gigId,
-              hasReview: hasReview
+              hasReview: hasReview,
             };
           })
         );
-        
+
         setHires(hiresWithReviews);
       } catch (err) {
         console.error('Error fetching recent hires:', err);
@@ -126,7 +151,7 @@ function RecentHires({ providerId, isOwnProfile }) {
     fetchRecentHires();
   }, [providerId, page]);
 
-  const handlePageChange = (newPage) => {
+  const handlePageChange = newPage => {
     if (newPage >= 1 && newPage <= totalPages) {
       setPage(newPage);
     }
@@ -158,37 +183,60 @@ function RecentHires({ providerId, isOwnProfile }) {
 
   return (
     <div className={styles.recentHiresSection}>
-      <h2 className={styles.sectionTitle}>Recent hires{totalCount > 0 ? ` (${totalCount})` : ''}</h2>
+      <h2 className={styles.sectionTitle}>
+        Recent hires{totalCount > 0 ? ` (${totalCount})` : ''}
+      </h2>
       <div className={styles.hiresList}>
         {hires.map((hire, idx) => (
           <div className={styles.hireCard} key={`${hire.contractId}-${idx}`}>
             <div className={styles.hireHeader}>
-              {hire.taskerImage && hire.taskerImage !== 'null' && hire.taskerImage !== 'undefined' && hire.taskerImage.trim() !== '' && (hire.taskerImage.startsWith('http') || hire.taskerImage.startsWith('/')) ? (
-              <div className={styles.avatarContainer}>
-                <img 
-                  src={hire.taskerImage} 
-                  alt={hire.taskerName}
-                  className={styles.taskerAvatar}
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.parentNode.querySelector(`.${styles.avatarPlaceholder}`).style.display = 'flex';
-                  }}
-                />
-                <div className={styles.avatarPlaceholder} style={{display: 'none'}}>
-                  {hire.taskerName && hire.taskerName !== 'Unknown Tasker' && hire.taskerName.length > 0 ? 
-                    hire.taskerName.charAt(0).toUpperCase() : '?'}
+              {hire.taskerImage &&
+              hire.taskerImage !== 'null' &&
+              hire.taskerImage !== 'undefined' &&
+              hire.taskerImage.trim() !== '' &&
+              (hire.taskerImage.startsWith('http') ||
+                hire.taskerImage.startsWith('/')) ? (
+                <div className={styles.avatarContainer}>
+                  <img
+                    src={hire.taskerImage}
+                    alt={hire.taskerName}
+                    className={styles.taskerAvatar}
+                    onError={e => {
+                      e.target.style.display = 'none';
+                      e.target.parentNode.querySelector(
+                        `.${styles.avatarPlaceholder}`
+                      ).style.display = 'flex';
+                    }}
+                  />
+                  <div
+                    className={styles.avatarPlaceholder}
+                    style={{ display: 'none' }}
+                  >
+                    {hire.taskerName &&
+                    hire.taskerName !== 'Unknown Tasker' &&
+                    hire.taskerName.length > 0
+                      ? hire.taskerName.charAt(0).toUpperCase()
+                      : '?'}
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <div className={styles.avatarContainer}>
-                <div className={styles.avatarPlaceholder} style={{display: 'flex'}}>
-                  {hire.taskerName && hire.taskerName !== 'Unknown Tasker' && hire.taskerName.length > 0 ? 
-                    hire.taskerName.charAt(0).toUpperCase() : '?'}
+              ) : (
+                <div className={styles.avatarContainer}>
+                  <div
+                    className={styles.avatarPlaceholder}
+                    style={{ display: 'flex' }}
+                  >
+                    {hire.taskerName &&
+                    hire.taskerName !== 'Unknown Tasker' &&
+                    hire.taskerName.length > 0
+                      ? hire.taskerName.charAt(0).toUpperCase()
+                      : '?'}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
               <div className={styles.hireInfo}>
-                <div className={styles.hireName}>{decodeHTMLEntities(hire.taskerName)}</div>
+                <div className={styles.hireName}>
+                  {decodeHTMLEntities(hire.taskerName)}
+                </div>
                 <div className={styles.hireDate}>
                   {hire.date
                     ? new Date(hire.date).toLocaleDateString('en-US', {
@@ -200,15 +248,17 @@ function RecentHires({ providerId, isOwnProfile }) {
                 </div>
               </div>
             </div>
-            
-                          {hire.gigId ? (
-                <a href={`/gigs/${hire.gigId}`} className={styles.gigTitleLink}>
-                  {decodeHTMLEntities(hire.gigTitle)}
-                </a>
-              ) : (
-                <span className={styles.gigTitleLink}>{decodeHTMLEntities(hire.gigTitle)}</span>
-              )}
-            
+
+            {hire.gigId ? (
+              <a href={`/gigs/${hire.gigId}`} className={styles.gigTitleLink}>
+                {decodeHTMLEntities(hire.gigTitle)}
+              </a>
+            ) : (
+              <span className={styles.gigTitleLink}>
+                {decodeHTMLEntities(hire.gigTitle)}
+              </span>
+            )}
+
             <div className={styles.reviewSection}>
               <div className={styles.ratingRow}>
                 {hire.rating > 0 ? (
@@ -221,8 +271,12 @@ function RecentHires({ providerId, isOwnProfile }) {
                         <Star
                           key={i}
                           size={16}
-                          fill={i < Math.round(hire.rating) ? '#FFA726' : '#E0E0E0'}
-                          color={i < Math.round(hire.rating) ? '#FFA726' : '#E0E0E0'}
+                          fill={
+                            i < Math.round(hire.rating) ? '#FFA726' : '#E0E0E0'
+                          }
+                          color={
+                            i < Math.round(hire.rating) ? '#FFA726' : '#E0E0E0'
+                          }
                         />
                       ))}
                     </span>
@@ -231,7 +285,7 @@ function RecentHires({ providerId, isOwnProfile }) {
                   <span className={styles.noRating}>Not rated yet</span>
                 )}
               </div>
-              
+
               <div className={styles.reviewText}>
                 {decodeHTMLEntities(hire.review)}
               </div>
@@ -256,7 +310,9 @@ function RecentHires({ providerId, isOwnProfile }) {
                 padding: 0,
               }}
             >
-              <span className={idx + 1 === page ? styles.activeDot : styles.dot} />
+              <span
+                className={idx + 1 === page ? styles.activeDot : styles.dot}
+              />
             </button>
           ))}
         </div>

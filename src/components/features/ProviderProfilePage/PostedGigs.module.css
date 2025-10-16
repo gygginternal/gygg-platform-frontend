@@ -172,7 +172,9 @@
   border-radius: 50%;
   background: #cbd5e0;
   display: inline-block;
-  transition: background 0.2s, width 0.2s;
+  transition:
+    background 0.2s,
+    width 0.2s;
 }
 
 .activeDot {
@@ -181,7 +183,9 @@
   border-radius: 8px;
   background: #d99633;
   display: inline-block;
-  transition: background 0.2s, width 0.2s;
+  transition:
+    background 0.2s,
+    width 0.2s;
 }
 
 .dotButton:hover .dot {

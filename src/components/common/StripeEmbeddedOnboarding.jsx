@@ -27,22 +27,26 @@ export function StripeEmbeddedOnboarding() {
     try {
       setLoading(true); // Set loading state during fetch
       const response = await apiClient.get('/users/stripe/account-status');
-      
+
       // Add safety checks for response structure
       if (!response.data || !response.data.data) {
         throw new Error('Invalid response structure from account-status');
       }
-      
+
       setAccountStatus(response.data.data);
-      
+
       // Check if account is already fully onboarded
       const accountData = response.data.data;
-      if (accountData.detailsSubmitted && accountData.chargesEnabled && accountData.payoutsEnabled) {
+      if (
+        accountData.detailsSubmitted &&
+        accountData.chargesEnabled &&
+        accountData.payoutsEnabled
+      ) {
         setSuccess(true);
       } else {
         setSuccess(false); // Make sure success state is false if account is not complete
       }
-      
+
       return response.data.data;
     } catch (err) {
       console.error('Error fetching account status:', err);
@@ -108,12 +112,12 @@ export function StripeEmbeddedOnboarding() {
         const response = await apiClient.post(
           '/users/stripe/account-link?embedded=true'
         );
-        
+
         // Add safety checks for response structure
         if (!response.data || !response.data.data) {
           throw new Error('Invalid response structure from account-link');
         }
-        
+
         const responseData = response.data.data;
         const clientSecret = responseData.clientSecret;
         const url = responseData.url;
@@ -138,39 +142,42 @@ export function StripeEmbeddedOnboarding() {
           let onboarding;
 
           try {
-              onboarding = await stripe.initEmbeddedAccountOnboarding({
+            onboarding = await stripe.initEmbeddedAccountOnboarding({
+              clientSecret,
+              onLoad: () => {
+                setLoading(false);
+                setError(null);
+              },
+              onError: err => {
+                setError(`Onboarding error: ${err.message}`);
+                setLoading(false);
+              },
+            });
+          } catch (err) {
+            // Try alternative method
+            throw err;
+          }
+          // Method 2: connectEmbeddedAccountSession (fallback)
+          if (
+            !onboarding &&
+            typeof stripe.connectEmbeddedAccountSession === 'function'
+          ) {
+            try {
+              onboarding = await stripe.connectEmbeddedAccountSession({
                 clientSecret,
                 onLoad: () => {
                   setLoading(false);
                   setError(null);
                 },
                 onError: err => {
-                  setError(`Onboarding error: ${err.message}`);
+                  setError(`Account session error: ${err.message}`);
                   setLoading(false);
                 },
               });
             } catch (err) {
-              // Try alternative method
               throw err;
             }
-          // Method 2: connectEmbeddedAccountSession (fallback)
-            if (!onboarding && typeof stripe.connectEmbeddedAccountSession === 'function') {
-              try {
-                onboarding = await stripe.connectEmbeddedAccountSession({
-                  clientSecret,
-                  onLoad: () => {
-                    setLoading(false);
-                    setError(null);
-                  },
-                  onError: err => {
-                    setError(`Account session error: ${err.message}`);
-                    setLoading(false);
-                  },
-                });
-              } catch (err) {
-                throw err;
-              }
-            }
+          }
           // No valid method found
           else {
             throw new Error(
@@ -188,7 +195,7 @@ export function StripeEmbeddedOnboarding() {
         const redirectResponse = await apiClient.post(
           '/users/stripe/account-link'
         );
-        
+
         // Add safety checks for response structure
         if (redirectResponse.data?.data?.url) {
           window.location.href = redirectResponse.data.data.url;
@@ -262,9 +269,10 @@ export function StripeEmbeddedOnboarding() {
   }
 
   // Check if account is fully set up
-  const isAccountComplete = accountStatus && 
-    accountStatus.detailsSubmitted && 
-    accountStatus.chargesEnabled && 
+  const isAccountComplete =
+    accountStatus &&
+    accountStatus.detailsSubmitted &&
+    accountStatus.chargesEnabled &&
     accountStatus.payoutsEnabled;
 
   if (isAccountComplete) {
@@ -321,16 +329,16 @@ export function StripeEmbeddedOnboarding() {
           {error && (
             <div className={styles.error}>
               <p>{error}</p>
-              <button className={styles.retryButton} onClick={fetchAccountStatus}>
+              <button
+                className={styles.retryButton}
+                onClick={fetchAccountStatus}
+              >
                 Retry
               </button>
             </div>
           )}
 
-          <button
-            className={styles.refreshButton}
-            onClick={fetchAccountStatus}
-          >
+          <button className={styles.refreshButton} onClick={fetchAccountStatus}>
             Refresh Status
           </button>
 

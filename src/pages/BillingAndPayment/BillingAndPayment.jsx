@@ -3,10 +3,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../contexts/ToastContext';
 import apiClient from '../../api/axiosConfig';
 import styles from './BillingAndPayment.module.css';
-import {
-  Filter,
-  Search,
-} from 'lucide-react';
+import { Filter, Search } from 'lucide-react';
 
 function WithdrawModal({ open, onClose, available, onConfirm }) {
   const [custom, setCustom] = useState(false);
@@ -890,8 +887,7 @@ export default function BillingAndPayment() {
                         fontWeight: 600,
                       }}
                     >
-                      $
-                      {((inv.amount || 0) / 100).toFixed(2)}
+                      ${((inv.amount || 0) / 100).toFixed(2)}
                     </td>
                     <td>
                       <button

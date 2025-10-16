@@ -14,7 +14,8 @@
   color: #1f2937;
   margin-bottom: 1rem; /* 16px */
   margin-top: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .hiresList {
@@ -209,7 +210,8 @@
   transition: background-color 0.2s ease;
   border: none;
   cursor: pointer;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .createActionButton:hover {
@@ -244,7 +246,9 @@
   border-radius: 50%;
   background: #cbd5e0;
   display: inline-block;
-  transition: background 0.2s, width 0.2s;
+  transition:
+    background 0.2s,
+    width 0.2s;
 }
 
 .activeDot {
@@ -253,7 +257,9 @@
   border-radius: 8px;
   background: #4299e1;
   display: inline-block;
-  transition: background 0.2s, width 0.2s;
+  transition:
+    background 0.2s,
+    width 0.2s;
 }
 
 .dotButton:hover .dot {
@@ -271,52 +277,52 @@
     margin: 1.25rem 0; /* 20px */
     border-radius: 1rem; /* 16px */
   }
-  
+
   .sectionTitle {
     font-size: 1.125rem; /* 18px */
     margin-bottom: 1.25rem; /* 20px */
   }
-  
+
   .hiresList {
     gap: 1rem; /* 16px */
   }
-  
+
   .hireCard {
     padding: 1.25rem; /* 20px */
     gap: 1rem; /* 16px */
   }
-  
+
   .avatarContainer {
     width: 3rem;
     height: 3rem;
   }
-  
+
   .taskerAvatar {
     width: 3rem;
     height: 3rem;
   }
-  
+
   .avatarPlaceholder {
     width: 3rem; /* 48px */
     height: 3rem; /* 48px */
   }
-  
+
   .hireName {
     font-size: 0.9375rem; /* 15px */
   }
-  
+
   .gigTitleLink {
     font-size: 1rem; /* 16px */
   }
-  
+
   .reviewText {
     font-size: 0.875rem; /* 14px */
   }
-  
+
   .ratingValue {
     font-size: 0.9375rem; /* 15px */
   }
-  
+
   .hireDate {
     font-size: 0.8125rem; /* 13px */
   }
@@ -328,52 +334,52 @@
     padding: 1.5rem; /* 24px */
     margin: 1.5rem 0; /* 24px */
   }
-  
+
   .sectionTitle {
     font-size: 1.25rem; /* 20px */
     margin-bottom: 1.5rem; /* 24px */
   }
-  
+
   .hiresList {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.25rem; /* 20px */
   }
-  
+
   .hireCard {
     padding: 1.5rem; /* 24px */
   }
-  
+
   .avatarContainer {
     width: 3.25rem;
     height: 3.25rem;
   }
-  
+
   .taskerAvatar {
     width: 3.25rem;
     height: 3.25rem;
   }
-  
+
   .avatarPlaceholder {
     width: 3.25rem; /* 52px */
     height: 3.25rem; /* 52px */
   }
-  
+
   .hireName {
     font-size: 1rem; /* 16px */
   }
-  
+
   .gigTitleLink {
     font-size: 1.0625rem; /* 17px */
   }
-  
+
   .reviewText {
     font-size: 0.9375rem; /* 15px */
   }
-  
+
   .ratingValue {
     font-size: 1rem; /* 16px */
   }
-  
+
   .hireDate {
     font-size: 0.875rem; /* 14px */
   }
@@ -385,59 +391,59 @@
     padding: 2rem; /* 32px */
     margin: 2rem 0; /* 32px */
   }
-  
+
   .sectionTitle {
     font-size: 1.375rem; /* 22px */
     margin-bottom: 2rem; /* 32px */
   }
-  
+
   .hiresList {
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem; /* 24px */
   }
-  
+
   .hireCard {
     padding: 2rem; /* 32px */
   }
-  
+
   .hireCard:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   }
-  
+
   .avatarContainer {
     width: 3.5rem;
     height: 3.5rem;
   }
-  
+
   .taskerAvatar {
     width: 3.5rem;
     height: 3.5rem;
   }
-  
+
   .avatarPlaceholder {
     width: 3.5rem; /* 56px */
     height: 3.5rem; /* 56px */
   }
-  
+
   .hireName {
     font-size: 1.125rem; /* 18px */
   }
-  
+
   .gigTitleLink {
     font-size: 1.125rem; /* 18px */
     margin-bottom: 1rem; /* 16px */
   }
-  
+
   .reviewText {
     font-size: 1rem; /* 16px */
     margin-bottom: 1.25rem; /* 20px */
   }
-  
+
   .ratingValue {
     font-size: 1.125rem; /* 18px */
   }
-  
+
   .hireDate {
     font-size: 0.9375rem; /* 15px */
   }

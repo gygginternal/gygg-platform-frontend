@@ -7,15 +7,15 @@ import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
  * Confirmation Modal Component
  * Replaces browser's window.confirm with a proper modal
  */
-const ConfirmModal = ({ 
-  isOpen, 
+const ConfirmModal = ({
+  isOpen,
   title = 'Confirm Action',
-  message, 
+  message,
   confirmText = 'Confirm',
   cancelText = 'Cancel',
-  onConfirm, 
+  onConfirm,
   onCancel,
-  variant = 'default' // 'default', 'danger', 'warning'
+  variant = 'default', // 'default', 'danger', 'warning'
 }) => {
   const modalRef = useRef(null);
 
@@ -67,7 +67,7 @@ const ConfirmModal = ({
 
   if (!isOpen) return null;
 
-  const handleBackdropClick = (e) => {
+  const handleBackdropClick = e => {
     if (e.target === e.currentTarget) {
       onCancel();
     }
@@ -75,24 +75,23 @@ const ConfirmModal = ({
 
   const getVariantClass = () => {
     switch (variant) {
-      case 'danger': return styles.danger;
-      case 'warning': return styles.warning;
-      default: return styles.default;
+      case 'danger':
+        return styles.danger;
+      case 'warning':
+        return styles.warning;
+      default:
+        return styles.default;
     }
   };
 
   return (
-    <div 
-      className={styles.modalOverlay} 
+    <div
+      className={styles.modalOverlay}
       onClick={handleBackdropClick}
       role="dialog"
       aria-modal="true"
     >
-      <div 
-        className={styles.modalContent} 
-        ref={modalRef} 
-        tabIndex={-1}
-      >
+      <div className={styles.modalContent} ref={modalRef} tabIndex={-1}>
         <div className={styles.modalHeader}>
           <h3 className={styles.modalTitle}>{title}</h3>
           <button
@@ -103,11 +102,11 @@ const ConfirmModal = ({
             ✖
           </button>
         </div>
-        
+
         <div className={styles.modalContentBody}>
           <p className={styles.modalMessage}>{decodeHTMLEntities(message)}</p>
         </div>
-        
+
         <div className={styles.modalActions}>
           <button
             type="button"
@@ -137,7 +136,7 @@ ConfirmModal.propTypes = {
   cancelText: PropTypes.string,
   onConfirm: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
-  variant: PropTypes.oneOf(['default', 'danger', 'warning'])
+  variant: PropTypes.oneOf(['default', 'danger', 'warning']),
 };
 
 export default ConfirmModal;

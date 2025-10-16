@@ -160,7 +160,7 @@
   .gig-card-image-container {
     height: 160px;
   }
-  
+
   .gig-card-overlay {
     position: static;
     transform: none;
@@ -168,19 +168,19 @@
     color: #333;
     padding: 1rem;
   }
-  
+
   .gig-card-title {
     color: #333;
   }
-  
+
   .gig-card-description {
     color: #666;
   }
-  
+
   .gig-card-meta {
     color: #333;
   }
-  
+
   .gig-card-location {
     opacity: 0.7;
   }

@@ -90,7 +90,7 @@
   background-color: #e9ecef;
 }
 
-.paymentProviderSelector label input[type="radio"] {
+.paymentProviderSelector label input[type='radio'] {
   margin-right: 0.5rem; /* 8px */
 }
 

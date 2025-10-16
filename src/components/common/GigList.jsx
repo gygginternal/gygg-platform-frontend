@@ -16,17 +16,20 @@ function GigList({ gigs, loading, error, title = 'Available Gigs' }) {
         {gigs.map(gig => (
           <li key={gig.id || gig._id} className={styles.listItemCard}>
             <h4>
-              <Link to={`/gigs/${gig.id || gig._id}`}>{decodeHTMLEntities(gig.title)}</Link>
+              <Link to={`/gigs/${gig.id || gig._id}`}>
+                {decodeHTMLEntities(gig.title)}
+              </Link>
             </h4>
             <p>
               Category: {decodeHTMLEntities(gig.category)}{' '}
-              {gig.subcategory ? `(${decodeHTMLEntities(gig.subcategory)})` : ''}
+              {gig.subcategory
+                ? `(${decodeHTMLEntities(gig.subcategory)})`
+                : ''}
             </p>
             <p>
-              {gig.isHourly 
+              {gig.isHourly
                 ? `Rate: $${gig.ratePerHour || 0}/hr${gig.estimatedHours ? ` (Est. ${gig.estimatedHours}h)` : ''}`
-                : `Cost: $${gig.cost || 0}`
-              }
+                : `Cost: $${gig.cost || 0}`}
             </p>
             <p>
               Status:{' '}
@@ -34,9 +37,19 @@ function GigList({ gigs, loading, error, title = 'Available Gigs' }) {
                 {gig.status}
               </span>
             </p>
-            <p>Posted by: {gig.postedBy?.fullName ? decodeHTMLEntities(gig.postedBy.fullName) : 'N/A'}</p>
+            <p>
+              Posted by:{' '}
+              {gig.postedBy?.fullName
+                ? decodeHTMLEntities(gig.postedBy.fullName)
+                : 'N/A'}
+            </p>
             {gig.assignedTo && (
-              <p>Tasker: {gig.assignedTo?.fullName ? decodeHTMLEntities(gig.assignedTo.fullName) : 'N/A'}</p>
+              <p>
+                Tasker:{' '}
+                {gig.assignedTo?.fullName
+                  ? decodeHTMLEntities(gig.assignedTo.fullName)
+                  : 'N/A'}
+              </p>
             )}
           </li>
         ))}

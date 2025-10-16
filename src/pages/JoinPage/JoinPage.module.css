@@ -37,7 +37,7 @@
   text-decoration: none;
   position: absolute; /* Position at top-left */
   top: 1.5rem;
-  left: 1rem; 
+  left: 1rem;
   z-index: 10;
 }
 
@@ -291,8 +291,8 @@
     margin-bottom: 1rem;
   }
   .card {
-    max-width: 320px;           
-    padding: 1.25rem 1rem;   
+    max-width: 320px;
+    padding: 1.25rem 1rem;
   }
   .cardLogo {
     width: 40px; /* Smaller icon for mobile, still within 40-60px avatar range */

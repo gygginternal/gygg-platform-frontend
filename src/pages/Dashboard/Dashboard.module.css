@@ -140,65 +140,65 @@
   .padding {
     padding: 1rem 0; /* 16px */
   }
-  
+
   .dashboardContainer {
     padding: 1rem; /* 16px */
   }
-  
+
   .welcomeSection {
     flex-direction: row;
     align-items: center;
     gap: 1.5rem; /* 24px */
   }
-  
+
   .welcomeButton {
     width: auto;
     min-width: 8rem; /* 128px */
     font-size: 0.9375rem; /* 15px */
   }
-  
+
   .welcomeTitle {
     font-size: 1.375rem; /* 22px */
   }
-  
+
   .welcomeDescription {
     font-size: 0.9375rem; /* 15px */
   }
-  
+
   .statsGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem; /* 16px */
   }
-  
+
   .statCard {
     padding: 1.25rem; /* 20px */
   }
-  
+
   .statValue {
     font-size: 1.75rem; /* 28px */
   }
-  
+
   .actionsGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem; /* 16px */
   }
-  
+
   .actionButton {
     min-height: 5rem; /* 80px */
   }
-  
+
   .actionTitle {
     font-size: 0.9375rem; /* 15px */
   }
-  
+
   .actionDescription {
     font-size: 0.8125rem; /* 13px */
   }
-  
+
   .activitySection {
     padding: 1.25rem; /* 20px */
   }
-  
+
   .emptyActivity {
     padding: 2.5rem 1.5rem; /* 40px 24px */
     font-size: 0.9375rem; /* 15px */
@@ -210,71 +210,71 @@
   .padding {
     padding: 1.5rem 0; /* 24px */
   }
-  
+
   .dashboardContainer {
     padding: 1.5rem; /* 24px */
   }
-  
+
   .welcomeTitle {
     font-size: 1.5rem; /* 24px */
   }
-  
+
   .welcomeDescription {
     font-size: 1rem; /* 16px */
   }
-  
+
   .welcomeButton {
     font-size: 1rem; /* 16px */
     padding: 0.875rem 1.5rem; /* 14px 24px */
   }
-  
+
   .statsGrid {
     grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem; /* 20px */
   }
-  
+
   .statCard {
     padding: 1.5rem; /* 24px */
   }
-  
+
   .statLabel {
     font-size: 0.875rem; /* 14px */
   }
-  
+
   .statValue {
     font-size: 2rem; /* 32px */
   }
-  
+
   .statDescription {
     font-size: 0.8125rem; /* 13px */
   }
-  
+
   .actionsGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.25rem; /* 20px */
   }
-  
+
   .actionButton {
     min-height: 6rem; /* 96px */
     padding: 1.25rem; /* 20px */
   }
-  
+
   .actionTitle {
     font-size: 1rem; /* 16px */
   }
-  
+
   .actionDescription {
     font-size: 0.875rem; /* 14px */
   }
-  
+
   .activitySection {
     padding: 1.5rem; /* 24px */
   }
-  
+
   .activityTitle {
     font-size: 1.25rem; /* 20px */
   }
-  
+
   .emptyActivity {
     padding: 3rem 2rem; /* 48px 32px */
     font-size: 1rem; /* 16px */
@@ -286,73 +286,73 @@
   .padding {
     padding: 2rem 0; /* 32px */
   }
-  
+
   .dashboardContainer {
     padding: 2rem; /* 32px */
     max-width: 1200px;
     margin: 0 auto;
   }
-  
+
   .welcomeTitle {
     font-size: 1.75rem; /* 28px */
   }
-  
+
   .welcomeDescription {
     font-size: 1.125rem; /* 18px */
   }
-  
+
   .welcomeButton {
     font-size: 1.125rem; /* 18px */
     padding: 1rem 2rem; /* 16px 32px */
   }
-  
+
   .statsGrid {
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem; /* 24px */
   }
-  
+
   .statCard {
     padding: 2rem; /* 32px */
   }
-  
+
   .statLabel {
     font-size: 0.9375rem; /* 15px */
   }
-  
+
   .statValue {
     font-size: 2.25rem; /* 36px */
   }
-  
+
   .statDescription {
     font-size: 0.875rem; /* 14px */
   }
-  
+
   .actionsGrid {
     grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem; /* 24px */
   }
-  
+
   .actionButton {
     min-height: 7rem; /* 112px */
     padding: 1.5rem; /* 24px */
   }
-  
+
   .actionTitle {
     font-size: 1.125rem; /* 18px */
   }
-  
+
   .actionDescription {
     font-size: 0.9375rem; /* 15px */
   }
-  
+
   .activitySection {
     padding: 2rem; /* 32px */
   }
-  
+
   .activityTitle {
     font-size: 1.375rem; /* 22px */
   }
-  
+
   .emptyActivity {
     padding: 4rem 2rem; /* 64px 32px */
     font-size: 1.125rem; /* 18px */

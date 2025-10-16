@@ -13,6 +13,17 @@ const timeAgo = date => {
   return `Posted ${Math.floor(diff / 86400)} days ago`;
 };
 
+// Format location helper
+const formatLocation = loc => {
+  if (!loc) return 'Location not specified';
+  if (typeof loc === 'string') return decodeHTMLEntities(loc);
+  const parts = [];
+  if (loc.city) parts.push(decodeHTMLEntities(loc.city));
+  if (loc.state) parts.push(decodeHTMLEntities(loc.state));
+  if (loc.country) parts.push(decodeHTMLEntities(loc.country));
+  return parts.length > 0 ? parts.join(', ') : 'Location not specified';
+};
+
 const TaskCard = ({ gig, onClick }) => {
   const {
     _id,
@@ -60,10 +71,10 @@ const TaskCard = ({ gig, onClick }) => {
       <div className={styles.gigCardHeader}>
         <h3 className={styles.gigCardTitle}>{decodeHTMLEntities(title)}</h3>
         <div className={styles.gigCardBadges}>
-          <span className={`${styles.statusBadge} ${styles.open}`}>
-            Open
-          </span>
-          <span className={`${styles.paymentTypeBadge} ${isHourly ? styles.hourly : styles.fixed}`}>
+          <span className={`${styles.statusBadge} ${styles.open}`}>Open</span>
+          <span
+            className={`${styles.paymentTypeBadge} ${isHourly ? styles.hourly : styles.fixed}`}
+          >
             {isHourly ? 'Hourly' : 'Fixed'}
           </span>
         </div>
@@ -87,27 +98,15 @@ const TaskCard = ({ gig, onClick }) => {
           </div>
           <div className={styles.metaItem}>
             <span>
-              {isHourly 
+              {isHourly
                 ? `$${ratePerHour || 0}/hr${estimatedHours ? ` (Est. ${estimatedHours}h)` : ''}`
-                : `$${cost || 0}`
-              }
+                : `$${cost || 0}`}
             </span>
           </div>
         </div>
       </div>
     </div>
   );
-};
-
-// Move the formatLocation function outside of the component
-const formatLocation = loc => {
-  if (!loc) return 'Location not specified';
-  if (typeof loc === 'string') return decodeHTMLEntities(loc);
-  const parts = [];
-  if (loc.city) parts.push(decodeHTMLEntities(loc.city));
-  if (loc.state) parts.push(decodeHTMLEntities(loc.state));
-  if (loc.country) parts.push(decodeHTMLEntities(loc.country));
-  return parts.length > 0 ? parts.join(', ') : 'Location not specified';
 };
 
 TaskCard.propTypes = {

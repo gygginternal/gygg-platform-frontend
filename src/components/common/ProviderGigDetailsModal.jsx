@@ -115,14 +115,14 @@ const ProviderGigDetailsModal = ({ gig, open, onClose }) => {
   const formatLocation = () => {
     // Use gig's location if available, otherwise fall back to provider's address
     const gigLocation = gig.location;
-    
+
     if (gigLocation && (gigLocation.city || gigLocation.state)) {
       const parts = [];
       if (gigLocation.city) parts.push(gigLocation.city);
       if (gigLocation.state) parts.push(gigLocation.state);
       return parts.join(', ');
     }
-    
+
     // Fallback to provider's address if gig location is not available
     const providerAddress = user.address;
     if (providerAddress && (providerAddress.city || providerAddress.state)) {
@@ -131,7 +131,7 @@ const ProviderGigDetailsModal = ({ gig, open, onClose }) => {
       if (providerAddress.state) parts.push(providerAddress.state);
       return parts.join(', ');
     }
-    
+
     return 'Location not specified';
   };
 

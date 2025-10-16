@@ -183,7 +183,7 @@ const GigDetailsModal = ({
   };
 
   // Handle clicks on the overlay (background)
-  const handleOverlayClick = (e) => {
+  const handleOverlayClick = e => {
     // Only close if the user clicked directly on the overlay, not on the modal content
     if (e.target === e.currentTarget) {
       handleClose();
@@ -198,11 +198,11 @@ const GigDetailsModal = ({
       style={{ zIndex: 9999, display: open ? 'flex' : 'none' }}
       onClick={handleOverlayClick}
     >
-      <div 
-        className={styles.modalContent} 
-        ref={modalRef} 
+      <div
+        className={styles.modalContent}
+        ref={modalRef}
         tabIndex={-1}
-        onClick={(e) => e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
       >
         <div className={styles.modalHeader}>
           <h2 className={styles.modalTitle}>Gig Detail</h2>

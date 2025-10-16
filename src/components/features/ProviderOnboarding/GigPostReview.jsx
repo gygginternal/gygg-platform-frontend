@@ -63,12 +63,11 @@ function GigPostReview({ gigData, onEditStep }) {
       <div className={styles.reviewItem}>
         <span>
           <strong>Location:</strong>{' '}
-          {gigData.isRemote 
+          {gigData.isRemote
             ? 'Remote (can be done from anywhere)'
             : gigData.gigCity || gigData.gigState
               ? `${gigData.gigCity || ''}${gigData.gigCity && gigData.gigState ? ', ' : ''}${gigData.gigState || ''}`
-              : 'Location not specified'
-          }
+              : 'Location not specified'}
         </span>
         <button onClick={() => onEditStep(5)} className={styles.editStepButton}>
           Edit

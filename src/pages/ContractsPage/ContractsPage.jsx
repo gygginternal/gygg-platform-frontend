@@ -542,7 +542,9 @@ function ContractsPage() {
                 <b>Title:</b> {modalContract.gigTitle || modalContract.title}
               </div>
               <div>
-                <b>{sessionRole === 'provider' ? 'Working with:' : 'Hired by:'}:</b>{' '}
+                <b>
+                  {sessionRole === 'provider' ? 'Working with:' : 'Hired by:'}:
+                </b>{' '}
                 {modalContract.displayName || modalContract.hiredBy}
               </div>
               <div>
@@ -584,14 +586,18 @@ function ContractsPage() {
                         await apiClient.patch(
                           `/contracts/${modalContract.id || modalContract._id}/pay-tasker`
                         );
-                        showToast('Payment released to tasker successfully!', 'success');
+                        showToast(
+                          'Payment released to tasker successfully!',
+                          'success'
+                        );
                         setIsModalOpen(false);
                         setModalContract(null);
                         // Refresh contracts list
                         window.location.reload();
                       } catch (err) {
                         showToast(
-                          err.response?.data?.message || 'Failed to pay tasker.',
+                          err.response?.data?.message ||
+                            'Failed to pay tasker.',
                           'error'
                         );
                       }
@@ -613,7 +619,7 @@ function ContractsPage() {
                     Submit as Complete
                   </button>
                 )}
-              
+
               {/* Show Rate Tasker button for completed contracts (only for providers) */}
               {sessionRole === 'provider' &&
                 modalContract.status?.toLowerCase() === 'completed' && (
@@ -624,22 +630,25 @@ function ContractsPage() {
                       setIsModalOpen(false);
                       setModalContract(null);
                       // Navigate to the rate tasker page
-                      navigate(`/contracts/${modalContract.id || modalContract._id}/rate-tasker`);
+                      navigate(
+                        `/contracts/${modalContract.id || modalContract._id}/rate-tasker`
+                      );
                     }}
                   >
                     Rate Tasker
                   </button>
                 )}
-              
+
               {/* Only show Message button for non-completed contracts */}
               {modalContract.status?.toLowerCase() !== 'completed' && (
                 <button
                   className={styles.secondaryBtn}
                   onClick={() => {
                     // Navigate to messages/chat with the other party
-                    const otherPartyId = sessionRole === 'provider' 
-                      ? modalContract.taskerId 
-                      : modalContract.providerId;
+                    const otherPartyId =
+                      sessionRole === 'provider'
+                        ? modalContract.taskerId
+                        : modalContract.providerId;
                     if (otherPartyId) {
                       // Close the modal first
                       setIsModalOpen(false);
@@ -647,14 +656,17 @@ function ContractsPage() {
                       // Navigate to chat with the specific user
                       navigate(`/messages/${otherPartyId}`);
                     } else {
-                      showToast('Unable to find the other party to message.', 'error');
+                      showToast(
+                        'Unable to find the other party to message.',
+                        'error'
+                      );
                     }
                   }}
                 >
                   Message
                 </button>
               )}
-              
+
               <button
                 className={styles.secondaryBtn}
                 onClick={() => {

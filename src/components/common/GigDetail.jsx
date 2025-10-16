@@ -254,8 +254,12 @@ function GigDetailPage() {
         <div className={styles.gigContent}>
           <div className={styles.gigDetailsSection}>
             {/* Gig Info */}
-            <h1 className={styles.gigTitle}>{decodeHTMLEntities(gigData.title)}</h1>
-            <p className={styles.gigDescription}>{decodeHTMLEntities(gigData.description)}</p>
+            <h1 className={styles.gigTitle}>
+              {decodeHTMLEntities(gigData.title)}
+            </h1>
+            <p className={styles.gigDescription}>
+              {decodeHTMLEntities(gigData.description)}
+            </p>
             <p className={styles.gigLocation}>
               <strong>Location:</strong> {decodeHTMLEntities(gigData.location)}
             </p>

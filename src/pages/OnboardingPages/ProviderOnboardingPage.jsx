@@ -363,8 +363,10 @@ function ProviderOnboardingPage() {
       // Add location if provided
       if (formData.gigCity || formData.gigState) {
         gigPayload.location = {};
-        if (formData.gigCity) gigPayload.location.city = formData.gigCity.trim();
-        if (formData.gigState) gigPayload.location.state = formData.gigState.trim();
+        if (formData.gigCity)
+          gigPayload.location.city = formData.gigCity.trim();
+        if (formData.gigState)
+          gigPayload.location.state = formData.gigState.trim();
       }
 
       Object.keys(gigPayload).forEach(

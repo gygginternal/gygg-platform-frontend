@@ -15,7 +15,8 @@
   flex-shrink: 0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   position: relative;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* Large screen optimizations */
@@ -24,20 +25,20 @@
     width: 450px;
     max-width: 450px;
   }
-  
+
   .header {
     padding: 1.125rem;
   }
-  
+
   .contactItem {
     padding: 0.875rem 1.125rem;
   }
-  
+
   .avatar {
     width: 52px;
     height: 52px;
   }
-  
+
   .contactName {
     font-size: 1.0625rem;
   }
@@ -48,24 +49,24 @@
     width: 480px;
     max-width: 480px;
   }
-  
+
   .header {
     padding: 1.25rem;
   }
-  
+
   .contactItem {
     padding: 1rem 1.25rem;
   }
-  
+
   .avatar {
     width: 56px;
     height: 56px;
   }
-  
+
   .contactName {
     font-size: 1.125rem;
   }
-  
+
   .lastMessage {
     font-size: 0.9375rem;
   }
@@ -81,7 +82,8 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .searchIcon {
@@ -106,7 +108,8 @@
   border-radius: 12px;
   color: #1e293b;
   font-size: 1.125rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   outline: none;
   line-height: 1.5;
 }
@@ -172,7 +175,8 @@
   cursor: pointer;
   border-bottom: 1px solid #e2e8f0;
   background: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   transition: all 0.2s ease;
 }
 
@@ -277,7 +281,8 @@
   justify-content: center;
   padding: 4rem 2rem;
   text-align: center;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background: #f8fafc;
   border-radius: 12px;
   margin: 1.5rem;
@@ -314,7 +319,12 @@
   border-bottom: 1px solid #f3f4f6;
   transition: all 0.2s ease;
   background: #fff;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
 }
 
 .contactItem:hover {
@@ -392,28 +402,28 @@
     max-width: 340px;
     min-width: 320px;
   }
-  
+
   .header {
     padding: 0.875rem;
   }
-  
+
   .contactItem {
     padding: 0.75rem 0.875rem;
   }
-  
+
   .avatar {
     width: 44px;
     height: 44px;
   }
-  
+
   .contactName {
     font-size: 0.9375rem;
   }
-  
+
   .lastMessage {
     font-size: 0.8125rem;
   }
-  
+
   .timestamp {
     font-size: 0.75rem;
   }
@@ -426,54 +436,54 @@
     border-radius: 10px;
     margin: 0;
   }
-  
+
   .header {
     padding: 1rem;
     border-bottom: 1px solid #f3f4f6;
   }
-  
+
   .searchInput {
     padding: 0.875rem 2.5rem 0.875rem 1rem;
     font-size: 16px; /* Prevent zoom on iOS */
     border-radius: 10px;
   }
-  
+
   .contactItem {
     padding: 0.875rem 1rem;
     border-bottom: 1px solid #f9fafb;
   }
-  
+
   .avatar {
     width: 50px;
     height: 50px;
   }
-  
+
   .contactName {
     font-size: 0.9375rem;
     font-weight: 500;
   }
-  
+
   .lastMessage {
     font-size: 0.8125rem;
   }
-  
+
   .timestamp {
     font-size: 0.75rem;
   }
-  
+
   .noResults {
     padding: 2.5rem 1.25rem;
   }
-  
+
   .noResultsIcon {
     font-size: 2.5rem;
     margin-bottom: 0.75rem;
   }
-  
+
   .noResultsText {
     font-size: 0.9375rem;
   }
-  
+
   .noResultsSubtext {
     font-size: 0.8125rem;
   }
@@ -484,57 +494,57 @@
     border-radius: 8px;
     padding-bottom: 20px;
   }
-  
+
   .header {
     padding: 12px;
   }
-  
+
   .searchInput {
     padding: 10px 36px 10px 14px;
     font-size: 16px;
     border-radius: 8px;
   }
-  
+
   .contactItem {
     padding: 10px 12px;
   }
-  
+
   .avatar {
     width: 44px;
     height: 44px;
   }
-  
+
   .contactName {
     font-size: 14px;
   }
-  
+
   .lastMessage {
     font-size: 12px;
   }
-  
+
   .timestamp {
     font-size: 11px;
   }
-  
+
   .unreadBadge {
     font-size: 10px;
     padding: 2px 6px;
     min-width: 16px;
   }
-  
+
   .noResults {
     padding: 30px 16px;
   }
-  
+
   .noResultsIcon {
     font-size: 36px;
     margin-bottom: 10px;
   }
-  
+
   .noResultsText {
     font-size: 14px;
   }
-  
+
   .noResultsSubtext {
     font-size: 12px;
   }

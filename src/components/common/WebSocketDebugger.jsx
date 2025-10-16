@@ -45,7 +45,10 @@ const WebSocketDebugger = () => {
 
   useEffect(() => {
     if (notification) {
-      addLog(`New notification received: ${decodeHTMLEntities(notification.message)}`, 'success');
+      addLog(
+        `New notification received: ${decodeHTMLEntities(notification.message)}`,
+        'success'
+      );
     }
   }, [notification]);
 

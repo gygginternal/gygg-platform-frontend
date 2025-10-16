@@ -87,7 +87,7 @@
 .loadMoreButton {
   align-self: center;
   padding: 0.75rem 1.5rem;
-  background-color: #3D4D55;
+  background-color: #3d4d55;
   color: white;
   border: none;
   border-radius: 6px;
@@ -119,14 +119,14 @@
     grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
     gap: 1.5rem;
   }
-  
+
   .loadingState,
   .errorState,
   .noResults {
     min-height: 150px;
     padding: 1rem;
   }
-  
+
   .loadMoreButton {
     width: 100%;
     margin: 0.5rem 0;
@@ -139,14 +139,14 @@
     gap: 1rem;
     padding: 0.5rem;
   }
-  
+
   .loadingState,
   .errorState,
   .noResults {
     min-height: 150px;
     padding: 1rem;
   }
-  
+
   .loadMoreButton {
     width: 100%;
     margin: 0.5rem 0;
@@ -158,26 +158,26 @@
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-  
+
   .noResults {
     padding: 2rem 1rem;
     font-size: 0.875rem;
   }
-  
+
   .loadMoreButton {
     margin-top: 0.75rem;
     padding: 0.625rem;
     font-size: 0.875rem;
   }
-  
+
   .loadingMore {
     padding: 0.75rem;
   }
-  
+
   .endOfResults {
     margin-top: 0.75rem;
   }
-  
+
   .errorMessage {
     padding: 0.625rem;
     font-size: 0.875rem;

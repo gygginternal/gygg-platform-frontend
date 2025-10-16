@@ -8,7 +8,13 @@ const Badge = ({ variant = 'default', children }) => {
 };
 
 Badge.propTypes = {
-  variant: PropTypes.oneOf(['default', 'secondary', 'destructive', 'outline', 'service']),
+  variant: PropTypes.oneOf([
+    'default',
+    'secondary',
+    'destructive',
+    'outline',
+    'service',
+  ]),
   children: PropTypes.node.isRequired,
 };
 

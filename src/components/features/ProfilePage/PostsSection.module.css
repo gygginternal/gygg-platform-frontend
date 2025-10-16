@@ -105,17 +105,17 @@
   .postsGrid {
     gap: 0.8rem; /* 12.8px */
   }
-  
+
   .noPostsMessage {
     padding: 1.5rem 0.5rem;
     min-height: 200px;
     gap: 1.25rem;
   }
-  
+
   .noPostsMessage p {
     font-size: 1rem;
   }
-  
+
   .createPostButton {
     padding: 0.75rem 1.5rem;
     font-size: 0.9375rem;
@@ -140,17 +140,17 @@
   .postsGrid {
     gap: 0.6rem; /* 9.6px */
   }
-  
+
   .noPostsMessage {
     padding: 1.25rem 0.5rem;
     min-height: 180px;
     gap: 1rem;
   }
-  
+
   .noPostsMessage p {
     font-size: 0.9375rem;
   }
-  
+
   .createPostButton {
     padding: 0.625rem 1.25rem;
     font-size: 0.875rem;

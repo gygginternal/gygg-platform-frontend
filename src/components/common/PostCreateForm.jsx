@@ -22,7 +22,7 @@ function PostCreateForm({ onSubmitSuccess }) {
   const [_error, setError] = useState('');
   const [_successMessage, setSuccessMessage] = useState('');
 
-  const validatePostContent = (text) => {
+  const validatePostContent = text => {
     // Skip validation if content is empty
     if (!text || text.trim().length === 0) {
       setContentWarning(null);
@@ -51,7 +51,7 @@ function PostCreateForm({ onSubmitSuccess }) {
     }
   };
 
-  const handleContentChange = (e) => {
+  const handleContentChange = e => {
     const newContent = e.target.value;
     setContent(newContent);
     validatePostContent(newContent);
@@ -63,13 +63,15 @@ function PostCreateForm({ onSubmitSuccess }) {
       setError('Post content cannot be empty.');
       return;
     }
-    
+
     // Check if content is valid before submitting
     if (!isContentValid) {
-      setError('Post contains inappropriate content. Please revise your message.');
+      setError(
+        'Post contains inappropriate content. Please revise your message.'
+      );
       return;
     }
-    
+
     setIsLoading(true);
     setError('');
     setSuccessMessage('');
@@ -131,27 +133,32 @@ function PostCreateForm({ onSubmitSuccess }) {
           Post
         </button>
       </div>
-      
+
       {contentWarning && (
         <div className={styles.contentWarningContainer}>
-          <div className={`${styles.contentWarningMessage} ${styles[contentWarning.severity]}`}>
+          <div
+            className={`${styles.contentWarningMessage} ${styles[contentWarning.severity]}`}
+          >
             <span>{contentWarning.message}</span>
           </div>
-          {contentWarning.suggestions && contentWarning.suggestions.length > 0 && (
-            <div className={styles.contentSuggestions}>
-              <p className={styles.suggestionsTitle}>Suggestions:</p>
-              <ul className={styles.suggestionsList}>
-                {contentWarning.suggestions.slice(0, 2).map((suggestion, index) => (
-                  <li key={index} className={styles.suggestionItem}>
-                    {suggestion}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          {contentWarning.suggestions &&
+            contentWarning.suggestions.length > 0 && (
+              <div className={styles.contentSuggestions}>
+                <p className={styles.suggestionsTitle}>Suggestions:</p>
+                <ul className={styles.suggestionsList}>
+                  {contentWarning.suggestions
+                    .slice(0, 2)
+                    .map((suggestion, index) => (
+                      <li key={index} className={styles.suggestionItem}>
+                        {suggestion}
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            )}
         </div>
       )}
-      
+
       <div className={styles.postCreateActions}>
         <button
           type="button"

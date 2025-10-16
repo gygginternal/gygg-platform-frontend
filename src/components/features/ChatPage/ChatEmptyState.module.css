@@ -94,17 +94,17 @@
     padding: 1.5rem;
     border-radius: 12px;
   }
-  
+
   .logo {
     width: 100px;
     height: 100px;
   }
-  
+
   .title {
     font-size: 1.75rem;
     margin-bottom: 1.5rem;
   }
-  
+
   .content {
     max-width: 400px;
   }
@@ -130,24 +130,24 @@
   .content {
     max-width: 320px;
   }
-  
+
   .logoContainer {
     margin-bottom: 1.5rem;
   }
-  
+
   .mainText {
     font-size: 14px;
   }
-  
+
   .subText {
     font-size: 13px;
   }
-  
+
   .footer {
     bottom: 1rem;
     font-size: 11px;
   }
-  
+
   .lockIcon {
     width: 10px;
     height: 10px;
@@ -173,19 +173,19 @@
   .content {
     max-width: 280px;
   }
-  
+
   .logoContainer {
     margin-bottom: 1rem;
   }
-  
+
   .mainText {
     font-size: 13px;
   }
-  
+
   .subText {
     font-size: 12px;
   }
-  
+
   .footer {
     bottom: 0.75rem;
     font-size: 10px;

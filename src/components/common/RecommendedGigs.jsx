@@ -52,7 +52,9 @@ const RecommendedGigs = () => {
           <p className={styles.errorMessage}>
             {error?.message || 'Failed to load recommended gigs.'}
           </p>
-        ) : recommendedGigs && recommendedGigs.gigs && recommendedGigs.gigs.length > 0 ? (
+        ) : recommendedGigs &&
+          recommendedGigs.gigs &&
+          recommendedGigs.gigs.length > 0 ? (
           recommendedGigs.gigs.slice(0, 3).map(gig => {
             console.log('Recommended gig:', gig);
             const poster = gig.poster || {};

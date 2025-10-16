@@ -47,7 +47,9 @@
 
 .tagsInput.focused {
   border-color: #d89362;
-  box-shadow: 0 0 0 3px rgba(216, 147, 98, 0.15), 0 2px 8px rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 0 0 3px rgba(216, 147, 98, 0.15),
+    0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 /* Individual tags */
@@ -126,7 +128,7 @@
   z-index: 1000;
   background: white;
   border-radius: 0.75rem;
-  box-shadow: 
+  box-shadow:
     0 10px 25px rgba(0, 0, 0, 0.15),
     0 4px 10px rgba(0, 0, 0, 0.1);
   border: 1px solid #e5e7eb;
@@ -528,7 +530,7 @@
   .dropdownContainer {
     border-width: 2px;
   }
-}/* 
+} /* 
 Content Warning Styles */
 .contentWarningContainer {
   margin-top: 0.5rem;

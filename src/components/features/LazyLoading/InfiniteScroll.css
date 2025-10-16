@@ -101,8 +101,12 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Responsive adjustments */
@@ -110,20 +114,20 @@
   .infinite-scroll-loader {
     padding: 0.75rem;
   }
-  
+
   .infinite-scroll-end {
     padding: 1.5rem 0.75rem;
   }
-  
+
   .pull-to-refresh-indicator {
     height: 50px;
     top: -50px;
   }
-  
+
   .refresh-icon {
     font-size: 1.25rem;
   }
-  
+
   .refresh-text {
     font-size: 0.625rem;
   }
@@ -135,30 +139,30 @@
     background: #2d2d2d;
     border-color: #404040;
   }
-  
+
   .infinite-scroll-end {
     background: #2d2d2d;
     border-color: #404040;
     color: #b3b3b3;
   }
-  
+
   .pull-to-refresh-indicator {
     background: #2d2d2d;
     border-color: #404040;
   }
-  
+
   .refresh-text {
     color: #b3b3b3;
   }
-  
+
   .infinite-scroll::-webkit-scrollbar-track {
     background: #2d2d2d;
   }
-  
+
   .infinite-scroll::-webkit-scrollbar-thumb {
     background: #555;
   }
-  
+
   .infinite-scroll::-webkit-scrollbar-thumb:hover {
     background: #777;
   }
@@ -178,11 +182,11 @@
   .infinite-scroll {
     transition: none;
   }
-  
+
   .refresh-icon {
     transition: none;
   }
-  
+
   .infinite-scroll-refreshing .refresh-icon {
     animation: none;
   }

@@ -112,7 +112,7 @@
     padding: 1rem;
     min-height: 150px;
   }
-  
+
   .spinner-text {
     font-size: 0.75rem;
   }
@@ -123,7 +123,7 @@
   .spinner-fullscreen {
     background: rgba(26, 26, 26, 0.9);
   }
-  
+
   .spinner-text {
     color: #b3b3b3;
   }
@@ -134,7 +134,7 @@
   .spinner-ring {
     animation: none;
   }
-  
+
   .loading-spinner::after {
     content: '';
     position: absolute;

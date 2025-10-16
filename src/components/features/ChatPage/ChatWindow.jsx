@@ -3,10 +3,7 @@ import { MoreVertical, Paperclip, ArrowLeft } from 'lucide-react';
 import apiClient from '@api/axiosConfig';
 import styles from './ChatWindow.module.css';
 import { useSocket } from '@contexts/SocketContext';
-import {
-  checkMessageContent,
-  showContentWarning,
-} from '@utils/contentFilter';
+import { checkMessageContent, showContentWarning } from '@utils/contentFilter';
 import { decodeHTMLEntities } from '@utils/htmlEntityDecoder';
 
 const ChatWindow = ({
@@ -303,7 +300,9 @@ const ChatWindow = ({
             className={styles.avatar}
           />
           <div className={styles.contactDetails}>
-            <span className={styles.contactName}>{decodeHTMLEntities(contact.name)}</span>
+            <span className={styles.contactName}>
+              {decodeHTMLEntities(contact.name)}
+            </span>
             {contact.isOnline && (
               <span className={styles.onlineStatus}>Online</span>
             )}
@@ -348,7 +347,9 @@ const ChatWindow = ({
                     </div>
                   </div>
                 ) : (
-                  <span className={styles.messageText}>{decodeHTMLEntities(message.text)}</span>
+                  <span className={styles.messageText}>
+                    {decodeHTMLEntities(message.text)}
+                  </span>
                 )}
                 <div className={styles.messageFooter}>
                   <span className={styles.messageTime}>

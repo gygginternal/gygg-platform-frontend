@@ -149,7 +149,9 @@ const TaskerListSafe = ({ searchTerm = '' }) => {
           // Safe data extraction
           const displayName =
             decodeHTMLEntities(tasker.fullName) ||
-            decodeHTMLEntities(`${tasker.firstName || ''}${tasker.lastName ? ` ${tasker.lastName[0]}.` : ''}`.trim()) ||
+            decodeHTMLEntities(
+              `${tasker.firstName || ''}${tasker.lastName ? ` ${tasker.lastName[0]}.` : ''}`.trim()
+            ) ||
             'Anonymous User';
 
           const displayRate = tasker.ratePerHour
@@ -165,9 +167,12 @@ const TaskerListSafe = ({ searchTerm = '' }) => {
 
           if (tasker.address) {
             const parts = [];
-            if (tasker.address.city) parts.push(decodeHTMLEntities(tasker.address.city));
-            if (tasker.address.state) parts.push(decodeHTMLEntities(tasker.address.state));
-            if (tasker.address.country) parts.push(decodeHTMLEntities(tasker.address.country));
+            if (tasker.address.city)
+              parts.push(decodeHTMLEntities(tasker.address.city));
+            if (tasker.address.state)
+              parts.push(decodeHTMLEntities(tasker.address.state));
+            if (tasker.address.country)
+              parts.push(decodeHTMLEntities(tasker.address.country));
 
             if (parts.length > 0) {
               displayLocation = parts.join(', ');
@@ -189,16 +194,16 @@ const TaskerListSafe = ({ searchTerm = '' }) => {
           }
 
           return (
-      <GigHelperCard
-        key={tasker._id}
-        userId={tasker._id}
-        profileImage={tasker.profileImage || '/default.jpg'}
-        name={decodeHTMLEntities(displayName)}
-        rate={decodeHTMLEntities(displayRate)}
-        location={decodeHTMLEntities(displayLocation)}
-        bio={decodeHTMLEntities(tasker.bio || 'No bio provided.')}
-      />
-    );
+            <GigHelperCard
+              key={tasker._id}
+              userId={tasker._id}
+              profileImage={tasker.profileImage || '/default.jpg'}
+              name={decodeHTMLEntities(displayName)}
+              rate={decodeHTMLEntities(displayRate)}
+              location={decodeHTMLEntities(displayLocation)}
+              bio={decodeHTMLEntities(tasker.bio || 'No bio provided.')}
+            />
+          );
         } catch (cardError) {
           console.error('Error rendering tasker card:', cardError, tasker);
           return (

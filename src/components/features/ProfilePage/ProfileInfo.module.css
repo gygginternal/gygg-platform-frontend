@@ -716,17 +716,17 @@
     width: 100%;
     margin-bottom: 0.625rem; /* 10px */
   }
-  
+
   .profileMainInfo {
     width: 100%;
     margin-bottom: 0.5rem;
   }
-  
+
   .profileActions {
     align-items: center;
     width: 100%;
   }
-  
+
   .skillsContainer {
     min-width: unset; /* Remove min-width to allow full flexibility */
     width: 100%; /* Take full width when stacked */

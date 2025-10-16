@@ -193,7 +193,7 @@
   right: 0;
   background: #ffffff;
   border-radius: 12px;
-  box-shadow: 
+  box-shadow:
     0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
   width: 380px;
@@ -204,7 +204,12 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
   backdrop-filter: blur(20px);
   animation: slideInNotification 0.2s ease-out;
   max-height: 80vh;
@@ -237,8 +242,11 @@
   background: #a0aec0;
 }
 .notificationUnread {
-  background: linear-gradient(90deg, rgba(59, 130, 246, 0.02) 0%, rgba(255, 255, 255, 1) 100%) !important;
-  
+  background: linear-gradient(
+    90deg,
+    rgba(59, 130, 246, 0.02) 0%,
+    rgba(255, 255, 255, 1) 100%
+  ) !important;
 }
 
 .notificationUnread .notificationDropdownItem span {
@@ -291,13 +299,23 @@
   color: #9ca3af;
   margin-top: 4px;
   font-weight: 400;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
 }
 .notificationEmpty {
   padding: 60px 24px;
   color: #9ca3af;
   text-align: center;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
   font-size: 14px;
   font-weight: 500;
 }
@@ -321,7 +339,12 @@
   border: none;
   text-align: left;
   cursor: pointer;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
   transition: all 0.2s ease;
   text-decoration: none;
   border-radius: 0;
@@ -528,12 +551,12 @@
     width: 1.75rem; /* 28px */
     height: 1.75rem; /* 28px */
   }
-  
+
   /* Notification container positioning fix for mobile */
   .notificationContainer {
     position: static !important;
   }
-  
+
   .notificationDropdown {
     position: fixed !important;
     width: calc(100vw - 20px);
@@ -616,12 +639,12 @@
   .dropdownItem span {
     font-size: 0.8125rem; /* 13px */
   }
-  
+
   /* Notification dropdown for extra small screens */
   .notificationContainer {
     position: static !important;
   }
-  
+
   .notificationDropdown {
     position: fixed !important;
     width: calc(100vw - 16px);
@@ -723,23 +746,22 @@
 
 /* Responsive Design for Modern Notifications */
 @media (max-width: 480px) {
-  
   /* Ensure notification items are properly sized on mobile */
   .notificationDropdownItem {
     padding: 14px 16px;
     gap: 10px;
   }
-  
+
   .notificationDropdownItem img {
     width: 18px;
     height: 18px;
   }
-  
+
   .notificationDropdownItem span {
     font-size: 13px;
     line-height: 1.4;
   }
-  
+
   .notificationTime {
     font-size: 11px;
   }
@@ -751,7 +773,6 @@
     animation: none;
   }
 }
-
 
 .notificationIcon {
   position: relative;
@@ -851,14 +872,24 @@
   color: #9ca3af;
   margin-top: 4px;
   font-weight: 400;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
 }
 
 .notificationEmpty {
   padding: 60px 24px;
   color: #9ca3af;
   text-align: center;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
   font-size: 14px;
   font-weight: 500;
 }
@@ -882,7 +913,12 @@
   border: none;
   text-align: left;
   cursor: pointer;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
   transition: all 0.2s ease;
   text-decoration: none;
   border-radius: 0;
@@ -937,7 +973,12 @@
   font-size: 14px;
   color: #9ca3af;
   font-weight: 400;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
   flex-shrink: 0;
   white-space: nowrap;
 }
@@ -955,8 +996,11 @@
 }
 
 .notificationUnread {
-  background: linear-gradient(90deg, rgba(59, 130, 246, 0.02) 0%, rgba(255, 255, 255, 1) 100%) !important;
-  
+  background: linear-gradient(
+    90deg,
+    rgba(59, 130, 246, 0.02) 0%,
+    rgba(255, 255, 255, 1) 100%
+  ) !important;
 }
 
 .notificationUnread .notificationDropdownItem span {
@@ -1212,7 +1256,7 @@
   right: 0;
   background: #ffffff;
   border-radius: 12px;
-  box-shadow: 
+  box-shadow:
     0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
   width: 380px;
@@ -1223,7 +1267,12 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
   backdrop-filter: blur(20px);
   animation: slideInNotification 0.2s ease-out;
   max-height: 80vh;
@@ -1256,8 +1305,11 @@
   background: #a0aec0;
 }
 .notificationUnread {
-  background: linear-gradient(90deg, rgba(59, 130, 246, 0.02) 0%, rgba(255, 255, 255, 1) 100%) !important;
-  
+  background: linear-gradient(
+    90deg,
+    rgba(59, 130, 246, 0.02) 0%,
+    rgba(255, 255, 255, 1) 100%
+  ) !important;
 }
 
 .notificationUnread .notificationDropdownItem span {
@@ -1310,13 +1362,23 @@
   color: #9ca3af;
   margin-top: 4px;
   font-weight: 400;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
 }
 .notificationEmpty {
   padding: 60px 24px;
   color: #9ca3af;
   text-align: center;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
   font-size: 14px;
   font-weight: 500;
 }
@@ -1340,7 +1402,12 @@
   border: none;
   text-align: left;
   cursor: pointer;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
   transition: all 0.2s ease;
   text-decoration: none;
   border-radius: 0;
@@ -1547,12 +1614,12 @@
     width: 1.75rem; /* 28px */
     height: 1.75rem; /* 28px */
   }
-  
+
   /* Notification container positioning fix for mobile */
   .notificationContainer {
     position: static !important;
   }
-  
+
   .notificationDropdown {
     position: fixed !important;
     width: calc(100vw - 20px);
@@ -1635,12 +1702,12 @@
   .dropdownItem span {
     font-size: 0.8125rem; /* 13px */
   }
-  
+
   /* Notification dropdown for extra small screens */
   .notificationContainer {
     position: static !important;
   }
-  
+
   .notificationDropdown {
     position: fixed !important;
     width: calc(100vw - 16px);
@@ -1652,22 +1719,22 @@
     overflow-y: auto;
     border-radius: 6px;
   }
-  
+
   /* Keep notification content in same line on extra small screens */
   .notificationLeftContent {
     gap: 6px;
   }
-  
+
   .notificationMessage {
     font-size: 13px;
     line-height: 1.2;
   }
-  
+
   .notificationTimeRight {
     font-size: 11px;
     flex-shrink: 0;
   }
-  
+
   .notificationDropdownItem img {
     width: 18px;
     height: 18px;
@@ -1768,11 +1835,11 @@
     font-size: 18px;
     line-height: 1.4;
   }
-  
+
   .notificationTimeRight {
     font-size: 16px;
   }
-  
+
   .notificationDropdownItem img {
     width: 28px;
     height: 28px;
@@ -1785,11 +1852,11 @@
     font-size: 16px;
     line-height: 1.4;
   }
-  
+
   .notificationTimeRight {
     font-size: 14px;
   }
-  
+
   .notificationDropdownItem img {
     width: 24px;
     height: 24px;
@@ -1801,44 +1868,43 @@
   .notificationLeftContent {
     gap: 10px;
   }
-  
+
   .notificationMessage {
     font-size: 15px;
     line-height: 1.4;
   }
-  
+
   .notificationTimeRight {
     font-size: 13px;
     flex-shrink: 0;
   }
-  
+
   .notificationDropdownItem img {
     width: 22px;
     height: 22px;
   }
 }
 @media (max-width: 480px) {
-  
   /* Ensure notification items are properly sized on mobile */
   .notificationDropdownItem {
     padding: 14px 16px;
     gap: 10px;
   }
-  
+
   .notificationLeftContent {
     gap: 8px;
   }
-  
+
   .notificationMessage {
     font-size: 14px;
     line-height: 1.3;
   }
-  
+
   .notificationTimeRight {
     font-size: 12px;
     flex-shrink: 0;
   }
-  
+
   .notificationDropdownItem img {
     width: 20px;
     height: 20px;
@@ -1851,7 +1917,6 @@
     animation: none;
   }
 }
-
 
 .notificationIcon {
   position: relative;
@@ -1951,14 +2016,24 @@
   color: #9ca3af;
   margin-top: 4px;
   font-weight: 400;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
 }
 
 .notificationEmpty {
   padding: 60px 24px;
   color: #9ca3af;
   text-align: center;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
   font-size: 14px;
   font-weight: 500;
 }
@@ -1982,7 +2057,12 @@
   border: none;
   text-align: left;
   cursor: pointer;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
   transition: all 0.2s ease;
   text-decoration: none;
   border-radius: 0;
@@ -2020,7 +2100,12 @@
   color: #9ca3af;
   margin-top: 4px;
   font-weight: 400;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
 }
 
 .notificationDropdownItem:hover,
@@ -2036,8 +2121,11 @@
 }
 
 .notificationUnread {
-  background: linear-gradient(90deg, rgba(59, 130, 246, 0.02) 0%, rgba(255, 255, 255, 1) 100%) !important;
-  
+  background: linear-gradient(
+    90deg,
+    rgba(59, 130, 246, 0.02) 0%,
+    rgba(255, 255, 255, 1) 100%
+  ) !important;
 }
 
 .notificationUnread .notificationDropdownItem span {

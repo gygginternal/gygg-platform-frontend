@@ -83,7 +83,7 @@ function TaskerCard({ tasker, onAccept, onReject, onClick }) {
             </div>
           )}
         </div>
-        
+
         {/* Main Content */}
         <div className={styles.offerCardDetails}>
           {/* Header with name and rate */}
@@ -92,7 +92,9 @@ function TaskerCard({ tasker, onAccept, onReject, onClick }) {
               {tasker.name || 'Unknown Tasker'}
             </h2>
             <p className={styles.offerCardRate}>
-              {tasker.ratePerHour ? `$${tasker.ratePerHour}/hr` : 'No ratings yet'}
+              {tasker.ratePerHour
+                ? `$${tasker.ratePerHour}/hr`
+                : 'No ratings yet'}
             </p>
           </div>
 
@@ -109,27 +111,24 @@ function TaskerCard({ tasker, onAccept, onReject, onClick }) {
 
           {/* Description */}
           {tasker.description && (
-            <p className={styles.offerCardDescription}>
-              {tasker.description}
-            </p>
+            <p className={styles.offerCardDescription}>{tasker.description}</p>
           )}
-
         </div>
 
         {/* Action Buttons */}
         <div className={styles.offerCardActions}>
-          <button 
+          <button
             className={styles.viewProfileButton}
-            onClick={(e) => {
+            onClick={e => {
               e.stopPropagation();
               // Handle view profile action
             }}
           >
             View Profile
           </button>
-          <button 
+          <button
             className={styles.messageButton}
-            onClick={(e) => {
+            onClick={e => {
               e.stopPropagation();
               // Handle message action
             }}

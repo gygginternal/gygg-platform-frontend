@@ -216,7 +216,6 @@ const ChatPage = () => {
 
     // Handler for new messages - Facebook Messenger style
     const handleNewMessage = message => {
-
       // Check if message is for current conversation
       const isForCurrentChat =
         (message.sender &&

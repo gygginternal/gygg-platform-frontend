@@ -25,7 +25,7 @@
   .mobile-only {
     display: none;
   }
-  
+
   .tablet-up {
     display: block;
   }
@@ -186,7 +186,7 @@
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
-  
+
   .scrollable::-webkit-scrollbar {
     display: none;
   }
@@ -233,7 +233,7 @@
   .border-subtle {
     border-color: #000 !important;
   }
-  
+
   .text-muted {
     color: #000 !important;
   }
@@ -245,15 +245,15 @@
     background-color: #1f2937;
     color: #f9fafb;
   }
-  
+
   .border-light {
     border-color: #374151;
   }
-  
+
   .text-dark {
     color: #f9fafb;
   }
-  
+
   .text-muted-dark {
     color: #9ca3af;
   }

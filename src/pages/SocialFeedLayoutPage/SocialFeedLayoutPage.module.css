@@ -58,7 +58,7 @@
     min-height: calc(100vh - 2rem);
   }
   .contentWrapper {
-    margin-left: 6.75rem; 
+    margin-left: 6.75rem;
     max-width: 100%; /* Allow contentWrapper to take full width */
     padding: 0.725rem 0.9375rem; /* 10px top/bottom, 15px left/right */
     gap: 0.75rem; /* 12px */

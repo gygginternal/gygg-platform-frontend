@@ -21,24 +21,24 @@ const RateTaskerPage = () => {
       try {
         const response = await apiClient.get(`/contracts/${contractId}`);
         const contractData = response.data.data.contract;
-        
+
         // Check if contract exists and is completed
         if (!contractData) {
           setError('Contract not found');
           return;
         }
-        
+
         if (contractData.status !== 'completed') {
           setError('Contract must be completed to rate the tasker');
           return;
         }
-        
+
         // Check if user is the provider
         if (contractData.provider._id !== user._id) {
           setError('Only the provider can rate the tasker');
           return;
         }
-        
+
         setContract(contractData);
       } catch (err) {
         setError('Failed to load contract details');
@@ -85,7 +85,7 @@ const RateTaskerPage = () => {
             <div className={styles.errorContainer}>
               <h2>Error</h2>
               <p>{error}</p>
-              <a 
+              <a
                 className={styles.backButton}
                 onClick={() => navigate('/contracts')}
               >
@@ -108,15 +108,17 @@ const RateTaskerPage = () => {
           <div className={styles.rateTaskerCard}>
             <div className={styles.header}>
               <h1>Rate Your Tasker</h1>
-              <p>Please share your experience with the tasker for this contract</p>
+              <p>
+                Please share your experience with the tasker for this contract
+              </p>
             </div>
-            
+
             {contract && (
               <div className={styles.combinedInfo}>
                 <div className={styles.taskerInfo}>
                   {contract.tasker?.profileImage ? (
-                    <img 
-                      src={contract.tasker.profileImage} 
+                    <img
+                      src={contract.tasker.profileImage}
                       alt={contract.tasker.firstName}
                       className={styles.taskerImage}
                     />
@@ -126,29 +128,31 @@ const RateTaskerPage = () => {
                     </div>
                   )}
                   <div>
-                    <h3>{contract.tasker?.firstName} {contract.tasker?.lastName}</h3>
+                    <h3>
+                      {contract.tasker?.firstName} {contract.tasker?.lastName}
+                    </h3>
                     <p>{contract.gig?.title}</p>
                   </div>
                 </div>
-                
+
                 <div className={styles.reviewFormContainer}>
-                  <ReviewForm 
+                  <ReviewForm
                     contractId={contractId}
                     onSuccess={handleRatingSuccess}
                   />
                 </div>
               </div>
             )}
-            
+
             <div className={styles.actions}>
-              <a 
+              <a
                 className={styles.backButton}
                 onClick={() => navigate('/contracts')}
               >
                 Back
               </a>
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 form="review-form"
                 className={styles.submitButton}
               >

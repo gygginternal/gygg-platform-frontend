@@ -17,7 +17,9 @@
   padding: 0.75rem; /* 12px */
   margin-bottom: 0.75rem; /* 12px */
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.2s, transform 0.2s;
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s;
 }
 
 .listItemCard:hover {
@@ -66,17 +68,17 @@
     padding: 1rem; /* 16px */
     border-radius: 0.5rem; /* 8px */
   }
-  
+
   .listItemCard {
     padding: 1rem; /* 16px */
     margin-bottom: 1rem; /* 16px */
     border-radius: 0.75rem; /* 12px */
   }
-  
+
   .listItemCard h4 {
     font-size: 1.0625rem; /* 17px */
   }
-  
+
   .listItemCard p {
     font-size: 0.875rem; /* 14px */
     margin: 0.25rem 0; /* 4px */
@@ -90,18 +92,18 @@
     padding: 1.25rem; /* 20px */
     border-radius: 0.75rem; /* 12px */
   }
-  
+
   .listItemCard {
     padding: 1.25rem; /* 20px */
     margin-bottom: 1.25rem; /* 20px */
     border-radius: 1rem; /* 16px */
   }
-  
+
   .listItemCard h4 {
     font-size: 1.125rem; /* 18px */
     margin-bottom: 0.75rem; /* 12px */
   }
-  
+
   .listItemCard p {
     font-size: 0.9375rem; /* 15px */
   }
@@ -114,23 +116,23 @@
     padding: 1.5rem; /* 24px */
     border-radius: 1rem; /* 16px */
   }
-  
+
   .listItemCard {
     padding: 1.5rem; /* 24px */
     margin-bottom: 1.5rem; /* 24px */
     border-radius: 1rem; /* 16px */
   }
-  
+
   .listItemCard:hover {
     box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
   }
-  
+
   .listItemCard h4 {
     font-size: 1.25rem; /* 20px */
     margin-bottom: 1rem; /* 16px */
   }
-  
+
   .listItemCard p {
     font-size: 1rem; /* 16px */
     margin: 0.5rem 0; /* 8px */

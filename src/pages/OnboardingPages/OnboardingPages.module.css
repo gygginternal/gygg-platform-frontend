@@ -347,21 +347,21 @@
   .container {
     padding: 3rem;
   }
-  
+
   .formContainer {
     max-width: 900px;
     margin-top: 2rem;
   }
-  
+
   .form {
     padding: 3rem;
     max-width: 48rem; /* Slightly wider for large screens */
   }
-  
+
   .title {
     font-size: 2.25rem; /* 36px */
   }
-  
+
   .subtitle {
     font-size: 1rem; /* 16px */
   }
@@ -371,12 +371,12 @@
   .container {
     padding: 4rem;
   }
-  
+
   .formContainer {
     max-width: 1000px;
     margin-top: 2.5rem;
   }
-  
+
   .form {
     padding: 3.5rem;
     max-width: 52rem; /* Even wider for very large screens */

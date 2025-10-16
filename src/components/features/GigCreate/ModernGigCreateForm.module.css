@@ -37,7 +37,7 @@
 
 .progressFill {
   height: 100%;
-  background: #00AABA;
+  background: #00aaba;
   border-radius: 4px;
   transition: width 0.3s ease;
 }
@@ -76,7 +76,7 @@
   color: #374151;
 }
 
-.radioOption input[type="radio"] {
+.radioOption input[type='radio'] {
   width: 20px;
   height: 20px;
   accent-color: #06b6d4;
@@ -265,7 +265,7 @@
   background-color: #f9fafb;
 }
 
-.categoryOption input[type="radio"] {
+.categoryOption input[type='radio'] {
   width: 20px;
   height: 20px;
   accent-color: #06b6d4;
@@ -379,7 +379,7 @@
   color: #374151;
 }
 
-.timelineOption input[type="radio"] {
+.timelineOption input[type='radio'] {
   width: 18px;
   height: 18px;
   accent-color: #06b6d4;
@@ -430,7 +430,7 @@
 }
 
 .nextButton {
-  background: #D99633;
+  background: #d99633;
   color: #ffffff;
   border: none;
   padding: 0.875rem 2rem;
@@ -619,7 +619,7 @@ ew styles for hourly gig improvements */
 
 .durationInput:focus {
   outline: none;
-  border-color: #00AABA;
+  border-color: #00aaba;
   box-shadow: 0 0 0 3px rgba(0, 170, 186, 0.1);
 }
 
@@ -640,7 +640,7 @@ ew styles for hourly gig improvements */
 .priceInput::placeholder {
   font-weight: 400;
   color: #9ca3af;
-}/* L
+} /* L
 ocation input styles */
 .locationInputs {
   display: flex;
@@ -661,7 +661,7 @@ ocation input styles */
 
 .locationInput:focus {
   outline: none;
-  border-color: #00AABA;
+  border-color: #00aaba;
   box-shadow: 0 0 0 3px rgba(0, 170, 186, 0.1);
 }
 
@@ -682,7 +682,7 @@ ocation input styles */
   cursor: pointer;
 }
 
-.checkboxLabel input[type="checkbox"] {
+.checkboxLabel input[type='checkbox'] {
   width: 1.25rem;
   height: 1.25rem;
   border: 2px solid #d1d5db;
@@ -690,9 +690,9 @@ ocation input styles */
   cursor: pointer;
 }
 
-.checkboxLabel input[type="checkbox"]:checked {
-  background-color: #00AABA;
-  border-color: #00AABA;
+.checkboxLabel input[type='checkbox']:checked {
+  background-color: #00aaba;
+  border-color: #00aaba;
 }
 
 /* Responsive location inputs */
