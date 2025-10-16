@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './ProviderProfileInfo.module.css';
 import { MapPin } from 'lucide-react';
-import apiClient from '../../api/axiosConfig';
-import { useToast } from '../../contexts/ToastContext';
-import logger from '../../utils/logger';
+import apiClient from '@api/axiosConfig';
+import { useToast } from '@contexts/ToastContext';
+import logger from '@utils/logger';
 
 // Helper function to decode HTML entities
 const decodeHTMLEntities = text => {

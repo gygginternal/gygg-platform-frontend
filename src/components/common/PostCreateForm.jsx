@@ -4,9 +4,9 @@ import { useToast } from '../../contexts/ToastContext';
 import apiClient from '../../api/axiosConfig';
 import PropTypes from 'prop-types';
 import styles from './PostCreateForm.module.css';
-import FormInput from './Shared/FormInput';
-import AddressInput from './Shared/AddressInput';
-import { validateContent } from '../utils/contentFilter';
+import FormInput from './FormInput';
+import AddressInput from './AddressInput';
+import { validateContent } from '../../utils/contentFilter';
 
 function PostCreateForm({ onSubmitSuccess }) {
   const [content, setContent] = useState('');

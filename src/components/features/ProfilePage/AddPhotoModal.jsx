@@ -1,10 +1,10 @@
 // src/components/ProfilePage/AddPhotoModal.js
 import { useState, useEffect } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import apiClient from '../../api/axiosConfig';
+import { useAuth } from '@contexts/AuthContext';
+import apiClient from '@api/axiosConfig';
 import styles from './AddPhotoModal.module.css';
 import PropTypes from 'prop-types';
-import logger from '../../utils/logger';
+import logger from '@utils/logger';
 
 function AddPhotoModal({ onClose, onAddSuccess }) {
   // Renamed onAdd to onAddSuccess

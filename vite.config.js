@@ -2,9 +2,27 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import path from 'path'
 
+// Plugin to resolve tailwindcss version import issue
+const tailwindVersionPlugin = {
+  name: 'tailwind-version',
+  resolveId(id) {
+    if (id === 'tailwindcss/version.js') {
+      return id;
+    }
+    return null;
+  },
+  load(id) {
+    if (id === 'tailwindcss/version.js') {
+      // Return the version of tailwindcss
+      return `export default { version: '3.3.0' };`;
+    }
+    return null;
+  }
+};
+
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tailwindVersionPlugin],
   
   // Enable JSX in .js files
   esbuild: {

@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Search, MoreVertical } from 'lucide-react';
 import styles from './ChatSidebar.module.css';
-import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
+import { decodeHTMLEntities } from '@utils/htmlEntityDecoder';
 
 const ChatSidebar = ({ contacts, selectedContact, onContactSelect }) => {
   const [searchTerm, setSearchTerm] = useState('');

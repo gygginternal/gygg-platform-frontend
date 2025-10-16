@@ -1,10 +1,10 @@
 // src/components/ProfilePage/AboutSection.js
 import { useState, useEffect } from 'react';
 import styles from './AboutSection.module.css';
-import { useAuth } from '../../contexts/AuthContext'; // For loggedInUser details if needed for save
-import apiClient from '../../api/axiosConfig';
-import logger from '../../utils/logger';
-import { useToast } from '../../contexts/ToastContext';
+import { useAuth } from '../../../contexts/AuthContext'; // For loggedInUser details if needed for save
+import apiClient from '../../../api/axiosConfig';
+import logger from '../../../utils/logger';
+import { useToast } from '../../../contexts/ToastContext';
 import PropTypes from 'prop-types';
 
 const decodeHTMLEntities = text => {

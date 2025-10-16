@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MoreVertical, Paperclip, ArrowLeft } from 'lucide-react';
-import apiClient from '../../api/axiosConfig';
+import apiClient from '@api/axiosConfig';
 import styles from './ChatWindow.module.css';
-import { useSocket } from '../../contexts/SocketContext';
+import { useSocket } from '@contexts/SocketContext';
 import {
   checkMessageContent,
   showContentWarning,
-} from '../../utils/contentFilter';
-import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
+} from '@utils/contentFilter';
+import { decodeHTMLEntities } from '@utils/htmlEntityDecoder';
 
 const ChatWindow = ({
   contact,

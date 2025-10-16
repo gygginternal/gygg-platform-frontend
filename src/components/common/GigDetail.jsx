@@ -1,4 +1,4 @@
-import { Button } from './Button';
+import Button from './Button';
 // frontend/src/pages/GigDetailPage.js
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
@@ -13,12 +13,12 @@ import {
 import { loadStripe } from '@stripe/stripe-js';
 // import "./GigDetails.css"; // Assuming you have a CSS file for styling
 import styles from './GigDetail.module.css'; // Import CSS Modules
-import { GigApplications } from './Shared/GigApplications';
+import { GigApplications } from './GigApplications';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { GigApplySection } from './Shared/GigApplySection';
+import { GigApplySection } from './GigApplySection';
 import ReviewSection from './ReviewSection';
 import PropTypes from 'prop-types';
-import { decodeHTMLEntities } from '../utils/htmlEntityDecoder';
+import { decodeHTMLEntities } from '@utils/htmlEntityDecoder';
 
 const stripePromise = loadStripe(
   'pk_test_51RgsCzCar68v7b8ot0KNr8l9NTWwDsURWgVctgW2wN45rZLxejGqO6s4e44z7KjhAHxjvZ1DOvbggzcPgXMUrusy00h5KCJqtc'

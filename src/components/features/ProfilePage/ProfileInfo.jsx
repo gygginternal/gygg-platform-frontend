@@ -1,12 +1,12 @@
 // frontend/src/components/ProfilePage/ProfileInfo.js
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './ProfileInfo.module.css'; // Ensure this CSS Module exists and is styled correctly
-import apiClient from '../../api/axiosConfig'; // Adjust path if necessary
-import logger from '../../utils/logger'; // Optional: Adjust path if necessary
-import { useToast } from '../../contexts/ToastContext';
+import apiClient from '../../../api/axiosConfig'; // Adjust path if necessary
+import logger from '../../../utils/logger'; // Optional: Adjust path if necessary
+import { useToast } from '../../../contexts/ToastContext';
 import PropTypes from 'prop-types';
-import { AutoComplete } from '../Shared/AutoComplete';
-import { HOBBIES_OPTIONS, SKILL_OPTIONS } from '../../utils/constants';
+import { AutoComplete } from '../../common/AutoComplete';
+import { HOBBIES_OPTIONS, SKILL_OPTIONS } from '../../../utils/constants';
 
 // Helper function to decode HTML entities (if bio or other text fields might have them from backend)
 const decodeHTMLEntities = text => {

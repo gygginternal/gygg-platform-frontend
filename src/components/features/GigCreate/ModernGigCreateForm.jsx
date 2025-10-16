@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
-import apiClient from '../../api/axiosConfig';
-import { CATEGORY_ENUM } from '../../constants/categories';
-import { useToast } from '../../contexts/ToastContext';
+import apiClient from '../../../api/axiosConfig';
+import { CATEGORY_ENUM } from '../../../constants/categories';
+import { useToast } from '../../../contexts/ToastContext';
 import styles from './ModernGigCreateForm.module.css';
 
 const TOTAL_STEPS = 3;

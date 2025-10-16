@@ -10,7 +10,7 @@ import {
   AlertCircle,
   Clock as ClockIcon,
 } from 'lucide-react';
-import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
+import { decodeHTMLEntities } from '@utils/htmlEntityDecoder';
 
 export default function ContractCard({ contract, onClick }) {
   // Define status configuration for styling

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styles from './PostedGigs.module.css';
-import apiClient from '../../api/axiosConfig';
+import apiClient from '@api/axiosConfig';
 import { Link, useNavigate } from 'react-router-dom';
-import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
+import { decodeHTMLEntities } from '@utils/htmlEntityDecoder';
 
 const STATUS_LABELS = {
   active: 'Active',

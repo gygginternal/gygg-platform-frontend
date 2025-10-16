@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ContractPayment.module.css';
-import CheckoutForm from '../Shared/CheckoutForm';
+import CheckoutForm from '../../common/CheckoutForm';
 import NuveiPaymentForm from '../Shared/NuveiPaymentForm';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import apiClient from '../../api/axiosConfig';
-import RateTaskerButton from '../Shared/RateTaskerButton';
+import apiClient from '@api/axiosConfig';
+import RateTaskerButton from '../../common/RateTaskerButton';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 

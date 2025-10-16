@@ -1,5 +1,5 @@
 import { MapPin, User, ArrowLeft } from 'lucide-react';
-import { Card, CardContent, CardHeader } from '../../components/common/ui/card';
+import { Card } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns'; // Import date-fns for formatting dates
 import styles from './ContractDetailsPage.module.css'; // Import CSS Modules

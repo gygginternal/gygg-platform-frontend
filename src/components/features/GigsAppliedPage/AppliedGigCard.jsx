@@ -1,7 +1,7 @@
 import React from 'react';
 import { Clock, MapPin, Briefcase } from 'lucide-react';
 import styles from './AppliedGigCard.module.css';
-import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
+import { decodeHTMLEntities } from '@utils/htmlEntityDecoder';
 
 const AppliedGigCard = ({ gig, onClick }) => {
   const {

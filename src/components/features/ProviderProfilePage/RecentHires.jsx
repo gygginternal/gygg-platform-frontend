@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styles from './RecentHires.module.css';
-import apiClient from '../../api/axiosConfig';
+import apiClient from '@api/axiosConfig';
 import { Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
+import { decodeHTMLEntities } from '@utils/htmlEntityDecoder';
 
 function RecentHires({ providerId, isOwnProfile }) {
   const [hires, setHires] = useState([]);

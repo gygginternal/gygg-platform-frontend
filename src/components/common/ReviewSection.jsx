@@ -1,5 +1,5 @@
 import styles from './ReviewSection.module.css';
-import ReviewCard from './ProfilePage/ReviewCard';
+import ReviewCard from '@components/features/ProfilePage/ReviewCard';
 
 const reviewsData = [
   {

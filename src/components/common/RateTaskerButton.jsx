@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './RateTaskerButton.module.css';
-import ReviewForm from '../ReviewForm';
+import ReviewForm from './ReviewForm';
 
 const RateTaskerButton = ({ contractId, onRatingSubmitted }) => {
   const [showReviewForm, setShowReviewForm] = useState(false);
