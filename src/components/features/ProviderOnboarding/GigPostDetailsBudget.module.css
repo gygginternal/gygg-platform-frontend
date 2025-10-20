@@ -1,32 +1,32 @@
 .formGroup {
-  margin-bottom: 1.5em;
+  margin-bottom: var(--spacing-xl);
   display: flex;
   flex-direction: column;
 }
 .label {
   font-weight: 600;
-  margin-bottom: 0.5em;
-  color: #ffffff;
-  font-size: 1rem;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-md);
 }
 .select,
 .input,
 .textarea {
   padding: 0.7em 1em;
-  border: 1px solid #e5e7eb;
-  border-radius: 4px;
-  font-size: 1rem;
-  background: #f9fafb;
+  border: 1px solid var(--color-neutral-300);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-md);
+  background: var(--color-background-paper);
   transition:
-    border 0.2s,
-    box-shadow 0.2s;
-  font-family: 'Inter', sans-serif;
+    border var(--transition-fast) var(--transition-ease),
+    box-shadow var(--transition-fast) var(--transition-ease);
+  font-family: var(--font-family);
 }
 .select:focus,
 .input:focus,
 .textarea:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 2px #2563eb22;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
   outline: none;
 }
 .textarea {

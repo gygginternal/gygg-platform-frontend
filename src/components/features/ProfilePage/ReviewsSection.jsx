@@ -73,10 +73,10 @@ function ReviewsSection({ userIdToView, isOwnProfile }) {
     if (error) return <p className={styles.errorMessage}>{error}</p>;
     if (reviews.length === 0) {
       return (
-        <p>
+        <p className={styles.noReviewsText}>
           {isOwnProfile
-            ? "You haven't received any reviews yet."
-            : "This user hasn't received any reviews yet."}
+            ? "Take some gig and get reviewed"
+            : "No reviews yet"}
         </p>
       );
     }

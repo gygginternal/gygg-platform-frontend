@@ -1,24 +1,24 @@
 /* ContractCard.module.css */
 .contractCard {
-  background: #fff;
-  border-radius: 16px;
-  border: 1px solid #e5e7eb;
-  padding: 24px;
+  background: var(--color-background);
+  border-radius: var(--border-radius-xl);
+  border: 1px solid var(--color-neutral-300);
+  padding: 1.5rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast) var(--transition-ease);
   position: relative;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
   animation: fadeInUp 0.3s ease-out;
 }
 
 .contractCard:hover {
-  border-color: #d1d5db;
+  border-color: var(--color-neutral-400);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transform: translateY(-1px);
 }
 
 .contractCard:focus {
-  outline: 2px solid #6366f1;
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
@@ -27,45 +27,45 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 }
 
 .categorySection {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .categoryInfo {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 1rem;
 }
 
 .categoryName {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   font-weight: 600;
-  color: #374151;
+  color: var(--color-text-primary);
   letter-spacing: 0.5px;
 }
 
 .statusBadge {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 12px;
+  gap: 0.375rem;
+  font-size: var(--font-size-xs);
   font-weight: 600;
-  padding: 6px 12px;
-  border-radius: 20px;
+  padding: 0.375rem 0.75rem;
+  border-radius: 1.25rem;
   text-transform: capitalize;
 }
 
 /* Contract Title */
 .contractTitle {
-  font-size: 18px;
+  font-size: var(--font-size-lg);
   font-weight: 600;
-  color: #111827;
-  margin-bottom: 16px;
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
   line-height: 1.4;
 }
 
@@ -73,21 +73,21 @@
 .clientInfo {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .clientAvatar {
-  width: 32px;
-  height: 32px;
-  background: #6366f1;
+  width: 2rem;
+  height: 2rem;
+  background: var(--color-primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--color-primary-contrast);
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--font-size-sm);
 }
 
 .avatarImage {
@@ -100,48 +100,48 @@
 .clientDetails {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 0.5rem;
 }
 
 .clientName {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: 500;
-  color: #374151;
+  color: var(--color-text-primary);
 }
 
 .timeInfo {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
   margin-left: auto;
-  font-size: 12px;
-  color: #9ca3af;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
 }
 
 .timeInfo span {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 0.25rem;
 }
 
 /* Contract Details */
 .contractDetails {
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 }
 
 .contractId {
-  font-size: 14px;
-  color: #6b7280;
-  margin-bottom: 8px;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: 0.5rem;
 }
 
 .contractId span {
   font-family: monospace;
-  color: #4b5563;
-  background: #f3f4f6;
-  padding: 2px 4px;
-  border-radius: 4px;
-  font-size: 12px;
+  color: var(--color-text-secondary);
+  background: var(--color-background-paper);
+  padding: 0.125rem 0.25rem;
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-xs);
 }
 
 /* Card Footer */
@@ -149,55 +149,55 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 16px;
-  border-top: 1px solid #f3f4f6;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-neutral-200);
 }
 
 .locationPrice {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 1rem;
 }
 
 .location,
 .duration {
   display: flex;
   align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  color: #6b7280;
+  gap: 0.25rem;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
 }
 
 .priceSection {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 4px;
+  gap: 0.25rem;
 }
 
 .price {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 0.25rem;
 }
 
 .amount {
-  font-size: 18px;
+  font-size: var(--font-size-lg);
   font-weight: 700;
-  color: #111827;
+  color: var(--color-text-primary);
 }
 
 .earned {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  color: #6b7280;
+  gap: 0.375rem;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
 }
 
 .earnedAmount {
   font-weight: 700;
-  color: #f59e0b;
+  color: var(--color-warning);
 }
 
 /* Animation */

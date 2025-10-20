@@ -132,6 +132,8 @@ function JobListingItem({ job }) {
   );
 }
 
+
+
 const priceRanges = ['Any', 'Under $20', '$20 - $50', '$50 - $100', '$100+'];
 const statusOptions = [
   'All',
