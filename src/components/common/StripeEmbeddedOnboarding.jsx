@@ -119,8 +119,8 @@ export function StripeEmbeddedOnboarding() {
         }
 
         const responseData = response.data.data;
-        const clientSecret = responseData.clientSecret;
-        const url = responseData.url;
+        const { clientSecret } = responseData;
+        const { url } = responseData;
 
         // If we got a URL, use redirect approach
         if (url) {

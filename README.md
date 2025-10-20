@@ -37,11 +37,13 @@ gygg-platform-frontend/
 ## Setup
 
 1. Install dependencies:
+
    ```bash
    npm install
    ```
 
 2. Set up environment variables if needed:
+
    ```bash
    # If environment variables are required, create .env file
    ```
@@ -63,6 +65,7 @@ gygg-platform-frontend/
 ## Development
 
 The application uses:
+
 - React 19 with functional components and hooks
 - Vite for fast development and builds
 - Tailwind CSS for styling

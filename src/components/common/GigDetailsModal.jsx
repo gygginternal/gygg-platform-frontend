@@ -197,6 +197,12 @@ const GigDetailsModal = ({
       aria-modal="true"
       style={{ zIndex: 9999, display: open ? 'flex' : 'none' }}
       onClick={handleOverlayClick}
+      onKeyDown={e => {
+        if (e.key === 'Escape') {
+          handleClose();
+        }
+      }}
+      tabIndex={-1}
     >
       <div
         className={styles.modalContent}

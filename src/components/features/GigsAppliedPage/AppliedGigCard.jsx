@@ -29,7 +29,19 @@ const AppliedGigCard = ({ gig, onClick }) => {
   };
 
   return (
-    <div className={styles.contractCard} onClick={onClick}>
+    <div
+      className={styles.contractCard}
+      onClick={onClick}
+      onKeyDown={e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick(e);
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      aria-label={`View details for gig: ${decodeHTMLEntities(title)}`}
+    >
       <div className={styles.cardHeader}>
         <span className={styles.category}>
           {category?.toUpperCase() || 'OTHER'}

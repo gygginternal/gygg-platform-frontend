@@ -93,8 +93,8 @@ export function SimplifiedStripeOnboarding() {
         <div className={styles.redirecting}>
           <p>Redirecting to secure payment processor...</p>
           <p>
-            Please complete your account setup and you'll be brought back to
-            this page.
+            Please complete your account setup and you&apos;ll be brought back
+            to this page.
           </p>
         </div>
       </div>

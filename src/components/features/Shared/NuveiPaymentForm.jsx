@@ -149,7 +149,7 @@ const NuveiPaymentForm = ({
     // Confirm payment on backend
     apiClient
       .post('/payments/nuvei/confirm-payment', {
-        sessionId: sessionId,
+        sessionId,
         nuveiTransactionId: response.transactionId || response.id,
       })
       .then(confirmResponse => {

@@ -58,8 +58,8 @@ const RecommendedAppliances = () => {
               />
               <div className={styles.applianceContent}>
                 <div className={styles.applianceDescription}>
-                  <strong>{appliance.name}</strong> applied to your gig "
-                  {appliance.gigTitle}"
+                  <strong>{appliance.name}</strong> applied to your gig &quot;
+                  {appliance.gigTitle}&quot;
                 </div>
                 <Link
                   to={`/applications/${appliance.id}`}

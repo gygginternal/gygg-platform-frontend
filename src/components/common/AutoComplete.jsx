@@ -221,7 +221,7 @@ export const AutoComplete = ({
           !contentWarning && (
             <div className={styles.dropdownContainer}>
               <div className={styles.noResults}>
-                <span>No options found for "{searchTerm}"</span>
+                <span>No options found for &quot;{searchTerm}&quot;</span>
               </div>
             </div>
           )}

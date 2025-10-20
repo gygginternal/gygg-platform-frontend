@@ -23,12 +23,12 @@ function RecentHires({ providerId, isOwnProfile }) {
         const res = await apiClient.get('/contracts/my-contracts', {
           params: {
             status: 'completed',
-            page: page,
+            page,
             limit: HIRES_PER_PAGE,
           },
         });
 
-        const contracts = res.data.data.contracts;
+        const { contracts } = res.data.data;
         setTotalPages(res.data.data.totalPages);
         setTotalCount(res.data.data.total);
 
@@ -123,9 +123,9 @@ function RecentHires({ providerId, isOwnProfile }) {
 
             return {
               contractId: contract.id || contract._id || contract.contractId,
-              taskerId: taskerId,
+              taskerId,
               taskerName: decodeHTMLEntities(taskerName),
-              taskerImage: taskerImage,
+              taskerImage,
               gigTitle: decodeHTMLEntities(gigTitle),
               review:
                 decodeHTMLEntities(reviewData?.comment) || 'No review provided',
@@ -134,8 +134,8 @@ function RecentHires({ providerId, isOwnProfile }) {
                 contract.completedAt ||
                 contract.updatedAt ||
                 contract.createdAt,
-              gigId: gigId,
-              hasReview: hasReview,
+              gigId,
+              hasReview,
             };
           })
         );

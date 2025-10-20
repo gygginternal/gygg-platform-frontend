@@ -90,6 +90,12 @@ const ConfirmModal = ({
       onClick={handleBackdropClick}
       role="dialog"
       aria-modal="true"
+      onKeyDown={e => {
+        if (e.key === 'Escape') {
+          onCancel();
+        }
+      }}
+      tabIndex={-1}
     >
       <div className={styles.modalContent} ref={modalRef} tabIndex={-1}>
         <div className={styles.modalHeader}>

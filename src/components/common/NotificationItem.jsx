@@ -48,6 +48,15 @@ const NotificationItem = ({
         !notification.isRead ? styles.unread : ''
       }`}
       onClick={() => onClick(notification)}
+      onKeyDown={e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick(notification);
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      aria-label={`Notification: ${decodeHTMLEntities(notification.message)}`}
     >
       <div className={styles.notificationIcon}>
         {notification.icon ? (
