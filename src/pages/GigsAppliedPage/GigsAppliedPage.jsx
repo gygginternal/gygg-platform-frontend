@@ -41,7 +41,8 @@ const GigsAppliedPage = () => {
         setError('');
         try {
           const res = await apiClient.get('/applications/my-gigs');
-          setApplications(res.data.data || []);
+          // Backend returns applications in res.data.data.applications
+          setApplications(res.data.data.applications || []);
         } catch (err) {
           setError('Failed to load applied gigs.');
         } finally {
@@ -52,11 +53,12 @@ const GigsAppliedPage = () => {
     }
   }, [user]);
 
-  const handleCardClick = async gig => {
+  const handleCardClick = async app => {
     try {
-      const res = await apiClient.get(`/gigs/${gig._id}`);
+      // Use the gig ID from the application's gig field
+      const res = await apiClient.get(`/gigs/${app.gig._id}`);
       setSelectedGig(res.data.data.gig);
-      setSelectedApplicationId(gig.applicationId);
+      setSelectedApplicationId(app._id); // Use the application ID
       setModalOpen(true);
     } catch (err) {
       setError('Failed to load gig details.');
@@ -76,7 +78,8 @@ const GigsAppliedPage = () => {
         setError('');
         try {
           const res = await apiClient.get('/applications/my-gigs');
-          setApplications(res.data.data || []);
+          // Backend returns applications in res.data.data.applications
+          setApplications(res.data.data.applications || []);
         } catch (err) {
           setError('Failed to load applied gigs.');
         } finally {
@@ -93,24 +96,24 @@ const GigsAppliedPage = () => {
     if (searchTerm && searchTerm.trim()) {
       const searchLower = searchTerm.toLowerCase().trim();
       filtered = filtered.filter(app =>
-        app.title?.toLowerCase().includes(searchLower)
+        app.gig?.title?.toLowerCase().includes(searchLower)
       );
     }
 
     if (statusFilter !== 'All') {
       filtered = filtered.filter(
-        app => app.applicationStatus === statusFilter.toLowerCase()
+        app => app.status === statusFilter.toLowerCase()
       );
     }
 
     if (categoryFilter !== 'All') {
-      filtered = filtered.filter(app => app.category === categoryFilter);
+      filtered = filtered.filter(app => app.gig?.category === categoryFilter);
     }
 
     if (priceRange !== 'Any') {
       const [min, max] = priceRange.replace(/\$/g, '').split(' - ');
       filtered = filtered.filter(app => {
-        const price = app.isHourly ? app.ratePerHour : app.cost;
+        const price = app.gig?.isHourly ? app.gig?.ratePerHour : app.gig?.cost;
         if (priceRange.startsWith('Under')) {
           return price < 20;
         }
@@ -145,14 +148,14 @@ const GigsAppliedPage = () => {
   const filteredApplications = getFilteredApplications();
   const statusCounts = {
     total: applications.length,
-    pending: applications.filter(app => app.applicationStatus === 'pending')
+    pending: applications.filter(app => app.status === 'pending')
       .length,
-    accepted: applications.filter(app => app.applicationStatus === 'accepted')
+    accepted: applications.filter(app => app.status === 'accepted')
       .length,
     in_progress: applications.filter(
-      app => app.applicationStatus === 'in_progress'
+      app => app.status === 'in_progress'
     ).length,
-    completed: applications.filter(app => app.applicationStatus === 'completed')
+    completed: applications.filter(app => app.status === 'completed')
       .length,
   };
 
@@ -306,11 +309,17 @@ const GigsAppliedPage = () => {
                   </p>
                 </div>
               ) : (
-                filteredApplications.map(gig => (
+                filteredApplications.map(app => (
                   <AppliedGigCard
-                    key={gig._id}
-                    gig={gig}
-                    onClick={() => handleCardClick(gig)}
+                    key={app._id}
+                    gig={{
+                      ...app.gig,
+                      status: app.status, // Include application status
+                      applicationId: app._id, // Pass the application ID
+                      createdAt: app.createdAt, // Include creation date
+                      rate: app.gig?.isHourly ? app.gig?.ratePerHour : app.gig?.cost
+                    }}
+                    onClick={() => handleCardClick(app)}
                   />
                 ))
               )}

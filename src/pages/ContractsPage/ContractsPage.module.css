@@ -781,7 +781,7 @@
 }
 
 .modalContent {
-  background-color: var(--color-background);
+  background-color: white;
   width: 100%;
   max-width: 37.5rem;
   border-radius: var(--border-radius-xl);
@@ -795,8 +795,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--color-primary); /* Changed from gradient to solid color */
-  color: var(--color-primary-contrast);
+  background: #16a2b8; /* Following common modal theme */
+  color: white;
   padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-md) var(--spacing-xl);
   border-radius: var(--border-radius-xl) var(--border-radius-xl) 0 0;
   flex-shrink: 0;
@@ -807,13 +807,13 @@
   font-size: var(--font-size-xl);
   font-weight: 700;
   letter-spacing: 0.01em;
-  color: var(--color-primary-contrast);
+  color: white;
 }
 .closeButton {
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: var(--color-primary-contrast);
+  color: white;
   cursor: pointer;
   padding: var(--spacing-xs) var(--spacing-md);
   border-radius: var(--border-radius-md);
@@ -824,31 +824,31 @@
 }
 .modalBody {
   padding: var(--spacing-xxl) var(--spacing-xxl) var(--spacing-xl) var(--spacing-xxl);
-  color: var(--color-text-primary);
+  color: #000000;
   font-size: var(--font-size-lg);
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
-  background: var(--color-background);
+  background: white;
 }
 .modalBody b {
   font-weight: 600;
-  color: var(--color-text-primary);
+  color: #000000;
 }
 .modalActions {
   display: flex;
   justify-content: flex-end;
   gap: var(--spacing-md);
   padding: var(--spacing-lg) var(--spacing-xxl) var(--spacing-xl) var(--spacing-xxl);
-  background: none;
+  background: #f8f9fa; /* Light gray background like other modals */
   border-radius: 0 0 var(--border-radius-xl) var(--border-radius-xl);
   flex-wrap: wrap;
 }
 
 .primaryBtn {
-  background: var(--color-primary); /* Changed from gradient to solid color */
-  color: var(--color-primary-contrast);
+  background: #222e3a; /* Following common modal theme */
+  color: white;
   border: none;
   border-radius: var(--border-radius-md);
   padding: 0.7rem var(--spacing-lg);
@@ -863,14 +863,14 @@
 }
 
 .primaryBtn:hover {
-  background: var(--color-primary-dark); /* Changed from gradient to solid color */
-  color: var(--color-primary-contrast);
+  background: #3d4d55; /* Slightly lighter on hover */
+  color: white;
 }
 
 .secondaryBtn {
-  background: var(--color-neutral-100);
-  color: var(--color-text-primary);
-  border: none;
+  background: white;
+  color: #222;
+  border: 1px solid #ccc;
   border-radius: var(--border-radius-md);
   padding: 0.7rem var(--spacing-lg);
   font-size: var(--font-size-md);
@@ -883,8 +883,8 @@
   font-family: var(--font-family);
 }
 .secondaryBtn:hover {
-  background: var(--color-neutral-200);
-  color: var(--color-text-primary);
+  background: #f0f0f0;
+  color: #222;
 }
 
 @media (max-width: 600px) {

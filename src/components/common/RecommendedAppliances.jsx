@@ -48,21 +48,21 @@ const RecommendedAppliances = () => {
           </p>
         ) : recommendedAppliances?.length > 0 ? (
           recommendedAppliances.map(appliance => (
-            <div key={appliance.id} className={styles.applianceItem}>
+            <div key={appliance._id} className={styles.applianceItem}>
               <img
-                src={appliance.image || '/default.jpg'}
-                alt={appliance.name}
+                src={appliance.user?.profileImage || '/default.jpg'}
+                alt={`${appliance.user?.firstName || ''} ${appliance.user?.lastName || ''}`}
                 className={styles.applianceAvatar}
                 width={64}
                 height={64}
               />
               <div className={styles.applianceContent}>
                 <div className={styles.applianceDescription}>
-                  <strong>{appliance.name}</strong> applied to your gig &quot;
-                  {appliance.gigTitle}&quot;
+                  <strong>{appliance.user?.firstName} {appliance.user?.lastName}</strong> applied to your gig &quot;
+                  {appliance.gig?.title}&quot;
                 </div>
                 <Link
-                  to={`/applications/${appliance.id}`}
+                  to={`/applications/${appliance._id}`}
                   className={styles.viewApplianceLink}
                 >
                   <u>View application detail</u>

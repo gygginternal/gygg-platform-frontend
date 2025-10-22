@@ -221,13 +221,13 @@ const PostedGigsPage = () => {
             <div className={styles.emptyState}>
               <h3>No gigs posted yet</h3>
               <p>
-                Start by creating your first gig to find helpers for your tasks
+                Create a gig to find taskers to help
               </p>
               <button
                 className={styles.createGigButton}
                 onClick={() => navigate('/gigs/create')}
               >
-                Create Your First Gig
+                Create a gig
               </button>
             </div>
           ) : (

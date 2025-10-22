@@ -89,7 +89,7 @@ function PostedGigs({ providerId, isOwnProfile }) {
           </p>
           {isOwnProfile && (
             <Link to="/gigs/create" className={styles.createActionButton}>
-              Post Your First Gig
+              Post a Gig
             </Link>
           )}
         </div>
