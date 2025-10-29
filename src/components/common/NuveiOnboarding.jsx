@@ -50,25 +50,45 @@ export function NuveiOnboarding() {
       setError(null);
 
       // Start Nuvei onboarding
+      console.log('Starting Nuvei onboarding process...');
       const response = await apiClient.post('/payments/nuvei/start-onboarding');
+      console.log('Nuvei onboarding response:', response.data);
       const onboardingData = response.data.data || response.data;
 
       if (onboardingData && onboardingData.onboardingUrl) {
+        console.log('Setting onboarding URL and preparing redirect...');
         setOnboardingUrl(onboardingData.onboardingUrl);
         setShowOnboarding(true);
-        window.location.href = onboardingData.onboardingUrl;
+        
+        // Validate URL before redirecting
+        try {
+          const url = new URL(onboardingData.onboardingUrl);
+          console.log('Valid URL constructed, redirecting to:', url.href);
+          
+          // Give React a moment to render the redirect message before redirecting
+          setTimeout(() => {
+            console.log('Redirecting to Nuvei onboarding:', onboardingData.onboardingUrl);
+            window.location.href = onboardingData.onboardingUrl;
+          }, 100);
+        } catch (urlError) {
+          console.error('Invalid onboarding URL:', onboardingData.onboardingUrl, urlError);
+          throw new Error('Invalid onboarding URL received from server');
+        }
       } else {
+        console.error('No onboarding URL in response:', onboardingData);
         throw new Error('Failed to get onboarding URL from server');
       }
 
       setLoading(false);
     } catch (err) {
+      console.error('Nuvei onboarding error:', err);
       const errorMessage =
         err.response?.data?.message ||
         err.message ||
         'Failed to start Nuvei onboarding. Please try again.';
       setError(`Onboarding Error: ${errorMessage}`);
       setLoading(false);
+      setShowOnboarding(false);
     }
   };
 
@@ -184,8 +204,12 @@ export function NuveiOnboarding() {
             </div>
             <div className={styles.statusRow}>
               <span>Verification Status:</span>
-              <span className={styles.statusValue}>
-                {accountStatus.verificationStatus || 'N/A'}
+              <span className={`${styles.statusValue} ${accountStatus.verificationStatus === 'not_required' ? styles.statusNotRequired : ''}`}>
+                {accountStatus.verificationStatus 
+                  ? accountStatus.verificationStatus === 'not_required' 
+                    ? 'Not Required' 
+                    : accountStatus.verificationStatus 
+                  : 'N/A'}
               </span>
             </div>
           </div>
@@ -239,8 +263,12 @@ export function NuveiOnboarding() {
             </div>
             <div className={styles.statusRow}>
               <span>Verification Status:</span>
-              <span className={styles.statusValue}>
-                {accountStatus.verificationStatus || 'N/A'}
+              <span className={`${styles.statusValue} ${accountStatus.verificationStatus === 'not_required' ? styles.statusNotRequired : ''}`}>
+                {accountStatus.verificationStatus 
+                  ? accountStatus.verificationStatus === 'not_required' 
+                    ? 'Not Required' 
+                    : accountStatus.verificationStatus 
+                  : 'N/A'}
               </span>
             </div>
           </div>

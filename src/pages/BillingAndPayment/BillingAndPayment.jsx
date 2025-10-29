@@ -473,9 +473,13 @@ export default function BillingAndPayment() {
     if (!isTasker) return;
     try {
       const res = await apiClient.get('/payments/balance');
-      setBalance(res.data.data);
+      setBalance(res.data.data || {});
     } catch (err) {
       console.error('Error fetching balance:', err);
+      // Set an empty balance object to prevent errors
+      setBalance({});
+      // Optionally show an error message to the user
+      // showToast('Failed to fetch balance', 'error');
     }
   };
 
@@ -557,15 +561,41 @@ export default function BillingAndPayment() {
         'success'
       );
 
-      // Refresh data
-      fetchBalance();
-      fetchEarningsSummary();
-      fetchPayments();
+      // Temporarily update earnings summary to show 0 available balance after withdrawal
+      const currentTaskerData = (earningsSummary && earningsSummary.tasker) || {};
+      const updatedSummary = {
+        ...earningsSummary,
+        tasker: {
+          // Ensure tasker object exists with all required fields
+          totalEarnedFormatted: currentTaskerData.totalEarnedFormatted || '0.00',
+          availableBalanceFormatted: '0.00', // This is the key field that needs to show 0
+          averageEarningFormatted: currentTaskerData.averageEarningFormatted || '0.00',
+          totalContracts: currentTaskerData.totalContracts || 0,
+          // Make sure we have all fields to prevent conditional rendering issues
+          ...currentTaskerData, // Spread existing data after setting the defaults
+        }
+      };
+      setEarningsSummary(updatedSummary);
+
+      // Refresh data to reflect the new balance after withdrawal
+      await fetchBalance();
+      await fetchEarningsSummary();
+      await fetchPayments();
     } catch (err) {
+      console.error('Withdrawal error:', err);
       showToast(
-        err.response?.data?.message || 'Failed to process withdrawal.',
+        err.response?.data?.message || err.message || 'Failed to process withdrawal.',
         'error'
       );
+      
+      // Still try to refresh data in case of partial success
+      try {
+        await fetchBalance();
+      } catch (balanceErr) {
+        console.error('Error fetching balance after withdrawal:', balanceErr);
+        // Set a default balance if we can't fetch it
+        setBalance({ available: 0 });
+      }
     }
   };
 
@@ -775,7 +805,7 @@ export default function BillingAndPayment() {
           )}
           <div className={styles.summaryItem}>
             <span className={styles.summaryLabel}>
-              {view === 'earned' ? 'Total Earned' : 'Total Spent'}
+              {isProvider && !isTasker ? 'Total Spent' : (view === 'earned' ? 'Total Earned' : 'Total Spent')}
             </span>
             <span className={summaryColor}>${available.toFixed(2)}</span>
           </div>
@@ -863,12 +893,14 @@ export default function BillingAndPayment() {
                 _transactions.map((inv, idx) => (
                   <tr key={inv._id || idx}>
                     <td style={{ color: '#333', fontWeight: '500' }}>
-                      {/* Show provider name for taskers, tasker name for providers */}
-                      {sessionRole === 'tasker'
-                        ? `${inv.payer?.firstName || ''} ${inv.payer?.lastName || ''}`.trim() ||
-                          'N/A'
-                        : `${inv.payee?.firstName || ''} ${inv.payee?.lastName || ''}`.trim() ||
-                          'N/A'}
+                      {/* Show provider name for taskers, tasker name for providers, or "Platform" for withdrawals */}
+                      {inv.type === 'withdrawal' 
+                        ? 'Platform' 
+                        : sessionRole === 'tasker'
+                          ? `${inv.payer?.firstName || ''} ${inv.payer?.lastName || ''}`.trim() ||
+                            'N/A'
+                          : `${inv.payee?.firstName || ''} ${inv.payee?.lastName || ''}`.trim() ||
+                            'N/A'}
                     </td>
                     <td style={{ color: '#333' }}>
                       {inv.createdAt
@@ -879,7 +911,7 @@ export default function BillingAndPayment() {
                       className={styles.contractDetail}
                       style={{ color: '#333' }}
                     >
-                      {inv.contract?.title || inv.gig?.title || 'N/A'}
+                      {inv.type === 'withdrawal' ? 'Withdrawal Transaction' : (inv.contract?.title || inv.gig?.title || 'N/A')}
                     </td>
                     <td
                       style={{
@@ -898,7 +930,7 @@ export default function BillingAndPayment() {
                           setInvoiceModal({ open: true, payment: inv });
                         }}
                       >
-                        View
+                        {inv.type === 'withdrawal' ? 'Receipt' : 'View'}
                       </button>
                     </td>
                     {/* Make Payment button for providers in 'spent' view, status 'active' or 'submitted' */}

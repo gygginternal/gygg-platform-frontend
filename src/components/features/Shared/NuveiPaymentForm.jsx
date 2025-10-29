@@ -181,32 +181,44 @@ const NuveiPaymentForm = ({
       <div className={styles.paymentMethodSelector}>
         <h4>Select Payment Method:</h4>
         <div className={styles.paymentMethodOptions}>
-          <label className={styles.paymentMethodOption}>
+          <button
+            type="button"
+            className={`${styles.paymentMethodOption} ${paymentMethod === 'card' ? styles.active : ''}`}
+            onClick={() => {
+              setPaymentMethod('card');
+              setPaymentInitialized(false); // Reset to reinitialize form
+            }}
+          >
             <input
               type="radio"
               name="paymentMethod"
               value="card"
               checked={paymentMethod === 'card'}
-              onChange={e => {
-                setPaymentMethod(e.target.value);
-                setPaymentInitialized(false); // Reset to reinitialize form
-              }}
+              onChange={() => {}} // We handle the change via button click
+              style={{ display: 'none' }} // Hide the radio button, we're using a custom UI
             />
-            <span>Card Payment</span>
-          </label>
-          <label className={styles.paymentMethodOption}>
+            <span className={styles.methodIcon}>💳</span>
+            <span className={styles.methodText}>Credit/Debit Card</span>
+          </button>
+          <button
+            type="button"
+            className={`${styles.paymentMethodOption} ${paymentMethod === 'instadebit' ? styles.active : ''}`}
+            onClick={() => {
+              setPaymentMethod('instadebit');
+              setPaymentInitialized(false); // Reset to reinitialize form
+            }}
+          >
             <input
               type="radio"
               name="paymentMethod"
               value="instadebit"
               checked={paymentMethod === 'instadebit'}
-              onChange={e => {
-                setPaymentMethod(e.target.value);
-                setPaymentInitialized(false); // Reset to reinitialize form
-              }}
+              onChange={() => {}} // We handle the change via button click
+              style={{ display: 'none' }} // Hide the radio button, we're using a custom UI
             />
-            <span>InstaDebit</span>
-          </label>
+            <span className={styles.methodIcon}>🏦</span>
+            <span className={styles.methodText}>InstaDebit (Bank)</span>
+          </button>
         </div>
       </div>
 

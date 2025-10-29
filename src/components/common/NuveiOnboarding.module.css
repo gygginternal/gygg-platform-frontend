@@ -334,6 +334,11 @@
   font-weight: 600;
 }
 
+.statusNotRequired {
+  color: #000000;
+  font-weight: 500;
+}
+
 .onboardingWrapper {
   margin-top: 20px;
   width: 100%;

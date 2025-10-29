@@ -28,6 +28,19 @@ import TestStripeComponent from './pages/TestStripeComponent';
 import Header from './components/common/Header';
 
 // Lazy-loaded pages - loaded on demand
+const StripePaymentPage = createLazyRoute(
+  () => import('./pages/ContractPayment/StripePaymentPage'),
+  {
+    loadingText: 'Loading Stripe payment...',
+  }
+);
+
+const NuveiPaymentPage = createLazyRoute(
+  () => import('./pages/ContractPayment/NuveiPaymentPage'),
+  {
+    loadingText: 'Loading Nuvei payment...',
+  }
+);
 const SignupPage = createLazyRoute(
   () => import('./pages/SignupPage/SignupPage'),
   {
@@ -225,6 +238,14 @@ const BillingAndPaymentPage = createLazyRoute(
   () => import('./pages/BillingAndPayment/BillingAndPayment'),
   {
     loadingText: 'Loading billing...',
+  }
+);
+
+// Contract payment page - medium priority for authenticated users
+const ContractPaymentPage = createLazyRoute(
+  () => import('./pages/ContractPayment/ContractPaymentPage'),
+  {
+    loadingText: 'Loading payment page...',
   }
 );
 
@@ -518,6 +539,46 @@ function AppWithNavigation() {
               element={
                 <ProtectedRoute>
                   <BillingAndPaymentPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/payment"
+              element={
+                <ProtectedRoute>
+                  <ContractPaymentPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/contracts/:contractId/pay-with-stripe"
+              element={
+                <ProtectedRoute>
+                  <StripePaymentPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/contracts/:contractId/pay-with-nuvei"
+              element={
+                <ProtectedRoute>
+                  <NuveiPaymentPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/contracts/:contractId/pay-with-stripe"
+              element={
+                <ProtectedRoute>
+                  <StripePaymentPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/contracts/:contractId/pay-with-nuvei"
+              element={
+                <ProtectedRoute>
+                  <NuveiPaymentPage />
                 </ProtectedRoute>
               }
             />

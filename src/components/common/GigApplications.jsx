@@ -240,14 +240,30 @@ function TaskerModal({
               <>
                 <button
                   className={`${styles.acceptButton} ${styles.button}`}
-                  onClick={() => onAccept(tasker.id)}
+                  onClick={() => {
+                    // Validate that tasker.id exists and is not empty
+                    const taskId = tasker._id || tasker.id;
+                    if (!taskId || taskId.trim() === '') {
+                      console.error('Invalid tasker ID:', taskId);
+                      return;
+                    }
+                    onAccept(taskId);
+                  }}
                   disabled={isLoading}
                 >
                   {isLoading ? 'Accepting...' : 'Accept Tasker'}
                 </button>
                 <button
                   className={`${styles.rejectButton} ${styles.button}`}
-                  onClick={() => onReject(tasker.id)}
+                  onClick={() => {
+                    // Validate that tasker.id exists and is not empty
+                    const taskId = tasker._id || tasker.id;
+                    if (!taskId || taskId.trim() === '') {
+                      console.error('Invalid tasker ID:', taskId);
+                      return;
+                    }
+                    onReject(taskId);
+                  }}
                   disabled={isLoading}
                 >
                   {isLoading ? 'Rejecting...' : 'Reject Tasker'}
@@ -301,8 +317,13 @@ export const GigApplications = ({ gigId, onOffer, onReject }) => {
   // Mutation for accepting a tasker
   const acceptMutation = useMutation({
     mutationFn: async applicationId => {
+      // Validate applicationId before making the request
+      if (!applicationId || applicationId.toString().trim() === '') {
+        throw new Error('Invalid application ID provided');
+      }
+      
       const response = await apiClient.patch(
-        `/applications/${applicationId}/accept`
+        `/applications/${applicationId.toString()}/accept`
       );
       return response.data;
     },
@@ -338,7 +359,12 @@ export const GigApplications = ({ gigId, onOffer, onReject }) => {
   // Mutation for rejecting a tasker
   const rejectMutation = useMutation({
     mutationFn: async applicationId => {
-      await apiClient.patch(`/applications/${applicationId}/reject`);
+      // Validate applicationId before making the request
+      if (!applicationId || applicationId.toString().trim() === '') {
+        throw new Error('Invalid application ID provided');
+      }
+      
+      await apiClient.patch(`/applications/${applicationId.toString()}/reject`);
     },
     onSuccess: () => {
       // Refresh applications list
@@ -367,11 +393,23 @@ export const GigApplications = ({ gigId, onOffer, onReject }) => {
   };
 
   const handleAccept = applicationId => {
-    acceptMutation.mutate(applicationId);
+    // Validate applicationId before proceeding
+    if (!applicationId || applicationId.toString().trim() === '') {
+      showToast('Invalid application ID. Please try again.', 'error');
+      console.error('handleAccept called with invalid applicationId:', applicationId);
+      return;
+    }
+    acceptMutation.mutate(applicationId.toString());
   };
 
   const handleReject = applicationId => {
-    rejectMutation.mutate(applicationId);
+    // Validate applicationId before proceeding
+    if (!applicationId || applicationId.toString().trim() === '') {
+      showToast('Invalid application ID. Please try again.', 'error');
+      console.error('handleReject called with invalid applicationId:', applicationId);
+      return;
+    }
+    rejectMutation.mutate(applicationId.toString());
   };
 
   const handleCloseModal = () => {
@@ -388,7 +426,7 @@ export const GigApplications = ({ gigId, onOffer, onReject }) => {
       ) : (
         applications.map(app => (
           <TaskerCard
-            key={app.id}
+            key={app._id || app.id}
             tasker={app}
             onClick={() => handleTaskerClick(app)}
           />
