@@ -8,7 +8,6 @@ import styles from './ModernGigCreateForm.module.css';
 const TOTAL_STEPS = 3;
 
 const initialGigFormData = {
-  gigTimeline: 'fixed',
   gigTitle: '',
   gigCategory: '',
   gigPaymentType: 'hourly',
@@ -150,41 +149,10 @@ function ModernGigCreateForm({ onGigCreated }) {
         return (
           <div className={styles.stepContent}>
             <h2 className={styles.stepTitle}>
-              What is the task timeline type?
+              Write title for your job post
             </h2>
 
-            <div className={styles.radioGroup}>
-              <label className={styles.radioOption}>
-                <input
-                  type="radio"
-                  name="gigTimeline"
-                  value="open-ended"
-                  checked={formData.gigTimeline === 'open-ended'}
-                  onChange={e =>
-                    handleInputChange('gigTimeline', e.target.value)
-                  }
-                />
-                <span className={styles.radioLabel}>Open-ended</span>
-              </label>
-
-              <label className={styles.radioOption}>
-                <input
-                  type="radio"
-                  name="gigTimeline"
-                  value="fixed"
-                  checked={formData.gigTimeline === 'fixed'}
-                  onChange={e =>
-                    handleInputChange('gigTimeline', e.target.value)
-                  }
-                />
-                <span className={styles.radioLabel}>Fixed</span>
-              </label>
-            </div>
-
             <div className={styles.inputGroup}>
-              <h3 className={styles.inputTitle}>
-                Write title for your job post
-              </h3>
               <textarea
                 className={styles.titleTextarea}
                 value={formData.gigTitle}
@@ -442,77 +410,14 @@ function ModernGigCreateForm({ onGigCreated }) {
                 </div>
               </div>
 
-              {/* Timeline */}
-              <div className={styles.reviewItem}>
-                <h3 className={styles.reviewLabel}>Timeline</h3>
-                <div className={styles.reviewContent}>
-                  <div className={styles.timelineOptions}>
-                    <label className={styles.timelineOption}>
-                      <input
-                        type="radio"
-                        name="reviewTimeline"
-                        value="open-ended"
-                        checked={formData.gigTimeline === 'open-ended'}
-                        readOnly
-                      />
-                      <span>Open-ended</span>
-                    </label>
-                    <label className={styles.timelineOption}>
-                      <input
-                        type="radio"
-                        name="reviewTimeline"
-                        value="fixed"
-                        checked={formData.gigTimeline === 'fixed'}
-                        readOnly
-                      />
-                      <span>Fixed</span>
-                    </label>
-                  </div>
-                  <button
-                    className={styles.editButton}
-                    onClick={() => setCurrentStep(1)}
-                    type="button"
-                  >
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                      <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
+
 
               {/* Gig Pay Structure */}
               <div className={styles.reviewItem}>
                 <h3 className={styles.reviewLabel}>Gig pay structure?</h3>
                 <div className={styles.reviewContent}>
-                  <div className={styles.timelineOptions}>
-                    <label className={styles.timelineOption}>
-                      <input
-                        type="radio"
-                        name="reviewPayment"
-                        value="hourly"
-                        checked={formData.gigPaymentType === 'hourly'}
-                        readOnly
-                      />
-                      <span>Hourly</span>
-                    </label>
-                    <label className={styles.timelineOption}>
-                      <input
-                        type="radio"
-                        name="reviewPayment"
-                        value="fixed"
-                        checked={formData.gigPaymentType === 'fixed'}
-                        readOnly
-                      />
-                      <span>One fixed payment</span>
-                    </label>
+                  <div>
+                    {formData.gigPaymentType === 'hourly' ? 'Hourly' : 'One fixed payment'}
                   </div>
                   <button
                     className={styles.editButton}

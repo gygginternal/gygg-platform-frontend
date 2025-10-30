@@ -30,9 +30,10 @@ export const SocketProvider = ({ children }) => {
           path: '/socket.io',
           transports: ['websocket', 'polling'],
           reconnection: true,
-          reconnectionAttempts: 5,
+          reconnectionAttempts: Infinity, // Try to reconnect indefinitely
           reconnectionDelay: 1000,
-          timeout: 10000,
+          reconnectionDelayMax: 5000, // Max delay between reconnection attempts
+          timeout: 20000, // Increase timeout to handle slow connections
           autoConnect: true,
           withCredentials: true,
           forceNew: true,
@@ -49,16 +50,32 @@ export const SocketProvider = ({ children }) => {
         }
       });
 
-      newSocket.on('disconnect', reason => {
+      newSocket.on('disconnect', (reason) => {
+        console.log('[Socket] Disconnected:', newSocket.id, 'Reason:', reason);
         setConnected(false);
+        
+        // Handle different disconnect reasons
+        if (reason === 'io server disconnect') {
+          // The server disconnected the client, reconnect manually
+          newSocket.connect();
+        }
+        // For other reasons (like network issues), the built-in reconnection will handle it
       });
 
-      newSocket.on('connect_error', err => {
-        console.error('[Socket] Connect error:', err.message);
+      newSocket.on('connect_error', (err) => {
+        console.error('[Socket] Connect error:', err.message, 'Code:', err.code);
         // If authentication fails, the socket will automatically retry
         if (err.message.includes('Authentication')) {
-          // Silent retry
+          console.warn('[Socket] Authentication failed, may need to refresh token');
         }
+      });
+
+      // Listen for token refresh events to update the authentication
+      newSocket.on('token_refresh', (newToken) => {
+        console.log('[Socket] Received token refresh event');
+        // Update the socket auth and reconnect
+        newSocket.auth = { token: newToken };
+        newSocket.disconnect().connect();
       });
 
       newSocket.on('error', err => {

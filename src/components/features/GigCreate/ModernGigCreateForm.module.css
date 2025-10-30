@@ -365,30 +365,7 @@
   height: 20px;
 }
 
-.timelineOptions {
-  display: flex;
-  gap: 2rem;
-  flex: 1;
-}
 
-.timelineOption {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1rem;
-  color: #374151;
-}
-
-.timelineOption input[type='radio'] {
-  width: 18px;
-  height: 18px;
-  accent-color: #06b6d4;
-  pointer-events: none;
-}
-
-.timelineOption span {
-  font-weight: 500;
-}
 
 .navigation {
   display: flex;
@@ -583,13 +560,7 @@
     padding: 0.375rem;
   }
 
-  .timelineOptions {
-    gap: 1rem;
-  }
 
-  .timelineOption {
-    font-size: 0.9375rem;
-  }
 }
 
 /* N
