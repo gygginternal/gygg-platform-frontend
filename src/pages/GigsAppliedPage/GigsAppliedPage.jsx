@@ -26,6 +26,10 @@ const GigsAppliedPage = () => {
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [priceRange, setPriceRange] = useState('Any');
   const [showFilters, setShowFilters] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   const clearFilters = () => {
     setSearchTerm('');
@@ -34,24 +38,60 @@ const GigsAppliedPage = () => {
     setPriceRange('Any');
   };
 
+  const fetchApplications = async (pageToFetch = 1) => {
+    const isFirstPage = pageToFetch === 1;
+    if (isFirstPage) {
+      setLoading(true);
+    } else {
+      setIsLoadingMore(true);
+    }
+    setError('');
+
+    try {
+      const params = {
+        page: pageToFetch,
+        limit: 10, // Load 10 applications per page
+      };
+      
+      // Add filters to the request
+      if (statusFilter && statusFilter !== 'All') {
+        params.status = statusFilter.toLowerCase();
+      }
+      
+      const res = await apiClient.get('/applications/my-gigs', { params });
+      const newApplications = res.data.data?.applications || [];
+      
+      // Update pagination info with defensive programming
+      const pagination = res.data.data?.pagination || {};
+      const totalPages = pagination.totalPages || 1;
+      const currentPage = pagination.currentPage || 1;
+      setTotalPages(totalPages);
+      setCurrentPage(currentPage);
+      setHasMore(currentPage < totalPages);
+      
+      // Update applications list
+      if (isFirstPage) {
+        setApplications(newApplications);
+      } else {
+        setApplications(prev => [...prev, ...newApplications]);
+      }
+    } catch (err) {
+      setError('Failed to load applied gigs.');
+      if (isFirstPage) setApplications([]);
+    } finally {
+      setLoading(false);
+      setIsLoadingMore(false);
+    }
+  };
+
   useEffect(() => {
     if (user && user.role?.includes('tasker')) {
-      const fetchGigs = async () => {
-        setLoading(true);
-        setError('');
-        try {
-          const res = await apiClient.get('/applications/my-gigs');
-          // Backend returns applications in res.data.data.applications
-          setApplications(res.data.data.applications || []);
-        } catch (err) {
-          setError('Failed to load applied gigs.');
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchGigs();
+      // Reset to first page when filters change
+      setCurrentPage(1);
+      setApplications([]);
+      fetchApplications(1);
     }
-  }, [user]);
+  }, [user, statusFilter, categoryFilter, priceRange, searchTerm]);
 
   const handleCardClick = async app => {
     try {
@@ -73,58 +113,10 @@ const GigsAppliedPage = () => {
   const handleApplicationUpdate = () => {
     // Refresh the applications list
     if (user && user.role?.includes('tasker')) {
-      const fetchGigs = async () => {
-        setLoading(true);
-        setError('');
-        try {
-          const res = await apiClient.get('/applications/my-gigs');
-          // Backend returns applications in res.data.data.applications
-          setApplications(res.data.data.applications || []);
-        } catch (err) {
-          setError('Failed to load applied gigs.');
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchGigs();
+      setCurrentPage(1);
+      setApplications([]);
+      fetchApplications(1);
     }
-  };
-
-  const getFilteredApplications = () => {
-    let filtered = applications;
-
-    if (searchTerm && searchTerm.trim()) {
-      const searchLower = searchTerm.toLowerCase().trim();
-      filtered = filtered.filter(app =>
-        app.gig?.title?.toLowerCase().includes(searchLower)
-      );
-    }
-
-    if (statusFilter !== 'All') {
-      filtered = filtered.filter(
-        app => app.status === statusFilter.toLowerCase()
-      );
-    }
-
-    if (categoryFilter !== 'All') {
-      filtered = filtered.filter(app => app.gig?.category === categoryFilter);
-    }
-
-    if (priceRange !== 'Any') {
-      const [min, max] = priceRange.replace(/\$/g, '').split(' - ');
-      filtered = filtered.filter(app => {
-        const price = app.gig?.isHourly ? app.gig?.ratePerHour : app.gig?.cost;
-        if (priceRange.startsWith('Under')) {
-          return price < 20;
-        }
-        if (priceRange.endsWith('+')) {
-          return price >= 100;
-        }
-        return price >= min && price <= max;
-      });
-    }
-
-    return filtered;
   };
 
   if (user && !user.role?.includes('tasker')) {
@@ -145,7 +137,8 @@ const GigsAppliedPage = () => {
     );
   }
 
-  const filteredApplications = getFilteredApplications();
+  // Using applications that are already filtered by the backend
+  const filteredApplications = applications;
   const statusCounts = {
     total: applications.length,
     pending: applications.filter(app => app.status === 'pending')
@@ -293,14 +286,14 @@ const GigsAppliedPage = () => {
             </div>
 
             <div className={styles.applicationsList}>
-              {loading ? (
+              {loading && applications.length === 0 ? (
                 <div className={styles.loadingState}>
                   <div className={styles.loadingSpinner}></div>
                   <p>Loading your applied gigs...</p>
                 </div>
               ) : error ? (
                 <p className={styles.error}>{error}</p>
-              ) : filteredApplications.length === 0 ? (
+              ) : applications.length === 0 ? (
                 <div className={styles.emptyState}>
                   <h3>No Applications Found</h3>
                   <p>
@@ -309,7 +302,7 @@ const GigsAppliedPage = () => {
                   </p>
                 </div>
               ) : (
-                filteredApplications.map(app => (
+                applications.map(app => (
                   <AppliedGigCard
                     key={app._id}
                     gig={{
@@ -322,6 +315,30 @@ const GigsAppliedPage = () => {
                     onClick={() => handleCardClick(app)}
                   />
                 ))
+              )}
+              
+              {/* Loading more indicator */}
+              {isLoadingMore && (
+                <div className={styles.loadingMore}>
+                  <div className={styles.loadingSpinnerSmall}></div>
+                  <p>Loading more applications...</p>
+                </div>
+              )}
+              
+              {/* Load More Button */}
+              {hasMore && !isLoadingMore && (
+                <button 
+                  onClick={() => fetchApplications(currentPage + 1)}
+                  className={styles.loadMoreButton}
+                >
+                  Load More Applications
+                </button>
+              )}
+              
+              {!hasMore && applications.length > 0 && (
+                <p className={styles.endOfResults}>
+                  You've reached the end of the results.
+                </p>
               )}
             </div>
           </main>

@@ -163,12 +163,17 @@ function ContractsPage() {
   const [status, setStatus] = useState('All');
   const [modalContract, setModalContract] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true); // Main loading state
   const [paymentModal, setPaymentModal] = useState({
     open: false,
     contract: null,
     clientSecret: null,
     loading: false,
   });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
   const queryClient = useQueryClient();
   const { showToast } = useToast();
   const { user, sessionRole } = useAuth();
@@ -186,31 +191,55 @@ function ContractsPage() {
     setStatus('All');
   };
 
-  useEffect(() => {
-    // Map priceRange to minCost/maxCost
-    let minCost, maxCost;
-    if (priceRange === 'Under $20') maxCost = 20;
-    else if (priceRange === '$20 - $50') {
-      minCost = 20;
-      maxCost = 50;
-    } else if (priceRange === '$50 - $100') {
-      minCost = 50;
-      maxCost = 100;
-    } else if (priceRange === '$100+') minCost = 100;
-    // Map status
-    const statusParam = status !== 'All' ? status : undefined;
-    const params = {
-      name: search,
-      status: statusParam,
-      category: selectedCategory !== 'All' ? selectedCategory : undefined,
-      minCost,
-      maxCost,
-    };
-    Object.keys(params).forEach(
-      key => params[key] === undefined && delete params[key]
-    );
-    apiClient.get('/contracts/my-contracts', { params }).then(res => {
-      const mapped = res.data.data.contracts.map(c => ({
+  const fetchContracts = async (pageToFetch = 1) => {
+    const isFirstPage = pageToFetch === 1;
+    if (isFirstPage) {
+      setLoading(true);
+    } else {
+      setIsLoadingMore(true);
+    }
+    
+    try {
+      // Map priceRange to minCost/maxCost
+      let minCost, maxCost;
+      if (priceRange === 'Under $20') maxCost = 20;
+      else if (priceRange === '$20 - $50') {
+        minCost = 20;
+        maxCost = 50;
+      } else if (priceRange === '$50 - $100') {
+        minCost = 50;
+        maxCost = 100;
+      } else if (priceRange === '$100+') minCost = 100;
+      
+      // Map status
+      const statusParam = status !== 'All' ? status : undefined;
+      const params = {
+        page: pageToFetch,
+        limit: 10, // Load 10 contracts per page
+        name: search,
+        status: statusParam,
+        category: selectedCategory !== 'All' ? selectedCategory : undefined,
+        minCost,
+        maxCost,
+      };
+      
+      // Clean up undefined parameters
+      Object.keys(params).forEach(
+        key => params[key] === undefined && delete params[key]
+      );
+      
+      const res = await apiClient.get('/contracts/my-contracts', { params });
+      
+      // Update pagination info - pagination data is in the root level
+      const totalPages = res.data.totalPages || 1;
+      const currentPage = res.data.currentPage || 1;
+      setTotalPages(totalPages);
+      setCurrentPage(currentPage);
+      setHasMore(currentPage < totalPages);
+      
+      // Check if contracts exist in response
+      const contractsData = res.data.data?.contracts || [];
+      const mapped = contractsData.map(c => ({
         id: c.id || c.contractId,
         title: c.gigTitle || 'Contract',
         hiredBy: c.hiredBy || c.displayName || '',
@@ -236,13 +265,31 @@ function ContractsPage() {
         category: c.gigCategory || 'Other',
         cost: c.gigCost || 0,
       }));
-      setContracts(mapped);
-    });
-  }, [search, selectedCategory, priceRange, status]);
+      
+      if (isFirstPage) {
+        setContracts(mapped);
+      } else {
+        setContracts(prev => [...prev, ...mapped]);
+      }
+    } catch (error) {
+      console.error('Error fetching contracts:', error);
+      if (isFirstPage) setContracts([]);
+    } finally {
+      setLoading(false);
+      setIsLoadingMore(false);
+    }
+  };
 
-  const filteredContracts = contracts.filter(c =>
-    c.title.toLowerCase().includes(search.toLowerCase())
-  );
+  useEffect(() => {
+    if (user) {
+      setCurrentPage(1);
+      setContracts([]);
+      fetchContracts(1);
+    }
+  }, [user, search, selectedCategory, priceRange, status]);
+
+  // Using contracts that are already filtered by the backend
+  const filteredContracts = contracts;
 
   const handleSearch = e => {
     if (e.key === 'Enter') {
@@ -329,7 +376,7 @@ function ContractsPage() {
             <ProfileSidebar />
           </aside>
           <main
-            className={`${styles.mainFeedArea} ${styles.mainFeedAreaMarginLeft}`}
+            className={styles.mainFeedArea}
           >
             {/* Dashboard Header */}
             <div className={styles.header}>
@@ -479,7 +526,12 @@ function ContractsPage() {
             {activeTab === 'contracts' && (
               <>
                 <div className={styles.applicationsList}>
-                  {filteredContracts.length === 0 ? (
+                  {loading && contracts.length === 0 ? (
+                    <div className={styles.emptyState}>
+                      <h3>Loading Contracts...</h3>
+                      <p>Please wait while we fetch your contracts.</p>
+                    </div>
+                  ) : filteredContracts.length === 0 ? (
                     <div className={styles.emptyState}>
                       <h3>No Contracts Found</h3>
                       <p>
@@ -516,6 +568,30 @@ function ContractsPage() {
                         }}
                       />
                     ))
+                  )}
+                  
+                  {/* Loading more indicator */}
+                  {isLoadingMore && (
+                    <div className={styles.loadingMore}>
+                      <div className={styles.loadingSpinnerSmall}></div>
+                      <p>Loading more contracts...</p>
+                    </div>
+                  )}
+                  
+                  {/* Load More Button */}
+                  {hasMore && !isLoadingMore && (
+                    <button 
+                      onClick={() => fetchContracts(currentPage + 1)}
+                      className={styles.loadMoreButton}
+                    >
+                      Load More Contracts
+                    </button>
+                  )}
+                  
+                  {!hasMore && filteredContracts.length > 0 && (
+                    <p className={styles.endOfResults}>
+                      You've reached the end of the results.
+                    </p>
                   )}
                 </div>
               </>

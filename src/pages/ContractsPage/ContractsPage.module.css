@@ -35,10 +35,6 @@
   padding-bottom: 0;
 }
 
-.mainFeedAreaMarginLeft {
-  margin-left: var(--spacing-md);
-}
-
 /* Header Section */
 .header {
   text-align: left;
@@ -230,6 +226,72 @@
   background-color: var(--color-neutral-500); /* bg-gray-400 */
   cursor: not-allowed;
   opacity: 0.7;
+}
+
+/* Loading spinner base class */
+.loadingSpinner {
+  width: 32px;
+  height: 32px;
+  border: 2px solid #e5e7eb;
+  border-top: 2px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+/* Smaller loading spinner for in-list loading */
+.loadingSpinnerSmall {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #e5e7eb;
+  border-top: 2px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 0.5rem auto;
+}
+
+/* Loading more indicator */
+.loadingMore {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-top: 1rem;
+  background: #ffffff;
+}
+
+.loadingMore .loadingSpinnerSmall {
+  width: 24px;
+  height: 24px;
+  margin: 0 auto 0.5rem auto;
+}
+
+.loadingMore p {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* End of results message */
+.endOfResults {
+  text-align: center;
+  padding: 1.5rem;
+  color: #6b7280;
+  font-style: italic;
+  margin-top: 1rem;
 }
 
 /* Responsive adjustments */
