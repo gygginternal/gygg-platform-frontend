@@ -74,8 +74,8 @@
 /* Stats Grid */
 .statsGrid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
   margin-bottom: 24px;
 }
 
@@ -419,11 +419,6 @@
     grid-template-columns: repeat(3, 1fr);
   }
 
-  .statsGrid .statCard:nth-child(4),
-  .statsGrid .statCard:nth-child(5) {
-    grid-column: span 1;
-  }
-
   .header {
     padding: 1.75rem 2rem;
   }
@@ -502,7 +497,7 @@
   }
 
   .statsGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
 

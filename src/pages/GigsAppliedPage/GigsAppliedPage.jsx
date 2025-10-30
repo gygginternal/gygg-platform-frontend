@@ -143,12 +143,7 @@ const GigsAppliedPage = () => {
     total: applications.length,
     pending: applications.filter(app => app.status === 'pending')
       .length,
-    accepted: applications.filter(app => app.status === 'accepted')
-      .length,
-    in_progress: applications.filter(
-      app => app.status === 'in_progress'
-    ).length,
-    completed: applications.filter(app => app.status === 'completed')
+    rejected: applications.filter(app => app.status === 'rejected')
       .length,
   };
 
@@ -177,20 +172,8 @@ const GigsAppliedPage = () => {
                 <div className={styles.statLabel}>Pending</div>
               </div>
               <div className={styles.statCard}>
-                <div className={styles.statNumber}>{statusCounts.accepted}</div>
-                <div className={styles.statLabel}>Accepted</div>
-              </div>
-              <div className={styles.statCard}>
-                <div className={styles.statNumber}>
-                  {statusCounts.in_progress}
-                </div>
-                <div className={styles.statLabel}>In Progress</div>
-              </div>
-              <div className={styles.statCard}>
-                <div className={styles.statNumber}>
-                  {statusCounts.completed}
-                </div>
-                <div className={styles.statLabel}>Completed</div>
+                <div className={styles.statNumber}>{statusCounts.rejected}</div>
+                <div className={styles.statLabel}>Rejected</div>
               </div>
             </div>
 
@@ -258,10 +241,7 @@ const GigsAppliedPage = () => {
                       {[
                         'All',
                         'Pending',
-                        'Accepted',
-                        'In Progress',
-                        'Completed',
-                        'Cancelled',
+                        'Rejected',
                       ].map(opt => (
                         <button
                           key={opt}

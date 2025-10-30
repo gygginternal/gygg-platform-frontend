@@ -46,7 +46,10 @@ const AppliedGigCard = ({ gig, onClick }) => {
         <span className={styles.category}>
           {category?.toUpperCase() || 'OTHER'}
         </span>
-        <span className={styles.statusBadge}>{status}</span>
+        {/* Only show Pending or Rejected statuses, default to Pending if unknown */}
+        <span className={styles.statusBadge} data-status={status}>
+          {status === 'rejected' ? 'Rejected' : 'Pending'}
+        </span>
       </div>
       <div className={styles.cardBody}>
         <h3 className={styles.title}>{decodeHTMLEntities(title)}</h3>
@@ -84,7 +87,7 @@ const AppliedGigCard = ({ gig, onClick }) => {
             </span>
             <span>
               <Briefcase size={14} />
-              {duration ? `${duration} hours` : 'Flexible'}
+              {duration ? `${duration} hours` : 'Fixed'}
             </span>
           </div>
           <div className={styles.rate}>
