@@ -408,10 +408,6 @@
   .headerControls {
     gap: 1.5rem; /* 24px */
   }
-  .notificationDropdown {
-    width: 420px;
-    top: 3rem;
-  }
 }
 
 /* Tablet (768px - 1024px) */
@@ -461,10 +457,6 @@
   .headerControls .iconButton:nth-child(2) img {
     width: 2.125rem; /* 34px */
     height: 2.125rem; /* 34px */
-  }
-  .notificationDropdown {
-    width: 360px;
-    top: 2.75rem;
   }
 }
 
@@ -516,10 +508,6 @@
     width: 1.875rem; /* 30px */
     height: 1.875rem; /* 30px */
   }
-  .notificationDropdown {
-    width: 320px;
-    top: 2.5rem;
-  }
 }
 
 /* Mobile (max-width: 480px) */
@@ -557,17 +545,6 @@
     position: static !important;
   }
 
-  .notificationDropdown {
-    position: fixed !important;
-    width: calc(100vw - 20px);
-    left: 10px !important;
-    right: 10px !important;
-    top: 3.5rem !important;
-    transform: none !important;
-    max-height: calc(100vh - 4rem);
-    overflow-y: auto;
-    border-radius: 8px;
-  }
   .dropdown {
     top: 2rem; /* 32px */
     width: 10rem; /* 160px */
@@ -645,17 +622,6 @@
     position: static !important;
   }
 
-  .notificationDropdown {
-    position: fixed !important;
-    width: calc(100vw - 16px);
-    left: 8px !important;
-    right: 8px !important;
-    top: 3.25rem !important;
-    transform: none !important;
-    max-height: calc(100vh - 3.5rem);
-    overflow-y: auto;
-    border-radius: 6px;
-  }
 }
 
 .dropdown {
@@ -747,10 +713,6 @@
 /* Responsive Design for Modern Notifications */
 @media (max-width: 480px) {
   /* Ensure notification items are properly sized on mobile */
-  .notificationDropdownItem {
-    padding: 14px 16px;
-    gap: 10px;
-  }
 
   .notificationDropdownItem img {
     width: 18px;
@@ -769,9 +731,6 @@
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  .notificationDropdown {
-    animation: none;
-  }
 }
 
 .notificationIcon {
@@ -902,28 +861,6 @@
   width: 100%;
 }
 
-.notificationDropdownItem {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  gap: 12px;
-  padding: 16px 20px;
-  background: none;
-  border: none;
-  text-align: left;
-  cursor: pointer;
-  font-family:
-    'Inter',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    sans-serif;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  border-radius: 0;
-  position: relative;
-}
 
 .notificationDropdownItem img {
   width: 24px;
@@ -1250,33 +1187,6 @@
   position: relative;
 }
 
-.notificationDropdown {
-  position: absolute;
-  top: 2.5rem;
-  right: 0;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow:
-    0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  width: 380px;
-  max-width: 90vw;
-  z-index: 101;
-  padding: 0;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  font-family:
-    'Inter',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    sans-serif;
-  backdrop-filter: blur(20px);
-  animation: slideInNotification 0.2s ease-out;
-  max-height: 80vh;
-}
 
 .notificationList {
   max-height: 400px;
@@ -1392,27 +1302,6 @@
 }
 
 /* Modern Notification Dropdown Item */
-.notificationDropdownItem {
-  display: flex;
-  align-items: flex-start;
-  width: 100%;
-  gap: 12px;
-  padding: 16px 20px;
-  background: none;
-  border: none;
-  text-align: left;
-  cursor: pointer;
-  font-family:
-    'Inter',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    sans-serif;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  border-radius: 0;
-  position: relative;
-}
 
 .notificationDropdownItem img {
   width: 20px;
@@ -1471,10 +1360,6 @@
   .headerControls {
     gap: 1.5rem; /* 24px */
   }
-  .notificationDropdown {
-    width: 420px;
-    top: 3rem;
-  }
 }
 
 /* Tablet (768px - 1024px) */
@@ -1524,10 +1409,6 @@
   .headerControls .iconButton:nth-child(2) img {
     width: 2.125rem; /* 34px */
     height: 2.125rem; /* 34px */
-  }
-  .notificationDropdown {
-    width: 360px;
-    top: 2.75rem;
   }
 }
 
@@ -1579,10 +1460,6 @@
     width: 1.875rem; /* 30px */
     height: 1.875rem; /* 30px */
   }
-  .notificationDropdown {
-    width: 320px;
-    top: 2.5rem;
-  }
 }
 
 /* Mobile (max-width: 480px) */
@@ -1620,17 +1497,6 @@
     position: static !important;
   }
 
-  .notificationDropdown {
-    position: fixed !important;
-    width: calc(100vw - 20px);
-    left: 10px !important;
-    right: 10px !important;
-    top: 3.5rem !important;
-    transform: none !important;
-    max-height: calc(100vh - 4rem);
-    overflow-y: auto;
-    border-radius: 8px;
-  }
   .dropdown {
     top: 2rem; /* 32px */
     width: 10rem; /* 160px */
@@ -1708,17 +1574,6 @@
     position: static !important;
   }
 
-  .notificationDropdown {
-    position: fixed !important;
-    width: calc(100vw - 16px);
-    left: 8px !important;
-    right: 8px !important;
-    top: 3.25rem !important;
-    transform: none !important;
-    max-height: calc(100vh - 3.5rem);
-    overflow-y: auto;
-    border-radius: 6px;
-  }
 
   /* Keep notification content in same line on extra small screens */
   .notificationLeftContent {
@@ -1886,10 +1741,6 @@
 }
 @media (max-width: 480px) {
   /* Ensure notification items are properly sized on mobile */
-  .notificationDropdownItem {
-    padding: 14px 16px;
-    gap: 10px;
-  }
 
   .notificationLeftContent {
     gap: 8px;
@@ -1913,9 +1764,6 @@
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  .notificationDropdown {
-    animation: none;
-  }
 }
 
 .notificationIcon {
@@ -2046,28 +1894,6 @@
   width: 100%;
 }
 
-.notificationDropdownItem {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  gap: 12px;
-  padding: 16px 20px;
-  background: none;
-  border: none;
-  text-align: left;
-  cursor: pointer;
-  font-family:
-    'Inter',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    sans-serif;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  border-radius: 0;
-  position: relative;
-}
 
 .notificationDropdownItem img {
   width: 20px;

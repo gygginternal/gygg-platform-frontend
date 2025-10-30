@@ -116,10 +116,12 @@ export const SocketProvider = ({ children }) => {
       newSocket.on('notification:new', notif => {
         setNotification(notif);
         setNotifications(prev => [notif, ...prev]);
+        // Increment unread count when a new notification arrives
+        setUnreadCount(prev => prev + 1);
       });
 
       newSocket.on('notification:unreadCountUpdated', () => {
-        // Silent update
+        // Silent update - this could be used to refresh the unread count from server
       });
 
       newSocket.on('chat:messageUpdated', message => {
