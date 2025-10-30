@@ -3,7 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 import apiClient from '../../../api/axiosConfig';
 import { CATEGORY_ENUM } from '../../../constants/categories';
 import { useToast } from '../../../contexts/ToastContext';
-import styles from './ModernGigCreateForm.module.css';
+import styles from './GigCreationForm.module.css';
 
 const TOTAL_STEPS = 3;
 
@@ -26,7 +26,7 @@ const exampleTitles = [
   'Hiring a gardener to maintain and care for outdoor plants and lawns',
 ];
 
-function ModernGigCreateForm({ onGigCreated }) {
+function GigCreationForm({ onGigCreated }) {
   const { showToast } = useToast();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState(initialGigFormData);
@@ -588,4 +588,4 @@ function ModernGigCreateForm({ onGigCreated }) {
   );
 }
 
-export default ModernGigCreateForm;
+export default GigCreationForm;

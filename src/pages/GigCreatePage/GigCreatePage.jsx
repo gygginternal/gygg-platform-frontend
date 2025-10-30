@@ -5,14 +5,14 @@ import styles from './GigCreatePage.module.css'; // CSS for the page layout
 // Header and main navigation Sidebar are assumed to be part of App.js global layout
 // import Header from '../../components/Shared/Header';
 import ProfileSidebar from '../../components/common/ProfileSidebar'; // The static info sidebar
-import ModernGigCreateForm from '../../components/features/GigCreate/ModernGigCreateForm'; // The new modern multi-step form component
+import GigCreationForm from '../../components/features/GigCreate/GigCreationForm'; // The new modern multi-step form component
 
 function GigCreatePage() {
   const navigate = useNavigate();
 
   const handleGigSuccessfullyPosted = newlyCreatedGig => {
-    // This callback is passed to GigCreateForm
-    // It will be called after the gig is successfully created by GigCreateForm
+    // This callback is passed to GigCreationForm
+    // It will be called after the gig is successfully created by GigCreationForm
     navigate('/posted-gigs'); // Redirect to posted gigs page
   };
 
@@ -27,7 +27,7 @@ function GigCreatePage() {
 
       {/* Main Content Area for Gig Creation Form */}
       <div className={styles.formArea}>
-        <ModernGigCreateForm onGigCreated={handleGigSuccessfullyPosted} />
+        <GigCreationForm onGigCreated={handleGigSuccessfullyPosted} />
       </div>
     </div>
   );
