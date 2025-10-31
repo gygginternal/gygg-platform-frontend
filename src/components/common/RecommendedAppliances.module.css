@@ -13,9 +13,6 @@
 
 .appliancesSection {
   width: 100%;
-  padding: 1.5rem; /* 24px */
-  border-radius: 1rem; /* 16px */
-  box-sizing: border-box; /* Ensure padding is included in width */
 }
 
 .sectionHeader {
@@ -106,10 +103,6 @@
   .container {
     margin-top: 1rem; /* 16px */
   }
-  .appliancesSection {
-    padding: 1.25rem; /* 20px */
-    border-radius: 0.875rem; /* 14px */
-  }
   .sectionHeader {
     gap: 0.4rem; /* 6.4px */
     margin-bottom: 0.75rem; /* 12px */
@@ -156,10 +149,6 @@
   .container {
     margin-top: 0.8rem; /* 12.8px */
   }
-  .appliancesSection {
-    padding: 1rem; /* 16px */
-    border-radius: 0.75rem; /* 12px */
-  }
   .sectionHeader {
     gap: 0.3rem; /* 4.8px */
     margin-bottom: 0.6rem; /* 9.6px */
@@ -201,10 +190,6 @@
 @media (max-width: 480px) {
   .container {
     margin-top: 0.625rem; /* 10px */
-  }
-  .appliancesSection {
-    padding: 0.8rem; /* 12.8px */
-    border-radius: 0.6rem; /* 9.6px */
   }
   .sectionHeader {
     gap: 0.25rem; /* 4px */

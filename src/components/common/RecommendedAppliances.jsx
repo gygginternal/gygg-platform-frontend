@@ -57,11 +57,11 @@ const RecommendedAppliances = () => {
               />
               <div className={styles.applianceContent}>
                 <div className={styles.applianceDescription}>
-                  <strong>{appliance.user?.firstName} {appliance.user?.lastName}</strong> applied to your gig &quot;
-                  {appliance.gig?.title}&quot;
+                  <strong>{appliance.user?.firstName} {appliance.user?.lastName}</strong> applied to your gig 
+                  {' '} {appliance.gig?.title}
                 </div>
                 <Link
-                  to={`/applications/${appliance._id}`}
+                  to={`/posted-gigs?gigId=${appliance.gig._id}&view=applications`}
                   className={styles.viewApplianceLink}
                 >
                   <u>View application detail</u>
