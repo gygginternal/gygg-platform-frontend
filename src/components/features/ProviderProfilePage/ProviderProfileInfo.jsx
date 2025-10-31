@@ -23,6 +23,13 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
   const [editedFirstName, setEditedFirstName] = useState('');
   const [editedLastName, setEditedLastName] = useState('');
   const [editedBio, setEditedBio] = useState('');
+  const [editedAddress, setEditedAddress] = useState({
+    street: '',
+    city: '',
+    state: '',
+    postalCode: '',
+    country: '',
+  });
 
   const [profileImageFile, setProfileImageFile] = useState(null);
   const [profileImagePreview, setProfileImagePreview] = useState(null);
@@ -36,6 +43,11 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
       setEditedFirstName(userToDisplay.firstName || '');
       setEditedLastName(userToDisplay.lastName || '');
       setEditedBio(decodeHTMLEntities(userToDisplay.bio) || '');
+      setEditedAddress(
+        userToDisplay.address
+          ? { ...userToDisplay.address }
+          : { street: '', city: '', state: '', postalCode: '', country: '' }
+      );
       setProfileImagePreview(
         userToDisplay.profileImage &&
           userToDisplay.profileImage !== 'default.jpg'
@@ -51,6 +63,11 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
     setEditedFirstName(userToDisplay.firstName || '');
     setEditedLastName(userToDisplay.lastName || '');
     setEditedBio(decodeHTMLEntities(userToDisplay.bio) || '');
+    setEditedAddress(
+      userToDisplay.address
+        ? { ...userToDisplay.address }
+        : { street: '', city: '', state: '', postalCode: '', country: '' }
+    );
     setProfileImagePreview(
       userToDisplay.profileImage && userToDisplay.profileImage !== 'default.jpg'
         ? userToDisplay.profileImage
@@ -110,6 +127,21 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
     payload.append('lastName', editedLastName.trim());
     payload.append('bio', editedBio.trim());
 
+    // Append address data
+    const addressPayload = {
+      street: editedAddress.street || '',
+      city: editedAddress.city || '',
+      state: editedAddress.state || '',
+      postalCode: editedAddress.postalCode || '',
+      country: editedAddress.country || '',
+    };
+
+    // Only append address if there's at least one field with data
+    const hasAddressData = Object.values(addressPayload).some(val => val);
+    if (hasAddressData) {
+      payload.append('address', JSON.stringify(addressPayload));
+    }
+
     // Append profile image file IF a new one was selected
     if (profileImageFile) {
       payload.append('profileImage', profileImageFile, profileImageFile.name);
@@ -145,7 +177,7 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
   const displayLocation =
     userToDisplay.address &&
     Object.values(userToDisplay.address).some(val => val)
-      ? `${userToDisplay.address.city || ''}${userToDisplay.address.city && userToDisplay.address.state ? ', ' : ''}${userToDisplay.address.state || ''}${userToDisplay.address.country ? ` (${userToDisplay.address.country})` : ''}`.trim()
+      ? `${userToDisplay.address.city || ''}${userToDisplay.address.city && userToDisplay.address.state ? ', ' : ''}${userToDisplay.address.state || ''}`.trim()
       : 'Location not set';
 
   return (
@@ -301,6 +333,86 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
                   placeholder="Tell us about yourself..."
                   disabled={saveLoading}
                 />
+              </div>
+
+              {/* Address Fields */}
+              <div className={styles.formGroup}>
+                <label htmlFor="addressStreet" className={styles.rowLabel}>
+                  Street Address:
+                </label>
+                <input
+                  type="text"
+                  id="addressStreet"
+                  className={styles.textInput}
+                  value={editedAddress.street}
+                  onChange={e => setEditedAddress(prev => ({ ...prev, street: e.target.value }))}
+                  placeholder="Street address"
+                  disabled={saveLoading}
+                />
+              </div>
+
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="addressCity" className={styles.rowLabel}>
+                    City:
+                  </label>
+                  <input
+                    type="text"
+                    id="addressCity"
+                    className={styles.textInput}
+                    value={editedAddress.city}
+                    onChange={e => setEditedAddress(prev => ({ ...prev, city: e.target.value }))}
+                    placeholder="City"
+                    disabled={saveLoading}
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="addressState" className={styles.rowLabel}>
+                    State/Province:
+                  </label>
+                  <input
+                    type="text"
+                    id="addressState"
+                    className={styles.textInput}
+                    value={editedAddress.state}
+                    onChange={e => setEditedAddress(prev => ({ ...prev, state: e.target.value }))}
+                    placeholder="State/Province"
+                    disabled={saveLoading}
+                  />
+                </div>
+              </div>
+
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="addressPostalCode" className={styles.rowLabel}>
+                    Postal Code:
+                  </label>
+                  <input
+                    type="text"
+                    id="addressPostalCode"
+                    className={styles.textInput}
+                    value={editedAddress.postalCode}
+                    onChange={e => setEditedAddress(prev => ({ ...prev, postalCode: e.target.value }))}
+                    placeholder="Postal Code"
+                    disabled={saveLoading}
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="addressCountry" className={styles.rowLabel}>
+                    Country:
+                  </label>
+                  <input
+                    type="text"
+                    id="addressCountry"
+                    className={styles.textInput}
+                    value={editedAddress.country}
+                    onChange={e => setEditedAddress(prev => ({ ...prev, country: e.target.value }))}
+                    placeholder="Country"
+                    disabled={saveLoading}
+                  />
+                </div>
               </div>
             </div>
 

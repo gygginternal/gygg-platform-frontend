@@ -179,6 +179,21 @@ function ProfileInfo({
           .filter(s => s)
     ).forEach(skill => payload.append('skills[]', skill));
 
+    // Append address data
+    const addressPayload = {
+      street: editedAddress.street || '',
+      city: editedAddress.city || '',
+      state: editedAddress.state || '',
+      postalCode: editedAddress.postalCode || '',
+      country: editedAddress.country || '',
+    };
+
+    // Only append address if there's at least one field with data
+    const hasAddressData = Object.values(addressPayload).some(val => val);
+    if (hasAddressData) {
+      payload.append('address', JSON.stringify(addressPayload));
+    }
+
     // Append profile image file IF a new one was selected by the user
     if (profileImageFile) {
       payload.append('profileImage', profileImageFile, profileImageFile.name);
@@ -247,7 +262,7 @@ function ProfileInfo({
     ? userToDisplay.skills
     : [];
 
-  // Enhanced location extraction similar to TaskerListSafe
+  // Enhanced location extraction similar to TaskerListSafe - exclude country
   let displayLocation = 'Location not specified';
 
   if (
@@ -257,8 +272,7 @@ function ProfileInfo({
     const parts = [];
     if (userToDisplay.address.city) parts.push(userToDisplay.address.city);
     if (userToDisplay.address.state) parts.push(userToDisplay.address.state);
-    if (userToDisplay.address.country)
-      parts.push(userToDisplay.address.country);
+    // Note: Country is not included in the display to keep it concise
 
     if (parts.length > 0) {
       displayLocation = parts.join(', ');

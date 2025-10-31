@@ -162,7 +162,7 @@ const TaskerListSafe = ({ searchTerm = '' }) => {
                 ? `⭐ ${Number(tasker.rating).toFixed(1)} (${tasker.ratingCount || 0} reviews)`
                 : 'Rate not specified';
 
-          // Enhanced location extraction
+          // Enhanced location extraction - exclude country from display
           let displayLocation = 'Location not specified';
 
           if (tasker.address) {
@@ -171,8 +171,7 @@ const TaskerListSafe = ({ searchTerm = '' }) => {
               parts.push(decodeHTMLEntities(tasker.address.city));
             if (tasker.address.state)
               parts.push(decodeHTMLEntities(tasker.address.state));
-            if (tasker.address.country)
-              parts.push(decodeHTMLEntities(tasker.address.country));
+            // Note: Country is not included in the display to keep it concise
 
             if (parts.length > 0) {
               displayLocation = parts.join(', ');
