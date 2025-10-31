@@ -59,25 +59,18 @@ const RecommendedGigs = () => {
             console.log('Recommended gig:', gig);
             const poster = gig.poster || {};
             const profileImage = poster.profileImage || '/default.jpg';
-            const posterName =
-              poster.firstName && poster.lastName
-                ? `${poster.firstName.charAt(0).toUpperCase() + poster.firstName.slice(1)}. ${poster.lastName.charAt(0).toUpperCase()}`
-                : poster.firstName || 'Anonymous';
-            const location =
-              poster.address?.city || poster.address?.state || '';
             return (
               <div key={gig._id} className={styles.gigItem}>
                 <img
                   src={profileImage}
-                  alt={posterName}
+                  alt={`${poster.firstName || ''} ${poster.lastName || ''}`}
                   className={styles.gigAvatar}
                   width={64}
                   height={64}
                 />
                 <div className={styles.gigContent}>
                   <div className={styles.gigDescription}>
-                    <strong>{posterName}</strong>
-                    {location && ` from ${location}`} needs a {gig.title}
+                    <strong>{poster.firstName || ''} {poster.lastName || ''}</strong> needs help with {gig.title}
                   </div>
                   <Link
                     to={{ pathname: '/gigs', search: `?gigId=${gig._id}` }}

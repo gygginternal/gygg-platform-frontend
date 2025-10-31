@@ -96,6 +96,13 @@
   color: #718096;
   font-size: 0.875rem;
   font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.clockIcon {
+  flex-shrink: 0;
 }
 
 .state {

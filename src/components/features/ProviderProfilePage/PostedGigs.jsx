@@ -2,7 +2,17 @@ import React, { useEffect, useState } from 'react';
 import styles from './PostedGigs.module.css';
 import apiClient from '@api/axiosConfig';
 import { Link, useNavigate } from 'react-router-dom';
+import { Clock } from 'lucide-react';
 import { decodeHTMLEntities } from '@utils/htmlEntityDecoder';
+
+// Utility to format "time ago"
+const timeAgo = date => {
+  const diff = Math.floor((Date.now() - new Date(date)) / 1000);
+  if (diff < 60) return 'just now';
+  if (diff < 3600) return `Posted ${Math.floor(diff / 60)} minutes ago`;
+  if (diff < 86400) return `Posted ${Math.floor(diff / 3600)} hours ago`;
+  return `Posted ${Math.floor(diff / 86400)} days ago`;
+};
 
 const STATUS_LABELS = {
   active: 'Active',
@@ -102,15 +112,6 @@ function PostedGigs({ providerId, isOwnProfile }) {
     navigate(`/posted-gigs?gigId=${gigId}`);
   };
 
-  const formatDate = dateString => {
-    if (!dateString) return '';
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      month: '2-digit',
-      year: 'numeric',
-    });
-  };
-
   const getStatusStyle = status => {
     // For posted gigs that are awaiting applications, they should be "Active"
     const normalizedStatus = status?.toLowerCase() || 'active';
@@ -156,9 +157,10 @@ function PostedGigs({ providerId, isOwnProfile }) {
                     </span>
                   )}
                 </div>
-                <span className={styles.gigPostedDate}>
-                  Posted {formatDate(gig.createdAt)}
-                </span>
+                <div className={styles.gigPostedDate}>
+                  <Clock size={14} className={styles.clockIcon} />
+                  <span>{timeAgo(gig.createdAt)}</span>
+                </div>
               </div>
             </div>
           </div>

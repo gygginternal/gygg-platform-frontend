@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import {
   ArrowLeft,
   Calendar,
+  Clock,
   DollarSign,
   MapPin,
   Users,
@@ -24,6 +25,15 @@ function isValidObjectId(id) {
   );
 }
 
+// Utility to format "time ago"
+const timeAgo = date => {
+  const diff = Math.floor((Date.now() - new Date(date)) / 1000);
+  if (diff < 60) return 'just now';
+  if (diff < 3600) return `Posted ${Math.floor(diff / 60)} minutes ago`;
+  if (diff < 86400) return `Posted ${Math.floor(diff / 3600)} hours ago`;
+  return `Posted ${Math.floor(diff / 86400)} days ago`;
+};
+
 const PostedGigsPage = () => {
   const { user } = useAuth();
   const { showToast } = useToast();
@@ -44,23 +54,68 @@ const PostedGigsPage = () => {
   const [selectedGigTitle, setSelectedGigTitle] = useState('');
   const [selectedGigForModal, setSelectedGigForModal] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
+  const fetchPostedGigs = async (pageToFetch = 1) => {
+    try {
+      const isFirstPage = pageToFetch === 1;
+      if (isFirstPage) {
+        setLoading(true);
+      } else {
+        setIsLoadingMore(true);
+      }
+      
+      const res = await apiClient.get('/gigs/awaiting-posted-gig', {
+        params: {
+          page: pageToFetch,
+          limit: 10 // Load 10 gigs per page
+        }
+      });
+      
+      // Extract pagination data
+      const totalPages = res.data.totalPages || 1;
+      const currentPage = res.data.page || 1;
+      setTotalPages(totalPages);
+      setCurrentPage(currentPage);
+      setHasMore(res.data.hasMore || (currentPage < totalPages));
+      
+      const gigsData = res.data.data.gigs || [];
+      
+      if (isFirstPage) {
+        setPostedGigs(gigsData);
+      } else {
+        setPostedGigs(prev => [...prev, ...gigsData]);
+      }
+    } catch (err) {
+      setError('Failed to load posted gigs.');
+      if (currentPage === 1) setPostedGigs([]);
+    } finally {
+      setLoading(false);
+      setIsLoadingMore(false);
+    }
+  };
 
   useEffect(() => {
     // Fetch provider's posted gigs
-    const fetchPostedGigs = async () => {
-      setLoading(true);
-      setError('');
-      try {
-        const res = await apiClient.get('/gigs/awaiting-posted-gig');
-        setPostedGigs(res.data.data.gigs || []);
-      } catch (err) {
-        setError('Failed to load posted gigs.');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPostedGigs();
+    setCurrentPage(1);
+    setPostedGigs([]);
+    setTotalPages(1);
+    setHasMore(false);
+    fetchPostedGigs(1);
   }, []);
+
+  // Load more gigs
+  const loadMoreGigs = () => {
+    if (hasMore && !isLoadingMore) {
+      const nextPage = currentPage + 1;
+      fetchPostedGigs(nextPage);
+    }
+  };
 
   useEffect(() => {
     // If gigId is in query and valid, show popup for that gig (but not if view=applications)
@@ -199,7 +254,7 @@ const PostedGigsPage = () => {
             </div>
           )}
 
-          {loading ? (
+          {loading && postedGigs.length === 0 ? (
             <div className={styles.loadingState}>
               <div className={styles.loadingSpinner}></div>
               <p>Loading your posted gigs...</p>
@@ -211,7 +266,13 @@ const PostedGigsPage = () => {
               <p>{error}</p>
               <button
                 className={styles.retryButton}
-                onClick={() => window.location.reload()}
+                onClick={() => {
+                  setCurrentPage(1);
+                  setPostedGigs([]);
+                  setTotalPages(1);
+                  setHasMore(false);
+                  fetchPostedGigs(1);
+                }}
               >
                 Try Again
               </button>
@@ -230,88 +291,114 @@ const PostedGigsPage = () => {
               </button>
             </div>
           ) : (
-            <div className={styles.gigsGrid}>
-              {postedGigs.map(gig => (
-                <div
-                  key={gig._id}
-                  className={styles.gigCard}
-                  onClick={() => handleGigCardClick(gig)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <div className={styles.gigCardHeader}>
-                    <h3 className={styles.gigCardTitle}>{gig.title}</h3>
-                    <div className={styles.gigCardBadges}>
-                      {gig.status === 'open' ? (
-                        <span className={`${styles.statusBadge} ${styles.open}`}>Open</span>
-                      ) : (
+            <>
+              <div className={styles.gigsGrid}>
+                {postedGigs.map(gig => (
+                  <div
+                    key={gig._id}
+                    className={styles.gigCard}
+                    onClick={() => handleGigCardClick(gig)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <div className={styles.gigCardHeader}>
+                      <h3 className={styles.gigCardTitle}>{gig.title}</h3>
+                      <div className={styles.gigCardBadges}>
+                        {gig.status === 'open' ? (
+                          <span className={`${styles.statusBadge} ${styles.open}`}>Open</span>
+                        ) : (
+                          <span
+                            className={`${styles.statusBadge} ${styles[gig.status || 'open']}`}
+                          >
+                            {gig.status || 'Open'}
+                          </span>
+                        )}
                         <span
-                          className={`${styles.statusBadge} ${styles[gig.status || 'open']}`}
+                          className={`${styles.paymentTypeBadge} ${gig.isHourly ? styles.hourly : styles.fixed}`}
                         >
-                          {gig.status || 'Open'}
-                        </span>
-                      )}
-                      <span
-                        className={`${styles.paymentTypeBadge} ${gig.isHourly ? styles.hourly : styles.fixed}`}
-                      >
-                        {gig.isHourly ? 'Hourly' : 'Fixed'}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className={styles.gigCardContent}>
-                    <p className={styles.gigCardDescription}>
-                      {gig.description?.length > 120
-                        ? `${gig.description.substring(0, 120)}...`
-                        : gig.description || 'No description provided'}
-                    </p>
-
-                    <div className={styles.gigCardMeta}>
-                      <div className={styles.metaItem}>
-                        <MapPin size={16} />
-                        <span>
-                          {gig.location && typeof gig.location === 'object' 
-                            ? `${gig.location.city || ''}${gig.location.city && gig.location.state ? ', ' : ''}${gig.location.state || ''}`.trim()
-                            : gig.location || 'Location not specified'}
-                        </span>
-                      </div>
-                      <div className={styles.metaItem}>
-                        <Calendar size={16} />
-                        <span>
-                          {new Date(gig.createdAt).toLocaleDateString()}
-                        </span>
-                      </div>
-                      <div className={styles.metaItem}>
-                        <span>
-                          {gig.isHourly
-                            ? `$${gig.ratePerHour || 0}/hr${gig.estimatedHours ? ` (Est. ${gig.estimatedHours}h)` : ''}`
-                            : `$${gig.cost || 0}`}
+                          {gig.isHourly ? 'Hourly' : 'Fixed'}
                         </span>
                       </div>
                     </div>
 
-                    <div className={styles.gigCardFooter}>
-                      <div className={styles.gigCardStats}>
-                        <div className={styles.statItem}>
-                          <Users size={16} />
-                          <span>{gig.applicationCount || 0} applications</span>
+                    <div className={styles.gigCardContent}>
+                      <p className={styles.gigCardDescription}>
+                        {gig.description?.length > 120
+                          ? `${gig.description.substring(0, 120)}...`
+                          : gig.description || 'No description provided'}
+                      </p>
+
+                      <div className={styles.gigCardMeta}>
+                        <div className={styles.metaItem}>
+                          <MapPin size={16} />
+                          <span>
+                            {gig.location && typeof gig.location === 'object' 
+                              ? `${gig.location.city || ''}${gig.location.city && gig.location.state ? ', ' : ''}${gig.location.state || ''}`.trim()
+                              : gig.location || 'Location not specified'}
+                          </span>
+                        </div>
+                        <div className={styles.metaItem}>
+                          <Clock size={16} />
+                          <span>
+                            {timeAgo(gig.createdAt)}
+                          </span>
+                        </div>
+                        <div className={styles.metaItem}>
+                          <span>
+                            {gig.isHourly
+                              ? `$${gig.ratePerHour || 0}/hr${gig.estimatedHours ? ` (Est. ${gig.estimatedHours}h)` : ''}`
+                              : `$${gig.cost || 0}`}
+                          </span>
                         </div>
                       </div>
-                      <button
-                        className={styles.viewApplicationsButton}
-                        onClick={e => {
-                          e.stopPropagation();
-                          handleGigClick(gig);
-                        }}
-                        aria-label={`View applications for ${gig.title}`}
-                      >
-                        <Eye size={16} />
-                        View Applications
-                      </button>
+
+                      <div className={styles.gigCardFooter}>
+                        <div className={styles.gigCardStats}>
+                          <div className={styles.statItem}>
+                            <Users size={16} />
+                            <span>{gig.applicationCount || 0} applications</span>
+                          </div>
+                        </div>
+                        <button
+                          className={styles.viewApplicationsButton}
+                          onClick={e => {
+                            e.stopPropagation();
+                            handleGigClick(gig);
+                          }}
+                          aria-label={`View applications for ${gig.title}`}
+                        >
+                          <Eye size={16} />
+                          View Applications
+                        </button>
+                      </div>
                     </div>
                   </div>
+                ))}
+              </div>
+              
+              {/* Loading more indicator */}
+              {isLoadingMore && (
+                <div className={styles.loadingMore}>
+                  <div className={styles.loadingSpinnerSmall}></div>
+                  <p>Loading more gigs...</p>
                 </div>
-              ))}
-            </div>
+              )}
+              
+              {/* Load More Button */}
+              {hasMore && !isLoadingMore && (
+                <button 
+                  onClick={loadMoreGigs}
+                  className={styles.loadMoreButton}
+                >
+                  Load More Gigs
+                </button>
+              )}
+              
+              {!hasMore && postedGigs.length > 0 && (
+                <p className={styles.endOfResults}>
+                  You've reached the end of the results.
+                </p>
+              )}
+            </>
           )}
         </div>
       </div>
