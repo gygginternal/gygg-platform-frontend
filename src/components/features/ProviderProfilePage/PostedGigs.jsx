@@ -144,12 +144,18 @@ function PostedGigs({ providerId, isOwnProfile }) {
                 {decodeHTMLEntities(gig.title)}
               </h3>
               <div className={styles.gigMeta}>
-                <span
-                  className={styles.statusBadge}
-                  style={getStatusStyle(gig.status)}
-                >
-                  {getStatusLabel(gig.status)}
-                </span>
+                <div className={styles.gigCardBadges}>
+                  {gig.status === 'open' ? (
+                    <span className={`${styles.statusBadge} ${styles.open}`}>Open</span>
+                  ) : (
+                    <span
+                      className={`${styles.statusBadge}`}
+                      style={getStatusStyle(gig.status)}
+                    >
+                      {getStatusLabel(gig.status)}
+                    </span>
+                  )}
+                </div>
                 <span className={styles.gigPostedDate}>
                   Posted {formatDate(gig.createdAt)}
                 </span>

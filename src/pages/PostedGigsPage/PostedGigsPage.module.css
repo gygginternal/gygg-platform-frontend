@@ -254,10 +254,16 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family:
+    'Inter',
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .gigCard:hover {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
 }
 
 .gigCardHeader {
@@ -274,6 +280,7 @@
   margin: 0;
   line-height: 1.4;
   flex: 1;
+  font-family: inherit;
 }
 
 .gigCardBadges {
@@ -290,6 +297,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  font-family: inherit;
 }
 
 .statusBadge.open {
@@ -315,6 +323,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  font-family: inherit;
 }
 
 .paymentTypeBadge.hourly {
@@ -339,6 +348,7 @@
   font-size: 0.9375rem;
   line-height: 1.6;
   margin: 0;
+  font-family: inherit;
 }
 
 .gigCardMeta {
@@ -353,18 +363,21 @@
   gap: 0.5rem;
   color: #6b7280;
   font-size: 0.875rem;
+  font-family: inherit;
 }
 
 .metaItem svg {
   color: #9ca3af;
 }
 
-.gigCardStats {
+.gigCardFooter {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
   padding-top: 1rem;
   border-top: 1px solid #f3f4f6;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .statItem {
@@ -374,17 +387,11 @@
   color: #374151;
   font-size: 0.875rem;
   font-weight: 500;
+  font-family: inherit;
 }
 
 .statItem svg {
   color: #6b7280;
-}
-
-.gigCardActions {
-  display: flex;
-  justify-content: flex-end;
-  padding-top: 1rem;
-  border-top: 1px solid #f3f4f6;
 }
 
 .viewApplicationsButton {
@@ -394,11 +401,12 @@
   background: #3d4d55;
   color: #ffffff;
   border: none;
-  padding: 0.75rem 1.25rem;
+  padding: 0.5rem 1rem;
   border-radius: 6px;
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
+  font-family: inherit;
 }
 
 .viewApplicationsButton:hover {

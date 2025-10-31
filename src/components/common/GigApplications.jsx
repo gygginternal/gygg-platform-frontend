@@ -11,7 +11,7 @@ import { useToast } from '../../contexts/ToastContext';
 import styles from './GigApplications.module.css'; // Import CSS module
 import PropTypes from 'prop-types';
 
-function TaskerCard({ tasker, onAccept, onReject, onClick }) {
+function TaskerCard({ tasker, onAccept, onReject, onClick, onViewProfile, onMessage }) {
   if (!tasker) {
     return (
       <div className={styles.offerCard}>
@@ -121,7 +121,11 @@ function TaskerCard({ tasker, onAccept, onReject, onClick }) {
             className={styles.viewProfileButton}
             onClick={e => {
               e.stopPropagation();
-              // Handle view profile action
+              if (onViewProfile && tasker._id) {
+                onViewProfile(tasker._id);
+              } else if (onViewProfile && tasker.user?._id) {
+                onViewProfile(tasker.user._id);
+              }
             }}
           >
             View Profile
@@ -130,7 +134,11 @@ function TaskerCard({ tasker, onAccept, onReject, onClick }) {
             className={styles.messageButton}
             onClick={e => {
               e.stopPropagation();
-              // Handle message action
+              if (onMessage && tasker._id) {
+                onMessage(tasker._id);
+              } else if (onMessage && tasker.user?._id) {
+                onMessage(tasker.user._id);
+              }
             }}
           >
             Message
@@ -146,6 +154,8 @@ TaskerCard.propTypes = {
   onAccept: PropTypes.func,
   onReject: PropTypes.func,
   onClick: PropTypes.func,
+  onViewProfile: PropTypes.func,
+  onMessage: PropTypes.func,
 };
 
 function TaskerModal({
@@ -297,6 +307,14 @@ export const GigApplications = ({ gigId, onOffer, onReject }) => {
   const [selectedTasker, setSelectedTasker] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+  const handleViewProfile = (userId) => {
+    navigate(`/profile/${userId}`);
+  };
+
+  const handleMessage = (userId) => {
+    navigate(`/messages/${userId}`);
+  };
+
   // Fetch applications with pagination
   useQuery({
     queryKey: ['gigApplications', gigId, currentPage],
@@ -388,7 +406,25 @@ export const GigApplications = ({ gigId, onOffer, onReject }) => {
   });
 
   const handleTaskerClick = tasker => {
-    setSelectedTasker(tasker);
+    // Map the API response to expected modal properties
+    const user = tasker.user || tasker; // Use user object if populated, otherwise use tasker directly
+    const taskerDetails = {
+      ...tasker,
+      name: user.fullName || `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Unknown Tasker',
+      image: user.profileImage || user.avatar || user.image || '/placeholder.svg',
+      location: user.address 
+        ? `${user.address.city || ''}${user.address.state ? `, ${user.address.state}` : ''}`.trim() 
+        : 'Location not specified',
+      description: user.bio || 'No description provided',
+      rating: user.rating || 0,
+      ratingCount: user.ratingCount || 0,
+      skills: user.skills || [],
+      hobbies: user.hobbies || [],
+      id: tasker._id || tasker.id,
+      _id: tasker._id || tasker.id
+    };
+    
+    setSelectedTasker(taskerDetails);
     setShowModal(true);
   };
 
@@ -424,13 +460,35 @@ export const GigApplications = ({ gigId, onOffer, onReject }) => {
       {applications.length === 0 ? (
         <div className={styles.noApplications}>No applications found.</div>
       ) : (
-        applications.map(app => (
-          <TaskerCard
-            key={app._id || app.id}
-            tasker={app}
-            onClick={() => handleTaskerClick(app)}
-          />
-        ))
+        applications.map(app => {
+          // Map the API response to expected TaskerCard properties
+          const user = app.user || app; // Use user object if populated, otherwise use app directly
+          const taskerData = {
+            ...app,
+            name: user.fullName || `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Unknown Tasker',
+            image: user.profileImage || user.avatar || user.image || '/placeholder.svg',
+            location: user.address 
+              ? `${user.address.city || ''}${user.address.state ? `, ${user.address.state}` : ''}`.trim() 
+              : 'Location not specified',
+            description: user.bio || 'No description provided',
+            rating: user.rating || 0,
+            ratingCount: user.ratingCount || 0,
+            skills: user.skills || [],
+            hobbies: user.hobbies || [],
+            id: app._id || app.id,
+            _id: app._id || app.id
+          };
+          
+          return (
+            <TaskerCard
+              key={app._id || app.id}
+              tasker={taskerData}
+              onClick={() => handleTaskerClick(taskerData)}
+              onViewProfile={handleViewProfile}
+              onMessage={handleMessage}
+            />
+          );
+        })
       )}
 
       <TaskerModal

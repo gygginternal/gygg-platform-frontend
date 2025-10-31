@@ -242,11 +242,15 @@ const PostedGigsPage = () => {
                   <div className={styles.gigCardHeader}>
                     <h3 className={styles.gigCardTitle}>{gig.title}</h3>
                     <div className={styles.gigCardBadges}>
-                      <span
-                        className={`${styles.statusBadge} ${styles[gig.status || 'open']}`}
-                      >
-                        {gig.status === 'open' ? 'Active' : gig.status}
-                      </span>
+                      {gig.status === 'open' ? (
+                        <span className={`${styles.statusBadge} ${styles.open}`}>Open</span>
+                      ) : (
+                        <span
+                          className={`${styles.statusBadge} ${styles[gig.status || 'open']}`}
+                        >
+                          {gig.status}
+                        </span>
+                      )}
                       <span
                         className={`${styles.paymentTypeBadge} ${gig.isHourly ? styles.hourly : styles.fixed}`}
                       >
@@ -264,10 +268,11 @@ const PostedGigsPage = () => {
 
                     <div className={styles.gigCardMeta}>
                       <div className={styles.metaItem}>
+                        <MapPin size={16} />
                         <span>
-                          {gig.isHourly
-                            ? `$${gig.ratePerHour || 0}/hr${gig.estimatedHours ? ` (Est. ${gig.estimatedHours}h)` : ''}`
-                            : `$${gig.cost || 0}`}
+                          {gig.location && typeof gig.location === 'object' 
+                            ? `${gig.location.city || ''}${gig.location.city && gig.location.state ? ', ' : ''}${gig.location.state || ''}`.trim()
+                            : gig.location || 'Location not specified'}
                         </span>
                       </div>
                       <div className={styles.metaItem}>
@@ -276,34 +281,34 @@ const PostedGigsPage = () => {
                           {new Date(gig.createdAt).toLocaleDateString()}
                         </span>
                       </div>
-                      {gig.location && gig.location !== ', ' && (
-                        <div className={styles.metaItem}>
-                          <MapPin size={16} />
-                          <span>{gig.location}</span>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className={styles.gigCardStats}>
-                      <div className={styles.statItem}>
-                        <Users size={16} />
-                        <span>{gig.applicationCount || 0} applications</span>
+                      <div className={styles.metaItem}>
+                        <span>
+                          {gig.isHourly
+                            ? `$${gig.ratePerHour || 0}/hr${gig.estimatedHours ? ` (Est. ${gig.estimatedHours}h)` : ''}`
+                            : `$${gig.cost || 0}`}
+                        </span>
                       </div>
                     </div>
-                  </div>
 
-                  <div className={styles.gigCardActions}>
-                    <button
-                      className={styles.viewApplicationsButton}
-                      onClick={e => {
-                        e.stopPropagation();
-                        handleGigClick(gig);
-                      }}
-                      aria-label={`View applications for ${gig.title}`}
-                    >
-                      <Eye size={16} />
-                      View Applications
-                    </button>
+                    <div className={styles.gigCardFooter}>
+                      <div className={styles.gigCardStats}>
+                        <div className={styles.statItem}>
+                          <Users size={16} />
+                          <span>{gig.applicationCount || 0} applications</span>
+                        </div>
+                      </div>
+                      <button
+                        className={styles.viewApplicationsButton}
+                        onClick={e => {
+                          e.stopPropagation();
+                          handleGigClick(gig);
+                        }}
+                        aria-label={`View applications for ${gig.title}`}
+                      >
+                        <Eye size={16} />
+                        View Applications
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
