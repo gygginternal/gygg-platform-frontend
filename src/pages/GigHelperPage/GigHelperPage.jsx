@@ -71,7 +71,9 @@ export default function GigHelperPage() {
               </div>
             </div>
 
-            <TaskerListSafe searchTerm={searchTerm} />
+            <div className={styles.gigsContainer}>
+              <TaskerListSafe searchTerm={searchTerm} />
+            </div>
           </main>
         </div>
       </div>

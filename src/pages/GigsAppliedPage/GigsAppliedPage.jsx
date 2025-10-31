@@ -289,8 +289,7 @@ const GigsAppliedPage = () => {
                       ...app.gig,
                       status: app.status, // Include application status
                       applicationId: app._id, // Pass the application ID
-                      createdAt: app.createdAt, // Include creation date
-                      rate: app.gig?.isHourly ? app.gig?.ratePerHour : app.gig?.cost
+                      createdAt: app.gig.createdAt || app.createdAt, // Use gig's createdAt if available, otherwise application's
                     }}
                     onClick={() => handleCardClick(app)}
                   />
