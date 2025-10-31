@@ -1,162 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { MapPin } from 'lucide-react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { MapPin, Star } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import apiClient from '../../api/axiosConfig';
-import Badge from './Badge';
-import { StatusBadge } from './StatusBadge'; // Assuming you have a StatusBadge component
 import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../contexts/ToastContext';
-// import { Button } from "../components/ui/button"; // Removed
-import styles from './GigApplications.module.css'; // Import CSS module
+import GigHelperCard from './GigHelperCard';
+import styles from './GigApplications.module.css';
 import PropTypes from 'prop-types';
-
-function TaskerCard({ tasker, onAccept, onReject, onClick, onViewProfile, onMessage }) {
-  if (!tasker) {
-    return (
-      <div className={styles.offerCard}>
-        <div className={styles.offerCardContent}>
-          <div className={styles.offerCardImageContainer}>
-            <img
-              src="/placeholder.svg"
-              alt="Tasker profile"
-              className={styles.offerCardImage}
-            />
-          </div>
-          <div className={styles.offerCardDetails}>
-            <div className={styles.offerCardHeader}>
-              <div>
-                <h2 className={styles.offerCardTitle}>Tasker not available</h2>
-                <p className={styles.offerCardRate}>N/A</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  const handleKeyDown = e => {
-    if (onClick && (e.key === 'Enter' || e.key === ' ')) {
-      e.preventDefault();
-      onClick();
-    }
-  };
-
-  // Get compatibility color based on score
-  const getCompatibilityColor = score => {
-    if (score >= 80) return '#22c55e'; // Green
-    if (score >= 60) return '#f59e0b'; // Yellow
-    if (score >= 40) return '#f97316'; // Orange
-    return '#ef4444'; // Red
-  };
-
-  const compatibilityScore = tasker.compatibilityScore || 0;
-  const matchingHobbies = tasker.matchingHobbies || [];
-
-  return (
-    <div
-      className={styles.offerCard}
-      onClick={onClick}
-      style={{ cursor: 'pointer' }}
-      role="button"
-      tabIndex={0}
-      onKeyDown={handleKeyDown}
-    >
-      <div className={styles.offerCardContent}>
-        {/* Profile Image */}
-        <div className={styles.offerCardImageContainer}>
-          <img
-            src={tasker.image || '/placeholder.svg'}
-            alt={`${tasker.name || 'Tasker'}'s profile`}
-            className={styles.offerCardImage}
-          />
-          {/* Compatibility Badge */}
-          {compatibilityScore > 0 && (
-            <div
-              className={styles.compatibilityBadge}
-              style={{
-                backgroundColor: getCompatibilityColor(compatibilityScore),
-              }}
-            >
-              {compatibilityScore}% Match
-            </div>
-          )}
-        </div>
-
-        {/* Main Content */}
-        <div className={styles.offerCardDetails}>
-          {/* Header with name and rate */}
-          <div className={styles.offerCardHeader}>
-            <h2 className={styles.offerCardTitle}>
-              {tasker.name || 'Unknown Tasker'}
-            </h2>
-            <p className={styles.offerCardRate}>
-              {tasker.ratePerHour
-                ? `$${tasker.ratePerHour}/hr`
-                : 'No ratings yet'}
-            </p>
-          </div>
-
-          {/* Meta information */}
-          <div className={styles.offerCardMeta}>
-            {tasker.location &&
-              tasker.location.trim().split(',').filter(Boolean).length > 0 && (
-                <div className={styles.location}>
-                  <MapPin className={styles.locationIcon} />
-                  <span>{tasker.location}</span>
-                </div>
-              )}
-          </div>
-
-          {/* Description */}
-          {tasker.description && (
-            <p className={styles.offerCardDescription}>{tasker.description}</p>
-          )}
-        </div>
-
-        {/* Action Buttons */}
-        <div className={styles.offerCardActions}>
-          <button
-            className={styles.viewProfileButton}
-            onClick={e => {
-              e.stopPropagation();
-              if (onViewProfile && tasker._id) {
-                onViewProfile(tasker._id);
-              } else if (onViewProfile && tasker.user?._id) {
-                onViewProfile(tasker.user._id);
-              }
-            }}
-          >
-            View Profile
-          </button>
-          <button
-            className={styles.messageButton}
-            onClick={e => {
-              e.stopPropagation();
-              if (onMessage && tasker._id) {
-                onMessage(tasker._id);
-              } else if (onMessage && tasker.user?._id) {
-                onMessage(tasker.user._id);
-              }
-            }}
-          >
-            Message
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-TaskerCard.propTypes = {
-  tasker: PropTypes.object.isRequired,
-  onAccept: PropTypes.func,
-  onReject: PropTypes.func,
-  onClick: PropTypes.func,
-  onViewProfile: PropTypes.func,
-  onMessage: PropTypes.func,
-};
 
 function TaskerModal({
   tasker,
@@ -168,16 +19,28 @@ function TaskerModal({
 }) {
   if (!isOpen || !tasker) return null;
 
+  // Extract user data properly
+  const user = tasker.user || tasker;
+  const taskerDetails = {
+    name: user.fullName || `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Unknown Tasker',
+    image: user.profileImage || user.avatar || user.image || '/placeholder.svg',
+    location: user.address 
+      ? `${user.address.city || ''}${user.address.state ? `, ${user.address.state}` : ''}`.trim() 
+      : 'Location not specified',
+    description: user.bio || 'No description provided',
+    rating: user.rating || 0,
+    ratingCount: user.ratingCount || 0,
+    skills: user.skills || [],
+    hobbies: user.hobbies || [],
+    id: tasker._id || tasker.id,
+    _id: tasker._id || tasker.id
+  };
+
   return (
-    <div
-      className={styles.modalOverlay}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-title"
-    >
-      <div className={styles.modalContent} tabIndex={-1}>
+    <div className={styles.modal}>
+      <div className={styles.modalContent}>
         <div className={styles.modalHeader}>
-          <h2 id="modal-title">Tasker Details</h2>
+          <h3>Tasker Information</h3>
           <button
             className={styles.closeButton}
             onClick={onClose}
@@ -186,101 +49,111 @@ function TaskerModal({
                 onClose();
               }
             }}
+            aria-label="Close tasker modal"
           >
             ✖
           </button>
         </div>
-
+        
         <div className={styles.modalBody}>
-          <div className={styles.modalTaskerInfo}>
-            <img
-              src={tasker.image || '/placeholder.svg'}
-              alt={`${tasker.name || 'Tasker'}'s profile`}
-              className={styles.modalTaskerImage}
-            />
-            <div className={styles.modalTaskerDetails}>
-              <h3>{tasker.name || 'Unknown Tasker'}</h3>
-              <p className={styles.modalTaskerLocation}>
-                {tasker.location || 'Location not specified'}
-              </p>
-              <p className={styles.modalTaskerDescription}>
-                {tasker.description || 'No description provided'}
-              </p>
+          <div className={styles.modalRow}>
+            <b className={styles.modalLabel}>Name:</b>
+            <span className={styles.modalValue}>{taskerDetails.name}</span>
+          </div>
+          <div className={styles.modalRow}>
+            <b className={styles.modalLabel}>Location:</b>
+            <span className={styles.modalValue}>{taskerDetails.location}</span>
+          </div>
+          <div className={styles.modalRow}>
+            <b className={styles.modalLabel}>Rating:</b>
+            <span className={styles.modalValue}>{taskerDetails.rating ? `${taskerDetails.rating.toFixed(1)} (${taskerDetails.ratingCount || 0} reviews)` : 'No rating'}</span>
+          </div>
+          <div className={styles.modalRow}>
+            <b className={styles.modalLabel}>Description:</b>
+            <span className={styles.modalValue}>{taskerDetails.description}</span>
+          </div>
+          {taskerDetails.skills && taskerDetails.skills.length > 0 && (
+            <div className={styles.modalRow}>
+              <b className={styles.modalLabel}>Skills:</b>
+              <div className={styles.skillsContainer}>
+                {taskerDetails.skills.map((skill, index) => (
+                  <span key={index} className={styles.skillTag}>{skill}</span>
+                ))}
+              </div>
             </div>
-          </div>
-
-          <div className={styles.modalServices}>
-            <h4>Skills & Services:</h4>
-            <div className={styles.modalServicesList}>
-              {(tasker.services || []).map(service => (
-                <Badge key={service} variant="service">
-                  {service}
-                </Badge>
-              ))}
+          )}
+          {taskerDetails.hobbies && taskerDetails.hobbies.length > 0 && (
+            <div className={styles.modalRow}>
+              <b className={styles.modalLabel}>Interests:</b>
+              <div className={styles.skillsContainer}>
+                {taskerDetails.hobbies.map((hobby, index) => (
+                  <span key={index} className={styles.skillTag}>{hobby}</span>
+                ))}
+              </div>
             </div>
-          </div>
-
-          <div className={styles.modalActions}>
-            {tasker.status === 'accepted' ? (
-              <>
-                <div className={styles.statusMessage}>
-                  <p>✅ This tasker has been accepted</p>
-                  <p>Contract has been created and work can begin.</p>
-                </div>
-                <button
-                  className={`${styles.acceptButton} ${styles.button}`}
-                  onClick={onClose}
-                >
-                  Close
-                </button>
-              </>
-            ) : tasker.status === 'rejected' ? (
-              <>
-                <div className={styles.statusMessage}>
-                  <p>❌ This tasker has been rejected</p>
-                </div>
-                <button
-                  className={`${styles.acceptButton} ${styles.button}`}
-                  onClick={onClose}
-                >
-                  Close
-                </button>
-              </>
-            ) : (
-              <>
-                <button
-                  className={`${styles.acceptButton} ${styles.button}`}
-                  onClick={() => {
-                    // Validate that tasker.id exists and is not empty
-                    const taskId = tasker._id || tasker.id;
-                    if (!taskId || taskId.trim() === '') {
-                      console.error('Invalid tasker ID:', taskId);
-                      return;
-                    }
-                    onAccept(taskId);
-                  }}
-                  disabled={isLoading}
-                >
-                  {isLoading ? 'Accepting...' : 'Accept Tasker'}
-                </button>
-                <button
-                  className={`${styles.rejectButton} ${styles.button}`}
-                  onClick={() => {
-                    // Validate that tasker.id exists and is not empty
-                    const taskId = tasker._id || tasker.id;
-                    if (!taskId || taskId.trim() === '') {
-                      console.error('Invalid tasker ID:', taskId);
-                      return;
-                    }
-                    onReject(taskId);
-                  }}
-                  disabled={isLoading}
-                >
-                  {isLoading ? 'Rejecting...' : 'Reject Tasker'}
-                </button>
-              </>
-            )}
-          </div>
+          )}
+        </div>
+        
+        <div className={styles.modalActions}>
+          {tasker.status === 'accepted' ? (
+            <>
+              <div className={styles.statusMessage}>
+                <p>✅ This tasker has been accepted</p>
+                <p>Contract has been created and work can begin.</p>
+              </div>
+              <button
+                className={styles.primaryBtn}
+                onClick={onClose}
+              >
+                Close
+              </button>
+            </>
+          ) : tasker.status === 'rejected' ? (
+            <>
+              <div className={styles.statusMessage}>
+                <p>❌ This tasker has been rejected</p>
+              </div>
+              <button
+                className={styles.primaryBtn}
+                onClick={onClose}
+              >
+                Close
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                className={styles.primaryBtn}
+                onClick={() => {
+                  // Validate that tasker.id exists and is not empty
+                  const taskId = tasker._id || tasker.id;
+                  if (!taskId || taskId.trim() === '') {
+                    console.error('Invalid tasker ID:', taskId);
+                    return;
+                  }
+                  onAccept(taskId);
+                }}
+                disabled={isLoading}
+              >
+                {isLoading ? 'Accepting...' : 'Accept Tasker'}
+              </button>
+              <button
+                className={styles.secondaryBtn}
+                onClick={() => {
+                  // Validate that tasker.id exists and is not empty
+                  const taskId = tasker._id || tasker.id;
+                  if (!taskId || taskId.trim() === '') {
+                    console.error('Invalid tasker ID:', taskId);
+                    return;
+                  }
+                  onReject(taskId);
+                }}
+                disabled={isLoading}
+              >
+                {isLoading ? 'Rejecting...' : 'Reject Tasker'}
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>
@@ -456,37 +329,42 @@ export const GigApplications = ({ gigId, onOffer, onReject }) => {
   const isLoading = acceptMutation.isLoading || rejectMutation.isLoading;
 
   return (
-    <div className={styles.applicationsList}>
+    <>
       {applications.length === 0 ? (
-        <div className={styles.noApplications}>No applications found.</div>
+        <div className={styles.noApplications}>
+          <h3>No applications yet</h3>
+          <p>Applications for your gigs will appear here when taskers apply.</p>
+        </div>
       ) : (
         applications.map(app => {
-          // Map the API response to expected TaskerCard properties
+          // Map the API response to expected GigHelperCard properties
           const user = app.user || app; // Use user object if populated, otherwise use app directly
-          const taskerData = {
-            ...app,
+          const helperData = {
+            userId: user._id || user.id || app._id || app.id,
+            profileImage: user.profileImage || user.avatar || user.image || '/placeholder.svg',
             name: user.fullName || `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Unknown Tasker',
-            image: user.profileImage || user.avatar || user.image || '/placeholder.svg',
+            rate: user.rating ? `★ ${user.rating.toFixed(1)} (${user.ratingCount || 0})` : 'No rating',
             location: user.address 
               ? `${user.address.city || ''}${user.address.state ? `, ${user.address.state}` : ''}`.trim() 
               : 'Location not specified',
-            description: user.bio || 'No description provided',
-            rating: user.rating || 0,
-            ratingCount: user.ratingCount || 0,
-            skills: user.skills || [],
-            hobbies: user.hobbies || [],
-            id: app._id || app.id,
-            _id: app._id || app.id
+            bio: user.bio || 'No description provided',
           };
           
           return (
-            <TaskerCard
+            <div 
               key={app._id || app.id}
-              tasker={taskerData}
-              onClick={() => handleTaskerClick(taskerData)}
-              onViewProfile={handleViewProfile}
-              onMessage={handleMessage}
-            />
+              onClick={() => handleTaskerClick(app)}
+              style={{ cursor: 'pointer' }}
+            >
+              <GigHelperCard
+                userId={helperData.userId}
+                profileImage={helperData.profileImage}
+                name={helperData.name}
+                rate={helperData.rate}
+                location={helperData.location}
+                bio={helperData.bio}
+              />
+            </div>
           );
         })
       )}
@@ -499,7 +377,7 @@ export const GigApplications = ({ gigId, onOffer, onReject }) => {
         onReject={handleReject}
         isLoading={isLoading}
       />
-    </div>
+    </>
   );
 };
 

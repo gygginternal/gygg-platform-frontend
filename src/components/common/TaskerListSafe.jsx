@@ -150,7 +150,7 @@ const TaskerListSafe = ({ searchTerm = '' }) => {
           const displayName =
             decodeHTMLEntities(tasker.fullName) ||
             decodeHTMLEntities(
-              `${tasker.firstName || ''}${tasker.lastName ? ` ${tasker.lastName[0]}.` : ''}`.trim()
+              `${tasker.firstName || ''}${tasker.lastName ? ` ${tasker.lastName}` : ''}`.trim()
             ) ||
             'Anonymous User';
 

@@ -622,7 +622,7 @@ function ContractsPage() {
               </div>
               <div>
                 <b>
-                  {sessionRole === 'provider' ? 'Working with:' : 'Hired by:'}:
+                  {sessionRole === 'provider' ? 'Working with' : 'Hired by'}:
                 </b>{' '}
                 {modalContract.displayName || modalContract.hiredBy}
               </div>

@@ -151,24 +151,23 @@ const PostedGigsPage = () => {
             <ProfileSidebar />
           </div>
           <div className={styles.mainFeedArea}>
-            <div className={styles.applicationsHeader}>
-              <button
-                className={styles.backButton}
-                onClick={handleBackToGigs}
-                aria-label="Back to My Posted Gigs"
-              >
-                <ArrowLeft size={20} />
-                Back to My Posted Gigs
-              </button>
-
+            <button
+              className={styles.backButton}
+              onClick={handleBackToGigs}
+              aria-label="Back to My Posted Gigs"
+            >
+              <ArrowLeft size={20} />
+              Back to My Posted Gigs
+            </button>
+            
+            <div className={styles.header}>
               <h1 className={styles.title}>Applications</h1>
               <p className={styles.subtitle}>
                 Review applications for <strong>"{selectedGigTitle}"</strong>
               </p>
             </div>
-            <div className={styles.applicationsContainer}>
-              <GigApplications gigId={selectedGigId} />
-            </div>
+            
+            <GigApplications gigId={selectedGigId} />
           </div>
         </div>
       </div>
@@ -248,7 +247,7 @@ const PostedGigsPage = () => {
                         <span
                           className={`${styles.statusBadge} ${styles[gig.status || 'open']}`}
                         >
-                          {gig.status}
+                          {gig.status || 'Open'}
                         </span>
                       )}
                       <span

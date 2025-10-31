@@ -1,554 +1,182 @@
-/* Applications List Container */
-.applicationsList {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 0.5rem 0;
-}
+/* No additional container styles needed as we're using fragment */
 
-/* Application Card - Horizontal Layout */
-.offerCard {
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e5e7eb;
-  cursor: pointer;
-  font-family:
-    'Inter',
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  transition: all 0.2s ease;
-  overflow: hidden;
-  position: relative;
-}
-
-.offerCard:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border-color: #d1d5db;
-}
-
-.offerCardContent {
-  display: flex;
-  align-items: center;
-  padding: 1.5rem;
-  gap: 1.5rem;
-}
-
-.offerCardImageContainer {
-  flex-shrink: 0;
-  width: 80px;
-  height: 80px;
-  position: relative;
-}
-
-.offerCardImage {
+/* Modal Styles - Match Contract Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.offerCardDetails {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  gap: 0.75rem;
-}
-
-.offerCardHeader {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.offerCardTitle {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin: 0;
-  line-height: 1.3;
-}
-
-.offerCardRate {
-  display: inline-flex;
-  align-items: center;
-  color: #059669;
-  font-weight: 600;
-  font-size: 0.875rem;
-  background: #d1fae5;
-  padding: 0.25rem 0.75rem;
-  border-radius: 6px;
-  white-space: nowrap;
-  border: 1px solid #a7f3d0;
-}
-
-.offerCardActions {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  align-items: flex-end;
-}
-
-.viewProfileButton,
-.messageButton {
-  /* Match platform button styling with rectangular shape */
-  padding: 0.5rem 1rem; /* 8px 16px */
-  border-radius: 0.375rem; /* 6px - more rectangular shape */
-  font-weight: 600;
-  font-size: 0.875rem; /* 14px */
-  cursor: pointer;
-  border: none;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    transform 0.1s ease;
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  box-sizing: border-box;
-  min-width: 120px;
-  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10000;
 }
 
-.viewProfileButton {
-  background-color: #3d4d55; /* Theme color */
-  color: #fff;
-}
-
-.viewProfileButton:hover:not(:disabled) {
-  background-color: #28343a; /* Darker hover */
-  transform: translateY(-1px);
-}
-
-.viewProfileButton:active:not(:disabled) {
-  transform: translateY(0px);
-}
-
-.messageButton {
-  background-color: #f0f0f0;
-  color: #3d4d55;
-  border: 1px solid #d1d5db;
-}
-
-.messageButton:hover:not(:disabled) {
-  background-color: #e0e0e0;
-  transform: translateY(-1px);
-}
-
-.messageButton:active:not(:disabled) {
-  transform: translateY(0px);
-}
-
-.viewProfileButton:disabled,
-.messageButton:disabled {
-  cursor: not-allowed;
-  opacity: 0.7;
-}
-
-.offerCardMeta {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.location {
-  display: flex;
-  align-items: center;
-  color: #6b7280;
-  font-size: 0.875rem;
-  gap: 0.5rem;
-}
-
-.locationIcon {
-  height: 16px;
-  width: 16px;
-  color: #9ca3af;
-  flex-shrink: 0;
-}
-
-.offerCardDescription {
-  color: #6b7280;
-  font-size: 0.875rem;
-  line-height: 1.4;
-  margin: 0;
-  font-style: italic;
-}
-
-/* Compatibility Badge */
-.compatibilityBadge {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  background: #22c55e;
-  color: white;
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.25rem 0.5rem;
+.modalContent {
+  background: white;
   border-radius: 12px;
-  border: 2px solid white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .offerCardContent {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1rem;
-  }
-
-  .offerCardImageContainer {
-    width: 60px;
-    height: 60px;
-  }
-
-  .offerCardActions {
-    flex-direction: row;
-    align-self: stretch;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .viewProfileButton,
-  .messageButton {
-    flex: 1;
-    margin: 0 0.25rem;
-    padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
-    font-size: 0.8125rem; /* 13px */
-    border-radius: 0.25rem; /* 4px - more rectangular shape */
-    min-width: auto;
-  }
-
-  .offerCardHeader {
-    flex-wrap: wrap;
-  }
+.modalHeader {
+  background: #16a2b8;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px 12px 0 0;
 }
 
-/* Responsive adjustments for screens up to 480px (Mobile Phones) */
-@media (max-width: 480px) {
-  .offerCardContent {
-    padding: 0.75rem;
-  }
-
-  .offerCardActions {
-    flex-direction: column;
-    align-self: flex-end;
-    width: auto;
-  }
-
-  .viewProfileButton,
-  .messageButton {
-    width: 100%;
-    margin: 0.25rem 0;
-    padding: 0.35rem 0.7rem; /* 5.6px 11.2px */
-    font-size: 0.75rem; /* 12px */
-    border-radius: 0.25rem; /* 4px - more rectangular shape */
-  }
+.modalHeader h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
 }
 
-.offerCardDescription {
-  color: #4b5563;
-  margin: 0.5rem 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  font-size: 0.875rem;
-  line-height: 1.5;
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  color: white;
+}
+
+.closeButton:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.modalBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  color: #374151;
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.modalRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.modalLabel {
+  font-weight: 600;
+  color: #111827;
+  flex: 0 0 auto;
+}
+
+.modalValue {
+  color: #374151;
+  flex: 1 1 auto;
 }
 
 .skillsContainer {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-top: 0.5rem;
+  flex: 1 1 auto;
 }
 
-.badge {
-  background: #f3f4f6;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: #374151;
-}
-
-.badge:hover {
-  background: #e5e7eb;
-}
-
-.buttonGroup {
-  margin-top: 1rem;
-}
-
-.button {
-  border: none;
-  border-radius: 6px;
-  padding: 0.75rem 1.25rem;
-  font-weight: 500;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.acceptButton {
-  background: #10b981;
-  color: #ffffff;
-  border: 1px solid #10b981;
-}
-
-.acceptButton:hover {
-  background: #059669;
-}
-
-.acceptButton:disabled {
-  background: #9ca3af;
-  border-color: #9ca3af;
-  cursor: not-allowed;
-}
-
-.rejectButton {
-  background: #ffffff;
-  color: #ef4444;
-  border: 2px solid #ef4444;
-}
-
-.rejectButton:hover {
-  background: #ef4444;
-  color: #ffffff;
-}
-
-.rejectButton:disabled {
-  background: #f9fafb;
-  color: #9ca3af;
-  border-color: #e5e7eb;
-  cursor: not-allowed;
-}
-
-.statusBadgeMargin {
-  margin-bottom: 1rem;
-}
-
-.providerServicesGap {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.75rem;
-  padding: 0.75rem;
-  background: #f9fafb;
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
-}
-
-.loadMoreButton {
-  width: 100%;
-  padding: 0.75rem;
+.skillTag {
+  color: #fff;
   background-color: #d99633;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  font-size: 1.125rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 1.5rem;
-}
-
-.loadMoreButton:hover {
-  background-color: #b45309;
-}
-
-.loadMoreButton:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-  opacity: 0.7;
-}
-
-/* Modern Modal Styles */
-.modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.45);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.modalContent {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
-  max-width: 600px;
-  width: 95vw;
-  padding: 0;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  font-size: 1rem;
-}
-
-.closeButton {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 1.8rem;
-  cursor: pointer;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: auto;
-  box-shadow: none;
-  border-radius: 0;
-  width: auto;
-  height: auto;
-  transition: color 0.2s;
-}
-
-.closeButton:hover {
-  background: none;
-  color: #e0f7fa;
-}
-
-.modalHeader {
-  background: #16a2b8;
-  color: #fff;
-  padding: 0.75rem 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  border-radius: 12px 12px 0 0;
-}
-
-.modalHeader h2 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin: 0;
-  color: #fff;
-}
-
-.modalBody {
-  padding: 1.5rem;
-}
-
-.modalTaskerInfo {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem 0 1rem 0;
-  font-size: 1rem;
-  color: #222;
-}
-
-.modalTaskerImage {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #eee;
-}
-
-.modalTaskerDetails h3 {
-  margin: 0 0 0.25rem 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #222;
-}
-
-.modalTaskerLocation {
-  color: #666;
-  margin: 0 0 0.25rem 0;
+  border-radius: 1rem;
+  padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
-}
-
-.modalTaskerDescription {
-  color: #555;
-  margin: 0;
-  font-size: 0.875rem;
-  line-height: 1.4;
-  font-style: italic;
-}
-
-.modalServices {
-  margin-bottom: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid #f3f4f6;
-}
-
-.modalServices h4 {
-  margin: 0 0 0.75rem 0;
-  font-size: 1rem;
   font-weight: 600;
-  color: #222;
-}
-
-.modalServicesList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  cursor: default;
+  flex-shrink: 0;
+  align-self: flex-start;
 }
 
 .modalActions {
   display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   justify-content: flex-end;
-  gap: 0.625rem;
-  padding: 1.25rem 1.5rem 1.5rem 1.5rem;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
+  padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+  border-top: 1px solid #e2e8f0;
 }
 
-.modalActions .button {
-  min-width: 100px;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
+.primaryBtn {
+  background-color: #222e3a;
+  color: white;
   border: none;
-  font-size: 1rem;
-  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.2s;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  min-width: 120px;
+  font-size: 0.875rem;
 }
 
-.rejectButton {
-  background: #fff;
-  color: #222;
-  border: 1px solid #ccc !important;
+.primaryBtn:hover {
+  background-color: #1a252f;
 }
 
-.rejectButton:hover {
-  background: #f5f5f5;
+.primaryBtn:disabled {
+  background-color: #cbd5e0;
+  cursor: not-allowed;
 }
 
-.acceptButton {
-  background: #222e3a;
-  color: #fff;
+.secondaryBtn {
+  background-color: white;
+  color: #4a5568;
+  border: 1px solid #e2e8f0;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  min-width: 120px;
+  font-size: 0.875rem;
 }
 
-.acceptButton:hover {
-  background: #1a252f;
+.secondaryBtn:hover {
+  background-color: #f7fafc;
+  border-color: #e2e8f0;
 }
 
+.statusMessage {
+  text-align: center;
+  padding: 1rem;
+  margin: 1rem 0;
+  background: #f0f8f0;
+  border-radius: 8px;
+  border-left: 4px solid #28a745;
+}
+
+.statusMessage p {
+  margin: 0.25rem 0;
+  color: #28a745;
+}
+
+/* Applications List Container */
 .applicationsList {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding: 0.5rem 0;
 }
 
 .noApplications {
@@ -558,173 +186,21 @@
   justify-content: center;
   padding: 3rem 2rem;
   background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  text-align: center;
   border: 1px solid #e5e7eb;
-  text-align: center;
 }
 
-.noApplications::before {
-  content: '📋';
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  display: block;
+.noApplications h3 {
+  color: #6b7280;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+}
+
+.noApplications p {
   color: #9ca3af;
-}
-
-.noApplications {
-  color: #6b7280;
   font-size: 1rem;
-  font-weight: 500;
-}
-
-.statusMessage {
-  text-align: center;
-  padding: 1.5rem;
-  background: #f0fdf4;
-  border-radius: 8px;
-  border: 1px solid #bbf7d0;
-  width: 100%;
-  margin-bottom: 1rem;
-}
-
-.statusMessage p {
-  margin: 0.25rem 0;
-  font-weight: 500;
-}
-
-.statusMessage p:first-child {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #059669;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.statusMessage p:last-child {
-  color: #065f46;
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
-}
-
-/* Compatibility Badge */
-.compatibilityBadge {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  background: #22c55e;
-  color: white;
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.25rem 0.5rem;
-  border-radius: 6px;
-  z-index: 10;
-  white-space: nowrap;
-  border: 1px solid #ffffff;
-}
-
-/* Matching Hobbies Section */
-.matchingHobbies {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.75rem;
-  padding: 0.75rem;
-  background: #f0fdf4;
-  border-radius: 8px;
-  border: 1px solid #bbf7d0;
-}
-
-.matchingLabel {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #059669;
-  margin-right: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.matchingLabel::before {
-  content: '✨';
-  font-size: 0.75rem;
-}
-
-.hobbyBadge {
-  background: #22c55e !important;
-  color: white !important;
-  border: none !important;
-  font-size: 0.75rem;
-  font-weight: 500;
-  padding: 0.25rem 0.5rem;
-  border-radius: 6px;
-}
-
-.moreCount {
-  font-size: 0.75rem;
-  color: #059669;
-  font-weight: 500;
-}
-
-.moreServices {
-  font-size: 0.75rem;
-  color: #6b7280;
-  font-weight: 500;
-  padding: 0.25rem 0.5rem;
-  background: #f9fafb;
-  border-radius: 8px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .offerCardContent {
-    flex-direction: column;
-    padding: 1rem;
-    gap: 1rem;
-  }
-
-  .offerCardImageContainer {
-    width: 60px;
-    height: 60px;
-    align-self: flex-start;
-  }
-
-  .offerCardHeader {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-
-  .modalContent {
-    max-width: 95vw;
-    margin: 0.5rem;
-  }
-
-  .modalBody {
-    padding: 1rem;
-  }
-
-  .modalTaskerInfo {
-    flex-direction: column;
-    text-align: center;
-    padding: 1rem;
-  }
-
-  .modalTaskerImage {
-    align-self: center;
-    width: 80px;
-    height: 80px;
-  }
-
-  .modalActions {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .modalActions .button {
-    width: 100%;
-  }
+  margin: 0;
 }
