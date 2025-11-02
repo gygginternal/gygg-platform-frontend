@@ -258,58 +258,62 @@ function PersonalInfoForm({ fullWidth = false }) {
             />
           </div>
 
-          <h4 className={styles.subheading}>Address</h4>
-          <div className={styles.inputGroup}>
-            <label htmlFor="p-address">Street Address</label>
-            <input
-              id="p-address"
-              name="address"
-              value={personalInfo.address}
-              onChange={handlePersonalInfoChange}
-            />
-          </div>
+          {!user?.role?.includes('tasker') && (
+            <>
+              <h4 className={styles.subheading}>Address</h4>
+              <div className={styles.inputGroup}>
+                <label htmlFor="p-address">Street Address</label>
+                <input
+                  id="p-address"
+                  name="address"
+                  value={personalInfo.address}
+                  onChange={handlePersonalInfoChange}
+                />
+              </div>
 
-          <div className={styles.row}>
-            <div className={styles.inputGroup}>
-              <label htmlFor="p-city">City</label>
-              <input
-                id="p-city"
-                name="city"
-                value={personalInfo.city}
-                onChange={handlePersonalInfoChange}
-              />
-            </div>
-            <div className={styles.inputGroup}>
-              <label htmlFor="p-state">State/Province</label>
-              <input
-                id="p-state"
-                name="state"
-                value={personalInfo.state}
-                onChange={handlePersonalInfoChange}
-              />
-            </div>
-          </div>
+              <div className={styles.row}>
+                <div className={styles.inputGroup}>
+                  <label htmlFor="p-city">City</label>
+                  <input
+                    id="p-city"
+                    name="city"
+                    value={personalInfo.city}
+                    onChange={handlePersonalInfoChange}
+                  />
+                </div>
+                <div className={styles.inputGroup}>
+                  <label htmlFor="p-state">State/Province</label>
+                  <input
+                    id="p-state"
+                    name="state"
+                    value={personalInfo.state}
+                    onChange={handlePersonalInfoChange}
+                  />
+                </div>
+              </div>
 
-          <div className={styles.row}>
-            <div className={styles.inputGroup}>
-              <label htmlFor="p-postalCode">Postal Code</label>
-              <input
-                id="p-postalCode"
-                name="postalCode"
-                value={personalInfo.postalCode}
-                onChange={handlePersonalInfoChange}
-              />
-            </div>
-            <div className={styles.inputGroup}>
-              <label htmlFor="p-country">Country</label>
-              <input
-                id="p-country"
-                name="country"
-                value={personalInfo.country}
-                onChange={handlePersonalInfoChange}
-              />
-            </div>
-          </div>
+              <div className={styles.row}>
+                <div className={styles.inputGroup}>
+                  <label htmlFor="p-postalCode">Postal Code</label>
+                  <input
+                    id="p-postalCode"
+                    name="postalCode"
+                    value={personalInfo.postalCode}
+                    onChange={handlePersonalInfoChange}
+                  />
+                </div>
+                <div className={styles.inputGroup}>
+                  <label htmlFor="p-country">Country</label>
+                  <input
+                    id="p-country"
+                    name="country"
+                    value={personalInfo.country}
+                    onChange={handlePersonalInfoChange}
+                  />
+                </div>
+              </div>
+            </>
+          )}
 
           <div
             style={{

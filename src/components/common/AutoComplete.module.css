@@ -36,20 +36,15 @@
   border: 2px solid #e5e7eb;
   border-radius: 0.75rem;
   transition: all 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   cursor: text;
 }
 
 .tagsInput:hover {
   border-color: #d89362;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 .tagsInput.focused {
   border-color: #d89362;
-  box-shadow:
-    0 0 0 3px rgba(216, 147, 98, 0.15),
-    0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 /* Individual tags */
