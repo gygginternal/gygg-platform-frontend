@@ -251,7 +251,7 @@ function AuthForm({ isLogin }) {
       {!isLogin && (
         <p className={styles.signupLinks}>
           Already have an account?{' '}
-          <Link to="/login" className={styles.link}>
+          <Link to="/choose" className={styles.link}>
             Log In
           </Link>
         </p>

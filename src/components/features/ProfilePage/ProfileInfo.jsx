@@ -450,7 +450,7 @@ function ProfileInfo({
                 <input
                   type="text"
                   id="firstName"
-                  className={styles.textInput}
+                  className={styles.textInputGreyBorder}
                   value={editedFirstName}
                   onChange={e => setEditedFirstName(e.target.value)}
                   placeholder="First Name"
@@ -465,7 +465,7 @@ function ProfileInfo({
                 <input
                   type="text"
                   id="lastName"
-                  className={styles.textInput}
+                  className={styles.textInputGreyBorder}
                   value={editedLastName}
                   onChange={e => setEditedLastName(e.target.value)}
                   placeholder="Last Name"
@@ -487,6 +487,7 @@ function ProfileInfo({
                   }
                   onChange={newHobbies => setEditedHobbies(newHobbies)}
                   placeholder="Add hobbies..."
+                  labelColor="#000000"
                 />
               </div>
 
@@ -504,6 +505,7 @@ function ProfileInfo({
                   }
                   onChange={newSkills => setEditedSkills(newSkills)}
                   placeholder="Add skills..."
+                  labelColor="#000000"
                 />
               </div>
             </div>

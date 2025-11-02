@@ -449,7 +449,7 @@ function SignupPage() {
           </footer>
           <p className={styles.terms}>
             Already have an account?{' '}
-            <Link to="/login" className={styles.link}>
+            <Link to="/choose" className={styles.link}>
               Log In
             </Link>
           </p>

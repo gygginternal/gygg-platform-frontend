@@ -312,6 +312,17 @@
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
 }
+
+.textInputGreyBorder {
+  width: 100%;
+  padding: 0.625rem 0.75rem; /* 10px 12px */
+  /* Facebook Post text (main body) 14-16px */
+  font-size: 1rem; /* 16px */
+  border: 0.0625rem solid #e5e7eb; /* 1px - light grey border */
+  border-radius: 0.375rem; /* 6px */
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
 .textArea {
   resize: vertical;
   min-height: 5rem; /* 80px */
@@ -321,6 +332,12 @@
   border-color: #00aaba;
   outline: none;
   box-shadow: 0 0 0 0.125rem rgba(0, 170, 186, 0.2); /* 0 0 0 2px */
+}
+
+.textInputGreyBorder:focus {
+  border-color: #e5e7eb;
+  outline: none;
+  box-shadow: 0 0 0 0.125rem rgba(229, 231, 235, 0.2); /* 0 0 0 2px */
 }
 
 .modalActions {

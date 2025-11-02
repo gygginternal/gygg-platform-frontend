@@ -58,12 +58,12 @@
   align-items: center;
   gap: 0.375rem;
   padding: 0.375rem 0.75rem;
-  background: linear-gradient(135deg, #d89362 0%, #c8834a 100%);
+  background: #d99633;
   color: white;
   border-radius: 1.25rem;
   font-size: 0.8125rem;
   font-weight: 500;
-  box-shadow: 0 1px 3px rgba(216, 147, 98, 0.3);
+  box-shadow: 0 1px 3px rgba(217, 150, 51, 0.3);
   transition: all 0.2s ease;
   animation: tagSlideIn 0.2s ease-out;
 }
