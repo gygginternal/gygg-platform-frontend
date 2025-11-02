@@ -335,9 +335,9 @@
 }
 
 .textInputGreyBorder:focus {
-  border-color: #e5e7eb;
+  border-color: #00aaba;
   outline: none;
-  box-shadow: 0 0 0 0.125rem rgba(229, 231, 235, 0.2); /* 0 0 0 2px */
+  box-shadow: 0 0 0 0.125rem rgba(0, 170, 186, 0.2); /* 0 0 0 2px */
 }
 
 .modalActions {

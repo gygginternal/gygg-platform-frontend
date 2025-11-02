@@ -53,7 +53,7 @@ function ProviderProfilePage({ providerId: propProviderId }) {
   const isOwnProfile = provider._id === loggedInUser?._id;
 
   return (
-    <div className={styles.providerContent}>
+    <div className={styles.content}>
       <ProviderProfileInfo
         userToDisplay={provider}
         isOwnProfile={isOwnProfile}

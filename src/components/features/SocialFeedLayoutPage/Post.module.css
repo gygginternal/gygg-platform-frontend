@@ -282,7 +282,7 @@
   box-sizing: border-box;
 }
 .commentInput:focus {
-  border-color: #d89362;
+  border-color: #00aaba;
 }
 
 .commentSubmitButton {
