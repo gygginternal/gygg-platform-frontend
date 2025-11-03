@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 function PrivacyPolicyPage() {
   const privacyContent = `
         <h2>Privacy Policy</h2>
-        <p><strong>Last Updated: June 13, 2025 </strong></p>
+        <p><strong>Last Updated: 2025-11-03 </strong></p>
 
         <p>At Gygg Platform ("we", "us", "our"), we respect your privacy and are committed to protecting your personal data. This Privacy Policy will inform you as to how we look after your personal data when you visit our website or use our services (regardless of where you visit it from) and tell you about your privacy rights and how the law protects you.</p>
 
