@@ -76,7 +76,21 @@ function SignupPage() {
   const handleChange = (name, value) => {
     // Update form data
     setFormData(prev => {
-      const newData = { ...prev, [name]: value };
+      // Handle date formatting for dateOfBirth
+      let processedValue = value;
+      if (name === 'dateOfBirth' && value) {
+        // Ensure date is in correct format (YYYY-MM-DD) for the input field
+        const date = new Date(value);
+        if (!isNaN(date.getTime())) {
+          // Format to YYYY-MM-DD to ensure consistency
+          processedValue = date.toISOString().split('T')[0];
+        } else {
+          // If the value is already in YYYY-MM-DD format, keep as is
+          processedValue = value;
+        }
+      }
+
+      const newData = { ...prev, [name]: processedValue };
 
       // Check password matching whenever either password field changes
       if (name === 'password' || name === 'passwordConfirm') {
@@ -153,15 +167,56 @@ function SignupPage() {
 
     // Client-side age check (UX enhancement, backend is authoritative)
     if (formData.dateOfBirth) {
-      const today = new Date();
-      const birthDate = new Date(formData.dateOfBirth);
-      let age = today.getFullYear() - birthDate.getFullYear();
-      const m = today.getMonth() - birthDate.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-      }
-      if (age < 50) {
-        currentErrors.push('You must be at least 50 years old to sign up.');
+      // Parse the dateOfBirth ensuring it's in the correct format YYYY-MM-DD
+      const birthDateStr = formData.dateOfBirth;
+      
+      // Validate the format first - it should be YYYY-MM-DD
+      const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+      if (!dateRegex.test(birthDateStr)) {
+        currentErrors.push('Please enter a valid date of birth in YYYY-MM-DD format.');
+      } else {
+        // Create date object ensuring consistent parsing
+        const birthDateParts = birthDateStr.split('-');
+        const birthDate = new Date(
+          parseInt(birthDateParts[0]), 
+          parseInt(birthDateParts[1]) - 1, // Month is 0-indexed
+          parseInt(birthDateParts[2])
+        );
+        
+        // Additional validation to ensure the date object is valid
+        if (
+          birthDate.getFullYear() !== parseInt(birthDateParts[0]) ||
+          birthDate.getMonth() !== parseInt(birthDateParts[1]) - 1 ||
+          birthDate.getDate() !== parseInt(birthDateParts[2]) ||
+          isNaN(birthDate.getTime())
+        ) {
+          currentErrors.push('Please enter a valid date of birth.');
+        } else {
+          const today = new Date();
+          // Reset time component to avoid timezone issues
+          const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+          
+          // Get the birth date with time components reset
+          const birthDateNormalized = new Date(
+            birthDate.getFullYear(), 
+            birthDate.getMonth(), 
+            birthDate.getDate()
+          );
+          
+          let age = todayDate.getFullYear() - birthDateNormalized.getFullYear();
+          const monthDiff = todayDate.getMonth() - birthDateNormalized.getMonth();
+          
+          if (monthDiff < 0 || (monthDiff === 0 && todayDate.getDate() < birthDateNormalized.getDate())) {
+            age--;
+          }
+          
+          if (age < 50) {
+            currentErrors.push('You must be at least 50 years old to sign up.');
+          } else if (age > 120) {
+            // Add upper limit validation to prevent invalid birth dates
+            currentErrors.push('Please enter a valid date of birth.');
+          }
+        }
       }
     }
 
@@ -281,11 +336,14 @@ function SignupPage() {
       today.getMonth(),
       today.getDate()
     );
+    // Format consistently to YYYY-MM-DD
     return maxDate.toISOString().split('T')[0];
   };
 
   const getMinDateForDOB = () => {
-    return '1900-01-01'; // January 1, 1900
+    // Format consistently to YYYY-MM-DD
+    const minDate = new Date('1900-01-01');
+    return minDate.toISOString().split('T')[0];
   };
 
   return (
@@ -401,17 +459,30 @@ function SignupPage() {
             labelColor="white"
           />
 
-          <InputField
-            label="Date of Birth"
-            name="dateOfBirth"
-            type="date"
-            value={formData.dateOfBirth}
-            onChange={handleChange}
-            required
-            max={getMaxDateForDOB()}
-            min={getMinDateForDOB()}
-            labelColor="white"
-          />
+          <div className={styles.dateOfBirthContainer}>
+            <InputField
+              label={
+                <div className={styles.dateLabelWithTooltip}>
+                  Date of Birth
+                  <span className={styles.requiredIndicator}>*</span>
+                  <div className={styles.tooltipContainer}>
+                    <span className={styles.informationIcon}>i</span>
+                    <div className={styles.tooltipText}>
+                      We require date of birth to verify that you meet our age requirement (50+). This helps ensure our community remains tailored to individuals at similar life stages.
+                    </div>
+                  </div>
+                </div>
+              }
+              name="dateOfBirth"
+              type="date"
+              value={formData.dateOfBirth}
+              onChange={handleChange}
+              required={false}  /* Disable the automatic required indicator since we're adding it manually */
+              max={getMaxDateForDOB()}
+              min={getMinDateForDOB()}
+              labelColor="white"
+            />
+          </div>
 
           <footer className={styles.footer}>
             {/* Display errors using standardized component */}
