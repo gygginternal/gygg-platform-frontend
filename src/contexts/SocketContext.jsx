@@ -1,13 +1,13 @@
-import { createContext, useContext, useEffect, useState, useRef } from 'react';
-import { io } from 'socket.io-client';
+import { createContext, useContext, useEffect, useState, useRef, useCallback } from 'react';
 import { useAuth } from './AuthContext';
+import socketManager from '../utils/socketManager';
 import PropTypes from 'prop-types';
 
 const SocketContext = createContext(undefined);
 
 export const SocketProvider = ({ children }) => {
-  const [socket, setSocket] = useState(null);
-  const [connected, setConnected] = useState(false);
+  const [socket, setSocket] = useState(socketManager.getSocket());
+  const [connected, setConnected] = useState(socketManager.isConnected());
   const [newMessage, setNewMessage] = useState(null);
   const [unreadCount, setUnreadCount] = useState(0);
   const [typingUser, setTypingUser] = useState(null);
@@ -19,126 +19,101 @@ export const SocketProvider = ({ children }) => {
   const newMessageHandlers = useRef([]);
   const messageUpdateHandlers = useRef([]);
 
+  // Function to handle authentication state changes
   useEffect(() => {
-    if (!isLoading && user && authToken) {
-      const newSocket = io(
-        (import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000').replace(
-          '/api/v1',
-          ''
-        ),
-        {
-          path: '/socket.io',
-          transports: ['websocket', 'polling'],
-          reconnection: true,
-          reconnectionAttempts: Infinity, // Try to reconnect indefinitely
-          reconnectionDelay: 1000,
-          reconnectionDelayMax: 5000, // Max delay between reconnection attempts
-          timeout: 20000, // Increase timeout to handle slow connections
-          autoConnect: true,
-          withCredentials: true,
-          forceNew: true,
-          auth: {
-            token: authToken,
-          },
-        }
-      );
-
-      newSocket.on('connect', () => {
-        setConnected(true);
-        if (user && user._id) {
-          newSocket.emit('subscribeToNotifications', { userId: user._id });
-        }
-      });
-
-      newSocket.on('disconnect', (reason) => {
-        console.log('[Socket] Disconnected:', newSocket.id, 'Reason:', reason);
-        setConnected(false);
+    if (!isLoading) {
+      if (user && authToken) {
+        // User is authenticated, initialize or update socket
+        const userId = user._id;
+        socketManager.updateAuthToken(authToken, userId);
         
-        // Handle different disconnect reasons
-        if (reason === 'io server disconnect') {
-          // The server disconnected the client, reconnect manually
-          newSocket.connect();
+        // Set up event listeners for the socket
+        const currentSocket = socketManager.getSocket();
+        if (currentSocket) {
+          // Set up event handlers only once
+          currentSocket.off('newChatMessage'); // Remove any existing listeners
+          currentSocket.on('newChatMessage', message => {
+            const messageWithTimestamp = {
+              ...message,
+              receivedAt: Date.now(),
+            };
+            setNewMessage(messageWithTimestamp);
+            newMessageHandlers.current.forEach(h => h(messageWithTimestamp));
+          });
+
+          currentSocket.off('chat:unreadCountUpdated');
+          currentSocket.on('chat:unreadCountUpdated', ({ count }) => {
+            setUnreadCount(count);
+          });
+
+          currentSocket.off('chat:typing');
+          currentSocket.on('chat:typing', ({ userId, isTyping }) => {
+            if (isTyping) {
+              setTypingUser(userId);
+              setTimeout(() => {
+                setTypingUser(prev => (prev === userId ? null : prev));
+              }, 3000);
+            } else {
+              setTypingUser(prev => (prev === userId ? null : prev));
+            }
+          });
+
+          currentSocket.off('chat:onlineUsers');
+          currentSocket.on('chat:onlineUsers', users => {
+            setOnlineUsers(users);
+          });
+
+          currentSocket.off('notification:new');
+          currentSocket.on('notification:new', notif => {
+            setNotification(notif);
+            setNotifications(prev => [notif, ...prev]);
+            setUnreadCount(prev => prev + 1);
+          });
+
+          currentSocket.off('notification:unreadCountUpdated');
+          currentSocket.on('notification:unreadCountUpdated', () => {
+            // Silent update
+          });
+
+          currentSocket.off('chat:messageUpdated');
+          currentSocket.on('chat:messageUpdated', message => {
+            setUpdatedMessage(message);
+            messageUpdateHandlers.current.forEach(h => h(message));
+          });
+
+          setSocket(currentSocket);
+          setConnected(currentSocket.connected);
         }
-        // For other reasons (like network issues), the built-in reconnection will handle it
-      });
-
-      newSocket.on('connect_error', (err) => {
-        console.error('[Socket] Connect error:', err.message, 'Code:', err.code);
-        // If authentication fails, the socket will automatically retry
-        if (err.message.includes('Authentication')) {
-          console.warn('[Socket] Authentication failed, may need to refresh token');
-        }
-      });
-
-      // Listen for token refresh events to update the authentication
-      newSocket.on('token_refresh', (newToken) => {
-        console.log('[Socket] Received token refresh event');
-        // Update the socket auth and reconnect
-        newSocket.auth = { token: newToken };
-        newSocket.disconnect().connect();
-      });
-
-      newSocket.on('error', err => {
-        console.error('[Socket] General error:', err);
-      });
-
-      newSocket.on('newChatMessage', message => {
-        // Add timestamp to ensure we have the latest message data
-        const messageWithTimestamp = {
-          ...message,
-          receivedAt: Date.now(), // Add client-side timestamp for deduplication
-        };
-
-        setNewMessage(messageWithTimestamp);
-        newMessageHandlers.current.forEach(h => h(messageWithTimestamp));
-      });
-
-      newSocket.on('chat:unreadCountUpdated', ({ count }) => {
-        setUnreadCount(count);
-      });
-
-      newSocket.on('chat:typing', ({ userId, isTyping }) => {
-        if (isTyping) {
-          setTypingUser(userId);
-          // Clear typing indicator after 3 seconds
-          setTimeout(() => {
-            setTypingUser(prev => (prev === userId ? null : prev));
-          }, 3000);
-        } else {
-          setTypingUser(prev => (prev === userId ? null : prev));
-        }
-      });
-
-      newSocket.on('chat:onlineUsers', users => {
-        setOnlineUsers(users);
-      });
-
-      newSocket.on('notification:new', notif => {
-        setNotification(notif);
-        setNotifications(prev => [notif, ...prev]);
-        // Increment unread count when a new notification arrives
-        setUnreadCount(prev => prev + 1);
-      });
-
-      newSocket.on('notification:unreadCountUpdated', () => {
-        // Silent update - this could be used to refresh the unread count from server
-      });
-
-      newSocket.on('chat:messageUpdated', message => {
-        setUpdatedMessage(message);
-        messageUpdateHandlers.current.forEach(h => h(message));
-      });
-
-      setSocket(newSocket);
-
-      return () => {
-        if (user && user._id) {
-          newSocket.emit('unsubscribeFromNotifications', { userId: user._id });
-        }
-        newSocket.disconnect();
-      };
+      } else if (!user || !authToken) {
+        // User is not authenticated, disconnect socket
+        socketManager.disconnect();
+        setSocket(null);
+        setConnected(false);
+      }
     }
   }, [user, authToken, isLoading]);
+
+  // Update socket state when connection status changes
+  useEffect(() => {
+    const handleConnect = () => {
+      setConnected(true);
+      setSocket(socketManager.getSocket());
+    };
+
+    const handleDisconnect = (reason) => {
+      console.log('[SocketContext] Handling disconnect with reason:', reason);
+      setConnected(false);
+      setSocket(null);
+    };
+
+    socketManager.onConnect(handleConnect);
+    socketManager.onDisconnect(handleDisconnect);
+
+    // Clean up event listeners on unmount
+    return () => {
+      // We don't remove the listeners as they're managed by socketManager
+    };
+  }, []);
 
   // Register/unregister handler functions
   const registerNewMessageHandler = handler => {
@@ -149,6 +124,7 @@ export const SocketProvider = ({ children }) => {
       );
     };
   };
+  
   const registerMessageUpdateHandler = handler => {
     messageUpdateHandlers.current.push(handler);
     return () => {

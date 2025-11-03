@@ -19,6 +19,10 @@ const RecommendedGigs = () => {
     onError: err => {
       logger.error('Error fetching recommended gigs:', err);
     },
+    staleTime: 5 * 60 * 1000, // 5 minutes - don't refetch within 5 minutes
+    cacheTime: 10 * 60 * 1000, // 10 minutes - cache for 10 minutes
+    refetchOnWindowFocus: false, // Don't refetch when window gains focus
+    refetchOnReconnect: false, // Don't refetch on reconnection
   });
 
   const formatGigDescription = gig => {

@@ -58,13 +58,12 @@
     min-height: calc(100vh - 2rem);
   }
   .contentWrapper {
-    margin-left: 6.75rem;
     max-width: 100%; /* Allow contentWrapper to take full width */
     padding: 0.725rem 0.9375rem; /* 10px top/bottom, 15px left/right */
     gap: 0.75rem; /* 12px */
   }
   .sidebarArea {
-    margin-bottom: 1rem; /* 16px - Reduced space between stacked items */
+    margin-bottom: 1rem; /* 16px - Space between stacked items */
   }
 }
 /* @media (max-width: 480px) - Mobile Phones */

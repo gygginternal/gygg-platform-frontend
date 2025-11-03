@@ -70,22 +70,19 @@
 /* Header Height: 4rem (64px) from Header.module.css */
 @media (max-width: 768px) {
   .pageLayout {
-    flex-direction: column; /* Stack sidebar and form vertically */
     padding-top: 4rem; /* 64px - Matches Header height */
-    margin-left: auto; /* Reset fixed margin, allow content to center */
-    margin-right: auto;
+    margin-left: 10rem; /* Keep consistent sidebar margin */
     gap: 1rem; /* 16px */
-    max-width: 95%; /* Allow content to take more width */
-    padding-left: 1rem; /* 16px */
-    padding-right: 1rem;
+    max-width: 60rem; /* Keep max width consistent */
+    padding-left: 0.8rem; /* 12.8px */
+    padding-right: 0.8rem;
   }
   .sidebarArea {
-    flex: 0 0 auto; /* Allow sidebar to take full width */
-    width: 100%; /* Take full width when stacked */
-    margin-bottom: 1rem; /* 16px - Space below stacked sidebar */
+    flex: 0 0 15rem; /* Maintain sidebar width */
+    margin-bottom: 1rem; /* Add margin to separate from main content */
   }
   .formArea {
-    width: 100%; /* Form area takes full width when stacked */
+    width: 100%;
   }
   .pageTitle {
     font-size: clamp(1.125rem, 5vw, 1.4rem); /* Ranging from 18px to 22.4px */
