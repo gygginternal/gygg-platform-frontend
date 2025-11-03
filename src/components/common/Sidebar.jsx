@@ -48,7 +48,6 @@ function Sidebar({ isOpen, toggleSidebar }) {
       path: '/messages',
       icon: '/assets/messages.svg',
       text: 'Messages',
-      unread: unreadCount > 0,
     },
     {
       key: 'contracts',
