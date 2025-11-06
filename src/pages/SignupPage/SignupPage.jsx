@@ -468,7 +468,7 @@ function SignupPage() {
                   <div className={styles.tooltipContainer}>
                     <span className={styles.informationIcon}>i</span>
                     <div className={styles.tooltipText}>
-                      We require date of birth to verify that you meet our age requirement (50+). This helps ensure our community remains tailored to individuals at similar life stages.
+                      We require date of birth to verify that you meet our age requirement (50+).
                     </div>
                   </div>
                 </div>

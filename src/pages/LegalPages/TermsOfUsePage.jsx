@@ -7,7 +7,7 @@ function TermsOfUsePage() {
   // Replace this with your actual Terms of Use content
   const termsContent = `
         <h2>Terms of Use</h2>
-        <p><strong>Last Updated: 2025-11-03 </strong></p>
+        <p><strong>Last Updated: 2025-11-04 </strong></p>
 
         <p>Please read these Terms of Use (“<strong>Terms</strong>”) carefully before using the Gygg Platform (“<strong>Gygg</strong>,” “we,” “us,” or “our”), operated by Gygg Inc.</p>
 
