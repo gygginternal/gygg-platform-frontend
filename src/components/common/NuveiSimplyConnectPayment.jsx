@@ -1,586 +1,313 @@
-import React, { useState, useEffect, useRef } from 'react';
-import apiClient from '../../api/axiosConfig';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './NuveiSimplyConnectPayment.module.css';
+import apiClient from '@api/axiosConfig';
+import { useAuth } from '@contexts/AuthContext';
 
-const NuveiSimplyConnectPayment = ({ 
-  contract, 
-  amount, 
-  onPaymentSuccess,
-  onPaymentError,
-  onCancel 
-}) => {
-  const [loading, setLoading] = useState(false);
+const NuveiSimplyConnectPayment = ({ contractId, amount, currency = 'USD', onSuccess, onError, onComplete }) => {
+  const { user } = useAuth();
+  const [sessionToken, setSessionToken] = useState('');
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [sessionToken, setSessionToken] = useState(null);
-  const [sdkLoaded, setSdkLoaded] = useState(false);
-  const [checkoutInitialized, setCheckoutInitialized] = useState(false);
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('card'); // Default to card
+  const [merchantId, setMerchantId] = useState('');
+  const [merchantSiteId, setMerchantSiteId] = useState('');
+  const [initialized, setInitialized] = useState(false);
   const checkoutContainerRef = useRef(null);
 
-  // Load Nuvei Simply Connect SDK
   useEffect(() => {
-    const loadSdk = async () => {
-      // Check if SDK is already loaded
-      if (window.checkout) {
-        setSdkLoaded(true);
-        return;
-      }
+    // Initialize Simply Connect by creating a payment session
+    const initSimplyConnect = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        // Ensure amount is a proper positive number
+        const numericAmount = parseFloat(amount);
+        if (isNaN(numericAmount) || numericAmount <= 0) {
+          throw new Error(`Invalid amount: ${amount}. Amount must be a positive number.`);
+        }
+        
+        // Ensure currency is properly formatted (3 characters)
+        const formattedCurrency = currency && typeof currency === 'string' 
+          ? currency.substring(0, 3).toUpperCase() 
+          : 'USD';
+        
+        // Prepare billing address and additional required user details
+        const billingDetails = {
+          country: 'CA', // Required - use country code
+          email: user?.email || 'test@example.com',
+          firstName: user?.firstName || 'Test',
+          lastName: user?.lastName || 'User',
+          phone: user?.phoneNo || '+1234567890',
+          ...(user?.address && {
+            city: user?.address.city || 'Test City',
+            address: user?.address.street || '123 Test Street',
+            state: user?.address.state || 'ON',
+            zip: user?.address.postalCode || 'K1A 0A6'
+          })
+        };
 
-      // The Simply Connect SDK URL differs between prod and sandbox
-      // For production, use the secure.nuvei.com domain
-      // For development, we'll handle the domain resolution issue gracefully
-      if (process.env.NODE_ENV === 'production') {
-        const script = document.createElement('script');
-        script.src = 'https://secure.nuvei.com/ppro/checkout/version/1.0/client-1.0.js';
-        script.async = true;
+        // Step 1: Create an order to get session token
+        const response = await apiClient.post('/nuvei-payments/open-order', {
+          userTokenId: user?._id || `user_${Date.now()}`, // Use actual user ID or generate one
+          clientUniqueId: `order_${contractId}_${Date.now()}`, // More specific unique ID
+          clientRequestId: `req_${contractId}_${Date.now()}`, // More specific request ID
+          currency: formattedCurrency,
+          amount: numericAmount, // Ensure it's a proper numeric value
+          contractId: contractId, // Link to the contract
+          additionalParams: {
+            // Add required billing address details
+            billingAddress: billingDetails,
+            // Add user details
+            firstName: user?.firstName || 'Test',
+            lastName: user?.lastName || 'User',
+            email: user?.email || 'test@example.com',
+            phone: user?.phoneNo || '+1234567890',
+            // Add any other parameters needed for your use case
+          }
+        });
+
+        const { orderId, sessionToken: token } = response.data.data;
         
-        script.onload = () => {
-          console.log('Nuvei Simply Connect SDK loaded successfully');
-          setSdkLoaded(true);
-        };
-        
-        script.onerror = (err) => {
-          console.error('Failed to load Nuvei Simply Connect SDK:', err);
-          // Even in production, continue with UI-only mode if SDK fails to load
-          setSdkLoaded(true);
-        };
-        
-        document.head.appendChild(script);
-      } else {
-        // In development, since secure.sandbox.nuvei.com doesn't exist,
-        // we'll simulate SDK loading for testing purposes
-        // In a real implementation with proper Nuvei sandbox, this would load the actual SDK
-        console.log('Development: Secure sandbox SDK domain not available, proceeding with UI-only simulation');
-        // Simulate async loading
-        setTimeout(() => {
-          setSdkLoaded(true);
-        }, 500);
+        if (!token) {
+          throw new Error('Failed to get session token from Nuvei');
+        }
+
+        // Get merchant credentials from environment/config
+        setSessionToken(token);
+        // Using constants from .env files (VITE_ prefixed for Vite)
+        setMerchantId(import.meta.env.VITE_NUVEI_MERCHANT_ID || '1532752543015516036');
+        setMerchantSiteId(import.meta.env.VITE_NUVEI_MERCHANT_SITE_ID || '1248117');
+
+        setLoading(false);
+      } catch (err) {
+        console.error('Error initializing Nuvei Simply Connect:', err);
+        setError(err.response?.data?.message || err.message || 'Failed to initialize payment');
+        setLoading(false);
+        if (onError) {
+          onError(err);
+        }
       }
     };
 
-    loadSdk();
-  }, []);
+    initSimplyConnect();
+  }, [contractId, amount, currency, onError]);
 
-  // Initialize payment session with backend when SDK is loaded
-  const initializePayment = async () => {
-    if (loading || !sdkLoaded) return;
-    
-    setLoading(true);
-    setError(null);
-    setCheckoutInitialized(false); // Reset checkout initialization when re-initializing
-
-    try {
-      // Validate inputs
-      if (!contract || (!contract.id && !contract._id)) {
-        throw new Error('Contract information is required');
-      }
-      
-      const contractId = contract.id || contract._id;
-      const paymentAmount = parseFloat(amount);
-      
-      if (isNaN(paymentAmount) || paymentAmount <= 0) {
-        throw new Error('Valid payment amount is required');
-      }
-
-      // Request Simply Connect session from backend
-      const response = await apiClient.post('/payments/nuvei/create-simply-connect-session', {
-        contractId,
-        amount: paymentAmount,
-        currency: 'CAD' // Canadian Dollar for Canadian market
-      });
-
-      if (!response.data || !response.data.data) {
-        throw new Error('Invalid response from payment server');
-      }
-
-      const { sessionId, merchantId, merchantSiteId, checkoutParams, apmSupport } = response.data.data;
-
-      if (!sessionId) {
-        throw new Error('Failed to create payment session');
-      }
-
-      setSessionToken(sessionId);
-      // Store merchant information, checkout parameters, and APM support for checkout initialization
-      sessionStorage.setItem('nuveiMerchantInfo', JSON.stringify({
-        merchantId,
-        merchantSiteId,
-        checkoutParams,
-        apmSupport
-      }));
-
-    } catch (err) {
-      console.error('Failed to initialize Nuvei Simply Connect payment:', err);
-      let errorMessage = 'Failed to initialize payment';
-      
-      if (err.response) {
-        // Server responded with error
-        errorMessage = err.response.data?.message || 
-                      err.response.data?.error || 
-                      `Server error: ${err.response.status}`;
-      } else if (err.request) {
-        // Request made but no response
-        errorMessage = 'Network error: Unable to connect to payment server';
-      } else {
-        // Something else happened
-        errorMessage = err.message || 'Unknown error occurred';
-      }
-      
-      setError(errorMessage);
-      onPaymentError?.(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Reset checkout initialization when payment method changes in production
+  // Initialize checkout when we have the session token
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production' && window.checkout && checkoutInitialized) {
-      // In production, when payment method changes, we need to reinitialize the checkout
-      // For now, we'll just reset the initialized flag to trigger reinitialization
-      setCheckoutInitialized(false);
+    if (sessionToken && !initialized) {
+      // Wait for the DOM to be fully rendered and element to be in the document
+      const checkElement = () => {
+        const element = document.getElementById('nuvei-checkout-container');
+        if (element) {
+          initializeCheckout();
+        } else {
+          // Check again in a moment
+          setTimeout(checkElement, 100);
+        }
+      };
+      
+      // Start the wait after the current execution stack
+      setTimeout(checkElement, 100);
     }
-  }, [selectedPaymentMethod, checkoutInitialized]);
+  }, [sessionToken, initialized]);
 
-  const handlePaymentSuccess = (result) => {
+  const initializeCheckout = () => {
+    // Load the Nuvei checkout script if not already loaded
+    if (!window.checkout) {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.safecharge.com/safecharge_resources/v1/checkout/checkout.js';
+      script.async = true;
+      script.onload = () => {
+        // Added a small delay to ensure the library is fully loaded before using it
+        setTimeout(() => {
+          if (window.checkout && typeof window.checkout === 'function') {
+            setupCheckout();
+          } else {
+            console.error('Nuvei checkout function is not available after script load');
+            setError('Payment system failed to initialize');
+            if (onError) onError(new Error('Payment system failed to initialize'));
+          }
+        }, 200); // Small delay to allow complete initialization
+      };
+      script.onerror = () => {
+        setError('Failed to load Nuvei checkout library');
+        if (onError) onError(new Error('Failed to load Nuvei checkout library'));
+      };
+      document.head.appendChild(script);
+    } else {
+      setupCheckout();
+    }
+  };
+
+  const setupCheckout = () => {
     try {
-      // Confirm the payment with our backend using the transaction ID
-      apiClient.post('/payments/nuvei/confirm-simply-connect-payment', {
-        contractId: contract._id || contract.id,
-        transactionId: result.transactionId,
-        paymentResult: result
-      })
-      .then(response => {
-        console.log('Payment confirmed with backend', response.data);
-        onPaymentSuccess && onPaymentSuccess(result);
-      })
-      .catch(err => {
-        console.error('Error confirming payment with backend:', err);
-        onPaymentError && onPaymentError(err);
-      });
-    } catch (err) {
-      console.error('Error in payment success handling:', err);
-      onPaymentError && onPaymentError(err);
-    }
-  };
-
-  const handlePaymentError = (result) => {
-    console.error('Simply Connect payment error:', result);
-    const error = result.errorDescription || result.result || 'Payment failed';
-    onPaymentError && onPaymentError(new Error(error));
-  };
-
-  // Initialize Simply Connect checkout when SDK is loaded and we have a session token
-  useEffect(() => {
-    if (sdkLoaded && sessionToken && checkoutContainerRef.current) {
-      // If checkout is already initialized, we need to reinitialize when payment method changes
-      if (checkoutInitialized) {
-        // In production, when payment method changes, we need to reinitialize the checkout
-        if (process.env.NODE_ENV === 'production' && window.checkout) {
-          // Reset the initialized flag to trigger reinitialization with new payment method
-          setCheckoutInitialized(false);
-          return;
-        }
-        // In development, we've already initialized the simulated checkout
-        // The simulated checkout handles payment method changes internally
-        return;
-      }
-      
-      // Initialize checkout if not already initialized
-      // In development, since the SDK doesn't load, we'll simulate the checkout behavior
-      if (process.env.NODE_ENV !== 'production' && !window.checkout) {
-        console.log('Development: Simulating Simply Connect checkout behavior');
-        // Show a simulated payment form for development/testing
-        if (checkoutContainerRef.current) {
-          checkoutContainerRef.current.innerHTML = `
-            <div style="padding: 20px; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-              <h3>Simply Connect Payment Simulation</h3>
-              <div style="display: flex; gap: 15px; margin-bottom: 20px;">
-                <div id="card-option" style="flex: 1; border: 2px solid #007bff; border-radius: 8px; padding: 15px; cursor: pointer; background: #e7f3ff; transition: all 0.3s;">
-                  <strong>Credit/Debit Card</strong>
-                  <p>Pay with your card</p>
-                </div>
-                <div id="instadebit-option" style="flex: 1; border: 1px solid #ccc; border-radius: 8px; padding: 15px; cursor: pointer; background: #f9f9f9; transition: all 0.3s;">
-                  <strong>InstaDebit</strong>
-                  <p>Pay from your Canadian bank account</p>
-                </div>
-              </div>
-              
-              <div id="card-form" style="border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin: 10px 0;">
-                <h4>Card Details</h4>
-                <div style="margin-bottom: 10px;">
-                  <label style="display: block; margin-bottom: 5px;">Name on Card</label>
-                  <input type="text" placeholder="John Smith" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;">
-                </div>
-                <div style="margin-bottom: 10px;">
-                  <label style="display: block; margin-bottom: 5px;">Card Number</label>
-                  <input type="text" placeholder="1234 5678 9012 3456" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;">
-                </div>
-                <div style="display: flex; gap: 10px;">
-                  <div style="flex: 1;">
-                    <label style="display: block; margin-bottom: 5px;">Expiry Date</label>
-                    <input type="text" placeholder="MM/YY" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;">
-                  </div>
-                  <div style="flex: 1;">
-                    <label style="display: block; margin-bottom: 5px;">CVV</label>
-                    <input type="text" placeholder="123" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;">
-                  </div>
-                </div>
-              </div>
-              
-              <div id="instadebit-form" style="border: 1px solid #ccc; border-radius: 8px; padding: 20px; margin: 10px 0; display: none;">
-                <h4>Bank Account Details</h4>
-                <p>Securely connect to your Canadian bank account through InstaDebit</p>
-                <div style="margin-top: 15px; padding: 15px; background: #f0f8ff; border-radius: 4px; border: 1px solid #b3d9ff;">
-                  <p style="margin: 0; font-size: 0.9em; color: #555;">
-                    <strong>🔒 Secure Banking:</strong> You will be redirected to your bank's secure portal to authenticate.
-                  </p>
-                </div>
-              </div>
-              
-              <button id="simulate-pay-btn" style="width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 4px; font-size: 16px; margin-top: 20px; cursor: pointer;">
-                Pay $${amount ? amount.toFixed(2) : '0.00'} CAD via ${selectedPaymentMethod === 'card' ? 'Card' : 'InstaDebit'}
-              </button>
-            </div>
-            
-            <div style="background: #e7f3ff; border: 1px solid #b3d9ff; border-radius: 4px; padding: 15px; margin-top: 15px;">
-              <strong>🔒 Secure Payment</strong>
-              <p>Your payment is processed securely by Nuvei. This is a simulation for development purposes.</p>
-            </div>
-          `;
-          
-          // Add event listeners for payment method selection
-          setTimeout(() => {
-            const cardOption = document.getElementById('card-option');
-            const instadebitOption = document.getElementById('instadebit-option');
-            const cardForm = document.getElementById('card-form');
-            const instadebitForm = document.getElementById('instadebit-form');
-            const simulateBtn = document.getElementById('simulate-pay-btn');
-            
-            if (cardOption && instadebitOption) {
-              // Set initial selection based on selectedPaymentMethod
-              if (selectedPaymentMethod === 'instadebit') {
-                cardOption.style.borderColor = '#ccc';
-                cardOption.style.background = '#f9f9f9';
-                instadebitOption.style.borderColor = '#007bff';
-                instadebitOption.style.background = '#e7f3ff';
-                cardForm.style.display = 'none';
-                instadebitForm.style.display = 'block';
-              } else {
-                cardOption.style.borderColor = '#007bff';
-                cardOption.style.background = '#e7f3ff';
-                instadebitOption.style.borderColor = '#ccc';
-                instadebitOption.style.background = '#f9f9f9';
-                cardForm.style.display = 'block';
-                instadebitForm.style.display = 'none';
-              }
-              
-              // Card selection
-              cardOption.addEventListener('click', () => {
-                setSelectedPaymentMethod('card');
-              });
-              
-              // InstaDebit selection
-              instadebitOption.addEventListener('click', () => {
-                setSelectedPaymentMethod('instadebit');
-              });
-              
-              // Update simulate button text on payment method change
-              if (simulateBtn) {
-                simulateBtn.addEventListener('click', () => {
-                  console.log('Simulated payment processed with method:', selectedPaymentMethod);
-                  // Simulate successful payment
-                  handlePaymentSuccess({
-                    result: 'APPROVED',
-                    transactionStatus: 'APPROVED',
-                    transactionId: 'sim_' + Date.now(),
-                    amount: amount,
-                    currency: 'CAD',
-                    paymentMethod: selectedPaymentMethod,
-                    paymentResult: selectedPaymentMethod
-                  });
-                });
-              }
-            }
-          }, 100);
-        }
-        setCheckoutInitialized(true);
-        return;
-      }
-      
-      // For production or when SDK is actually loaded
-      if (!window.checkout) {
-        console.log('Checkout SDK not available');
+      // Ensure the element exists before creating the configuration
+      if (!checkoutContainerRef.current) {
+        console.error('Checkout container element not available when setupCheckout was called');
+        setError('Unable to initialize payment form. Element not ready.');
+        if (onError) onError(new Error('Checkout container element not ready.'));
         return;
       }
 
-      // Get user email from context or use a default
-      const userEmail = localStorage.getItem('userEmail') || 'customer@example.com';
-      const userFullName = localStorage.getItem('userFullName') || 'Customer Name';
-      const userId = localStorage.getItem('userId') || '';
-
-      // Get merchant information and checkout parameters from session storage
-      const merchantInfo = JSON.parse(sessionStorage.getItem('nuveiMerchantInfo') || '{}');
-      const checkoutParams = merchantInfo.checkoutParams || {};
-      
-      // Initialize the Simply Connect checkout with proper configuration
-      window.checkout({
-        sessionToken: sessionToken,
-        merchantId: merchantInfo.merchantId || process.env.VITE_NUVEI_MERCHANT_ID,
-        merchantSiteId: merchantInfo.merchantSiteId || process.env.VITE_NUVEI_MERCHANT_SITE_ID,
-        env: process.env.NODE_ENV === 'production' ? 'prod' : 'int', // production or integration environment
-        country: checkoutParams.country || 'CA', // Canada as the primary market (essential for InstaDebit availability)
-        locale: checkoutParams.locale || 'en', // English language
-        currency: checkoutParams.currency || 'CAD', // Canadian Dollar as the primary currency (essential for InstaDebit availability)
-        amount: checkoutParams.amount || amount,
-        fullName: checkoutParams.customerFullName || userFullName,
-        email: checkoutParams.customerEmail || userEmail,
-        userId: userId, // User ID if available
-        billingAddress: checkoutParams.billingAddress || {
-          email: checkoutParams.customerEmail || userEmail,
-          country: checkoutParams.country || 'CA' // Essential for InstaDebit to be offered
-        },
-        // Additional fields from documentation
-        clientRequestId: checkoutParams.clientRequestId,
-        orderId: checkoutParams.orderId,
-        
-        // UI Customization for Canadian market
-        cardLogo: {
-          cardLogoPosition: 'right',
-          backgroundSize: '30px 40px'
-        },
-        showCardLogos: true, // Show card scheme logos
-        
-        // APM (Alternative Payment Method) Configuration for InstaDebit
-        // InstaDebit is a Canada-specific payment method that requires special handling
-        apmWindowType: 'newTab', // InstaDebit requires redirect to banking portal, newTab provides better UX
-        autoOpenPM: true, // Always show APM section expanded for better visibility
-        
-        // Enable decline recovery - allows users to try alternative payment methods on decline
-        disableDeclineRecovery: false, // Enable decline recovery feature
-        
-        // Additional payment customizations
-        promoCode: false, // Don't show promotional code field by default
-        useDCC: "disable", // Disable Dynamic Currency Conversion for CAD
-        
-        // Card processing customizations
-        alwaysCollectCvv: true, // Always collect CVV for stored cards
-        maskCvv: false, // Don't mask CVV input
-        
-        // APM-specific configuration for InstaDebit and other payment methods
-        apmConfig: {
-          apmgw_InstaDebit: {
-            savePM: "true", // Allow users to save their InstaDebit payment method for future use
-            // InstaDebit-specific fields can be added here when identified
-          },
-          // Configuration for credit cards
-          cc_card: {
-            savePM: "true" // Allow users to save credit card details
-          }
-        },
-        
-        // Text and translation customization for Canadian users including InstaDebit
-        i18n: {
-          // Customize UI labels for Canadian users
-          cc_name_on_card: 'Name on Card',
-          cc_card_number: 'Card Number',
-          cvv: 'CVV/CVC',
-          mm_yy: 'MM/YY',
-          expiry_date: 'Expiry Date',
-          pay: 'Pay Now',
-          cancel: 'Cancel',
-          my_methods: 'My Payment Methods',
-          other_methods: 'Select Payment Method',
-          success: 'Payment Successful',
-          success_text: 'Your payment has been processed successfully.',
-          // Canadian-specific personal ID fields (if needed)
-          personal_id: 'Personal ID',
-          // InstaDebit-specific labels
-          apmgw_InstaDebit: 'InstaDebit (Online Banking)',
-          instadebit_description: 'Pay directly from your Canadian bank account using online banking',
-          instadebit_secure_note: 'Your banking credentials are never shared with Gygg. You\'ll be redirected to your bank\'s secure portal.'
-        },
-        // Error message customization for Canadian users including InstaDebit
-        error_i18n: {
-          decline: 'Your payment was declined. Please try another payment method.',
-          timeoutretry: 'Payment timed out. Please try again.',
-          donohonour: 'Transaction not approved. Please contact your bank.',
-          insufficient_funds: 'Insufficient funds. Please check your account balance.',
-          // InstaDebit-specific error messages
-          instadebit_declined: 'InstaDebit payment was declined. Please verify your online banking credentials and try again.',
-          instadebit_timeout: 'InstaDebit payment timed out. Please check your bank\'s online portal for transaction status.',
-          instadebit_authentication_failed: 'InstaDebit authentication failed. Please ensure you have the correct online banking credentials.'
-        },
-        // Response message handling
-        showResponseMessage: true, // Show Nuvei's default response messages
-        // Pay button customization
-        payButton: 'amountButton', // Show amount on the pay button
-        // Styling
-        styles: {
-          // Customize the look and feel for Canadian market
-          '.sc-input': {
-            'border-color': '#ced4da',
-            'border-radius': '4px',
-            'font-family': "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
-          },
-          '.sc-button': {
-            'background-color': '#007bff',
-            'border-radius': '4px',
-            'font-weight': 'bold'
-          },
-          '.sc-button:hover': {
-            'background-color': '#0056b3'
-          }
-        },
+      const checkoutConfig = {
+        env: 'int',
         renderTo: '#nuvei-checkout-container',
-        onResult: function(result) {
-          console.log("Simply Connect Result", result);
-          if (result && (result.result === 'APPROVED' || result.transactionStatus === 'APPROVED')) {
+        sessionToken: sessionToken,
+        merchantSiteId: merchantSiteId,
+        merchantId: merchantId,
+        currency: currency,
+        amount: amount,
+        locale: 'en',
+        country: 'CA',
+        fullName: user?.firstName + ' ' + user?.lastName || 'Test User',
+        email: user?.email || 'test@example.com',
+
+        billingAddress: {
+          email: user?.email || 'test@example.com',
+          country: 'CA',
+        },
+
+        onResult: (result) => {
+          if (process.env.NODE_ENV === 'development') {
+            console.log('Nuvei checkout result:', result);
+          }
+          
+          if (result && (result.result === 'APPROVED' || result.status === 'success')) {
+            // Process successful payment
             handlePaymentSuccess(result);
           } else {
-            handlePaymentError(result);
+            // Handle failed payment - provide more details
+            const errorMessage = result?.error?.message || result?.reason || 'Payment failed';
+            console.error('Nuvei checkout error:', errorMessage, result);
+            const error = new Error(`Nuvei payment failed: ${errorMessage}`);
+            if (onError) onError(error);
+          }
+        },
+
+        // Optional UI settings
+        payButton: "amountButton",
+        showResponseMessage: true,
+        autoOpenPM: false, // Changed to false to avoid automatic payment method opening issues
+        alwaysCollectCvv: false,
+        logLevel: 0,
+        // Restrict payment methods to avoid issues with unsupported methods like Interac
+        allowedPaymentMethods: ["card"],
+        defaultPaymentMethod: "card",
+
+        fieldStyle: {
+          "base": {
+            "iconColor": "#c4f0ff",
+            "color": "#6b778c",
+            "fontWeight": 400,
+            "fontFamily": "Nunito Sans",
+            "fontSize": "18px",
+            "fontSmoothing": "antialiased",
+            ":-webkit-autofill": {
+              "color": "#ffffff"
+            },
+            "::placeholder": {
+              "color": "#6b778c"
+            }
+          },
+          "invalid": {
+            "iconColor": "#FFC7EE",
+            "color": "#FFC7EE"
           }
         }
-      });
-      
-      setCheckoutInitialized(true);
-    }
-  }, [sdkLoaded, sessionToken, selectedPaymentMethod, checkoutInitialized]);
+      };
 
-  // Add a useEffect to handle payment method changes in development simulation
-  useEffect(() => {
-    if (process.env.NODE_ENV !== 'production' && !window.checkout && checkoutInitialized) {
-      // In development simulation, update the displayed payment method when it changes
-      const simulateBtn = document.getElementById('simulate-pay-btn');
-      if (simulateBtn) {
-        simulateBtn.textContent = `Pay $${amount ? amount.toFixed(2) : '0.00'} CAD via ${selectedPaymentMethod === 'card' ? 'Card' : 'InstaDebit'}`;
-      }
-      
-      // Update form visibility based on selected payment method
-      const cardForm = document.getElementById('card-form');
-      const instadebitForm = document.getElementById('instadebit-form');
-      const cardOption = document.getElementById('card-option');
-      const instadebitOption = document.getElementById('instadebit-option');
-      
-      if (cardForm && instadebitForm && cardOption && instadebitOption) {
-        if (selectedPaymentMethod === 'instadebit') {
-          cardForm.style.display = 'none';
-          instadebitForm.style.display = 'block';
-          cardOption.style.borderColor = '#ccc';
-          cardOption.style.background = '#f9f9f9';
-          instadebitOption.style.borderColor = '#007bff';
-          instadebitOption.style.background = '#e7f3ff';
-        } else {
-          cardForm.style.display = 'block';
-          instadebitForm.style.display = 'none';
-          cardOption.style.borderColor = '#007bff';
-          cardOption.style.background = '#e7f3ff';
-          instadebitOption.style.borderColor = '#ccc';
-          instadebitOption.style.background = '#f9f9f9';
-        }
-      }
-    }
-  }, [selectedPaymentMethod, checkoutInitialized, amount]);
-
-  // If we have a session token and SDK is loaded, show the Simply Connect form
-  if (sdkLoaded && sessionToken) {
-    return (
-      <div className={styles.paymentContainer}>
-        <div className={styles.paymentMethods}>
-          <h3>Pay with Nuvei Simply Connect</h3>
-          <p>Secure payment processing powered by Nuvei</p>
+      // Small delay to ensure DOM element is fully ready and library is properly initialized
+      setTimeout(() => {
+        try {
+          // Double-check that window.checkout exists before calling it
+          if (typeof window.checkout !== 'function') {
+            console.error('Nuvei checkout function is not available or not a function');
+            setError('Payment system unavailable');
+            if (onError) onError(new Error('Payment system unavailable'));
+            return;
+          }
           
-          {error && (
-            <div className={styles.error}>
-              {error}
-            </div>
-          )}
+          window.checkout(checkoutConfig);
+          setInitialized(true);
+        } catch (err) {
+          console.error('Error initializing Nuvei checkout:', err);
+          console.error('Error details:', err.message, err.stack);
+          setError('Error initializing payment form');
+          if (onError) onError(err);
+        }
+      }, 150); // Increased delay to allow library to fully initialize
+    } catch (err) {
+      console.error('Error setting up Nuvei checkout:', err);
+      setError('Error setting up payment form');
+      if (onError) onError(err);
+    }
+  };
 
-          {/* Payment method selection for production environment */}
-          {process.env.NODE_ENV === 'production' && window.checkout && (
-            <div className={styles.paymentMethodSelector}>
-              <div className={styles.paymentMethodOptions}>
-                <button
-                  className={`${styles.paymentMethodOption} ${selectedPaymentMethod === 'card' ? styles.active : ''}`}
-                  onClick={() => {
-                    setSelectedPaymentMethod('card');
-                    setCheckoutInitialized(false); // Reset to reinitialize with new payment method
-                  }}
-                >
-                  <span className={styles.methodIcon}>💳</span>
-                  <span className={styles.methodText}>Credit/Debit Card</span>
-                </button>
-                <button
-                  className={`${styles.paymentMethodOption} ${selectedPaymentMethod === 'instadebit' ? styles.active : ''}`}
-                  onClick={() => {
-                    setSelectedPaymentMethod('instadebit');
-                    setCheckoutInitialized(false); // Reset to reinitialize with new payment method
-                  }}
-                >
-                  <span className={styles.methodIcon}>🏦</span>
-                  <span className={styles.methodText}>InstaDebit (Bank)</span>
-                </button>
-              </div>
-            </div>
-          )}
+  const handlePaymentSuccess = async (result) => {
+    try {
+      // Confirm the payment with the backend
+      await apiClient.post('/nuvei-payments/confirm-simply-connect-payment', {
+        sessionToken: sessionToken,
+        contractId: contractId,
+        paymentResult: result,
+        amount: amount,
+        currency: currency
+      });
 
-          <div id="nuvei-checkout-container" ref={checkoutContainerRef} style={{ width: '100%', minHeight: '500px', border: '1px solid #d3d3d3', borderRadius: '4px' }}>
-            <div style={{ padding: '20px', textAlign: 'center' }}>
-              <p>Loading payment form...</p>
-            </div>
-          </div>
+      if (onSuccess) {
+        onSuccess(result);
+      }
+      if (onComplete) {
+        onComplete();
+      }
+    } catch (err) {
+      console.error('Error confirming Nuvei payment:', err);
+      setError('Payment successful but failed to confirm with server');
+      if (onError) onError(err);
+    }
+  };
 
-          <div className={styles.securityNote}>
-            <span className={styles.lockIcon}>🔒</span>
-            <span>Your payment information is processed securely by Nuvei and never stored on our servers.</span>
-          </div>
-        </div>
+  if (loading) {
+    return (
+      <div className={styles.loadingContainer}>
+        <div className={styles.spinner}></div>
+        <p>Initializing Nuvei payment system...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={styles.errorContainer}>
+        <div className={styles.errorIcon}>⚠️</div>
+        <p className={styles.errorMessage}>{error}</p>
+        <button 
+          className={styles.retryButton}
+          onClick={() => window.location.reload()}
+        >
+          Retry
+        </button>
       </div>
     );
   }
 
   return (
-    <div className={styles.paymentContainer}>
-      <div className={styles.paymentMethods}>
-        <h3>Pay with Nuvei Simply Connect</h3>
-        <p>Secure payment processing powered by Nuvei</p>
-        
-        {error && (
-          <div className={styles.error}>
-            {error}
-          </div>
-        )}
-
-        {!sdkLoaded ? (
-          <div className={styles.loading}>
-            <div className={styles.spinner}></div>
-            <p>Loading secure payment system...</p>
-          </div>
-        ) : (
-          <button
-            className={styles.payButton}
-            onClick={initializePayment}
-            disabled={loading}
-          >
-            {loading ? (
-              <>
-                <div className={styles.buttonSpinner}></div>
-                Initializing Payment (CAD) - Cards & InstaDebit...
-              </>
-            ) : (
-              `Pay $${amount.toFixed(2)} CAD via Cards or InstaDebit`
-            )}
-          </button>
-        )}
-
-        <div className={styles.paymentInfo}>
-          <p>Enter your payment details securely in the form above (CAD).</p>
-          <p>Supported payment methods: Credit/Debit Cards, InstaDebit (CAD) - Canada only</p>
-          <p className={styles.note}>ℹ️ InstaDebit requires online banking access and will redirect you to your bank's secure portal.</p>
-        </div>
-
-        <div className={styles.securityNote}>
-          <span className={styles.lockIcon}>🔒</span>
-          <span>Your payment information is processed securely by Nuvei and never stored on our servers. InstaDebit payments are processed through your bank's secure online banking portal.</span>
+    <div className={styles.container}>
+      <div className={styles.paymentHeader}>
+        <h3>Pay with Nuvei</h3>
+        <p className={styles.paymentAmount}>Amount: {currency} {amount}</p>
+      </div>
+      
+      <div id="nuvei-checkout-container" className={styles.checkoutContainer} ref={checkoutContainerRef}>
+        {/* Nuvei checkout will be rendered here */}
+      </div>
+      
+      <div className={styles.paymentFooter}>
+        <p>Secure payment powered by Nuvei</p>
+        <div className={styles.paymentMethods}>
+          <span>💳 Cards</span>
+          <span>🏦 InstaDebit</span>
+          <span>🌐 Other methods</span>
         </div>
       </div>
     </div>

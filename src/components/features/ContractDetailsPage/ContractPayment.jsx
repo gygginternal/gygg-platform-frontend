@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ContractPayment.module.css';
 import CheckoutForm from '../../common/CheckoutForm';
-import NuveiPaymentForm from '../Shared/NuveiPaymentForm';
+import NuveiPaymentForm from './NuveiPaymentForm';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import apiClient from '@api/axiosConfig';

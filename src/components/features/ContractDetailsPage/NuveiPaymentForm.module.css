@@ -1,0 +1,73 @@
+.container {
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 24px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.container h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #333;
+  font-size: 18px;
+}
+
+.error {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  border-left: 4px solid #ef5350;
+}
+
+.payButton {
+  width: 100%;
+  padding: 14px;
+  background-color: #493daa;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.payButton:hover:not(:disabled) {
+  background-color: #382f7e;
+}
+
+.payButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.paymentMethods {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.paymentMethods p {
+  margin-bottom: 8px;
+  color: #666;
+}
+
+.methodTags {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.methodTag {
+  background-color: #e8f4ff;
+  color: #1976d2;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}

@@ -15,32 +15,32 @@ import { decodeHTMLEntities } from '@utils/htmlEntityDecoder';
 export default function ContractCard({ contract, onClick }) {
   // Define status configuration for styling
   const statusConfig = {
-    submitted: {
+    'Submitted': {
       color: '#ff9800',
       bgColor: '#fff3e0',
       icon: Clock,
     },
-    approved: {
+    'Approved': {
       color: '#4caf50',
       bgColor: '#e8f5e8',
       icon: CheckCircle,
     },
-    completed: {
+    'Completed': {
       color: '#2196f3',
       bgColor: '#e3f2fd',
       icon: CheckCircle,
     },
-    cancelled: {
+    'Cancelled': {
       color: '#f44336',
       bgColor: '#ffebee',
       icon: AlertCircle,
     },
-    pending_payment: {
+    'Pending Payment': {
       color: '#9c27b0',
       bgColor: '#f3e5f5',
       icon: ClockIcon,
     },
-    active: {
+    'Active': {
       color: '#4caf50',
       bgColor: '#e8f5e8',
       icon: User,
@@ -48,7 +48,7 @@ export default function ContractCard({ contract, onClick }) {
   };
 
   // Get status configuration or use default
-  const status = contract.status?.toLowerCase() || 'active';
+  const status = contract.status || 'Active';
   const config = statusConfig[status] || {
     color: '#9e9e9e',
     bgColor: '#f5f5f5',

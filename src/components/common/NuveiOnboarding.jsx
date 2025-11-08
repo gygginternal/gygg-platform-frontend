@@ -1,4 +1,4 @@
-// src/components/common/NuveiOnboarding.jsx
+// src/components/NuveiOnboarding.jsx
 import { useState, useEffect } from 'react';
 import apiClient from '../../api/axiosConfig';
 import styles from './NuveiOnboarding.module.css';
@@ -10,143 +10,106 @@ export function NuveiOnboarding() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [accountStatus, setAccountStatus] = useState(null);
-  const [showOnboarding, setShowOnboarding] = useState(false);
-  const [onboardingUrl, setOnboardingUrl] = useState('');
+  const [bankDetails, setBankDetails] = useState({
+    accountNumber: '',
+    routingNumber: '',
+    accountHolderName: '',
+    bankName: '',
+  });
 
   // Determine user role for appropriate messaging
   const isProvider = user?.role?.includes('provider');
   const isTasker = user?.role?.includes('tasker');
 
-  // Fetch Nuvei account status
+  // Fetch account status
   const fetchAccountStatus = async () => {
     try {
-      const response = await apiClient.get('/payments/nuvei/onboarding-status');
-      const accountData = response.data.data || response.data;
-      setAccountStatus(accountData);
+      setLoading(true);
+      const response = await apiClient.get('/users/me'); // Get user details to check nuvei setup
+      const userData = response.data.data.user;
+      
+      // Check Nuvei-specific details in user profile
+      const hasNuveiDetails = !!(
+        userData.nuveiBankDetails?.accountNumber &&
+        userData.nuveiBankDetails?.routingNumber
+      );
+      
+      setAccountStatus({
+        hasNuveiDetails,
+        bankDetails: userData.nuveiBankDetails || null
+      });
 
-      // If account is fully onboarded, show success state
-      if (accountData && accountData.connected && accountData.bankTransferEnabled) {
+      if (hasNuveiDetails) {
+        setBankDetails(userData.nuveiBankDetails);
         setSuccess(true);
         setError(null);
       } else {
         setSuccess(false);
       }
-
-      return accountData;
     } catch (err) {
-      console.error('Error fetching Nuvei account status:', err);
-      setError(
-        'Failed to fetch account status. Please check your connection and try again.'
-      );
+      console.error('Error fetching account status:', err);
+      setError('Failed to fetch account status. Please try again.');
       setSuccess(false);
-      return null;
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Start Nuvei onboarding process
-  const startNuveiOnboarding = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      // Start Nuvei onboarding
-      console.log('Starting Nuvei onboarding process...');
-      const response = await apiClient.post('/payments/nuvei/start-onboarding');
-      console.log('Nuvei onboarding response:', response.data);
-      const onboardingData = response.data.data || response.data;
-
-      if (onboardingData && onboardingData.onboardingUrl) {
-        console.log('Setting onboarding URL and preparing redirect...');
-        setOnboardingUrl(onboardingData.onboardingUrl);
-        setShowOnboarding(true);
-        
-        // Validate URL before redirecting
-        try {
-          const url = new URL(onboardingData.onboardingUrl);
-          console.log('Valid URL constructed, redirecting to:', url.href);
-          
-          // Give React a moment to render the redirect message before redirecting
-          setTimeout(() => {
-            console.log('Redirecting to Nuvei onboarding:', onboardingData.onboardingUrl);
-            window.location.href = onboardingData.onboardingUrl;
-          }, 100);
-        } catch (urlError) {
-          console.error('Invalid onboarding URL:', onboardingData.onboardingUrl, urlError);
-          throw new Error('Invalid onboarding URL received from server');
-        }
-      } else {
-        console.error('No onboarding URL in response:', onboardingData);
-        throw new Error('Failed to get onboarding URL from server');
-      }
-
-      setLoading(false);
-    } catch (err) {
-      console.error('Nuvei onboarding error:', err);
-      const errorMessage =
-        err.response?.data?.message ||
-        err.message ||
-        'Failed to start Nuvei onboarding. Please try again.';
-      setError(`Onboarding Error: ${errorMessage}`);
-      setLoading(false);
-      setShowOnboarding(false);
-    }
+  // Handle form input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setBankDetails(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
-  // Handle onboarding exit/completion
-  const handleOnboardingExit = async () => {
-    console.log('User exited Nuvei onboarding flow');
-
-    // Reset the onboarding state
-    setShowOnboarding(false);
-    setOnboardingUrl('');
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setLoading(true);
+    setError(null);
 
-    // Check if onboarding is complete
-    const status = await fetchAccountStatus();
-    setLoading(false);
+    try {
+      // Save Nuvei bank details to user profile
+      await apiClient.patch('/users/me', {
+        nuveiBankDetails: bankDetails
+      });
 
-    if (status && status.connected && status.bankTransferEnabled) {
       setSuccess(true);
       setError(null);
-    } else if (status && status.connected) {
+      // Refresh status
+      await fetchAccountStatus();
+    } catch (err) {
+      console.error('Error saving Nuvei details:', err);
       setError(
-        'Your account setup is in progress. Nuvei is reviewing your information. This may take a few minutes to complete.'
+        err.response?.data?.message ||
+        err.message ||
+        'Failed to save bank details. Please try again.'
       );
-    } else {
-      setError(
-        'Onboarding was not completed. You can continue the setup process anytime by clicking the button below.'
-      );
+    } finally {
+      setLoading(false);
     }
   };
 
   // Refresh status
   const refreshStatus = async () => {
-    setLoading(true);
-    setError(null);
     await fetchAccountStatus();
-    setLoading(false);
   };
 
-  // Retry onboarding
-  const retryOnboarding = () => {
-    setError(null);
-    setSuccess(false);
-    startNuveiOnboarding();
-  };
-
-  // Cleanup
+  // Load initial status
   useEffect(() => {
     fetchAccountStatus();
   }, []);
 
-  // Loading state component
-  if (loading && !showOnboarding && !accountStatus) {
+  // Loading state
+  if (loading && !accountStatus) {
     return (
       <div className={styles.container}>
         <div className={styles.onboardingCard}>
           <div className={styles.loading}>
             <div className={styles.spinner}></div>
-            <p>Loading your Nuvei payment information...</p>
+            <p>Loading payment setup information...</p>
           </div>
         </div>
       </div>
@@ -158,13 +121,13 @@ export function NuveiOnboarding() {
       <div className={styles.container}>
         <div className={styles.success}>
           <span className={styles.checkmark}>✓</span>
-          <h3>Nuvei Onboarding Completed Successfully!</h3>
+          <h3>Nuvei Setup Completed!</h3>
           <p>
-            {isProvider
-              ? 'Your Nuvei account is now fully set up. You can make payments to taskers easily on the platform for their services using InstaDebit and bank transfers.'
-              : isTasker
-                ? 'Your Nuvei account is now fully set up and ready to receive payments. You can accept payments via InstaDebit and direct bank transfers.'
-                : 'Your Nuvei account is now fully set up and ready for payments.'}
+            {isTasker
+              ? 'Your bank details are set up. You can now receive payments via Nuvei.'
+              : isProvider
+                ? 'Your payment method is ready. You can now make payments via Nuvei.'
+                : 'Your Nuvei payment setup is complete.'}
           </p>
           <button
             className={styles.refreshButton}
@@ -175,41 +138,25 @@ export function NuveiOnboarding() {
           </button>
         </div>
 
-        {accountStatus && (
+        {accountStatus?.bankDetails && (
           <div className={styles.statusDetails}>
-            <h4>Account Status</h4>
+            <h4>Bank Details</h4>
             <div className={styles.statusRow}>
-              <span>Connected:</span>
-              <span
-                className={
-                  accountStatus.connected
-                    ? styles.statusYes
-                    : styles.statusNo
-                }
-              >
-                {accountStatus.connected ? 'Yes' : 'No'}
+              <span>Account Holder:</span>
+              <span className={styles.statusValue}>
+                {accountStatus.bankDetails.accountHolderName}
               </span>
             </div>
             <div className={styles.statusRow}>
-              <span>Bank Transfer Enabled:</span>
-              <span
-                className={
-                  accountStatus.bankTransferEnabled
-                    ? styles.statusYes
-                    : styles.statusNo
-                }
-              >
-                {accountStatus.bankTransferEnabled ? 'Yes' : 'No'}
+              <span>Bank Name:</span>
+              <span className={styles.statusValue}>
+                {accountStatus.bankDetails.bankName}
               </span>
             </div>
             <div className={styles.statusRow}>
-              <span>Verification Status:</span>
-              <span className={`${styles.statusValue} ${accountStatus.verificationStatus === 'not_required' ? styles.statusNotRequired : ''}`}>
-                {accountStatus.verificationStatus 
-                  ? accountStatus.verificationStatus === 'not_required' 
-                    ? 'Not Required' 
-                    : accountStatus.verificationStatus 
-                  : 'N/A'}
+              <span>Account Number:</span>
+              <span className={styles.statusValue}>
+                ****{accountStatus.bankDetails.accountNumber.slice(-4)}
               </span>
             </div>
           </div>
@@ -221,54 +168,28 @@ export function NuveiOnboarding() {
   return (
     <div className={styles.container}>
       <div className={styles.onboardingCard}>
-        <h3>
-          {accountStatus
-            ? 'Update Your Nuvei Payment Information'
-            : 'Complete Your Nuvei Payment Setup'}
-        </h3>
+        <h3>Set Up Nuvei Payment Details</h3>
         <p>
-          {isProvider
-            ? 'To make payments to taskers using Canadian bank transfers, please complete your Nuvei account setup.'
-            : isTasker
-              ? 'To receive payments via InstaDebit and direct bank transfers, please complete your Nuvei account verification.'
-              : 'Please complete your Nuvei account setup to enable Canadian payment methods.'}
+          {isTasker
+            ? 'To receive payments via Nuvei, please provide your bank account details.'
+            : isProvider
+              ? 'To make payments via Nuvei, you need to set up your payment details.'
+              : 'Please provide your bank account details for Nuvei payments.'}
         </p>
 
-        {accountStatus && (
+        {accountStatus?.bankDetails && (
           <div className={styles.statusDetails}>
             <h4>Current Status</h4>
             <div className={styles.statusRow}>
-              <span>Connected:</span>
+              <span>Bank Details:</span>
               <span
                 className={
-                  accountStatus.connected
+                  accountStatus.hasNuveiDetails
                     ? styles.statusYes
                     : styles.statusNo
                 }
               >
-                {accountStatus.connected ? 'Yes' : 'No'}
-              </span>
-            </div>
-            <div className={styles.statusRow}>
-              <span>Bank Transfer Enabled:</span>
-              <span
-                className={
-                  accountStatus.bankTransferEnabled
-                    ? styles.statusYes
-                    : styles.statusNo
-                }
-              >
-                {accountStatus.bankTransferEnabled ? 'Yes' : 'No'}
-              </span>
-            </div>
-            <div className={styles.statusRow}>
-              <span>Verification Status:</span>
-              <span className={`${styles.statusValue} ${accountStatus.verificationStatus === 'not_required' ? styles.statusNotRequired : ''}`}>
-                {accountStatus.verificationStatus 
-                  ? accountStatus.verificationStatus === 'not_required' 
-                    ? 'Not Required' 
-                    : accountStatus.verificationStatus 
-                  : 'N/A'}
+                {accountStatus.hasNuveiDetails ? 'Provided' : 'Missing'}
               </span>
             </div>
           </div>
@@ -277,61 +198,68 @@ export function NuveiOnboarding() {
         {error && (
           <div className={styles.error}>
             <p>{error}</p>
-            {error.includes('not completed') && (
-              <button
-                className={styles.retryButton}
-                onClick={retryOnboarding}
-                disabled={loading}
-              >
-                {loading ? 'Loading...' : 'Continue Setup'}
-              </button>
-            )}
-            {error.includes('in progress') && (
-              <button
-                className={styles.refreshButton}
-                onClick={refreshStatus}
-                disabled={loading}
-              >
-                {loading ? 'Checking...' : 'Check Status'}
-              </button>
-            )}
           </div>
         )}
 
-        {!showOnboarding &&
-          // Only show the main button if there's no error with a retry button
-          (!error ||
-          (!error.includes('not completed') &&
-            !error.includes('in progress')) ? (
-            <button
-              className={styles.onboardButton}
-              onClick={startNuveiOnboarding}
-              disabled={loading}
-            >
-              {loading
-                ? 'Processing...'
-                : accountStatus && accountStatus.connected
-                  ? 'Continue Setup'
-                  : accountStatus
-                    ? 'Update Payment Info'
-                    : 'Start Nuvei Onboarding'}
-            </button>
-          ) : null)}
-
-        {showOnboarding && (
-          <div className={styles.onboardingWrapper}>
-            <div className={styles.redirectMessage}>
-              <p>Redirecting to Nuvei onboarding...</p>
-              <p>If you are not redirected automatically, <a href={onboardingUrl} target="_blank" rel="noopener noreferrer">click here</a>.</p>
-            </div>
-            <button
-              className={styles.cancelButton}
-              onClick={handleOnboardingExit}
-            >
-              Cancel
-            </button>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <div className={styles.formGroup}>
+            <label htmlFor="accountHolderName">Account Holder Name</label>
+            <input
+              type="text"
+              id="accountHolderName"
+              name="accountHolderName"
+              value={bankDetails.accountHolderName}
+              onChange={handleInputChange}
+              required
+            />
           </div>
-        )}
+
+          <div className={styles.formGroup}>
+            <label htmlFor="bankName">Bank Name</label>
+            <input
+              type="text"
+              id="bankName"
+              name="bankName"
+              value={bankDetails.bankName}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="accountNumber">Account Number</label>
+            <input
+              type="text"
+              id="accountNumber"
+              name="accountNumber"
+              value={bankDetails.accountNumber}
+              onChange={handleInputChange}
+              placeholder="Enter your bank account number"
+              required
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="routingNumber">Routing Number</label>
+            <input
+              type="text"
+              id="routingNumber"
+              name="routingNumber"
+              value={bankDetails.routingNumber}
+              onChange={handleInputChange}
+              placeholder="Enter routing number"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className={styles.onboardButton}
+            disabled={loading}
+          >
+            {loading ? 'Processing...' : 'Save Bank Details'}
+          </button>
+        </form>
       </div>
     </div>
   );

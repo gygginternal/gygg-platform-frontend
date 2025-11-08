@@ -364,6 +364,44 @@ function ContractsPage() {
     },
   });
 
+  // Mutation for accepting contracts (tasker)
+  const acceptMutation = useMutation({
+    mutationFn: async contractId => {
+      await apiClient.put(`/contracts/${contractId}/accept`);
+    },
+    onSuccess: () => {
+      showToast('Contract accepted successfully!', 'success');
+      setIsModalOpen(false);
+      setModalContract(null);
+      queryClient.invalidateQueries(['contracts']);
+    },
+    onError: error => {
+      showToast(
+        error.response?.data?.message || 'Failed to accept contract.',
+        'error'
+      );
+    },
+  });
+
+  // Mutation for requesting revision (provider)
+  const requestRevisionMutation = useMutation({
+    mutationFn: async ({ contractId, reason }) => {
+      await apiClient.patch(`/contracts/${contractId}/revision`, { reason });
+    },
+    onSuccess: () => {
+      showToast('Revision requested successfully!', 'success');
+      setIsModalOpen(false);
+      setModalContract(null);
+      queryClient.invalidateQueries(['contracts']);
+    },
+    onError: error => {
+      showToast(
+        error.response?.data?.message || 'Failed to request revision.',
+        'error'
+      );
+    },
+  });
+
   return (
     <ContractsContext.Provider
       value={{
@@ -644,32 +682,60 @@ function ContractsPage() {
             </div>
             <div className={styles.modalActions}>
               {sessionRole === 'provider' &&
-                modalContract.status?.toLowerCase() === 'submitted' && (
-                  <button
-                    className={styles.primaryBtn}
-                    onClick={() =>
-                      approveMutation.mutate(
-                        modalContract.id || modalContract._id
-                      )
-                    }
-                  >
-                    Approve Completion
-                  </button>
+                modalContract.status === 'Submitted' && (
+                  <>
+                    <button
+                      className={styles.primaryBtn}
+                      onClick={() =>
+                        approveMutation.mutate(
+                          modalContract.id || modalContract._id
+                        )
+                      }
+                    >
+                      Approve Completion
+                    </button>
+                    <button
+                      className={styles.secondaryBtn}
+                      onClick={() =>
+                        requestRevisionMutation.mutate({
+                          contractId: modalContract.id || modalContract._id,
+                          reason: 'Work needs revision'
+                        })
+                      }
+                    >
+                      Request Revision
+                    </button>
+                  </>
                 )}
               {sessionRole === 'provider' &&
-                modalContract.status?.toLowerCase() === 'pending_payment' && (
+                modalContract.status === 'Pending Payment' && (
                   <button
                     className={styles.primaryBtn}
                     onClick={() => {
-                      // Navigate to the payment page with the contract ID
-                      window.location.href = `/payment?contractId=${modalContract.id || modalContract._id}`;
+                      // Navigate to the new Nuvei payment page with the contract ID
+                      navigate(`/contracts/${modalContract.id || modalContract._id}/pay-with-nuvei`);
                     }}
                   >
                     Pay Tasker
                   </button>
                 )}
+              {sessionRole === 'provider' &&
+                ['Pending', 'Pending acceptance'].includes(modalContract.status) && (
+                  <button
+                    className={styles.primaryBtn}
+                    onClick={() =>
+                      acceptMutation.mutate(
+                        modalContract.id || modalContract._id
+                      )
+                    }
+                  >
+                    Accept Contract
+                  </button>
+                )}
               {sessionRole === 'tasker' &&
-                modalContract.status?.toLowerCase() === 'active' && (
+                (modalContract.status === 'Active' ||
+                modalContract.status === 'Accepted' ||
+                modalContract.status === 'Pending Payment') && (
                   <button
                     className={styles.primaryBtn}
                     onClick={() =>
@@ -681,10 +747,24 @@ function ContractsPage() {
                     Submit as Complete
                   </button>
                 )}
+              {sessionRole === 'tasker' &&
+                (modalContract.status === 'Pending' ||
+                 modalContract.status === 'Pending acceptance') && (
+                  <button
+                    className={styles.primaryBtn}
+                    onClick={() =>
+                      acceptMutation.mutate(
+                        modalContract.id || modalContract._id
+                      )
+                    }
+                  >
+                    Accept Contract
+                  </button>
+                )}
 
               {/* Show Rate Tasker button for completed contracts (only for providers) */}
               {sessionRole === 'provider' &&
-                modalContract.status?.toLowerCase() === 'completed' && (
+                modalContract.status === 'Completed' && (
                   <button
                     className={styles.primaryBtn}
                     onClick={() => {
@@ -701,8 +781,8 @@ function ContractsPage() {
                   </button>
                 )}
 
-              {/* Only show Message button for non-completed contracts */}
-              {modalContract.status?.toLowerCase() !== 'completed' && (
+              {/* Show Message button for all contract statuses except cancelled ones */}
+              {!['Cancelled'].includes(modalContract.status) && (
                 <button
                   className={styles.secondaryBtn}
                   onClick={() => {

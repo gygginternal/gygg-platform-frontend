@@ -27,7 +27,11 @@ const ContractPaymentPage = () => {
       return;
     }
     
-    fetchContractDetails();
+    const timer = setTimeout(() => {
+      fetchContractDetails();
+    }, 100); // Small delay to prevent rapid requests
+    
+    return () => clearTimeout(timer);
   }, [contractId]);
   
   const fetchContractDetails = async () => {
@@ -37,7 +41,13 @@ const ContractPaymentPage = () => {
       setContract(response.data.data.contract);
     } catch (err) {
       console.error('Error fetching contract:', err);
-      setError('Failed to load contract details. Please try again.');
+      
+      // Handle rate limiting error specifically
+      if (err.response?.status === 429) {
+        setError('Too many requests. Please wait a moment before trying again.');
+      } else {
+        setError('Failed to load contract details. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
