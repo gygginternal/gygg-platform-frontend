@@ -271,7 +271,8 @@ function AppLayout({ children }) {
 
   const showHeader =
     authToken &&
-    !noHeaderPaths.some(path => location.pathname.startsWith(path));
+    !noHeaderPaths.some(path => location.pathname.startsWith(path)) && 
+    !location.pathname.includes('/pay-with-nuvei');
 
   // Remove top padding for /gigs
   const isGigsPage = gigsPagePaths.some(path =>
@@ -326,7 +327,7 @@ function AppWithNavigation() {
   const hideNavPaths = ['/onboarding/tasker', '/onboarding/provider'];
   const showNavigation = !hideNavPaths.some(path =>
     location.pathname.startsWith(path)
-  );
+  ) && !location.pathname.includes('/pay-with-nuvei');
 
   return (
     <>

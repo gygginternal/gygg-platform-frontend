@@ -190,8 +190,8 @@ const NuveiSimplyConnectPayment = ({ contractId, amount, currency = 'USD', onSuc
         autoOpenPM: false, // Changed to false to avoid automatic payment method opening issues
         alwaysCollectCvv: false,
         logLevel: 0,
-        // Restrict payment methods to avoid issues with unsupported methods like Interac
-        allowedPaymentMethods: ["card"],
+        // Include Interac e-transfer as an allowed payment method
+        allowedPaymentMethods: ["card", "interac", "instadebit"],
         defaultPaymentMethod: "card",
 
         fieldStyle: {
@@ -306,6 +306,7 @@ const NuveiSimplyConnectPayment = ({ contractId, amount, currency = 'USD', onSuc
         <p>Secure payment powered by Nuvei</p>
         <div className={styles.paymentMethods}>
           <span>💳 Cards</span>
+          <span>🇨🇦 Interac e-Transfer</span>
           <span>🏦 InstaDebit</span>
           <span>🌐 Other methods</span>
         </div>

@@ -19,7 +19,7 @@
 
 .logo {
   font-family:
-    'Inter',
+    'Inter,
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-weight: 900;
   color: #d89362;
@@ -98,7 +98,7 @@
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  background: #02C2D4;
+  background: linear-gradient(135deg, #00aaba 0%, #008b8b 100%);
   color: white;
   text-decoration: none;
   border-radius: 12px;
@@ -111,23 +111,22 @@
     'Segoe UI',
     sans-serif;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(2, 194, 212, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 170, 186, 0.2);
   border: none;
   cursor: pointer;
 }
 
 .backToHomeButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(2, 194, 212, 0.3);
-  background: #02a9bb;
+  box-shadow: 0 4px 16px rgba(0, 170, 186, 0.3);
+  background: linear-gradient(135deg, #008b8b 0%, #006666 100%);
   text-decoration: none;
   color: white;
 }
 
 .backToHomeButton:active {
   transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(2, 194, 212, 0.2);
-  background: #02b4c2;
+  box-shadow: 0 2px 8px rgba(0, 170, 186, 0.2);
 }
 
 .backIcon {

@@ -108,7 +108,8 @@ const NuveiPaymentPage = () => {
   }
   
   // Check for fields that might represent total including fees
-  const rawAmount = contract.totalAmount ||           // Total including all fees
+  const rawAmount = contract.payment?.totalProviderPayment ||           // Use total provider payment from payment record
+                   contract.totalAmount ||            // Total including all the fees
                    contract.paymentAmount ||          // Payment-specific amount
                    contract.amount ||                 // General amount field
                    contract.agreedCost ||             // This field exists in the contract data based on logs
@@ -127,20 +128,30 @@ const NuveiPaymentPage = () => {
   // Handle amount that might be in cents (if from payment record)
   const numericRawAmount = typeof rawAmount === 'string' ? parseFloat(rawAmount) : rawAmount;
   if (process.env.NODE_ENV === 'development') {
-    console.log('Numeric amount:', numericRawAmount); // Debug log
+    console.log('Numeric amount:', numericRawAmount);
   }
-  
-  // Keep the amount as-is (your system uses actual dollar amounts, not cents)
-  const amount = numericRawAmount > 0 ? numericRawAmount : 10.00; // Default to $10 if no amount specified
-  
-  // Get currency - try different possible contract fields
-  const currency = contract.currency || 
-                  (contract.payment && contract.payment.currency) || 
-                  (contract.gig && contract.gig.currency) ||
-                  'CAD'; // Default to CAD as you mentioned
+
+  // If the amount is from payment record, it might be in cents, so convert if necessary
+  let amount;
+  if (contract.payment?.totalProviderPayment){
+    // If we got the amount from payment.totalProviderPayment, it might be in cents
+    amount =  contract.payment.totalProviderPayment / 100; // Convert from cents
+  } else {
+    amount = numericRawAmount > 0 ? numericRawAmount : 10.00; // Default to $10 if no amount selected
+  }
 
   if (process.env.NODE_ENV === 'development') {
-    console.log('Final amount and currency:', { amount, currency }); // Debug log
+    console.log('Final calculated amount:', amount); // Debug Log
+    console.log('Payment breakdown', contract.payment); // Debug Log
+  }
+
+  const currency = contract.currency ||
+                   (contract.payment && contract.payment.currency) ||
+                   (contract.gig && contract.gig.currency) || 
+                   'CAD'; // Default to CAD as you mentioned
+
+  if(process.env.NODE_ENV === 'development') {
+    console.log('Final amount and currency:', {amount, currency}); // Debug Log
   }
 
   // Validate that we have a proper amount to process

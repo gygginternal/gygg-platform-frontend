@@ -439,18 +439,18 @@ export default function BillingAndPayment() {
   const isProvider = user?.role?.includes('provider');
 
   // Debounce search term to avoid excessive API calls
-  useEffect(() => {
-    console.log('Search term changed:', search);
-    const handler = setTimeout(() => {
-      console.log('Setting debounced search to:', search);
-      setDebouncedSearch(search);
-    }, 300);
+  // useEffect(() => {
+  //   console.log('Search term changed:', search);
+  //   const handler = setTimeout(() => {
+  //     console.log('Setting debounced search to:', search);
+  //     setDebouncedSearch(search);
+  //   }, 300);
 
-    // Cleanup function to clear the timeout if search changes before the delay
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [search]); // Only re-run the effect if search changes
+  //   // Cleanup function to clear the timeout if search changes before the delay
+  //   return () => {
+  //     clearTimeout(handler);
+  //   };
+  // }, [search]); // Only re-run the effect if search changes
 
   // Fetch earnings summary
   const fetchEarningsSummary = async () => {
