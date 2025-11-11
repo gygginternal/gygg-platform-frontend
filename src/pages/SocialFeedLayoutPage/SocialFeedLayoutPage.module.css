@@ -4,7 +4,7 @@
   padding-top: 41px; /* Reduced top padding */
   min-height: calc(100vh - 2rem);
   box-sizing: border-box;
-  background-color: #f5f5f5;
+  background-color: #f0f2f5;
 }
 
 .contentWrapper {
