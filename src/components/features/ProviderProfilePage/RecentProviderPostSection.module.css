@@ -1,5 +1,5 @@
 .recentPostsSection {
-  margin: 32px 0;
+  margin-bottom: 1.25rem; /* 20px - consistent with tasker profile */
 }
 
 .sectionHeader {
@@ -117,7 +117,7 @@
 
 @media (max-width: 1024px) {
   .recentPostsSection {
-    margin: 28px 0;
+    margin-bottom: 1rem; /* 16px - consistent with tasker profile */
   }
   .sectionHeader {
     margin-bottom: 10px;
@@ -170,7 +170,7 @@
 
 @media (max-width: 768px) {
   .recentPostsSection {
-    margin: 24px 0;
+    margin-bottom: 0.875rem; /* 14px - consistent with tasker profile */
   }
   .sectionHeader {
     margin-bottom: 8px;
@@ -223,7 +223,7 @@
 
 @media (max-width: 480px) {
   .recentPostsSection {
-    margin: 20px 0;
+    margin-bottom: 0.75rem; /* 12px - consistent with tasker profile */
   }
   .sectionHeader {
     margin-bottom: 6px;

@@ -53,18 +53,22 @@ function ProviderProfilePage({ providerId: propProviderId }) {
   const isOwnProfile = provider._id === loggedInUser?._id;
 
   return (
-    <div className={styles.content}>
-      <ProviderProfileInfo
-        userToDisplay={provider}
-        isOwnProfile={isOwnProfile}
-        onProfileUpdate={fetchProvider}
-      />
-      <RecentHires providerId={provider._id} isOwnProfile={isOwnProfile} />
-      <PostedGigs providerId={provider._id} isOwnProfile={isOwnProfile} />
-      <RecentProviderPostSection
-        providerId={provider._id}
-        isOwnProfile={isOwnProfile}
-      />
+    <div className={styles.pageContainer}>
+      <div className={styles.contentWrapper}>
+        <main className={styles.mainFeedArea}>
+          <ProviderProfileInfo
+            userToDisplay={provider}
+            isOwnProfile={isOwnProfile}
+            onProfileUpdate={fetchProvider}
+          />
+          <RecentHires providerId={provider._id} isOwnProfile={isOwnProfile} />
+          <PostedGigs providerId={provider._id} isOwnProfile={isOwnProfile} />
+          <RecentProviderPostSection
+            providerId={provider._id}
+            isOwnProfile={isOwnProfile}
+          />
+        </main>
+      </div>
     </div>
   );
 }

@@ -3,7 +3,7 @@
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   padding: 24px;
-  margin: 24px 0;
+  margin-bottom: 1.25rem; /* 20px - consistent with tasker profile */
 }
 
 .sectionTitle {

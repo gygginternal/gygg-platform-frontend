@@ -7,30 +7,30 @@ import { decodeHTMLEntities } from '@utils/htmlEntityDecoder';
 
 function RecentHires({ providerId, isOwnProfile }) {
   const [hires, setHires] = useState([]);
+  const [allHires, setAllHires] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
-  const HIRES_PER_PAGE = 6;
+  const HIRES_PER_PAGE = 3; // Changed to 3 per page
 
   useEffect(() => {
     async function fetchRecentHires() {
       setLoading(true);
       setError('');
       try {
-        // Fetch completed contracts for this provider with pagination
+        // Fetch ALL completed contracts for this provider (no pagination initially)
+        // We'll handle pagination client-side to ensure consistent 3 per page
         const res = await apiClient.get('/contracts/my-contracts', {
           params: {
             status: 'completed',
-            page,
-            limit: HIRES_PER_PAGE,
+            page: 1,
+            limit: 100, // Fetch a reasonable number of completed contracts
           },
         });
 
         const { contracts } = res.data.data;
-        setTotalPages(res.data.data.totalPages);
-        setTotalCount(res.data.data.total);
 
         // Filter contracts to only include those where the current user is the provider
         const providerContracts = contracts.filter(
@@ -140,7 +140,25 @@ function RecentHires({ providerId, isOwnProfile }) {
           })
         );
 
-        setHires(hiresWithReviews);
+        // Sort hires by date (most recent first)
+        const sortedHires = hiresWithReviews.sort((a, b) => {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+          return dateB - dateA; // Descending order (most recent first)
+        });
+
+        setAllHires(sortedHires);
+        setTotalCount(sortedHires.length);
+        
+        // Calculate total pages based on client-side pagination
+        const calculatedTotalPages = Math.ceil(sortedHires.length / HIRES_PER_PAGE);
+        setTotalPages(calculatedTotalPages);
+        
+        // Set current page hires
+        const startIndex = (page - 1) * HIRES_PER_PAGE;
+        const endIndex = startIndex + HIRES_PER_PAGE;
+        const currentPageHires = sortedHires.slice(startIndex, endIndex);
+        setHires(currentPageHires);
       } catch (err) {
         console.error('Error fetching recent hires:', err);
         setError('Could not load recent hires.');
@@ -149,7 +167,17 @@ function RecentHires({ providerId, isOwnProfile }) {
       }
     }
     fetchRecentHires();
-  }, [providerId, page]);
+  }, [providerId]);
+
+  // Update current page hires when page changes
+  useEffect(() => {
+    if (allHires.length > 0) {
+      const startIndex = (page - 1) * HIRES_PER_PAGE;
+      const endIndex = startIndex + HIRES_PER_PAGE;
+      const currentPageHires = allHires.slice(startIndex, endIndex);
+      setHires(currentPageHires);
+    }
+  }, [page, allHires, HIRES_PER_PAGE]);
 
   const handlePageChange = newPage => {
     if (newPage >= 1 && newPage <= totalPages) {
