@@ -15,7 +15,7 @@
   box-sizing: border-box;
 }
 .baseButton:hover:not(:disabled) {
-  transform: translateY(-0.0625rem); /* -1px */
+  transform: translateY(-1px); /* -1px converted to px */
 }
 .baseButton:active:not(:disabled) {
   transform: translateY(0px);
@@ -39,7 +39,7 @@
 .active {
   background-color: var(--color-primary-dark); /* Theme color */
   color: var(--color-primary-contrast);
-  border: 0.125rem solid var(--color-primary-dark); /* 2px Example border */
+  border: 2px solid var(--color-primary-dark); /* 2px converted to px */
 }
 
 .active:hover:not(:disabled) {
@@ -50,35 +50,35 @@
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
   .baseButton {
-    padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
-    font-size: 0.8125rem; /* 13px */
-    border-radius: 0.875rem; /* 14px */
+    padding: 6.4px 12.8px; /* 6px 13px converted to px */
+    font-size: 13px; /* 13px converted to px */
+    border-radius: 14px; /* 14px converted to px */
   }
   .active {
-    border-width: 0.1rem; /* Adjust border width */
+    border-width: 1.6px; /* 2px converted to px */
   }
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
   .baseButton {
-    padding: 0.35rem 0.7rem; /* 5.6px 11.2px */
-    font-size: 0.75rem; /* 12px */
-    border-radius: 0.75rem; /* 12px */
+    padding: 5.6px 11.2px; /* 6px 11px converted to px */
+    font-size: 12px; /* 12px converted to px */
+    border-radius: 12px; /* 12px converted to px */
   }
   .active {
-    border-width: 0.08rem; /* Adjust border width */
+    border-width: 1.28px; /* 1px converted to px */
   }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
   .baseButton {
-    padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
-    font-size: 0.6875rem; /* ~11px */
-    border-radius: 0.625rem; /* 10px */
+    padding: 4.8px 9.6px; /* 5px 10px converted to px */
+    font-size: 11px; /* 11px converted to px */
+    border-radius: 10px; /* 10px converted to px */
   }
   .active {
-    border-width: 0.06rem; /* Adjust border width */
+    border-width: 0.96px; /* 1px converted to px */
   }
 }

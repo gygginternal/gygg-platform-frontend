@@ -1,6 +1,6 @@
 .progressContainer {
   width: 100%;
-  margin: 1rem 0;
+  margin: 16px 0;
 }
 
 .progressBar {
@@ -18,47 +18,47 @@
 }
 
 .progressText {
-  margin-top: 0.5rem;
+  margin-top: 8px;
   text-align: center;
   color: #6b7280;
-  font-size: 0.875rem;
+  font-size: 14px;
 }
 
 @media (max-width: 1024px) {
   .progressContainer {
-    margin: 0.8rem 0;
+    margin: 13px 0;
   }
   .progressBar {
     height: 7px;
   }
   .progressText {
-    font-size: 0.8rem;
-    margin-top: 0.4rem;
+    font-size: 13px;
+    margin-top: 6px;
   }
 }
 
 @media (max-width: 768px) {
   .progressContainer {
-    margin: 0.6rem 0;
+    margin: 10px 0;
   }
   .progressBar {
     height: 6px;
   }
   .progressText {
-    font-size: 0.75rem;
-    margin-top: 0.3rem;
+    font-size: 12px;
+    margin-top: 5px;
   }
 }
 
 @media (max-width: 480px) {
   .progressContainer {
-    margin: 0.5rem 0;
+    margin: 8px 0;
   }
   .progressBar {
     height: 5px;
   }
   .progressText {
-    font-size: 0.7rem;
-    margin-top: 0.2rem;
+    font-size: 11px;
+    margin-top: 3px;
   }
 }

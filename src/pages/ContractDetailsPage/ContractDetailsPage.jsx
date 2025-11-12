@@ -1,5 +1,5 @@
 import { MapPin, User, ArrowLeft } from 'lucide-react';
-import { Card, CardHeader, CardBody } from 'flowbite-react';
+import { Card } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns'; // Import date-fns for formatting dates
 import styles from './ContractDetailsPage.module.css'; // Import CSS Modules
@@ -99,13 +99,13 @@ export default function ContractDetailsPage({ gig, contract, user, children }) {
         Back to contract list
       </Link>
       <Card className={styles.card}>
-        <CardHeader className={styles.cardHeader}>
+        <div className={styles.cardHeader}>
           <div className={styles.cardHeaderContent}>
             <h1 className={styles.gigTitle}>{gig.title}</h1>
           </div>
-        </CardHeader>
+        </div>
 
-        <CardBody className={styles.cardContent}>
+        <div className={styles.cardContent}>
           <div className={styles.detailRow}>
             <div className={styles.detailItem}>
               <User className={styles.detailIcon} />
@@ -225,7 +225,7 @@ export default function ContractDetailsPage({ gig, contract, user, children }) {
           )}
 
           {children}
-        </CardBody>
+        </div>
       </Card>
     </div>
   );

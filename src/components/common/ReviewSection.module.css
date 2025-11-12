@@ -2,101 +2,101 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-  font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 16px = 16px */
 }
 
 .reviewsCard {
-  padding: 2rem; /* 32px */
+  padding: 32px; /* 32px */
   background-color: #f9f9f9;
-  border-radius: 1rem; /* 16px */
-  max-width: 56.25rem; /* 900px */
+  border-radius: 16px; /* 16px */
+  max-width: 900px; /* 900px */
   margin: 0 auto;
   box-sizing: border-box; /* Ensure padding is included in width */
   width: 100%; /* Take full width of parent */
 }
 
 .reviewsHeader {
-  margin-bottom: 1.5rem; /* 24px */
+  margin-bottom: 24px; /* 24px */
   text-align: center;
 }
 
 .reviewsHeader h2 {
   /* Facebook Header (profile names etc.) 16-18px.
-     This is a main section header, so 1.75rem (28px) is a good starting point, scaled down. */
-  font-size: clamp(1.25rem, 4vw, 1.75rem); /* Ranging from 20px to 28px */
+     This is a main section header, so 28px (28px) is a good starting point, scaled down. */
+  font-size: clamp(20px, 4vw, 28px); /* Ranging from 20px to 28px */
   font-weight: 600;
   color: #333; /* Ensuring explicit color */
 }
 
 .reviewsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15.625rem, 1fr)); /* 250px */
-  gap: 1rem; /* 16px */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 250px */
+  gap: 16px; /* 16px */
 }
 
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
   .reviewsCard {
-    padding: 1.5rem; /* 24px */
-    max-width: 50rem; /* 800px */
+    padding: 24px; /* 24px */
+    max-width: 800px; /* 800px */
   }
   .reviewsHeader {
-    margin-bottom: 1.25rem; /* 20px */
+    margin-bottom: 20px; /* 20px */
   }
   .reviewsHeader h2 {
-    font-size: clamp(1.125rem, 3.5vw, 1.5rem); /* Ranging from 18px to 24px */
+    font-size: clamp(18px, 3.5vw, 24px); /* Ranging from 18px to 24px */
   }
   .reviewsGrid {
-    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); /* 224px */
-    gap: 0.8rem; /* 12.8px */
+    grid-template-columns: repeat(auto-fit, minmax(224px, 1fr)); /* 224px */
+    gap: 13px; /* 12.8px */
   }
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
   .reviewsCard {
-    padding: 1.25rem; /* 20px */
+    padding: 20px; /* 20px */
     max-width: 95%; /* Take more width on tablet */
   }
   .reviewsHeader {
-    margin-bottom: 1rem; /* 16px */
+    margin-bottom: 16px; /* 16px */
   }
   .reviewsHeader h2 {
-    font-size: clamp(1rem, 4.5vw, 1.25rem); /* Ranging from 16px to 20px */
+    font-size: clamp(16px, 4.5vw, 20px); /* Ranging from 16px to 20px */
   }
   .reviewsGrid {
-    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); /* 192px */
-    gap: 0.625rem; /* 10px */
+    grid-template-columns: repeat(auto-fit, minmax(192px, 1fr)); /* 192px */
+    gap: 10px; /* 10px */
   }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
   .reviewsCard {
-    padding: 1rem; /* 16px */
+    padding: 16px; /* 16px */
     max-width: 100%; /* Take full width */
   }
   .reviewsHeader {
-    margin-bottom: 0.8rem; /* 12.8px */
+    margin-bottom: 13px; /* 12.8px */
   }
   .reviewsHeader h2 {
     font-size: clamp(
-      0.9375rem,
+      15px,
       5.5vw,
-      1.125rem
+      18px
     ); /* Ranging from 15px to 18px */
   }
   .reviewsGrid {
     grid-template-columns: 1fr; /* Stack columns vertically */
-    gap: 0.5rem; /* 8px */
+    gap: 8px; /* 8px */
   }
 }
 
 .reviewSection {
-  margin-top: 2rem;
-  padding: 1.5rem;
+  margin-top: 32px;
+  padding: 24px;
   background-color: white;
-  border-radius: 0.5rem;
+  border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -104,11 +104,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 24px;
 }
 
 .reviewTitle {
-  font-size: 1.25rem;
+  font-size: 20px;
   font-weight: 600;
   color: #111827;
 }
@@ -116,19 +116,19 @@
 .reviewList {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 24px;
 }
 
 .reviewItem {
-  padding: 1rem;
+  padding: 16px;
   border: 1px solid #e5e7eb;
-  border-radius: 0.5rem;
+  border-radius: 8px;
 }
 
 .reviewHeader {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
 }
 
 .reviewerName {
@@ -138,7 +138,7 @@
 
 .reviewDate {
   color: #6b7280;
-  font-size: 0.875rem;
+  font-size: 14px;
 }
 
 .reviewContent {
@@ -149,5 +149,5 @@
 .noReviews {
   text-align: center;
   color: #6b7280;
-  padding: 2rem;
+  padding: 32px;
 }

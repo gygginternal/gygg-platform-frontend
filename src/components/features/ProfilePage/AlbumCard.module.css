@@ -2,16 +2,16 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-  font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 16px = 16px */
 }
 
 .albumItem {
   position: relative;
-  border: 0.0625rem solid #c4c4c4; /* 1px */
-  border-radius: 1rem; /* 16px */
+  border: 1px solid #c4c4c4; /* 1px */
+  border-radius: 16px; /* 16px */
   overflow: hidden;
   width: 100%; /* Takes full width of the grid column */
-  max-width: 17.5rem; /* 280px Limits max size */
+  max-width: 280px; /* 280px Limits max size */
   background: #fff;
   transition: transform 0.2s ease-in-out;
   box-sizing: border-box; /* Include padding/border in width */
@@ -27,7 +27,7 @@
 .album-image {
   object-fit: cover;
   width: 100%;
-  height: 13.75rem; /* 220px - Converted from original */
+  height: 220px; /* 220px - Converted from original */
   aspect-ratio: unset; /* Retained from original */
   display: block;
   flex-shrink: 0; /* Prevents image from shrinking */
@@ -51,10 +51,10 @@
   display: flex;
   align-items: center;
   background: #fff;
-  border-radius: 0 0 1rem 1rem; /* 0 0 16px 16px */
-  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.08); /* 0 2px 8px */
+  border-radius: 0 0 16px 16px; /* 0 0 16px 16px */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* 0 2px 8px */
   padding: 0; /* Padding will be on the caption and delete button */
-  gap: 0.75rem; /* 12px */
+  gap: 12px; /* 12px */
   width: 100%;
   margin: 0;
   pointer-events: auto; /* Allows clicks on the pill itself */
@@ -63,13 +63,13 @@
 
 .albumCaption {
   color: #222;
-  /* Facebook Post text (main body) 14-16px. Using 15px (0.9375rem). */
-  font-size: 0.9375rem; /* 15px */
+  /* Facebook Post text (main body) 14-16px. Using 15px (15px). */
+  font-size: 15px; /* 15px converted to px */
   font-weight: 500;
   background: none;
   border-radius: 0;
   text-align: left;
-  padding: 0.5rem 1rem; /* 8px 16px - Padding inside the pill */
+  padding: 8px 16px; /* 8px 16px converted to px */
   margin: 0;
   pointer-events: auto;
   flex: 1 1 auto; /* Allows caption to grow and shrink */
@@ -82,7 +82,7 @@
 .deleteButton {
   background: none;
   border: none;
-  padding: 0.5rem; /* 8px - Padding for clickable area */
+  padding: 8px; /* 8px converted to px */
   cursor: pointer;
   pointer-events: auto; /* Allows click on the button itself */
   flex-shrink: 0; /* Prevents button from shrinking */
@@ -98,9 +98,9 @@
 }
 
 .deleteButton img {
-  /* Facebook Top navbar icons 20-24px. Using 24px (1.5rem). */
-  width: 1.5rem; /* 24px */
-  height: 1.5rem; /* 24px */
+  /* Facebook Top navbar icons 20-24px. Using 24px (24px). */
+  width: 24px; /* 24px converted to px */
+  height: 24px; /* 24px converted to px */
   filter: invert(32%) sepia(98%) saturate(0%) hue-rotate(180deg) brightness(0.7)
     contrast(1.2); /* Grey color */
   object-fit: contain; /* Ensure image fits */
@@ -118,26 +118,26 @@
 /* @media (max-width: 1024px) - Large Tablets / Small Laptops */
 @media (max-width: 1024px) {
   .albumItem {
-    max-width: 16rem; /* 256px */
-    border-radius: 0.875rem; /* 14px */
+    max-width: 256px; /* 256px converted to px */
+    border-radius: 14px; /* 14px converted to px */
   }
   .albumImage {
-    height: 12.5rem; /* 200px */
+    height: 200px; /* 200px converted to px */
   }
   .albumFooterPill {
-    border-radius: 0 0 0.875rem 0.875rem; /* 14px */
-    gap: 0.6rem; /* 9.6px */
+    border-radius: 0 0 14px 14px; /* 14px converted to px */
+    gap: 9.6px; /* 10px converted to px */
   }
   .albumCaption {
-    font-size: 0.875rem; /* 14px */
-    padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
+    font-size: 14px; /* 14px converted to px */
+    padding: 6.4px 12.8px; /* 6px 13px converted to px */
   }
   .deleteButton {
-    padding: 0.4rem; /* 6.4px */
+    padding: 6.4px; /* 6px converted to px */
   }
   .deleteButton img {
-    width: 1.375rem; /* 22px */
-    height: 1.375rem; /* 22px */
+    width: 22px; /* 22px converted to px */
+    height: 22px; /* 22px converted to px */
   }
 }
 
@@ -145,49 +145,49 @@
 @media (max-width: 768px) {
   .albumItem {
     max-width: 100%; /* Allows it to take full width of grid column */
-    border-radius: 0.75rem; /* 12px */
+    border-radius: 12px; /* 12px converted to px */
   }
   .albumImage {
-    height: 10rem; /* 160px */
+    height: 160px; /* 160px converted to px */
   }
   .albumFooterPill {
-    border-radius: 0 0 0.75rem 0.75rem; /* 12px */
-    gap: 0.5rem; /* 8px */
+    border-radius: 0 0 12px 12px; /* 12px converted to px */
+    gap: 8px; /* 8px converted to px */
   }
   .albumCaption {
-    font-size: 0.8125rem; /* 13px */
-    padding: 0.35rem 0.7rem; /* 5.6px 11.2px */
+    font-size: 13px; /* 13px converted to px */
+    padding: 5.6px 11.2px; /* 6px 11px converted to px */
   }
   .deleteButton {
-    padding: 0.3rem; /* 4.8px */
+    padding: 4.8px; /* 5px converted to px */
   }
   .deleteButton img {
-    width: 1.25rem; /* 20px */
-    height: 1.25rem; /* 20px */
+    width: 20px; /* 20px converted to px */
+    height: 20px; /* 20px converted to px */
   }
 }
 
 /* @media (max-width: 480px) - Mobile Phones */
 @media (max-width: 480px) {
   .albumItem {
-    border-radius: 0.625rem; /* 10px */
+    border-radius: 10px; /* 10px converted to px */
   }
   .albumImage {
-    height: 8rem; /* 128px */
+    height: 128px; /* 128px converted to px */
   }
   .albumFooterPill {
-    border-radius: 0 0 0.625rem 0.625rem; /* 10px */
-    gap: 0.4rem; /* 6.4px */
+    border-radius: 0 0 10px 10px; /* 10px converted to px */
+    gap: 6.4px; /* 6px converted to px */
   }
   .albumCaption {
-    font-size: 0.75rem; /* 12px */
-    padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
+    font-size: 12px; /* 12px converted to px */
+    padding: 4.8px 9.6px; /* 5px 10px converted to px */
   }
   .deleteButton {
-    padding: 0.25rem; /* 4px */
+    padding: 4px; /* 4px converted to px */
   }
   .deleteButton img {
-    width: 1.125rem; /* 18px */
-    height: 1.125rem; /* 18px */
+    width: 18px; /* 18px converted to px */
+    height: 18px; /* 18px converted to px */
   }
 }

@@ -1,18 +1,18 @@
 /* Base styles - Mobile first */
 .recentHiresSection {
   background: #fff;
-  border-radius: 0.75rem; /* 12px */
+  border-radius: 12px; /* 12px converted to px */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  padding: 1rem; /* 16px */
-  margin-bottom: 1.25rem; /* 20px - consistent with tasker profile */
+  padding: 16px; /* 16px converted to px */
+  margin-bottom: 20px; /* 20px converted to px - consistent with tasker profile */
   box-sizing: border-box;
 }
 
 .sectionTitle {
-  font-size: 1rem; /* 16px */
+  font-size: 16px; /* 16px converted to px */
   font-weight: 600;
   color: #1f2937;
-  margin-bottom: 1rem; /* 16px */
+  margin-bottom: 16px; /* 16px converted to px */
   margin-top: 0;
   font-family:
     'Inter',
@@ -22,17 +22,17 @@
 .hiresList {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem; /* 16px */
+  gap: 16px; /* 16px converted to px */
 }
 
 .hireCard {
   background: #fff;
   border: 1px solid #e5e7eb;
-  border-radius: 0.75rem; /* 12px */
-  padding: 1rem; /* 16px */
+  border-radius: 12px; /* 12px */
+  padding: 16px; /* 16px */
   display: flex;
   flex-direction: column;
-  gap: 0.75rem; /* 12px */
+  gap: 12px; /* 12px */
   transition: all 0.2s ease;
 }
 
@@ -45,18 +45,18 @@
 .hireHeader {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 12px;
 }
 
 .avatarContainer {
   position: relative;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 40px;
+  height: 40px;
 }
 
 .taskerAvatar {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
   position: absolute;
@@ -65,8 +65,8 @@
 }
 
 .avatarPlaceholder {
-  width: 2.5rem; /* 40px */
-  height: 2.5rem; /* 40px */
+  width: 40px; /* 40px */
+  height: 40px; /* 40px */
   border-radius: 50%;
   background: #f3f4f6;
   display: flex;
@@ -88,17 +88,17 @@
 
 .hireName {
   font-weight: 600;
-  font-size: 0.875rem; /* 14px */
+  font-size: 14px; /* 14px */
   color: #1f2937;
   line-height: 1.3;
 }
 
 .gigTitleLink {
   font-weight: 600;
-  font-size: 0.9375rem; /* 15px */
+  font-size: 15px; /* 15px */
   color: #1f2937;
   text-decoration: none;
-  margin-bottom: 0.5rem; /* 8px */
+  margin-bottom: 8px; /* 8px */
   cursor: pointer;
   line-height: 1.4;
   display: -webkit-box;
@@ -110,12 +110,12 @@
 .reviewSection {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .reviewText {
   color: #4b5563;
-  font-size: 0.8125rem; /* 13px */
+  font-size: 13px; /* 13px */
   line-height: 1.5;
   flex-grow: 1;
   display: -webkit-box;
@@ -127,31 +127,31 @@
 .ratingRow {
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* 8px */
+  gap: 8px; /* 8px */
   flex-wrap: wrap;
 }
 
 .ratingValue {
   font-weight: 600;
   color: #f59e0b;
-  font-size: 0.875rem; /* 14px */
+  font-size: 14px; /* 14px */
 }
 
 .stars {
   display: flex;
-  gap: 0.125rem; /* 2px */
+  gap: 2px; /* 2px */
 }
 
 .noRating {
   font-weight: 400;
   color: #9ca3af;
-  font-size: 0.875rem; /* 14px */
+  font-size: 14px; /* 14px */
   font-style: italic;
 }
 
 .hireDate {
   color: #9ca3af;
-  font-size: 0.75rem; /* 12px */
+  font-size: 12px; /* 12px */
   font-weight: 400;
 }
 
@@ -164,10 +164,10 @@
 
 .card {
   background-color: #fff;
-  border-radius: 1rem;
-  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
-  margin-bottom: 1.25rem;
-  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 24px;
   box-sizing: border-box;
 }
 
@@ -175,15 +175,15 @@
   color: #3d4d55;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.25rem;
-  font-size: 1.125rem;
+  margin-bottom: 20px;
+  font-size: 18px;
   font-weight: 700;
   display: flex;
 }
 
 .emptyMessage {
   text-align: center;
-  padding: 1.25rem 0;
+  padding: 20px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -194,18 +194,18 @@
 
 .emptyMessage p {
   margin: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
   color: #000;
-  font-size: 1rem;
+  font-size: 16px;
 }
 
 .createActionButton {
-  margin-top: 1rem;
+  margin-top: 16px;
   display: inline-block;
   background-color: #2c3a40;
   color: #fff;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
+  padding: 12px 24px;
+  border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
   transition: background-color 0.2s ease;
@@ -277,19 +277,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  padding: 1rem 0;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 16px 0;
 }
 
 .paginationBtn {
-  padding: 0.5rem 1rem;
+  padding: 8px 16px;
   background-color: #3d4d55;
   color: white;
   border: none;
-  border-radius: 0.375rem;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: 14px;
   transition: background-color 0.2s;
 }
 
@@ -305,144 +305,144 @@
 
 .paginationInfo {
   color: #4b5563;
-  font-size: 0.875rem;
+  font-size: 14px;
   white-space: nowrap;
 }
 
 /* Small Mobile to Tablet (480px - 768px) */
 @media (min-width: 480px) {
   .recentHiresSection {
-    padding: 1.25rem; /* 20px */
-    margin-bottom: 1rem; /* 16px - consistent with tasker profile */
-    border-radius: 1rem; /* 16px */
+    padding: 20px; /* 20px */
+    margin-bottom: 16px; /* 16px - consistent with tasker profile */
+    border-radius: 16px; /* 16px */
   }
 
   .sectionTitle {
-    font-size: 1.125rem; /* 18px */
-    margin-bottom: 1.25rem; /* 20px */
+    font-size: 18px; /* 18px */
+    margin-bottom: 20px; /* 20px */
   }
 
   .hiresList {
-    gap: 1rem; /* 16px */
+    gap: 16px; /* 16px */
   }
 
   .hireCard {
-    padding: 1.25rem; /* 20px */
-    gap: 1rem; /* 16px */
+    padding: 20px; /* 20px */
+    gap: 16px; /* 16px */
   }
 
   .avatarContainer {
-    width: 3rem;
-    height: 3rem;
+    width: 48px;
+    height: 48px;
   }
 
   .taskerAvatar {
-    width: 3rem;
-    height: 3rem;
+    width: 48px;
+    height: 48px;
   }
 
   .avatarPlaceholder {
-    width: 3rem; /* 48px */
-    height: 3rem; /* 48px */
+    width: 48px; /* 48px */
+    height: 48px; /* 48px */
   }
 
   .hireName {
-    font-size: 0.9375rem; /* 15px */
+    font-size: 15px; /* 15px */
   }
 
   .gigTitleLink {
-    font-size: 1rem; /* 16px */
+    font-size: 16px; /* 16px */
   }
 
   .reviewText {
-    font-size: 0.875rem; /* 14px */
+    font-size: 14px; /* 14px */
   }
 
   .ratingValue {
-    font-size: 0.9375rem; /* 15px */
+    font-size: 15px; /* 15px */
   }
 
   .hireDate {
-    font-size: 0.8125rem; /* 13px */
+    font-size: 13px; /* 13px */
   }
 }
 
 /* Tablet (768px - 1024px) */
 @media (min-width: 768px) {
   .recentHiresSection {
-    padding: 1.5rem; /* 24px */
-    margin-bottom: 1.25rem; /* 20px - consistent with tasker profile */
+    padding: 24px; /* 24px */
+    margin-bottom: 20px; /* 20px - consistent with tasker profile */
   }
 
   .sectionTitle {
-    font-size: 1.25rem; /* 20px */
-    margin-bottom: 1.5rem; /* 24px */
+    font-size: 20px; /* 20px */
+    margin-bottom: 24px; /* 24px */
   }
 
   .hiresList {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem; /* 20px */
+    gap: 20px; /* 20px */
   }
 
   .hireCard {
-    padding: 1.5rem; /* 24px */
+    padding: 24px; /* 24px */
   }
 
   .avatarContainer {
-    width: 3.25rem;
-    height: 3.25rem;
+    width: 52px;
+    height: 52px;
   }
 
   .taskerAvatar {
-    width: 3.25rem;
-    height: 3.25rem;
+    width: 52px;
+    height: 52px;
   }
 
   .avatarPlaceholder {
-    width: 3.25rem; /* 52px */
-    height: 3.25rem; /* 52px */
+    width: 52px; /* 52px */
+    height: 52px; /* 52px */
   }
 
   .hireName {
-    font-size: 1rem; /* 16px */
+    font-size: 16px; /* 16px */
   }
 
   .gigTitleLink {
-    font-size: 1.0625rem; /* 17px */
+    font-size: 17px; /* 17px */
   }
 
   .reviewText {
-    font-size: 0.9375rem; /* 15px */
+    font-size: 15px; /* 15px */
   }
 
   .ratingValue {
-    font-size: 1rem; /* 16px */
+    font-size: 16px; /* 16px */
   }
 
   .hireDate {
-    font-size: 0.875rem; /* 14px */
+    font-size: 14px; /* 14px */
   }
 }
 
 /* Desktop (1024px+) */
 @media (min-width: 1024px) {
   .recentHiresSection {
-    padding: 2rem; /* 32px */
-    margin-bottom: 1.25rem; /* 20px - consistent with tasker profile */
+    padding: 32px; /* 32px */
+    margin-bottom: 20px; /* 20px - consistent with tasker profile */
   }
 
   .sectionTitle {
-    font-size: 1.375rem; /* 22px */
-    margin-bottom: 2rem; /* 32px */
+    font-size: 22px; /* 22px */
+    margin-bottom: 32px; /* 32px */
   }
 
   .hiresList {
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem; /* 24px */
+    gap: 24px; /* 24px */
   }
 
   .hireCard {
-    padding: 2rem; /* 32px */
+    padding: 32px; /* 32px */
   }
 
   .hireCard:hover {
@@ -451,39 +451,39 @@
   }
 
   .avatarContainer {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 56px;
+    height: 56px;
   }
 
   .taskerAvatar {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 56px;
+    height: 56px;
   }
 
   .avatarPlaceholder {
-    width: 3.5rem; /* 56px */
-    height: 3.5rem; /* 56px */
+    width: 56px; /* 56px */
+    height: 56px; /* 56px */
   }
 
   .hireName {
-    font-size: 1.125rem; /* 18px */
+    font-size: 18px; /* 18px */
   }
 
   .gigTitleLink {
-    font-size: 1.125rem; /* 18px */
-    margin-bottom: 1rem; /* 16px */
+    font-size: 18px; /* 18px */
+    margin-bottom: 16px; /* 16px */
   }
 
   .reviewText {
-    font-size: 1rem; /* 16px */
-    margin-bottom: 1.25rem; /* 20px */
+    font-size: 16px; /* 16px */
+    margin-bottom: 20px; /* 20px */
   }
 
   .ratingValue {
-    font-size: 1.125rem; /* 18px */
+    font-size: 18px; /* 18px */
   }
 
   .hireDate {
-    font-size: 0.9375rem; /* 15px */
+    font-size: 15px; /* 15px */
   }
 }

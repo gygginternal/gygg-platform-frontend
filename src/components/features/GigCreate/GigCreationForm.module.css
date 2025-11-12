@@ -4,7 +4,7 @@
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 32px;
   font-family: 'Inter', sans-serif;
   background: #ffffff;
   border-radius: 16px;
@@ -16,15 +16,15 @@
 }
 
 .header {
-  margin-bottom: 3rem;
+  margin-bottom: 48px;
 }
 
 .stepIndicator {
   text-align: right;
-  font-size: 1.25rem;
+  font-size: 20px;
   font-weight: 600;
   color: #6b7280;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 .progressBar {
@@ -44,17 +44,17 @@
 
 .content {
   flex: 1;
-  margin-bottom: 2rem;
+  margin-bottom: 32px;
 }
 
 .stepContent {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 32px;
 }
 
 .stepTitle {
-  font-size: 1.75rem;
+  font-size: 28px;
   font-weight: 600;
   color: #111827;
   margin: 0;
@@ -63,16 +63,16 @@
 
 .radioGroup {
   display: flex;
-  gap: 2rem;
-  margin: 1rem 0;
+  gap: 32px;
+  margin: 16px 0;
 }
 
 .radioOption {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 12px;
   cursor: pointer;
-  font-size: 1.125rem;
+  font-size: 18px;
   color: #374151;
 }
 
@@ -91,11 +91,11 @@
 .inputGroup {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 16px;
 }
 
 .inputTitle {
-  font-size: 1.25rem;
+  font-size: 20px;
   font-weight: 600;
   color: #111827;
   margin: 0;
@@ -104,10 +104,10 @@
 .titleTextarea {
   width: 100%;
   min-height: 120px;
-  padding: 1rem;
+  padding: 16px;
   border: 2px solid #e5e7eb;
   border-radius: 12px;
-  font-size: 1rem;
+  font-size: 16px;
   font-family: inherit;
   color: #111827;
   background: #ffffff;
@@ -127,14 +127,14 @@
 }
 
 .examplesSection {
-  margin-top: 1rem;
+  margin-top: 16px;
 }
 
 .examplesTitle {
-  font-size: 1.125rem;
+  font-size: 18px;
   font-weight: 600;
   color: #6b7280;
-  margin: 0 0 1rem 0;
+  margin: 0 0 16px 0;
 }
 
 .examplesList {
@@ -143,24 +143,24 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 16px;
 }
 
 .exampleItem {
-  padding: 1rem;
+  padding: 16px;
   background: #f9fafb;
   border-radius: 8px;
   color: #6b7280;
-  font-size: 0.9375rem;
+  font-size: 15px;
   line-height: 1.5;
   position: relative;
-  padding-left: 2rem;
+  padding-left: 32px;
 }
 
 .exampleItem::before {
   content: '•';
   position: absolute;
-  left: 1rem;
+  left: 16px;
   color: #06b6d4;
   font-weight: bold;
 }
@@ -168,16 +168,16 @@
 .priceInputContainer {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   width: 100%;
 }
 
 .priceInput {
   flex: 1;
-  padding: 1rem;
+  padding: 16px;
   border: 2px solid #e5e7eb;
   border-radius: 12px;
-  font-size: 1rem;
+  font-size: 16px;
   font-family: inherit;
   color: #111827;
   background: #ffffff;
@@ -200,10 +200,10 @@
 }
 
 .currencySelect {
-  padding: 1rem;
+  padding: 16px;
   border: 2px solid #e5e7eb;
   border-radius: 12px;
-  font-size: 1rem;
+  font-size: 16px;
   font-family: inherit;
   color: #111827;
   background: #ffffff;
@@ -221,10 +221,10 @@
 .descriptionTextarea {
   width: 100%;
   min-height: 200px;
-  padding: 1rem;
+  padding: 16px;
   border: 2px solid #e5e7eb;
   border-radius: 12px;
-  font-size: 1rem;
+  font-size: 16px;
   font-family: inherit;
   color: #111827;
   background: #ffffff;
@@ -246,17 +246,17 @@
 .categoryList {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 16px;
 }
 
 .categoryOption {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 12px;
   cursor: pointer;
-  font-size: 1.125rem;
+  font-size: 18px;
   color: #374151;
-  padding: 0.75rem;
+  padding: 12px;
   border-radius: 8px;
   transition: background-color 0.2s ease;
 }
@@ -280,8 +280,8 @@
 .reviewSection {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  padding: 1.5rem;
+  gap: 24px;
+  padding: 24px;
   background: #f9fafb;
   border-radius: 12px;
   border: 1px solid #e5e7eb;
@@ -289,14 +289,14 @@
 
 .reviewSection h4 {
   margin: 0;
-  font-size: 1.125rem;
+  font-size: 18px;
   font-weight: 600;
   color: #111827;
 }
 
 .reviewSection p {
-  margin: 0.5rem 0 0 0;
-  font-size: 1rem;
+  margin: 8px 0 0 0;
+  font-size: 16px;
   color: #6b7280;
   line-height: 1.5;
 }
@@ -304,18 +304,18 @@
 .reviewContainer {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 32px;
   width: 100%;
 }
 
 .reviewItem {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 16px;
 }
 
 .reviewLabel {
-  font-size: 1.25rem;
+  font-size: 20px;
   font-weight: 600;
   color: #6b7280;
   margin: 0;
@@ -325,8 +325,8 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 1.5rem;
+  gap: 16px;
+  padding: 24px;
   background: #f8fafc;
   border-radius: 12px;
   border: 1px solid #e2e8f0;
@@ -335,7 +335,7 @@
 
 .reviewText {
   flex: 1;
-  font-size: 1rem;
+  font-size: 16px;
   color: #374151;
   line-height: 1.6;
   word-wrap: break-word;
@@ -347,7 +347,7 @@
   border: none;
   color: #6b7280;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 8px;
   border-radius: 6px;
   transition: all 0.2s ease;
   display: flex;
@@ -371,7 +371,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 2rem;
+  padding-top: 32px;
   border-top: 1px solid #e5e7eb;
 }
 
@@ -383,14 +383,14 @@
 .backButton {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   background: none;
   border: none;
   color: #6b7280;
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  padding: 0.75rem 1rem;
+  padding: 12px 16px;
   border-radius: 8px;
   transition: all 0.2s ease;
   font-family: inherit;
@@ -410,9 +410,9 @@
   background: #d99633;
   color: #ffffff;
   border: none;
-  padding: 0.875rem 2rem;
+  padding: 14px 32px;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -436,9 +436,9 @@
   background: #fee2e2;
   border: 1px solid #fecaca;
   color: #dc2626;
-  padding: 1rem;
+  padding: 16px;
   border-radius: 8px;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
   font-weight: 500;
   text-align: center;
 }
@@ -446,24 +446,24 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .container {
-    padding: 1.5rem;
-    margin: 1rem;
+    padding: 24px;
+    margin: 16px;
     border-radius: 12px;
   }
 
   .stepTitle {
-    font-size: 1.5rem;
+    font-size: 24px;
   }
 
   .radioGroup {
     flex-direction: column;
-    gap: 1rem;
+    gap: 16px;
   }
 
   .navigation {
     flex-direction: row;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 16px;
   }
 
   .navigationLeft {
@@ -480,29 +480,29 @@
   }
 
   .stepIndicator {
-    font-size: 1.125rem;
+    font-size: 18px;
   }
 }
 
 @media (max-width: 480px) {
   .container {
-    padding: 1rem;
-    margin: 0.5rem;
+    padding: 16px;
+    margin: 8px;
   }
 
   .stepTitle {
-    font-size: 1.25rem;
+    font-size: 20px;
   }
 
   .titleTextarea {
     min-height: 100px;
-    padding: 0.75rem;
+    padding: 12px;
   }
 
   .exampleItem {
-    padding: 0.75rem;
-    padding-left: 1.75rem;
-    font-size: 0.875rem;
+    padding: 12px;
+    padding-left: 28px;
+    font-size: 14px;
   }
 
   .priceInputContainer {
@@ -512,52 +512,52 @@
 
   .priceInput,
   .currencySelect {
-    padding: 0.75rem;
-    font-size: 0.9375rem;
+    padding: 12px;
+    font-size: 15px;
   }
 
   .descriptionTextarea {
     min-height: 150px;
-    padding: 0.75rem;
-    font-size: 0.9375rem;
+    padding: 12px;
+    font-size: 15px;
   }
 
   .categoryOption {
-    font-size: 1rem;
-    padding: 0.625rem;
+    font-size: 16px;
+    padding: 10px;
   }
 
   .reviewSection {
-    padding: 1rem;
-    gap: 1rem;
+    padding: 16px;
+    gap: 16px;
   }
 
   .reviewSection h4 {
-    font-size: 1rem;
+    font-size: 16px;
   }
 
   .reviewSection p {
-    font-size: 0.9375rem;
+    font-size: 15px;
   }
 
   .reviewContainer {
-    gap: 1.5rem;
+    gap: 24px;
   }
 
   .reviewLabel {
-    font-size: 1.125rem;
+    font-size: 18px;
   }
 
   .reviewContent {
-    padding: 1rem;
+    padding: 16px;
     flex-direction: column;
     align-items: stretch;
-    gap: 1rem;
+    gap: 16px;
   }
 
   .editButton {
     align-self: flex-end;
-    padding: 0.375rem;
+    padding: 6px;
   }
 
 
@@ -566,26 +566,26 @@
 /* N
 ew styles for hourly gig improvements */
 .hourlyNote {
-  margin-top: 0.75rem;
-  padding: 0.75rem;
+  margin-top: 12px;
+  padding: 12px;
   background-color: #f0f9ff;
   border: 1px solid #bae6fd;
   border-radius: 8px;
   color: #0369a1;
-  font-size: 0.875rem;
+  font-size: 14px;
   line-height: 1.4;
 }
 
 .durationInput {
   width: 100%;
-  padding: 1rem;
+  padding: 16px;
   border: 2px solid #e5e7eb;
   border-radius: 12px;
-  font-size: 1rem;
+  font-size: 16px;
   font-family: 'Inter', sans-serif;
   transition: all 0.2s ease;
   background-color: #ffffff;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
 }
 
 .durationInput:focus {
@@ -597,15 +597,15 @@ ew styles for hourly gig improvements */
 .durationNote {
   display: block;
   color: #6b7280;
-  font-size: 0.875rem;
+  font-size: 14px;
   line-height: 1.4;
-  margin-top: 0.5rem;
+  margin-top: 8px;
 }
 
 /* Enhanced price input styling */
 .priceInput {
   font-weight: 600;
-  font-size: 1.125rem;
+  font-size: 18px;
 }
 
 .priceInput::placeholder {
@@ -615,16 +615,16 @@ ew styles for hourly gig improvements */
 ocation input styles */
 .locationInputs {
   display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
 .locationInput {
   flex: 1;
-  padding: 1rem;
+  padding: 16px;
   border: 2px solid #e5e7eb;
   border-radius: 12px;
-  font-size: 1rem;
+  font-size: 16px;
   font-family: 'Inter', sans-serif;
   transition: all 0.2s ease;
   background-color: #ffffff;
@@ -641,21 +641,21 @@ ocation input styles */
 }
 
 .remoteOption {
-  margin-top: 0.75rem;
+  margin-top: 12px;
 }
 
 .checkboxLabel {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  font-size: 0.875rem;
+  gap: 12px;
+  font-size: 14px;
   color: #374151;
   cursor: pointer;
 }
 
 .checkboxLabel input[type='checkbox'] {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 20px;
+  height: 20px;
   border: 2px solid #d1d5db;
   border-radius: 4px;
   cursor: pointer;
@@ -670,6 +670,6 @@ ocation input styles */
 @media (max-width: 768px) {
   .locationInputs {
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 12px;
   }
 }

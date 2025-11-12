@@ -7,7 +7,7 @@
   min-height: 0;
   background-color: #fff;
   color: #111;
-  padding: 2rem;
+  padding: 32px;
   position: relative;
   border: 1px solid #e0e0e0;
   box-sizing: border-box;
@@ -26,7 +26,7 @@
 }
 
 .logoContainer {
-  margin-bottom: 2rem;
+  margin-bottom: 32px;
   opacity: 0.8;
 }
 
@@ -39,9 +39,9 @@
 }
 
 .title {
-  font-size: 2rem;
+  font-size: 32px;
   font-weight: 700;
-  margin: 0 0 2rem 0;
+  margin: 0 0 32px 0;
   color: #111;
   letter-spacing: -0.5px;
 }
@@ -52,14 +52,14 @@
 }
 
 .mainText {
-  font-size: 0.875rem;
-  margin: 0 0 0.5rem 0;
+  font-size: 14px;
+  margin: 0 0 8px 0;
   font-weight: 400;
   color: #222;
 }
 
 .subText {
-  font-size: 0.875rem;
+  font-size: 14px;
   margin: 0;
   font-weight: 400;
   color: #666;
@@ -67,14 +67,14 @@
 
 .footer {
   position: absolute;
-  bottom: 2rem;
+  bottom: 32px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   color: #888;
-  font-size: 0.75rem;
+  font-size: 12px;
 }
 
 .lockIcon {
@@ -84,14 +84,14 @@
 }
 
 .encryptedText {
-  font-size: 0.75rem;
+  font-size: 12px;
   font-weight: 400;
 }
 
 /* Responsive design */
 @media (max-width: 1024px) {
   .container {
-    padding: 1.5rem;
+    padding: 24px;
     border-radius: 12px;
   }
 
@@ -101,8 +101,8 @@
   }
 
   .title {
-    font-size: 1.75rem;
-    margin-bottom: 1.5rem;
+    font-size: 28px;
+    margin-bottom: 24px;
   }
 
   .content {
@@ -112,7 +112,7 @@
 
 @media (max-width: 768px) {
   .container {
-    padding: 1rem;
+    padding: 16px;
     border-radius: 8px;
     border: none;
   }
@@ -123,8 +123,8 @@
   }
 
   .title {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 24px;
+    margin-bottom: 16px;
   }
 
   .content {
@@ -132,7 +132,7 @@
   }
 
   .logoContainer {
-    margin-bottom: 1.5rem;
+    margin-bottom: 24px;
   }
 
   .mainText {
@@ -144,7 +144,7 @@
   }
 
   .footer {
-    bottom: 1rem;
+    bottom: 16px;
     font-size: 11px;
   }
 
@@ -156,7 +156,7 @@
 
 @media (max-width: 480px) {
   .container {
-    padding: 0.75rem;
+    padding: 12px;
     border-radius: 0;
   }
 
@@ -166,8 +166,8 @@
   }
 
   .title {
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
+    font-size: 20px;
+    margin-bottom: 12px;
   }
 
   .content {
@@ -175,7 +175,7 @@
   }
 
   .logoContainer {
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
   }
 
   .mainText {
@@ -187,7 +187,7 @@
   }
 
   .footer {
-    bottom: 0.75rem;
+    bottom: 12px;
     font-size: 10px;
   }
 }

@@ -37,12 +37,12 @@
   --font-family:
     'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-md: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
-  --font-size-xxl: 1.5rem;
+  --font-size-xs: 12px; /* 12px converted to px */
+  --font-size-sm: 14px; /* 14px converted to px */
+  --font-size-md: 16px; /* 16px converted to px */
+  --font-size-lg: 18px; /* 18px converted to px */
+  --font-size-xl: 20px; /* 20px converted to px */
+  --font-size-xxl: 24px; /* 24px converted to px */
 
   /* Border Radius */
   --border-radius-sm: 4px;
@@ -258,12 +258,12 @@ select:focus {
 /* Responsive adjustments for general elements */
 @media (max-width: 1024px) {
   :root {
-    --font-size-xxl: 1.375rem; /* 22px */
-    --font-size-xl: 1.125rem; /* 18px */
-    --font-size-lg: 1rem; /* 16px */
-    --font-size-md: 0.9375rem; /* 15px */
-    --font-size-sm: 0.875rem; /* 14px */
-    --font-size-xs: 0.75rem; /* 12px */
+    --font-size-xxl: 22px; /* 22px converted to px */
+    --font-size-xl: 18px; /* 18px converted to px */
+    --font-size-lg: 16px; /* 16px converted to px */
+    --font-size-md: 15px; /* 15px converted to px */
+    --font-size-sm: 14px; /* 14px converted to px */
+    --font-size-xs: 12px; /* 12px converted to px */
 
     --spacing-lg: 20px;
     --spacing-xl: 24px;
@@ -285,12 +285,12 @@ select:focus {
 
 @media (max-width: 768px) {
   :root {
-    --font-size-xxl: 1.25rem; /* 20px */
-    --font-size-xl: 1rem; /* 16px */
-    --font-size-lg: 0.9375rem; /* 15px */
-    --font-size-md: 0.875rem; /* 14px */
-    --font-size-sm: 0.8125rem; /* 13px */
-    --font-size-xs: 0.6875rem; /* 11px */
+    --font-size-xxl: 20px; /* 20px converted to px */
+    --font-size-xl: 16px; /* 16px converted to px */
+    --font-size-lg: 15px; /* 15px converted to px */
+    --font-size-md: 14px; /* 14px converted to px */
+    --font-size-sm: 13px; /* 13px converted to px */
+    --font-size-xs: 11px; /* 11px converted to px */
 
     --spacing-md: 12px;
     --spacing-lg: 16px;
@@ -313,12 +313,12 @@ select:focus {
 
 @media (max-width: 480px) {
   :root {
-    --font-size-xxl: 1.125rem; /* 18px */
-    --font-size-xl: 0.9375rem; /* 15px */
-    --font-size-lg: 0.875rem; /* 14px */
-    --font-size-md: 0.8125rem; /* 13px */
-    --font-size-sm: 0.75rem; /* 12px */
-    --font-size-xs: 0.625rem; /* 10px */
+    --font-size-xxl: 18px; /* 18px converted to px */
+    --font-size-xl: 15px; /* 15px converted to px */
+    --font-size-lg: 14px; /* 14px converted to px */
+    --font-size-md: 13px; /* 13px converted to px */
+    --font-size-sm: 12px; /* 12px converted to px */
+    --font-size-xs: 10px; /* 10px converted to px */
 
     --spacing-sm: 6px;
     --spacing-md: 10px;

@@ -2,15 +2,15 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-  font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 16px = 16px */
 }
 
 .header {
   z-index: 100;
   background-color: #3d4d55;
   align-items: center;
-  height: 5.25rem; /* 84px */
-  padding: 0 1.25rem; /* 0 20px */
+  height: 84px; /* 84px converted to px */
+  padding: 0 20px; /* 0 20px converted to px */
   display: flex;
   position: fixed;
   top: 0;
@@ -24,11 +24,11 @@
 .headerLogo {
   /* Facebook Profile pic thumbnails: 32-40px. Avatar in stories: 40-60px.
      For a prominent header logo, 100px is a good balance. */
-  width: 6.25rem; /* 100px */
+  width: 100px; /* 100px converted to px */
   height: auto; /* Maintain aspect ratio */
-  margin-left: 1.875rem; /* 30px */
+  margin-left: 30px; /* 30px converted to px */
   display: block; /* Ensure it behaves like a block element */
-  max-height: 3.5rem; /* 56px */
+  max-height: 56px; /* 56px converted to px */
 }
 
 .logoLink {
@@ -45,14 +45,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.25rem; /* 4px clickable area */
+  padding: 4px; /* 4px clickable area */
   flex-shrink: 0;
 }
 
 .menuIcon {
-  /* Facebook Top navbar icons: 20-24px. Using 24px (1.5rem) here. */
-  height: 1.5rem; /* 24px */
-  width: 1.5rem; /* 24px */
+  /* Facebook Top navbar icons: 20-24px. Using 24px (24px) here. */
+  height: 24px; /* 24px */
+  width: 24px; /* 24px */
 }
 
 .menuButton:hover {
@@ -61,21 +61,21 @@
 
 .searchContainer {
   flex: 1;
-  max-width: 32.6875rem; /* 523px */
+  max-width: 523px; /* 523px */
   margin: 0 auto;
   position: relative;
 }
 
 .searchBox {
   background-color: #fff;
-  border: 0.0625rem solid #f6f2ed; /* 1px */
+  border: 1px solid #f6f2ed; /* 1px */
   align-items: center;
-  height: 3.375rem; /* 54px */
-  padding: 0 1rem; /* 0 16px */
+  height: 54px; /* 54px */
+  padding: 0 16px; /* 0 16px */
   display: flex;
   position: relative;
-  box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1); /* 0 2px 5px */
-  border-radius: 0.9375rem; /* 15px */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 0 2px 5px */
+  border-radius: 15px; /* 15px */
 }
 
 .searchInput {
@@ -83,9 +83,9 @@
   border: none;
   outline: none;
   flex: 1;
-  margin-left: 0.625rem; /* 10px */
+  margin-left: 10px; /* 10px */
   /* Facebook Post text (main body) 14-16px */
-  font-size: 0.9375rem; /* 15px */
+  font-size: 15px; /* 15px */
   padding: 0;
   height: 100%;
   background-color: transparent;
@@ -95,20 +95,20 @@
   color: #fff;
   cursor: pointer;
   background-color: #00aaba;
-  border-radius: 0 0.9375rem 0.9375rem 0; /* 0 15px 15px 0 */
-  height: 3.375rem; /* 54px */
-  padding: 0 1.25rem; /* 0 20px */
+  border-radius: 0 15px 15px 0; /* 0 15px 15px 0 */
+  height: 54px; /* 54px */
+  padding: 0 20px; /* 0 20px */
   font-weight: 700;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
-  right: -0.0625rem; /* -1px */
+  right: -1px; /* -1px */
   top: 0;
   transition: background-color 0.3s ease;
   /* Facebook Buttons 13-14px */
-  font-size: 0.875rem; /* 14px */
+  font-size: 14px; /* 14px */
 }
 
 .searchButton:hover {
@@ -117,12 +117,12 @@
 
 /* No specific icon size for search button provided by user, keeping original 20px if exists */
 .searchButton img {
-  width: 1.25rem; /* 20px */
-  height: 1.25rem; /* 20px */
+  width: 20px; /* 20px */
+  height: 20px; /* 20px */
 }
 
 .headerControls {
-  gap: 1.25rem; /* 20px */
+  gap: 20px; /* 20px */
   margin-left: auto;
   display: flex;
   align-items: center;
@@ -133,7 +133,7 @@
   /* Base style for header control buttons */
   background: none;
   border: none;
-  padding: 0.25rem; /* 4px clickable area */
+  padding: 4px; /* 4px clickable area */
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -145,21 +145,21 @@
   cursor: pointer;
   /* Facebook Top navbar icons: 20-24px. Notifications (28px). Profile pic (36px). */
   /* Set base sizes here, specific elements override */
-  width: 1.5rem; /* 24px default for icons */
-  height: 1.5rem; /* 24px default for icons */
+  width: 24px; /* 24px default for icons */
+  height: 24px; /* 24px default for icons */
   flex-shrink: 0;
 }
 /* Specific overrides for size if different */
 .headerControls .iconButton:nth-child(1) img {
   /* Notification icon */
-  width: 1.5rem; /* 24px (adjust from 28px to fit FB guidelines) */
-  height: 1.5rem; /* 24px */
+  width: 24px; /* 24px (adjust from 28px to fit FB guidelines) */
+  height: 24px; /* 24px */
 }
 .headerControls .iconButton:nth-child(2) img {
   /* Profile icon (assuming order) */
-  /* Facebook Profile pic thumbnails: 32-40px. Using 36px (2.25rem). */
-  width: 2.25rem; /* 36px */
-  height: 2.25rem; /* 36px */
+  /* Facebook Profile pic thumbnails: 32-40px. Using 36px (36px). */
+  width: 36px; /* 36px */
+  height: 36px; /* 36px */
   border-radius: 50%; /* Added for profile image */
 }
 
@@ -172,7 +172,7 @@
   height: 18px;
   background-color: #e0245e;
   color: #fff;
-  font-size: 0.85rem;
+  font-size: 14px;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -189,7 +189,7 @@
 
 .notificationDropdown {
   position: absolute;
-  top: 2.5rem;
+  top: 40px;
   right: 0;
   background: #ffffff;
   border-radius: 12px;
@@ -263,13 +263,13 @@
   font-weight: 400;
 }
 .notificationList li {
-  /* padding: 0.9rem 1.5rem 0.7rem 1.5rem; */
+  /* padding: 14px 24px 11px 24px; */
   border-bottom: none;
   cursor: pointer;
   transition: background 0.18s;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 3px;
   color: #000;
   margin: 0;
   background: #fff !important;
@@ -277,7 +277,7 @@
 .notificationList li span {
   color: #000 !important;
   text-align: left;
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 500;
 }
 .notificationList li a {
@@ -385,159 +385,159 @@
 /* Desktop (1024px+) - Enhanced for larger screens */
 @media (min-width: 1024px) {
   .header {
-    height: 5.5rem; /* 88px */
-    padding: 0 2rem; /* 0 32px */
+    height: 88px; /* 88px */
+    padding: 0 32px; /* 0 32px */
   }
   .headerLogo {
-    width: 7rem; /* 112px */
-    max-height: 4rem; /* 64px */
-    margin-left: 2rem; /* 32px */
+    width: 112px; /* 112px */
+    max-height: 64px; /* 64px */
+    margin-left: 32px; /* 32px */
   }
   .searchContainer {
-    max-width: 36rem; /* 576px */
+    max-width: 576px; /* 576px */
   }
   .searchBox {
-    height: 3.5rem; /* 56px */
-    padding: 0 1.25rem; /* 0 20px */
+    height: 56px; /* 56px */
+    padding: 0 20px; /* 0 20px */
   }
   .searchButton {
-    height: 3.5rem; /* 56px */
-    padding: 0 1.5rem; /* 0 24px */
-    font-size: 1rem; /* 16px */
+    height: 56px; /* 56px */
+    padding: 0 24px; /* 0 24px */
+    font-size: 16px; /* 16px */
   }
   .headerControls {
-    gap: 1.5rem; /* 24px */
+    gap: 24px; /* 24px */
   }
 }
 
 /* Tablet (768px - 1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
   .header {
-    height: 4.75rem; /* 76px */
-    padding: 0 1.5rem; /* 0 24px */
+    height: 76px; /* 76px */
+    padding: 0 24px; /* 0 24px */
   }
   .headerLogo {
-    width: 5.75rem; /* 92px */
-    max-height: 3.25rem; /* 52px */
-    margin-left: 1.75rem; /* 28px */
+    width: 92px; /* 92px */
+    max-height: 52px; /* 52px */
+    margin-left: 28px; /* 28px */
   }
   .menuIcon {
-    width: 1.375rem; /* 22px */
-    height: 1.375rem; /* 22px */
+    width: 22px; /* 22px */
+    height: 22px; /* 22px */
   }
   .searchContainer {
-    max-width: 30rem; /* 480px */
+    max-width: 480px; /* 480px */
   }
   .searchBox {
-    height: 3.125rem; /* 50px */
-    padding: 0 1rem; /* 0 16px */
-    border-radius: 0.875rem; /* 14px */
+    height: 50px; /* 50px */
+    padding: 0 16px; /* 0 16px */
+    border-radius: 14px; /* 14px */
   }
   .searchInput {
-    font-size: 0.9375rem; /* 15px */
-    margin-left: 0.625rem; /* 10px */
+    font-size: 15px; /* 15px */
+    margin-left: 10px; /* 10px */
   }
   .searchButton {
-    height: 3.125rem; /* 50px */
-    padding: 0 1.125rem; /* 0 18px */
-    font-size: 0.875rem; /* 14px */
-    border-radius: 0 0.875rem 0.875rem 0; /* 0 14px 14px 0 */
+    height: 50px; /* 50px */
+    padding: 0 18px; /* 0 18px */
+    font-size: 14px; /* 14px */
+    border-radius: 0 14px 14px 0; /* 0 14px 14px 0 */
   }
   .searchButton img {
-    width: 1.125rem; /* 18px */
-    height: 1.125rem; /* 18px */
+    width: 18px; /* 18px */
+    height: 18px; /* 18px */
   }
   .headerControls {
-    gap: 1.125rem; /* 18px */
+    gap: 18px; /* 18px */
   }
   .headerControls img {
-    width: 1.375rem; /* 22px */
-    height: 1.375rem; /* 22px */
+    width: 22px; /* 22px */
+    height: 22px; /* 22px */
   }
   .headerControls .iconButton:nth-child(2) img {
-    width: 2.125rem; /* 34px */
-    height: 2.125rem; /* 34px */
+    width: 34px; /* 34px */
+    height: 34px; /* 34px */
   }
 }
 
 /* Small Tablet / Large Mobile (480px - 768px) */
 @media (min-width: 480px) and (max-width: 768px) {
   .header {
-    height: 4rem; /* 64px */
-    padding: 0 1rem; /* 0 16px */
+    height: 64px; /* 64px */
+    padding: 0 16px; /* 0 16px */
   }
   .headerLogo {
-    width: 4.75rem; /* 76px */
-    max-height: 2.75rem; /* 44px */
-    margin-left: 1rem; /* 16px */
+    width: 76px; /* 76px */
+    max-height: 44px; /* 44px */
+    margin-left: 16px; /* 16px */
   }
   .menuIcon {
-    width: 1.25rem; /* 20px */
-    height: 1.25rem; /* 20px */
+    width: 20px; /* 20px */
+    height: 20px; /* 20px */
   }
   .searchContainer {
-    max-width: 22rem; /* 352px */
+    max-width: 352px; /* 352px */
   }
   .searchBox {
-    height: 2.75rem; /* 44px */
-    padding: 0 0.75rem; /* 0 12px */
-    border-radius: 0.75rem; /* 12px */
+    height: 44px; /* 44px */
+    padding: 0 12px; /* 0 12px */
+    border-radius: 12px; /* 12px */
   }
   .searchInput {
-    font-size: 0.875rem; /* 14px */
-    margin-left: 0.5rem; /* 8px */
+    font-size: 14px; /* 14px */
+    margin-left: 8px; /* 8px */
   }
   .searchButton {
-    height: 2.75rem; /* 44px */
-    padding: 0 1rem; /* 0 16px */
-    font-size: 0.8125rem; /* 13px */
-    border-radius: 0 0.75rem 0.75rem 0; /* 0 12px 12px 0 */
+    height: 44px; /* 44px */
+    padding: 0 16px; /* 0 16px */
+    font-size: 13px; /* 13px */
+    border-radius: 0 12px 12px 0; /* 0 12px 12px 0 */
   }
   .searchButton img {
-    width: 1.125rem; /* 18px */
-    height: 1.125rem; /* 18px */
+    width: 18px; /* 18px */
+    height: 18px; /* 18px */
   }
   .headerControls {
-    gap: 1rem; /* 16px */
+    gap: 16px; /* 16px */
   }
   .headerControls img {
-    width: 1.25rem; /* 20px */
-    height: 1.25rem; /* 20px */
+    width: 20px; /* 20px */
+    height: 20px; /* 20px */
   }
   .headerControls .iconButton:nth-child(2) img {
-    width: 1.875rem; /* 30px */
-    height: 1.875rem; /* 30px */
+    width: 30px; /* 30px */
+    height: 30px; /* 30px */
   }
 }
 
 /* Mobile (max-width: 480px) */
 @media (max-width: 480px) {
   .header {
-    height: 3.5rem; /* 56px */
-    padding: 0 0.75rem; /* 0 12px */
+    height: 56px; /* 56px */
+    padding: 0 12px; /* 0 12px */
   }
   .headerLogo {
-    width: 4rem; /* 64px */
-    max-height: 2.25rem; /* 36px */
-    margin-left: 0.75rem; /* 12px */
+    width: 64px; /* 64px */
+    max-height: 36px; /* 36px */
+    margin-left: 12px; /* 12px */
   }
   .menuIcon {
-    width: 1.125rem; /* 18px */
-    height: 1.125rem; /* 18px */
+    width: 18px; /* 18px */
+    height: 18px; /* 18px */
   }
   .searchContainer {
     display: none; /* Hide search on mobile */
   }
   .headerControls {
-    gap: 0.75rem; /* 12px */
+    gap: 12px; /* 12px */
   }
   .headerControls img {
-    width: 1.125rem; /* 18px */
-    height: 1.125rem; /* 18px */
+    width: 18px; /* 18px */
+    height: 18px; /* 18px */
   }
   .headerControls .iconButton:nth-child(2) img {
-    width: 1.75rem; /* 28px */
-    height: 1.75rem; /* 28px */
+    width: 28px; /* 28px */
+    height: 28px; /* 28px */
   }
 
   /* Notification container positioning fix for mobile */
@@ -546,75 +546,75 @@
   }
 
   .dropdown {
-    top: 2rem; /* 32px */
-    width: 10rem; /* 160px */
-    padding: 0.5rem; /* 8px */
+    top: 32px; /* 32px */
+    width: 160px; /* 160px */
+    padding: 8px; /* 8px */
     left: auto;
     right: 0;
     transform: none;
   }
   .dropdownItem {
-    gap: 0.5rem; /* 8px */
-    padding: 0.5rem 0.75rem; /* 8px 12px */
-    font-size: 0.875rem; /* 14px */
+    gap: 8px; /* 8px */
+    padding: 8px 12px; /* 8px 12px */
+    font-size: 14px; /* 14px */
   }
   .dropdownItem img {
-    width: 1rem; /* 16px */
-    height: 1rem; /* 16px */
+    width: 16px; /* 16px */
+    height: 16px; /* 16px */
   }
   .dropdownItem span {
-    font-size: 0.875rem; /* 14px */
+    font-size: 14px; /* 14px */
   }
 }
 
 /* Extra small mobile (max-width: 360px) */
 @media (max-width: 360px) {
   .header {
-    height: 3.25rem; /* 52px */
-    padding: 0 0.5rem; /* 0 8px */
+    height: 52px; /* 52px */
+    padding: 0 8px; /* 0 8px */
   }
   .headerLogo {
-    width: 3.5rem; /* 56px */
-    max-height: 2rem; /* 32px */
-    margin-left: 0.5rem; /* 8px */
+    width: 56px; /* 56px */
+    max-height: 32px; /* 32px */
+    margin-left: 8px; /* 8px */
   }
   .menuIcon {
-    width: 1rem; /* 16px */
-    height: 1rem; /* 16px */
+    width: 16px; /* 16px */
+    height: 16px; /* 16px */
   }
   .headerControls {
-    gap: 0.5rem; /* 8px */
+    gap: 8px; /* 8px */
   }
   .headerControls img {
-    width: 1rem; /* 16px */
-    height: 1rem; /* 16px */
+    width: 16px; /* 16px */
+    height: 16px; /* 16px */
   }
   .headerControls .iconButton:nth-child(2) img {
-    width: 1.5rem; /* 24px */
-    height: 1.5rem; /* 24px */
+    width: 24px; /* 24px */
+    height: 24px; /* 24px */
   }
   .notificationDot {
     min-width: 16px;
     height: 16px;
-    font-size: 0.75rem;
+    font-size: 12px;
     top: -4px;
     right: -1px;
   }
   .dropdown {
-    width: 9rem; /* 144px */
-    padding: 0.375rem; /* 6px */
+    width: 144px; /* 144px */
+    padding: 6px; /* 6px */
   }
   .dropdownItem {
-    gap: 0.375rem; /* 6px */
-    padding: 0.375rem 0.5rem; /* 6px 8px */
-    font-size: 0.8125rem; /* 13px */
+    gap: 6px; /* 6px */
+    padding: 6px 8px; /* 6px 8px */
+    font-size: 13px; /* 13px */
   }
   .dropdownItem img {
-    width: 0.875rem; /* 14px */
-    height: 0.875rem; /* 14px */
+    width: 14px; /* 14px */
+    height: 14px; /* 14px */
   }
   .dropdownItem span {
-    font-size: 0.8125rem; /* 13px */
+    font-size: 13px; /* 13px */
   }
 
   /* Notification dropdown for extra small screens */
@@ -629,14 +629,14 @@
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: 0.5rem;
+  margin-top: 8px;
   background: #fff;
-  border-radius: 1rem;
+  border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  width: 14rem;
+  width: 224px;
   max-width: 90vw;
   z-index: 101;
-  padding: 0.5rem 0;
+  padding: 8px 0;
   border: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
@@ -645,7 +645,7 @@
 .dropdown ul {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 4px;
   margin: 0;
   padding: 0;
 }
@@ -658,13 +658,13 @@
   display: flex;
   align-items: center;
   width: 100%;
-  gap: 0.75rem;
-  padding: 0.75rem 1.25rem;
+  gap: 12px;
+  padding: 12px 20px;
   background: none;
   border: none;
   text-align: left;
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: 18px;
   color: #222;
   font-weight: 500;
   transition: background 0.15s;
@@ -672,14 +672,14 @@
 }
 
 .dropdownItem img {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 24px;
+  height: 24px;
   filter: none;
 }
 
 .dropdownItem span {
   color: #1e293b;
-  font-size: 1.1rem;
+  font-size: 18px;
   font-weight: 500;
   text-decoration: none;
 }
@@ -795,7 +795,7 @@
   transition: background 0.18s;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 3px;
   color: #000;
   margin: 0;
   background: #fff !important;
@@ -822,7 +822,7 @@
 .notificationList li span {
   color: #000 !important;
   text-align: left;
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 500;
 }
 
@@ -959,14 +959,14 @@
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: 0.5rem;
+  margin-top: 8px;
   background: #fff;
-  border-radius: 1rem;
+  border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  width: 14rem;
+  width: 224px;
   max-width: 90vw;
   z-index: 101;
-  padding: 0.5rem 0;
+  padding: 8px 0;
   border: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
@@ -975,7 +975,7 @@
 .dropdown ul {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 4px;
   margin: 0;
   padding: 0;
 }
@@ -988,13 +988,13 @@
   display: flex;
   align-items: center;
   width: 100%;
-  gap: 0.75rem;
-  padding: 0.75rem 1.25rem;
+  gap: 12px;
+  padding: 12px 20px;
   background: none;
   border: none;
   text-align: left;
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: 18px;
   color: #222;
   font-weight: 500;
   transition: background 0.15s;
@@ -1002,14 +1002,14 @@
 }
 
 .dropdownItem img {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 24px;
+  height: 24px;
   filter: none;
 }
 
 .dropdownItem span {
   color: #1e293b;
-  font-size: 1.1rem;
+  font-size: 18px;
   font-weight: 500;
   text-decoration: none;
 }
@@ -1024,11 +1024,11 @@
 .headerLogo {
   /* Facebook Profile pic thumbnails: 32-40px. Avatar in stories: 40-60px.
      For a prominent header logo, 100px is a good balance. */
-  width: 6.25rem; /* 100px */
+  width: 100px; /* 100px */
   height: auto; /* Maintain aspect ratio */
-  margin-left: 1.875rem; /* 30px */
+  margin-left: 30px; /* 30px */
   display: block; /* Ensure it behaves like a block element */
-  max-height: 3.5rem; /* Max height to fit within header (e.g., 56px) */
+  max-height: 56px; /* Max height to fit within header (e.g., 56px) */
 }
 
 .logoLink {
@@ -1045,14 +1045,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.25rem; /* 4px clickable area */
+  padding: 4px; /* 4px clickable area */
   flex-shrink: 0;
 }
 
 .menuIcon {
-  /* Facebook Top navbar icons: 20-24px. Using 24px (1.5rem) here. */
-  height: 1.5rem; /* 24px */
-  width: 1.5rem; /* 24px */
+  /* Facebook Top navbar icons: 20-24px. Using 24px (24px) here. */
+  height: 24px; /* 24px */
+  width: 24px; /* 24px */
 }
 
 .menuButton:hover {
@@ -1061,21 +1061,21 @@
 
 .searchContainer {
   flex: 1;
-  max-width: 32.6875rem; /* 523px */
+  max-width: 523px; /* 523px */
   margin: 0 auto;
   position: relative;
 }
 
 .searchBox {
   background-color: #fff;
-  border: 0.0625rem solid #f6f2ed; /* 1px */
+  border: 1px solid #f6f2ed; /* 1px */
   align-items: center;
-  height: 3.375rem; /* 54px */
-  padding: 0 1rem; /* 0 16px */
+  height: 54px; /* 54px */
+  padding: 0 16px; /* 0 16px */
   display: flex;
   position: relative;
-  box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1); /* 0 2px 5px */
-  border-radius: 0.9375rem; /* 15px */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 0 2px 5px */
+  border-radius: 15px; /* 15px */
 }
 
 .searchInput {
@@ -1083,9 +1083,9 @@
   border: none;
   outline: none;
   flex: 1;
-  margin-left: 0.625rem; /* 10px */
+  margin-left: 10px; /* 10px */
   /* Facebook Post text (main body) 14-16px */
-  font-size: 0.9375rem; /* 15px */
+  font-size: 15px; /* 15px */
   padding: 0;
   height: 100%;
   background-color: transparent;
@@ -1095,20 +1095,20 @@
   color: #fff;
   cursor: pointer;
   background-color: #00aaba;
-  border-radius: 0 0.9375rem 0.9375rem 0; /* 0 15px 15px 0 */
-  height: 3.375rem; /* 54px */
-  padding: 0 1.25rem; /* 0 20px */
+  border-radius: 0 15px 15px 0; /* 0 15px 15px 0 */
+  height: 54px; /* 54px */
+  padding: 0 20px; /* 0 20px */
   font-weight: 700;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
-  right: -0.0625rem; /* -1px */
+  right: -1px; /* -1px */
   top: 0;
   transition: background-color 0.3s ease;
   /* Facebook Buttons 13-14px */
-  font-size: 0.875rem; /* 14px */
+  font-size: 14px; /* 14px */
 }
 
 .searchButton:hover {
@@ -1117,12 +1117,12 @@
 
 /* No specific icon size for search button provided by user, keeping original 20px if exists */
 .searchButton img {
-  width: 1.25rem; /* 20px */
-  height: 1.25rem; /* 20px */
+  width: 20px; /* 20px */
+  height: 20px; /* 20px */
 }
 
 .headerControls {
-  gap: 1.25rem; /* 20px */
+  gap: 20px; /* 20px */
   margin-left: auto;
   display: flex;
   align-items: center;
@@ -1133,7 +1133,7 @@
   /* Base style for header control buttons */
   background: none;
   border: none;
-  padding: 0.25rem; /* 4px clickable area */
+  padding: 4px; /* 4px clickable area */
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -1145,21 +1145,21 @@
   cursor: pointer;
   /* Facebook Top navbar icons: 20-24px. Notifications (28px). Profile pic (36px). */
   /* Set base sizes here, specific elements override */
-  width: 1.5rem; /* 24px default for icons */
-  height: 1.5rem; /* 24px default for icons */
+  width: 24px; /* 24px default for icons */
+  height: 24px; /* 24px default for icons */
   flex-shrink: 0;
 }
 /* Specific overrides for size if different */
 .headerControls .iconButton:nth-child(1) img {
   /* Notification icon */
-  width: 1.5rem; /* 24px (adjust from 28px to fit FB guidelines) */
-  height: 1.5rem; /* 24px */
+  width: 24px; /* 24px (adjust from 28px to fit FB guidelines) */
+  height: 24px; /* 24px */
 }
 .headerControls .iconButton:nth-child(2) img {
   /* Profile icon (assuming order) */
-  /* Facebook Profile pic thumbnails: 32-40px. Using 36px (2.25rem). */
-  width: 2.25rem; /* 36px */
-  height: 2.25rem; /* 36px */
+  /* Facebook Profile pic thumbnails: 32-40px. Using 36px (36px). */
+  width: 36px; /* 36px */
+  height: 36px; /* 36px */
   border-radius: 50%; /* Added for profile image */
 }
 
@@ -1172,7 +1172,7 @@
   height: 18px;
   background-color: #e0245e;
   color: #fff;
-  font-size: 0.85rem;
+  font-size: 14px;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -1236,13 +1236,13 @@
   font-weight: 400;
 }
 .notificationList li {
-  /* padding: 0.9rem 1.5rem 0.7rem 1.5rem; */
+  /* padding: 14px 24px 11px 24px; */
   border-bottom: none;
   cursor: pointer;
   transition: background 0.18s;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 3px;
   color: #000;
   margin: 0;
   background: #fff !important;
@@ -1250,7 +1250,7 @@
 .notificationList li span {
   color: #000 !important;
   text-align: left;
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 500;
 }
 .notificationList li a {
@@ -1337,159 +1337,159 @@
 /* Desktop (1024px+) - Enhanced for larger screens */
 @media (min-width: 1024px) {
   .header {
-    height: 5.5rem; /* 88px */
-    padding: 0 2rem; /* 0 32px */
+    height: 88px; /* 88px */
+    padding: 0 32px; /* 0 32px */
   }
   .headerLogo {
-    width: 7rem; /* 112px */
-    max-height: 4rem; /* 64px */
-    margin-left: 2rem; /* 32px */
+    width: 112px; /* 112px */
+    max-height: 64px; /* 64px */
+    margin-left: 32px; /* 32px */
   }
   .searchContainer {
-    max-width: 36rem; /* 576px */
+    max-width: 576px; /* 576px */
   }
   .searchBox {
-    height: 3.5rem; /* 56px */
-    padding: 0 1.25rem; /* 0 20px */
+    height: 56px; /* 56px */
+    padding: 0 20px; /* 0 20px */
   }
   .searchButton {
-    height: 3.5rem; /* 56px */
-    padding: 0 1.5rem; /* 0 24px */
-    font-size: 1rem; /* 16px */
+    height: 56px; /* 56px */
+    padding: 0 24px; /* 0 24px */
+    font-size: 16px; /* 16px */
   }
   .headerControls {
-    gap: 1.5rem; /* 24px */
+    gap: 24px; /* 24px */
   }
 }
 
 /* Tablet (768px - 1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
   .header {
-    height: 4.75rem; /* 76px */
-    padding: 0 1.5rem; /* 0 24px */
+    height: 76px; /* 76px */
+    padding: 0 24px; /* 0 24px */
   }
   .headerLogo {
-    width: 5.75rem; /* 92px */
-    max-height: 3.25rem; /* 52px */
-    margin-left: 1.75rem; /* 28px */
+    width: 92px; /* 92px */
+    max-height: 52px; /* 52px */
+    margin-left: 28px; /* 28px */
   }
   .menuIcon {
-    width: 1.375rem; /* 22px */
-    height: 1.375rem; /* 22px */
+    width: 22px; /* 22px */
+    height: 22px; /* 22px */
   }
   .searchContainer {
-    max-width: 30rem; /* 480px */
+    max-width: 480px; /* 480px */
   }
   .searchBox {
-    height: 3.125rem; /* 50px */
-    padding: 0 1rem; /* 0 16px */
-    border-radius: 0.875rem; /* 14px */
+    height: 50px; /* 50px */
+    padding: 0 16px; /* 0 16px */
+    border-radius: 14px; /* 14px */
   }
   .searchInput {
-    font-size: 0.9375rem; /* 15px */
-    margin-left: 0.625rem; /* 10px */
+    font-size: 15px; /* 15px */
+    margin-left: 10px; /* 10px */
   }
   .searchButton {
-    height: 3.125rem; /* 50px */
-    padding: 0 1.125rem; /* 0 18px */
-    font-size: 0.875rem; /* 14px */
-    border-radius: 0 0.875rem 0.875rem 0; /* 0 14px 14px 0 */
+    height: 50px; /* 50px */
+    padding: 0 18px; /* 0 18px */
+    font-size: 14px; /* 14px */
+    border-radius: 0 14px 14px 0; /* 0 14px 14px 0 */
   }
   .searchButton img {
-    width: 1.125rem; /* 18px */
-    height: 1.125rem; /* 18px */
+    width: 18px; /* 18px */
+    height: 18px; /* 18px */
   }
   .headerControls {
-    gap: 1.125rem; /* 18px */
+    gap: 18px; /* 18px */
   }
   .headerControls img {
-    width: 1.375rem; /* 22px */
-    height: 1.375rem; /* 22px */
+    width: 22px; /* 22px */
+    height: 22px; /* 22px */
   }
   .headerControls .iconButton:nth-child(2) img {
-    width: 2.125rem; /* 34px */
-    height: 2.125rem; /* 34px */
+    width: 34px; /* 34px */
+    height: 34px; /* 34px */
   }
 }
 
 /* Small Tablet / Large Mobile (480px - 768px) */
 @media (min-width: 480px) and (max-width: 768px) {
   .header {
-    height: 4rem; /* 64px */
-    padding: 0 1rem; /* 0 16px */
+    height: 64px; /* 64px */
+    padding: 0 16px; /* 0 16px */
   }
   .headerLogo {
-    width: 4.75rem; /* 76px */
-    max-height: 2.75rem; /* 44px */
-    margin-left: 1rem; /* 16px */
+    width: 76px; /* 76px */
+    max-height: 44px; /* 44px */
+    margin-left: 16px; /* 16px */
   }
   .menuIcon {
-    width: 1.25rem; /* 20px */
-    height: 1.25rem; /* 20px */
+    width: 20px; /* 20px */
+    height: 20px; /* 20px */
   }
   .searchContainer {
-    max-width: 22rem; /* 352px */
+    max-width: 352px; /* 352px */
   }
   .searchBox {
-    height: 2.75rem; /* 44px */
-    padding: 0 0.75rem; /* 0 12px */
-    border-radius: 0.75rem; /* 12px */
+    height: 44px; /* 44px */
+    padding: 0 12px; /* 0 12px */
+    border-radius: 12px; /* 12px */
   }
   .searchInput {
-    font-size: 0.875rem; /* 14px */
-    margin-left: 0.5rem; /* 8px */
+    font-size: 14px; /* 14px */
+    margin-left: 8px; /* 8px */
   }
   .searchButton {
-    height: 2.75rem; /* 44px */
-    padding: 0 1rem; /* 0 16px */
-    font-size: 0.8125rem; /* 13px */
-    border-radius: 0 0.75rem 0.75rem 0; /* 0 12px 12px 0 */
+    height: 44px; /* 44px */
+    padding: 0 16px; /* 0 16px */
+    font-size: 13px; /* 13px */
+    border-radius: 0 12px 12px 0; /* 0 12px 12px 0 */
   }
   .searchButton img {
-    width: 1.125rem; /* 18px */
-    height: 1.125rem; /* 18px */
+    width: 18px; /* 18px */
+    height: 18px; /* 18px */
   }
   .headerControls {
-    gap: 1rem; /* 16px */
+    gap: 16px; /* 16px */
   }
   .headerControls img {
-    width: 1.25rem; /* 20px */
-    height: 1.25rem; /* 20px */
+    width: 20px; /* 20px */
+    height: 20px; /* 20px */
   }
   .headerControls .iconButton:nth-child(2) img {
-    width: 1.875rem; /* 30px */
-    height: 1.875rem; /* 30px */
+    width: 30px; /* 30px */
+    height: 30px; /* 30px */
   }
 }
 
 /* Mobile (max-width: 480px) */
 @media (max-width: 480px) {
   .header {
-    height: 3.5rem; /* 56px */
-    padding: 0 0.75rem; /* 0 12px */
+    height: 56px; /* 56px */
+    padding: 0 12px; /* 0 12px */
   }
   .headerLogo {
-    width: 4rem; /* 64px */
-    max-height: 2.25rem; /* 36px */
-    margin-left: 0.75rem; /* 12px */
+    width: 64px; /* 64px */
+    max-height: 36px; /* 36px */
+    margin-left: 12px; /* 12px */
   }
   .menuIcon {
-    width: 1.125rem; /* 18px */
-    height: 1.125rem; /* 18px */
+    width: 18px; /* 18px */
+    height: 18px; /* 18px */
   }
   .searchContainer {
     display: none; /* Hide search on mobile */
   }
   .headerControls {
-    gap: 0.75rem; /* 12px */
+    gap: 12px; /* 12px */
   }
   .headerControls img {
-    width: 1.125rem; /* 18px */
-    height: 1.125rem; /* 18px */
+    width: 18px; /* 18px */
+    height: 18px; /* 18px */
   }
   .headerControls .iconButton:nth-child(2) img {
-    width: 1.75rem; /* 28px */
-    height: 1.75rem; /* 28px */
+    width: 28px; /* 28px */
+    height: 28px; /* 28px */
   }
 
   /* Notification container positioning fix for mobile */
@@ -1498,75 +1498,75 @@
   }
 
   .dropdown {
-    top: 2rem; /* 32px */
-    width: 10rem; /* 160px */
-    padding: 0.5rem; /* 8px */
+    top: 32px; /* 32px */
+    width: 160px; /* 160px */
+    padding: 8px; /* 8px */
     left: auto;
     right: 0;
     transform: none;
   }
   .dropdownItem {
-    gap: 0.5rem; /* 8px */
-    padding: 0.5rem 0.75rem; /* 8px 12px */
-    font-size: 0.875rem; /* 14px */
+    gap: 8px; /* 8px */
+    padding: 8px 12px; /* 8px 12px */
+    font-size: 14px; /* 14px */
   }
   .dropdownItem img {
-    width: 1rem; /* 16px */
-    height: 1rem; /* 16px */
+    width: 16px; /* 16px */
+    height: 16px; /* 16px */
   }
   .dropdownItem span {
-    font-size: 0.875rem; /* 14px */
+    font-size: 14px; /* 14px */
   }
 }
 
 /* Extra small mobile (max-width: 360px) */
 @media (max-width: 360px) {
   .header {
-    height: 3.25rem; /* 52px */
-    padding: 0 0.5rem; /* 0 8px */
+    height: 52px; /* 52px */
+    padding: 0 8px; /* 0 8px */
   }
   .headerLogo {
-    width: 3.5rem; /* 56px */
-    max-height: 2rem; /* 32px */
-    margin-left: 0.5rem; /* 8px */
+    width: 56px; /* 56px */
+    max-height: 32px; /* 32px */
+    margin-left: 8px; /* 8px */
   }
   .menuIcon {
-    width: 1rem; /* 16px */
-    height: 1rem; /* 16px */
+    width: 16px; /* 16px */
+    height: 16px; /* 16px */
   }
   .headerControls {
-    gap: 0.5rem; /* 8px */
+    gap: 8px; /* 8px */
   }
   .headerControls img {
-    width: 1rem; /* 16px */
-    height: 1rem; /* 16px */
+    width: 16px; /* 16px */
+    height: 16px; /* 16px */
   }
   .headerControls .iconButton:nth-child(2) img {
-    width: 1.5rem; /* 24px */
-    height: 1.5rem; /* 24px */
+    width: 24px; /* 24px */
+    height: 24px; /* 24px */
   }
   .notificationDot {
     min-width: 16px;
     height: 16px;
-    font-size: 0.75rem;
+    font-size: 12px;
     top: -4px;
     right: -1px;
   }
   .dropdown {
-    width: 9rem; /* 144px */
-    padding: 0.375rem; /* 6px */
+    width: 144px; /* 144px */
+    padding: 6px; /* 6px */
   }
   .dropdownItem {
-    gap: 0.375rem; /* 6px */
-    padding: 0.375rem 0.5rem; /* 6px 8px */
-    font-size: 0.8125rem; /* 13px */
+    gap: 6px; /* 6px */
+    padding: 6px 8px; /* 6px 8px */
+    font-size: 13px; /* 13px */
   }
   .dropdownItem img {
-    width: 0.875rem; /* 14px */
-    height: 0.875rem; /* 14px */
+    width: 14px; /* 14px */
+    height: 14px; /* 14px */
   }
   .dropdownItem span {
-    font-size: 0.8125rem; /* 13px */
+    font-size: 13px; /* 13px */
   }
 
   /* Notification dropdown for extra small screens */
@@ -1601,14 +1601,14 @@
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: 0.5rem;
+  margin-top: 8px;
   background: #fff;
-  border-radius: 1rem;
+  border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  width: 14rem;
+  width: 224px;
   max-width: 90vw;
   z-index: 101;
-  padding: 0.5rem 0;
+  padding: 8px 0;
   border: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
@@ -1617,7 +1617,7 @@
 .dropdown ul {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 4px;
   margin: 0;
   padding: 0;
 }
@@ -1630,13 +1630,13 @@
   display: flex;
   align-items: center;
   width: 100%;
-  gap: 0.75rem;
-  padding: 0.75rem 1.25rem;
+  gap: 12px;
+  padding: 12px 20px;
   background: none;
   border: none;
   text-align: left;
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: 18px;
   color: #222;
   font-weight: 500;
   transition: background 0.15s;
@@ -1644,14 +1644,14 @@
 }
 
 .dropdownItem img {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 24px;
+  height: 24px;
   filter: none;
 }
 
 .dropdownItem span {
   color: #1e293b;
-  font-size: 1.1rem;
+  font-size: 18px;
   font-weight: 500;
   text-decoration: none;
 }
@@ -1828,7 +1828,7 @@
   transition: background 0.18s;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 3px;
   color: #000;
   margin: 0;
   background: #fff !important;
@@ -1855,7 +1855,7 @@
 .notificationList li span {
   color: #000 !important;
   text-align: left;
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 500;
 }
 
@@ -1973,14 +1973,14 @@
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: 0.5rem;
+  margin-top: 8px;
   background: #fff;
-  border-radius: 1rem;
+  border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  width: 14rem;
+  width: 224px;
   max-width: 90vw;
   z-index: 101;
-  padding: 0.5rem 0;
+  padding: 8px 0;
   border: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
@@ -1989,7 +1989,7 @@
 .dropdown ul {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 4px;
   margin: 0;
   padding: 0;
 }
@@ -2002,13 +2002,13 @@
   display: flex;
   align-items: center;
   width: 100%;
-  gap: 0.75rem;
-  padding: 0.75rem 1.25rem;
+  gap: 12px;
+  padding: 12px 20px;
   background: none;
   border: none;
   text-align: left;
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: 18px;
   color: #222;
   font-weight: 500;
   transition: background 0.15s;
@@ -2016,14 +2016,14 @@
 }
 
 .dropdownItem img {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 24px;
+  height: 24px;
   filter: none;
 }
 
 .dropdownItem span {
   color: #1e293b;
-  font-size: 1.1rem;
+  font-size: 18px;
   font-weight: 500;
   text-decoration: none;
 }

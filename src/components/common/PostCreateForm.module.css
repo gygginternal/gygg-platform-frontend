@@ -1,18 +1,18 @@
 .postCreateForm {
   background: #fff;
   border-radius: 20px;
-  padding: 1.25rem 1.5rem 1rem 1.5rem;
-  margin: 0.5rem 0;
+  padding: 20px 24px 16px 24px;
+  margin: 8px 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .postCreateRow {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
+  gap: 16px;
   width: 100%;
 }
 
@@ -30,11 +30,11 @@
   max-height: 200px;
   border: none;
   resize: vertical;
-  font-size: 1.1rem;
-  padding: 0.75rem 1rem;
+  font-size: 18px;
+  padding: 12px 16px;
   border-radius: 12px;
   background: #f7f7f7;
-  margin-right: 1rem;
+  margin-right: 16px;
   box-shadow: none;
   outline: none;
   transition: background 0.2s;
@@ -48,9 +48,9 @@
   color: #fff;
   border: none;
   border-radius: 20px;
-  padding: 0.75rem 1.5rem;
+  padding: 12px 24px;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 16px;
   cursor: pointer;
   margin-top: 4px;
   transition: background 0.2s;
@@ -63,9 +63,9 @@
 .postCreateActions {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   margin-left: 60px;
-  margin-top: 0.25rem;
+  margin-top: 4px;
 }
 
 .iconBtn {
@@ -95,9 +95,9 @@
 }
 
 .contentWarningContainer {
-  margin-top: 0.5rem;
+  margin-top: 8px;
   margin-left: 60px;
-  padding: 0.75rem;
+  padding: 12px;
   border-radius: 8px;
   background: #fffbeb;
   border: 1px solid #fbbf24;
@@ -106,9 +106,9 @@
 .contentWarningMessage {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   color: #92400e;
-  font-size: 0.9rem;
+  font-size: 14px;
   font-weight: 500;
 }
 
@@ -122,38 +122,38 @@
 }
 
 .contentSuggestions {
-  margin-top: 0.5rem;
-  padding-top: 0.5rem;
+  margin-top: 8px;
+  padding-top: 8px;
   border-top: 1px solid #fbbf24;
 }
 
 .suggestionsTitle {
-  font-size: 0.85rem;
+  font-size: 14px;
   font-weight: 600;
   color: #92400e;
-  margin-bottom: 0.25rem;
+  margin-bottom: 4px;
 }
 
 .suggestionsList {
   margin: 0;
-  padding-left: 1rem;
+  padding-left: 16px;
 }
 
 .suggestionItem {
-  font-size: 0.8rem;
+  font-size: 13px;
   color: #92400e;
-  margin-bottom: 0.25rem;
+  margin-bottom: 4px;
 }
 
 @media (max-width: 1024px) {
   .postCreateForm {
-    padding: 1rem 1.2rem 0.8rem 1.2rem;
+    padding: 16px 19px 13px 19px;
     border-radius: 18px;
-    gap: 0.4rem;
+    gap: 6px;
   }
 
   .postCreateRow {
-    gap: 0.8rem;
+    gap: 13px;
   }
 
   .avatar {
@@ -162,21 +162,21 @@
   }
 
   .postInput {
-    font-size: 1rem;
-    padding: 0.6rem 0.8rem;
+    font-size: 16px;
+    padding: 10px 13px;
     border-radius: 10px;
-    margin-right: 0.8rem;
+    margin-right: 13px;
   }
 
   .postButton {
-    padding: 0.6rem 1.2rem;
-    font-size: 0.9rem;
+    padding: 10px 19px;
+    font-size: 14px;
     border-radius: 18px;
   }
 
   .postCreateActions {
     margin-left: 50px;
-    gap: 0.4rem;
+    gap: 6px;
   }
 
   .iconBtn {
@@ -191,13 +191,13 @@
 
 @media (max-width: 768px) {
   .postCreateForm {
-    padding: 0.8rem 1rem 0.6rem 1rem;
+    padding: 13px 16px 10px 16px;
     border-radius: 16px;
-    gap: 0.3rem;
+    gap: 5px;
   }
 
   .postCreateRow {
-    gap: 0.6rem;
+    gap: 10px;
   }
 
   .avatar {
@@ -206,21 +206,21 @@
   }
 
   .postInput {
-    font-size: 0.9rem;
-    padding: 0.5rem 0.7rem;
+    font-size: 14px;
+    padding: 8px 11px;
     border-radius: 8px;
-    margin-right: 0.6rem;
+    margin-right: 10px;
   }
 
   .postButton {
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
+    padding: 8px 16px;
+    font-size: 13px;
     border-radius: 16px;
   }
 
   .postCreateActions {
     margin-left: 44px;
-    gap: 0.3rem;
+    gap: 5px;
   }
 
   .iconBtn {
@@ -235,13 +235,13 @@
 
 @media (max-width: 480px) {
   .postCreateForm {
-    padding: 0.6rem 0.8rem 0.5rem 0.8rem;
+    padding: 10px 13px 8px 13px;
     border-radius: 14px;
-    gap: 0.2rem;
+    gap: 3px;
   }
 
   .postCreateRow {
-    gap: 0.5rem;
+    gap: 8px;
   }
 
   .avatar {
@@ -250,21 +250,21 @@
   }
 
   .postInput {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.6rem;
+    font-size: 13px;
+    padding: 6px 10px;
     border-radius: 6px;
-    margin-right: 0.5rem;
+    margin-right: 8px;
   }
 
   .postButton {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.7rem;
+    padding: 6px 13px;
+    font-size: 11px;
     border-radius: 14px;
   }
 
   .postCreateActions {
     margin-left: 38px;
-    gap: 0.2rem;
+    gap: 3px;
   }
 
   .iconBtn {

@@ -10,7 +10,7 @@
 }
 
 .heading1 {
-  font-size: 6rem;
+  font-size: 96px;
   margin-bottom: 16px;
 }
 
@@ -32,12 +32,12 @@
   }
 
   .heading1 {
-    font-size: 5rem;
+    font-size: 80px;
     margin-bottom: 14px;
   }
 
   .heading2 {
-    font-size: 1.8rem;
+    font-size: 29px;
     margin-bottom: 14px;
   }
 
@@ -56,12 +56,12 @@
   }
 
   .heading1 {
-    font-size: 4rem;
+    font-size: 64px;
     margin-bottom: 12px;
   }
 
   .heading2 {
-    font-size: 1.5rem;
+    font-size: 24px;
     margin-bottom: 12px;
   }
 
@@ -80,12 +80,12 @@
   }
 
   .heading1 {
-    font-size: 3rem;
+    font-size: 48px;
     margin-bottom: 10px;
   }
 
   .heading2 {
-    font-size: 1.2rem;
+    font-size: 19px;
     margin-bottom: 10px;
   }
 

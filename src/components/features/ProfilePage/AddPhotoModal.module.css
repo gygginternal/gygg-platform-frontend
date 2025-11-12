@@ -2,7 +2,7 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-  font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 16px = 16px */
 }
 
 .modal {
@@ -16,16 +16,16 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  padding: 1rem; /* Add padding for very small screens to prevent content touching edges */
+  padding: 16px; /* Add padding for very small screens to prevent content touching edges */
   box-sizing: border-box;
 }
 
 .modalContent {
   background-color: #fff;
   width: 90%;
-  max-width: 31.25rem; /* 500px */
-  border-radius: 1rem; /* 16px */
-  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.2); /* 0 4px 12px */
+  max-width: 500px; /* 500px */
+  border-radius: 16px; /* 16px */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* 0 4px 12px */
   display: flex; /* Ensure content stacks properly */
   flex-direction: column;
 }
@@ -36,15 +36,15 @@
   align-items: center;
   background-color: #00aaba;
   color: #fff;
-  padding: 0.9375rem; /* 15px */
-  border-radius: 1rem 1rem 0 0; /* 16px */
+  padding: 15px; /* 15px */
+  border-radius: 16px 16px 0 0; /* 16px */
 }
 
 /* Assuming a title element (h2/h3) inside .modalHeader */
 .modalHeader h2,
 .modalHeader h3 {
   /* Facebook Header (profile names etc.) 16-18px */
-  font-size: 1.125rem; /* 18px */
+  font-size: 18px; /* 18px */
   font-weight: 600; /* Standard for headers */
   margin: 0; /* Remove default margin */
 }
@@ -53,26 +53,26 @@
   background: none;
   border: none;
   /* Facebook Top navbar icons 20-24px */
-  font-size: 1.5rem; /* 24px */
+  font-size: 24px; /* 24px */
   color: #ffffff;
   cursor: pointer;
   line-height: 1; /* Ensures icon is vertically centered */
-  padding: 0.25rem; /* Make it easier to click */
+  padding: 4px; /* Make it easier to click */
 }
 .closeButton:hover {
   opacity: 0.8;
 }
 
 .modalBody {
-  padding: 1.25rem; /* 20px */
+  padding: 20px; /* 20px */
 }
 
 .uploadBox {
-  border: 0.125rem dashed #bbb; /* 2px */
-  padding: 1.25rem; /* 20px */
-  margin: 0.9375rem 0; /* 15px */
+  border: 2px dashed #bbb; /* 2px */
+  padding: 20px; /* 20px */
+  margin: 15px 0; /* 15px */
   cursor: pointer;
-  border-radius: 0.5rem; /* 8px */
+  border-radius: 8px; /* 8px */
   text-align: center;
   position: relative;
   transition: border-color 0.2s ease; /* Added transition */
@@ -84,29 +84,29 @@
 .uploadLabel {
   display: block;
   /* Facebook Post text (main body) 14-16px */
-  font-size: 0.875rem; /* 14px */
+  font-size: 14px; /* 14px */
   color: #555;
   cursor: pointer;
 }
 
 .fileLimitText {
   /* Facebook Timestamps and meta info 12px */
-  font-size: 0.75rem; /* 12px */
+  font-size: 12px; /* 12px */
   color: #888;
   text-align: center;
-  margin-top: 0.3125rem; /* 5px */
+  margin-top: 5px; /* 5px */
 }
 
 .inputField {
   width: calc(
     100% - 20px
   ); /* 100% minus default horizontal padding (or define padding within) */
-  padding: 0.625rem; /* 10px */
-  margin-top: 0.625rem; /* 10px */
-  border: 0.0625rem solid #ddd; /* 1px */
-  border-radius: 0.5rem; /* 8px */
+  padding: 10px; /* 10px */
+  margin-top: 10px; /* 10px */
+  border: 1px solid #ddd; /* 1px */
+  border-radius: 8px; /* 8px */
   /* Facebook Post text (main body) 14-16px */
-  font-size: 0.875rem; /* 14px */
+  font-size: 14px; /* 14px */
   box-sizing: border-box; /* Crucial for width: 100% */
 }
 /* Ensure focus style for inputField */
@@ -118,25 +118,25 @@
 
 .captionLimitText {
   /* Facebook Timestamps and meta info 12px */
-  font-size: 0.75rem; /* 12px */
+  font-size: 12px; /* 12px */
   color: #888;
-  margin-top: 0.3125rem; /* 5px */
+  margin-top: 5px; /* 5px */
   text-align: right; /* Align to the right, common for character counters */
 }
 
 .modalActions {
   display: flex;
   justify-content: flex-end;
-  padding: 0.9375rem; /* 15px */
-  gap: 0.625rem; /* 10px */
+  padding: 15px; /* 15px */
+  gap: 10px; /* 10px */
 }
 
 .cancelButton,
 .saveButton {
-  padding: 0.625rem 1.25rem; /* 10px 20px */
+  padding: 10px 20px; /* 10px 20px */
   /* Facebook Buttons 13-14px */
-  font-size: 0.875rem; /* 14px */
-  border-radius: 0.5rem; /* 8px */
+  font-size: 14px; /* 14px */
+  border-radius: 8px; /* 8px */
   border: none;
   cursor: pointer;
   font-weight: 600; /* Slightly bolder for buttons */
@@ -171,48 +171,48 @@
 .errorMessage {
   color: red;
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
   .modalContent {
-    max-width: 28rem; /* ~448px */
+    max-width: 448px; /* ~448px */
   }
   .modalHeader h2,
   .modalHeader h3 {
-    font-size: 1rem; /* 16px */
+    font-size: 16px; /* 16px */
   }
   .closeButton {
-    font-size: 1.375rem; /* 22px */
+    font-size: 22px; /* 22px */
   }
   .modalBody {
-    padding: 1rem; /* 16px */
+    padding: 16px; /* 16px */
   }
   .uploadBox {
-    padding: 1rem; /* 16px */
-    margin: 0.75rem 0; /* 12px */
+    padding: 16px; /* 16px */
+    margin: 12px 0; /* 12px */
   }
   .uploadLabel,
   .inputField {
-    font-size: 0.8125rem; /* 13px (Facebook Comments/Buttons) */
+    font-size: 13px; /* 13px (Facebook Comments/Buttons) */
   }
   .fileLimitText,
   .captionLimitText {
-    font-size: 0.6875rem; /* ~11px (slightly smaller than 12px) */
+    font-size: 11px; /* ~11px (slightly smaller than 12px) */
   }
   .inputField {
-    padding: 0.5rem; /* 8px */
-    margin-top: 0.5rem; /* 8px */
+    padding: 8px; /* 8px */
+    margin-top: 8px; /* 8px */
   }
   .modalActions {
-    padding: 0.75rem; /* 12px */
-    gap: 0.5rem; /* 8px */
+    padding: 12px; /* 12px */
+    gap: 8px; /* 8px */
   }
   .cancelButton,
   .saveButton {
-    font-size: 0.75rem; /* 12px (Facebook Buttons) */
-    padding: 0.5rem 1rem; /* 8px 16px */
+    font-size: 12px; /* 12px (Facebook Buttons) */
+    padding: 8px 16px; /* 8px 16px */
   }
 }
 
@@ -222,42 +222,42 @@
     max-width: 95%; /* Take more width on smaller screens */
   }
   .modalHeader {
-    padding: 0.75rem; /* 12px */
+    padding: 12px; /* 12px */
   }
   .modalHeader h2,
   .modalHeader h3 {
-    font-size: 0.9375rem; /* 15px */
+    font-size: 15px; /* 15px */
   }
   .closeButton {
-    font-size: 1.25rem; /* 20px */
+    font-size: 20px; /* 20px */
   }
   .modalBody {
-    padding: 0.75rem; /* 12px */
+    padding: 12px; /* 12px */
   }
   .uploadBox {
-    padding: 0.75rem; /* 12px */
-    margin: 0.625rem 0; /* 10px */
+    padding: 12px; /* 12px */
+    margin: 10px 0; /* 10px */
   }
   .uploadLabel,
   .inputField {
-    font-size: 0.75rem; /* 12px (Facebook Timestamps/Meta) */
+    font-size: 12px; /* 12px (Facebook Timestamps/Meta) */
   }
   .fileLimitText,
   .captionLimitText {
-    font-size: 0.625rem; /* 10px */
+    font-size: 10px; /* 10px */
   }
   .inputField {
-    padding: 0.4rem; /* ~6.4px */
-    margin-top: 0.4rem; /* ~6.4px */
+    padding: 6px; /* ~6.4px */
+    margin-top: 6px; /* ~6.4px */
   }
   .modalActions {
-    padding: 0.625rem; /* 10px */
-    gap: 0.4rem; /* ~6.4px */
+    padding: 10px; /* 10px */
+    gap: 6px; /* ~6.4px */
   }
   .cancelButton,
   .saveButton {
-    font-size: 0.6875rem; /* ~11px */
-    padding: 0.4rem 0.8rem; /* ~6.4px ~12.8px */
+    font-size: 11px; /* ~11px */
+    padding: 6px 13px; /* ~6.4px ~12.8px */
   }
 }
 
@@ -267,42 +267,42 @@
     width: 95%; /* Maintain wider width */
   }
   .modalHeader {
-    padding: 0.625rem; /* 10px */
+    padding: 10px; /* 10px */
   }
   .modalHeader h2,
   .modalHeader h3 {
-    font-size: 0.875rem; /* 14px */
+    font-size: 14px; /* 14px */
   }
   .closeButton {
-    font-size: 1.125rem; /* 18px */
+    font-size: 18px; /* 18px */
   }
   .modalBody {
-    padding: 0.625rem; /* 10px */
+    padding: 10px; /* 10px */
   }
   .uploadBox {
-    padding: 0.625rem; /* 10px */
-    margin: 0.5rem 0; /* 8px */
+    padding: 10px; /* 10px */
+    margin: 8px 0; /* 8px */
   }
   .uploadLabel,
   .inputField {
-    font-size: 0.6875rem; /* ~11px */
+    font-size: 11px; /* ~11px */
   }
   .fileLimitText,
   .captionLimitText {
-    font-size: 0.5625rem; /* ~9px */
+    font-size: 9px; /* ~9px */
   }
   .inputField {
-    padding: 0.3rem; /* ~4.8px */
-    margin-top: 0.3rem; /* ~4.8px */
+    padding: 5px; /* ~4.8px */
+    margin-top: 5px; /* ~4.8px */
   }
   .modalActions {
-    padding: 0.5rem; /* 8px */
-    gap: 0.3rem; /* ~4.8px */
+    padding: 8px; /* 8px */
+    gap: 5px; /* ~4.8px */
   }
   .cancelButton,
   .saveButton {
-    font-size: 0.625rem; /* 10px */
-    padding: 0.3rem 0.6rem; /* ~4.8px ~9.6px */
+    font-size: 10px; /* 10px */
+    padding: 5px 10px; /* ~4.8px ~9.6px */
   }
 }
 

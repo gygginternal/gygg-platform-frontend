@@ -84,17 +84,17 @@
   background: #f8f9fa;
   color: #6c757d;
   text-align: center;
-  padding: 1rem;
+  padding: 16px; /* 16px converted to px */
 }
 
 .error-icon {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
+  font-size: 32px; /* 32px converted to px */
+  margin-bottom: 8px; /* 8px converted to px */
   opacity: 0.5;
 }
 
 .error-text {
-  font-size: 0.875rem;
+  font-size: 14px; /* 14px converted to px */
   margin: 0;
 }
 
@@ -120,11 +120,11 @@
 /* Responsive adjustments */
 @media (max-width: 575.98px) {
   .error-icon {
-    font-size: 1.5rem;
+    font-size: 24px; /* 24px converted to px */
   }
 
   .error-text {
-    font-size: 0.75rem;
+    font-size: 12px; /* 12px converted to px */
   }
 }
 

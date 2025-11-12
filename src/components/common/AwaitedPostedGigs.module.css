@@ -2,31 +2,31 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-  font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 16px = 16px */
 }
 
 .container {
-  margin-top: 1.25rem; /* 20px */
+  margin-top: 20px; /* 20px */
   width: 100%; /* Ensure it takes full width of its parent */
   box-sizing: border-box;
 }
 
 .awaitedSection {
   width: 100%;
-  margin-bottom: 1.5rem;
+  margin-bottom: 24px;
 }
 
 .sectionHeader {
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* 8px */
+  gap: 8px; /* 8px */
 }
 
 .sectionIcon {
   display: flex;
-  /* Icon size - Facebook Post action icons: 16-20px. Using 1.125rem (18px). */
-  width: 1.125rem; /* 18px */
-  height: 1.125rem; /* 18px */
+  /* Icon size - Facebook Post action icons: 16-20px. Using 18px (18px). */
+  width: 18px; /* 18px */
+  height: 18px; /* 18px */
   flex-shrink: 0;
 }
 
@@ -41,7 +41,7 @@
 .sectionTitle {
   color: #3d4d55;
   /* Facebook Side menu / nav labels: 14-16px. Using 16px. */
-  font-size: 1rem; /* 16px */
+  font-size: 16px; /* 16px */
   font-weight: 700;
   margin: 0;
   text-decoration: none;
@@ -49,10 +49,10 @@
 }
 
 .awaitedList {
-  margin-top: 1rem; /* 16px */
+  margin-top: 16px; /* 16px */
   display: flex;
   flex-direction: column;
-  gap: 1rem; /* Consistent gap between items */
+  gap: 16px; /* Consistent gap between items */
 }
 
 .awaitedItem {
@@ -62,22 +62,22 @@
 .awaitedDescription {
   color: #3d4d55;
   /* Facebook Post text (main body) 14-16px. Using 14px. */
-  font-size: 0.875rem; /* 14px */
+  font-size: 14px; /* 14px */
   font-weight: 600;
   margin: 0;
   line-height: 1.4;
   text-decoration: none;
-  padding-left: 1.5rem;
+  padding-left: 24px;
 }
 
 .viewGigLink {
   color: #3d4d55;
   /* Facebook Buttons 13-14px. Using 14px. */
-  font-size: 0.875rem; /* 14px */
+  font-size: 14px; /* 14px */
   font-weight: 700;
   text-decoration: none;
   display: inline-block;
-  margin-top: 0.25rem; /* Space below description */
+  margin-top: 4px; /* Space below description */
   transition:
     color 0.2s ease,
     text-decoration 0.2s ease;
@@ -89,111 +89,111 @@
 
 .errorMessage {
   /* Facebook Comments 13-14px. Using 14px. */
-  font-size: 0.875rem; /* 14px */
+  font-size: 14px; /* 14px */
   color: #666;
   text-align: center;
-  margin-top: 0.5rem; /* Added margin-top for spacing */
-  padding: 0.5rem; /* Added padding for visibility */
+  margin-top: 8px; /* Added margin-top for spacing */
+  padding: 8px; /* Added padding for visibility */
   background-color: #ffe0e0; /* Light background for errors */
-  border-radius: 0.25rem; /* Rounded corners */
-  border: 0.0625rem solid #ffc0c0; /* Light red border */
+  border-radius: 4px; /* Rounded corners */
+  border: 1px solid #ffc0c0; /* Light red border */
 }
 
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
   .container {
-    margin-top: 1rem; /* 16px */
+    margin-top: 16px; /* 16px */
   }
   .sectionHeader {
-    gap: 0.4rem; /* 6.4px */
-    margin-bottom: 0.75rem; /* 12px */
+    gap: 6px; /* 6.4px */
+    margin-bottom: 12px; /* 12px */
   }
   .sectionIcon {
-    width: 1rem; /* 16px */
-    height: 1rem; /* 16px */
+    width: 16px; /* 16px */
+    height: 16px; /* 16px */
   }
   .sectionTitle {
-    font-size: 0.9375rem; /* 15px */
+    font-size: 15px; /* 15px */
   }
   .awaitedList {
-    margin-top: 0.875rem; /* 14px */
-    gap: 0.875rem; /* 14px */
+    margin-top: 14px; /* 14px */
+    gap: 14px; /* 14px */
   }
   .awaitedDescription {
-    font-size: 0.8125rem; /* 13px */
+    font-size: 13px; /* 13px */
   }
   .viewGigLink {
-    font-size: 0.8125rem; /* 13px */
-    margin-top: 0.2rem; /* 3.2px */
+    font-size: 13px; /* 13px */
+    margin-top: 3px; /* 3.2px */
   }
   .errorMessage {
-    font-size: 0.8125rem; /* 13px */
-    padding: 0.4rem; /* 6.4px */
+    font-size: 13px; /* 13px */
+    padding: 6px; /* 6.4px */
   }
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
   .container {
-    margin-top: 0.8rem; /* 12.8px */
+    margin-top: 13px; /* 12.8px */
   }
   .sectionHeader {
-    gap: 0.3rem; /* 4.8px */
-    margin-bottom: 0.6rem; /* 9.6px */
+    gap: 5px; /* 4.8px */
+    margin-bottom: 10px; /* 9.6px */
   }
   .sectionIcon {
-    width: 0.9375rem; /* 15px */
-    height: 0.9375rem; /* 15px */
+    width: 15px; /* 15px */
+    height: 15px; /* 15px */
   }
   .sectionTitle {
-    font-size: 0.875rem; /* 14px */
+    font-size: 14px; /* 14px */
   }
   .awaitedList {
-    margin-top: 0.75rem; /* 12px */
-    gap: 0.75rem; /* 12px */
+    margin-top: 12px; /* 12px */
+    gap: 12px; /* 12px */
   }
   .awaitedDescription {
-    font-size: 0.75rem; /* 12px */
+    font-size: 12px; /* 12px */
   }
   .viewGigLink {
-    font-size: 0.75rem; /* 12px */
-    margin-top: 0.15rem; /* 2.4px */
+    font-size: 12px; /* 12px */
+    margin-top: 2px; /* 2.4px */
   }
   .errorMessage {
-    font-size: 0.75rem; /* 12px */
-    padding: 0.3rem; /* 4.8px */
+    font-size: 12px; /* 12px */
+    padding: 5px; /* 4.8px */
   }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
   .container {
-    margin-top: 0.625rem; /* 10px */
+    margin-top: 10px; /* 10px */
   }
   .sectionHeader {
-    gap: 0.25rem; /* 4px */
-    margin-bottom: 0.5rem; /* 8px */
+    gap: 4px; /* 4px */
+    margin-bottom: 8px; /* 8px */
   }
   .sectionIcon {
-    width: 0.875rem; /* 14px */
-    height: 0.875rem; /* 14px */
+    width: 14px; /* 14px */
+    height: 14px; /* 14px */
   }
   .sectionTitle {
-    font-size: 0.8125rem; /* 13px */
+    font-size: 13px; /* 13px */
   }
   .awaitedList {
-    margin-top: 0.625rem; /* 10px */
-    gap: 0.625rem; /* 10px */
+    margin-top: 10px; /* 10px */
+    gap: 10px; /* 10px */
   }
   .awaitedDescription {
-    font-size: 0.6875rem; /* ~11px */
+    font-size: 11px; /* ~11px */
   }
   .viewGigLink {
-    font-size: 0.6875rem; /* ~11px */
-    margin-top: 0.1rem; /* 1.6px */
+    font-size: 11px; /* ~11px */
+    margin-top: 2px; /* 1.6px */
   }
   .errorMessage {
-    font-size: 0.6875rem; /* ~11px */
-    padding: 0.25rem; /* 4px */
+    font-size: 11px; /* ~11px */
+    padding: 4px; /* 4px */
   }
 }

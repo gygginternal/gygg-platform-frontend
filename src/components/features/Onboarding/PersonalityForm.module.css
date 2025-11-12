@@ -2,13 +2,13 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-  font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 16px = 16px */
 }
 
 .personalityFormContainer {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem; /* 24px - Space between input groups */
+  gap: 24px; /* 24px - Space between input groups */
   font-family: 'Inter', sans-serif;
   box-sizing: border-box; /* Ensure padding/border are included */
   width: 100%; /* Ensure it takes full width of its parent */
@@ -20,20 +20,20 @@
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
   .personalityFormContainer {
-    gap: 1.25rem; /* 20px */
+    gap: 20px; /* 20px */
   }
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
   .personalityFormContainer {
-    gap: 1rem; /* 16px */
+    gap: 16px; /* 16px */
   }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
   .personalityFormContainer {
-    gap: 0.8rem; /* 12.8px */
+    gap: 13px; /* 12.8px */
   }
 }

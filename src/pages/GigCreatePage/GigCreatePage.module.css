@@ -6,21 +6,21 @@
   display: flex;
   flex-direction: row; /* Sidebar on left, form on right */
   width: 100%;
-  gap: 2rem; /* Increased space between sidebar and form area */
-  padding-top: 5.25rem; /* 84px - Space from global header (matches desktop header height) */
-  margin-left: 12.5rem; /* 200px - Indentation from the left edge on desktop */
+  gap: 32px; /* 32px converted to px */
+  padding-top: 84px; /* 84px converted to px */
+  margin-left: 200px; /* 200px converted to px */
   margin-right: auto; /* Centers the content within the remaining space */
   box-sizing: border-box; /* Ensure padding is included in width calculation */
-  max-width: 75rem; /* Increased max-width for better form display */
-  padding-left: 1rem; /* General internal padding for better spacing */
-  padding-right: 1rem;
+  max-width: 1200px; /* 1200px converted to px */
+  padding-left: 16px; /* 16px converted to px */
+  padding-right: 16px; /* 16px converted to px */
   min-height: 100vh; /* Ensure it takes full viewport height for background */
   color: #111827; /* Dark text for better readability */
   font-family: 'Inter', sans-serif;
 }
 
 .sidebarArea {
-  flex: 0 0 17.5rem; /* 280px - Fixed width for sidebar, don't grow, don't shrink */
+  flex: 0 0 280px; /* 280px converted to px */
   min-width: 0; /* Allows content inside to shrink if needed */
 }
 
@@ -30,16 +30,16 @@
   flex-direction: column; /* Stack title and form */
   align-items: center; /* Center form if it's narrower than this area */
   min-width: 0; /* Allows content inside to shrink if needed */
-  padding: 1rem 0; /* Add some vertical padding */
+  padding: 16px 0; /* 16px 0 converted to px - Add some vertical padding */
 }
 
 .pageTitle {
   /* Facebook Header (profile names etc.) 16-18px.
        This is a primary page title, so slightly larger range or clamp is appropriate. */
-  font-size: clamp(1.5rem, 4vw, 1.8rem); /* Ranging from 24px to 28.8px */
+  font-size: clamp(24px, 4vw, 28.8px); /* 24px, 4vw, 29px converted to px */
   font-weight: 600;
   color: #e5e7eb; /* Light color on dark background */
-  margin-bottom: 1.25rem; /* 20px */
+  margin-bottom: 20px; /* 20px converted to px */
   text-align: center;
   width: 100%; /* Ensure it spans its parent width */
 }
@@ -47,63 +47,63 @@
 /* Responsive adjustments */
 
 /* @media (max-width: 1024px) - Large Tablets / Small Laptops */
-/* Header Height: 4.5rem (72px) from Header.module.css */
+/* Header Height: 72px (72px) from Header.module.css */
 @media (max-width: 1024px) {
   .pageLayout {
-    padding-top: 4.5rem; /* 72px - Matches Header height */
-    margin-left: 10rem; /* 160px - Reduced indentation */
-    gap: 1rem; /* 16px */
-    max-width: 55rem; /* ~880px - Reduced max-width for overall content */
-    padding-left: 0.8rem; /* 12.8px */
-    padding-right: 0.8rem;
+    padding-top: 72px; /* 72px converted to px */
+    margin-left: 160px; /* 160px converted to px */
+    gap: 16px; /* 16px converted to px */
+    max-width: 880px; /* 880px converted to px */
+    padding-left: 12.8px; /* 13px converted to px */
+    padding-right: 12.8px; /* 13px converted to px */
   }
   .sidebarArea {
-    flex: 0 0 15rem; /* 240px - Reduced sidebar width */
+    flex: 0 0 240px; /* 240px converted to px */
   }
   .pageTitle {
-    font-size: clamp(1.3rem, 4.5vw, 1.6rem); /* Ranging from 20.8px to 25.6px */
-    margin-bottom: 1rem; /* 16px */
+    font-size: clamp(20.8px, 4.5vw, 25.6px); /* 21px, 4.5vw, 26px converted to px */
+    margin-bottom: 16px; /* 16px converted to px */
   }
 }
 
 /* @media (max-width: 768px) - Tablets */
-/* Header Height: 4rem (64px) from Header.module.css */
+/* Header Height: 64px (64px) from Header.module.css */
 @media (max-width: 768px) {
   .pageLayout {
-    padding-top: 4rem; /* 64px - Matches Header height */
-    margin-left: 10rem; /* Keep consistent sidebar margin */
-    gap: 1rem; /* 16px */
-    max-width: 60rem; /* Keep max width consistent */
-    padding-left: 0.8rem; /* 12.8px */
-    padding-right: 0.8rem;
+    padding-top: 64px; /* 64px converted to px */
+    margin-left: 160px; /* 160px converted to px */
+    gap: 16px; /* 16px converted to px */
+    max-width: 960px; /* 960px converted to px */
+    padding-left: 12.8px; /* 13px converted to px */
+    padding-right: 12.8px; /* 13px converted to px */
   }
   .sidebarArea {
-    flex: 0 0 15rem; /* Maintain sidebar width */
-    margin-bottom: 1rem; /* Add margin to separate from main content */
+    flex: 0 0 240px; /* 240px converted to px */
+    margin-bottom: 16px; /* 16px converted to px */
   }
   .formArea {
     width: 100%;
   }
   .pageTitle {
-    font-size: clamp(1.125rem, 5vw, 1.4rem); /* Ranging from 18px to 22.4px */
-    margin-bottom: 0.8rem; /* 12.8px */
+    font-size: clamp(18px, 5vw, 22.4px); /* 18px, 5vw, 22px converted to px */
+    margin-bottom: 12.8px; /* 13px converted to px */
   }
 }
 
 /* @media (max-width: 480px) - Mobile Phones */
-/* Header Height: 3.5rem (56px) from Header.module.css */
+/* Header Height: 56px (56px) from Header.module.css */
 @media (max-width: 480px) {
   .pageLayout {
-    padding-top: 3.5rem; /* 56px - Matches Header height */
-    gap: 0.8rem; /* 12.8px */
-    padding-left: 0.75rem; /* 12px */
-    padding-right: 0.75rem;
+    padding-top: 56px; /* 56px converted to px */
+    gap: 12.8px; /* 13px converted to px */
+    padding-left: 12px; /* 12px converted to px */
+    padding-right: 12px; /* 12px converted to px */
   }
   .sidebarArea {
-    margin-bottom: 0.8rem; /* 12.8px */
+    margin-bottom: 12.8px; /* 13px converted to px */
   }
   .pageTitle {
-    font-size: clamp(0.9375rem, 6vw, 1.125rem); /* Ranging from 15px to 18px */
-    margin-bottom: 0.6rem; /* 9.6px */
+    font-size: clamp(15px, 6vw, 18px); /* 15px, 6vw, 18px converted to px */
+    margin-bottom: 9.6px; /* 10px converted to px */
   }
 }

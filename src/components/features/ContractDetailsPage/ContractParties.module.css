@@ -1,22 +1,22 @@
 .partiesSection {
   display: flex;
-  gap: 2.5rem;
-  margin-bottom: 2.5rem;
+  gap: 40px;
+  margin-bottom: 40px;
   background: #f8fafb;
-  border-radius: 1rem;
-  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  padding: 24px 32px;
   box-shadow: 0 2px 8px rgba(16, 179, 198, 0.04);
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
 }
 .party {
   display: flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: 19px;
   flex: 1;
 }
 .party:not(:last-child) {
   border-right: 1px solid #e5e7eb;
-  padding-right: 2rem;
+  padding-right: 32px;
 }
 .party img {
   width: 56px;
@@ -26,89 +26,89 @@
   border: 2px solid #e6f8fa;
 }
 .partyRole {
-  font-size: 0.95rem;
+  font-size: 15px;
   color: #10b3c6;
   font-weight: 500;
-  margin-bottom: 0.2rem;
+  margin-bottom: 3px;
 }
 .partyName {
-  font-size: 1.15rem;
+  font-size: 18px;
   font-weight: 700;
   color: #222;
 }
 
 @media (max-width: 1024px) {
   .partiesSection {
-    gap: 2rem;
-    margin-bottom: 2rem;
-    padding: 1.2rem 1.6rem;
+    gap: 32px;
+    margin-bottom: 32px;
+    padding: 19px 26px;
   }
   .party {
-    gap: 1rem;
+    gap: 16px;
   }
   .party:not(:last-child) {
-    padding-right: 1.6rem;
+    padding-right: 26px;
   }
   .party img {
     width: 50px;
     height: 50px;
   }
   .partyRole {
-    font-size: 0.9rem;
+    font-size: 14px;
   }
   .partyName {
-    font-size: 1.05rem;
+    font-size: 17px;
   }
 }
 
 @media (max-width: 768px) {
   .partiesSection {
     flex-direction: column;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-    padding: 1rem 1.2rem;
+    gap: 24px;
+    margin-bottom: 24px;
+    padding: 16px 19px;
   }
   .party {
-    gap: 0.8rem;
+    gap: 13px;
   }
   .party:not(:last-child) {
     border-right: none;
     border-bottom: 1px solid #e5e7eb;
     padding-right: 0;
-    padding-bottom: 1rem;
+    padding-bottom: 16px;
   }
   .party img {
     width: 44px;
     height: 44px;
   }
   .partyRole {
-    font-size: 0.85rem;
+    font-size: 14px;
   }
   .partyName {
-    font-size: 1rem;
+    font-size: 16px;
   }
 }
 
 @media (max-width: 480px) {
   .partiesSection {
-    gap: 1rem;
-    margin-bottom: 1rem;
-    padding: 0.8rem 1rem;
+    gap: 16px;
+    margin-bottom: 16px;
+    padding: 13px 16px;
   }
   .party {
-    gap: 0.6rem;
+    gap: 10px;
   }
   .party:not(:last-child) {
-    padding-bottom: 0.8rem;
+    padding-bottom: 13px;
   }
   .party img {
     width: 38px;
     height: 38px;
   }
   .partyRole {
-    font-size: 0.8rem;
+    font-size: 13px;
   }
   .partyName {
-    font-size: 0.9rem;
+    font-size: 14px;
   }
 }

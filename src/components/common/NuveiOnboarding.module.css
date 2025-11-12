@@ -8,7 +8,7 @@
 
 .onboardingCard {
   text-align: center;
-  padding: 1.5rem;
+  padding: 24px;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   background-color: #fafafa;
@@ -19,14 +19,14 @@
 /* Responsive padding adjustments */
 @media (max-width: 768px) {
   .onboardingCard {
-    padding: 1rem;
+    padding: 16px;
     border-radius: 6px;
   }
 }
 
 @media (min-width: 769px) {
   .onboardingCard {
-    padding: 2rem;
+    padding: 32px;
   }
 }
 
@@ -37,7 +37,7 @@
 
 .onboardingCard p {
   color: #666;
-  margin-bottom: 1.5rem;
+  margin-bottom: 24px;
 }
 
 .onboardButton {
@@ -100,21 +100,21 @@
 
 .success {
   text-align: center;
-  padding: 2rem;
+  padding: 32px;
   background-color: #f8f9fa;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
 }
 
 .success .checkmark {
-  font-size: 3.5rem;
+  font-size: 56px;
   color: #28a745;
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 .success h3 {
-  margin: 0 0 0.75rem;
+  margin: 0 0 12px;
   color: #333;
   font-size: 20px;
   font-weight: 600;
@@ -122,7 +122,7 @@
 
 .success p {
   color: #666;
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 24px 0;
   font-size: 16px;
   line-height: 1.5;
 }
@@ -137,7 +137,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  margin-top: 0.5rem;
+  margin-top: 8px;
 }
 
 .refreshButton:hover {
@@ -147,11 +147,11 @@
 /* Mobile success state adjustments */
 @media (max-width: 768px) {
   .success {
-    padding: 1.5rem;
+    padding: 24px;
   }
 
   .success .checkmark {
-    font-size: 3rem;
+    font-size: 48px;
   }
 
   .success h3 {
@@ -172,16 +172,16 @@
 
 .error {
   text-align: center;
-  padding: 1.25rem;
+  padding: 20px;
   color: #dc3545;
   background-color: #f8d7da;
   border: 1px solid #f5c6cb;
   border-radius: 6px;
-  margin: 1rem 0;
+  margin: 16px 0;
 }
 
 .error p {
-  margin: 0 0 1rem 0;
+  margin: 0 0 16px 0;
   line-height: 1.5;
 }
 
@@ -199,7 +199,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  margin-top: 1rem;
+  margin-top: 16px;
 }
 
 .retryButton:hover:not(:disabled) {
@@ -214,7 +214,7 @@
 /* Mobile error adjustments */
 @media (max-width: 768px) {
   .error {
-    padding: 1rem;
+    padding: 16px;
   }
 
   .retryButton {
@@ -225,12 +225,12 @@
 
 .loading {
   text-align: center;
-  padding: 2rem;
+  padding: 32px;
 }
 
 .loading p {
   color: #666;
-  margin-top: 1rem;
+  margin-top: 16px;
   font-size: 16px;
 }
 
@@ -256,7 +256,7 @@
 /* Mobile loading adjustments */
 @media (max-width: 768px) {
   .loading {
-    padding: 1.5rem;
+    padding: 24px;
   }
 
   .loading p {
@@ -273,15 +273,15 @@
 .statusDetails {
   background-color: #f8f9fa;
   border-radius: 8px;
-  padding: 1.25rem;
-  margin: 1.5rem 0;
+  padding: 20px;
+  margin: 24px 0;
   text-align: left;
   border: 1px solid #e9ecef;
 }
 
 .statusDetails h4 {
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
   color: #333;
   font-size: 16px;
   font-weight: 600;
@@ -291,8 +291,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
-  padding: 0.5rem 0;
+  margin-bottom: 12px;
+  padding: 8px 0;
   border-bottom: 1px solid #e9ecef;
 }
 
@@ -309,14 +309,14 @@
 /* Mobile status details adjustments */
 @media (max-width: 768px) {
   .statusDetails {
-    padding: 1rem;
-    margin: 1rem 0;
+    padding: 16px;
+    margin: 16px 0;
   }
 
   .statusRow {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.25rem;
+    gap: 4px;
   }
 
   .statusRow span:first-child {
@@ -347,11 +347,11 @@
 
 .redirectMessage {
   text-align: center;
-  padding: 1rem;
+  padding: 16px;
   background-color: #e3f2fd;
   border: 1px solid #bbdefb;
   border-radius: 6px;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 .redirectMessage a {

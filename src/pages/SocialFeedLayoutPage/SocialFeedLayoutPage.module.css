@@ -2,7 +2,7 @@
 
 .pageContainer {
   padding-top: 41px; /* Reduced top padding */
-  min-height: calc(100vh - 2rem);
+  min-height: calc(100vh - 32px);
   box-sizing: border-box;
   background-color: #f0f2f5;
 }
@@ -13,17 +13,17 @@
   width: 100%;
 
   /* To account for the global fixed sidebar (300px wide on desktop): */
-  margin-left: 12.75rem; /* 300px - Pushes content to the right of the global sidebar */
+  margin-left: 204px; /* 300px - Pushes content to the right of the global sidebar */
   margin-right: auto; /* Centers the content wrapper within the *remaining* space */
 
-  padding: 0.625rem; /* 10px - Internal padding for the content within this wrapper */
-  gap: 1.25rem; /* 20px - Space between the .sidebarArea and .mainFeedArea */
+  padding: 10px; /* 10px - Internal padding for the content within this wrapper */
+  gap: 20px; /* 20px - Space between the .sidebarArea and .mainFeedArea */
   box-sizing: border-box; /* Ensures padding is included in width calculation */
 }
 
 .sidebarArea {
   /* This is a column *inside* contentWrapper, not the global fixed sidebar itself. */
-  width: 18.75rem; /* 300px - Fixed width for this internal sidebar column */
+  width: 300px; /* 300px - Fixed width for this internal sidebar column */
   flex-shrink: 0; /* Prevents this column from shrinking */
   min-width: 0; /* Allows flex item to shrink below its content size if needed */
 }
@@ -37,47 +37,47 @@
 /* @media (max-width: 1024px) - Large Tablets / Small Laptops */
 @media (max-width: 1024px) {
   .pageContainer {
-    padding-top: 0.875rem; /* 72px - Matches Header height */
-    min-height: calc(100vh - 2rem);
+    padding-top: 14px; /* 72px - Matches Header height */
+    min-height: calc(100vh - 32px);
   }
   .contentWrapper {
-    margin-left: 10.75rem; /* 240px - Corrected to match Sidebar's width at 1024px */
-    max-width: 60rem; /* 960px - Reduced max-width for smaller screens */
-    padding: 0.875rem 1rem; /* 8px - Slightly less internal padding */
-    gap: 1rem; /* 16px - Slightly less gap */
+    margin-left: 172px; /* 240px - Corrected to match Sidebar's width at 1024px */
+    max-width: 960px; /* 960px - Reduced max-width for smaller screens */
+    padding: 14px 16px; /* 8px - Slightly less internal padding */
+    gap: 16px; /* 16px - Slightly less gap */
   }
   .sidebarArea {
-    width: 15rem; /* 240px - Slightly reduce internal sidebar width */
+    width: 240px; /* 240px - Slightly reduce internal sidebar width */
   }
 }
 
 /* @media (max-width: 768px) - Tablets */
 @media (max-width: 768px) {
   .pageContainer {
-    padding-top: 0.75rem; /* 64px - Matches Header height */
-    min-height: calc(100vh - 2rem);
+    padding-top: 12px; /* 64px - Matches Header height */
+    min-height: calc(100vh - 32px);
   }
   .contentWrapper {
     max-width: 100%; /* Allow contentWrapper to take full width */
-    padding: 0.725rem 0.9375rem; /* 10px top/bottom, 15px left/right */
-    gap: 0.75rem; /* 12px */
+    padding: 12px 15px; /* 10px top/bottom, 15px left/right */
+    gap: 12px; /* 12px */
   }
   .sidebarArea {
-    margin-bottom: 1rem; /* 16px - Space between stacked items */
+    margin-bottom: 16px; /* 16px - Space between stacked items */
   }
 }
 /* @media (max-width: 480px) - Mobile Phones */
 @media (max-width: 480px) {
   .pageContainer {
     padding-top: 0 !important;
-    min-height: calc(100vh - 2rem);
+    min-height: calc(100vh - 32px);
   }
   .contentWrapper {
     margin-left: 0 !important;
     max-width: 100% !important;
     width: 100% !important;
-    padding: 0.5rem 0.675rem !important;
-    gap: 0.5rem;
+    padding: 8px 11px !important;
+    gap: 8px;
   }
   .sidebarArea {
     display: none;

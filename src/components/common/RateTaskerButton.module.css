@@ -1,13 +1,13 @@
 .rateTaskerContainer {
-  margin-top: 1rem;
+  margin-top: 16px;
 }
 
 .rateTaskerButton {
   background-color: #3d4d55;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
+  padding: 8px 16px;
+  border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s ease;
@@ -18,10 +18,10 @@
 }
 
 .reviewFormContainer {
-  margin-top: 1rem;
-  padding: 1rem;
+  margin-top: 16px;
+  padding: 16px;
   border: 1px solid #e5e7eb;
-  border-radius: 0.5rem;
+  border-radius: 8px;
   background-color: #f9fafb;
 }
 
@@ -29,11 +29,11 @@
   background-color: #ef4444;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
+  padding: 8px 16px;
+  border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 1rem;
+  margin-top: 16px;
   transition: background-color 0.2s ease;
 }
 

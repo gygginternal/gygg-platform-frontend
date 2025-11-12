@@ -13,10 +13,10 @@
 }
 
 .lazy-section-placeholder {
-  padding: 2rem;
+  padding: 32px;
   background: #f8f9fa;
   border-radius: 8px;
-  margin: 1rem 0;
+  margin: 16px 0;
 }
 
 .placeholder-content {
@@ -66,8 +66,8 @@
 /* Responsive adjustments */
 @media (max-width: 575.98px) {
   .lazy-section-placeholder {
-    padding: 1rem;
-    margin: 0.5rem 0;
+    padding: 16px;
+    margin: 8px 0;
   }
 
   .placeholder-line {

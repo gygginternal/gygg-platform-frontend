@@ -1,64 +1,64 @@
 .detailsSection {
-  margin-bottom: 2.5rem;
+  margin-bottom: 40px;
   background: #f8fafb;
-  border-radius: 1rem;
-  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  padding: 24px 32px;
   box-shadow: 0 2px 8px rgba(16, 179, 198, 0.04);
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
 }
 .detailsSection h2 {
-  font-size: 1.2rem;
+  font-size: 19px;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
   color: #10b3c6;
 }
 .detailsSection div {
-  font-size: 1.05rem;
-  margin-bottom: 0.5rem;
+  font-size: 17px;
+  margin-bottom: 8px;
   color: #333;
 }
 
 @media (max-width: 1024px) {
   .detailsSection {
-    margin-bottom: 2rem;
-    padding: 1.2rem 1.6rem;
+    margin-bottom: 32px;
+    padding: 19px 26px;
   }
   .detailsSection h2 {
-    font-size: 1.1rem;
-    margin-bottom: 0.8rem;
+    font-size: 18px;
+    margin-bottom: 13px;
   }
   .detailsSection div {
-    font-size: 1rem;
-    margin-bottom: 0.4rem;
+    font-size: 16px;
+    margin-bottom: 6px;
   }
 }
 
 @media (max-width: 768px) {
   .detailsSection {
-    margin-bottom: 1.5rem;
-    padding: 1rem 1.2rem;
+    margin-bottom: 24px;
+    padding: 16px 19px;
   }
   .detailsSection h2 {
-    font-size: 1rem;
-    margin-bottom: 0.6rem;
+    font-size: 16px;
+    margin-bottom: 10px;
   }
   .detailsSection div {
-    font-size: 0.95rem;
-    margin-bottom: 0.3rem;
+    font-size: 15px;
+    margin-bottom: 5px;
   }
 }
 
 @media (max-width: 480px) {
   .detailsSection {
-    margin-bottom: 1rem;
-    padding: 0.8rem 1rem;
+    margin-bottom: 16px;
+    padding: 13px 16px;
   }
   .detailsSection h2 {
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
+    font-size: 14px;
+    margin-bottom: 8px;
   }
   .detailsSection div {
-    font-size: 0.85rem;
-    margin-bottom: 0.2rem;
+    font-size: 14px;
+    margin-bottom: 3px;
   }
 }

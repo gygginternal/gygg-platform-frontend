@@ -4,7 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 32px;
   min-height: 200px;
 }
 
@@ -91,8 +91,8 @@
 }
 
 .spinner-text {
-  margin-top: 1rem;
-  font-size: 0.875rem;
+  margin-top: 16px;
+  font-size: 14px;
   color: #6c757d;
   text-align: center;
 }
@@ -109,12 +109,12 @@
 /* Responsive adjustments */
 @media (max-width: 575.98px) {
   .spinner-container {
-    padding: 1rem;
+    padding: 16px;
     min-height: 150px;
   }
 
   .spinner-text {
-    font-size: 0.75rem;
+    font-size: 12px;
   }
 }
 

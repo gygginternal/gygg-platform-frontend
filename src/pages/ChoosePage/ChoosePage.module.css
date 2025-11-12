@@ -22,7 +22,7 @@
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
-  padding: 4rem 2rem 3rem;
+  padding: 64px 32px 48px; /* 64px 32px 48px converted to px */
   justify-content: flex-start;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -36,7 +36,7 @@
   color: #d89362;
   text-decoration: none;
   position: absolute;
-  top: 1.5rem;
+  top: 24px; /* 24px converted to px */
   left: 0;
   z-index: 10;
 }
@@ -46,15 +46,15 @@
   width: 100%;
   max-width: 150px;
   height: auto;
-  padding-left: 1rem;
+  padding-left: 16px; /* 16px converted to px */
 }
 
 .title {
-  font-size: clamp(1.125rem, 4vw, 1.5rem);
+  font-size: clamp(18px, 4vw, 24px); /* 18px, 24px converted to px */
   font-family: 'Inter', sans-serif;
   font-weight: 600;
-  margin-bottom: 2rem;
-  margin-top: 2rem;
+  margin-bottom: 32px; /* 32px converted to px */
+  margin-top: 32px; /* 32px converted to px */
   text-align: center;
   color: white;
 }
@@ -62,17 +62,17 @@
 .cardContainer {
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 32px; /* 32px converted to px */
   width: 100%;
-  margin-top: 2rem;
-  margin-bottom: 2.5rem;
+  margin-top: 32px; /* 32px converted to px */
+  margin-bottom: 40px; /* 40px converted to px */
   flex-wrap: wrap;
 }
 
 .card {
   background-color: rgba(255, 255, 255, 0.98);
   border-radius: 12px;
-  padding: 2rem 1.5rem;
+  padding: 32px 24px; /* 32px 24px converted to px */
   width: 100%;
   max-width: 400px;
   display: flex;
@@ -115,19 +115,19 @@
 .cardLogo {
   width: 50px;
   height: 50px;
-  margin-bottom: 1rem;
+  margin-bottom: 16px; /* 16px converted to px */
 }
 
 .cardTitle {
-  font-size: 1.125rem;
+  font-size: 18px; /* 18px converted to px */
   font-family: 'Inter', sans-serif;
   font-weight: 700;
-  margin-bottom: 0.75rem;
+  margin-bottom: 12px; /* 12px converted to px */
   color: #222;
 }
 
 .cardDescription {
-  font-size: 0.875rem;
+  font-size: 14px; /* 14px converted to px */
   font-family: 'Inter', sans-serif;
   color: #555;
   line-height: 1.6;
@@ -139,15 +139,15 @@
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 1rem 2rem;
-  font-size: 0.875rem;
+  padding: 16px 32px;
+  font-size: 14px;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   cursor: pointer;
   transition:
     background-color 0.3s ease,
     transform 0.2s ease;
-  margin-top: 1.5rem;
+  margin-top: 24px;
   width: auto;
   min-width: 250px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -166,16 +166,16 @@
   color: #ffcdd2;
   font-family: 'Inter', sans-serif;
   text-align: center;
-  margin-top: 1rem;
-  font-size: 0.75rem;
+  margin-top: 16px; /* 16px converted to px */
+  font-size: 12px; /* 12px converted to px */
   font-weight: 500;
   height: 1.5em;
 }
 
 .loginText {
   color: #ccc;
-  margin-top: 2rem;
-  font-size: 0.75rem;
+  margin-top: 32px; /* 32px converted to px */
+  font-size: 12px; /* 12px converted to px */
 }
 
 .link {
@@ -192,21 +192,21 @@
 
 @media (max-width: 1024px) {
   .content {
-    padding: 3rem 1.5rem 2.5rem;
+    padding: 48px 24px 40px; /* 48px 24px 40px converted to px */
   }
   .title {
-    font-size: 1.125rem;
-    margin-bottom: 1.75rem;
+    font-size: 18px; /* 18px converted to px */
+    margin-bottom: 28px; /* 28px converted to px */
   }
   .cardContainer {
-    gap: 1.5rem;
+    gap: 24px; /* 24px converted to px */
   }
   .card {
-    padding: 1.75rem 1.25rem;
+    padding: 28px 20px; /* 28px 20px converted to px */
     max-width: 380px;
   }
   .cardTitle {
-    font-size: 1.0625rem;
+    font-size: 17px; /* 17px converted to px */
   }
 }
 
@@ -218,21 +218,21 @@
     position: relative;
   }
   .content {
-    padding: 2rem 1rem 4rem;
-    padding-top: 4rem;
+    padding: 32px 16px 64px; /* 32px 16px 64px converted to px */
+    padding-top: 64px; /* 64px converted to px */
   }
   .logo {
-    top: 1rem;
-    left: 1rem;
+    top: 16px; /* 16px converted to px */
+    left: 16px; /* 16px converted to px */
   }
   .logo img {
-    max-width: 7.5rem;
+    max-width: 120px; /* 120px converted to px */
   }
   .cardContainer {
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
+    gap: 24px; /* 24px converted to px */
+    margin-bottom: 24px; /* 24px converted to px */
   }
   .card {
     max-width: 380px;
@@ -241,38 +241,38 @@
 
 @media (max-width: 480px) {
   .content {
-    padding: 1.5rem 1rem 3rem; /* tighter side + bottom spacing */
-    padding-top: 3.5rem; /* account for logo */
+    padding: 24px 16px 48px; /* tighter side + bottom spacing */
+    padding-top: 56px; /* account for logo */
   }
 
   .title {
-    font-size: 1rem; /* ~16px */
-    margin-bottom: 1.25rem; /* smaller spacing below title */
+    font-size: 16px; /* ~16px */
+    margin-bottom: 20px; /* smaller spacing below title */
     text-align: center; /* center titles for mobile */
   }
 
   .logo {
-    top: 0.8rem;
-    left: 0.8rem;
+    top: 13px;
+    left: 13px;
   }
 
   .logo img {
-    max-width: 6rem; /* shrink logo image */
+    max-width: 96px; /* shrink logo image */
   }
 
   .cardContainer {
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    gap: 16px;
+    margin-bottom: 16px;
   }
 
   .card {
     max-width: 320px;
-    padding: 1.25rem 1rem; /* smaller padding inside */
+    padding: 20px 16px; /* smaller padding inside */
   }
 
   .cardTitle {
-    font-size: 0.9375rem; /* ~15px */
+    font-size: 15px; /* ~15px */
   }
 }

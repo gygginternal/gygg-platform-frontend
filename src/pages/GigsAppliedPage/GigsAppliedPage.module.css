@@ -1,7 +1,7 @@
 /* Base styles for the overall page container */
 .pageContainer {
   padding-top: 41px;
-  min-height: calc(100vh - 2rem);
+  min-height: calc(100vh - 32px);
   box-sizing: border-box;
   background-color: #f0f2f5;
   font-family:
@@ -13,17 +13,17 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  max-width: 69rem;
-  margin-left: 12.75rem;
+  max-width: 1104px;
+  margin-left: 204px;
   margin-right: auto;
-  margin-top: 0rem;
-  padding: 1rem;
-  gap: 1.5rem;
+  margin-top: 0px;
+  padding: 16px;
+  gap: 24px;
   box-sizing: border-box;
 }
 
 .sidebarArea {
-  width: 18.75rem;
+  width: 300px;
   flex-shrink: 0;
   min-width: 0;
 }
@@ -42,26 +42,26 @@
 /* Header Section */
 .header {
   text-align: left;
-  padding: 2rem;
+  padding: 32px;
   background: #ffffff;
   border-radius: 8px;
   border: 1px solid #e5e7eb;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 .title {
-  font-size: 2rem;
+  font-size: 32px;
   font-weight: 600;
   color: #1f2937;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 8px 0;
   font-family:
     'Inter',
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .subtitle {
-  font-size: 1.125rem;
+  font-size: 18px;
   color: #6b7280;
   margin: 0;
   font-weight: 400;
@@ -111,10 +111,10 @@
 /* Search bar */
 .searchAndFilters {
   background: white;
-  border-radius: 0.75rem;
-  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  padding: 8px 16px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin: 0.75rem 0 1.5rem 0;
+  margin: 12px 0 24px 0;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -124,26 +124,26 @@
 .searchBar {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 12px;
   margin-bottom: 0;
   width: 100%;
 }
 
 .searchIcon {
   color: #666;
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
 }
 
 .searchInput {
   flex: 1;
-  padding: 0.5rem 1rem;
+  padding: 8px 16px;
   border: 1px solid #ddd;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
+  border-radius: 8px;
+  font-size: 14px;
   transition: border-color 0.2s;
-  height: 2.25rem;
+  height: 36px;
 }
 
 .searchInput:focus {
@@ -154,16 +154,16 @@
 .filterButton {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
+  gap: 8px;
+  padding: 8px 16px;
   background: #f8f9fa;
   border: 1px solid #ddd;
-  border-radius: 0.5rem;
+  border-radius: 8px;
   color: #333;
-  font-size: 0.875rem;
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.2s;
-  height: 2.25rem;
+  height: 36px;
 }
 
 .filterButton:hover {
@@ -171,19 +171,19 @@
 }
 
 .filterIcon {
-  width: 1rem;
-  height: 1rem;
+  width: 16px;
+  height: 16px;
 }
 
 .filtersPanel {
   background: #f8f9fa;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  margin-top: 1rem;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
 }
 
 .filterSection {
-  margin-bottom: 1.5rem;
+  margin-bottom: 24px;
 }
 
 .filterSection:last-child {
@@ -191,26 +191,26 @@
 }
 
 .filterSection h3 {
-  font-size: 0.875rem;
+  font-size: 14px;
   font-weight: 600;
   color: #333;
-  margin-bottom: 0.75rem;
+  margin-bottom: 12px;
 }
 
 .categoryList,
 .priceRangeList {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .categoryButton,
 .priceRangeButton {
-  padding: 0.5rem 0.75rem;
+  padding: 8px 12px;
   background: white;
   border: 1px solid #ddd;
-  border-radius: 0.375rem;
-  font-size: 0.75rem;
+  border-radius: 6px;
+  font-size: 12px;
   color: #333;
   cursor: pointer;
   transition: all 0.2s;
@@ -230,12 +230,12 @@
 
 .clearFiltersButton {
   width: 100%;
-  padding: 0.75rem;
+  padding: 12px;
   background: #3d4d55;
   color: white;
   border: none;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
+  border-radius: 8px;
+  font-size: 14px;
   cursor: pointer;
   transition: background-color 0.2s;
 }
@@ -258,7 +258,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 3rem 2rem;
+  padding: 48px 32px;
   background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -267,16 +267,16 @@
 }
 
 .emptyState h3 {
-  font-size: 1.25rem;
+  font-size: 20px;
   font-weight: 600;
   color: #1f2937;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 8px 0;
 }
 
 .emptyState p {
   color: #6b7280;
-  font-size: 0.875rem;
-  margin: 0 0 1.5rem 0;
+  font-size: 14px;
+  margin: 0 0 24px 0;
   max-width: 400px;
 }
 
@@ -286,7 +286,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 3rem 2rem;
+  padding: 48px 32px;
   background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -301,7 +301,7 @@
   border-top: 2px solid #3b82f6;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 /* Smaller loading spinner for in-list loading */
@@ -312,7 +312,7 @@
   border-top: 2px solid #3b82f6;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin: 0 auto 0.5rem auto;
+  margin: 0 auto 8px auto;
 }
 
 @keyframes spin {
@@ -326,7 +326,7 @@
 
 .loadingState p {
   color: #6b7280;
-  font-size: 1rem;
+  font-size: 16px;
   margin: 0;
 }
 
@@ -334,23 +334,23 @@
 .error {
   color: #ef4444;
   text-align: center;
-  padding: 2rem;
-  font-size: 1rem;
+  padding: 32px;
+  font-size: 16px;
 }
 
 /* Load More Button */
 .loadMoreButton {
   width: 100%;
-  padding: 1rem;
+  padding: 16px;
   background: #3d4d55;
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s;
-  margin-top: 1rem;
+  margin-top: 16px;
 }
 
 .loadMoreButton:hover {
@@ -368,51 +368,51 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 32px;
   text-align: center;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
-  margin-top: 1rem;
+  margin-top: 16px;
   background: #ffffff;
 }
 
 .loadingMore .loadingSpinnerSmall {
   width: 24px;
   height: 24px;
-  margin: 0 auto 0.5rem auto;
+  margin: 0 auto 8px auto;
 }
 
 .loadingMore p {
   color: #6b7280;
-  font-size: 0.875rem;
+  font-size: 14px;
   margin: 0;
 }
 
 /* End of results message */
 .endOfResults {
   text-align: center;
-  padding: 1.5rem;
+  padding: 24px;
   color: #6b7280;
   font-style: italic;
-  margin-top: 1rem;
+  margin-top: 16px;
 }
 
 /* Responsive design */
 @media (max-width: 1024px) {
   .pageContainer {
-    padding-top: 0.875rem;
-    min-height: calc(100vh - 2rem);
+    padding-top: 14px;
+    min-height: calc(100vh - 32px);
   }
 
   .contentWrapper {
-    margin-left: 10.75rem;
-    max-width: 60rem;
-    padding: 0.5rem;
-    gap: 1rem;
+    margin-left: 172px;
+    max-width: 960px;
+    padding: 8px;
+    gap: 16px;
   }
 
   .sidebarArea {
-    width: 15rem;
+    width: 240px;
   }
 
   .statsGrid {
@@ -420,32 +420,32 @@
   }
 
   .header {
-    padding: 1.75rem 2rem;
+    padding: 28px 32px;
   }
 
   .title {
-    font-size: 2.125rem;
+    font-size: 34px;
   }
 
   .subtitle {
-    font-size: 1.0625rem;
+    font-size: 17px;
   }
 }
 
 @media (max-width: 768px) {
   .pageContainer {
-    padding-top: 0.75rem;
-    min-height: calc(100vh - 2rem);
+    padding-top: 12px;
+    min-height: calc(100vh - 32px);
   }
 
   .contentWrapper {
     max-width: 100%;
-    padding: 0.625rem 0.9375rem;
-    gap: 0.75rem;
+    padding: 10px 15px;
+    gap: 12px;
   }
 
   .sidebarArea {
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
   }
 
   .statsGrid {
@@ -461,30 +461,30 @@
   }
 
   .header {
-    padding: 1.5rem 1.75rem;
+    padding: 24px 28px;
   }
 
   .title {
-    font-size: 1.875rem;
+    font-size: 30px;
   }
 
   .subtitle {
-    font-size: 1rem;
+    font-size: 16px;
   }
 }
 
 @media (max-width: 480px) {
   .pageContainer {
     padding-top: 0 !important;
-    min-height: calc(100vh - 2rem);
+    min-height: calc(100vh - 32px);
   }
 
   .contentWrapper {
     margin-left: 0 !important;
     max-width: 100% !important;
     width: 100% !important;
-    padding: 0.1rem 0.1rem !important;
-    gap: 0.5rem;
+    padding: 2px 2px !important;
+    gap: 8px;
   }
 
   .sidebarArea {
@@ -515,22 +515,22 @@
   }
 
   .header {
-    padding: 1.25rem 1.5rem;
+    padding: 20px 24px;
     border-radius: 20px;
-    margin-bottom: 0.75rem;
+    margin-bottom: 12px;
   }
 
   .title {
-    font-size: 1.625rem;
-    margin-bottom: 0.75rem;
+    font-size: 26px;
+    margin-bottom: 12px;
   }
 
   .subtitle {
-    font-size: 0.9375rem;
+    font-size: 15px;
   }
 
   .emptyState,
   .loadingState {
-    padding: 2rem 1rem;
+    padding: 32px 16px;
   }
 }

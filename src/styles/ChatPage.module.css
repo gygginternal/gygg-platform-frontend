@@ -22,7 +22,7 @@
 .chatHeader {
   display: flex;
   align-items: center;
-  padding: 0.75rem 1rem; /* 12px 16px */
+  padding: 12px 16px; /* 12px 16px */
   background: #fff;
   border-bottom: 1px solid #e5e7eb;
   border-radius: 0;
@@ -32,10 +32,10 @@
 }
 
 .profileImage {
-  width: 2rem; /* 32px */
-  height: 2rem; /* 32px */
+  width: 32px; /* 32px */
+  height: 32px; /* 32px */
   border-radius: 50%;
-  margin-right: 0.75rem; /* 12px */
+  margin-right: 12px; /* 12px */
   object-fit: cover;
   border: 1px solid #e5e7eb;
   flex-shrink: 0;
@@ -50,7 +50,7 @@
 
 .userInfo h2 {
   margin: 0;
-  font-size: 0.875rem; /* 14px */
+  font-size: 14px; /* 14px */
   color: #1f2937;
   font-weight: 600;
   line-height: 1.2;
@@ -60,26 +60,26 @@
 }
 
 .userInfo .onlineStatus {
-  font-size: 0.75rem; /* 12px */
+  font-size: 12px; /* 12px */
   color: #10b981;
   font-weight: 500;
-  margin-top: 0.125rem; /* 2px */
+  margin-top: 2px; /* 2px */
 }
 
 .messagesContainer {
   flex: 1;
   overflow-y: auto;
-  padding: 0.75rem; /* 12px */
+  padding: 12px; /* 12px */
   display: flex;
   flex-direction: column;
-  gap: 0.5rem; /* 8px */
+  gap: 8px; /* 8px */
   background: #f8f9fa;
 }
 
 .messageRow {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 0.5rem; /* 8px */
+  margin-bottom: 8px; /* 8px */
   max-width: 100%;
 }
 
@@ -88,46 +88,46 @@
 }
 
 .messageProfile {
-  width: 1.75rem; /* 28px */
-  height: 1.75rem; /* 28px */
+  width: 28px; /* 28px */
+  height: 28px; /* 28px */
   border-radius: 50%;
   object-fit: cover;
-  margin: 0 0.5rem 0 0; /* 8px */
+  margin: 0 8px 0 0; /* 8px */
   flex-shrink: 0;
 }
 
 .sent .messageProfile {
-  margin: 0 0 0 0.5rem; /* 8px */
+  margin: 0 0 0 8px; /* 8px */
 }
 
 .messageMeta {
   display: flex;
   align-items: center;
-  margin-bottom: 0.125rem; /* 2px */
+  margin-bottom: 2px; /* 2px */
 }
 
 .senderName {
-  font-size: 0.75rem; /* 12px */
+  font-size: 12px; /* 12px */
   color: #374151;
   font-weight: 600;
-  margin-right: 0.375rem; /* 6px */
+  margin-right: 6px; /* 6px */
 }
 
 .timestamp {
-  font-size: 0.6875rem; /* 11px */
+  font-size: 11px; /* 11px */
   color: #9ca3af;
   font-weight: 400;
 }
 
 .messageContent {
   background: #fff;
-  border-radius: 0.75rem; /* 12px */
-  padding: 0.5rem 0.75rem; /* 8px 12px */
-  font-size: 0.875rem; /* 14px */
+  border-radius: 12px; /* 12px */
+  padding: 8px 12px; /* 8px 12px */
+  font-size: 14px; /* 14px */
   color: #1f2937;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  min-width: 2rem; /* 32px */
-  max-width: calc(100vw - 6rem); /* Account for padding and avatar */
+  min-width: 32px; /* 32px */
+  max-width: calc(100vw - 96px); /* Account for padding and avatar */
   word-break: break-word;
   position: relative;
   line-height: 1.4;
@@ -143,19 +143,19 @@
   color: #fff;
   font-weight: 700;
   border-radius: 12px 12px 0 0;
-  padding: 0.5rem 1.1rem 0.3rem 1.1rem;
-  font-size: 1rem;
-  margin-bottom: 0.2rem;
+  padding: 8px 18px 5px 18px;
+  font-size: 16px;
+  margin-bottom: 3px;
 }
 
 .inputContainer {
   display: flex;
   align-items: center;
-  padding: 0.75rem; /* 12px */
+  padding: 12px; /* 12px */
   background: #fff;
   border-top: 1px solid #e5e7eb;
   border-radius: 0;
-  gap: 0.5rem; /* 8px */
+  gap: 8px; /* 8px */
   position: sticky;
   bottom: 0;
   z-index: 10;
@@ -163,13 +163,13 @@
 
 .messageInput {
   flex: 1;
-  padding: 0.75rem 1rem; /* 12px 16px */
+  padding: 12px 16px; /* 12px 16px */
   border: 1px solid #d1d5db;
-  border-radius: 1.5rem; /* 24px */
+  border-radius: 24px; /* 24px */
   outline: none;
-  font-size: 0.875rem; /* 14px */
+  font-size: 14px; /* 14px */
   background: #f9fafb;
-  min-height: 2.25rem; /* 36px */
+  min-height: 36px; /* 36px */
   line-height: 1.4;
 }
 
@@ -179,18 +179,18 @@
 }
 
 .sendButton {
-  padding: 0.75rem; /* 12px */
+  padding: 12px; /* 12px */
   background-color: #536471;
   color: white;
   border: none;
   border-radius: 50%;
   cursor: pointer;
   font-weight: 600;
-  font-size: 0.875rem; /* 14px */
+  font-size: 14px; /* 14px */
   transition: all 0.2s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  min-width: 2.25rem; /* 36px */
-  min-height: 2.25rem; /* 36px */
+  min-width: 36px; /* 36px */
+  min-height: 36px; /* 36px */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -212,9 +212,9 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  font-size: 0.875rem; /* 14px */
+  font-size: 14px; /* 14px */
   color: #6b7280;
-  padding: 2rem;
+  padding: 32px;
 }
 
 .error {
@@ -223,260 +223,260 @@
   align-items: center;
   height: 100%;
   color: #dc2626;
-  font-size: 0.875rem; /* 14px */
-  padding: 2rem;
+  font-size: 14px; /* 14px */
+  padding: 32px;
   text-align: center;
 }
 
 /* Small Mobile to Tablet (480px - 768px) */
 @media (min-width: 480px) {
   .chatContainer {
-    padding: 0.5rem; /* 8px */
+    padding: 8px; /* 8px */
   }
 
   .chatCard {
-    border-radius: 0.75rem; /* 12px */
+    border-radius: 12px; /* 12px */
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    max-height: calc(100vh - 1rem);
+    max-height: calc(100vh - 16px);
   }
 
   .chatHeader {
-    padding: 1rem 1.25rem; /* 16px 20px */
-    border-radius: 0.75rem 0.75rem 0 0; /* 12px */
+    padding: 16px 20px; /* 16px 20px */
+    border-radius: 12px 12px 0 0; /* 12px */
   }
 
   .profileImage {
-    width: 2.25rem; /* 36px */
-    height: 2.25rem; /* 36px */
-    margin-right: 1rem; /* 16px */
+    width: 36px; /* 36px */
+    height: 36px; /* 36px */
+    margin-right: 16px; /* 16px */
   }
 
   .userInfo h2 {
-    font-size: 0.9375rem; /* 15px */
+    font-size: 15px; /* 15px */
   }
 
   .userInfo .onlineStatus {
-    font-size: 0.8125rem; /* 13px */
+    font-size: 13px; /* 13px */
   }
 
   .messagesContainer {
-    padding: 1rem; /* 16px */
+    padding: 16px; /* 16px */
   }
 
   .messageProfile {
-    width: 2rem; /* 32px */
-    height: 2rem; /* 32px */
+    width: 32px; /* 32px */
+    height: 32px; /* 32px */
   }
 
   .messageContent {
-    padding: 0.625rem 0.875rem; /* 10px 14px */
-    font-size: 0.9375rem; /* 15px */
-    max-width: calc(100vw - 8rem);
+    padding: 10px 14px; /* 10px 14px */
+    font-size: 15px; /* 15px */
+    max-width: calc(100vw - 128px);
   }
 
   .senderName {
-    font-size: 0.8125rem; /* 13px */
+    font-size: 13px; /* 13px */
   }
 
   .timestamp {
-    font-size: 0.75rem; /* 12px */
+    font-size: 12px; /* 12px */
   }
 
   .inputContainer {
-    padding: 1rem 1.25rem; /* 16px 20px */
-    border-radius: 0 0 0.75rem 0.75rem; /* 12px */
+    padding: 16px 20px; /* 16px 20px */
+    border-radius: 0 0 12px 12px; /* 12px */
   }
 
   .messageInput {
-    padding: 0.875rem 1.125rem; /* 14px 18px */
-    font-size: 0.9375rem; /* 15px */
+    padding: 14px 18px; /* 14px 18px */
+    font-size: 15px; /* 15px */
   }
 
   .sendButton {
-    min-width: 2.5rem; /* 40px */
-    min-height: 2.5rem; /* 40px */
+    min-width: 40px; /* 40px */
+    min-height: 40px; /* 40px */
   }
 
   .loading,
   .error {
-    font-size: 1rem; /* 16px */
+    font-size: 16px; /* 16px */
   }
 }
 
 /* Tablet (768px - 1024px) */
 @media (min-width: 768px) {
   .chatContainer {
-    padding: 1rem; /* 16px */
+    padding: 16px; /* 16px */
     align-items: center;
   }
 
   .chatCard {
     max-width: 600px;
-    border-radius: 1rem; /* 16px */
+    border-radius: 16px; /* 16px */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    max-height: calc(100vh - 2rem);
+    max-height: calc(100vh - 32px);
   }
 
   .chatHeader {
-    padding: 1.25rem 1.5rem; /* 20px 24px */
-    border-radius: 1rem 1rem 0 0; /* 16px */
+    padding: 20px 24px; /* 20px 24px */
+    border-radius: 16px 16px 0 0; /* 16px */
   }
 
   .profileImage {
-    width: 2.5rem; /* 40px */
-    height: 2.5rem; /* 40px */
-    margin-right: 1.25rem; /* 20px */
+    width: 40px; /* 40px */
+    height: 40px; /* 40px */
+    margin-right: 20px; /* 20px */
   }
 
   .userInfo h2 {
-    font-size: 1rem; /* 16px */
+    font-size: 16px; /* 16px */
   }
 
   .userInfo .onlineStatus {
-    font-size: 0.875rem; /* 14px */
+    font-size: 14px; /* 14px */
   }
 
   .messagesContainer {
-    padding: 1.5rem; /* 24px */
+    padding: 24px; /* 24px */
   }
 
   .messageProfile {
-    width: 2.25rem; /* 36px */
-    height: 2.25rem; /* 36px */
-    margin: 0 0.75rem 0 0; /* 12px */
+    width: 36px; /* 36px */
+    height: 36px; /* 36px */
+    margin: 0 12px 0 0; /* 12px */
   }
 
   .sent .messageProfile {
-    margin: 0 0 0 0.75rem; /* 12px */
+    margin: 0 0 0 12px; /* 12px */
   }
 
   .messageContent {
-    padding: 0.75rem 1rem; /* 12px 16px */
-    font-size: 1rem; /* 16px */
+    padding: 12px 16px; /* 12px 16px */
+    font-size: 16px; /* 16px */
     max-width: 400px;
-    border-radius: 1rem; /* 16px */
+    border-radius: 16px; /* 16px */
   }
 
   .senderName {
-    font-size: 0.875rem; /* 14px */
-    margin-right: 0.5rem; /* 8px */
+    font-size: 14px; /* 14px */
+    margin-right: 8px; /* 8px */
   }
 
   .timestamp {
-    font-size: 0.8125rem; /* 13px */
+    font-size: 13px; /* 13px */
   }
 
   .inputContainer {
-    padding: 1.25rem 1.5rem; /* 20px 24px */
-    border-radius: 0 0 1rem 1rem; /* 16px */
-    gap: 0.75rem; /* 12px */
+    padding: 20px 24px; /* 20px 24px */
+    border-radius: 0 0 16px 16px; /* 16px */
+    gap: 12px; /* 12px */
   }
 
   .messageInput {
-    padding: 1rem 1.25rem; /* 16px 20px */
-    font-size: 1rem; /* 16px */
-    min-height: 2.5rem; /* 40px */
+    padding: 16px 20px; /* 16px 20px */
+    font-size: 16px; /* 16px */
+    min-height: 40px; /* 40px */
   }
 
   .sendButton {
-    min-width: 2.75rem; /* 44px */
-    min-height: 2.75rem; /* 44px */
-    font-size: 1rem; /* 16px */
+    min-width: 44px; /* 44px */
+    min-height: 44px; /* 44px */
+    font-size: 16px; /* 16px */
   }
 
   .loading,
   .error {
-    font-size: 1.125rem; /* 18px */
+    font-size: 18px; /* 18px */
   }
 }
 
 /* Desktop (1024px+) */
 @media (min-width: 1024px) {
   .chatContainer {
-    padding: 1.5rem; /* 24px */
+    padding: 24px; /* 24px */
   }
 
   .chatCard {
     max-width: 700px;
-    border-radius: 1.25rem; /* 20px */
+    border-radius: 20px; /* 20px */
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    max-height: calc(100vh - 3rem);
+    max-height: calc(100vh - 48px);
   }
 
   .chatHeader {
-    padding: 1.5rem 2rem; /* 24px 32px */
-    border-radius: 1.25rem 1.25rem 0 0; /* 20px */
+    padding: 24px 32px; /* 24px 32px */
+    border-radius: 20px 20px 0 0; /* 20px */
   }
 
   .profileImage {
-    width: 3rem; /* 48px */
-    height: 3rem; /* 48px */
-    margin-right: 1.5rem; /* 24px */
+    width: 48px; /* 48px */
+    height: 48px; /* 48px */
+    margin-right: 24px; /* 24px */
   }
 
   .userInfo h2 {
-    font-size: 1.125rem; /* 18px */
+    font-size: 18px; /* 18px */
   }
 
   .userInfo .onlineStatus {
-    font-size: 0.9375rem; /* 15px */
+    font-size: 15px; /* 15px */
   }
 
   .messagesContainer {
-    padding: 2rem; /* 32px */
-    gap: 0.75rem; /* 12px */
+    padding: 32px; /* 32px */
+    gap: 12px; /* 12px */
   }
 
   .messageRow {
-    margin-bottom: 0.75rem; /* 12px */
+    margin-bottom: 12px; /* 12px */
   }
 
   .messageProfile {
-    width: 2.5rem; /* 40px */
-    height: 2.5rem; /* 40px */
-    margin: 0 1rem 0 0; /* 16px */
+    width: 40px; /* 40px */
+    height: 40px; /* 40px */
+    margin: 0 16px 0 0; /* 16px */
   }
 
   .sent .messageProfile {
-    margin: 0 0 0 1rem; /* 16px */
+    margin: 0 0 0 16px; /* 16px */
   }
 
   .messageContent {
-    padding: 1rem 1.25rem; /* 16px 20px */
-    font-size: 1.125rem; /* 18px */
+    padding: 16px 20px; /* 16px 20px */
+    font-size: 18px; /* 18px */
     max-width: 450px;
-    border-radius: 1.25rem; /* 20px */
+    border-radius: 20px; /* 20px */
   }
 
   .senderName {
-    font-size: 0.9375rem; /* 15px */
-    margin-right: 0.75rem; /* 12px */
+    font-size: 15px; /* 15px */
+    margin-right: 12px; /* 12px */
   }
 
   .timestamp {
-    font-size: 0.875rem; /* 14px */
+    font-size: 14px; /* 14px */
   }
 
   .inputContainer {
-    padding: 1.5rem 2rem; /* 24px 32px */
-    border-radius: 0 0 1.25rem 1.25rem; /* 20px */
-    gap: 1rem; /* 16px */
+    padding: 24px 32px; /* 24px 32px */
+    border-radius: 0 0 20px 20px; /* 20px */
+    gap: 16px; /* 16px */
   }
 
   .messageInput {
-    padding: 1.125rem 1.5rem; /* 18px 24px */
-    font-size: 1.125rem; /* 18px */
-    min-height: 3rem; /* 48px */
+    padding: 18px 24px; /* 18px 24px */
+    font-size: 18px; /* 18px */
+    min-height: 48px; /* 48px */
   }
 
   .sendButton {
-    min-width: 3rem; /* 48px */
-    min-height: 3rem; /* 48px */
-    font-size: 1.125rem; /* 18px */
+    min-width: 48px; /* 48px */
+    min-height: 48px; /* 48px */
+    font-size: 18px; /* 18px */
   }
 
   .loading,
   .error {
-    font-size: 1.25rem; /* 20px */
+    font-size: 20px; /* 20px */
   }
 }

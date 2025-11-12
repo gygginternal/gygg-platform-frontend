@@ -7,7 +7,7 @@
 
 .onboardingCard {
   text-align: center;
-  padding: 2rem;
+  padding: 32px;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   background-color: #fafafa;
@@ -20,7 +20,7 @@
 
 .onboardingCard p {
   color: #666;
-  margin-bottom: 1.5rem;
+  margin-bottom: 24px;
 }
 
 .onboardButton {
@@ -46,16 +46,16 @@
 
 .success {
   text-align: center;
-  padding: 2rem;
+  padding: 32px;
 }
 
 .success .checkmark {
-  font-size: 3rem;
+  font-size: 48px;
   color: #28a745;
 }
 
 .success h3 {
-  margin: 1rem 0 0.5rem;
+  margin: 16px 0 8px;
   color: #333;
 }
 
@@ -72,7 +72,7 @@
   padding: 10px 20px;
   font-size: 14px;
   cursor: pointer;
-  margin-top: 1rem;
+  margin-top: 16px;
 }
 
 .refreshButton:hover {
@@ -81,32 +81,32 @@
 
 .error {
   text-align: center;
-  padding: 1rem;
+  padding: 16px;
   color: #dc3545;
   background-color: #f8d7da;
   border: 1px solid #f5c6cb;
   border-radius: 4px;
-  margin: 1rem 0;
+  margin: 16px 0;
 }
 
 .statusDetails {
   background-color: #f8f9fa;
   border-radius: 6px;
-  padding: 1rem;
-  margin: 1.5rem 0;
+  padding: 16px;
+  margin: 24px 0;
   text-align: left;
 }
 
 .statusDetails h4 {
   margin-top: 0;
-  margin-bottom: 0.75rem;
+  margin-bottom: 12px;
   color: #333;
 }
 
 .statusRow {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
 }
 
 .statusRow:last-child {

@@ -1,7 +1,7 @@
 .taskList {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-  gap: 2rem;
+  gap: 32px;
   width: 100%;
 }
 
@@ -13,7 +13,7 @@
   align-items: center;
   justify-content: center;
   min-height: 200px;
-  padding: 2rem;
+  padding: 32px;
   background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -28,7 +28,7 @@
   border-top-color: #3b82f6;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 @keyframes spin {
@@ -40,11 +40,11 @@
 .errorMessage {
   color: #dc2626;
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 .retryButton {
-  padding: 0.75rem 1.5rem;
+  padding: 12px 24px;
   background-color: #ef4444;
   color: white;
   border: none;
@@ -62,31 +62,31 @@
   color: #6b7280;
   background: #ffffff;
   border-radius: 8px;
-  padding: 3rem 2rem;
+  padding: 48px 32px;
   text-align: center;
-  font-size: 1rem;
+  font-size: 16px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border: 1px solid #e5e7eb;
-  margin-top: 1.5rem;
+  margin-top: 24px;
 }
 
 .loadingMore {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
+  padding: 16px;
   grid-column: 1 / -1;
 }
 
 .loadingMore .loadingSpinner {
   width: 24px;
   height: 24px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
 }
 
 .loadMoreButton {
   align-self: center;
-  padding: 0.75rem 1.5rem;
+  padding: 12px 24px;
   background-color: #3d4d55;
   color: white;
   border: none;
@@ -94,7 +94,7 @@
   cursor: pointer;
   font-weight: 500;
   transition: background-color 0.2s;
-  margin: 1rem 0;
+  margin: 16px 0;
 }
 
 .loadMoreButton:hover {
@@ -109,7 +109,7 @@
 .endOfResults {
   text-align: center;
   color: #6b7280;
-  padding: 1rem;
+  padding: 16px;
   font-style: italic;
   grid-column: 1 / -1;
 }
@@ -117,69 +117,69 @@
 @media (max-width: 1024px) {
   .taskList {
     grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-    gap: 1.5rem;
+    gap: 24px;
   }
 
   .loadingState,
   .errorState,
   .noResults {
     min-height: 150px;
-    padding: 1rem;
+    padding: 16px;
   }
 
   .loadMoreButton {
     width: 100%;
-    margin: 0.5rem 0;
+    margin: 8px 0;
   }
 }
 
 @media (max-width: 768px) {
   .taskList {
     grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 0.5rem;
+    gap: 16px;
+    padding: 8px;
   }
 
   .loadingState,
   .errorState,
   .noResults {
     min-height: 150px;
-    padding: 1rem;
+    padding: 16px;
   }
 
   .loadMoreButton {
     width: 100%;
-    margin: 0.5rem 0;
+    margin: 8px 0;
   }
 }
 
 @media (max-width: 480px) {
   .taskList {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 16px;
   }
 
   .noResults {
-    padding: 2rem 1rem;
-    font-size: 0.875rem;
+    padding: 32px 16px;
+    font-size: 14px;
   }
 
   .loadMoreButton {
-    margin-top: 0.75rem;
-    padding: 0.625rem;
-    font-size: 0.875rem;
+    margin-top: 12px;
+    padding: 10px;
+    font-size: 14px;
   }
 
   .loadingMore {
-    padding: 0.75rem;
+    padding: 12px;
   }
 
   .endOfResults {
-    margin-top: 0.75rem;
+    margin-top: 12px;
   }
 
   .errorMessage {
-    padding: 0.625rem;
-    font-size: 0.875rem;
+    padding: 10px;
+    font-size: 14px;
   }
 }

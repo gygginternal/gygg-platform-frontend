@@ -2,14 +2,14 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-  font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 16px = 16px */
 }
 
 .navigationContainer {
   width: 100%;
-  max-width: 42rem; /* 672px - Match form width */
-  margin: 2rem auto 0 auto; /* 32px auto 0 auto - Space above buttons */
-  padding: 0 2.5rem; /* 0 40px - Match form padding if needed for alignment */
+  max-width: 672px; /* 672px - Match form width */
+  margin: 32px auto 0 auto; /* 32px auto 0 auto - Space above buttons */
+  padding: 0 40px; /* 0 40px - Match form padding if needed for alignment */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,28 +19,28 @@
 
 .navButton {
   background: none;
-  border: 0.0625rem solid rgba(255, 255, 255, 0.3); /* 1px */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* 1px */
   color: #e5e7eb;
-  /* Facebook Buttons 13-14px. Using 0.875rem (14px). */
-  font-size: 0.875rem; /* 14px */
+  /* Facebook Buttons 13-14px. Using 14px (14px). */
+  font-size: 14px; /* 14px */
   font-weight: 500;
   cursor: pointer;
-  padding: 0.6rem 1.2rem; /* ~9.6px ~19.2px */
-  border-radius: 0.375rem; /* 6px */
+  padding: 10px 19px; /* ~9.6px ~19.2px */
+  border-radius: 6px; /* 6px */
   transition:
     background-color 0.2s ease,
     border-color 0.2s ease,
     transform 0.1s ease;
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* 8px */
+  gap: 8px; /* 8px */
   flex-shrink: 0; /* Prevent buttons from shrinking too much */
 }
 
 .navButton:hover:not(:disabled) {
   background-color: rgba(255, 255, 255, 0.1);
   border-color: #d89362;
-  transform: translateY(-0.0625rem); /* -1px */
+  transform: translateY(-1px); /* -1px */
 }
 
 .navButton:active:not(:disabled) {
@@ -55,15 +55,15 @@
 }
 
 .backIcon {
-  margin-right: 0.3125rem; /* 5px */
+  margin-right: 5px; /* 5px */
 }
 
 .nextIcon {
-  margin-left: 0.3125rem; /* 5px */
+  margin-left: 5px; /* 5px */
 }
 
 .backButtonPlaceholder {
-  min-width: 6.25rem; /* 100px - Adjusted to match button width */
+  min-width: 100px; /* 100px - Adjusted to match button width */
 }
 
 /* .backButton {
@@ -85,14 +85,14 @@
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
   .navigationContainer {
-    max-width: 38rem; /* 608px */
-    margin-top: 1.5rem; /* 24px */
-    padding: 0 1.5rem; /* 0 24px */
+    max-width: 608px; /* 608px */
+    margin-top: 24px; /* 24px */
+    padding: 0 24px; /* 0 24px */
   }
   .navButton {
-    font-size: 0.8125rem; /* 13px */
-    padding: 0.5rem 1rem; /* 8px 16px */
-    gap: 0.4rem; /* 6.4px */
+    font-size: 13px; /* 13px */
+    padding: 8px 16px; /* 8px 16px */
+    gap: 6px; /* 6.4px */
   }
 }
 
@@ -100,26 +100,26 @@
 @media (max-width: 768px) {
   .navigationContainer {
     max-width: 95%; /* Take more width on tablet */
-    margin-top: 1rem; /* 16px */
-    padding: 0 1rem; /* 0 16px */
+    margin-top: 16px; /* 16px */
+    padding: 0 16px; /* 0 16px */
   }
   .navButton {
-    font-size: 0.75rem; /* 12px */
-    padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
-    gap: 0.3rem; /* 4.8px */
-    border-radius: 0.3rem; /* 4.8px */
+    font-size: 12px; /* 12px */
+    padding: 6px 13px; /* 6.4px 12.8px */
+    gap: 5px; /* 4.8px */
+    border-radius: 5px; /* 4.8px */
   }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
   .navigationContainer {
-    margin-top: 0.8rem; /* 12.8px */
-    padding: 0 0.8rem; /* 0 12.8px */
+    margin-top: 13px; /* 12.8px */
+    padding: 0 13px; /* 0 12.8px */
   }
   .navButton {
-    font-size: 0.6875rem; /* ~11px */
-    padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
-    gap: 0.25rem; /* 4px */
+    font-size: 11px; /* ~11px */
+    padding: 5px 10px; /* 4.8px 9.6px */
+    gap: 4px; /* 4px */
   }
 }

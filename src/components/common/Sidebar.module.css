@@ -2,10 +2,10 @@
 
 .sidebar {
   background-color: #f1f1f1;
-  width: 16.875rem; /* 270px Default width for larger screens */
+  width: 270px; /* 270px Default width for larger screens */
   min-height: 150vh;
   height: 150vh !important; /* Ensure full height on all screens */
-  padding-top: 5.25rem; /* 84px - Pushes content below the header on desktop */
+  padding-top: 84px; /* 84px - Pushes content below the header on desktop */
   position: fixed;
   left: 0; /* Always visible on desktop */
   top: 0; /* Starts at the very top of the viewport on desktop */
@@ -23,7 +23,7 @@
 
 /* Desktop Collapsed State (still visible on screen) */
 .sidebar.collapsed {
-  width: 5rem; /* 80px */
+  width: 80px; /* 80px */
 }
 
 .navItem {
@@ -47,7 +47,7 @@
   align-items: center;
   gap: 0 !important;
   width: 100%;
-  padding: 1rem 1.5rem;
+  padding: 16px 24px;
   box-sizing: border-box;
 }
 
@@ -66,7 +66,7 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 0.0625rem;
+  height: 1px;
   background-color: #ccc;
 }
 
@@ -74,7 +74,7 @@
 
 .sidebar.collapsed .navItemContent {
   justify-content: center; /* Center icon when text is hidden */
-  padding: 1rem; /* 16px - Unified padding for collapsed state */
+  padding: 16px; /* 16px - Unified padding for collapsed state */
 }
 
 .navItem.selected {
@@ -121,60 +121,60 @@
 /* Desktop (1024px+) - Enhanced for larger screens */
 @media (min-width: 1024px) {
   .sidebar {
-    width: 17.5rem; /* 280px */
-    padding-top: 5.5rem; /* 88px - matches enhanced header */
+    width: 280px; /* 280px */
+    padding-top: 88px; /* 88px - matches enhanced header */
   }
   .sidebar.collapsed {
-    width: 5.5rem; /* 88px */
+    width: 88px; /* 88px */
   }
   .navItemContent {
-    padding: 1.125rem 1.75rem; /* 18px 28px */
+    padding: 18px 28px; /* 18px 28px */
   }
   .sidebar.collapsed .navItemContent {
-    padding: 1.125rem; /* 18px */
+    padding: 18px; /* 18px */
   }
   .navText {
-    font-size: 1.0625rem; /* 17px */
-    margin-left: 0.75rem; /* 12px */
+    font-size: 17px; /* 17px */
+    margin-left: 12px; /* 12px */
   }
   .defaultIcon {
-    width: 1.625rem; /* 26px */
-    height: 1.625rem; /* 26px */
+    width: 26px; /* 26px */
+    height: 26px; /* 26px */
   }
 }
 
 /* Tablet (768px - 1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
   .sidebar {
-    width: 15.5rem; /* 248px */
-    padding-top: 4.75rem; /* 76px - matches tablet header */
+    width: 248px; /* 248px */
+    padding-top: 76px; /* 76px - matches tablet header */
   }
   .sidebar.collapsed {
-    width: 4.75rem; /* 76px */
+    width: 76px; /* 76px */
   }
   .navItemContent {
-    padding: 1rem 1.5rem; /* 16px 24px */
+    padding: 16px 24px; /* 16px 24px */
   }
   .sidebar.collapsed .navItemContent {
-    padding: 1rem; /* 16px */
+    padding: 16px; /* 16px */
   }
   .navText {
-    font-size: 1rem; /* 16px */
-    margin-left: 0.625rem; /* 10px */
+    font-size: 16px; /* 16px */
+    margin-left: 10px; /* 10px */
   }
   .defaultIcon {
-    width: 1.375rem; /* 22px */
-    height: 1.375rem; /* 22px */
+    width: 22px; /* 22px */
+    height: 22px; /* 22px */
   }
 }
 
 /* Small Tablet / Large Mobile (480px - 768px) - Overlay behavior */
 @media (min-width: 480px) and (max-width: 768px) {
   .sidebar {
-    left: -16rem;
-    width: 16rem; /* 256px */
-    top: 4rem; /* 64px - matches header */
-    height: calc(100vh - 4rem);
+    left: -256px;
+    width: 256px; /* 256px */
+    top: 64px; /* 64px - matches header */
+    height: calc(100vh - 64px);
     padding-top: 0 !important;
     z-index: 150;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
@@ -186,7 +186,7 @@
 
   .sidebar.open .navItemContent {
     justify-content: flex-start;
-    padding: 1rem 1.25rem; /* 16px 20px */
+    padding: 16px 20px; /* 16px 20px */
   }
 
   .sidebar.open .navText {
@@ -196,17 +196,17 @@
   }
 
   .navItemContent {
-    padding: 0.875rem 1.125rem; /* 14px 18px */
+    padding: 14px 18px; /* 14px 18px */
   }
 
   .navText {
-    font-size: 0.9375rem; /* 15px */
-    margin-left: 0.5rem; /* 8px */
+    font-size: 15px; /* 15px */
+    margin-left: 8px; /* 8px */
   }
 
   .defaultIcon {
-    width: 1.125rem; /* 18px */
-    height: 1.125rem; /* 18px */
+    width: 18px; /* 18px */
+    height: 18px; /* 18px */
   }
 }
 
@@ -215,8 +215,8 @@
   .sidebar {
     left: -100vw;
     width: 60vw; /* 75% of viewport width */
-    top: 3.5rem; /* 56px - matches mobile header */
-    height: calc(100vh - 3.5rem);
+    top: 56px; /* 56px - matches mobile header */
+    height: calc(100vh - 56px);
     padding-top: 0 !important;
     z-index: 200;
     box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
@@ -234,7 +234,7 @@
 
   .sidebar.open .navItemContent {
     justify-content: flex-start;
-    padding: 1rem 1rem; /* 16px 16px */
+    padding: 16px 16px; /* 16px 16px */
   }
 
   .sidebar.open .navText {
@@ -244,22 +244,22 @@
   }
 
   .navItemContent {
-    padding: 0.75rem 1rem; /* 12px 16px */
+    padding: 12px 16px; /* 12px 16px */
   }
 
   .navText {
-    font-size: 0.875rem; /* 14px */
-    margin-left: 0.5rem; /* 8px */
+    font-size: 14px; /* 14px */
+    margin-left: 8px; /* 8px */
   }
 
   .defaultIcon {
-    width: 1rem; /* 16px */
-    height: 1rem; /* 16px */
+    width: 16px; /* 16px */
+    height: 16px; /* 16px */
   }
 
   /* Enhanced mobile touch targets */
   .navItem {
-    min-height: 3rem; /* 48px - better touch target */
+    min-height: 48px; /* 48px - better touch target */
   }
 }
 
@@ -274,21 +274,21 @@
   }
 
   .navItemContent {
-    padding: 0.625rem 0.875rem; /* 10px 14px */
+    padding: 10px 14px; /* 10px 14px */
   }
 
   .navText {
-    font-size: 0.8125rem; /* 13px */
-    margin-left: 0.375rem; /* 6px */
+    font-size: 13px; /* 13px */
+    margin-left: 6px; /* 6px */
   }
 
   .defaultIcon {
-    width: 0.875rem; /* 14px */
-    height: 0.875rem; /* 14px */
+    width: 14px; /* 14px */
+    height: 14px; /* 14px */
   }
 
   .navItem {
-    min-height: 2.75rem; /* 44px */
+    min-height: 44px; /* 44px */
   }
 }
 
@@ -298,49 +298,49 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  padding: 1rem 1.5rem;
+  padding: 16px 24px;
   box-sizing: border-box;
   width: 100%;
   position: relative;
 }
 
 .sidebar.collapsed .sidebarToggle {
-  padding: 1rem;
+  padding: 16px;
 }
 
 @media (min-width: 1024px) {
   .sidebarToggle {
-    padding: 1.125rem 1.75rem;
+    padding: 18px 28px;
   }
   .sidebar.collapsed .sidebarToggle {
-    padding: 1.125rem;
+    padding: 18px;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
   .sidebarToggle {
-    padding: 1rem 1.5rem;
+    padding: 16px 24px;
   }
   .sidebar.collapsed .sidebarToggle {
-    padding: 1rem;
+    padding: 16px;
   }
 }
 
 @media (min-width: 480px) and (max-width: 768px) {
   .sidebarToggle {
-    padding: 1rem 1.25rem;
+    padding: 16px 20px;
   }
 }
 
 @media (max-width: 480px) {
   .sidebarToggle {
-    padding: 1rem 1rem;
+    padding: 16px 16px;
   }
 }
 
 @media (max-width: 360px) {
   .sidebarToggle {
-    padding: 0.625rem 0.875rem;
+    padding: 10px 14px;
   }
 }
 

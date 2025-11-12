@@ -27,14 +27,14 @@
 
 /* Main visual text */
 .text {
-  font-size: clamp(1.8rem, 4vw, 2.25rem); /* Facebook header style */
+  font-size: clamp(29px, 4vw, 36px); /* Facebook header style */
   margin: 0 5%;
   text-align: center;
   font-family: 'Inter', sans-serif;
   font-weight: 800;
   color: black;
   z-index: 1;
-  margin-bottom: 2rem;
+  margin-bottom: 32px;
 }
 
 /* Highlighted text span */
@@ -48,7 +48,7 @@
   width: 80%;
   max-width: 350px;
   aspect-ratio: 1 / 1;
-  margin-top: 1rem;
+  margin-top: 16px;
   z-index: 1;
 }
 
@@ -71,8 +71,8 @@
   }
 
   .text {
-    font-size: clamp(1.5rem, 5vw, 2rem);
-    margin-bottom: 1.5rem;
+    font-size: clamp(24px, 5vw, 32px);
+    margin-bottom: 24px;
   }
 
   .imageWrapper {
@@ -88,8 +88,8 @@
   }
 
   .text {
-    font-size: clamp(1rem, 6vw, 1.6rem);
-    margin-bottom: 0.5rem;
+    font-size: clamp(16px, 6vw, 26px);
+    margin-bottom: 8px;
   }
 
   .imageWrapper {
@@ -99,12 +99,12 @@
 
 @media (max-width: 480px) {
   .text {
-    font-size: clamp(0.8rem, 4vw, 1.2rem);
-    margin: 0 8% 1rem;
+    font-size: clamp(13px, 4vw, 19px);
+    margin: 0 8% 16px;
   }
 
   .imageWrapper {
     max-width: 200px;
-    margin-top: 0.5rem;
+    margin-top: 8px;
   }
 }

@@ -37,14 +37,14 @@
 }
 
 .name {
-  font-size: 1.3rem;
+  font-size: 20.8px; /* 21px converted to px */
   font-weight: bold;
   color: #222;
 }
 
 .email {
   color: #666;
-  font-size: 1rem;
+  font-size: 16px; /* 16px converted to px */
 }
 
 /* Profile Card Modern Layout */
@@ -56,7 +56,7 @@
   border-radius: 18px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   padding: 32px 40px;
-  margin-bottom: 1.25rem;
+  margin-bottom: 20px; /* 20px converted to px */
   position: relative;
 }
 
@@ -115,7 +115,7 @@
 }
 
 .profileName {
-  font-size: 1.5rem;
+  font-size: 24px; /* 24px converted to px */
   font-weight: bold;
   color: #222;
 }
@@ -125,7 +125,7 @@
   align-items: center;
   gap: 6px;
   color: #666;
-  font-size: 1.08rem;
+  font-size: 17.28px; /* 17px converted to px */
 }
 
 .locationIcon {
@@ -134,7 +134,7 @@
 
 .profileBio {
   color: #444;
-  font-size: 1.08rem;
+  font-size: 17.28px; /* 17px converted to px */
   margin-top: 4px;
 }
 /* Modal Styles */
@@ -388,10 +388,10 @@
     height: 64px;
   }
   .name {
-    font-size: 1.2rem;
+    font-size: 19.2px; /* 19px converted to px */
   }
   .email {
-    font-size: 0.95rem;
+    font-size: 15.2px; /* 15px converted to px */
   }
   .profileCard {
     gap: 28px;
@@ -416,11 +416,11 @@
     height: 80px;
   }
   .profileName {
-    font-size: 1.35rem;
+    font-size: 21.6px; /* 22px converted to px */
   }
   .profileLocation,
   .profileBio {
-    font-size: 1rem;
+    font-size: 16px; /* 16px converted to px */
   }
   .modal {
     padding: 18px;
@@ -501,10 +501,10 @@
     height: 56px;
   }
   .name {
-    font-size: 1.1rem;
+    font-size: 17.6px; /* 18px converted to px */
   }
   .email {
-    font-size: 0.9rem;
+    font-size: 14.4px; /* 14px converted to px */
   }
   .profileCard {
     gap: 24px;
@@ -529,11 +529,11 @@
     height: 72px;
   }
   .profileName {
-    font-size: 1.2rem;
+    font-size: 19.2px; /* 19px converted to px */
   }
   .profileLocation,
   .profileBio {
-    font-size: 0.95rem;
+    font-size: 15.2px; /* 15px converted to px */
   }
   .modal {
     padding: 15px;
@@ -616,10 +616,10 @@
     height: 48px;
   }
   .name {
-    font-size: 1rem;
+    font-size: 16px; /* 16px converted to px */
   }
   .email {
-    font-size: 0.85rem;
+    font-size: 13.6px; /* 14px converted to px */
   }
   .profileCard {
     gap: 20px;
@@ -644,11 +644,11 @@
     height: 64px;
   }
   .profileName {
-    font-size: 1.1rem;
+    font-size: 17.6px; /* 18px converted to px */
   }
   .profileLocation,
   .profileBio {
-    font-size: 0.9rem;
+    font-size: 14.4px; /* 14px converted to px */
   }
   .modal {
     padding: 12px;

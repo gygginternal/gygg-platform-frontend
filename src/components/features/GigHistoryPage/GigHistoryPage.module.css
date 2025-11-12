@@ -1,8 +1,8 @@
 /* frontend/src/pages/GigHistoryPage.module.css */
 
 .container {
-  padding-top: 5.25rem; /* 84px - Account for fixed header */
-  min-height: calc(100vh - 5.25rem);
+  padding-top: 84px; /* 84px - Account for fixed header */
+  min-height: calc(100vh - 84px);
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
@@ -20,7 +20,7 @@
   font-size: 2em;
   color: #333;
   margin-bottom: 15px;
-  padding: 1.25rem 1.25rem 0;
+  padding: 20px 20px 0;
 }
 
 .message {
@@ -28,53 +28,53 @@
   color: #555;
   margin-bottom: 20px;
   line-height: 1.5;
-  padding: 0 1.25rem 1.25rem;
+  padding: 0 20px 20px;
 }
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
   .container {
-    padding-top: 4.5rem; /* 72px */
-    min-height: calc(100vh - 4.5rem);
+    padding-top: 72px; /* 72px */
+    min-height: calc(100vh - 72px);
   }
 
   .title {
-    padding: 1rem 1rem 0;
+    padding: 16px 16px 0;
   }
 
   .message {
-    padding: 0 1rem 1rem;
+    padding: 0 16px 16px;
   }
 }
 
 @media (max-width: 768px) {
   .container {
-    padding-top: 4rem; /* 64px */
-    min-height: calc(100vh - 4rem);
-    margin: 0 0.875rem;
+    padding-top: 64px; /* 64px */
+    min-height: calc(100vh - 64px);
+    margin: 0 14px;
   }
 
   .title {
-    padding: 0.875rem 0.875rem 0;
+    padding: 14px 14px 0;
   }
 
   .message {
-    padding: 0 0.875rem 0.875rem;
+    padding: 0 14px 14px;
   }
 }
 
 @media (max-width: 480px) {
   .container {
-    padding-top: 3.5rem; /* 56px */
-    min-height: calc(100vh - 3.5rem);
-    margin: 0 0.75rem;
+    padding-top: 56px; /* 56px */
+    min-height: calc(100vh - 56px);
+    margin: 0 12px;
   }
 
   .title {
-    padding: 0.75rem 0.75rem 0;
+    padding: 12px 12px 0;
   }
 
   .message {
-    padding: 0 0.75rem 0.75rem;
+    padding: 0 12px 12px;
   }
 }

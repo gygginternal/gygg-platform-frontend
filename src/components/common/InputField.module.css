@@ -4,25 +4,25 @@
 .fieldContainer {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 8px; /* 8px converted to px */
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 16px; /* 16px converted to px */
   font-family: 'Inter', sans-serif;
 }
 
 /* Label */
 .label {
   display: block;
-  font-size: 0.875rem;
+  font-size: 14px; /* 14px converted to px */
   font-weight: 500;
   line-height: 1.4;
   color: #374151;
-  margin-bottom: 0.25rem;
+  margin-bottom: 4px; /* 4px converted to px */
 }
 
 .requiredIndicator {
   color: #d99633;
-  margin-left: 0.25rem;
+  margin-left: 4px; /* 4px converted to px */
 }
 
 /* Input Container */
@@ -32,7 +32,7 @@
   align-items: stretch;
   background-color: #ffffff;
   border: 1.5px solid #d99633;
-  border-radius: 0.5rem;
+  border-radius: 8px; /* 8px converted to px */
   transition: all 0.2s ease-in-out;
   overflow: hidden;
 }
@@ -69,8 +69,8 @@
   border: none;
   border-right: 1.5px solid #d99633;
   background-color: #ffffff !important;
-  padding: 0.75rem 0.5rem;
-  font-size: 0.875rem;
+  padding: 12px 8px;
+  font-size: 14px;
   font-weight: 500;
   color: #111827;
   cursor: pointer;
@@ -102,13 +102,13 @@
   flex: 1;
   border: none;
   background-color: #ffffff;
-  padding: 0.75rem 1rem;
-  font-size: 0.875rem;
+  padding: 12px 16px;
+  font-size: 14px;
   font-weight: 400;
   color: #111827 !important;
   outline: none;
   transition: all 0.2s ease;
-  min-height: 2.5rem;
+  min-height: 40px;
   box-sizing: border-box;
 }
 
@@ -171,10 +171,10 @@
 
 /* Textarea specific */
 .textarea {
-  min-height: 4rem;
+  min-height: 64px;
   resize: vertical;
   line-height: 1.5;
-  padding: 0.75rem 1rem;
+  padding: 12px 16px;
 }
 
 /* Password Toggle */
@@ -183,7 +183,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 0.75rem;
+  padding: 8px 12px;
   background: #ffffff;
   border: none;
   border-left: 1.5px solid #d99633;
@@ -227,36 +227,36 @@
 
 /* Error and Helper Text */
 .errorMessage {
-  font-size: 0.75rem;
+  font-size: 12px;
   color: #ef4444;
-  margin-top: 0.25rem;
+  margin-top: 4px;
   display: block;
 }
 
 .helperText {
-  font-size: 0.75rem;
+  font-size: 12px;
   color: #6b7280;
-  margin-top: 0.25rem;
+  margin-top: 4px;
   display: block;
 }
 
 /* Content Warning Styles */
 .contentWarningContainer {
-  margin-top: 0.5rem;
-  padding: 0.75rem;
+  margin-top: 8px;
+  padding: 12px;
   background-color: #fef3c7;
   border: 1px solid #f59e0b;
-  border-radius: 0.5rem;
+  border-radius: 8px;
   animation: slideIn 0.3s ease-out;
 }
 
 .contentWarningMessage {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
+  gap: 8px;
+  font-size: 14px;
   font-weight: 500;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
 }
 
 .contentWarningMessage.medium {
@@ -280,14 +280,14 @@
 }
 
 .contentSuggestions {
-  margin-top: 0.5rem;
+  margin-top: 8px;
 }
 
 .suggestionsTitle {
-  font-size: 0.75rem;
+  font-size: 12px;
   font-weight: 600;
   color: #92400e;
-  margin: 0 0 0.25rem 0;
+  margin: 0 0 4px 0;
 }
 
 .suggestionsList {
@@ -297,10 +297,10 @@
 }
 
 .suggestionItem {
-  font-size: 0.75rem;
+  font-size: 12px;
   color: #92400e;
-  margin-bottom: 0.25rem;
-  padding-left: 1rem;
+  margin-bottom: 4px;
+  padding-left: 16px;
   position: relative;
 }
 
@@ -326,98 +326,98 @@
 /* Responsive Design */
 @media (max-width: 1024px) {
   .fieldContainer {
-    gap: 0.4rem;
-    margin-bottom: 0.75rem;
+    gap: 6px;
+    margin-bottom: 12px;
   }
 
   .label {
-    font-size: 0.8125rem;
+    font-size: 13px;
   }
 
   .input {
-    padding: 0.625rem 0.875rem;
-    font-size: 0.8125rem;
-    min-height: 2.25rem;
+    padding: 10px 14px;
+    font-size: 13px;
+    min-height: 36px;
   }
 
   .countrySelect {
-    padding: 0.625rem 0.5rem;
-    font-size: 0.8125rem;
+    padding: 10px 8px;
+    font-size: 13px;
     min-width: 90px;
   }
 
   .textarea {
-    min-height: 3.5rem;
-    padding: 0.625rem 0.875rem;
+    min-height: 56px;
+    padding: 10px 14px;
   }
 }
 
 @media (max-width: 768px) {
   .fieldContainer {
-    gap: 0.3rem;
-    margin-bottom: 0.625rem;
+    gap: 5px;
+    margin-bottom: 10px;
   }
 
   .label {
-    font-size: 0.75rem;
+    font-size: 12px;
   }
 
   .input {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.75rem;
-    min-height: 2rem;
+    padding: 8px 12px;
+    font-size: 12px;
+    min-height: 32px;
   }
 
   .countrySelect {
-    padding: 0.5rem 0.375rem;
-    font-size: 0.75rem;
+    padding: 8px 6px;
+    font-size: 12px;
     min-width: 80px;
   }
 
   .textarea {
-    min-height: 3rem;
-    padding: 0.5rem 0.75rem;
+    min-height: 48px;
+    padding: 8px 12px;
   }
 
   .togglePassword {
-    padding: 0.375rem 0.5rem;
+    padding: 6px 8px;
   }
 }
 
 @media (max-width: 480px) {
   .fieldContainer {
-    gap: 0.25rem;
-    margin-bottom: 0.5rem;
+    gap: 4px;
+    margin-bottom: 8px;
   }
 
   .label {
-    font-size: 0.6875rem;
+    font-size: 11px;
   }
 
   .input {
-    padding: 0.4375rem 0.625rem;
-    font-size: 0.6875rem;
-    min-height: 1.875rem;
+    padding: 7px 10px;
+    font-size: 11px;
+    min-height: 30px;
   }
 
   .countrySelect {
-    padding: 0.4375rem 0.25rem;
-    font-size: 0.6875rem;
+    padding: 7px 4px;
+    font-size: 11px;
     min-width: 70px;
   }
 
   .textarea {
-    min-height: 2.5rem;
-    padding: 0.4375rem 0.625rem;
+    min-height: 40px;
+    padding: 7px 10px;
   }
 
   .togglePassword {
-    padding: 0.25rem 0.375rem;
+    padding: 4px 6px;
   }
 
   .errorMessage,
   .helperText {
-    font-size: 0.6875rem;
+    font-size: 11px;
   }
 }
 
@@ -475,7 +475,7 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-0.25rem);
+    transform: translateY(-4px);
   }
   to {
     opacity: 1;

@@ -24,13 +24,13 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  font-size: 1rem;
+  font-size: 16px; /* 16px converted to px */
 }
 
 .modalHeader {
   background: #16a2b8;
   color: #fff;
-  padding: 0.75rem 1.25rem;
+  padding: 12px 20px; /* 12px 20px converted to px */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -39,7 +39,7 @@
 }
 
 .modalTitle {
-  font-size: 1.25rem;
+  font-size: 20px; /* 20px converted to px */
   font-weight: 700;
   margin: 0;
   color: #fff;
@@ -49,7 +49,7 @@
   background: none;
   border: none;
   color: #fff;
-  font-size: 1.8rem;
+  font-size: 28.8px; /* 29px converted to px */
   cursor: pointer;
   z-index: 2;
   display: flex;
@@ -69,13 +69,13 @@
 }
 
 .modalSubHeader {
-  padding: 1.25rem 1.5625rem 0 1.5625rem;
+  padding: 20px 25px 0 25px; /* 20px 25px converted to px */
 }
 
 .modalGigTitle {
-  font-size: 1.1rem;
+  font-size: 17.6px; /* 18px converted to px */
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px; /* 8px converted to px */
   display: block;
   color: #222;
   text-decoration: underline;
@@ -84,9 +84,9 @@
 .modalProviderRow {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem 1.5625rem 0.5rem 1.5625rem;
-  font-size: 1rem;
+  gap: 12px; /* 12px converted to px */
+  padding: 8px 25px 8px 25px; /* 8px 25px converted to px */
+  font-size: 16px; /* 16px converted to px */
   color: #222;
 }
 
@@ -99,50 +99,50 @@
 }
 
 .modalProviderName {
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 600;
 }
 
 .modalViewProfileBlack {
   color: #222;
   text-decoration: underline;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  font-size: 1rem;
+  margin-left: 8px; /* 8px converted to px */
+  margin-right: 8px; /* 8px converted to px */
+  font-size: 16px; /* 16px converted to px */
 }
 
 .modalPostedTime {
   margin-left: auto;
   color: #888;
-  font-size: 0.95rem;
+  font-size: 15.2px; /* 15px converted to px */
 }
 
 .modalDescription {
-  padding: 0.5rem 1.5625rem 1rem 1.5625rem;
+  padding: 8px 25px 16px 25px; /* 8px 25px 16px 25px converted to px */
   color: #444;
-  font-size: 0.95rem;
+  font-size: 15.2px; /* 15px converted to px */
   font-style: italic;
 }
 
 .modalDetailsRow {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  padding: 0.5rem 1.5625rem 1.5rem 1.5625rem;
+  gap: 24px; /* 24px converted to px */
+  padding: 8px 25px 24px 25px; /* 8px 25px 24px 25px converted to px */
   color: #222;
-  font-size: 0.95rem;
+  font-size: 15.2px; /* 15px converted to px */
 }
 
 .modalLocation {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 4px; /* 4px converted to px */
 }
 
 .modalPay {
   color: #f7b731;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 16px; /* 16px converted to px */
 }
 
 .modalDuration {
@@ -153,8 +153,8 @@
 .modalActions {
   display: flex;
   justify-content: flex-end;
-  gap: 0.625rem;
-  padding: 1.25rem 1.5625rem 1.5rem 1.5625rem;
+  gap: 10px; /* 10px converted to px */
+  padding: 20px 25px 24px 25px; /* 20px 25px 24px 25px converted to px */
   background: #f8f9fa;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
@@ -162,10 +162,10 @@
 
 .modalActions button {
   min-width: 100px;
-  padding: 0.6rem 1.2rem;
+  padding: 9.6px 19.2px; /* 10px 19px converted to px */
   border-radius: 8px;
   border: none;
-  font-size: 1rem;
+  font-size: 16px; /* 16px converted to px */
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
@@ -194,8 +194,8 @@
   .modalDescription,
   .modalDetailsRow,
   .modalActions {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }
 
@@ -205,7 +205,7 @@
     border-radius: 10px;
   }
   .modalHeader {
-    padding: 0.75rem 1rem;
+    padding: 12px 16px;
     border-radius: 10px 10px 0 0;
   }
   .modalSubHeader,
@@ -213,44 +213,44 @@
   .modalDescription,
   .modalDetailsRow,
   .modalActions {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 16px;
+    padding-right: 16px;
   }
   .modalTitle {
-    font-size: 1.1rem;
+    font-size: 18px;
   }
   .modalGigTitle {
-    font-size: 1rem;
+    font-size: 16px;
   }
   /* Stack provider row and details vertically for card-like layout */
   .modalProviderRow {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.25rem;
-    padding-top: 0.75rem;
-    padding-bottom: 0.25rem;
+    gap: 4px;
+    padding-top: 12px;
+    padding-bottom: 4px;
   }
   .modalProfileImage {
-    margin-bottom: 0.25rem;
+    margin-bottom: 4px;
   }
   .modalDetailsRow {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.25rem;
-    padding-top: 0.25rem;
-    padding-bottom: 0.75rem;
+    gap: 4px;
+    padding-top: 4px;
+    padding-bottom: 12px;
   }
   .modalPay {
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
+    margin-top: 4px;
+    margin-bottom: 4px;
   }
   .modalLocation,
   .modalPostedTime {
-    font-size: 0.95rem;
+    font-size: 15px;
   }
   .modalPostedTime {
     margin-left: 0;
-    margin-top: 0.25rem;
+    margin-top: 4px;
     color: #888;
   }
 }
@@ -258,59 +258,59 @@
 @media (max-width: 480px) {
   .modalContent {
     max-width: 100vw;
-    border-radius: 0.5rem;
+    border-radius: 8px;
   }
   .modalHeader {
-    padding: 0.75rem 0.75rem;
-    border-radius: 0.5rem 0.5rem 0 0;
+    padding: 12px 12px;
+    border-radius: 8px 8px 0 0;
   }
   .modalSubHeader,
   .modalProviderRow,
   .modalDescription,
   .modalDetailsRow,
   .modalActions {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+    padding-left: 12px;
+    padding-right: 12px;
   }
   .modalTitle {
-    font-size: 1rem;
+    font-size: 16px;
   }
   .modalGigTitle {
-    font-size: 0.95rem;
+    font-size: 15px;
   }
   .modalProviderName,
   .modalPay {
-    font-size: 0.95rem;
+    font-size: 15px;
   }
   /* Card-like stacking for all details */
   .modalProviderRow {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.15rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.15rem;
+    gap: 2px;
+    padding-top: 8px;
+    padding-bottom: 2px;
   }
   .modalProfileImage {
-    margin-bottom: 0.15rem;
+    margin-bottom: 2px;
   }
   .modalDetailsRow {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.15rem;
-    padding-top: 0.15rem;
-    padding-bottom: 0.5rem;
+    gap: 2px;
+    padding-top: 2px;
+    padding-bottom: 8px;
   }
   .modalPay {
-    margin-top: 0.15rem;
-    margin-bottom: 0.15rem;
+    margin-top: 2px;
+    margin-bottom: 2px;
   }
   .modalLocation,
   .modalPostedTime {
-    font-size: 0.92rem;
+    font-size: 15px;
   }
   .modalPostedTime {
     margin-left: 0;
-    margin-top: 0.15rem;
+    margin-top: 2px;
     color: #888;
   }
 }

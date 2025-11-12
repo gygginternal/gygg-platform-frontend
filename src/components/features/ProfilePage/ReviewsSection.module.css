@@ -1,18 +1,18 @@
 /* Base styles - Mobile first */
 .reviewsCard {
   background-color: #fff;
-  border-radius: 0.75rem; /* 12px */
+  border-radius: 12px; /* 12px converted to px */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem; /* 24px */
-  margin-bottom: 1.5rem;
+  padding: 24px; /* 24px converted to px */
+  margin-bottom: 24px; /* 24px converted to px */
   box-sizing: border-box;
 }
 
 .reviewsHeader {
   color: #1f2937;
-  font-size: 1.25rem; /* 20px */
+  font-size: 20px; /* 20px converted to px */
   font-weight: 600;
-  margin-bottom: 1.5rem;
+  margin-bottom: 24px; /* 24px converted to px */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -20,7 +20,7 @@
 
 .reviewsHeader h2 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 20px; /* 20px converted to px */
   font-weight: 600;
   color: #1f2937;
 }
@@ -28,86 +28,86 @@
 .reviewsSummary {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px; /* 8px converted to px */
 }
 
 .averageRating {
-  font-size: 1.5rem;
+  font-size: 24px; /* 24px converted to px */
   font-weight: 700;
   color: #f59e0b;
 }
 
 .starRating {
   color: #f59e0b;
-  font-size: 1.25rem;
+  font-size: 20px; /* 20px converted to px */
 }
 
 .reviewsCount {
   color: #6b7280;
-  font-size: 0.875rem;
+  font-size: 14px; /* 14px converted to px */
 }
 
 .reviewsGrid {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 16px; /* 16px converted to px */
 }
 
 .errorMessage {
   color: #dc3545;
   text-align: center;
-  padding: 1rem;
+  padding: 16px; /* 16px converted to px */
   background-color: #ffebee;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
+  border-radius: 8px; /* 8px converted to px */
+  margin-bottom: 16px; /* 16px converted to px */
 }
 
 .noReviewsText {
   color: #000000; /* Black text */
   text-align: center;
-  font-size: 1rem;
-  margin: 1rem 0;
+  font-size: 16px; /* 16px converted to px */
+  margin: 16px 0; /* 16px 0 converted to px */
 }
 
 /* Tablet (768px - 1024px) */
 @media (min-width: 768px) {
   .reviewsCard {
-    padding: 2rem;
+    padding: 32px; /* 32px converted to px */
   }
 
   .reviewsHeader {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
+    font-size: 24px; /* 24px converted to px */
+    margin-bottom: 32px; /* 32px converted to px */
   }
 
   .reviewsHeader h2 {
-    font-size: 1.5rem;
+    font-size: 24px; /* 24px converted to px */
   }
 
   .averageRating {
-    font-size: 1.75rem;
+    font-size: 28px; /* 28px converted to px */
   }
 
   .starRating {
-    font-size: 1.5rem;
+    font-size: 24px; /* 24px converted to px */
   }
 
   .reviewsGrid {
-    gap: 1.5rem;
+    gap: 24px; /* 24px converted to px */
   }
 }
 
 /* Desktop (1024px+) */
 @media (min-width: 1024px) {
   .reviewsCard {
-    padding: 2.5rem;
+    padding: 40px; /* 40px converted to px */
   }
 
   .reviewsHeader {
-    margin-bottom: 2.5rem;
+    margin-bottom: 40px; /* 40px converted to px */
   }
 
   .reviewsGrid {
-    gap: 2rem;
+    gap: 32px; /* 32px converted to px */
   }
 }

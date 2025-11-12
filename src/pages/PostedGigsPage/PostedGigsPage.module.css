@@ -1,7 +1,7 @@
 /* Base styles for the overall page container */
 .pageContainer {
   padding-top: 41px;
-  min-height: calc(100vh - 2rem);
+  min-height: calc(100vh - 32px);
   box-sizing: border-box;
   background-color: #f0f2f5;
   font-family:
@@ -13,17 +13,17 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  max-width: 69rem;
-  margin-left: 12.75rem;
+  max-width: 1104px;
+  margin-left: 204px;
   margin-right: auto;
-  margin-top: 0rem;
-  padding: 1rem;
-  gap: 1.5rem;
+  margin-top: 0px;
+  padding: 16px;
+  gap: 24px;
   box-sizing: border-box;
 }
 
 .sidebarArea {
-  width: 18.75rem;
+  width: 300px;
   flex-shrink: 0;
   min-width: 0;
 }
@@ -42,32 +42,32 @@
 /* Header Section */
 .header {
   text-align: left;
-  padding: 2rem;
+  padding: 32px;
   background: #ffffff;
   border-radius: 8px;
   border: 1px solid #e5e7eb;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 .buttonContainer {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 .title {
-  font-size: 2rem;
+  font-size: 32px;
   font-weight: 600;
   color: #1f2937;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 8px 0;
   font-family:
     'Inter',
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .subtitle {
-  font-size: 1.125rem;
+  font-size: 18px;
   color: #6b7280;
   margin: 0;
   font-weight: 400;
@@ -80,16 +80,16 @@
 .buttonContainer {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 .postGigButton {
   background-color: #3d4d55;
   font-weight: bold;
   border: none;
-  padding: 0.8rem 1.25rem;
-  font-size: 0.875rem; /* 14px */
-  border-radius: 0.5rem;
+  padding: 13px 20px;
+  font-size: 14px; /* 14px */
+  border-radius: 8px;
   transition:
     background-color 0.2s ease,
     transform 0.1s ease;
@@ -107,7 +107,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 3rem 2rem;
+  padding: 48px 32px;
   background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -122,7 +122,7 @@
   border-top: 2px solid #3b82f6;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 @keyframes spin {
@@ -136,7 +136,7 @@
 
 .loadingState p {
   color: #6b7280;
-  font-size: 1rem;
+  font-size: 16px;
   margin: 0;
 }
 
@@ -146,7 +146,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 3rem 2rem;
+  padding: 48px 32px;
   background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -155,31 +155,31 @@
 }
 
 .errorIcon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: 40px;
+  margin-bottom: 16px;
   color: #dc2626;
 }
 
 .errorState h3 {
-  font-size: 1.25rem;
+  font-size: 20px;
   font-weight: 600;
   color: #dc2626;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 8px 0;
 }
 
 .errorState p {
   color: #6b7280;
-  font-size: 0.875rem;
-  margin: 0 0 1.5rem 0;
+  font-size: 14px;
+  margin: 0 0 24px 0;
 }
 
 .retryButton {
   background: #ef4444;
   color: #ffffff;
   border: none;
-  padding: 0.75rem 1.5rem;
+  padding: 12px 24px;
   border-radius: 6px;
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 500;
   cursor: pointer;
 }
@@ -194,7 +194,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 3rem 2rem;
+  padding: 48px 32px;
   background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -203,22 +203,22 @@
 }
 
 .emptyIcon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-size: 48px;
+  margin-bottom: 16px;
   color: #9ca3af;
 }
 
 .emptyState h3 {
-  font-size: 1.25rem;
+  font-size: 20px;
   font-weight: 600;
   color: #1f2937;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 8px 0;
 }
 
 .emptyState p {
   color: #6b7280;
-  font-size: 0.875rem;
-  margin: 0 0 1.5rem 0;
+  font-size: 14px;
+  margin: 0 0 24px 0;
   max-width: 400px;
 }
 
@@ -226,9 +226,9 @@
   background: #3d4d55;
   color: #ffffff;
   border: none;
-  padding: 0.75rem 1.5rem;
+  padding: 12px 24px;
   border-radius: 6px;
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 500;
   cursor: pointer;
 }
@@ -241,7 +241,7 @@
 .gigsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-  gap: 2rem;
+  gap: 32px;
 }
 
 /* Gig Card */
@@ -250,10 +250,10 @@
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border: 1px solid #e5e7eb;
-  padding: 1.5rem;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 16px;
   cursor: pointer;
   transition: all 0.2s ease;
   font-family:
@@ -270,11 +270,11 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 1rem;
+  gap: 16px;
 }
 
 .gigCardTitle {
-  font-size: 1.25rem;
+  font-size: 20px;
   font-weight: 600;
   color: #1f2937;
   margin: 0;
@@ -286,14 +286,14 @@
 .gigCardBadges {
   flex-shrink: 0;
   display: flex;
-  gap: 0.5rem;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
 .statusBadge {
-  padding: 0.25rem 0.75rem;
+  padding: 4px 12px;
   border-radius: 12px;
-  font-size: 0.75rem;
+  font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -317,9 +317,9 @@
 
 /* Payment type badges */
 .paymentTypeBadge {
-  padding: 0.25rem 0.75rem;
+  padding: 4px 12px;
   border-radius: 12px;
-  font-size: 0.75rem;
+  font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -339,13 +339,13 @@
 .gigCardContent {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 16px;
   flex: 1;
 }
 
 .gigCardDescription {
   color: #6b7280;
-  font-size: 0.9375rem;
+  font-size: 15px;
   line-height: 1.6;
   margin: 0;
   font-family: inherit;
@@ -354,15 +354,15 @@
 .gigCardMeta {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 16px;
 }
 
 .metaItem {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   color: #6b7280;
-  font-size: 0.875rem;
+  font-size: 14px;
   font-family: inherit;
 }
 
@@ -374,18 +374,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 1rem;
+  padding-top: 16px;
   border-top: 1px solid #f3f4f6;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 16px;
 }
 
 .statItem {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   color: #374151;
-  font-size: 0.875rem;
+  font-size: 14px;
   font-weight: 500;
   font-family: inherit;
 }
@@ -397,13 +397,13 @@
 .viewApplicationsButton {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   background: #3d4d55;
   color: #ffffff;
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 8px 16px;
   border-radius: 6px;
-  font-size: 0.875rem;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   font-family: inherit;
@@ -416,15 +416,15 @@
 .backButton {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   background: transparent;
   border: none;
   color: #111827;
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  padding: 0.5rem 0;
-  margin-bottom: 1rem;
+  padding: 8px 0;
+  margin-bottom: 16px;
   transition: color 0.2s ease;
 }
 
@@ -436,14 +436,14 @@
 .backButton {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   background: transparent;
   border: none;
   color: #111827; /* near black */
-  font-size: 1rem; /* slightly larger for readability */
+  font-size: 16px; /* slightly larger for readability */
   font-weight: 500;
   cursor: pointer;
-  padding: 0.5rem 0;
+  padding: 8px 0;
   transition: color 0.2s ease;
 }
 
@@ -454,7 +454,7 @@
 
 .applicationsTitle {
   margin-left: 0;
-  padding: 1.5rem;
+  padding: 24px;
   background: #ffffff;
   border-radius: 8px;
   border: 1px solid #e5e7eb;
@@ -462,14 +462,14 @@
 }
 
 .applicationsTitle .title {
-  font-size: 1.5rem;
+  font-size: 24px;
   font-weight: 600;
   color: #1f2937;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 8px 0;
 }
 
 .applicationsTitle .subtitle {
-  font-size: 1rem;
+  font-size: 16px;
   color: #6b7280;
   margin: 0;
   font-weight: 400;
@@ -479,7 +479,7 @@
 .applicationsTitle .subtitle strong {
   color: #3b82f6;
   font-weight: 600;
-  padding: 0.125rem 0.25rem;
+  padding: 2px 4px;
   background: #eff6ff;
   border-radius: 4px;
 }
@@ -490,11 +490,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 32px;
   text-align: center;
-  font-size: 1rem;
+  font-size: 16px;
   color: #374151;
-  margin-top: 2rem;
+  margin-top: 32px;
 }
 
 .loadingSpinnerSmall {
@@ -504,13 +504,13 @@
   border-top: 3px solid #3b82f6;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
 }
 
 .loadMoreButton {
   width: 100%;
-  margin: 1.5rem 0;
-  padding: 0.875rem 1.5rem;
+  margin: 24px 0;
+  padding: 14px 24px;
   background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   color: white;
   font-weight: 600;
@@ -519,7 +519,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-size: 1rem;
+  font-size: 16px;
   font-family:
     'Inter',
     -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -541,163 +541,163 @@
 
 .endOfResults {
   text-align: center;
-  padding: 1.5rem;
+  padding: 24px;
   color: #6b7280;
   font-style: italic;
-  margin-top: 1rem;
+  margin-top: 16px;
 }
 
 
 /* Responsive design */
 @media (max-width: 1024px) {
   .pageContainer {
-    padding-top: 0.875rem;
-    min-height: calc(100vh - 2rem);
+    padding-top: 14px;
+    min-height: calc(100vh - 32px);
   }
 
   .contentWrapper {
-    margin-left: 10.75rem;
-    max-width: 60rem;
-    padding: 0.5rem;
-    gap: 1rem;
+    margin-left: 172px;
+    max-width: 960px;
+    padding: 8px;
+    gap: 16px;
   }
 
   .sidebarArea {
-    width: 15rem;
+    width: 240px;
   }
 
   .gigsGrid {
     grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-    gap: 1.5rem;
+    gap: 24px;
   }
 
   .header {
-    padding: 1.75rem 2rem;
+    padding: 28px 32px;
   }
 
   .title {
-    font-size: 2.125rem;
+    font-size: 34px;
   }
 
   .title::before {
-    font-size: 1.875rem;
+    font-size: 30px;
   }
 
   .subtitle {
-    font-size: 1.0625rem;
+    font-size: 17px;
   }
 
   .buttonContainer {
-    margin-bottom: 0.875rem;
+    margin-bottom: 14px;
   }
 
   .postGigButton {
-    padding: 0.4rem 1rem; /* 6.4px 16px */
-    font-size: 0.8125rem; /* 13px */
-    border-radius: 0.875rem; /* 14px */
+    padding: 6px 16px; /* 6.4px 16px */
+    font-size: 13px; /* 13px */
+    border-radius: 14px; /* 14px */
   }
 }
 
 @media (max-width: 768px) {
   .pageContainer {
-    padding-top: 0.75rem;
-    min-height: calc(100vh - 2rem);
+    padding-top: 12px;
+    min-height: calc(100vh - 32px);
   }
 
   .contentWrapper {
     max-width: 100%;
-    padding: 0.625rem 0.9375rem;
-    gap: 0.75rem;
+    padding: 10px 15px;
+    gap: 12px;
   }
 
   .sidebarArea {
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
   }
 
   .mainFeedArea {
-    gap: 1.5rem;
+    gap: 24px;
   }
 
   .gigsGrid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 16px;
   }
 
   .gigCard {
-    padding: 1rem;
+    padding: 16px;
   }
 
   .header {
-    padding: 1.5rem 1.75rem;
+    padding: 24px 28px;
   }
 
   .title {
-    font-size: 1.875rem;
+    font-size: 30px;
   }
 
   .title::before {
-    font-size: 1.625rem;
+    font-size: 26px;
   }
 
   .subtitle {
-    font-size: 1rem;
+    font-size: 16px;
   }
 
   .gigCardMeta {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: 8px;
   }
 
   .applicationsHeader {
-    gap: 1.5rem;
-    padding: 1.5rem 0;
+    gap: 24px;
+    padding: 24px 0;
   }
 
   .applicationsTitle {
-    padding: 1.25rem 1.5rem;
+    padding: 20px 24px;
   }
 
   .applicationsTitle .title {
-    font-size: 1.875rem;
+    font-size: 30px;
   }
 
   .applicationsTitle .subtitle {
-    font-size: 1rem;
+    font-size: 16px;
   }
 
   .backButton {
-    padding: 0.75rem 1.25rem;
-    font-size: 0.9375rem;
+    padding: 12px 20px;
+    font-size: 15px;
   }
 
   .applicationsContainer {
-    padding: 1.5rem;
+    padding: 24px;
   }
 
   .buttonContainer {
-    margin-bottom: 0.75rem;
+    margin-bottom: 12px;
   }
 
   .postGigButton {
-    padding: 0.3rem 0.8rem; /* 4.8px 12.8px */
-    font-size: 0.75rem; /* 12px */
-    border-radius: 0.75rem; /* 12px */
+    padding: 5px 13px; /* 4.8px 12.8px */
+    font-size: 12px; /* 12px */
+    border-radius: 12px; /* 12px */
   }
 }
 
 @media (max-width: 480px) {
   .pageContainer {
     padding-top: 0 !important;
-    min-height: calc(100vh - 2rem);
+    min-height: calc(100vh - 32px);
   }
 
   .contentWrapper {
     margin-left: 0 !important;
     max-width: 100% !important;
     width: 100% !important;
-    padding: 0.1rem 0.1rem !important;
-    gap: 0.5rem;
+    padding: 2px 2px !important;
+    gap: 8px;
   }
 
   .sidebarArea {
@@ -710,13 +710,13 @@
   }
 
   .gigCard {
-    padding: 1rem;
+    padding: 16px;
   }
 
   .gigCardHeader {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: 8px;
   }
 
   .gigCardActions {
@@ -729,41 +729,41 @@
   }
 
   .applicationsHeader {
-    gap: 1rem;
-    padding: 1rem 0;
+    gap: 16px;
+    padding: 16px 0;
   }
 
   .applicationsTitle {
-    padding: 1rem;
+    padding: 16px;
     border-radius: 16px;
   }
 
   .applicationsTitle .title {
-    font-size: 1.5rem;
+    font-size: 24px;
   }
 
   .applicationsTitle .subtitle {
-    font-size: 0.9375rem;
+    font-size: 15px;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: 8px;
   }
 
   .backButton {
-    padding: 0.625rem 1rem;
-    font-size: 0.875rem;
+    padding: 10px 16px;
+    font-size: 14px;
     border-radius: 12px;
   }
 
   .applicationsContainer {
-    padding: 1rem;
+    padding: 16px;
     border-radius: 20px;
   }
 
   .header {
-    padding: 1.25rem 1.5rem;
+    padding: 20px 24px;
     border-radius: 20px;
-    margin-bottom: 0.75rem;
+    margin-bottom: 12px;
   }
 
   .header::before {
@@ -771,42 +771,42 @@
   }
 
   .title {
-    font-size: 1.625rem;
-    margin-bottom: 0.75rem;
+    font-size: 26px;
+    margin-bottom: 12px;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: 8px;
   }
 
   .title::before {
-    font-size: 1.5rem;
+    font-size: 24px;
   }
 
   .subtitle {
-    font-size: 0.9375rem;
+    font-size: 15px;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: 8px;
   }
 
   .emptyState,
   .errorState,
   .loadingState {
-    padding: 2rem 1rem;
+    padding: 32px 16px;
   }
 
   .emptyIcon,
   .errorIcon {
-    font-size: 2.5rem;
+    font-size: 40px;
   }
 
   .buttonContainer {
-    margin-bottom: 0.5rem;
+    margin-bottom: 8px;
   }
 
   .postGigButton {
-    padding: 0.25rem 0.6rem; /* 4px 9.6px */
-    font-size: 0.6875rem; /* ~11px */
-    border-radius: 0.625rem; /* 10px */
+    padding: 4px 10px; /* 4px 9.6px */
+    font-size: 11px; /* ~11px */
+    border-radius: 10px; /* 10px */
   }
 }

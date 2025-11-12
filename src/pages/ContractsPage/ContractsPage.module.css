@@ -1,7 +1,7 @@
 /* Base styles for the overall page container */
 .pageContainer {
-  padding-top: 2.5625rem; /* 41px */
-  min-height: calc(100vh - 2rem);
+  padding-top: 41px; /* 41px */
+  min-height: calc(100vh - 32px);
   box-sizing: border-box;
   background-color: #f0f2f5; /* Same as Gigs Applied page */
   font-family: var(--font-family);
@@ -11,17 +11,17 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  max-width: 69rem;
-  margin-left: 12.75rem;
+  max-width: 1104px;
+  margin-left: 204px;
   margin-right: auto;
-  margin-top: 0rem;
+  margin-top: 0px;
   padding: var(--spacing-md);
   gap: var(--spacing-xl);
   box-sizing: border-box;
 }
 
 .sidebarArea {
-  width: 18.75rem;
+  width: 300px;
   flex-shrink: 0;
   min-width: 0;
 }
@@ -38,24 +38,24 @@
 /* Header Section */
 .header {
   text-align: left;
-  padding: 2rem;
+  padding: 32px;
   background: #ffffff; /* White background like Gigs Applied */
   border-radius: 8px;
   border: 1px solid #e5e7eb;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 .title {
-  font-size: 2rem;
+  font-size: 32px;
   font-weight: 600;
   color: #1f2937; /* Black text like Gigs Applied */
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 8px 0;
   font-family: var(--font-family);
 }
 
 .subtitle {
-  font-size: 1.125rem;
+  font-size: 18px;
   color: #6b7280; /* Gray text like Gigs Applied */
   margin: 0;
   font-weight: 400;
@@ -67,17 +67,17 @@
 .jobListingsContainer {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 24px;
 }
 
 .jobSeparator {
-  margin-top: 0.5rem;
+  margin-top: 8px;
   border: 0;
   border-top: 1px solid #eee;
 }
 
 .jobTitleLink {
-  font-size: 1.2rem;
+  font-size: 19px;
   text-decoration: none;
   font-weight: 700;
   color: #10b3c6;
@@ -93,7 +93,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 0.5rem;
+  margin-top: 8px;
 }
 
 .jobDetailItem {
@@ -102,17 +102,17 @@
 }
 
 .jobDetailItemMarginTop {
-  margin-top: 1.25rem;
+  margin-top: 20px;
 }
 
 .jobDetailLabel {
-  font-size: 0.95rem;
+  font-size: 15px;
   color: #b0b8c1;
 }
 
 .jobDetailValue {
   font-weight: 600;
-  margin-left: 0.5rem;
+  margin-left: 8px;
   color: #222;
 }
 
@@ -124,9 +124,9 @@
 /* Figma-style contract card */
 .jobListingsContainer > div {
   background: #fff;
-  border-radius: 1.25rem;
+  border-radius: 20px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
-  padding: 1.5rem 1.25rem;
+  padding: 24px 20px;
 }
 .jobListingsContainer > div:hover {
   box-shadow: 0 8px 32px rgba(16, 179, 198, 0.1);
@@ -135,8 +135,8 @@
 .loadingMessage,
 .errorMessage {
   text-align: center;
-  padding: 2rem;
-  font-size: 1.125rem;
+  padding: 32px;
+  font-size: 18px;
   color: #555;
 }
 
@@ -147,21 +147,21 @@
 .emptyState {
   text-align: center;
   color: #b0b8c1;
-  font-size: 1.1rem;
-  padding: 2.5rem 0;
+  font-size: 18px;
+  padding: 40px 0;
 }
 
 /* Filter Section styles */
 .filterSection {
-  margin-top: 1.25rem;
+  margin-top: 20px;
   margin-bottom: 0;
-  padding: 1.2rem 1.5rem;
+  padding: 19px 24px;
   background-color: #fff;
-  border-radius: 1rem;
+  border-radius: 16px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 24px;
 }
 
 .toggleButton {
@@ -198,14 +198,14 @@
 
 .toggleButton + .toggleButton {
   /* For spacing between toggle buttons */
-  margin-left: 0.75rem; /* mx-3 */
-  margin-top: 0.75rem; /* my-3 on small screens if they wrap */
+  margin-left: 12px; /* mx-3 */
+  margin-top: 12px; /* my-3 on small screens if they wrap */
 }
 
 /* Load More button styles */
 .loadMoreContainer {
   text-align: center;
-  margin-top: 1rem; /* mt-4 */
+  margin-top: 16px; /* mt-4 */
 }
 
 .loadMoreButton {
@@ -236,7 +236,7 @@
   border-top: 2px solid #3b82f6;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 /* Smaller loading spinner for in-list loading */
@@ -247,7 +247,7 @@
   border-top: 2px solid #3b82f6;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin: 0 auto 0.5rem auto;
+  margin: 0 auto 8px auto;
 }
 
 /* Loading more indicator */
@@ -256,23 +256,23 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 32px;
   text-align: center;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
-  margin-top: 1rem;
+  margin-top: 16px;
   background: #ffffff;
 }
 
 .loadingMore .loadingSpinnerSmall {
   width: 24px;
   height: 24px;
-  margin: 0 auto 0.5rem auto;
+  margin: 0 auto 8px auto;
 }
 
 .loadingMore p {
   color: #6b7280;
-  font-size: 0.875rem;
+  font-size: 14px;
   margin: 0;
 }
 
@@ -288,26 +288,26 @@
 /* End of results message */
 .endOfResults {
   text-align: center;
-  padding: 1.5rem;
+  padding: 24px;
   color: #6b7280;
   font-style: italic;
-  margin-top: 1rem;
+  margin-top: 16px;
 }
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
   .pageContainer {
-    padding-top: 0.875rem;
-    min-height: calc(100vh - 2rem);
+    padding-top: 14px;
+    min-height: calc(100vh - 32px);
   }
   .contentWrapper {
-    margin-left: 10.75rem;
-    max-width: 60rem;
-    padding: 0.5rem;
-    gap: 1rem;
+    margin-left: 172px;
+    max-width: 960px;
+    padding: 8px;
+    gap: 16px;
   }
   .sidebarArea {
-    width: 15rem;
+    width: 240px;
   }
 
   .statsGrid {
@@ -320,49 +320,49 @@
   }
 
   .contractsCard {
-    padding: 1.5rem 1.5rem 0.5rem 1.5rem;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
+    padding: 24px 24px 8px 24px;
+    margin-top: 24px;
+    margin-bottom: 24px;
   }
   .contractRow {
-    padding: 1.2rem 1.5rem;
-    margin-bottom: 1.2rem;
+    padding: 19px 24px;
+    margin-bottom: 19px;
   }
   .contractTitle {
-    font-size: 1.05rem;
+    font-size: 17px;
   }
   .contractDetailsRow {
-    gap: 2rem;
-    font-size: 0.95rem;
+    gap: 32px;
+    font-size: 15px;
   }
   .contractDetailLabel {
-    font-size: 0.9rem;
+    font-size: 14px;
   }
   .contractRate,
   .contractEarned {
-    font-size: 0.95rem;
+    font-size: 15px;
   }
   .contractStatusBadge {
-    font-size: 0.85rem;
+    font-size: 14px;
     min-width: 80px;
   }
   .contractStarted {
-    font-size: 0.95rem;
+    font-size: 15px;
   }
 }
 
 @media (max-width: 768px) {
   .pageContainer {
-    padding-top: 0.75rem;
-    min-height: calc(100vh - 2rem);
+    padding-top: 12px;
+    min-height: calc(100vh - 32px);
   }
   .contentWrapper {
     max-width: 100%;
-    padding: 0.625rem 0.9375rem;
-    gap: 0.75rem;
+    padding: 10px 15px;
+    gap: 12px;
   }
   .sidebarArea {
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
   }
 
   .statsGrid {
@@ -378,69 +378,69 @@
   }
 
   .header {
-    padding: 1.5rem 1.75rem;
+    padding: 24px 28px;
   }
 
   .title {
-    font-size: 1.875rem;
+    font-size: 30px;
   }
 
   .subtitle {
-    font-size: 1rem;
+    font-size: 16px;
   }
 
   .contractsCard {
-    padding: 1rem 1rem 0.5rem 1rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    padding: 16px 16px 8px 16px;
+    margin-top: 16px;
+    margin-bottom: 16px;
   }
   .contractRow {
-    padding: 1rem 1.2rem;
-    margin-bottom: 1rem;
+    padding: 16px 19px;
+    margin-bottom: 16px;
     flex-direction: column;
     align-items: flex-start;
   }
   .contractTitle {
-    font-size: 1rem;
-    margin-bottom: 0.2rem;
+    font-size: 16px;
+    margin-bottom: 3px;
   }
   .contractDetailsRow {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
-    font-size: 0.9rem;
+    gap: 8px;
+    font-size: 14px;
   }
   .contractDetailLabel {
-    font-size: 0.85rem;
+    font-size: 14px;
   }
   .contractRate,
   .contractEarned {
-    font-size: 0.9rem;
+    font-size: 14px;
   }
   .contractStatusBadge {
-    font-size: 0.8rem;
+    font-size: 13px;
     min-width: 70px;
     margin-left: 0;
-    margin-top: 0.5rem;
+    margin-top: 8px;
   }
   .contractStarted {
-    font-size: 0.85rem;
+    font-size: 14px;
     margin-left: 0;
-    margin-top: 0.2rem;
+    margin-top: 3px;
   }
 }
 
 @media (max-width: 480px) {
   .pageContainer {
     padding-top: 0 !important;
-    min-height: calc(100vh - 2rem);
+    min-height: calc(100vh - 32px);
   }
   .contentWrapper {
     margin-left: 0 !important;
     max-width: 100% !important;
     width: 100% !important;
-    padding: 0.1rem 0.1rem !important;
-    gap: 0.5rem;
+    padding: 2px 2px !important;
+    gap: 8px;
   }
   .sidebarArea {
     display: none;
@@ -469,58 +469,58 @@
   }
 
   .header {
-    padding: 1.25rem 1.5rem;
+    padding: 20px 24px;
     border-radius: 20px;
-    margin-bottom: 0.75rem;
+    margin-bottom: 12px;
   }
 
   .title {
-    font-size: 1.625rem;
-    margin-bottom: 0.75rem;
+    font-size: 26px;
+    margin-bottom: 12px;
   }
 
   .subtitle {
-    font-size: 0.9375rem;
+    font-size: 15px;
   }
 
   .contractsCard {
-    padding: 0.8rem 0.8rem 0.4rem 0.8rem;
-    margin-top: 0.8rem;
-    margin-bottom: 0.8rem;
+    padding: 13px 13px 6px 13px;
+    margin-top: 13px;
+    margin-bottom: 13px;
   }
   .contractRow {
-    padding: 0.8rem 1rem;
-    margin-bottom: 0.8rem;
+    padding: 13px 16px;
+    margin-bottom: 13px;
   }
   .contractTitle {
-    font-size: 0.9rem;
+    font-size: 14px;
   }
   .contractDetailsRow {
-    font-size: 0.8rem;
+    font-size: 13px;
   }
   .contractDetailLabel {
-    font-size: 0.75rem;
+    font-size: 12px;
   }
   .contractRate,
   .contractEarned {
-    font-size: 0.8rem;
+    font-size: 13px;
   }
   .contractStatusBadge {
-    font-size: 0.7rem;
+    font-size: 11px;
     min-width: 60px;
   }
   .contractStarted {
-    font-size: 0.75rem;
+    font-size: 12px;
   }
 }
 
 .contractsCard {
   background: #fff;
-  border-radius: 1.25rem;
+  border-radius: 20px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
-  padding: 2rem 2rem 0.5rem 2rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  padding: 32px 32px 8px 32px;
+  margin-top: 32px;
+  margin-bottom: 32px;
 }
 .contractsList {
   display: flex;
@@ -528,10 +528,10 @@
 }
 .contractRow {
   background: #fff;
-  border-radius: 1.25rem;
+  border-radius: 20px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-  padding: 1.5rem 2rem;
-  margin-bottom: 1.5rem;
+  padding: 24px 32px;
+  margin-bottom: 24px;
   cursor: pointer;
   border: 1px solid #f0f2f5;
   display: flex;
@@ -547,35 +547,35 @@
 .contractMain {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 5px;
 }
 .contractTitle {
-  font-size: 1.15rem;
+  font-size: 18px;
   font-weight: 700;
   color: #222;
-  margin-bottom: 0.2rem;
+  margin-bottom: 3px;
 }
 .contractDetailsRow {
   display: flex;
   align-items: center;
-  gap: 2.5rem;
-  font-size: 1rem;
+  gap: 40px;
+  font-size: 16px;
   color: #888;
-  margin-bottom: 0.1rem;
+  margin-bottom: 2px;
 }
 .contractDetailLabel {
   color: #888;
-  font-size: 1rem;
+  font-size: 16px;
 }
 .contractRate {
   color: #ff9900;
   font-weight: 700;
-  margin-left: 0.2rem;
+  margin-left: 3px;
 }
 .contractEarned {
   color: #ff9900;
   font-weight: 700;
-  margin-left: 0.2rem;
+  margin-left: 3px;
 }
 .contractStatusBadge {
   margin-left: auto;
@@ -583,7 +583,7 @@
   color: #10b3c6;
   border-radius: 999px;
   padding: 0.25em 1.1em;
-  font-size: 0.95rem;
+  font-size: 15px;
   font-weight: 600;
   border: 1.5px solid #10b3c6;
   min-width: 90px;
@@ -592,11 +592,11 @@
 .contractStarted {
   margin-left: auto;
   color: #888;
-  font-size: 1rem;
+  font-size: 16px;
 }
 .contractDivider {
   border-bottom: 1.5px solid #f0f2f5;
-  margin: 0.5rem 0 0 0;
+  margin: 8px 0 0 0;
 }
 
 /* Applied Gigs style for Contracts Page */
@@ -643,15 +643,15 @@
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 1rem;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  gap: 16px;
+  margin-top: 24px;
+  margin-bottom: 24px;
 }
 
 .statCard {
   background: #ffffff;
   border-radius: 8px;
-  padding: 1.25rem;
+  padding: 20px;
   text-align: center;
   border: 1px solid #e5e7eb;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -662,39 +662,39 @@
 }
 
 .statNumber {
-  font-size: 1.75rem;
+  font-size: 28px;
   font-weight: 600;
   color: #1f2937;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
 }
 
 .statLabel {
-  font-size: 0.875rem;
+  font-size: 14px;
   color: #6b7280;
   font-weight: 400;
 }
 
 /* Search bar polish */
 .filterSection {
-  margin-top: 1.25rem;
+  margin-top: 20px;
   margin-bottom: 0;
-  padding: 1.2rem 1.5rem;
+  padding: 19px 24px;
   background-color: #fff;
-  border-radius: 1rem;
+  border-radius: 16px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 24px;
 }
 
 /* --- Modern filter and layout styles copied from GigsPage.module.css --- */
 
 .searchAndFilters {
   background: white;
-  border-radius: 0.75rem;
-  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  padding: 8px 16px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin: 0.75rem 0 1.5rem 0;
+  margin: 12px 0 24px 0;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -704,26 +704,26 @@
 .searchBar {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 12px;
   margin-bottom: 0;
   width: 100%;
 }
 
 .searchIcon {
   color: #666;
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
 }
 
 .searchInput {
   flex: 1;
-  padding: 0.5rem 1rem;
+  padding: 8px 16px;
   border: 1px solid #ddd;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
+  border-radius: 8px;
+  font-size: 14px;
   transition: border-color 0.2s;
-  height: 2.25rem;
+  height: 36px;
 }
 
 .searchInput:focus {
@@ -734,16 +734,16 @@
 .filterButton {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
+  gap: 8px;
+  padding: 8px 16px;
   background: #f8f9fa;
   border: 1px solid #ddd;
-  border-radius: 0.5rem;
+  border-radius: 8px;
   color: #333;
-  font-size: 0.875rem;
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.2s;
-  height: 2.25rem;
+  height: 36px;
   font-family: var(--font-family);
 }
 
@@ -752,19 +752,19 @@
 }
 
 .filterIcon {
-  width: 1rem;
-  height: 1rem;
+  width: 16px;
+  height: 16px;
 }
 
 .filtersPanel {
   background: #f8f9fa;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  margin-top: 1rem;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
 }
 
 .filterSection {
-  margin-bottom: 1.5rem;
+  margin-bottom: 24px;
 }
 
 .filterSection:last-child {
@@ -772,26 +772,26 @@
 }
 
 .filterSection h3 {
-  font-size: 0.875rem;
+  font-size: 14px;
   font-weight: 600;
   color: #333;
-  margin-bottom: 0.75rem;
+  margin-bottom: 12px;
 }
 
 .categoryList,
 .priceRangeList {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .categoryButton,
 .priceRangeButton {
-  padding: 0.5rem 0.75rem;
+  padding: 8px 12px;
   background: white;
   border: 1px solid #ddd;
-  border-radius: 0.375rem;
-  font-size: 0.75rem;
+  border-radius: 6px;
+  font-size: 12px;
   color: #333;
   cursor: pointer;
   transition: all 0.2s;
@@ -811,12 +811,12 @@
 
 .clearFiltersButton {
   width: 100%;
-  padding: 0.75rem;
+  padding: 12px;
   background: #3d4d55;
   color: white;
   border: none;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
+  border-radius: 8px;
+  font-size: 14px;
   cursor: pointer;
   transition: background-color 0.2s;
 }
@@ -837,7 +837,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  padding: 1.25rem;
+  padding: 20px;
   overflow-y: auto;
   box-sizing: border-box;
 }
@@ -845,7 +845,7 @@
 .modalContent {
   background-color: white;
   width: 100%;
-  max-width: 37.5rem;
+  max-width: 600px;
   border-radius: var(--border-radius-xl);
   box-shadow: var(--shadow-lg);
   display: flex;
@@ -874,7 +874,7 @@
 .closeButton {
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 24px;
   color: white;
   cursor: pointer;
   padding: var(--spacing-xs) var(--spacing-md);
@@ -891,7 +891,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 18px;
   background: white;
 }
 .modalBody b {
@@ -913,7 +913,7 @@
   color: white;
   border: none;
   border-radius: var(--border-radius-md);
-  padding: 0.7rem var(--spacing-lg);
+  padding: 11px var(--spacing-lg);
   font-size: var(--font-size-md);
   font-weight: 500;
   box-shadow: var(--shadow-sm);
@@ -934,7 +934,7 @@
   color: #222;
   border: 1px solid #ccc;
   border-radius: var(--border-radius-md);
-  padding: 0.7rem var(--spacing-lg);
+  padding: 11px var(--spacing-lg);
   font-size: var(--font-size-md);
   font-weight: 500;
   box-shadow: var(--shadow-sm);
@@ -956,23 +956,23 @@
 
   .modalContent {
     max-width: 98vw;
-    padding: 0.5rem;
+    padding: 8px;
   }
   .modalBody,
   .modalActions {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: 8px;
+    padding-right: 8px;
   }
 }
 
 @media (max-width: 600px) {
   .modalContent {
     max-width: 98vw;
-    padding: 0.5rem;
+    padding: 8px;
   }
   .modalBody,
   .modalActions {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: 8px;
+    padding-right: 8px;
   }
 }

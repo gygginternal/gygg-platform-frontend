@@ -1,7 +1,7 @@
 /* src/pages/ProfilePage.module.css */
 .pageContainer {
   padding-top: 41px;
-  min-height: calc(100vh - 2rem);
+  min-height: calc(100vh - 32px); /* 32px converted to px */
   box-sizing: border-box;
   background-color: #f0f2f5;
   font-family:
@@ -13,17 +13,17 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  max-width: 69rem;
-  margin-left: 12.75rem; /* 300px - Pushes content to the right of the global sidebar */
+  max-width: 1104px; /* 1104px converted to px */
+  margin-left: 204px; /* 204px converted to px - Pushes content to the right of the global sidebar */
   margin-right: auto; /* Centers the content wrapper within the *remaining* space */
-  margin-top: 0rem;
-  padding: 1rem;
-  gap: 1.5rem;
+  margin-top: 0px;
+  padding: 16px; /* 16px converted to px */
+  gap: 24px; /* 24px converted to px */
   box-sizing: border-box;
 }
 
 .sidebarArea {
-  width: 18.75rem;
+  width: 300px; /* 300px converted to px */
   flex-shrink: 0;
   min-width: 0;
 }
@@ -37,7 +37,7 @@
   padding-bottom: 0;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem; /* Consistent gap between components */
+  gap: 20px; /* 20px converted to px */
 }
 
 .pageStateContainer {
@@ -45,58 +45,58 @@
   justify-content: center;
   align-items: center;
   min-height: 200px;
-  font-size: 1.1rem;
+  font-size: 17.6px; /* 18px converted to px */
   color: #555;
 }
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
   .pageContainer {
-    padding-top: 0.875rem;
-    min-height: calc(100vh - 2rem);
+    padding-top: 14px; /* 14px converted to px */
+    min-height: calc(100vh - 32px); /* 32px converted to px */
   }
 
   .contentWrapper {
-    margin-left: 10.75rem;
-    max-width: 60rem;
-    padding: 0.5rem;
-    gap: 1rem;
+    margin-left: 172px; /* 172px converted to px */
+    max-width: 960px; /* 960px converted to px */
+    padding: 8px; /* 8px converted to px */
+    gap: 16px; /* 16px converted to px */
   }
 
   .sidebarArea {
-    width: 15rem;
+    width: 240px; /* 240px converted to px */
   }
 }
 
 @media (max-width: 768px) {
   .pageContainer {
-    padding-top: 0.75rem;
-    min-height: calc(100vh - 2rem);
+    padding-top: 12px; /* 12px converted to px */
+    min-height: calc(100vh - 32px); /* 32px converted to px */
   }
 
   .contentWrapper {
     max-width: 100%;
-    padding: 0.625rem 0.9375rem;
-    gap: 0.75rem;
+    padding: 10px 15px; /* 10px 15px converted to px */
+    gap: 12px; /* 12px converted to px */
   }
 
   .sidebarArea {
-    margin-bottom: 1rem;
+    margin-bottom: 16px; /* 16px converted to px */
   }
 }
 
 @media (max-width: 480px) {
   .pageContainer {
     padding-top: 0 !important;
-    min-height: calc(100vh - 2rem);
+    min-height: calc(100vh - 32px); /* 32px converted to px */
   }
 
   .contentWrapper {
     margin-left: 0 !important;
     max-width: 100% !important;
     width: 100% !important;
-    padding: 0.1rem 0.1rem !important;
-    gap: 0.5rem;
+    padding: 1.6px 1.6px !important; /* 2px converted to px */
+    gap: 8px; /* 8px converted to px */
   }
 
   .sidebarArea {

@@ -5,31 +5,31 @@
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  padding: 1rem; /* p-4 */
+  padding: 16px; /* p-4 */
 }
 
 .card {
   background-color: #fff;
-  border-radius: 1.5rem; /* rounded-3xl */
+  border-radius: 24px; /* rounded-3xl */
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
-  max-width: 28rem; /* max-w-md */
+  max-width: 448px; /* max-w-md */
   width: 100%;
-  padding: 1.5rem; /* p-6 */
+  padding: 24px; /* p-6 */
   display: flex;
   flex-direction: column;
-  gap: 2rem; /* space-y-8 */
+  gap: 32px; /* space-y-8 */
 }
 
 .profileSection {
   display: flex;
   align-items: center;
-  gap: 1rem; /* gap-4 */
+  gap: 16px; /* gap-4 */
 }
 
 .profileImageContainer {
   position: relative;
-  height: 4rem; /* h-16 */
-  width: 4rem; /* w-16 */
+  height: 64px; /* h-16 */
+  width: 64px; /* w-16 */
   border-radius: 9999px; /* rounded-full */
   overflow: hidden;
 }
@@ -42,20 +42,20 @@
 
 .profileName {
   color: #475569; /* text-slate-700 */
-  font-size: 1.5rem; /* text-2xl */
+  font-size: 24px; /* text-2xl */
   font-weight: 500; /* font-medium */
 }
 
 .viewProfileLink {
   color: #475569; /* text-slate-600 */
   text-decoration: underline;
-  font-size: 1.125rem; /* text-lg */
+  font-size: 18px; /* text-lg */
 }
 
 .awaitingGigsSection {
   display: flex;
   align-items: center;
-  gap: 1rem; /* gap-4 */
+  gap: 16px; /* gap-4 */
 }
 
 .iconContainer {
@@ -64,33 +64,33 @@
 
 .sectionTitle {
   color: #475569; /* text-slate-700 */
-  font-size: 1.25rem; /* text-xl */
+  font-size: 20px; /* text-xl */
   font-weight: 500; /* font-medium */
 }
 
 .sectionLink {
   color: #475569; /* text-slate-600 */
   text-decoration: underline;
-  font-size: 1.125rem; /* text-lg */
+  font-size: 18px; /* text-lg */
 }
 
 .applicantsSection {
   display: flex;
   flex-direction: column;
-  gap: 1rem; /* space-y-4 */
+  gap: 16px; /* space-y-4 */
 }
 
 .applicantItem {
   display: flex;
   align-items: center;
-  gap: 1rem; /* gap-4 */
-  padding-left: 2.5rem; /* pl-10 */
+  gap: 16px; /* gap-4 */
+  padding-left: 40px; /* pl-10 */
 }
 
 .applicantImageContainer {
   position: relative;
-  height: 4rem; /* h-16 */
-  width: 4rem; /* w-16 */
+  height: 64px; /* h-16 */
+  width: 64px; /* w-16 */
   border-radius: 9999px; /* rounded-full */
   overflow: hidden;
 }
@@ -103,71 +103,71 @@
 
 .applicantDescription {
   color: #475569; /* text-slate-600 */
-  font-size: 1.125rem; /* text-lg */
+  font-size: 18px; /* text-lg */
 }
 
 .viewApplicationLink {
   color: #475569; /* text-slate-600 */
   text-decoration: underline;
-  font-size: 1.125rem; /* text-lg */
+  font-size: 18px; /* text-lg */
 }
 
 @media (max-width: 768px) {
   .card {
-    padding: 1rem;
-    gap: 1.5rem;
+    padding: 16px;
+    gap: 24px;
   }
 
   .profileName {
-    font-size: 1.25rem;
+    font-size: 20px;
   }
 
   .viewProfileLink,
   .sectionLink,
   .viewApplicationLink {
-    font-size: 1rem;
+    font-size: 16px;
   }
 
   .sectionTitle {
-    font-size: 1.125rem;
+    font-size: 18px;
   }
 
   .applicantItem {
-    padding-left: 1.5rem;
+    padding-left: 24px;
   }
 }
 
 @media (max-width: 480px) {
   .card {
-    padding: 0.75rem;
-    gap: 1rem;
+    padding: 12px;
+    gap: 16px;
   }
 
   .profileImageContainer,
   .applicantImageContainer {
-    height: 3rem;
-    width: 3rem;
+    height: 48px;
+    width: 48px;
   }
 
   .profileName {
-    font-size: 1rem;
+    font-size: 16px;
   }
 
   .viewProfileLink,
   .sectionLink,
   .viewApplicationLink {
-    font-size: 0.875rem;
+    font-size: 14px;
   }
 
   .sectionTitle {
-    font-size: 1rem;
+    font-size: 16px;
   }
 
   .applicantItem {
-    padding-left: 1rem;
+    padding-left: 16px;
   }
 
   .applicantDescription {
-    font-size: 1rem;
+    font-size: 16px;
   }
 }

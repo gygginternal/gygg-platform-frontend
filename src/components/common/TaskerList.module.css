@@ -1,15 +1,15 @@
 .taskerList {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 20px; /* 20px converted to px */
   width: 100%;
 }
 
 .loadMoreButton,
 .retryButton {
   width: 100%;
-  margin: 1rem 0;
-  padding: 0.875rem 1.5rem;
+  margin: 16px 0; /* 16px converted to px */
+  padding: 14px 24px; /* 14px 24px converted to px */
   background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   color: white;
   font-weight: 600;
@@ -18,7 +18,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-size: 1rem;
+  font-size: 16px; /* 16px converted to px */
   font-family:
     'Inter',
     -apple-system,
@@ -43,7 +43,7 @@
 
 .retryButton {
   max-width: 240px;
-  margin: 1.5rem auto;
+  margin: 24px auto; /* 24px converted to px */
   background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
   box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
 }
@@ -57,8 +57,8 @@
 .errorMessage {
   text-align: center;
   color: #374151;
-  padding: 3rem 2rem;
-  font-size: 1.125rem;
+  padding: 48px 32px;
+  font-size: 18px;
   font-weight: 500;
   font-family:
     'Inter',
@@ -69,7 +69,7 @@
   background: #f9fafb;
   border-radius: 12px;
   border: 1px solid #e5e7eb;
-  margin: 1rem 0;
+  margin: 16px 0;
 }
 
 .loadingMessage {
@@ -81,20 +81,20 @@
 .noResults {
   background: #ffffff;
   border-radius: 8px;
-  padding: 3rem 2rem;
+  padding: 48px 32px;
   text-align: center;
-  font-size: 1rem;
+  font-size: 16px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border: 1px solid #e5e7eb;
-  margin-top: 1.5rem;
+  margin-top: 24px;
 }
 
 .endOfResults {
   text-align: center;
-  padding: 1.5rem;
+  padding: 24px;
   color: #6b7280;
   font-style: italic;
-  margin-top: 1rem;
+  margin-top: 16px;
 }
 
 .errorMessage {
@@ -104,7 +104,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 24px;
 }
 
 .errorMessage p {
@@ -118,9 +118,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 32px;
   text-align: center;
-  font-size: 1rem;
+  font-size: 16px;
   color: #374151;
 }
 
@@ -131,7 +131,7 @@
   border-top: 3px solid #3b82f6;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
 }
 
 @keyframes spin {
@@ -142,48 +142,48 @@
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
   .taskerList {
-    gap: 1rem;
+    gap: 16px;
   }
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
   .taskerList {
-    gap: 0.875rem;
+    gap: 14px;
   }
 
   .loadMoreButton,
   .retryButton {
-    margin: 0.75rem 0;
-    padding: 0.625rem;
-    font-size: 0.95rem;
+    margin: 12px 0;
+    padding: 10px;
+    font-size: 15px;
   }
 
   .loadingMessage,
   .endOfResults,
   .errorMessage {
-    padding: 1.5rem;
-    font-size: 1rem;
+    padding: 24px;
+    font-size: 16px;
   }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
   .taskerList {
-    gap: 0.75rem;
+    gap: 12px;
   }
 
   .loadMoreButton,
   .retryButton {
-    margin: 0.5rem 0;
-    padding: 0.5rem;
-    font-size: 0.9rem;
+    margin: 8px 0;
+    padding: 8px;
+    font-size: 14px;
   }
 
   .loadingMessage,
   .endOfResults,
   .errorMessage {
-    padding: 1rem;
-    font-size: 0.95rem;
+    padding: 16px;
+    font-size: 15px;
   }
 }

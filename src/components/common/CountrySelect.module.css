@@ -3,7 +3,7 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-  font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 16px = 16px */
 }
 
 .selectWrapper {
@@ -16,11 +16,11 @@
 }
 
 .select {
-  padding: 0.5rem 0.625rem; /* 8px 10px */
+  padding: 8px 10px; /* 8px 10px */
   border-radius: 0; /* Remove border radius since it's inside a container */
   font-family: 'Inter', sans-serif;
   /* Facebook Post text (main body) 14-16px or Buttons 13-14px */
-  font-size: 0.875rem; /* 14px */
+  font-size: 14px; /* 14px */
   background-color: #fff; /* Match input background */
   color: #333; /* Match input text color */
   border: none; /* Remove border if inside InputField */
@@ -33,38 +33,38 @@
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8.825L1.175 4 2.05 3.125 6 7.075 9.95 3.125 10.825 4z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 0.5rem center;
-  background-size: 0.75rem;
-  padding-right: 1.5rem; /* Make room for the arrow */
+  background-position: right 8px center;
+  background-size: 12px;
+  padding-right: 24px; /* Make room for the arrow */
 }
 
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
   .select {
-    padding: 0.45rem 0.5rem; /* ~7.2px 8px */
-    font-size: 0.8125rem; /* 13px */
-    background-size: 0.7rem;
-    padding-right: 1.25rem;
+    padding: 7px 8px; /* ~7.2px 8px */
+    font-size: 13px; /* 13px */
+    background-size: 11px;
+    padding-right: 20px;
   }
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
   .select {
-    padding: 0.4rem 0.45rem; /* 6.4px ~7.2px */
-    font-size: 0.75rem; /* 12px */
-    background-size: 0.65rem;
-    padding-right: 1.125rem;
+    padding: 6px 7px; /* 6.4px ~7.2px */
+    font-size: 12px; /* 12px */
+    background-size: 10px;
+    padding-right: 18px;
   }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
   .select {
-    padding: 0.35rem 0.4rem; /* ~5.6px 6.4px */
-    font-size: 0.6875rem; /* ~11px */
-    background-size: 0.6rem;
-    padding-right: 1rem;
+    padding: 6px 6px; /* ~5.6px 6.4px */
+    font-size: 11px; /* ~11px */
+    background-size: 10px;
+    padding-right: 16px;
   }
 }
 

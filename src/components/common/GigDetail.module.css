@@ -159,7 +159,7 @@
   cursor: pointer;
   width: 100%;
   margin-top: var(--spacing-sm); /* 8px */
-  min-height: 2.75rem; /* 44px - touch target */
+  min-height: 44px; /* 44px - touch target */
 }
 
 .primaryButton:hover:not(:disabled) {
@@ -186,7 +186,7 @@
   cursor: pointer;
   width: 100%;
   margin-top: var(--spacing-sm); /* 8px */
-  min-height: 2.75rem; /* 44px - touch target */
+  min-height: 44px; /* 44px - touch target */
 }
 
 .secondaryButton:hover:not(:disabled) {
@@ -230,190 +230,190 @@
 /* Small Mobile to Tablet (480px - 768px) */
 @media (min-width: 480px) {
   .gigDetailPageContainer {
-    padding: 1rem; /* 16px */
+    padding: 16px; /* 16px */
     max-width: 600px;
   }
 
   .loadingMessage,
   .errorMessage {
-    padding: 2rem; /* 32px */
-    font-size: 1rem; /* 16px */
+    padding: 32px; /* 32px */
+    font-size: 16px; /* 16px */
   }
 
   .gigContent {
-    gap: 1rem; /* 16px */
+    gap: 16px; /* 16px */
   }
 
   .gigDetailsSection,
   .sectionCard,
   .infoCard,
   .warningCard {
-    padding: 1.25rem; /* 20px */
+    padding: 20px; /* 20px */
   }
 
   .gigTitle {
-    font-size: 1.5rem; /* 24px */
-    margin-bottom: 1rem; /* 16px */
+    font-size: 24px; /* 24px */
+    margin-bottom: 16px; /* 16px */
   }
 
   .gigDescription {
-    font-size: 0.9375rem; /* 15px */
-    margin-bottom: 1.25rem; /* 20px */
+    font-size: 15px; /* 15px */
+    margin-bottom: 20px; /* 20px */
   }
 
   .gigLocation,
   .gigBudget,
   .gigCategory {
-    font-size: 0.875rem; /* 14px */
+    font-size: 14px; /* 14px */
   }
 
   .paymentBreakdown {
-    padding: 1rem; /* 16px */
+    padding: 16px; /* 16px */
   }
 
   .paymentBreakdownTitle {
-    font-size: 1.125rem; /* 18px */
+    font-size: 18px; /* 18px */
   }
 
   .breakdownItem {
-    font-size: 0.875rem; /* 14px */
+    font-size: 14px; /* 14px */
   }
 
   .primaryButton,
   .secondaryButton {
-    padding: 0.875rem 1.25rem; /* 14px 20px */
-    font-size: 0.9375rem; /* 15px */
+    padding: 14px 20px; /* 14px 20px */
+    font-size: 15px; /* 15px */
   }
 }
 
 /* Tablet (768px - 1024px) */
 @media (min-width: 768px) {
   .gigDetailPageContainer {
-    padding: 1.5rem; /* 24px */
+    padding: 24px; /* 24px */
     max-width: 800px;
   }
 
   .gigContent {
-    gap: 1.5rem; /* 24px */
+    gap: 24px; /* 24px */
   }
 
   .gigDetailsSection,
   .sectionCard,
   .infoCard,
   .warningCard {
-    padding: 1.5rem; /* 24px */
+    padding: 24px; /* 24px */
   }
 
   .gigTitle {
-    font-size: 1.875rem; /* 30px */
-    margin-bottom: 1.25rem; /* 20px */
+    font-size: 30px; /* 30px */
+    margin-bottom: 20px; /* 20px */
   }
 
   .gigDescription {
-    font-size: 1rem; /* 16px */
-    margin-bottom: 1.5rem; /* 24px */
+    font-size: 16px; /* 16px */
+    margin-bottom: 24px; /* 24px */
   }
 
   .gigLocation,
   .gigBudget,
   .gigCategory {
-    font-size: 0.9375rem; /* 15px */
+    font-size: 15px; /* 15px */
   }
 
   .paymentBreakdown {
-    padding: 1.25rem; /* 20px */
+    padding: 20px; /* 20px */
   }
 
   .paymentBreakdownTitle {
-    font-size: 1.25rem; /* 20px */
+    font-size: 20px; /* 20px */
   }
 
   .breakdownItem {
-    font-size: 0.9375rem; /* 15px */
+    font-size: 15px; /* 15px */
   }
 
   .primaryButton,
   .secondaryButton {
-    padding: 1rem 1.5rem; /* 16px 24px */
-    font-size: 1rem; /* 16px */
+    padding: 16px 24px; /* 16px 24px */
+    font-size: 16px; /* 16px */
   }
 
   .sectionTitle {
-    font-size: 1.375rem; /* 22px */
+    font-size: 22px; /* 22px */
   }
 
   .sectionText {
-    font-size: 0.9375rem; /* 15px */
+    font-size: 15px; /* 15px */
   }
 }
 
 /* Desktop (1024px+) */
 @media (min-width: 1024px) {
   .gigDetailPageContainer {
-    padding: 2rem; /* 32px */
+    padding: 32px; /* 32px */
     max-width: 1200px;
   }
 
   .gigContent {
-    gap: 2rem; /* 32px */
+    gap: 32px; /* 32px */
   }
 
   .gigDetailsSection,
   .sectionCard,
   .infoCard,
   .warningCard {
-    padding: 2rem; /* 32px */
+    padding: 32px; /* 32px */
   }
 
   .gigTitle {
-    font-size: 2.25rem; /* 36px */
-    margin-bottom: 1.5rem; /* 24px */
+    font-size: 36px; /* 36px */
+    margin-bottom: 24px; /* 24px */
   }
 
   .gigDescription {
-    font-size: 1.125rem; /* 18px */
-    margin-bottom: 2rem; /* 32px */
+    font-size: 18px; /* 18px */
+    margin-bottom: 32px; /* 32px */
   }
 
   .gigLocation,
   .gigBudget,
   .gigCategory {
-    font-size: 1rem; /* 16px */
+    font-size: 16px; /* 16px */
   }
 
   .paymentBreakdown {
-    padding: 1.5rem; /* 24px */
+    padding: 24px; /* 24px */
   }
 
   .paymentBreakdownTitle {
-    font-size: 1.375rem; /* 22px */
+    font-size: 22px; /* 22px */
   }
 
   .breakdownItem {
-    font-size: 1rem; /* 16px */
+    font-size: 16px; /* 16px */
   }
 
   .primaryButton,
   .secondaryButton {
-    padding: 1rem 2rem; /* 16px 32px */
-    font-size: 1.125rem; /* 18px */
+    padding: 16px 32px; /* 16px 32px */
+    font-size: 18px; /* 18px */
     width: auto;
     display: inline-block;
-    margin-right: 1rem; /* 16px */
+    margin-right: 16px; /* 16px */
   }
 
   .sectionTitle {
-    font-size: 1.5rem; /* 24px */
+    font-size: 24px; /* 24px */
   }
 
   .sectionText {
-    font-size: 1rem; /* 16px */
+    font-size: 16px; /* 16px */
   }
 
   /* Button group for desktop */
   .buttonGroup {
     display: flex;
-    gap: 1rem; /* 16px */
+    gap: 16px; /* 16px */
     flex-wrap: wrap;
   }
 }

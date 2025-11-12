@@ -13,23 +13,23 @@
 
 .reviewItem {
   background-color: #fff;
-  border-radius: 0.75rem;
+  border-radius: 12px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  margin-bottom: 0.75rem;
+  padding: 16px;
+  margin-bottom: 12px;
   border: 1px solid #e5e7eb;
 }
 
 .flexContainer {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  gap: 8px;
+  margin-bottom: 8px;
 }
 
 .avatarSmall {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
@@ -42,88 +42,88 @@
 .rating {
   font-weight: 600;
   color: #f59e0b;
-  font-size: 0.875rem;
+  font-size: 14px;
 }
 
 .margin {
-  margin: 0.5rem 0;
-  font-size: 0.875rem;
+  margin: 8px 0;
+  font-size: 14px;
   color: #4b5563;
 }
 
 .textMuted {
-  font-size: 0.75rem;
+  font-size: 12px;
   color: #9ca3af;
 }
 
 @media (max-width: 1024px) {
   .reviewItem {
-    padding: 0.8rem;
-    margin-bottom: 0.6rem;
+    padding: 13px;
+    margin-bottom: 10px;
   }
   .flexContainer {
-    gap: 0.4rem;
-    margin-bottom: 0.4rem;
+    gap: 6px;
+    margin-bottom: 6px;
   }
   .avatarSmall {
-    width: 2.2rem;
-    height: 2.2rem;
+    width: 35px;
+    height: 35px;
   }
   .rating {
-    font-size: 0.8rem;
+    font-size: 13px;
   }
   .margin {
-    font-size: 0.8rem;
+    font-size: 13px;
   }
   .textMuted {
-    font-size: 0.7rem;
+    font-size: 11px;
   }
 }
 
 @media (max-width: 768px) {
   .reviewItem {
-    padding: 0.7rem;
-    margin-bottom: 0.5rem;
+    padding: 11px;
+    margin-bottom: 8px;
   }
   .flexContainer {
-    gap: 0.3rem;
-    margin-bottom: 0.3rem;
+    gap: 5px;
+    margin-bottom: 5px;
   }
   .avatarSmall {
-    width: 2rem;
-    height: 2rem;
+    width: 32px;
+    height: 32px;
   }
   .rating {
-    font-size: 0.75rem;
+    font-size: 12px;
   }
   .margin {
-    font-size: 0.75rem;
+    font-size: 12px;
   }
   .textMuted {
-    font-size: 0.65rem;
+    font-size: 10px;
   }
 }
 
 @media (max-width: 480px) {
   .reviewItem {
-    padding: 0.6rem;
-    margin-bottom: 0.4rem;
+    padding: 10px;
+    margin-bottom: 6px;
   }
   .flexContainer {
-    gap: 0.2rem;
-    margin-bottom: 0.2rem;
+    gap: 3px;
+    margin-bottom: 3px;
   }
   .avatarSmall {
-    width: 1.8rem;
-    height: 1.8rem;
+    width: 29px;
+    height: 29px;
   }
   .rating {
-    font-size: 0.7rem;
+    font-size: 11px;
   }
   .margin {
-    font-size: 0.7rem;
+    font-size: 11px;
   }
   .textMuted {
-    font-size: 0.6rem;
+    font-size: 10px;
   }
 }

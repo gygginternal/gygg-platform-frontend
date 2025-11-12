@@ -2,19 +2,19 @@
 
 .error-message {
   color: #dc2626;
-  font-size: 0.875rem;
-  margin: 0.5rem 0;
-  padding: 0.5rem;
+  font-size: 14px; /* 14px converted to px */
+  margin: 8px 0; /* 8px converted to px */
+  padding: 8px; /* 8px converted to px */
   background-color: #fef2f2;
   border: 1px solid #fecaca;
-  border-radius: 0.375rem;
+  border-radius: 6px; /* 6px converted to px */
 }
 
 .feedContainer {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  padding: 0.5rem 1.5rem 1.5rem 1.5rem; /* Reduced top padding */
+  gap: 24px; /* 24px converted to px */
+  padding: 8px 24px 24px 24px; /* 8px 24px 24px 24px converted to px */
   box-sizing: border-box;
   width: 100%;
 }
@@ -24,13 +24,13 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap; /* Allow wrapping on smaller screens */
-  gap: 0.75rem; /* 12px for wrapped items */
+  gap: 12px; /* 12px converted to px */
 }
 
 .feedTitle {
   /* Facebook Header (profile names etc.) 16-18px.
-       Using 20px (1.25rem) as a prominent section title. */
-  font-size: 1.25rem; /* 20px */
+       Using 20px (20px) as a prominent section title. */
+  font-size: 20px; /* 20px converted to px */
   font-weight: 700;
   color: #3d4d55;
   flex-shrink: 0; /* Prevent title from shrinking */
@@ -38,17 +38,17 @@
 
 .filterButtons {
   display: flex;
-  gap: 0.75rem; /* 12px */
+  gap: 12px; /* 12px converted to px */
   flex-wrap: wrap; /* Allow filter buttons to wrap */
 }
 
 .filterButton,
 .activeFilterButton {
-  padding: 0.5rem 1rem; /* 8px 16px */
-  border-radius: 1rem; /* 16px */
+  padding: 8px 16px; /* 8px 16px */
+  border-radius: 16px; /* 16px */
   font-weight: 600;
   /* Facebook Buttons 13-14px */
-  font-size: 0.875rem; /* 14px */
+  font-size: 14px; /* 14px */
   cursor: pointer;
   transition:
     background-color 0.2s ease,
@@ -79,22 +79,22 @@
 
 .createPostCard {
   background-color: #fff;
-  border-radius: 1rem; /* 16px */
-  padding: 1rem 1.25rem; /* 16px 20px */
-  box-shadow: 0 0.375rem 1.25rem rgba(0, 0, 0, 0.15); /* 0 6px 20px */
+  border-radius: 16px; /* 16px converted to px */
+  padding: 16px 20px; /* 16px 20px converted to px */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* 6px 20px converted to px */
   box-sizing: border-box;
 }
 
 .createPostHeader {
   display: flex;
-  align-items: flex-start; /* Ensures textarea aligns to the top of the profile image */
-  gap: 1rem; /* More space between image and textarea */
+  align-items: flex-start; /* Ensures textarea aligns to the top of profile image */
+  gap: 16px; /* 16px converted to px */
 }
 
 .profileImage {
   border-radius: 50%;
-  height: 3rem;
-  width: 3rem;
+  height: 48px; /* 48px converted to px */
+  width: 48px; /* 48px converted to px */
   object-fit: cover;
   flex-shrink: 0;
 }
@@ -104,10 +104,10 @@
   width: 100%;
   border: 1px solid #d1d5db;
   outline: none;
-  font-size: 1.15rem;
+  font-size: 18px;
   color: #3d4d55;
   background: #f7f7f7;
-  padding: 1.25rem 1.5rem;
+  padding: 20px 24px;
   border-radius: 12px;
   line-height: 1.5;
   min-height: 60px;
@@ -124,14 +124,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 0.75rem; /* 12px */
+  margin-top: 12px; /* 12px */
   flex-wrap: wrap; /* Allow actions to wrap */
-  gap: 0.5rem; /* 8px for wrapped items */
+  gap: 8px; /* 8px for wrapped items */
 }
 
 .postIcons {
   display: flex;
-  gap: 0.75rem; /* 12px */
+  gap: 12px; /* 12px */
   flex-wrap: wrap; /* Allow icons to wrap */
 }
 
@@ -142,8 +142,8 @@
   cursor: pointer;
   /* This is the container for the icon. The icon itself should be 16-20px.
        Giving the container a slightly larger size for better clickability. */
-  width: 1.5rem; /* 24px */
-  height: 1.5rem; /* 24px */
+  width: 24px; /* 24px */
+  height: 24px; /* 24px */
   flex-shrink: 0;
   color: #536471; /* Default icon color */
   transition: color 0.2s ease;
@@ -153,19 +153,19 @@
 }
 /* If you use SVG icons directly inside .postIcon, you can size them like this: */
 .postIcon svg {
-  width: 1.25rem; /* 20px */
-  height: 1.25rem; /* 20px */
+  width: 20px; /* 20px */
+  height: 20px; /* 20px */
 }
 
 .postButton {
-  padding: 0.5rem 1.25rem; /* 8px 20px */
+  padding: 8px 20px; /* 8px 20px */
   background-color: #3d4d55;
   color: #fff;
   font-weight: 600;
   /* Facebook Buttons 13-14px */
-  font-size: 0.875rem; /* 14px */
-  border: 0.125rem solid #3d4d55; /* 2px */
-  border-radius: 1rem; /* 16px */
+  font-size: 14px; /* 14px */
+  border: 2px solid #3d4d55; /* 2px */
+  border-radius: 16px; /* 16px */
   cursor: pointer;
   transition:
     background-color 0.2s ease,
@@ -185,7 +185,7 @@
 .postsContainer {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem; /* 20px */
+  gap: 20px; /* 20px */
 }
 
 .providerActionsHeader {
@@ -199,9 +199,9 @@
   font-weight: bold;
   margin-left: auto;
   border: none;
-  padding: 0.8rem 1.25rem;
-  font-size: 0.875rem; /* 14px */
-  border-radius: 0.5rem;
+  padding: 13px 20px;
+  font-size: 14px; /* 14px */
+  border-radius: 8px;
   transition:
     background-color 0.2s ease,
     transform 0.1s ease;
@@ -220,195 +220,195 @@
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
   .feedContainer {
-    gap: 1.25rem;
-    padding: 0.5rem 1.25rem 1.25rem 1.25rem; /* Reduced top padding */
+    gap: 20px;
+    padding: 8px 20px 20px 20px; /* Reduced top padding */
   }
   .feedTitle {
-    font-size: 1.125rem; /* 18px */
+    font-size: 18px; /* 18px */
   }
   .filterButtons {
-    gap: 0.625rem; /* 10px */
+    gap: 10px; /* 10px */
   }
   .filterButton,
   .activeFilterButton {
-    padding: 0.4rem 0.8rem; /* 6.4px 12.8px */
-    font-size: 0.8125rem; /* 13px */
-    border-radius: 0.875rem; /* 14px */
+    padding: 6px 13px; /* 6.4px 12.8px */
+    font-size: 13px; /* 13px */
+    border-radius: 14px; /* 14px */
   }
   .createPostCard {
-    padding: 0.875rem 1rem; /* 14px 16px */
-    border-radius: 0.875rem; /* 14px */
+    padding: 14px 16px; /* 14px 16px */
+    border-radius: 14px; /* 14px */
   }
   .profileImage {
-    height: 2.5rem; /* 40px */
-    width: 2.5rem; /* 40px */
+    height: 40px; /* 40px */
+    width: 40px; /* 40px */
   }
   .createPostInput {
-    font-size: 0.8125rem; /* 13px */
+    font-size: 13px; /* 13px */
   }
   .createPostActions {
-    margin-top: 0.625rem; /* 10px */
-    gap: 0.4rem; /* 6.4px */
+    margin-top: 10px; /* 10px */
+    gap: 6px; /* 6.4px */
   }
   .postIcons {
-    gap: 0.625rem; /* 10px */
+    gap: 10px; /* 10px */
   }
   .postIcon {
-    width: 1.375rem; /* 22px */
-    height: 1.375rem; /* 22px */
+    width: 22px; /* 22px */
+    height: 22px; /* 22px */
   }
   .postIcon svg {
-    width: 1.125rem; /* 18px */
-    height: 1.125rem; /* 18px */
+    width: 18px; /* 18px */
+    height: 18px; /* 18px */
   }
   .postButton {
-    padding: 0.4rem 1rem; /* 6.4px 16px */
-    font-size: 0.8125rem; /* 13px */
-    border-radius: 0.875rem; /* 14px */
+    padding: 6px 16px; /* 6.4px 16px */
+    font-size: 13px; /* 13px */
+    border-radius: 14px; /* 14px */
   }
   .postsContainer {
-    gap: 1rem; /* 16px */
+    gap: 16px; /* 16px */
   }
   .postGigButton {
-    padding: 0.4rem 1rem; /* 6.4px 16px */
-    font-size: 0.8125rem; /* 13px */
-    border-radius: 0.875rem; /* 14px */
+    padding: 6px 16px; /* 6.4px 16px */
+    font-size: 13px; /* 13px */
+    border-radius: 14px; /* 14px */
   }
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
   .feedContainer {
-    gap: 1rem;
-    padding: 0.25rem 1rem 1rem 1rem; /* Further reduced top padding */
+    gap: 16px;
+    padding: 4px 16px 16px 16px; /* Further reduced top padding */
   }
   .feedHeader {
     flex-direction: column; /* Stack header items */
     align-items: flex-start; /* Align to start when stacked */
-    gap: 0.5rem; /* 8px */
+    gap: 8px; /* 8px */
   }
   .feedTitle {
-    font-size: 1rem; /* 16px */
-    margin-bottom: 0.25rem; /* 4px */
+    font-size: 16px; /* 16px */
+    margin-bottom: 4px; /* 4px */
   }
   .filterButtons {
-    gap: 0.5rem; /* 8px */
+    gap: 8px; /* 8px */
     width: 100%; /* Take full width */
     justify-content: flex-start; /* Align buttons to start */
   }
   .filterButton,
   .activeFilterButton {
-    padding: 0.3rem 0.6rem; /* 4.8px 9.6px */
-    font-size: 0.75rem; /* 12px */
-    border-radius: 0.75rem; /* 12px */
+    padding: 5px 10px; /* 4.8px 9.6px */
+    font-size: 12px; /* 12px */
+    border-radius: 12px; /* 12px */
   }
   .createPostCard {
-    padding: 0.75rem 0.875rem; /* 12px 14px */
-    border-radius: 0.75rem; /* 12px */
+    padding: 12px 14px; /* 12px 14px */
+    border-radius: 12px; /* 12px */
   }
   .profileImage {
-    height: 2.25rem; /* 36px */
-    width: 2.25rem; /* 36px */
+    height: 36px; /* 36px */
+    width: 36px; /* 36px */
   }
   .createPostHeader {
-    gap: 0.625rem; /* 10px */
+    gap: 10px; /* 10px */
   }
   .createPostInput {
-    font-size: 0.75rem; /* 12px */
+    font-size: 12px; /* 12px */
   }
   .createPostActions {
-    margin-top: 0.5rem; /* 8px */
-    gap: 0.4rem; /* 6.4px */
+    margin-top: 8px; /* 8px */
+    gap: 6px; /* 6.4px */
   }
   .postIcons {
-    gap: 0.5rem; /* 8px */
+    gap: 8px; /* 8px */
   }
   .postIcon {
-    width: 1.25rem; /* 20px */
-    height: 1.25rem; /* 20px */
+    width: 20px; /* 20px */
+    height: 20px; /* 20px */
   }
   .postIcon svg {
-    width: 1rem; /* 16px */
-    height: 1rem; /* 16px */
+    width: 16px; /* 16px */
+    height: 16px; /* 16px */
   }
   .postButton {
-    padding: 0.3rem 0.8rem; /* 4.8px 12.8px */
-    font-size: 0.75rem; /* 12px */
-    border-radius: 0.75rem; /* 12px */
+    padding: 5px 13px; /* 4.8px 12.8px */
+    font-size: 12px; /* 12px */
+    border-radius: 12px; /* 12px */
   }
   .postsContainer {
-    gap: 0.875rem; /* 14px */
+    gap: 14px; /* 14px */
   }
   .postGigButton {
-    padding: 0.3rem 0.8rem; /* 4.8px 12.8px */
-    font-size: 0.75rem; /* 12px */
-    border-radius: 0.75rem; /* 12px */
+    padding: 5px 13px; /* 4.8px 12.8px */
+    font-size: 12px; /* 12px */
+    border-radius: 12px; /* 12px */
   }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
   .feedContainer {
-    gap: 0.75rem;
-    padding: 0.05rem 0.75rem 0.75rem 0.75rem; /* Halved top padding for mobile */
+    gap: 12px;
+    padding: 1px 12px 12px 12px; /* Halved top padding for mobile */
   }
   .feedHeader {
-    gap: 0.4rem; /* 6.4px */
+    gap: 6px; /* 6.4px */
   }
   .feedTitle {
-    font-size: 0.9375rem; /* 15px */
+    font-size: 15px; /* 15px */
   }
   .filterButtons {
-    gap: 0.4rem; /* 6.4px */
+    gap: 6px; /* 6.4px */
   }
   .filterButton,
   .activeFilterButton {
-    padding: 0.25rem 0.5rem; /* 4px 8px */
-    font-size: 0.6875rem; /* ~11px */
-    border-radius: 0.625rem; /* 10px */
+    padding: 4px 8px; /* 4px 8px */
+    font-size: 11px; /* ~11px */
+    border-radius: 10px; /* 10px */
   }
   .createPostCard {
-    padding: 0.625rem 0.75rem; /* 10px 12px */
-    border-radius: 0.625rem; /* 10px */
+    padding: 10px 12px; /* 10px 12px */
+    border-radius: 10px; /* 10px */
   }
   .profileImage {
-    height: 2rem; /* 32px */
-    width: 2rem; /* 32px */
+    height: 32px; /* 32px */
+    width: 32px; /* 32px */
   }
   .createPostHeader {
-    gap: 0.5rem; /* 8px */
+    gap: 8px; /* 8px */
   }
   .createPostInput {
-    font-size: 0.6875rem; /* ~11px */
-    padding: 0.4rem 0; /* 6.4px 0 */
+    font-size: 11px; /* ~11px */
+    padding: 6px 0; /* 6.4px 0 */
   }
   .createPostActions {
-    margin-top: 0.4rem; /* 6.4px */
-    gap: 0.3rem; /* 4.8px */
+    margin-top: 6px; /* 6.4px */
+    gap: 5px; /* 4.8px */
   }
   .postIcons {
-    gap: 0.4rem; /* 6.4px */
+    gap: 6px; /* 6.4px */
   }
   .postIcon {
-    width: 1.125rem; /* 18px */
-    height: 1.125rem; /* 18px */
+    width: 18px; /* 18px */
+    height: 18px; /* 18px */
   }
   .postIcon svg {
-    width: 0.9375rem; /* 15px */
-    height: 0.9375rem; /* 15px */
+    width: 15px; /* 15px */
+    height: 15px; /* 15px */
   }
   .postButton {
-    padding: 0.25rem 0.6rem; /* 4px 9.6px */
-    font-size: 0.6875rem; /* ~11px */
-    border-radius: 0.625rem; /* 10px */
+    padding: 4px 10px; /* 4px 9.6px */
+    font-size: 11px; /* ~11px */
+    border-radius: 10px; /* 10px */
   }
   .postsContainer {
-    gap: 0.75rem; /* 12px */
+    gap: 12px; /* 12px */
   }
   .postGigButton {
-    padding: 0.25rem 0.6rem; /* 4px 9.6px */
-    font-size: 0.6875rem; /* ~11px */
-    border-radius: 0.625rem; /* 10px */
+    padding: 4px 10px; /* 4px 9.6px */
+    font-size: 11px; /* ~11px */
+    border-radius: 10px; /* 10px */
   }
 }
 
@@ -426,7 +426,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 1rem;
+  margin-top: 16px;
   width: 100%;
   max-width: 600px;
   aspect-ratio: 16/9;

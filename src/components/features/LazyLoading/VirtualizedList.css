@@ -16,7 +16,7 @@
 .virtualized-list-item {
   display: flex;
   align-items: center;
-  padding: 0 1rem;
+  padding: 0 16px;
   border-bottom: 1px solid #f0f0f0;
   background: white;
   transition: background-color 0.2s ease;
@@ -35,7 +35,7 @@
 }
 
 .virtualized-list-loading {
-  padding: 1rem;
+  padding: 16px;
   background: #f8f9fa;
   border-top: 1px solid #e0e0e0;
 }
@@ -44,7 +44,7 @@
   width: 20px;
   height: 20px;
   position: relative;
-  margin-right: 0.5rem;
+  margin-right: 8px;
 }
 
 .loading-spinner-small .spinner-ring {
@@ -58,7 +58,7 @@
 }
 
 .loading-text {
-  font-size: 0.875rem;
+  font-size: 14px;
   color: #6c757d;
 }
 
@@ -99,11 +99,11 @@
 /* Responsive adjustments */
 @media (max-width: 575.98px) {
   .virtualized-list-item {
-    padding: 0 0.5rem;
+    padding: 0 8px;
   }
 
   .loading-text {
-    font-size: 0.75rem;
+    font-size: 12px;
   }
 }
 

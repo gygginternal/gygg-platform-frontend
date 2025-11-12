@@ -3,7 +3,7 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-  font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 16px = 16px */
 }
 
 .container {
@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 1.25rem; /* 20px */
+  padding: 20px; /* 20px */
   background: linear-gradient(#3c4a53, #0f212d);
   overflow-y: auto;
   box-sizing: border-box;
@@ -25,14 +25,14 @@
   color: #d89362;
   text-decoration: none;
   position: absolute; /* Position at top-left */
-  top: 1.5rem;
-  left: 1.5rem;
+  top: 24px;
+  left: 24px;
   z-index: 10;
 }
 
 .logo img {
   display: block;
-  max-width: 9.375rem; /* 150px - Use max-width for responsiveness */
+  max-width: 150px; /* 150px - Use max-width for responsiveness */
   width: 100%;
   height: auto;
 }
@@ -42,19 +42,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.5625rem; /* 25px */
-  max-width: 30rem; /* 480px */
+  gap: 25px; /* 25px */
+  max-width: 480px; /* 480px */
   width: 100%;
   text-align: center;
   background-color: transparent;
-  padding: 2.1875rem; /* 35px */
-  border-radius: 0.625rem; /* 10px */
+  padding: 35px; /* 35px */
+  border-radius: 10px; /* 10px */
 }
 
 .title {
   /* Facebook Header (profile names etc.) 16-18px.
      This is a main page title, so a slightly larger range is acceptable for impact. */
-  font-size: clamp(1.125rem, 4vw, 1.5rem); /* Ranging from 18px to 24px */
+  font-size: clamp(18px, 4vw, 24px); /* Ranging from 18px to 24px */
   font-weight: 600;
   font-family: 'Inter', sans-serif;
   margin-bottom: 0;
@@ -64,8 +64,8 @@
 .instructionText {
   color: #eee;
   /* Facebook Post text (main body) 14-16px */
-  font-size: 0.9375rem; /* 15px */
-  margin-bottom: 1.25rem; /* 20px */
+  font-size: 15px; /* 15px */
+  margin-bottom: 20px; /* 20px */
   line-height: 1.5;
   max-width: 90%;
 }
@@ -74,13 +74,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 0.625rem; /* 10px */
+  margin-bottom: 10px; /* 10px */
 }
 .iconContainer img {
   /* This is the primary adjustment point. Starting larger and scaling down. */
   /* Facebook Top navbar icons 20-24px. */
-  width: 4rem; /* 64px - Larger for prominence on desktop */
-  height: 4rem; /* 64px */
+  width: 64px; /* 64px - Larger for prominence on desktop */
+  height: 64px; /* 64px */
   opacity: 0.8;
   object-fit: contain; /* Ensure icon scales properly */
 }
@@ -93,9 +93,9 @@
   box-shadow: none !important;
   display: flex;
   flex-direction: column;
-  gap: 1.125rem; /* 18px */
+  gap: 18px; /* 18px */
   width: 100%;
-  margin-bottom: 0.625rem; /* 10px */
+  margin-bottom: 10px; /* 10px */
 }
 
 .submitButton {
@@ -103,22 +103,22 @@
   cursor: pointer;
   background-color: #d99633;
   border: none;
-  border-radius: 0.75rem; /* 12px */
+  border-radius: 12px; /* 12px */
   width: 100%;
-  height: 2.8125rem; /* 45px */
+  height: 45px; /* 45px */
   /* Facebook Buttons 13-14px */
-  font-size: 0.875rem; /* 14px */
+  font-size: 14px; /* 14px */
   font-weight: 700;
   line-height: 1; /* Adjust line-height to center text */
-  letter-spacing: 0.00875rem; /* 0.14px */
+  letter-spacing: 0px; /* 0.14px */
   transition:
     background-color 0.3s ease,
     transform 0.1s ease;
-  margin-top: 0.625rem; /* 10px */
+  margin-top: 10px; /* 10px */
 }
 .submitButton:hover:not(:disabled) {
   background-color: #b45309;
-  transform: translateY(-0.0625rem); /* -1px */
+  transform: translateY(-1px); /* -1px */
 }
 .submitButton:active:not(:disabled) {
   transform: translateY(0px);
@@ -132,11 +132,11 @@
 .retryText {
   color: #bbb;
   /* Facebook Comments 13-14px */
-  font-size: 0.8125rem; /* 13px */
+  font-size: 13px; /* 13px */
   font-weight: 400;
   font-family: 'Inter', sans-serif;
   text-align: center;
-  margin-top: 1.25rem; /* 20px */
+  margin-top: 20px; /* 20px */
   line-height: 1.6; /* Adjusted line-height for better readability */
 }
 
@@ -155,9 +155,9 @@
 .error {
   color: #ff8a8a;
   /* Facebook Comments 13-14px */
-  font-size: 0.875rem; /* 14px */
-  margin-top: 0.3125rem; /* 5px */
-  margin-bottom: 0.625rem; /* 10px */
+  font-size: 14px; /* 14px */
+  margin-top: 5px; /* 5px */
+  margin-bottom: 10px; /* 10px */
   font-family: 'Inter', sans-serif;
   text-align: center;
   width: 100%;
@@ -166,11 +166,11 @@
 .infoMessage {
   color: #e0f2f7;
   /* Facebook Post text (main body) 14-16px */
-  font-size: 1rem; /* 16px */
+  font-size: 16px; /* 16px */
   text-align: center;
-  padding: 0.9375rem; /* 15px */
+  padding: 15px; /* 15px */
   background-color: rgba(0, 100, 120, 0.3);
-  border-radius: 0.3125rem; /* 5px */
+  border-radius: 5px; /* 5px */
   width: 100%;
   line-height: 1.5;
 }
@@ -188,14 +188,14 @@
 
 .emailInput {
   width: 100%;
-  padding: 0.75rem;
-  border-radius: 0.75rem;
+  padding: 12px;
+  border-radius: 12px;
   border: 1px solid #555;
   background-color: rgba(255, 255, 255, 0.1);
   color: #fff;
-  font-size: 0.875rem;
+  font-size: 14px;
   font-family: 'Inter', sans-serif;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
   transition:
     border-color 0.3s ease,
     background-color 0.3s ease;
@@ -214,13 +214,13 @@
 /* Success and error state icons */
 .iconContainer .successIcon {
   color: #4ade80;
-  font-size: 4rem;
+  font-size: 64px;
   font-weight: bold;
 }
 
 .iconContainer .errorIcon {
   color: #ef4444;
-  font-size: 4rem;
+  font-size: 64px;
   font-weight: bold;
 }
 
@@ -237,150 +237,150 @@
 /* Responsive adjustments for screens up to 1024px */
 @media (max-width: 1024px) {
   .container {
-    padding: 1rem;
+    padding: 16px;
   }
   .logo {
-    top: 1.25rem;
-    left: 1.25rem;
+    top: 20px;
+    left: 20px;
   }
   .formContainer {
-    gap: 1.25rem;
-    max-width: 28rem;
-    padding: 1.875rem;
+    gap: 20px;
+    max-width: 448px;
+    padding: 30px;
   }
   .title {
-    font-size: clamp(1rem, 4.5vw, 1.3rem);
+    font-size: clamp(16px, 4.5vw, 21px);
   }
   .instructionText {
-    font-size: 0.875rem;
-    margin-bottom: 1rem;
+    font-size: 14px;
+    margin-bottom: 16px;
   }
   .iconContainer img {
-    width: 3rem; /* 48px */
-    height: 3rem; /* 48px */
+    width: 48px; /* 48px */
+    height: 48px; /* 48px */
   }
   .form {
-    gap: 1rem;
+    gap: 16px;
   }
   .submitButton {
-    height: 2.5rem;
-    font-size: 0.8125rem;
-    margin-top: 0.75rem;
+    height: 40px;
+    font-size: 13px;
+    margin-top: 12px;
   }
   .retryText {
-    font-size: 0.75rem;
-    margin-top: 1rem;
+    font-size: 12px;
+    margin-top: 16px;
   }
   .error {
-    font-size: 0.8125rem;
-    margin-top: 0.4rem;
-    margin-bottom: 0.5rem;
+    font-size: 13px;
+    margin-top: 6px;
+    margin-bottom: 8px;
   }
   .infoMessage {
-    font-size: 0.9375rem;
-    padding: 0.75rem;
+    font-size: 15px;
+    padding: 12px;
   }
 }
 
 /* Responsive adjustments for screens up to 768px */
 @media (max-width: 768px) {
   .container {
-    padding: 0.8rem;
+    padding: 13px;
   }
   .logo {
-    top: 1rem;
-    left: 1rem;
+    top: 16px;
+    left: 16px;
   }
   .logo img {
-    max-width: 7.5rem;
+    max-width: 120px;
   }
   .formContainer {
-    gap: 1rem;
+    gap: 16px;
     max-width: 90%;
-    padding: 1.5rem;
+    padding: 24px;
   }
   .title {
-    font-size: clamp(0.9375rem, 5vw, 1.25rem);
+    font-size: clamp(15px, 5vw, 20px);
   }
   .instructionText {
-    font-size: 0.8125rem;
-    margin-bottom: 0.8rem;
+    font-size: 13px;
+    margin-bottom: 13px;
   }
   .iconContainer img {
-    width: 2.4rem; /* 38.4px */
-    height: 2.4rem; /* 38.4px */
+    width: 38px; /* 38.4px */
+    height: 38px; /* 38.4px */
   }
   .form {
-    gap: 0.8rem;
+    gap: 13px;
   }
   .submitButton {
-    height: 2.25rem;
-    font-size: 0.75rem;
-    margin-top: 0.625rem;
+    height: 36px;
+    font-size: 12px;
+    margin-top: 10px;
   }
   .retryText {
-    font-size: 0.6875rem;
-    margin-top: 0.8rem;
+    font-size: 11px;
+    margin-top: 13px;
   }
   .error {
-    font-size: 0.75rem;
-    margin-top: 0.3rem;
-    margin-bottom: 0.4rem;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 6px;
   }
   .infoMessage {
-    font-size: 0.875rem;
-    padding: 0.6rem;
+    font-size: 14px;
+    padding: 10px;
   }
 }
 
 /* Responsive adjustments for screens up to 480px */
 @media (max-width: 480px) {
   .container {
-    padding: 0.625rem;
+    padding: 10px;
   }
   .logo {
     /* At 480px, it's often better for logo to be static and centered if no global header */
     /* If there's a header, it stays absolute. Reverted this from previous turn's override */
-    top: 0.75rem;
-    left: 0.75rem;
+    top: 12px;
+    left: 12px;
   }
   .logo img {
-    max-width: 6.25rem;
+    max-width: 100px;
   }
   .formContainer {
-    padding: 1.25rem 0.9375rem;
-    gap: 1.25rem;
+    padding: 20px 15px;
+    gap: 20px;
   }
   .title {
-    font-size: clamp(0.875rem, 6vw, 1.125rem);
+    font-size: clamp(14px, 6vw, 18px);
   }
   .instructionText {
-    font-size: 0.8125rem;
-    margin-bottom: 0.625rem;
+    font-size: 13px;
+    margin-bottom: 10px;
   }
   .iconContainer img {
-    width: 1.8rem; /* 28.8px */
-    height: 1.8rem; /* 28.8px */
+    width: 29px; /* 28.8px */
+    height: 29px; /* 28.8px */
   }
   .form {
-    gap: 0.625rem;
+    gap: 10px;
   }
   .submitButton {
-    height: 2.5rem;
-    font-size: 0.875rem;
-    margin-top: 0.5rem;
+    height: 40px;
+    font-size: 14px;
+    margin-top: 8px;
   }
   .retryText {
-    font-size: 0.75rem;
-    margin-top: 0.8rem;
+    font-size: 12px;
+    margin-top: 13px;
   }
   .error {
-    font-size: 0.8125rem;
-    margin-top: 0.25rem;
-    margin-bottom: 0.3rem;
+    font-size: 13px;
+    margin-top: 4px;
+    margin-bottom: 5px;
   }
   .infoMessage {
-    font-size: 0.8125rem;
-    padding: 0.5rem;
+    font-size: 13px;
+    padding: 8px;
   }
 }

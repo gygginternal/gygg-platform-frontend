@@ -2,7 +2,7 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-  font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 16px = 16px */
 }
 
 .iconButton {
@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem; /* 8px */
+  padding: 8px; /* 8px */
   border-radius: 50%; /* Already responsive */
   transition:
     background-color 0.2s ease,
@@ -31,20 +31,20 @@
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
   .iconButton {
-    padding: 0.45rem; /* 7.2px */
+    padding: 7px; /* 7.2px */
   }
 }
 
 /* Responsive adjustments for screens up to 768px (Tablets) */
 @media (max-width: 768px) {
   .iconButton {
-    padding: 0.4rem; /* 6.4px */
+    padding: 6px; /* 6.4px */
   }
 }
 
 /* Responsive adjustments for screens up to 480px (Mobile Phones) */
 @media (max-width: 480px) {
   .iconButton {
-    padding: 0.35rem; /* 5.6px */
+    padding: 6px; /* 5.6px */
   }
 }

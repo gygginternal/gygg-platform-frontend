@@ -3,11 +3,11 @@
   background: white;
   border-radius: var(--border-radius-xl);
   border: 1px solid var(--color-neutral-300);
-  padding: 1.5rem;
+  padding: 24px;
   cursor: pointer;
   transition: all var(--transition-fast) var(--transition-ease);
   position: relative;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
   animation: fadeInUp 0.3s ease-out;
 }
 
@@ -27,19 +27,19 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 .categorySection {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 12px;
 }
 
 .categoryInfo {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 16px;
 }
 
 .categoryName {
@@ -52,11 +52,11 @@
 .statusBadge {
   display: flex;
   align-items: center;
-  gap: 0.375rem;
+  gap: 6px;
   font-size: var(--font-size-xs);
   font-weight: 600;
-  padding: 0.375rem 0.75rem;
-  border-radius: 1.25rem;
+  padding: 6px 12px;
+  border-radius: 20px;
   text-transform: capitalize;
 }
 
@@ -65,7 +65,7 @@
   font-size: var(--font-size-lg);
   font-weight: 600;
   color: #000000;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
   line-height: 1.4;
 }
 
@@ -73,13 +73,13 @@
 .clientInfo {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
 .clientAvatar {
-  width: 2rem;
-  height: 2rem;
+  width: 32px;
+  height: 32px;
   background: var(--color-primary);
   border-radius: 50%;
   display: flex;
@@ -100,7 +100,7 @@
 .clientDetails {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .clientName {
@@ -112,7 +112,7 @@
 .timeInfo {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   margin-left: auto;
   font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
@@ -121,25 +121,25 @@
 .timeInfo span {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 4px;
 }
 
 /* Contract Details */
 .contractDetails {
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 .contractId {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
 }
 
 .contractId span {
   font-family: monospace;
   color: var(--color-text-secondary);
   background: var(--color-background-paper);
-  padding: 0.125rem 0.25rem;
+  padding: 2px 4px;
   border-radius: var(--border-radius-sm);
   font-size: var(--font-size-xs);
 }
@@ -149,21 +149,21 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 1rem;
+  padding-top: 16px;
   border-top: 1px solid var(--color-neutral-200);
 }
 
 .locationPrice {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 16px;
 }
 
 .location,
 .duration {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 4px;
   font-size: var(--font-size-xs);
   color: #000000;
 }
@@ -172,13 +172,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.25rem;
+  gap: 4px;
 }
 
 .price {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 4px;
 }
 
 .amount {
@@ -190,7 +190,7 @@
 .earned {
   display: flex;
   align-items: center;
-  gap: 0.375rem;
+  gap: 6px;
   font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
 }

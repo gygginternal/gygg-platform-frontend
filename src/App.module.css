@@ -2,22 +2,22 @@
 
 /* Loading states responsive */
 .authenticatingUser {
-  padding: 1rem;
+  padding: 16px; /* 16px converted to px */
   text-align: center;
-  font-size: 0.875rem;
+  font-size: 14px; /* 14px converted to px */
 }
 
 @media (min-width: 480px) {
   .authenticatingUser {
-    padding: 1.5rem;
-    font-size: 1rem;
+    padding: 24px; /* 24px converted to px */
+    font-size: 16px; /* 16px converted to px */
   }
 }
 
 @media (min-width: 768px) {
   .authenticatingUser {
-    padding: 2rem;
-    font-size: 1.125rem;
+    padding: 32px; /* 32px converted to px */
+    font-size: 18px; /* 18px converted to px */
   }
 }
 
@@ -26,19 +26,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
-  font-size: 0.875rem;
+  padding: 16px; /* 16px converted to px */
+  font-size: 14px; /* 14px converted to px */
 }
 
 @media (min-width: 480px) {
   .loadingApplication {
-    font-size: 1rem;
+    font-size: 16px; /* 16px converted to px */
   }
 }
 
 @media (min-width: 768px) {
   .loadingApplication {
-    font-size: 1.125rem;
+    font-size: 18px; /* 18px converted to px */
   }
 }
 
@@ -52,7 +52,7 @@
 /* Mobile first approach */
 @media (min-width: 1024px) {
   .container {
-    /* padding: 0 2rem; */
+    /* padding: 0 32px; */ /* 32px converted to px */
     max-width: 1200px;
     /* margin: 0 auto; */
   }
@@ -127,45 +127,45 @@
 
 /* Responsive spacing */
 .responsivePadding {
-  padding: 0.5rem;
+  padding: 8px; /* 8px converted to px */
 }
 
 @media (min-width: 480px) {
   .responsivePadding {
-    padding: 1rem;
+    padding: 16px; /* 16px converted to px */
   }
 }
 
 @media (min-width: 768px) {
   .responsivePadding {
-    padding: 1.5rem;
+    padding: 24px; /* 24px converted to px */
   }
 }
 
 @media (min-width: 1024px) {
   .responsivePadding {
-    padding: 2rem;
+    padding: 32px; /* 32px converted to px */
   }
 }
 
 .responsiveMargin {
-  margin: 0.5rem;
+  margin: 8px; /* 8px converted to px */
 }
 
 @media (min-width: 480px) {
   .responsiveMargin {
-    margin: 1rem;
+    margin: 16px; /* 16px converted to px */
   }
 }
 
 @media (min-width: 768px) {
   .responsiveMargin {
-    margin: 1.5rem;
+    margin: 24px; /* 24px converted to px */
   }
 }
 
 @media (min-width: 1024px) {
   .responsiveMargin {
-    margin: 2rem;
+    margin: 32px; /* 32px converted to px */
   }
 }

@@ -1,9 +1,9 @@
 /* Base styles - Mobile first */
 .reviewItem {
   width: 100%;
-  padding: 1.25rem;
+  padding: 20px;
   background: #fff;
-  border-radius: 0.75rem;
+  border-radius: 12px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   box-sizing: border-box;
   border: 1px solid #e5e7eb;
@@ -19,18 +19,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 12px;
 }
 
 .reviewerInfo {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 12px;
 }
 
 .reviewerAvatar {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
   background-color: #e5e7eb;
@@ -42,7 +42,7 @@
 }
 
 .reviewerName {
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 600;
   color: #1f2937;
   margin: 0;
@@ -51,34 +51,34 @@
 .reviewMeta {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .reviewRating {
   font-weight: 600;
   color: #f59e0b;
-  font-size: 1rem;
+  font-size: 16px;
 }
 
 .starRating {
   color: #f59e0b;
-  font-size: 1rem;
+  font-size: 16px;
 }
 
 .reviewDate {
   color: #6b7280;
-  font-size: 0.8125rem;
+  font-size: 13px;
 }
 
 .reviewJob {
-  font-size: 0.875rem;
+  font-size: 14px;
   color: #6b7280;
-  margin-bottom: 0.75rem;
+  margin-bottom: 12px;
   font-weight: 500;
 }
 
 .reviewText {
-  font-size: 0.9375rem;
+  font-size: 15px;
   color: #374151;
   line-height: 1.5;
   margin: 0;
@@ -87,46 +87,46 @@
 /* Tablet (768px - 1024px) */
 @media (min-width: 768px) {
   .reviewItem {
-    padding: 1.5rem;
+    padding: 24px;
   }
 
   .reviewerName {
-    font-size: 1.125rem;
+    font-size: 18px;
   }
 
   .reviewRating {
-    font-size: 1.125rem;
+    font-size: 18px;
   }
 
   .starRating {
-    font-size: 1.125rem;
+    font-size: 18px;
   }
 
   .reviewJob {
-    font-size: 0.9375rem;
+    font-size: 15px;
   }
 
   .reviewText {
-    font-size: 1rem;
+    font-size: 16px;
   }
 }
 
 /* Desktop (1024px+) */
 @media (min-width: 1024px) {
   .reviewItem {
-    padding: 1.75rem;
+    padding: 28px;
   }
 
   .reviewerAvatar {
-    width: 3rem;
-    height: 3rem;
+    width: 48px;
+    height: 48px;
   }
 
   .reviewerName {
-    font-size: 1.25rem;
+    font-size: 20px;
   }
 
   .reviewText {
-    font-size: 1.0625rem;
+    font-size: 17px;
   }
 }

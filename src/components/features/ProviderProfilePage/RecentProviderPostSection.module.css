@@ -1,5 +1,5 @@
 .recentPostsSection {
-  margin-bottom: 1.25rem; /* 20px - consistent with tasker profile */
+  margin-bottom: 20px; /* 20px converted to px - consistent with tasker profile */
 }
 
 .sectionHeader {
@@ -10,14 +10,14 @@
 }
 
 .sectionTitle {
-  font-size: 1.2rem;
+  font-size: 19.2px; /* 19px converted to px */
   font-weight: bold;
   color: #222;
 }
 
 .seeAllLink {
   color: #1a4d7a;
-  font-size: 1rem;
+  font-size: 16px; /* 16px converted to px */
   text-decoration: underline;
   cursor: pointer;
 }
@@ -65,18 +65,18 @@
 
 .profileName {
   font-weight: bold;
-  font-size: 1.05rem;
+  font-size: 17px;
   color: #222;
 }
 
 .postDate {
   color: #888;
-  font-size: 0.98rem;
+  font-size: 16px;
 }
 
 .postText {
   color: #444;
-  font-size: 1.05rem;
+  font-size: 17px;
   margin-bottom: 2px;
 }
 
@@ -89,7 +89,7 @@
 
 .hashtag {
   color: #1a4d7a;
-  font-size: 0.98rem;
+  font-size: 16px;
   background: #f0f2f5;
   border-radius: 6px;
   padding: 2px 8px;
@@ -107,7 +107,7 @@
   align-items: center;
   gap: 4px;
   color: #888;
-  font-size: 1rem;
+  font-size: 16px;
 }
 
 .state {
@@ -117,16 +117,16 @@
 
 @media (max-width: 1024px) {
   .recentPostsSection {
-    margin-bottom: 1rem; /* 16px - consistent with tasker profile */
+    margin-bottom: 16px; /* 16px - consistent with tasker profile */
   }
   .sectionHeader {
     margin-bottom: 10px;
   }
   .sectionTitle {
-    font-size: 1.1rem;
+    font-size: 18px;
   }
   .seeAllLink {
-    font-size: 0.95rem;
+    font-size: 15px;
   }
   .postsList {
     gap: 20px;
@@ -142,26 +142,26 @@
     height: 36px;
   }
   .profileName {
-    font-size: 1rem;
+    font-size: 16px;
   }
   .postDate {
-    font-size: 0.9rem;
+    font-size: 14px;
   }
   .postText {
-    font-size: 1rem;
+    font-size: 16px;
   }
   .hashtags {
     gap: 5px;
   }
   .hashtag {
-    font-size: 0.9rem;
+    font-size: 14px;
     padding: 2px 7px;
   }
   .postActions {
     gap: 16px;
   }
   .action {
-    font-size: 0.95rem;
+    font-size: 15px;
   }
   .state {
     margin: 14px 0;
@@ -170,16 +170,16 @@
 
 @media (max-width: 768px) {
   .recentPostsSection {
-    margin-bottom: 0.875rem; /* 14px - consistent with tasker profile */
+    margin-bottom: 14px; /* 14px - consistent with tasker profile */
   }
   .sectionHeader {
     margin-bottom: 8px;
   }
   .sectionTitle {
-    font-size: 1rem;
+    font-size: 16px;
   }
   .seeAllLink {
-    font-size: 0.9rem;
+    font-size: 14px;
   }
   .postsList {
     gap: 16px;
@@ -195,26 +195,26 @@
     height: 32px;
   }
   .profileName {
-    font-size: 0.95rem;
+    font-size: 15px;
   }
   .postDate {
-    font-size: 0.85rem;
+    font-size: 14px;
   }
   .postText {
-    font-size: 0.95rem;
+    font-size: 15px;
   }
   .hashtags {
     gap: 4px;
   }
   .hashtag {
-    font-size: 0.85rem;
+    font-size: 14px;
     padding: 1px 6px;
   }
   .postActions {
     gap: 14px;
   }
   .action {
-    font-size: 0.9rem;
+    font-size: 14px;
   }
   .state {
     margin: 12px 0;
@@ -223,16 +223,16 @@
 
 @media (max-width: 480px) {
   .recentPostsSection {
-    margin-bottom: 0.75rem; /* 12px - consistent with tasker profile */
+    margin-bottom: 12px; /* 12px - consistent with tasker profile */
   }
   .sectionHeader {
     margin-bottom: 6px;
   }
   .sectionTitle {
-    font-size: 0.9rem;
+    font-size: 14px;
   }
   .seeAllLink {
-    font-size: 0.85rem;
+    font-size: 14px;
   }
   .postsList {
     gap: 12px;
@@ -248,26 +248,26 @@
     height: 28px;
   }
   .profileName {
-    font-size: 0.9rem;
+    font-size: 14px;
   }
   .postDate {
-    font-size: 0.8rem;
+    font-size: 13px;
   }
   .postText {
-    font-size: 0.9rem;
+    font-size: 14px;
   }
   .hashtags {
     gap: 3px;
   }
   .hashtag {
-    font-size: 0.8rem;
+    font-size: 13px;
     padding: 1px 5px;
   }
   .postActions {
     gap: 12px;
   }
   .action {
-    font-size: 0.85rem;
+    font-size: 14px;
   }
   .state {
     margin: 10px 0;

@@ -3,14 +3,14 @@
 
 /* Setting a base font size for rem calculations if not set globally */
 :root {
-  font-size: 16px; /* 1rem = 16px */
+  font-size: 16px; /* 16px = 16px */
 }
 
 .pageContainer {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding: 1.25rem; /* 20px */
+  padding: 20px; /* 20px */
   background: linear-gradient(#3c4a53, #0f212d);
   overflow-y: auto;
   box-sizing: border-box;
@@ -23,17 +23,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 50rem; /* 800px */
+  max-width: 800px; /* 800px */
   width: 100%;
   margin: 0 auto;
-  padding: 2rem 1.5rem; /* Vertical and horizontal padding */
+  padding: 32px 24px; /* Vertical and horizontal padding */
 }
 
 .pageHeader {
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 2rem;
+  margin-bottom: 32px;
 }
 
 .logo {
@@ -44,49 +44,49 @@
 
 .formSection {
   background-color: transparent;
-  border-radius: 0.625rem; /* 10px */
-  padding: 2.5rem; /* 40px */
+  border-radius: 10px; /* 10px */
+  padding: 40px; /* 40px */
   width: 100%;
   box-sizing: border-box;
 }
 
 .pageTitle {
-  font-size: clamp(1.8rem, 5vw, 2.2rem); /* Ranging from 28.8px to 35.2px */
+  font-size: clamp(29px, 5vw, 35px); /* Ranging from 28.8px to 35.2px */
   font-weight: 700;
   color: #fff;
-  margin-bottom: 0.75rem; /* 12px */
+  margin-bottom: 12px; /* 12px */
   text-align: center;
 }
 
 .pageSubtitle {
-  font-size: 1.125rem; /* 18px */
+  font-size: 18px; /* 18px */
   color: #d1d5db;
-  margin-bottom: 2rem; /* 32px */
+  margin-bottom: 32px; /* 32px */
   text-align: center;
   line-height: 1.5;
 }
 
 .formGroup {
-  margin-bottom: 1.5rem; /* 24px */
+  margin-bottom: 24px; /* 24px */
 }
 
 .label {
   display: block;
-  font-size: 1rem; /* 16px */
+  font-size: 16px; /* 16px */
   font-weight: 500;
   color: #e5e7eb;
-  margin-bottom: 0.5rem; /* 8px */
+  margin-bottom: 8px; /* 8px */
 }
 
 .input,
 .select,
 .textarea {
   width: 100%;
-  padding: 0.8rem 1rem;
-  border-radius: 0.5rem;
+  padding: 13px 16px;
+  border-radius: 8px;
   background-color: white;
   border: 1px solid #d1d5db;
-  font-size: 1rem; /* 16px */
+  font-size: 16px; /* 16px */
   color: #333;
   font-family: 'Inter', sans-serif;
   box-sizing: border-box;
@@ -109,15 +109,15 @@
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236B7280'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3Csvg%3E");
   background-repeat: no-repeat;
-  background-position: right 0.7rem center;
+  background-position: right 11px center;
   background-size: 1.2em 1.2em;
-  padding-right: 2.5rem;
+  padding-right: 40px;
 }
 
 .errorMessage {
   color: #ff8a8a;
-  font-size: 0.9rem;
-  margin-top: 1rem;
+  font-size: 14px;
+  margin-top: 16px;
   text-align: center;
 }
 
@@ -125,14 +125,14 @@
   background-color: #d99633;
   color: white;
   border: none;
-  border-radius: 0.5rem;
-  padding: 1rem 2rem;
-  font-size: 1.125rem;
+  border-radius: 8px;
+  padding: 16px 32px;
+  font-size: 18px;
   font-weight: 600;
   cursor: pointer;
   width: 100%;
   transition: background-color 0.3s ease;
-  margin-top: 2rem;
+  margin-top: 32px;
 }
 
 .submitButton:hover:not(:disabled) {
@@ -148,65 +148,65 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .contentWrapper {
-    padding: 1.5rem 1rem;
+    padding: 24px 16px;
   }
   .pageTitle {
-    font-size: clamp(1.4rem, 6vw, 1.8rem);
+    font-size: clamp(22px, 6vw, 29px);
   }
   .pageSubtitle {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
+    font-size: 16px;
+    margin-bottom: 24px;
   }
   .formSection {
-    padding: 1.5rem;
+    padding: 24px;
   }
   .label {
-    font-size: 0.9375rem;
+    font-size: 15px;
   }
   .input,
   .select,
   .textarea {
-    padding: 0.7rem 0.8rem;
-    font-size: 0.9375rem;
+    padding: 11px 13px;
+    font-size: 15px;
   }
   .submitButton {
-    padding: 0.8rem 1.6rem;
-    font-size: 1rem;
-    margin-top: 1.5rem;
+    padding: 13px 26px;
+    font-size: 16px;
+    margin-top: 24px;
   }
 }
 
 @media (max-width: 480px) {
   .contentWrapper {
-    padding: 1rem 0.75rem;
+    padding: 16px 12px;
   }
   .pageTitle {
-    font-size: clamp(1.2rem, 7vw, 1.5rem);
-    margin-bottom: 0.6rem;
+    font-size: clamp(19px, 7vw, 24px);
+    margin-bottom: 10px;
   }
   .pageSubtitle {
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
+    font-size: 14px;
+    margin-bottom: 16px;
   }
   .formSection {
-    padding: 1rem;
+    padding: 16px;
   }
   .formGroup {
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
   }
   .label {
-    font-size: 0.875rem;
-    margin-bottom: 0.4rem;
+    font-size: 14px;
+    margin-bottom: 6px;
   }
   .input,
   .select,
   .textarea {
-    padding: 0.6rem 0.7rem;
-    font-size: 0.875rem;
+    padding: 10px 11px;
+    font-size: 14px;
   }
   .submitButton {
-    padding: 0.7rem 1.4rem;
-    font-size: 0.9375rem;
-    margin-top: 1.25rem;
+    padding: 11px 22px;
+    font-size: 15px;
+    margin-top: 20px;
   }
 }

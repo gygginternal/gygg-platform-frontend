@@ -1,15 +1,15 @@
 .timelineSection {
-  margin-bottom: 2.5rem;
+  margin-bottom: 40px;
   background: #f8fafb;
-  border-radius: 1rem;
-  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  padding: 24px 32px;
   box-shadow: 0 2px 8px rgba(16, 179, 198, 0.04);
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
 }
 .timelineSection h2 {
-  font-size: 1.2rem;
+  font-size: 19px;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
   color: #10b3c6;
 }
 .timelineSection ul {
@@ -19,18 +19,18 @@
 }
 .timelineSection li {
   position: relative;
-  padding-left: 1.5rem;
-  margin-bottom: 1rem;
-  font-size: 1.05rem;
+  padding-left: 24px;
+  margin-bottom: 16px;
+  font-size: 17px;
   color: #333;
 }
 .timelineSection li:before {
   content: '';
   position: absolute;
-  left: 0.3rem;
-  top: 0.5rem;
-  width: 0.7rem;
-  height: 0.7rem;
+  left: 5px;
+  top: 8px;
+  width: 11px;
+  height: 11px;
   background: #10b3c6;
   border-radius: 50%;
   box-shadow: 0 0 0 2px #e6f8fa;
@@ -38,66 +38,66 @@
 
 @media (max-width: 1024px) {
   .timelineSection {
-    margin-bottom: 2rem;
-    padding: 1.2rem 1.6rem;
+    margin-bottom: 32px;
+    padding: 19px 26px;
   }
   .timelineSection h2 {
-    font-size: 1.1rem;
-    margin-bottom: 0.8rem;
+    font-size: 18px;
+    margin-bottom: 13px;
   }
   .timelineSection li {
-    padding-left: 1.3rem;
-    margin-bottom: 0.8rem;
-    font-size: 1rem;
+    padding-left: 21px;
+    margin-bottom: 13px;
+    font-size: 16px;
   }
   .timelineSection li:before {
-    left: 0.25rem;
-    top: 0.4rem;
-    width: 0.6rem;
-    height: 0.6rem;
+    left: 4px;
+    top: 6px;
+    width: 10px;
+    height: 10px;
   }
 }
 
 @media (max-width: 768px) {
   .timelineSection {
-    margin-bottom: 1.5rem;
-    padding: 1rem 1.2rem;
+    margin-bottom: 24px;
+    padding: 16px 19px;
   }
   .timelineSection h2 {
-    font-size: 1rem;
-    margin-bottom: 0.6rem;
+    font-size: 16px;
+    margin-bottom: 10px;
   }
   .timelineSection li {
-    padding-left: 1.1rem;
-    margin-bottom: 0.6rem;
-    font-size: 0.95rem;
+    padding-left: 18px;
+    margin-bottom: 10px;
+    font-size: 15px;
   }
   .timelineSection li:before {
-    left: 0.2rem;
-    top: 0.35rem;
-    width: 0.5rem;
-    height: 0.5rem;
+    left: 3px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
   }
 }
 
 @media (max-width: 480px) {
   .timelineSection {
-    margin-bottom: 1rem;
-    padding: 0.8rem 1rem;
+    margin-bottom: 16px;
+    padding: 13px 16px;
   }
   .timelineSection h2 {
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
+    font-size: 14px;
+    margin-bottom: 8px;
   }
   .timelineSection li {
-    padding-left: 0.9rem;
-    margin-bottom: 0.5rem;
-    font-size: 0.85rem;
+    padding-left: 14px;
+    margin-bottom: 8px;
+    font-size: 14px;
   }
   .timelineSection li:before {
-    left: 0.15rem;
-    top: 0.3rem;
-    width: 0.4rem;
-    height: 0.4rem;
+    left: 2px;
+    top: 5px;
+    width: 6px;
+    height: 6px;
   }
 }
