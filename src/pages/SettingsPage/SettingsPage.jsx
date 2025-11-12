@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styles from './SettingsPage.module.css';
 import PersonalInfoForm from '../../components/common/PersonalInfoForm';
 import { StripeConnectOnboarding } from '../../components/common/StripeConnectOnboarding';
-import { NuveiOnboarding } from '../../components/common/NuveiOnboarding';
+
 
 function SettingsPage() {
   const [activeTab, setActiveTab] = useState('profile');
@@ -46,12 +46,7 @@ function SettingsPage() {
                   <StripeConnectOnboarding />
                 </div>
                 
-                {/* Nuvei Payment Method */}
-                <div className={styles.paymentMethodSection}>
-                  <h3>Bank Transfers (Canada)</h3>
-                  <p>Direct CAD transfers via InstaDebit</p>
-                  <NuveiOnboarding />
-                </div>
+
               </div>
             )}
           </div>

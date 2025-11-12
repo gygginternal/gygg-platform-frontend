@@ -172,8 +172,8 @@ export default function ContractDetailsPage({ gig, contract, user, children }) {
                   <button
                     className={styles.primaryBtn}
                     onClick={() => {
-                      // Navigate to the new Nuvei payment page with the contract ID
-                      window.location.href = `/contracts/${contractId}/pay-with-nuvei`;
+                      // Navigate to the Stripe payment page with the contract ID
+                      window.location.href = `/contracts/${contractId}/pay-with-stripe`;
                     }}
                   >
                     Pay Tasker

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ContractPayment.module.css';
 import CheckoutForm from '../../common/CheckoutForm';
-import NuveiPaymentForm from './NuveiPaymentForm';
+
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import apiClient from '@api/axiosConfig';
@@ -12,14 +12,13 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
   const [payment, setPayment] = useState(null);
   const [clientSecret, setClientSecret] = useState(null);
-  const [nuveiPaymentConfig, setNuveiPaymentConfig] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [releaseLoading, setReleaseLoading] = useState(false);
   const [releaseMessage, setReleaseMessage] = useState('');
   const [showRating, setShowRating] = useState(false);
   const [contract, setContract] = useState(null);
-  const [paymentProvider, setPaymentProvider] = useState('stripe'); // stripe, nuvei
+  const [paymentProvider, setPaymentProvider] = useState('stripe'); // stripe
 
   useEffect(() => {
     async function fetchPayment() {
@@ -33,28 +32,12 @@ const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
         const paymentData = paymentRes.data.data.payment;
         setPayment(paymentData);
 
-        // Check payment provider and set appropriate data
-        if (paymentData.paymentProvider === 'nuvei') {
-          setPaymentProvider('nuvei');
-          // For Nuvei, we'll fetch session info separately
-          if (paymentData.status === 'requires_payment_method') {
-            try {
-              const sessionRes = await apiClient.get(
-                `/payments/nuvei/session/${paymentData.nuveiSessionId}`
-              );
-              setNuveiPaymentConfig(sessionRes.data.data);
-            } catch (err) {
-              console.error('Error fetching Nuvei session:', err);
-            }
-          }
+        // Default to Stripe
+        setPaymentProvider('stripe');
+        if (paymentData.status === 'requires_payment_method') {
+          setClientSecret(paymentData.stripePaymentIntentSecret);
         } else {
-          // Default to Stripe
-          setPaymentProvider('stripe');
-          if (paymentData.status === 'requires_payment_method') {
-            setClientSecret(paymentData.stripePaymentIntentSecret);
-          } else {
-            setClientSecret(null);
-          }
+          setClientSecret(null);
         }
 
         // Fetch contract info to check status
@@ -142,22 +125,10 @@ const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
             type="radio"
             name="paymentProvider"
             value="stripe"
-            checked={paymentProvider === 'stripe'}
-            onChange={e => setPaymentProvider(e.target.value)}
-            disabled={payment.status !== 'requires_payment_method'}
+            checked={true}
+            disabled
           />
           Stripe
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="paymentProvider"
-            value="nuvei"
-            checked={paymentProvider === 'nuvei'}
-            onChange={e => setPaymentProvider(e.target.value)}
-            disabled={payment.status !== 'requires_payment_method'}
-          />
-          Nuvei (with InstaDebit)
         </label>
       </div>
 
@@ -174,14 +145,7 @@ const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
             </Elements>
           )}
 
-          {paymentProvider === 'nuvei' && (
-            <NuveiPaymentForm
-              contractId={contractId}
-              paymentData={payment}
-              onPaymentSuccess={handlePaymentSuccess}
-              onPaymentError={handlePaymentError}
-            />
-          )}
+
         </>
       )}
 

@@ -35,12 +35,7 @@ const StripePaymentPage = createLazyRoute(
   }
 );
 
-const NuveiPaymentPage = createLazyRoute(
-  () => import('./pages/ContractPayment/NuveiPaymentPage'),
-  {
-    loadingText: 'Loading Nuvei payment...',
-  }
-);
+
 const SignupPage = createLazyRoute(
   () => import('./pages/SignupPage/SignupPage'),
   {
@@ -271,8 +266,7 @@ function AppLayout({ children }) {
 
   const showHeader =
     authToken &&
-    !noHeaderPaths.some(path => location.pathname.startsWith(path)) && 
-    !location.pathname.includes('/pay-with-nuvei');
+    !noHeaderPaths.some(path => location.pathname.startsWith(path));
 
   // Remove top padding for /gigs
   const isGigsPage = gigsPagePaths.some(path =>
@@ -327,7 +321,7 @@ function AppWithNavigation() {
   const hideNavPaths = ['/onboarding/tasker', '/onboarding/provider'];
   const showNavigation = !hideNavPaths.some(path =>
     location.pathname.startsWith(path)
-  ) && !location.pathname.includes('/pay-with-nuvei');
+  );
 
   return (
     <>
@@ -559,14 +553,7 @@ function AppWithNavigation() {
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/contracts/:contractId/pay-with-nuvei"
-              element={
-                <ProtectedRoute>
-                  <NuveiPaymentPage />
-                </ProtectedRoute>
-              }
-            />
+
             <Route
               path="/contracts/:contractId/pay-with-stripe"
               element={
@@ -575,14 +562,7 @@ function AppWithNavigation() {
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/contracts/:contractId/pay-with-nuvei"
-              element={
-                <ProtectedRoute>
-                  <NuveiPaymentPage />
-                </ProtectedRoute>
-              }
-            />
+
             <Route path="/choose" element={<ChoosePage />} />
             {/* Catch-all */}
             <Route path="*" element={<AuthAwareRedirect />} />

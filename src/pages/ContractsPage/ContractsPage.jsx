@@ -18,7 +18,7 @@ import { CATEGORY_ENUM } from '../../constants/categories';
 import { Search, Filter } from 'lucide-react';
 import { useToast } from '../../contexts/ToastContext';
 import { useAuth } from '../../contexts/AuthContext';
-import NuveiSimplyConnectPayment from '../../components/common/NuveiSimplyConnectPayment';
+
 import ContractCard from '../../components/features/ContractsPage/ContractCard';
 import CheckoutForm from '../../components/common/CheckoutForm';
 import { Elements } from '@stripe/react-stripe-js';
@@ -712,8 +712,7 @@ function ContractsPage() {
                   <button
                     className={styles.primaryBtn}
                     onClick={() => {
-                      // Navigate to the new Nuvei payment page with the contract ID
-                      navigate(`/contracts/${modalContract.id || modalContract._id}/pay-with-nuvei`);
+
                     }}
                   >
                     Pay Tasker
@@ -887,21 +886,7 @@ function ContractsPage() {
                   >
                     Credit Card (Stripe)
                   </button>
-                  <button
-                    className={`${styles.tabButton} ${paymentModal.paymentMethod === 'nuvei' ? styles.activeTab : ''}`}
-                    onClick={() => setPaymentModal(prev => ({ ...prev, paymentMethod: 'nuvei' }))}
-                    style={{
-                      padding: '10px 15px',
-                      border: '1px solid #ddd',
-                      backgroundColor: paymentModal.paymentMethod === 'nuvei' ? '#007bff' : '#f8f9fa',
-                      color: paymentModal.paymentMethod === 'nuvei' ? 'white' : '#333',
-                      borderRadius: '5px',
-                      cursor: 'pointer',
-                      fontWeight: '500',
-                    }}
-                  >
-                    Nuvei (Cards/InstaDebit)
-                  </button>
+
                 </div>
               </div>
 
@@ -966,64 +951,7 @@ function ContractsPage() {
                 </Elements>
               )}
 
-              {/* Nuvei Simply Connect Payment */}
-              {paymentModal.paymentMethod === 'nuvei' && (
-                <NuveiSimplyConnectPayment
-                  contract={paymentModal.contract}
-                  amount={parseFloat(paymentModal.contract?.agreedCost || paymentModal.contract?.rate || 0)}
-                  onPaymentSuccess={async (result) => {
-                    try {
-                      // Confirm payment success with backend
-                      await apiClient.post('/payments/nuvei/confirm-simply-connect-payment', {
-                        contractId: paymentModal.contract?.id || paymentModal.contract?._id,
-                        transactionId: result.TransactionId || result.transactionId,
-                        paymentResult: result
-                      });
 
-                      showToast(
-                        'Payment completed successfully! Contract has been completed.',
-                        'success'
-                      );
-                      setPaymentModal({
-                        open: false,
-                        contract: null,
-                        clientSecret: null,
-                        loading: false,
-                        paymentMethod: 'nuvei',
-                      });
-
-                      // Refresh contracts data
-                      queryClient.invalidateQueries(['contracts']);
-                    } catch (error) {
-                      console.error('Error confirming Nuvei payment:', error);
-                      showToast(
-                        'Payment succeeded but there was an issue updating the contract. Please contact support.',
-                        'warning'
-                      );
-                      setPaymentModal({
-                        open: false,
-                        contract: null,
-                        clientSecret: null,
-                        loading: false,
-                        paymentMethod: 'nuvei',
-                      });
-                    }
-                  }}
-                  onPaymentError={(error) => {
-                    showToast(`Payment failed: ${error.message || 'Unknown error'}`, 'error');
-                  }}
-                  onCancel={() => {
-                    // User cancelled, just close the modal
-                    setPaymentModal({
-                      open: false,
-                      contract: null,
-                      clientSecret: null,
-                      loading: false,
-                      paymentMethod: 'nuvei',
-                    });
-                  }}
-                />
-              )}
             </div>
           </div>
         </div>

@@ -66,26 +66,12 @@ const ContractPaymentPage = () => {
     }
   };
   
-  const handleNuveiPayment = async () => {
-    try {
-      // Navigate to the Nuvei payment page (Simply Connect)
-      navigate(`/contracts/${contract._id || contract.id}/pay-with-nuvei`);
-    } catch (err) {
-      console.error('Error processing Nuvei payment:', err);
-      showToast(
-        err.response?.data?.message || 'Failed to process Nuvei payment. Please try again.',
-        'error'
-      );
-    }
-  };
+
   
   const handlePayment = async () => {
     if (selectedPaymentMethod === 'stripe') {
       // For Stripe, we need to create a payment intent and then redirect to the payment page
       await handleStripePayment();
-    } else if (selectedPaymentMethod === 'nuvei') {
-      // For Nuvei Simply Connect, we can directly process the payment without account setup
-      await handleNuveiPayment();
     }
   };
   
@@ -149,12 +135,7 @@ const ContractPaymentPage = () => {
             >
               Credit Card (Stripe)
             </button>
-            <button
-              className={`${styles.tabButton} ${selectedPaymentMethod === 'nuvei' ? styles.activeTab : ''}`}
-              onClick={() => setSelectedPaymentMethod('nuvei')}
-            >
-              Nuvei (Cards/InstaDebit)
-            </button>
+
           </div>
           
           <div className={styles.methodDescription}>
@@ -175,14 +156,7 @@ const ContractPaymentPage = () => {
                 )}
               </div>
             ) : (
-              <div>
-                <h3>Pay with Nuvei</h3>
-                <p>Pay using credit cards or InstaDebit through Nuvei's secure payment system.</p>
-                <p><strong>No account setup required</strong> - Pay directly through the secure payment form.</p>
-                <div className={styles.setupNotice}>
-                  <p>Nuvei Simply Connect allows you to pay directly without pre-setting up an account.</p>
-                </div>
-              </div>
+
             )}
           </div>
         </div>
