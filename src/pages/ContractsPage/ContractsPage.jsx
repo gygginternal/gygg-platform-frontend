@@ -440,8 +440,9 @@ function ContractsPage() {
                   <div className={styles.statCard}>
                     <div className={styles.statNumber}>
                       {
-                        contracts.filter(
-                          c => c.status?.toLowerCase() === 'active'
+                        contracts.filter(c =>
+                          c.status?.toLowerCase() === 'active' ||
+                          c.status?.toLowerCase() === 'accepted'
                         ).length
                       }
                     </div>
@@ -460,18 +461,20 @@ function ContractsPage() {
                   <div className={styles.statCard}>
                     <div className={styles.statNumber}>
                       {
-                        contracts.filter(c =>
-                          c.status?.toLowerCase().includes('cancelled')
+                        contracts.filter(
+                          c => c.status?.toLowerCase() === 'submitted'
                         ).length
                       }
                     </div>
-                    <div className={styles.statLabel}>Cancelled</div>
+                    <div className={styles.statLabel}>Submitted</div>
                   </div>
                   <div className={styles.statCard}>
                     <div className={styles.statNumber}>
                       {
-                        contracts.filter(
-                          c => c.status?.toLowerCase() === 'pending_payment'
+                        contracts.filter(c =>
+                          c.status?.toLowerCase() === 'pending_payment' ||
+                          c.status?.toLowerCase() === 'pending payment' ||
+                          c.status?.toLowerCase() === 'pending'
                         ).length
                       }
                     </div>

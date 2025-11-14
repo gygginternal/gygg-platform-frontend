@@ -33,7 +33,7 @@ export function StripeConnectOnboarding() {
       // If account is fully onboarded, show success state
       if (
         accountData &&
-        accountData.detailsSubmitted &&
+        accountData.onboardingRequirementsMet &&
         accountData.chargesEnabled &&
         accountData.payoutsEnabled
       ) {
@@ -57,10 +57,10 @@ export function StripeConnectOnboarding() {
   // Fetch client secret function
   const fetchClientSecret = async () => {
     try {
-      // Create connected account if needed
-      await apiClient.post('/payments/create-connected-account');
+      // First, get the user's account status to check if they have an existing account
+      const accountStatus = await fetchAccountStatus();
 
-      // Get client secret
+      // Call initiate-account-session which will handle both new and existing accounts
       const accountResponse = await apiClient.post(
         '/payments/initiate-account-session?embedded=true'
       );
@@ -142,13 +142,14 @@ export function StripeConnectOnboarding() {
 
     if (
       status &&
-      status.detailsSubmitted &&
+      status.onboardingRequirementsMet &&
       status.chargesEnabled &&
       status.payoutsEnabled
     ) {
       setSuccess(true);
       setError(null);
-    } else if (status && status.detailsSubmitted) {
+    } else if (status && status.onboardingRequirementsMet) {
+      // Requirements are met but charges or payouts might not be enabled yet
       setError(
         'Your account setup is in progress. Stripe is reviewing your information. This may take a few minutes to complete.'
       );

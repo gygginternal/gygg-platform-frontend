@@ -146,7 +146,7 @@ const ContractPaymentPage = () => {
                 {!user.stripeAccountId && (
                   <div className={styles.setupNotice}>
                     <p>You need to set up your Stripe account to use this payment method.</p>
-                    <button 
+                    <button
                       onClick={() => navigate('/settings?tab=payment&setup=stripe')}
                       className={styles.setupButton}
                     >
@@ -156,7 +156,10 @@ const ContractPaymentPage = () => {
                 )}
               </div>
             ) : (
-
+              <div>
+                <h3>Selected Payment Method</h3>
+                <p>Additional payment method details would appear here.</p>
+              </div>
             )}
           </div>
         </div>

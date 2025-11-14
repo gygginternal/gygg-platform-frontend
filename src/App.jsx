@@ -260,13 +260,14 @@ function AppLayout({ children }) {
   const { authToken, isLoading } = useAuth();
   const location = useLocation();
 
-  const noHeaderPaths = ['/onboarding/tasker', '/onboarding/provider'];
+  const noHeaderPaths = ['/onboarding/tasker', '/onboarding/provider', '/contracts/*/pay-with-stripe'];
   const gigsPagePaths = ['/gigs'];
   const fullWidthPaths = ['/onboarding/tasker', '/onboarding/provider'];
 
   const showHeader =
     authToken &&
-    !noHeaderPaths.some(path => location.pathname.startsWith(path));
+    !noHeaderPaths.some(path => location.pathname.startsWith(path)) &&
+    !location.pathname.includes('/pay-with-stripe');
 
   // Remove top padding for /gigs
   const isGigsPage = gigsPagePaths.some(path =>

@@ -7,9 +7,6 @@ import styles from './StripePayment.module.css';
 // Load Stripe SDK
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
-// Global map to track payment intent creation attempts per contract to prevent multiple calls
-const paymentIntentCreationTracker = new Map();
-
 const CheckoutForm = ({
   contract,
   amount,
@@ -21,132 +18,11 @@ const CheckoutForm = ({
   const elements = useElements();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [clientSecret, setClientSecret] = useState(null);
-  const [isCreatingPaymentIntent, setIsCreatingPaymentIntent] = useState(false);
-
-  // Use ref to store onPaymentError to avoid re-renders when function identity changes
-  const onPaymentErrorRef = useRef(onPaymentError);
-  useEffect(() => {
-    onPaymentErrorRef.current = onPaymentError;
-  }, [onPaymentError]);
-
-  // Use ref to track if component is mounted to prevent state updates on unmounted component
-  const isMountedRef = useRef(true);
-  useEffect(() => {
-    isMountedRef.current = true;
-    return () => {
-      isMountedRef.current = false;
-    };
-  }, []);
-
-  // Use ref to track if payment intent creation has already been initiated for this component instance
-  const hasPaymentIntentBeenCalledRef = useRef(false);
-  const contractIdRef = useRef(null);
-
-  useEffect(() => {
-    // Create PaymentIntent as soon as the page loads, but only once
-    if (isCreatingPaymentIntent || clientSecret || hasPaymentIntentBeenCalledRef.current) return; // Prevent multiple calls
-
-    // Check if required props are valid before attempting to create payment intent
-    const contractId = contract?.id || contract?._id;
-    const validAmount = amount && !isNaN(parseFloat(amount)) && parseFloat(amount) > 0;
-
-    if (!contractId || !validAmount) {
-      console.warn('StripePayment: Missing or invalid contract/amount, skipping payment intent creation');
-      return;
-    }
-
-    // Store contract ID for cleanup
-    contractIdRef.current = contractId;
-
-    // Check if payment intent creation is already in progress for this contract
-    if (paymentIntentCreationTracker.get(contractId)) {
-      console.warn(`Payment intent creation already in progress for contract ${contractId}`);
-      return;
-    }
-
-    const createPaymentIntent = async () => {
-      // Mark that payment intent creation is in progress for this contract
-      paymentIntentCreationTracker.set(contractId, true);
-      hasPaymentIntentBeenCalledRef.current = true;
-
-      // Double-check we're still mounted before starting
-      if (!isMountedRef.current) {
-        paymentIntentCreationTracker.delete(contractId);
-        return;
-      }
-
-      setIsCreatingPaymentIntent(true); // Set flag to prevent concurrent calls
-
-      try {
-        // Check if the tasker has a valid Stripe account in the contract
-        const taskerStripeAccountId = contract?.tasker?.stripeAccountId || contract?.stripeAccountId;
-        if (!taskerStripeAccountId) {
-          const errorMessage = 'The tasker has not completed their Stripe onboarding process. Payment cannot be processed until the tasker connects and verifies their Stripe account.';
-
-          // Only update state if component is still mounted
-          if (isMountedRef.current) {
-            setError(errorMessage);
-            onPaymentErrorRef.current?.(new Error(errorMessage));
-            setIsCreatingPaymentIntent(false);
-          }
-          paymentIntentCreationTracker.delete(contractId);
-          return;
-        }
-
-        const response = await apiClient.post(
-          `/payments/contracts/${contractId}/create-payment-intent`,
-          { amount: parseFloat(amount) }
-        );
-
-        const { clientSecret: newClientSecret } = response.data.data;
-        // Only update state if component is still mounted
-        if (isMountedRef.current) {
-          setClientSecret(newClientSecret);
-        }
-      } catch (err) {
-        console.error('Error creating payment intent:', err);
-        let errorMessage = err.response?.data?.message || 'Failed to initialize payment. Please try again.';
-
-        // Check if it's specifically a Stripe account onboarding issue
-        if (err.response?.data?.message?.includes('capability') ||
-            err.response?.data?.message?.includes('transfers') ||
-            err.response?.data?.message?.includes('onboarding')) {
-          errorMessage = 'The tasker has not completed their Stripe onboarding process. Payment cannot be processed until the tasker completes their Stripe account setup.';
-        }
-
-        // Only update state if component is still mounted
-        if (isMountedRef.current) {
-          setError(errorMessage);
-          onPaymentErrorRef.current?.(err);
-        }
-      } finally {
-        // Only update state if component is still mounted
-        if (isMountedRef.current) {
-          setIsCreatingPaymentIntent(false);
-        }
-        // Remove the tracker entry when done
-        paymentIntentCreationTracker.delete(contractId);
-      }
-    };
-
-    createPaymentIntent();
-  }, [contract, amount]); // Only depend on contract and amount, remove the state variables
-
-  // Cleanup effect to remove contract from tracker when component unmounts
-  useEffect(() => {
-    return () => {
-      const contractId = contractIdRef.current;
-      if (contractId) {
-        paymentIntentCreationTracker.delete(contractId);
-      }
-    };
-  }, []); // Run only on mount/unmount
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!stripe || !elements || !clientSecret) {
+    if (!stripe || !elements) {
       return;
     }
 
@@ -192,17 +68,6 @@ const CheckoutForm = ({
       setLoading(false);
     }
   };
-
-  if (!clientSecret) {
-    return (
-      <div className={styles.paymentContainer}>
-        <div className={styles.loading}>
-          <div className={styles.spinner}></div>
-          <p>Initializing secure payment system...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className={styles.paymentContainer}>
@@ -263,22 +128,141 @@ const CheckoutForm = ({
   );
 };
 
-const StripePayment = ({ 
-  contract, 
-  amount, 
+// Global tracker to prevent multiple payment intent calls per contract
+const paymentIntentCallTracker = new Map();
+
+const StripePayment = ({
+  contract,
+  amount,
   onPaymentSuccess,
   onPaymentError,
-  onCancel 
+  onCancel
 }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [clientSecret, setClientSecret] = useState(null);
 
-  if (loading) {
+  // Refs to track mounted status and if call was already made
+  const isMountedRef = useRef(true);
+  const hasBeenCalledRef = useRef(false);
+
+  // Initialize refs on component mount
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
+
+  // Initialize payment intent when component mounts
+  useEffect(() => {
+    const initializePayment = async () => {
+      const contractId = contract?.id || contract?._id;
+
+      // Check if call has been made for this contract instance
+      if (hasBeenCalledRef.current) return;
+      hasBeenCalledRef.current = true;
+
+      // Check if payment intent creation is already in progress for this contract
+      if (paymentIntentCallTracker.has(contractId)) {
+        console.warn(`Payment intent creation already in progress for contract ${contractId}`);
+        return;
+      }
+
+      // Add to tracker
+      paymentIntentCallTracker.set(contractId, true);
+
+      setLoading(true);
+
+      try {
+        const validAmount = amount && !isNaN(parseFloat(amount)) && parseFloat(amount) > 0;
+
+        if (!contractId || !validAmount) {
+          throw new Error('Missing contract or invalid amount');
+        }
+
+        // Check if the tasker has a valid Stripe account in the contract
+        const taskerStripeAccountId = contract?.tasker?.stripeAccountId || contract?.stripeAccountId;
+        if (!taskerStripeAccountId) {
+          throw new Error('The tasker has not completed their Stripe onboarding process. Payment cannot be processed until the tasker connects and verifies their Stripe account.');
+        }
+
+        const response = await apiClient.post(
+          `/payments/contracts/${contractId}/create-payment-intent`,
+          { amount: parseFloat(amount) }
+        );
+
+        const newClientSecret = response.data.data.clientSecret;
+
+        // Only update state if component is still mounted
+        if (isMountedRef.current) {
+          setClientSecret(newClientSecret);
+        }
+      } catch (err) {
+        console.error('Error initializing payment:', err);
+        let errorMessage = err.response?.data?.message || 'Failed to initialize payment. Please try again.';
+
+        // Check if it's specifically a Stripe account onboarding issue
+        if (err.response?.data?.message?.includes('capability') ||
+            err.response?.data?.message?.includes('transfers') ||
+            err.response?.data?.message?.includes('onboarding')) {
+          errorMessage = 'The tasker has not completed their Stripe onboarding process. Payment cannot be processed until the tasker completes their Stripe account setup.';
+        }
+
+        // Only update state if component is still mounted
+        if (isMountedRef.current) {
+          setError(errorMessage);
+          onPaymentError?.(err);
+        }
+      } finally {
+        // Remove from tracker and only update state if mounted
+        paymentIntentCallTracker.delete(contractId);
+        if (isMountedRef.current) {
+          setLoading(false);
+        }
+      }
+    };
+
+    initializePayment();
+
+    // Cleanup: remove from tracker when component unmounts
+    return () => {
+      const contractId = contract?.id || contract?._id;
+      if (contractId) {
+        paymentIntentCallTracker.delete(contractId);
+      }
+    };
+  }, [contract, amount, onPaymentError]); // Only run once per component instance
+
+  if (loading && !clientSecret) {
     return (
       <div className={styles.paymentContainer}>
         <div className={styles.loading}>
           <div className={styles.spinner}></div>
-          <p>Processing payment...</p>
+          <p>Initializing secure payment system...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={styles.stripePayment}>
+        <h3>Pay with Credit Card (Stripe)</h3>
+        <p>Securely pay using your credit or debit card through Stripe.</p>
+        <div className={styles.error}>
+          {error}
+        </div>
+      </div>
+    );
+  }
+
+  if (!clientSecret) {
+    return (
+      <div className={styles.paymentContainer}>
+        <div className={styles.loading}>
+          <div className={styles.spinner}></div>
+          <p>Initializing secure payment system...</p>
         </div>
       </div>
     );
@@ -288,15 +272,9 @@ const StripePayment = ({
     <div className={styles.stripePayment}>
       <h3>Pay with Credit Card (Stripe)</h3>
       <p>Securely pay using your credit or debit card through Stripe.</p>
-      
-      {error && (
-        <div className={styles.error}>
-          {error}
-        </div>
-      )}
 
-      <Elements stripe={stripePromise}>
-        <CheckoutForm 
+      <Elements stripe={stripePromise} options={{ clientSecret }}>
+        <CheckoutForm
           contract={contract}
           amount={amount}
           onPaymentSuccess={onPaymentSuccess}
