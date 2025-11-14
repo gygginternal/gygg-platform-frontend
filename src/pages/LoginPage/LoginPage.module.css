@@ -12,7 +12,7 @@
   background: linear-gradient(#3c4a53, #0f212d);
   overflow-x: hidden; /* Only hide horizontal overflow */
   box-sizing: border-box;
-  font-size: 16px; /* Base font size for rem units (16px = 16px) */
+  font-size: 16px; /* Base font size for px units (16px = 16px) */
 }
 
 .logo {

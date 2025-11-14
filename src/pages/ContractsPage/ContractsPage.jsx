@@ -712,7 +712,7 @@ function ContractsPage() {
                   <button
                     className={styles.primaryBtn}
                     onClick={() => {
-
+                      navigate(`/contracts/${modalContract.id || modalContract._id}/pay-with-stripe`);
                     }}
                   >
                     Pay Tasker

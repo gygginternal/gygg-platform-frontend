@@ -78,8 +78,8 @@ img {
   object-fit: cover;
 }
 
-/* Global Root Font Size for REM units */
-/* This sets 16px to 16px, making your rem values predictable. */
+/* Global Root Font Size for px units */
+/* This sets 16px to 16px, making your px values predictable. */
 html {
   font-size: 16px;
   width: 100%;

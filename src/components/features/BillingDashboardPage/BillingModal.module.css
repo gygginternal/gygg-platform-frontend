@@ -1,6 +1,6 @@
 /* src/components/YourModal/ModalPanel.module.css (example path for this component) */
 
-/* Setting a base font size for rem calculations */
+/* Setting a base font size for px calculations */
 :root {
   font-size: 16px; /* 16px = 16px */
 }

@@ -1,7 +1,7 @@
 /* src/pages/ProfilePage.module.css */
 /* Styles for AboutCard and related Modal */
 
-/* Setting a base font size for rem calculations if not set globally */
+/* Setting a base font size for px calculations if not set globally */
 :root {
   font-size: 16px; /* 16px = 16px */
 }

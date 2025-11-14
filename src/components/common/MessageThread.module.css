@@ -1,6 +1,6 @@
 /* Add to MessageThread.module.css */
 
-/* Setting a base font size for rem calculations */
+/* Setting a base font size for px calculations */
 :root {
   font-size: 16px; /* 16px = 16px */
 }

@@ -1,6 +1,6 @@
 /* src/pages/SomePage/ModalComponent.module.css (example path for this modal) */
 
-/* Setting a base font size for rem calculations if not set globally */
+/* Setting a base font size for px calculations if not set globally */
 :root {
   font-size: 16px; /* 16px = 16px */
 }

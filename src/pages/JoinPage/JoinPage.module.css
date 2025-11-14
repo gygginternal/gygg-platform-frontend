@@ -12,7 +12,7 @@
   position: fixed; /* Ensures the background covers the whole viewport */
   margin: 0;
   padding: 0;
-  font-size: 16px; /* Base font size for rem units (16px = 16px) */
+  font-size: 16px; /* Base font size for px units (16px = 16px) */
 }
 
 .content {

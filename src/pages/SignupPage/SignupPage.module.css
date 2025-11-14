@@ -1,7 +1,7 @@
 /* frontend/src/pages/SignupPage.module.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
-/* Setting a base font size for rem calculations if not set globally */
+/* Setting a base font size for px calculations if not set globally */
 :root {
   font-size: 16px; /* 16px = 16px */
 }
@@ -17,7 +17,7 @@
   overflow-y: auto; /* Allow scrolling if content exceeds viewport height */
   -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
   overflow-x: hidden;
-  font-size: 16px; /* Base font size for rem units (16px = 16px) */
+  font-size: 16px; /* Base font size for px units (16px = 16px) */
 }
 
 .logo {

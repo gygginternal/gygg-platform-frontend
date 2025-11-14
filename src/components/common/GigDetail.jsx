@@ -20,9 +20,7 @@ import ReviewSection from './ReviewSection';
 import PropTypes from 'prop-types';
 import { decodeHTMLEntities } from '@utils/htmlEntityDecoder';
 
-const stripePromise = loadStripe(
-  'pk_test_51RgsCzCar68v7b8ot0KNr8l9NTWwDsURWgVctgW2wN45rZLxejGqO6s4e44z7KjhAHxjvZ1DOvbggzcPgXMUrusy00h5KCJqtc'
-); // Replace with your Stripe publishable key
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 const ConfirmButton = ({ clientSecret }) => {
   const stripe = useStripe();

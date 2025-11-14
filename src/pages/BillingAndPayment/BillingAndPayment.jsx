@@ -615,7 +615,12 @@ export default function BillingAndPayment() {
   };
 
   // Add make payment handler
+  const [isMakingPayment, setIsMakingPayment] = useState(false);
+
   const handleMakePayment = async contractId => {
+    if (isMakingPayment) return; // Prevent multiple clicks
+
+    setIsMakingPayment(true);
     try {
       await apiClient.post(
         `/payments/contracts/${contractId}/create-payment-intent`
@@ -631,6 +636,8 @@ export default function BillingAndPayment() {
         err.response?.data?.message || 'Failed to initiate payment.',
         'error'
       );
+    } finally {
+      setIsMakingPayment(false);
     }
   };
 
@@ -1092,14 +1099,16 @@ export default function BillingAndPayment() {
                       makePaymentModal.contract.id
                   )
                 }
+                disabled={isMakingPayment}
               >
-                Confirm Payment
+                {isMakingPayment ? 'Processing...' : 'Confirm Payment'}
               </button>
               <button
                 className={styles.secondaryBtn}
                 onClick={() =>
                   setMakePaymentModal({ open: false, contract: null })
                 }
+                disabled={isMakingPayment}
               >
                 Cancel
               </button>

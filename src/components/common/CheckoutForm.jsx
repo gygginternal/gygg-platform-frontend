@@ -41,7 +41,7 @@ function CheckoutForm({
       setMessage(error.message || 'An unexpected error occurred.');
       if (onPaymentError) onPaymentError(error.message);
     } else if (paymentIntent) {
-      if (process.env.NODE_ENV === 'development') {
+      if (import.meta.env.MODE === 'development') {
         console.log('Payment intent status:', paymentIntent.status);
         console.log('Full payment intent:', paymentIntent);
       }
