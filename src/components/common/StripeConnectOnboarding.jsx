@@ -208,10 +208,10 @@ export function StripeConnectOnboarding() {
           <h3>Onboarding Completed Successfully!</h3>
           <p>
             {isProvider
-              ? 'Your Stripe account is now fully set up. You can pay taskers easily on the platform for their services.'
+              ? 'Your account is fully setup to receive payments.'
               : isTasker
-                ? 'Your Stripe account is now fully set up and ready to receive payments. You can start accepting payments for your gigs immediately.'
-                : 'Your Stripe account is now fully set up and ready for payments.'}
+                ? 'Your account is fully setup to receive payments.'
+                : 'Your account is fully setup to receive payments.'}
           </p>
           <button
             className={styles.refreshButton}

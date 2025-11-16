@@ -15,8 +15,6 @@ function PersonalInfoForm({ fullWidth = false }) {
   const [success, setSuccess] = useState('');
 
   const [personalInfo, setPersonalInfo] = useState({
-    firstName: '',
-    lastName: '',
     email: '', // Email for display
     address: '',
     city: '',
@@ -36,8 +34,6 @@ function PersonalInfoForm({ fullWidth = false }) {
     if (user) {
       logger.debug('PersonalInfoForm: Populating with user data:', user);
       setPersonalInfo({
-        firstName: user.firstName || '',
-        lastName: user.lastName || '',
         email: user.email || '',
         address: user.address?.street || '',
         city: user.address?.city || '',
@@ -89,10 +85,7 @@ function PersonalInfoForm({ fullWidth = false }) {
 
     const hasAddressData = Object.values(addressPayload).some(val => val);
 
-    const personalPayload = {
-      firstName: personalInfo.firstName.trim(),
-      lastName: personalInfo.lastName.trim(),
-    };
+    const personalPayload = {};
 
     if (hasAddressData) {
       personalPayload.address = addressPayload;
@@ -182,27 +175,7 @@ function PersonalInfoForm({ fullWidth = false }) {
     >
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.tabContent}>
-          <div className={styles.inputGroup}>
-            <label htmlFor="p-firstName">First Name</label>
-            <input
-              id="p-firstName"
-              name="firstName"
-              value={personalInfo.firstName}
-              onChange={handlePersonalInfoChange}
-              placeholder="Enter your first name"
-            />
-          </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="p-lastName">Last Name</label>
-            <input
-              id="p-lastName"
-              name="lastName"
-              value={personalInfo.lastName}
-              onChange={handlePersonalInfoChange}
-              placeholder="Enter your last name"
-            />
-          </div>
 
           <div className={styles.inputGroup}>
             <label htmlFor="p-email">Email Address</label>
