@@ -105,6 +105,10 @@
   cursor: pointer;
 }
 
+.locationIcon {
+  color: #536471;
+}
+
 /* Responsive adjustments for screens up to 1024px (Large Tablets / Small Laptops) */
 @media (max-width: 1024px) {
   .postCard {

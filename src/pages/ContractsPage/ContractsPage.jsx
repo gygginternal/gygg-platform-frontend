@@ -4,6 +4,7 @@ import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query';
+import { MapPin, Clock } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns'; // Import date-fns for formatting dates
 import apiClient from '../../api/axiosConfig';
@@ -12,7 +13,16 @@ import ProfileSidebar from '../../components/common/ProfileSidebar';
 import { TabNavigation } from '../../components/common/TabNavigation'; // Import the TabNavigation component
 import InputField from '../../components/common/InputField';
 import Toggle from '../../components/common/Toggle';
-import { StatusBadge } from '../../components/common/StatusBadge'; // Adjust the import path
+import { StatusBadge } from '../../components/common/StatusBadge';
+import {
+  DollarSign,
+  Calendar,
+  User,
+  CheckCircle,
+  AlertCircle,
+  Clock as ClockIcon,
+} from 'lucide-react';
+
 import BillingAndPayment from '../BillingAndPayment/BillingAndPayment';
 import { CATEGORY_ENUM } from '../../constants/categories';
 import { Search, Filter } from 'lucide-react';
@@ -25,6 +35,88 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+
+const timeAgo = date => {
+  if (!date) return 'Unknown date';
+  const dateObj = new Date(date);
+  if (isNaN(dateObj.getTime())) return 'Invalid date';
+  const diff = Math.floor((Date.now() - dateObj) / 1000);
+  if (diff < 60) return 'just now';
+  if (diff < 3600) return `Posted ${Math.floor(diff / 60)} minutes ago`;
+  if (diff < 86400) return `Posted ${Math.floor(diff / 60)} hours ago`;
+  return `Posted ${Math.floor(diff / 86400)} days ago`;
+};
+
+const statusConfig = {
+  'Submitted': {
+    color: '#ff9800',
+    bgColor: '#fff3e0',
+    icon: Clock,
+  },
+  'Approved': {
+    color: '#4caf50',
+    bgColor: '#e8f5e8',
+    icon: CheckCircle,
+  },
+  'Completed': {
+    color: '#2196f3',
+    bgColor: '#e3f2fd',
+    icon: CheckCircle,
+  },
+  'Cancelled': {
+    color: '#f44336',
+    bgColor: '#ffebee',
+    icon: AlertCircle,
+  },
+  'Pending Payment': {
+    color: '#9c27b0',
+    bgColor: '#f3e5f5',
+    icon: ClockIcon,
+  },
+  'Active': {
+    color: '#4caf50',
+    bgColor: '#e8f5e8',
+    icon: User,
+  },
+  'Pending': {
+    color: '#ff9800',
+    bgColor: '#fff3e0',
+    icon: Clock,
+  },
+  'Pending acceptance': {
+    color: '#ff9800',
+    bgColor: '#fff3e0',
+    icon: Clock,
+  },
+  'Accepted': {
+    color: '#4caf50',
+    bgColor: '#e8f5e8',
+    icon: CheckCircle,
+  },
+  'Offer waiting': {
+    color: '#ff9800',
+    bgColor: '#fff3e0',
+    icon: Clock,
+  },
+  default: {
+    color: '#9e9e9e',
+    bgColor: '#f5f5f5',
+    icon: Clock,
+  },
+};
+
+const formatLocation = loc => {
+  if (!loc) return 'Location not specified';
+  if (typeof loc === 'string') return loc;
+  if (typeof loc === 'object') {
+    const parts = [];
+    if (loc.city) parts.push(loc.city);
+    if (loc.state) parts.push(loc.state);
+    if (loc.country) parts.push(loc.country);
+    return parts.length > 0 ? parts.join(', ') : 'Location not specified';
+  }
+  return loc;
+};
 
 export const ContractsContext = createContext();
 export function useContracts() {
@@ -440,23 +532,24 @@ function ContractsPage() {
                   <div className={styles.statCard}>
                     <div className={styles.statNumber}>
                       {
-                        contracts.filter(c =>
-                          c.status?.toLowerCase() === 'active' ||
-                          c.status?.toLowerCase() === 'accepted'
-                        ).length
-                      }
-                    </div>
-                    <div className={styles.statLabel}>Active</div>
-                  </div>
-                  <div className={styles.statCard}>
-                    <div className={styles.statNumber}>
-                      {
                         contracts.filter(
                           c => c.status?.toLowerCase() === 'completed'
                         ).length
                       }
                     </div>
                     <div className={styles.statLabel}>Completed</div>
+                  </div>
+                  <div className={styles.statCard}>
+                    <div className={styles.statNumber}>
+                      {
+                        contracts.filter(c =>
+                          c.status?.toLowerCase() === 'pending_payment' ||
+                          c.status?.toLowerCase() === 'pending payment' ||
+                          c.status?.toLowerCase() === 'pending'
+                        ).length
+                      }
+                    </div>
+                    <div className={styles.statLabel}>Pending Payment</div>
                   </div>
                   <div className={styles.statCard}>
                     <div className={styles.statNumber}>
@@ -472,13 +565,12 @@ function ContractsPage() {
                     <div className={styles.statNumber}>
                       {
                         contracts.filter(c =>
-                          c.status?.toLowerCase() === 'pending_payment' ||
-                          c.status?.toLowerCase() === 'pending payment' ||
-                          c.status?.toLowerCase() === 'pending'
+                          c.status?.toLowerCase() === 'active' ||
+                          c.status?.toLowerCase() === 'accepted'
                         ).length
                       }
                     </div>
-                    <div className={styles.statLabel}>Pending Payment</div>
+                    <div className={styles.statLabel}>Active</div>
                   </div>
                 </div>
               </>
@@ -645,7 +737,7 @@ function ContractsPage() {
         <div className={styles.modal}>
           <div className={styles.modalContent}>
             <div className={styles.modalHeader}>
-              <h3>Contract Details</h3>
+              <h2 className={styles.modalTitle}>Contract Details</h2>
               <button
                 className={styles.closeButton}
                 onClick={() => {
@@ -657,30 +749,85 @@ function ContractsPage() {
                 ✖
               </button>
             </div>
-            <div className={styles.modalBody}>
+            <div className={styles.modalSubHeader}>
+              <span className={styles.modalContractTitle}>{modalContract.gigTitle || modalContract.title}</span>
+              <span
+                className={styles.modalStatusBadge}
+                style={{
+                  backgroundColor: statusConfig[modalContract.status]?.bgColor || statusConfig.default.bgColor,
+                  color: statusConfig[modalContract.status]?.color || statusConfig.default.color,
+                }}
+              >
+                {modalContract.status === 'Submitted' && <Clock size={14} />}
+                {modalContract.status === 'Approved' && <CheckCircle size={14} />}
+                {modalContract.status === 'Completed' && <CheckCircle size={14} />}
+                {modalContract.status === 'Cancelled' && <AlertCircle size={14} />}
+                {modalContract.status === 'Pending Payment' && <ClockIcon size={14} />}
+                {modalContract.status === 'Active' && <User size={14} />}
+                {modalContract.status === 'Pending' && <Clock size={14} />}
+                {modalContract.status === 'Pending acceptance' && <Clock size={14} />}
+                {modalContract.status === 'Accepted' && <CheckCircle size={14} />}
+                {modalContract.status === 'Offer waiting' && <Clock size={14} />}
+                {!(modalContract.status === 'Submitted' ||
+                   modalContract.status === 'Approved' ||
+                   modalContract.status === 'Completed' ||
+                   modalContract.status === 'Cancelled' ||
+                   modalContract.status === 'Pending Payment' ||
+                   modalContract.status === 'Active' ||
+                   modalContract.status === 'Pending' ||
+                   modalContract.status === 'Pending acceptance' ||
+                   modalContract.status === 'Accepted' ||
+                   modalContract.status === 'Offer waiting') && <Clock size={14} />}
+                {modalContract.status}
+              </span>
+            </div>
+            <div className={styles.modalProviderRow}>
+              <img
+                src={modalContract.displayImage || '/default-profile.png'}
+                alt={modalContract.displayName || 'Client'}
+                className={styles.modalProfileImage}
+              />
               <div>
-                <b>Title:</b> {modalContract.gigTitle || modalContract.title}
+                <b>{sessionRole === 'tasker' ? 'Hired by ' : 'Working with '}</b>
+                <span className={styles.modalProviderName}>
+                  {modalContract.displayName || modalContract.hiredBy}
+                </span>
               </div>
-              <div>
-                <b>
-                  {sessionRole === 'provider' ? 'Working with' : 'Hired by'}:
-                </b>{' '}
-                {modalContract.displayName || modalContract.hiredBy}
+              {modalContract.clientId && (
+                <Link
+                  to={`/user-profile/${modalContract.clientId}`}
+                  className={styles.modalViewProfileBlack}
+                  onClick={e => e.stopPropagation()}
+                >
+                  View Profile
+                </Link>
+              )}
+            </div>
+            <div className={styles.modalDetailsRow}>
+              <div className={styles.locationPrice}>
+                <div className={styles.location}>
+                  <MapPin size={14} />
+                  <span>
+                    {formatLocation(modalContract.location) || 'Location TBD'}
+                  </span>
+                </div>
+                <div className={styles.duration}>
+                  <Clock size={14} />
+                  <span>{modalContract.duration ? `${modalContract.duration} hrs` : 'Flexible'}</span>
+                </div>
               </div>
-              <div>
-                <b>Rate:</b> {modalContract.rate}
-              </div>
-              <div>
-                <b>Status:</b> {modalContract.status}
-              </div>
-              <div>
-                <b>Location:</b> {modalContract.location}
-              </div>
-              <div>
-                <b>Duration:</b> {modalContract.duration}
-              </div>
-              <div>
-                <b>Earned:</b> {modalContract.earned}
+              <div className={styles.priceSection}>
+                <div className={styles.price}>
+                  <span className={styles.amount}>
+                    {modalContract.rate}
+                  </span>
+                </div>
+                <div className={styles.earned}>
+                  <span>Total</span>
+                  <span className={styles.earnedAmount}>
+                    {modalContract.earned || modalContract.rate || 'N/A'}
+                  </span>
+                </div>
               </div>
             </div>
             <div className={styles.modalActions}>

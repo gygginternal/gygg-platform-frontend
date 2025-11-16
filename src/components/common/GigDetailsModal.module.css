@@ -139,6 +139,13 @@
   gap: 4px; /* 4px converted to px */
 }
 
+.locationIcon {
+  color: #666;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
 .modalPay {
   color: #f7b731;
   font-weight: 600;

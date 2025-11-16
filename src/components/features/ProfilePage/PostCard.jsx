@@ -1,5 +1,6 @@
 // src/components/SocialPage/PostCard.js
 import { format, isToday } from 'date-fns';
+import { MapPin } from 'lucide-react';
 import styles from './PostCard.module.css'; // Assuming postCard styles are here
 import PropTypes from 'prop-types';
 
@@ -101,7 +102,10 @@ function PostCard({ post }) {
           <span className={styles.actionCount}>{post.commentCount}</span>
         </span>
         {post.location?.address && (
-          <span className={styles.actionItem}>📍 {post.location.address}</span>
+          <span className={styles.actionItem}>
+            <MapPin size={14} className={styles.locationIcon} />
+            {post.location.address}
+          </span>
         )}
       </div>
       {/* TODO: Add Like/Unlike/Comment buttons/forms if this is meant to be interactive */}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { MapPin } from 'lucide-react';
 import styles from './GigDetailsModal.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import apiClient from '../../api/axiosConfig';
@@ -248,7 +249,7 @@ const GigDetailsModal = ({
         <div className={styles.modalDescription}>{description}</div>
         <div className={styles.modalDetailsRow}>
           <span className={styles.modalLocation}>
-            <span className={styles.icon}>📍</span>
+            <MapPin size={16} className={styles.locationIcon} />
             {formatLocation(location)}
           </span>
           <span className={styles.modalPay}>
