@@ -21,8 +21,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: min(1024px, 90vw); /* Be 1024px on large screens but scale down to 90% of viewport width on smaller screens */
   margin-bottom: 8px; /* 8px */
+  box-sizing: border-box;
 }
 
 .logo {
@@ -263,5 +264,24 @@
     padding: 6px 16px; /* 6.4px 16px */
     font-size: 13px; /* 13px */
     border-radius: 6px; /* 6.4px */
+  }
+}
+
+/* Responsive adjustments for .header class */
+@media (max-width: 1024px) {
+  .header {
+    width: min(900px, 95vw); /* Use up to 900px but not more than 95% of viewport */
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    width: min(700px, 95vw); /* Use up to 700px but not more than 95% of viewport */
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    width: min(450px, 95vw); /* Use up to 450px but not more than 95% of viewport */
   }
 }
