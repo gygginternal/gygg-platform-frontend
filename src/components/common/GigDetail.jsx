@@ -64,7 +64,7 @@ ConfirmButton.propTypes = {
 
 function GigDetailPage() {
   const { gigId } = useParams();
-  const { user } = useAuth();
+  const { user, sessionRole } = useAuth();
   const [gigData, setGigData] = useState(null);
 
   const [contractData, setContractData] = useState(null);
@@ -79,8 +79,8 @@ function GigDetailPage() {
   const isRefunding = paymentData?.status === 'refund_pending';
   const isPaymentDeposit = paymentIntent?.status === 'succeeded';
   const hasPayment = Boolean(paymentData);
-  const isProvider = user?.role?.includes('provider');
-  const isTasker = !isProvider;
+  const isProvider = sessionRole === 'provider';
+  const isTasker = sessionRole === 'tasker';
 
   const queryClient = useQueryClient();
 

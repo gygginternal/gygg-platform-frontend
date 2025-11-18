@@ -10,7 +10,7 @@ import { loadConnectAndInitialize } from '@stripe/connect-js';
 import { useAuth } from '../../contexts/AuthContext';
 
 export function StripeConnectOnboarding() {
-  const { user } = useAuth();
+  const { user, sessionRole } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -18,9 +18,9 @@ export function StripeConnectOnboarding() {
   const [stripeConnectInstance, setStripeConnectInstance] = useState(null);
   const [showOnboarding, setShowOnboarding] = useState(false);
 
-  // Determine user role for appropriate messaging
-  const isProvider = user?.role?.includes('provider');
-  const isTasker = user?.role?.includes('tasker');
+  // Determine user's session role for appropriate messaging
+  const isProvider = sessionRole === 'provider';
+  const isTasker = sessionRole === 'tasker';
 
   // Fetch account status
   const fetchAccountStatus = async () => {

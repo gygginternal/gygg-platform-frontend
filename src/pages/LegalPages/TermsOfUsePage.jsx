@@ -11,20 +11,37 @@ function TermsOfUsePage() {
 
         <p>Please read these Terms of Use (“<strong>Terms</strong>”) carefully before using the Gygg Platform (“<strong>Gygg</strong>,” “we,” “us,” or “our”), operated by Gygg Inc.</p>
 
-        <p>By accessing or using the Gygg Platform (including any applications, websites, or services), you
-agree to be bound by these Terms. If you do not agree with these Terms, you may not access or
-use the Platform.</p>
+        <p>Gygg Inc. (“<strong>Gygg</strong>”, “we”, “our”, “us”) operates an online marketplace platform that connects individuals aged 50 and older who seek to offer services (“<strong>Taskers</strong>”) with individuals seeking to hire them (“<strong>Provider</strong>”). Gygg provides only the digital infrastructure to facilitate discovery, communication, scheduling, and payment processing.</p>
+
+        <p>Gygg is not a service provider, employer, co-employer, recruiter, placement agency, joint venture partner, franchisor, or manager of any Tasker or Provider. Gygg does not supervise, control, train, direct, evaluate, or monitor the work performed by Taskers.</p>
 
         <h3>1. Acceptance of Terms</h3>
-        <p>These Terms constitute a legally binding agreement between you and Gygg Inc. Your use of the
-Platform signifies your agreement to these Terms and our Privacy Policy.</p>
+        <p>By accessing or using the Gygg platform, you agree to be bound by these Terms of Service and our Privacy Policy.</p>
 
         <h3>2. Description of Service</h3>
-        <p>Gygg provides an online platform that connects users seeking to obtain short-term services
-(“<strong>Providers</strong>”) with users seeking to provide such services (“<strong>Taskers</strong>”).
-Gygg is <strong>not</strong> an employer, contractor, or joint venture partner of any user. We do <strong>not</strong> supervise,
-direct, or control any user’s work or services. Users operate independently and are solely
-responsible for the services they provide or receive.</p>
+        <ol type="a" class="tab">
+          <li>Gygg operates solely as a <strong>marketplace</strong>. We do not provide, perform, or guarantee any services offered by users. All services are performed by independent individuals who are not employed by Gygg.</li>
+          <li><p>Taskers are independent contractors and are not employees, agents, or representatives of Gygg. Gygg does not set hours, assign tasks, supply tools or equipment, supervise work, or evaluate performance.</p>
+          <p>Taskers retain full control over:</p>
+          <ul class="tab">
+            <li>whether to accept jobs</li>
+            <li>how work is performed</li>
+            <li>their schedule</li>
+            <li>their tools, equipment, and methods</li>
+          </ul>
+          </li>
+          <li><p>Gygg does not provide Workplace Safety and Insurance Board (WSIB) coverage, workers’ compensation, or any employment benefits.</p>
+          <p>Users agree:</p>
+          <ul>
+          <li>Gygg is not the “employer” of any Tasker under Ontario law.</li>
+          <li>Gygg has no WSIB obligations.</li>
+          <li>Users waive any right to assert a WSIB claim against Gygg.</li>
+          <li>Posters are not “employers” of Gygg.</li>
+          </ul>
+          </li>
+        </ol>
+
+        <p>Taskers are solely responsible for their own insurance coverage, tax compliance, and safety.</p>
         
         <h3>3. Eligibility</h3>
         <p>You must be at least 50 years old to use the Platform. By using Gygg, you represent and
@@ -37,7 +54,7 @@ occur under your account.</p>
 
         <h3>5. User Conduct</h3>
         <p>You agree not to:</p>
-        <ul>
+        <ul class="tab">
             <li>Violate any local, state, national, or international law.</li>
             <li>Post or transmit any unlawful, harmful, defamatory, obscene, or otherwise objectionable
 content;​</li>
@@ -73,7 +90,7 @@ sole discretion, with or without notice, for any reason, including violations of
           <p>Taskers and Providers enter into agreements with each other directly and are responsible for
 complying with applicable laws, including employment, tax, and labor regulations.</p>
           <p>Gygg does not:</p>
-          <ul>
+          <ul class="tab">
           <li>Withhold taxes;​</li>
           <li>Provide insurance, employee benefits, or workers’ compensation;​​</li>
           <li>Guarantee or verify any payments between users.​</li>

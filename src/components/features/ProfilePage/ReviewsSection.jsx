@@ -74,9 +74,7 @@ function ReviewsSection({ userIdToView, isOwnProfile }) {
     if (reviews.length === 0) {
       return (
         <p className={styles.noReviewsText}>
-          {isOwnProfile
-            ? "Take some gig and get reviewed"
-            : "No reviews yet"}
+          {isOwnProfile ? 'Take some gig and get reviewed' : 'No reviews yet'}
         </p>
       );
     }

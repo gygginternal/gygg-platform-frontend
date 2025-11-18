@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
-import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import {
+  Elements,
+  PaymentElement,
+  useStripe,
+  useElements,
+} from '@stripe/react-stripe-js';
 import apiClient from '../../api/axiosConfig';
 import styles from './StripePayment.module.css';
 
@@ -12,14 +17,14 @@ const CheckoutForm = ({
   amount,
   onPaymentSuccess,
   onPaymentError,
-  onCancel
+  onCancel,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault();
 
     if (!stripe || !elements) {
@@ -53,7 +58,7 @@ const CheckoutForm = ({
         // Confirm payment success with backend
         await apiClient.post('/payments/confirm-payment-success', {
           paymentIntentId: result.paymentIntent.id,
-          contractId: contract.id || contract._id
+          contractId: contract.id || contract._id,
         });
 
         onPaymentSuccess?.(result.paymentIntent);
@@ -62,7 +67,10 @@ const CheckoutForm = ({
       // The payment success will be handled by the return URL page
     } catch (err) {
       console.error('Error processing payment:', err);
-      setError(err.response?.data?.message || 'Failed to process payment. Please try again.');
+      setError(
+        err.response?.data?.message ||
+          'Failed to process payment. Please try again.'
+      );
       onPaymentError?.(err);
     } finally {
       setLoading(false);
@@ -93,11 +101,7 @@ const CheckoutForm = ({
           />
         </div>
 
-        {error && (
-          <div className={styles.error}>
-            {error}
-          </div>
-        )}
+        {error && <div className={styles.error}>{error}</div>}
 
         <div className={styles.actions}>
           <button
@@ -136,7 +140,7 @@ const StripePayment = ({
   amount,
   onPaymentSuccess,
   onPaymentError,
-  onCancel
+  onCancel,
 }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -165,7 +169,9 @@ const StripePayment = ({
 
       // Check if payment intent creation is already in progress for this contract
       if (paymentIntentCallTracker.has(contractId)) {
-        console.warn(`Payment intent creation already in progress for contract ${contractId}`);
+        console.warn(
+          `Payment intent creation already in progress for contract ${contractId}`
+        );
         return;
       }
 
@@ -175,16 +181,20 @@ const StripePayment = ({
       setLoading(true);
 
       try {
-        const validAmount = amount && !isNaN(parseFloat(amount)) && parseFloat(amount) > 0;
+        const validAmount =
+          amount && !isNaN(parseFloat(amount)) && parseFloat(amount) > 0;
 
         if (!contractId || !validAmount) {
           throw new Error('Missing contract or invalid amount');
         }
 
         // Check if the tasker has a valid Stripe account in the contract
-        const taskerStripeAccountId = contract?.tasker?.stripeAccountId || contract?.stripeAccountId;
+        const taskerStripeAccountId =
+          contract?.tasker?.stripeAccountId || contract?.stripeAccountId;
         if (!taskerStripeAccountId) {
-          throw new Error('The tasker has not completed their Stripe onboarding process. Payment cannot be processed until the tasker connects and verifies their Stripe account.');
+          throw new Error(
+            'The tasker has not completed their Stripe onboarding process. Payment cannot be processed until the tasker connects and verifies their Stripe account.'
+          );
         }
 
         const response = await apiClient.post(
@@ -200,13 +210,18 @@ const StripePayment = ({
         }
       } catch (err) {
         console.error('Error initializing payment:', err);
-        let errorMessage = err.response?.data?.message || 'Failed to initialize payment. Please try again.';
+        let errorMessage =
+          err.response?.data?.message ||
+          'Failed to initialize payment. Please try again.';
 
         // Check if it's specifically a Stripe account onboarding issue
-        if (err.response?.data?.message?.includes('capability') ||
-            err.response?.data?.message?.includes('transfers') ||
-            err.response?.data?.message?.includes('onboarding')) {
-          errorMessage = 'The tasker has not completed their Stripe onboarding process. Payment cannot be processed until the tasker completes their Stripe account setup.';
+        if (
+          err.response?.data?.message?.includes('capability') ||
+          err.response?.data?.message?.includes('transfers') ||
+          err.response?.data?.message?.includes('onboarding')
+        ) {
+          errorMessage =
+            'The tasker has not completed their Stripe onboarding process. Payment cannot be processed until the tasker completes their Stripe account setup.';
         }
 
         // Only update state if component is still mounted
@@ -250,9 +265,7 @@ const StripePayment = ({
       <div className={styles.stripePayment}>
         <h3>Pay with Credit Card (Stripe)</h3>
         <p>Securely pay using your credit or debit card through Stripe.</p>
-        <div className={styles.error}>
-          {error}
-        </div>
+        <div className={styles.error}>{error}</div>
       </div>
     );
   }

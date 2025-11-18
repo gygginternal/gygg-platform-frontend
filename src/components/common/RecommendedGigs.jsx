@@ -74,7 +74,10 @@ const RecommendedGigs = () => {
                 />
                 <div className={styles.gigContent}>
                   <div className={styles.gigDescription}>
-                    <strong>{poster.firstName || ''} {poster.lastName || ''}</strong> needs help with {gig.title}
+                    <strong>
+                      {poster.firstName || ''} {poster.lastName || ''}
+                    </strong>{' '}
+                    needs help with {gig.title}
                   </div>
                   <Link
                     to={{ pathname: '/gigs', search: `?gigId=${gig._id}` }}

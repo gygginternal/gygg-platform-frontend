@@ -57,8 +57,10 @@ const RecommendedAppliances = () => {
               />
               <div className={styles.applianceContent}>
                 <div className={styles.applianceDescription}>
-                  <strong>{appliance.user?.firstName} {appliance.user?.lastName}</strong> applied to your gig 
-                  {' '} {appliance.gig?.title}
+                  <strong>
+                    {appliance.user?.firstName} {appliance.user?.lastName}
+                  </strong>{' '}
+                  applied to your gig {appliance.gig?.title}
                 </div>
                 <Link
                   to={`/posted-gigs?gigId=${appliance.gig._id}&view=applications`}

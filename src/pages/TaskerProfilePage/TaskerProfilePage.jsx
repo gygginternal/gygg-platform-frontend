@@ -12,7 +12,7 @@ import ReviewsSection from '../../components/features/ProfilePage/ReviewsSection
 import ProviderProfilePage from '../ProviderProfilePage/ProviderProfilePage';
 
 function TaskerProfilePage() {
-  const { user: loggedInUser, isLoading, refreshUser } = useAuth();
+  const { user: loggedInUser, sessionRole, isLoading, refreshUser } = useAuth();
 
   if (isLoading) {
     return (
@@ -30,11 +30,11 @@ function TaskerProfilePage() {
     );
   }
 
-  if (loggedInUser.role?.includes('provider')) {
+  if (sessionRole === 'provider') {
     return <ProviderProfilePage providerId={loggedInUser._id} />;
   }
 
-  const isTaskerProfile = loggedInUser.role?.includes('tasker');
+  const isTaskerProfile = sessionRole === 'tasker';
 
   return (
     <div className={styles.pageContainer}>

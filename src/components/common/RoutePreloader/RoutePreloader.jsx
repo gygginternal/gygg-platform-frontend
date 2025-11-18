@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 // Route preloading strategies
 const RoutePreloader = () => {
-  const { authToken, user } = useAuth();
+  const { authToken, user, sessionRole } = useAuth();
   const location = useLocation();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const RoutePreloader = () => {
       }
 
       // Preload based on user roles
-      if (user?.role?.includes('provider')) {
+      if (sessionRole === 'provider') {
         // Preload provider-specific routes
         if (currentPath !== '/gigs') {
           const GigsPage = await import('../../../pages/GigsPage/GigsPage');
@@ -39,7 +39,7 @@ const RoutePreloader = () => {
         }
       }
 
-      if (user?.role?.includes('tasker')) {
+      if (sessionRole === 'tasker') {
         // Preload tasker-specific routes
         if (currentPath !== '/gigs') {
           const GigsPage = await import('../../../pages/GigsPage/GigsPage');

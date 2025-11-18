@@ -25,7 +25,7 @@ function isValidObjectId(id) {
 }
 
 const PostedGigsPage = () => {
-  const { user } = useAuth();
+  const { user, sessionRole } = useAuth();
   const { showToast } = useToast();
   const location = useLocation();
   const navigate = useNavigate();
@@ -122,7 +122,7 @@ const PostedGigsPage = () => {
     navigate('/posted-gigs');
   };
 
-  if (user && !user.role?.includes('provider')) {
+  if (user && sessionRole !== 'provider') {
     return (
       <div className={styles.pageContainer}>
         <div className={styles.contentWrapper}>
@@ -159,14 +159,14 @@ const PostedGigsPage = () => {
               <ArrowLeft size={20} />
               Back to My Posted Gigs
             </button>
-            
+
             <div className={styles.header}>
               <h1 className={styles.title}>Applications</h1>
               <p className={styles.subtitle}>
                 Review applications for <strong>"{selectedGigTitle}"</strong>
               </p>
             </div>
-            
+
             <GigApplications gigId={selectedGigId} />
           </div>
         </div>
@@ -188,7 +188,7 @@ const PostedGigsPage = () => {
               Manage your posted gigs and view applications from taskers
             </p>
           </div>
-          {user && user.role?.includes('provider') && (
+          {user && sessionRole === 'provider' && (
             <div className={styles.buttonContainer}>
               <Button
                 onClick={() => navigate('/gigs/create')}
@@ -219,9 +219,7 @@ const PostedGigsPage = () => {
           ) : postedGigs.length === 0 ? (
             <div className={styles.emptyState}>
               <h3>No gigs posted yet</h3>
-              <p>
-                Create a gig to find taskers to help
-              </p>
+              <p>Create a gig to find taskers to help</p>
               <button
                 className={styles.createGigButton}
                 onClick={() => navigate('/gigs/create')}
@@ -242,7 +240,11 @@ const PostedGigsPage = () => {
                     <h3 className={styles.gigCardTitle}>{gig.title}</h3>
                     <div className={styles.gigCardBadges}>
                       {gig.status === 'open' ? (
-                        <span className={`${styles.statusBadge} ${styles.open}`}>Open</span>
+                        <span
+                          className={`${styles.statusBadge} ${styles.open}`}
+                        >
+                          Open
+                        </span>
                       ) : (
                         <span
                           className={`${styles.statusBadge} ${styles[gig.status || 'open']}`}
@@ -269,7 +271,7 @@ const PostedGigsPage = () => {
                       <div className={styles.metaItem}>
                         <MapPin size={16} />
                         <span>
-                          {gig.location && typeof gig.location === 'object' 
+                          {gig.location && typeof gig.location === 'object'
                             ? `${gig.location.city || ''}${gig.location.city && gig.location.state ? ', ' : ''}${gig.location.state || ''}`.trim()
                             : gig.location || 'Location not specified'}
                         </span>

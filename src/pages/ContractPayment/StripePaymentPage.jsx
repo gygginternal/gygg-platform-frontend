@@ -12,12 +12,12 @@ const StripePaymentPage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { showToast } = useToast();
-  
+
   const [contract, setContract] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showOnboardingModal, setShowOnboardingModal] = useState(false);
-  
+
   useEffect(() => {
     if (!contractId) {
       setError('No contract specified for payment.');
@@ -36,7 +36,8 @@ const StripePaymentPage = () => {
       setContract(contractData);
 
       // Check if tasker has proper Stripe account setup
-      const taskerStripeAccountId = contractData?.tasker?.stripeAccountId || contractData?.stripeAccountId;
+      const taskerStripeAccountId =
+        contractData?.tasker?.stripeAccountId || contractData?.stripeAccountId;
 
       if (!taskerStripeAccountId) {
         setShowOnboardingModal(true);
@@ -52,13 +53,17 @@ const StripePaymentPage = () => {
         // Check if tasker's Stripe account is properly configured
         try {
           // Make a backend call to validate the tasker's Stripe account
-          await apiClient.get(`/payments/contracts/${contractId}/validate-tasker`);
+          await apiClient.get(
+            `/payments/contracts/${contractId}/validate-tasker`
+          );
         } catch (validationError) {
           // Check for 403 - unauthorized access (likely tasker accessing as provider)
           if (validationError.response?.status === 403) {
             // If it's a 403 error, the user doesn't have permission to validate
             // This could be normal if a tasker is accessing the page
-            console.log("User doesn't have permission to validate tasker account");
+            console.log(
+              "User doesn't have permission to validate tasker account"
+            );
           }
           // Check for 400 - validation errors (tasker account not properly configured)
           else if (validationError.response?.status === 400) {
@@ -69,14 +74,16 @@ const StripePaymentPage = () => {
             return;
           }
           // Also check for other indicators of onboarding issues regardless of status code
-          const errorMsg = validationError.response?.data?.message || validationError.message;
-          if (errorMsg && (
-            errorMsg.includes('onboarding') ||
-            errorMsg.includes('capability') ||
-            errorMsg.includes('Stripe account is not') ||
-            errorMsg.includes('transfers') ||
-            errorMsg.includes('not enabled')
-          )) {
+          const errorMsg =
+            validationError.response?.data?.message || validationError.message;
+          if (
+            errorMsg &&
+            (errorMsg.includes('onboarding') ||
+              errorMsg.includes('capability') ||
+              errorMsg.includes('Stripe account is not') ||
+              errorMsg.includes('transfers') ||
+              errorMsg.includes('not enabled'))
+          ) {
             // Show modal for any onboarding-related error
             setShowOnboardingModal(true);
             setLoading(false);
@@ -87,7 +94,6 @@ const StripePaymentPage = () => {
           console.warn('Error validating tasker account:', validationError);
         }
       }
-
     } catch (err) {
       console.error('Error fetching contract:', err);
       setError('Failed to load contract details. Please try again.');
@@ -95,25 +101,24 @@ const StripePaymentPage = () => {
       setLoading(false);
     }
   };
-  
-  const handlePaymentSuccess = async (paymentResult) => {
+
+  const handlePaymentSuccess = async paymentResult => {
     try {
       // Confirm payment success with backend
       await apiClient.post('/payments/confirm-payment-success', {
         paymentIntentId: paymentResult.id,
-        contractId: contract._id || contract.id
+        contractId: contract._id || contract.id,
       });
-      
+
       showToast(
         'Payment completed successfully! Contract has been completed.',
         'success'
       );
-      
+
       // Redirect to contracts page or show success message
       setTimeout(() => {
         navigate('/contracts');
       }, 2000);
-      
     } catch (err) {
       console.error('Error confirming Stripe payment:', err);
       showToast(
@@ -122,16 +127,16 @@ const StripePaymentPage = () => {
       );
     }
   };
-  
-  const handlePaymentError = (error) => {
+
+  const handlePaymentError = error => {
     console.error('Stripe payment error:', error);
     showToast(`Payment failed: ${error.message || 'Unknown error'}`, 'error');
   };
-  
+
   const handleCancel = () => {
     navigate(-1);
   };
-  
+
   if (loading) {
     return (
       <div className={styles.container}>
@@ -139,7 +144,7 @@ const StripePaymentPage = () => {
       </div>
     );
   }
-  
+
   if (error) {
     return (
       <div className={styles.container}>
@@ -150,7 +155,7 @@ const StripePaymentPage = () => {
       </div>
     );
   }
-  
+
   return (
     <>
       <div className={styles.container}>
@@ -170,17 +175,22 @@ const StripePaymentPage = () => {
             <h2>Contract Details</h2>
             <div className={styles.detailRow}>
               <span className={styles.label}>Task:</span>
-              <span className={styles.value}>{contract?.title || contract?.gig?.title || 'N/A'}</span>
+              <span className={styles.value}>
+                {contract?.title || contract?.gig?.title || 'N/A'}
+              </span>
             </div>
             <div className={styles.detailRow}>
               <span className={styles.label}>Tasker:</span>
               <span className={styles.value}>
-                {contract?.tasker?.firstName || ''} {contract?.tasker?.lastName || ''}
+                {contract?.tasker?.firstName || ''}{' '}
+                {contract?.tasker?.lastName || ''}
               </span>
             </div>
             <div className={styles.detailRow}>
               <span className={styles.label}>Amount:</span>
-              <span className={styles.value}>${contract?.agreedCost || contract?.rate || '0.00'}</span>
+              <span className={styles.value}>
+                ${contract?.agreedCost || contract?.rate || '0.00'}
+              </span>
             </div>
           </div>
 
@@ -208,6 +218,6 @@ const StripePaymentPage = () => {
       )}
     </>
   );
-}
+};
 
 export default StripePaymentPage;

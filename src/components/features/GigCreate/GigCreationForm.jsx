@@ -148,9 +148,7 @@ function GigCreationForm({ onGigCreated }) {
       case 1:
         return (
           <div className={styles.stepContent}>
-            <h2 className={styles.stepTitle}>
-              Write title for your job post
-            </h2>
+            <h2 className={styles.stepTitle}>Write title for your job post</h2>
 
             <div className={styles.inputGroup}>
               <textarea
@@ -410,14 +408,14 @@ function GigCreationForm({ onGigCreated }) {
                 </div>
               </div>
 
-
-
               {/* Gig Pay Structure */}
               <div className={styles.reviewItem}>
                 <h3 className={styles.reviewLabel}>Gig pay structure?</h3>
                 <div className={styles.reviewContent}>
                   <div>
-                    {formData.gigPaymentType === 'hourly' ? 'Hourly' : 'One fixed payment'}
+                    {formData.gigPaymentType === 'hourly'
+                      ? 'Hourly'
+                      : 'One fixed payment'}
                   </div>
                   <button
                     className={styles.editButton}

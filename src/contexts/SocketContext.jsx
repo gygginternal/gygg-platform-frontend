@@ -1,4 +1,11 @@
-import { createContext, useContext, useEffect, useState, useRef, useCallback } from 'react';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+} from 'react';
 import { useAuth } from './AuthContext';
 import socketManager from '../utils/socketManager';
 import PropTypes from 'prop-types';
@@ -26,7 +33,7 @@ export const SocketProvider = ({ children }) => {
         // User is authenticated, initialize or update socket
         const userId = user._id;
         socketManager.updateAuthToken(authToken, userId);
-        
+
         // Set up event listeners for the socket
         const currentSocket = socketManager.getSocket();
         if (currentSocket) {
@@ -100,7 +107,7 @@ export const SocketProvider = ({ children }) => {
       setSocket(socketManager.getSocket());
     };
 
-    const handleDisconnect = (reason) => {
+    const handleDisconnect = reason => {
       console.log('[SocketContext] Handling disconnect with reason:', reason);
       setConnected(false);
       setSocket(null);
@@ -124,7 +131,7 @@ export const SocketProvider = ({ children }) => {
       );
     };
   };
-  
+
   const registerMessageUpdateHandler = handler => {
     messageUpdateHandlers.current.push(handler);
     return () => {

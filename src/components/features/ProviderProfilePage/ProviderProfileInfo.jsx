@@ -345,7 +345,12 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
                   id="addressStreet"
                   className={styles.textInput}
                   value={editedAddress.street}
-                  onChange={e => setEditedAddress(prev => ({ ...prev, street: e.target.value }))}
+                  onChange={e =>
+                    setEditedAddress(prev => ({
+                      ...prev,
+                      street: e.target.value,
+                    }))
+                  }
                   placeholder="Street address"
                   disabled={saveLoading}
                 />
@@ -361,7 +366,12 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
                     id="addressCity"
                     className={styles.textInput}
                     value={editedAddress.city}
-                    onChange={e => setEditedAddress(prev => ({ ...prev, city: e.target.value }))}
+                    onChange={e =>
+                      setEditedAddress(prev => ({
+                        ...prev,
+                        city: e.target.value,
+                      }))
+                    }
                     placeholder="City"
                     disabled={saveLoading}
                   />
@@ -376,7 +386,12 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
                     id="addressState"
                     className={styles.textInput}
                     value={editedAddress.state}
-                    onChange={e => setEditedAddress(prev => ({ ...prev, state: e.target.value }))}
+                    onChange={e =>
+                      setEditedAddress(prev => ({
+                        ...prev,
+                        state: e.target.value,
+                      }))
+                    }
                     placeholder="State/Province"
                     disabled={saveLoading}
                   />
@@ -385,7 +400,10 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
 
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
-                  <label htmlFor="addressPostalCode" className={styles.rowLabel}>
+                  <label
+                    htmlFor="addressPostalCode"
+                    className={styles.rowLabel}
+                  >
                     Postal Code:
                   </label>
                   <input
@@ -393,7 +411,12 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
                     id="addressPostalCode"
                     className={styles.textInput}
                     value={editedAddress.postalCode}
-                    onChange={e => setEditedAddress(prev => ({ ...prev, postalCode: e.target.value }))}
+                    onChange={e =>
+                      setEditedAddress(prev => ({
+                        ...prev,
+                        postalCode: e.target.value,
+                      }))
+                    }
                     placeholder="Postal Code"
                     disabled={saveLoading}
                   />
@@ -408,7 +431,12 @@ function ProviderProfileInfo({ userToDisplay, isOwnProfile, onProfileUpdate }) {
                     id="addressCountry"
                     className={styles.textInput}
                     value={editedAddress.country}
-                    onChange={e => setEditedAddress(prev => ({ ...prev, country: e.target.value }))}
+                    onChange={e =>
+                      setEditedAddress(prev => ({
+                        ...prev,
+                        country: e.target.value,
+                      }))
+                    }
                     placeholder="Country"
                     disabled={saveLoading}
                   />

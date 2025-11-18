@@ -8,7 +8,7 @@ import logger from '../../utils/logger';
 import PropTypes from 'prop-types';
 
 function PersonalInfoForm({ fullWidth = false }) {
-  const { user, updateUser } = useAuth();
+  const { user, sessionRole, updateUser } = useAuth();
   const { showToast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -175,8 +175,6 @@ function PersonalInfoForm({ fullWidth = false }) {
     >
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.tabContent}>
-
-
           <div className={styles.inputGroup}>
             <label htmlFor="p-email">Email Address</label>
             <input
@@ -231,7 +229,7 @@ function PersonalInfoForm({ fullWidth = false }) {
             />
           </div>
 
-          {!user?.role?.includes('tasker') && (
+          {sessionRole !== 'tasker' && (
             <>
               <h4 className={styles.subheading}>Address</h4>
               <div className={styles.inputGroup}>

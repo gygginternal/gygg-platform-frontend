@@ -149,11 +149,13 @@ function RecentHires({ providerId, isOwnProfile }) {
 
         setAllHires(sortedHires);
         setTotalCount(sortedHires.length);
-        
+
         // Calculate total pages based on client-side pagination
-        const calculatedTotalPages = Math.ceil(sortedHires.length / HIRES_PER_PAGE);
+        const calculatedTotalPages = Math.ceil(
+          sortedHires.length / HIRES_PER_PAGE
+        );
         setTotalPages(calculatedTotalPages);
-        
+
         // Set current page hires
         const startIndex = (page - 1) * HIRES_PER_PAGE;
         const endIndex = startIndex + HIRES_PER_PAGE;

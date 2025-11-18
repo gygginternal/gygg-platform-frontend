@@ -125,7 +125,7 @@ const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
             type="radio"
             name="paymentProvider"
             value="stripe"
-            checked={true}
+            checked
             disabled
           />
           Stripe
@@ -144,8 +144,6 @@ const ContractPayment = ({ contractId, isProvider, onPaymentReleased }) => {
               />
             </Elements>
           )}
-
-
         </>
       )}
 

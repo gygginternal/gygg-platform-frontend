@@ -48,22 +48,22 @@ const timeAgo = date => {
 };
 
 const statusConfig = {
-  'Submitted': {
+  Submitted: {
     color: '#ff9800',
     bgColor: '#fff3e0',
     icon: Clock,
   },
-  'Approved': {
+  Approved: {
     color: '#4caf50',
     bgColor: '#e8f5e8',
     icon: CheckCircle,
   },
-  'Completed': {
+  Completed: {
     color: '#2196f3',
     bgColor: '#e3f2fd',
     icon: CheckCircle,
   },
-  'Cancelled': {
+  Cancelled: {
     color: '#f44336',
     bgColor: '#ffebee',
     icon: AlertCircle,
@@ -73,12 +73,12 @@ const statusConfig = {
     bgColor: '#f3e5f5',
     icon: ClockIcon,
   },
-  'Active': {
+  Active: {
     color: '#4caf50',
     bgColor: '#e8f5e8',
     icon: User,
   },
-  'Pending': {
+  Pending: {
     color: '#ff9800',
     bgColor: '#fff3e0',
     icon: Clock,
@@ -88,7 +88,7 @@ const statusConfig = {
     bgColor: '#fff3e0',
     icon: Clock,
   },
-  'Accepted': {
+  Accepted: {
     color: '#4caf50',
     bgColor: '#e8f5e8',
     icon: CheckCircle,
@@ -225,8 +225,6 @@ function JobListingItem({ job }) {
   );
 }
 
-
-
 const priceRanges = ['Any', 'Under $20', '$20 - $50', '$50 - $100', '$100+'];
 const statusOptions = [
   'All',
@@ -290,7 +288,7 @@ function ContractsPage() {
     } else {
       setIsLoadingMore(true);
     }
-    
+
     try {
       // Map priceRange to minCost/maxCost
       let minCost, maxCost;
@@ -302,7 +300,7 @@ function ContractsPage() {
         minCost = 50;
         maxCost = 100;
       } else if (priceRange === '$100+') minCost = 100;
-      
+
       // Map status
       const statusParam = status !== 'All' ? status : undefined;
       const params = {
@@ -314,21 +312,21 @@ function ContractsPage() {
         minCost,
         maxCost,
       };
-      
+
       // Clean up undefined parameters
       Object.keys(params).forEach(
         key => params[key] === undefined && delete params[key]
       );
-      
+
       const res = await apiClient.get('/contracts/my-contracts', { params });
-      
+
       // Update pagination info - pagination data is in the root level
       const totalPages = res.data.totalPages || 1;
       const currentPage = res.data.currentPage || 1;
       setTotalPages(totalPages);
       setCurrentPage(currentPage);
       setHasMore(currentPage < totalPages);
-      
+
       // Check if contracts exist in response
       const contractsData = res.data.data?.contracts || [];
       const mapped = contractsData.map(c => ({
@@ -357,7 +355,7 @@ function ContractsPage() {
         category: c.gigCategory || 'Other',
         cost: c.gigCost || 0,
       }));
-      
+
       if (isFirstPage) {
         setContracts(mapped);
       } else {
@@ -505,9 +503,7 @@ function ContractsPage() {
           <aside className={styles.sidebarArea}>
             <ProfileSidebar />
           </aside>
-          <main
-            className={styles.mainFeedArea}
-          >
+          <main className={styles.mainFeedArea}>
             {/* Dashboard Header */}
             <div className={styles.header}>
               <h1 className={styles.title}>Contracts</h1>
@@ -542,10 +538,11 @@ function ContractsPage() {
                   <div className={styles.statCard}>
                     <div className={styles.statNumber}>
                       {
-                        contracts.filter(c =>
-                          c.status?.toLowerCase() === 'pending_payment' ||
-                          c.status?.toLowerCase() === 'pending payment' ||
-                          c.status?.toLowerCase() === 'pending'
+                        contracts.filter(
+                          c =>
+                            c.status?.toLowerCase() === 'pending_payment' ||
+                            c.status?.toLowerCase() === 'pending payment' ||
+                            c.status?.toLowerCase() === 'pending'
                         ).length
                       }
                     </div>
@@ -564,9 +561,10 @@ function ContractsPage() {
                   <div className={styles.statCard}>
                     <div className={styles.statNumber}>
                       {
-                        contracts.filter(c =>
-                          c.status?.toLowerCase() === 'active' ||
-                          c.status?.toLowerCase() === 'accepted'
+                        contracts.filter(
+                          c =>
+                            c.status?.toLowerCase() === 'active' ||
+                            c.status?.toLowerCase() === 'accepted'
                         ).length
                       }
                     </div>
@@ -702,7 +700,7 @@ function ContractsPage() {
                       />
                     ))
                   )}
-                  
+
                   {/* Loading more indicator */}
                   {isLoadingMore && (
                     <div className={styles.loadingMore}>
@@ -710,17 +708,17 @@ function ContractsPage() {
                       <p>Loading more contracts...</p>
                     </div>
                   )}
-                  
+
                   {/* Load More Button */}
                   {hasMore && !isLoadingMore && (
-                    <button 
+                    <button
                       onClick={() => fetchContracts(currentPage + 1)}
                       className={styles.loadMoreButton}
                     >
                       Load More Contracts
                     </button>
                   )}
-                  
+
                   {!hasMore && filteredContracts.length > 0 && (
                     <p className={styles.endOfResults}>
                       You've reached the end of the results.
@@ -750,34 +748,56 @@ function ContractsPage() {
               </button>
             </div>
             <div className={styles.modalSubHeader}>
-              <span className={styles.modalContractTitle}>{modalContract.gigTitle || modalContract.title}</span>
+              <span className={styles.modalContractTitle}>
+                {modalContract.gigTitle || modalContract.title}
+              </span>
               <span
                 className={styles.modalStatusBadge}
                 style={{
-                  backgroundColor: statusConfig[modalContract.status]?.bgColor || statusConfig.default.bgColor,
-                  color: statusConfig[modalContract.status]?.color || statusConfig.default.color,
+                  backgroundColor:
+                    statusConfig[modalContract.status]?.bgColor ||
+                    statusConfig.default.bgColor,
+                  color:
+                    statusConfig[modalContract.status]?.color ||
+                    statusConfig.default.color,
                 }}
               >
                 {modalContract.status === 'Submitted' && <Clock size={14} />}
-                {modalContract.status === 'Approved' && <CheckCircle size={14} />}
-                {modalContract.status === 'Completed' && <CheckCircle size={14} />}
-                {modalContract.status === 'Cancelled' && <AlertCircle size={14} />}
-                {modalContract.status === 'Pending Payment' && <ClockIcon size={14} />}
+                {modalContract.status === 'Approved' && (
+                  <CheckCircle size={14} />
+                )}
+                {modalContract.status === 'Completed' && (
+                  <CheckCircle size={14} />
+                )}
+                {modalContract.status === 'Cancelled' && (
+                  <AlertCircle size={14} />
+                )}
+                {modalContract.status === 'Pending Payment' && (
+                  <ClockIcon size={14} />
+                )}
                 {modalContract.status === 'Active' && <User size={14} />}
                 {modalContract.status === 'Pending' && <Clock size={14} />}
-                {modalContract.status === 'Pending acceptance' && <Clock size={14} />}
-                {modalContract.status === 'Accepted' && <CheckCircle size={14} />}
-                {modalContract.status === 'Offer waiting' && <Clock size={14} />}
-                {!(modalContract.status === 'Submitted' ||
-                   modalContract.status === 'Approved' ||
-                   modalContract.status === 'Completed' ||
-                   modalContract.status === 'Cancelled' ||
-                   modalContract.status === 'Pending Payment' ||
-                   modalContract.status === 'Active' ||
-                   modalContract.status === 'Pending' ||
-                   modalContract.status === 'Pending acceptance' ||
-                   modalContract.status === 'Accepted' ||
-                   modalContract.status === 'Offer waiting') && <Clock size={14} />}
+                {modalContract.status === 'Pending acceptance' && (
+                  <Clock size={14} />
+                )}
+                {modalContract.status === 'Accepted' && (
+                  <CheckCircle size={14} />
+                )}
+                {modalContract.status === 'Offer waiting' && (
+                  <Clock size={14} />
+                )}
+                {!(
+                  modalContract.status === 'Submitted' ||
+                  modalContract.status === 'Approved' ||
+                  modalContract.status === 'Completed' ||
+                  modalContract.status === 'Cancelled' ||
+                  modalContract.status === 'Pending Payment' ||
+                  modalContract.status === 'Active' ||
+                  modalContract.status === 'Pending' ||
+                  modalContract.status === 'Pending acceptance' ||
+                  modalContract.status === 'Accepted' ||
+                  modalContract.status === 'Offer waiting'
+                ) && <Clock size={14} />}
                 {modalContract.status}
               </span>
             </div>
@@ -788,7 +808,9 @@ function ContractsPage() {
                 className={styles.modalProfileImage}
               />
               <div>
-                <b>{sessionRole === 'tasker' ? 'Hired by ' : 'Working with '}</b>
+                <b>
+                  {sessionRole === 'tasker' ? 'Hired by ' : 'Working with '}
+                </b>
                 <span className={styles.modalProviderName}>
                   {modalContract.displayName || modalContract.hiredBy}
                 </span>
@@ -813,14 +835,16 @@ function ContractsPage() {
                 </div>
                 <div className={styles.duration}>
                   <Clock size={14} />
-                  <span>{modalContract.duration ? `${modalContract.duration} hrs` : 'Flexible'}</span>
+                  <span>
+                    {modalContract.duration
+                      ? `${modalContract.duration} hrs`
+                      : 'Flexible'}
+                  </span>
                 </div>
               </div>
               <div className={styles.priceSection}>
                 <div className={styles.price}>
-                  <span className={styles.amount}>
-                    {modalContract.rate}
-                  </span>
+                  <span className={styles.amount}>{modalContract.rate}</span>
                 </div>
                 <div className={styles.earned}>
                   <span>Total</span>
@@ -849,7 +873,7 @@ function ContractsPage() {
                       onClick={() =>
                         requestRevisionMutation.mutate({
                           contractId: modalContract.id || modalContract._id,
-                          reason: 'Work needs revision'
+                          reason: 'Work needs revision',
                         })
                       }
                     >
@@ -862,14 +886,18 @@ function ContractsPage() {
                   <button
                     className={styles.primaryBtn}
                     onClick={() => {
-                      navigate(`/contracts/${modalContract.id || modalContract._id}/pay-with-stripe`);
+                      navigate(
+                        `/contracts/${modalContract.id || modalContract._id}/pay-with-stripe`
+                      );
                     }}
                   >
                     Pay Tasker
                   </button>
                 )}
               {sessionRole === 'provider' &&
-                ['Pending', 'Pending acceptance'].includes(modalContract.status) && (
+                ['Pending', 'Pending acceptance'].includes(
+                  modalContract.status
+                ) && (
                   <button
                     className={styles.primaryBtn}
                     onClick={() =>
@@ -883,8 +911,8 @@ function ContractsPage() {
                 )}
               {sessionRole === 'tasker' &&
                 (modalContract.status === 'Active' ||
-                modalContract.status === 'Accepted' ||
-                modalContract.status === 'Pending Payment') && (
+                  modalContract.status === 'Accepted' ||
+                  modalContract.status === 'Pending Payment') && (
                   <button
                     className={styles.primaryBtn}
                     onClick={() =>
@@ -898,7 +926,7 @@ function ContractsPage() {
                 )}
               {sessionRole === 'tasker' &&
                 (modalContract.status === 'Pending' ||
-                 modalContract.status === 'Pending acceptance') && (
+                  modalContract.status === 'Pending acceptance') && (
                   <button
                     className={styles.primaryBtn}
                     onClick={() =>
@@ -1020,15 +1048,28 @@ function ContractsPage() {
               {/* Payment Method Selection */}
               <div style={{ marginBottom: '20px' }}>
                 <h4 style={{ marginBottom: '10px' }}>Select Payment Method</h4>
-                <div style={{ display: 'flex', gap: '10px', marginBottom: '15px' }}>
+                <div
+                  style={{ display: 'flex', gap: '10px', marginBottom: '15px' }}
+                >
                   <button
                     className={`${styles.tabButton} ${!paymentModal.paymentMethod || paymentModal.paymentMethod === 'stripe' ? styles.activeTab : ''}`}
-                    onClick={() => setPaymentModal(prev => ({ ...prev, paymentMethod: 'stripe' }))}
+                    onClick={() =>
+                      setPaymentModal(prev => ({
+                        ...prev,
+                        paymentMethod: 'stripe',
+                      }))
+                    }
                     style={{
                       padding: '10px 15px',
                       border: '1px solid #ddd',
-                      backgroundColor: paymentModal.paymentMethod === 'stripe' ? '#007bff' : '#f8f9fa',
-                      color: paymentModal.paymentMethod === 'stripe' ? 'white' : '#333',
+                      backgroundColor:
+                        paymentModal.paymentMethod === 'stripe'
+                          ? '#007bff'
+                          : '#f8f9fa',
+                      color:
+                        paymentModal.paymentMethod === 'stripe'
+                          ? 'white'
+                          : '#333',
                       borderRadius: '5px',
                       cursor: 'pointer',
                       fontWeight: '500',
@@ -1036,72 +1077,71 @@ function ContractsPage() {
                   >
                     Credit Card (Stripe)
                   </button>
-
                 </div>
               </div>
 
               {/* Stripe Payment Form */}
-              {(!paymentModal.paymentMethod || paymentModal.paymentMethod === 'stripe') && paymentModal.clientSecret && (
-                <Elements
-                  stripe={stripePromise}
-                  options={{
-                    clientSecret: paymentModal.clientSecret,
-                    appearance: {
-                      theme: 'stripe',
-                    },
-                    // Disable Link to avoid phone number validation issues
-                    loader: 'auto',
-                  }}
-                >
-                  <CheckoutForm
-                    clientSecret={paymentModal.clientSecret}
-                    onPaymentSuccess={async paymentIntentId => {
-                      try {
-                        // Confirm payment success with backend
-                        await apiClient.post(
-                          '/payments/confirm-payment-success',
-                          {
-                            paymentIntentId,
-                          }
-                        );
-
-                        showToast(
-                          'Payment completed successfully! Contract has been completed.',
-                          'success'
-                        );
-                        setPaymentModal({
-                          open: false,
-                          contract: null,
-                          clientSecret: null,
-                          loading: false,
-                          paymentMethod: 'stripe',
-                        });
-
-                        // Refresh contracts data
-                        queryClient.invalidateQueries(['contracts']);
-                      } catch (error) {
-                        console.error('Error confirming payment:', error);
-                        showToast(
-                          'Payment succeeded but there was an issue updating the contract. Please contact support.',
-                          'warning'
-                        );
-                        setPaymentModal({
-                          open: false,
-                          contract: null,
-                          clientSecret: null,
-                          loading: false,
-                          paymentMethod: 'stripe',
-                        });
-                      }
+              {(!paymentModal.paymentMethod ||
+                paymentModal.paymentMethod === 'stripe') &&
+                paymentModal.clientSecret && (
+                  <Elements
+                    stripe={stripePromise}
+                    options={{
+                      clientSecret: paymentModal.clientSecret,
+                      appearance: {
+                        theme: 'stripe',
+                      },
+                      // Disable Link to avoid phone number validation issues
+                      loader: 'auto',
                     }}
-                    onPaymentError={error => {
-                      showToast(`Payment failed: ${error}`, 'error');
-                    }}
-                  />
-                </Elements>
-              )}
+                  >
+                    <CheckoutForm
+                      clientSecret={paymentModal.clientSecret}
+                      onPaymentSuccess={async paymentIntentId => {
+                        try {
+                          // Confirm payment success with backend
+                          await apiClient.post(
+                            '/payments/confirm-payment-success',
+                            {
+                              paymentIntentId,
+                            }
+                          );
 
+                          showToast(
+                            'Payment completed successfully! Contract has been completed.',
+                            'success'
+                          );
+                          setPaymentModal({
+                            open: false,
+                            contract: null,
+                            clientSecret: null,
+                            loading: false,
+                            paymentMethod: 'stripe',
+                          });
 
+                          // Refresh contracts data
+                          queryClient.invalidateQueries(['contracts']);
+                        } catch (error) {
+                          console.error('Error confirming payment:', error);
+                          showToast(
+                            'Payment succeeded but there was an issue updating the contract. Please contact support.',
+                            'warning'
+                          );
+                          setPaymentModal({
+                            open: false,
+                            contract: null,
+                            clientSecret: null,
+                            loading: false,
+                            paymentMethod: 'stripe',
+                          });
+                        }
+                      }}
+                      onPaymentError={error => {
+                        showToast(`Payment failed: ${error}`, 'error');
+                      }}
+                    />
+                  </Elements>
+                )}
             </div>
           </div>
         </div>

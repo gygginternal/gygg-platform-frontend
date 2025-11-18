@@ -147,7 +147,9 @@ function PostedGigs({ providerId, isOwnProfile }) {
               <div className={styles.gigMeta}>
                 <div className={styles.gigCardBadges}>
                   {gig.status === 'open' ? (
-                    <span className={`${styles.statusBadge} ${styles.open}`}>Open</span>
+                    <span className={`${styles.statusBadge} ${styles.open}`}>
+                      Open
+                    </span>
                   ) : (
                     <span
                       className={`${styles.statusBadge}`}

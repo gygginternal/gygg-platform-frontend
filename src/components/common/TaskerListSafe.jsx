@@ -60,9 +60,7 @@ const TaskerListSafe = ({ searchTerm = '' }) => {
             });
           } catch (matchError) {
             console.error('All endpoints failed:', matchError);
-            throw new Error(
-              'Unable to fetch taskers. Please try again later.'
-            );
+            throw new Error('Unable to fetch taskers. Please try again later.');
           }
         }
       }
@@ -71,15 +69,19 @@ const TaskerListSafe = ({ searchTerm = '' }) => {
       let totalPages = 1;
       let responseCurrentPage = 1;
       let supportsPagination = false;
-      
+
       if (response.config.url.includes('/search-taskers')) {
         // search-taskers endpoint supports pagination
         totalPages = response.data.totalPages || 1;
-        responseCurrentPage = response.data.page || response.data.currentPage || 1;
+        responseCurrentPage =
+          response.data.page || response.data.currentPage || 1;
         supportsPagination = true;
       } else if (response.config.url.includes('/match-taskers')) {
         // match-taskers endpoint supports pagination
-        totalPages = response.data.totalPages || Math.ceil(response.data.totalResults / 10) || 1;
+        totalPages =
+          response.data.totalPages ||
+          Math.ceil(response.data.totalResults / 10) ||
+          1;
         responseCurrentPage = response.data.page || 1;
         supportsPagination = true;
       } else if (response.config.url.includes('/top-match-taskers')) {
@@ -89,10 +91,10 @@ const TaskerListSafe = ({ searchTerm = '' }) => {
         // For top-match-taskers, only show load more if we got the max results
         supportsPagination = false;
       }
-      
+
       setTotalPages(totalPages);
       setCurrentPage(responseCurrentPage);
-      setHasMore(supportsPagination ? (responseCurrentPage < totalPages) : false);
+      setHasMore(supportsPagination ? responseCurrentPage < totalPages : false);
 
       // Simple response parsing
       let taskersData = [];
@@ -275,7 +277,7 @@ const TaskerListSafe = ({ searchTerm = '' }) => {
           );
         }
       })}
-      
+
       {/* Loading more indicator */}
       {isLoadingMore && (
         <div className={styles.loadingMore}>
@@ -283,17 +285,14 @@ const TaskerListSafe = ({ searchTerm = '' }) => {
           <p>Loading more taskers...</p>
         </div>
       )}
-      
+
       {/* Load More Button */}
       {hasMore && !isLoadingMore && (
-        <button 
-          onClick={loadMoreTaskers}
-          className={styles.loadMoreButton}
-        >
+        <button onClick={loadMoreTaskers} className={styles.loadMoreButton}>
           Load More Taskers
         </button>
       )}
-      
+
       {/* Loading more indicator */}
       {isLoadingMore && (
         <div className={styles.loadingMore}>
@@ -301,17 +300,14 @@ const TaskerListSafe = ({ searchTerm = '' }) => {
           <p>Loading more taskers...</p>
         </div>
       )}
-      
+
       {/* Load More Button */}
       {hasMore && !isLoadingMore && (
-        <button 
-          onClick={loadMoreTaskers}
-          className={styles.loadMoreButton}
-        >
+        <button onClick={loadMoreTaskers} className={styles.loadMoreButton}>
           Load More Taskers
         </button>
       )}
-      
+
       {!hasMore && taskers.length > 0 && (
         <p className={styles.endOfResults}>
           You've reached the end of the results.

@@ -22,7 +22,7 @@ function Header() {
   const [showNotifications, setShowNotifications] = useState(false);
   const notificationDropdownRef = useRef(null);
 
-  const { user, logout } = useAuth();
+  const { user, sessionRole, logout } = useAuth();
   const navigate = useNavigate();
   const profileDropdownRef = useRef(null);
 
@@ -156,10 +156,10 @@ function Header() {
 
     if (!trimmed) return;
 
-    if (user?.role.includes('provider')) {
+    if (sessionRole === 'provider') {
       // For providers, search for taskers with specific skills
       navigate(`/gig-helper?search=${encodeURIComponent(trimmed)}`);
-    } else if (user?.role.includes('tasker')) {
+    } else if (sessionRole === 'tasker') {
       // For taskers, search for gigs
       navigate(`/gigs?search=${encodeURIComponent(trimmed)}`);
     }
@@ -226,9 +226,7 @@ function Header() {
             <input
               type="text"
               placeholder={
-                user?.role.includes('provider')
-                  ? 'Search Taskers'
-                  : 'Search Gigs'
+                sessionRole === 'provider' ? 'Search Taskers' : 'Search Gigs'
               }
               className={styles.searchInput}
               value={searchTerm}

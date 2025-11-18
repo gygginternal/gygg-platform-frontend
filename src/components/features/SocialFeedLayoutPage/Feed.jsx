@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'; // Import Link and useNavigate
 // import 'emoji-mart/css/emoji-mart.css'; // Commented out due to emoji-mart removal
 
 function Feed() {
-  const { user } = useAuth();
+  const { user, sessionRole } = useAuth();
   const navigate = useNavigate(); // For programmatic navigation
   const [postText, setPostText] = useState('');
   const [posts, setPosts] = useState([]);
@@ -201,7 +201,7 @@ function Feed() {
   // --- Render ---
   return (
     <main className={styles.feedContainer}>
-      {user && user.role?.includes('provider') && (
+      {user && sessionRole === 'provider' && (
         <section className={styles.providerActionsHeader}>
           <Button
             onClick={() => navigate('/gigs/create')} // Navigate to your Gig Create page

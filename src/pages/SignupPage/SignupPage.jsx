@@ -169,20 +169,22 @@ function SignupPage() {
     if (formData.dateOfBirth) {
       // Parse the dateOfBirth ensuring it's in the correct format YYYY-MM-DD
       const birthDateStr = formData.dateOfBirth;
-      
+
       // Validate the format first - it should be YYYY-MM-DD
       const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
       if (!dateRegex.test(birthDateStr)) {
-        currentErrors.push('Please enter a valid date of birth in YYYY-MM-DD format.');
+        currentErrors.push(
+          'Please enter a valid date of birth in YYYY-MM-DD format.'
+        );
       } else {
         // Create date object ensuring consistent parsing
         const birthDateParts = birthDateStr.split('-');
         const birthDate = new Date(
-          parseInt(birthDateParts[0]), 
+          parseInt(birthDateParts[0]),
           parseInt(birthDateParts[1]) - 1, // Month is 0-indexed
           parseInt(birthDateParts[2])
         );
-        
+
         // Additional validation to ensure the date object is valid
         if (
           birthDate.getFullYear() !== parseInt(birthDateParts[0]) ||
@@ -194,22 +196,31 @@ function SignupPage() {
         } else {
           const today = new Date();
           // Reset time component to avoid timezone issues
-          const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-          
+          const todayDate = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate()
+          );
+
           // Get the birth date with time components reset
           const birthDateNormalized = new Date(
-            birthDate.getFullYear(), 
-            birthDate.getMonth(), 
+            birthDate.getFullYear(),
+            birthDate.getMonth(),
             birthDate.getDate()
           );
-          
+
           let age = todayDate.getFullYear() - birthDateNormalized.getFullYear();
-          const monthDiff = todayDate.getMonth() - birthDateNormalized.getMonth();
-          
-          if (monthDiff < 0 || (monthDiff === 0 && todayDate.getDate() < birthDateNormalized.getDate())) {
+          const monthDiff =
+            todayDate.getMonth() - birthDateNormalized.getMonth();
+
+          if (
+            monthDiff < 0 ||
+            (monthDiff === 0 &&
+              todayDate.getDate() < birthDateNormalized.getDate())
+          ) {
             age--;
           }
-          
+
           if (age < 50) {
             currentErrors.push('You must be at least 50 years old to sign up.');
           } else if (age > 120) {
@@ -468,7 +479,8 @@ function SignupPage() {
                   <div className={styles.tooltipContainer}>
                     <span className={styles.informationIcon}>i</span>
                     <div className={styles.tooltipText}>
-                      We require date of birth to verify that you meet our age requirement (50+).
+                      We require date of birth to verify that you meet our age
+                      requirement (50+).
                     </div>
                   </div>
                 </div>
@@ -477,7 +489,9 @@ function SignupPage() {
               type="date"
               value={formData.dateOfBirth}
               onChange={handleChange}
-              required={false}  /* Disable the automatic required indicator since we're adding it manually */
+              required={
+                false
+              } /* Disable the automatic required indicator since we're adding it manually */
               max={getMaxDateForDOB()}
               min={getMinDateForDOB()}
               labelColor="white"

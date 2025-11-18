@@ -21,7 +21,7 @@ function PrivacyPolicyPage() {
 
         <h3>2. The Data We Collect About You</h3>
         <p>Personal data, or personal information, means any information about an individual from which that person can be identified. We may collect, use, store and transfer different kinds of personal data about you which we have grouped together as follows:</p>
-        <ul>
+        <ul class="tab">
             <li><strong>Identity Data</strong> includes first name, last name, username or similar identifier, date of birth.</li>
             <li><strong>Contact Data</strong> includes billing address, delivery address, email address, and telephone numbers.</li>
             <li><strong>Financial Data</strong> includes payment card details (processed by Stripe, we do not store full card numbers) and bank account details for payouts (managed via Stripe Connect).</li>
@@ -36,7 +36,7 @@ function PrivacyPolicyPage() {
 
         <h3>3. How Your Personal Data Is Collected</h3>
         <p>We use different methods to collect data from and about you including through:</p>
-        <ul>
+        <ul class="tab">
             <li><strong>Direct interactions.</strong> You may give us your Identity, Contact, Profile and Financial Data by filling in forms or by corresponding with us by post, phone, email or otherwise.</li>
             <li><strong>Automated technologies or interactions.</strong> As you interact with our platform, we will automatically collect Technical Data about your equipment, browsing actions and patterns. We also use cookies and similar technologies (such as web beacons and pixels) to analyze usage patterns, personalize content, and improve the user experience. You can control cookie preferences through your browser settings.</li>
             <li><strong>Third parties or publicly available sources.</strong> We may receive personal data about you from various third parties like Stripe (for payment processing and identity verification for Connect).</li>
@@ -44,7 +44,7 @@ function PrivacyPolicyPage() {
 
         <h3>4. How We Use Your Personal Data</h3>
         <p>We will only use your personal data when the law allows us to. Most commonly, we will use your personal data in the following circumstances:</p>
-        <ul>
+        <ul class="tab">
             <li>To register you as a new user.</li>
             <li>To manage your relationship with us, including notifying you about changes to our terms or privacy policy.</li>
             <li>To enable you to participate in posting or applying for gigs.</li>
@@ -54,7 +54,7 @@ function PrivacyPolicyPage() {
 
         <h3>5. Disclosures of Your Personal Data</h3>
         <p>We may share your personal data with the parties set out below for the purposes set out in this privacy policy:</p>
-        <ul>
+        <ul class="tab">
             <li>Service providers acting as processors (e.g., Stripe for payment processing, AWS for hosting).</li>
             <li>Professional advisers including lawyers, bankers, auditors, and insurers.</li>
             <li>Regulators and other authorities.</li>

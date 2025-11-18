@@ -35,7 +35,6 @@ const StripePaymentPage = createLazyRoute(
   }
 );
 
-
 const SignupPage = createLazyRoute(
   () => import('./pages/SignupPage/SignupPage'),
   {
@@ -260,7 +259,11 @@ function AppLayout({ children }) {
   const { authToken, isLoading } = useAuth();
   const location = useLocation();
 
-  const noHeaderPaths = ['/onboarding/tasker', '/onboarding/provider', '/contracts/*/pay-with-stripe'];
+  const noHeaderPaths = [
+    '/onboarding/tasker',
+    '/onboarding/provider',
+    '/contracts/*/pay-with-stripe',
+  ];
   const gigsPagePaths = ['/gigs'];
   const fullWidthPaths = ['/onboarding/tasker', '/onboarding/provider'];
 

@@ -40,7 +40,7 @@ const AppliedGigCard = ({ gig, onClick }) => {
     postedBy,
     category,
     status, // This is the application status (pending/rejected)
-    applicationId
+    applicationId,
   } = gig || {}; // Add defensive null check
 
   return (
@@ -58,10 +58,15 @@ const AppliedGigCard = ({ gig, onClick }) => {
       aria-label={`View details for ${gig?.title ? decodeHTMLEntities(gig.title) : ''}`}
     >
       <div className={styles.gigCardHeader}>
-        <h3 className={styles.gigCardTitle}>{title ? decodeHTMLEntities(title) : ''}</h3>
+        <h3 className={styles.gigCardTitle}>
+          {title ? decodeHTMLEntities(title) : ''}
+        </h3>
         <div className={styles.gigCardBadges}>
           {/* Only show Pending or Rejected statuses, default to Pending if unknown */}
-          <span className={`${styles.statusBadge} ${status === 'rejected' ? styles.rejected : styles.pending}`} data-status={status || 'pending'}>
+          <span
+            className={`${styles.statusBadge} ${status === 'rejected' ? styles.rejected : styles.pending}`}
+            data-status={status || 'pending'}
+          >
             {status === 'rejected' ? 'Rejected' : 'Pending'}
           </span>
           <span
@@ -76,7 +81,9 @@ const AppliedGigCard = ({ gig, onClick }) => {
         <p className={styles.gigCardDescription}>
           {description && decodeHTMLEntities(description)?.length > 120
             ? `${decodeHTMLEntities(description).substring(0, 120)}...`
-            : description ? decodeHTMLEntities(description) : 'No description provided'}
+            : description
+              ? decodeHTMLEntities(description)
+              : 'No description provided'}
         </p>
 
         <div className={styles.gigCardMeta}>

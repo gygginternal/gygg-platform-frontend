@@ -39,7 +39,7 @@ class SocketManager {
         autoConnect: true,
         withCredentials: true,
         auth: {
-          token: token,
+          token,
         },
       }
     );
@@ -55,21 +55,31 @@ class SocketManager {
       this.connectCallbacks.forEach(callback => callback());
     });
 
-    this.socket.on('disconnect', (reason) => {
-      console.log('[SocketManager] Socket disconnected:', this.socket.id, 'Reason:', reason);
+    this.socket.on('disconnect', reason => {
+      console.log(
+        '[SocketManager] Socket disconnected:',
+        this.socket.id,
+        'Reason:',
+        reason
+      );
       this._isConnected = false;
       // Execute all disconnect callbacks
       this.disconnectCallbacks.forEach(callback => callback(reason));
     });
 
-    this.socket.on('connect_error', (err) => {
-      console.error('[SocketManager] Connect error:', err.message, 'Code:', err.code);
+    this.socket.on('connect_error', err => {
+      console.error(
+        '[SocketManager] Connect error:',
+        err.message,
+        'Code:',
+        err.code
+      );
       if (err.message.includes('Authentication')) {
         console.warn('[SocketManager] Authentication failed');
       }
     });
 
-    this.socket.on('token_refresh', (newToken) => {
+    this.socket.on('token_refresh', newToken => {
       console.log('[SocketManager] Received token refresh event');
       this.token = newToken;
       this.socket.auth = { token: newToken };

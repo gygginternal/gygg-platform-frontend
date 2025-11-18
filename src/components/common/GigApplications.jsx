@@ -22,10 +22,13 @@ function TaskerModal({
   // Extract user data properly
   const user = tasker.user || tasker;
   const taskerDetails = {
-    name: user.fullName || `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Unknown Tasker',
+    name:
+      user.fullName ||
+      `${user.firstName || ''} ${user.lastName || ''}`.trim() ||
+      'Unknown Tasker',
     image: user.profileImage || user.avatar || user.image || '/placeholder.svg',
-    location: user.address 
-      ? `${user.address.city || ''}${user.address.state ? `, ${user.address.state}` : ''}`.trim() 
+    location: user.address
+      ? `${user.address.city || ''}${user.address.state ? `, ${user.address.state}` : ''}`.trim()
       : 'Location not specified',
     description: user.bio || 'No description provided',
     rating: user.rating || 0,
@@ -33,7 +36,7 @@ function TaskerModal({
     skills: user.skills || [],
     hobbies: user.hobbies || [],
     id: tasker._id || tasker.id,
-    _id: tasker._id || tasker.id
+    _id: tasker._id || tasker.id,
   };
 
   return (
@@ -54,7 +57,7 @@ function TaskerModal({
             ✖
           </button>
         </div>
-        
+
         <div className={styles.modalBody}>
           <div className={styles.modalRow}>
             <b className={styles.modalLabel}>Name:</b>
@@ -66,18 +69,26 @@ function TaskerModal({
           </div>
           <div className={styles.modalRow}>
             <b className={styles.modalLabel}>Rating:</b>
-            <span className={styles.modalValue}>{taskerDetails.rating ? `${taskerDetails.rating.toFixed(1)} (${taskerDetails.ratingCount || 0} reviews)` : 'No rating'}</span>
+            <span className={styles.modalValue}>
+              {taskerDetails.rating
+                ? `${taskerDetails.rating.toFixed(1)} (${taskerDetails.ratingCount || 0} reviews)`
+                : 'No rating'}
+            </span>
           </div>
           <div className={styles.modalRow}>
             <b className={styles.modalLabel}>Description:</b>
-            <span className={styles.modalValue}>{taskerDetails.description}</span>
+            <span className={styles.modalValue}>
+              {taskerDetails.description}
+            </span>
           </div>
           {taskerDetails.skills && taskerDetails.skills.length > 0 && (
             <div className={styles.modalRow}>
               <b className={styles.modalLabel}>Skills:</b>
               <div className={styles.skillsContainer}>
                 {taskerDetails.skills.map((skill, index) => (
-                  <span key={index} className={styles.skillTag}>{skill}</span>
+                  <span key={index} className={styles.skillTag}>
+                    {skill}
+                  </span>
                 ))}
               </div>
             </div>
@@ -87,13 +98,15 @@ function TaskerModal({
               <b className={styles.modalLabel}>Interests:</b>
               <div className={styles.skillsContainer}>
                 {taskerDetails.hobbies.map((hobby, index) => (
-                  <span key={index} className={styles.skillTag}>{hobby}</span>
+                  <span key={index} className={styles.skillTag}>
+                    {hobby}
+                  </span>
                 ))}
               </div>
             </div>
           )}
         </div>
-        
+
         <div className={styles.modalActions}>
           {tasker.status === 'accepted' ? (
             <>
@@ -101,10 +114,7 @@ function TaskerModal({
                 <p>✅ This tasker has been accepted</p>
                 <p>Contract has been created and work can begin.</p>
               </div>
-              <button
-                className={styles.primaryBtn}
-                onClick={onClose}
-              >
+              <button className={styles.primaryBtn} onClick={onClose}>
                 Close
               </button>
             </>
@@ -113,10 +123,7 @@ function TaskerModal({
               <div className={styles.statusMessage}>
                 <p>❌ This tasker has been rejected</p>
               </div>
-              <button
-                className={styles.primaryBtn}
-                onClick={onClose}
-              >
+              <button className={styles.primaryBtn} onClick={onClose}>
                 Close
               </button>
             </>
@@ -180,11 +187,11 @@ export const GigApplications = ({ gigId, onOffer, onReject }) => {
   const [selectedTasker, setSelectedTasker] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  const handleViewProfile = (userId) => {
+  const handleViewProfile = userId => {
     navigate(`/profile/${userId}`);
   };
 
-  const handleMessage = (userId) => {
+  const handleMessage = userId => {
     navigate(`/messages/${userId}`);
   };
 
@@ -212,7 +219,7 @@ export const GigApplications = ({ gigId, onOffer, onReject }) => {
       if (!applicationId || applicationId.toString().trim() === '') {
         throw new Error('Invalid application ID provided');
       }
-      
+
       const response = await apiClient.patch(
         `/applications/${applicationId.toString()}/accept`
       );
@@ -254,7 +261,7 @@ export const GigApplications = ({ gigId, onOffer, onReject }) => {
       if (!applicationId || applicationId.toString().trim() === '') {
         throw new Error('Invalid application ID provided');
       }
-      
+
       await apiClient.patch(`/applications/${applicationId.toString()}/reject`);
     },
     onSuccess: () => {
@@ -283,10 +290,14 @@ export const GigApplications = ({ gigId, onOffer, onReject }) => {
     const user = tasker.user || tasker; // Use user object if populated, otherwise use tasker directly
     const taskerDetails = {
       ...tasker,
-      name: user.fullName || `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Unknown Tasker',
-      image: user.profileImage || user.avatar || user.image || '/placeholder.svg',
-      location: user.address 
-        ? `${user.address.city || ''}${user.address.state ? `, ${user.address.state}` : ''}`.trim() 
+      name:
+        user.fullName ||
+        `${user.firstName || ''} ${user.lastName || ''}`.trim() ||
+        'Unknown Tasker',
+      image:
+        user.profileImage || user.avatar || user.image || '/placeholder.svg',
+      location: user.address
+        ? `${user.address.city || ''}${user.address.state ? `, ${user.address.state}` : ''}`.trim()
         : 'Location not specified',
       description: user.bio || 'No description provided',
       rating: user.rating || 0,
@@ -294,9 +305,9 @@ export const GigApplications = ({ gigId, onOffer, onReject }) => {
       skills: user.skills || [],
       hobbies: user.hobbies || [],
       id: tasker._id || tasker.id,
-      _id: tasker._id || tasker.id
+      _id: tasker._id || tasker.id,
     };
-    
+
     setSelectedTasker(taskerDetails);
     setShowModal(true);
   };
@@ -305,7 +316,10 @@ export const GigApplications = ({ gigId, onOffer, onReject }) => {
     // Validate applicationId before proceeding
     if (!applicationId || applicationId.toString().trim() === '') {
       showToast('Invalid application ID. Please try again.', 'error');
-      console.error('handleAccept called with invalid applicationId:', applicationId);
+      console.error(
+        'handleAccept called with invalid applicationId:',
+        applicationId
+      );
       return;
     }
     acceptMutation.mutate(applicationId.toString());
@@ -315,7 +329,10 @@ export const GigApplications = ({ gigId, onOffer, onReject }) => {
     // Validate applicationId before proceeding
     if (!applicationId || applicationId.toString().trim() === '') {
       showToast('Invalid application ID. Please try again.', 'error');
-      console.error('handleReject called with invalid applicationId:', applicationId);
+      console.error(
+        'handleReject called with invalid applicationId:',
+        applicationId
+      );
       return;
     }
     rejectMutation.mutate(applicationId.toString());
@@ -341,17 +358,26 @@ export const GigApplications = ({ gigId, onOffer, onReject }) => {
           const user = app.user || app; // Use user object if populated, otherwise use app directly
           const helperData = {
             userId: user._id || user.id || app._id || app.id,
-            profileImage: user.profileImage || user.avatar || user.image || '/placeholder.svg',
-            name: user.fullName || `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Unknown Tasker',
-            rate: user.rating ? `★ ${user.rating.toFixed(1)} (${user.ratingCount || 0})` : 'No rating',
-            location: user.address 
-              ? `${user.address.city || ''}${user.address.state ? `, ${user.address.state}` : ''}`.trim() 
+            profileImage:
+              user.profileImage ||
+              user.avatar ||
+              user.image ||
+              '/placeholder.svg',
+            name:
+              user.fullName ||
+              `${user.firstName || ''} ${user.lastName || ''}`.trim() ||
+              'Unknown Tasker',
+            rate: user.rating
+              ? `★ ${user.rating.toFixed(1)} (${user.ratingCount || 0})`
+              : 'No rating',
+            location: user.address
+              ? `${user.address.city || ''}${user.address.state ? `, ${user.address.state}` : ''}`.trim()
               : 'Location not specified',
             bio: user.bio || 'No description provided',
           };
-          
+
           return (
-            <div 
+            <div
               key={app._id || app.id}
               onClick={() => handleTaskerClick(app)}
               style={{ cursor: 'pointer' }}

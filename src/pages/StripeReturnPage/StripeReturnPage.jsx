@@ -25,7 +25,10 @@ function StripeReturnPage() {
         if (redirectStatus === 'succeeded') {
           showToast('Payment completed successfully!', 'success');
         } else if (redirectStatus === 'processing') {
-          showToast('Payment is being processed, please check back shortly', 'info');
+          showToast(
+            'Payment is being processed, please check back shortly',
+            'info'
+          );
         } else if (redirectStatus === 'requires_payment_method') {
           showToast('Payment failed, please try again', 'error');
         }
@@ -60,9 +63,8 @@ function StripeReturnPage() {
       <h2 className={styles.title}>Returning from Stripe...</h2>
       <p className={styles.message}>
         {!isPaymentReturn
-          ? "Processing your account setup. You will be redirected shortly."
-          : "Processing your payment. You will be redirected shortly."
-        }
+          ? 'Processing your account setup. You will be redirected shortly.'
+          : 'Processing your payment. You will be redirected shortly.'}
       </p>
       <p className={styles.redirectPrompt}>
         If redirection doesn&apos;t happen,{' '}

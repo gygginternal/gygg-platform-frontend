@@ -125,7 +125,9 @@ export default function ContractDetailsPage({ gig, contract, user, children }) {
       try {
         // Make a backend call to validate the tasker's Stripe account
         // This is a simple validation to see if we can retrieve account details
-        await apiClient.get(`/payments/contracts/${contractId}/validate-tasker`);
+        await apiClient.get(
+          `/payments/contracts/${contractId}/validate-tasker`
+        );
       } catch (validationError) {
         // Check for any validation error that indicates onboarding issues
         if (validationError.response?.status === 400) {
@@ -135,14 +137,16 @@ export default function ContractDetailsPage({ gig, contract, user, children }) {
           return;
         }
         // Also check for other indicators of onboarding issues regardless of status code
-        const errorMsg = validationError.response?.data?.message || validationError.message;
-        if (errorMsg && (
-          errorMsg.includes('onboarding') ||
-          errorMsg.includes('capability') ||
-          errorMsg.includes('Stripe account is not') ||
-          errorMsg.includes('transfers') ||
-          errorMsg.includes('not enabled')
-        )) {
+        const errorMsg =
+          validationError.response?.data?.message || validationError.message;
+        if (
+          errorMsg &&
+          (errorMsg.includes('onboarding') ||
+            errorMsg.includes('capability') ||
+            errorMsg.includes('Stripe account is not') ||
+            errorMsg.includes('transfers') ||
+            errorMsg.includes('not enabled'))
+        ) {
           // Show modal for any onboarding-related error
           setShowOnboardingModal(true);
           return;

@@ -80,11 +80,46 @@
   list-style-type: disc; /* Ensure disc bullet points */
 }
 
+.legalContent ol {
+  margin: 16px 0; /* 16px 0 */
+  padding-left: 24px; /* 24px */
+  list-style-type: lower-alpha; /* a, b, c, etc. */
+}
+
 .legalContent li {
   /* Facebook Post text (main body) 14-16px */
   font-size: 16px; /* 16px */
   margin-bottom: 8px; /* 8px */
   line-height: 1.4;
+}
+
+.legalContent .tab,
+.legalContent ol[type="a"] {
+  margin-left: 20px !important; /* Add indentation for tabbed content */
+}
+
+.legalContent ul.tab {
+  margin-left: 20px !important; /* Add indentation for tabbed content */
+  padding-left: 44px !important; /* Increase padding to ensure proper indentation */
+}
+
+/* Extra specific selector for HTML content in dangerouslySetInnerHTML */
+.legalContent ul[class="tab"] {
+  margin-left: 20px !important;
+  padding-left: 44px !important;
+}
+
+/* Enhance nested list indentation within tabbed sections */
+.legalContent ol[type="a"] ul,
+.legalContent .tab ul,
+.legalContent ul.tab ul {
+  margin-left: 25px; /* Additional indentation for nested lists */
+}
+
+.legalContent ol[type="a"] ol,
+.legalContent .tab ol,
+.legalContent ul.tab ol {
+  margin-left: 25px; /* Additional indentation for nested ordered lists */
 }
 
 .footerActions {

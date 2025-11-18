@@ -72,11 +72,7 @@ const OnboardingNotCompletedModal = ({ isOpen, onClose }) => {
       }}
       tabIndex={-1}
     >
-      <div
-        className={styles.modalContent}
-        ref={modalRef}
-        tabIndex={-1}
-      >
+      <div className={styles.modalContent} ref={modalRef} tabIndex={-1}>
         <div className={styles.modalHeader}>
           <h3 className={styles.modalTitle}>Tasker Onboarding Incomplete</h3>
           <button

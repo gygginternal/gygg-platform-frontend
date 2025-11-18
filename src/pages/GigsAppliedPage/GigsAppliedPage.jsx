@@ -14,7 +14,7 @@ export function useGigsApplied() {
 }
 
 const GigsAppliedPage = () => {
-  const { user } = useAuth();
+  const { user, sessionRole } = useAuth();
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -52,15 +52,15 @@ const GigsAppliedPage = () => {
         page: pageToFetch,
         limit: 10, // Load 10 applications per page
       };
-      
+
       // Add filters to the request
       if (statusFilter && statusFilter !== 'All') {
         params.status = statusFilter.toLowerCase();
       }
-      
+
       const res = await apiClient.get('/applications/my-gigs', { params });
       const newApplications = res.data.data?.applications || [];
-      
+
       // Update pagination info with defensive programming
       const pagination = res.data.data?.pagination || {};
       const totalPages = pagination.totalPages || 1;
@@ -68,7 +68,7 @@ const GigsAppliedPage = () => {
       setTotalPages(totalPages);
       setCurrentPage(currentPage);
       setHasMore(currentPage < totalPages);
-      
+
       // Update applications list
       if (isFirstPage) {
         setApplications(newApplications);
@@ -85,13 +85,13 @@ const GigsAppliedPage = () => {
   };
 
   useEffect(() => {
-    if (user && user.role?.includes('tasker')) {
+    if (user && sessionRole === 'tasker') {
       // Reset to first page when filters change
       setCurrentPage(1);
       setApplications([]);
       fetchApplications(1);
     }
-  }, [user, statusFilter, categoryFilter, priceRange, searchTerm]);
+  }, [user, sessionRole, statusFilter, categoryFilter, priceRange, searchTerm]);
 
   const handleCardClick = async app => {
     try {
@@ -112,14 +112,14 @@ const GigsAppliedPage = () => {
 
   const handleApplicationUpdate = () => {
     // Refresh the applications list
-    if (user && user.role?.includes('tasker')) {
+    if (user && sessionRole === 'tasker') {
       setCurrentPage(1);
       setApplications([]);
       fetchApplications(1);
     }
   };
 
-  if (user && !user.role?.includes('tasker')) {
+  if (user && sessionRole !== 'tasker') {
     return (
       <div className={styles.pageContainer}>
         <div className={styles.contentWrapper}>
@@ -141,10 +141,8 @@ const GigsAppliedPage = () => {
   const filteredApplications = applications;
   const statusCounts = {
     total: applications.length,
-    pending: applications.filter(app => app.status === 'pending')
-      .length,
-    rejected: applications.filter(app => app.status === 'rejected')
-      .length,
+    pending: applications.filter(app => app.status === 'pending').length,
+    rejected: applications.filter(app => app.status === 'rejected').length,
   };
 
   return (
@@ -238,11 +236,7 @@ const GigsAppliedPage = () => {
                   <div className={styles.filterSection}>
                     <h3>Status</h3>
                     <div className={styles.priceRangeList}>
-                      {[
-                        'All',
-                        'Pending',
-                        'Rejected',
-                      ].map(opt => (
+                      {['All', 'Pending', 'Rejected'].map(opt => (
                         <button
                           key={opt}
                           className={`${styles.priceRangeButton} ${
@@ -295,7 +289,7 @@ const GigsAppliedPage = () => {
                   />
                 ))
               )}
-              
+
               {/* Loading more indicator */}
               {isLoadingMore && (
                 <div className={styles.loadingMore}>
@@ -303,17 +297,17 @@ const GigsAppliedPage = () => {
                   <p>Loading more applications...</p>
                 </div>
               )}
-              
+
               {/* Load More Button */}
               {hasMore && !isLoadingMore && (
-                <button 
+                <button
                   onClick={() => fetchApplications(currentPage + 1)}
                   className={styles.loadMoreButton}
                 >
                   Load More Applications
                 </button>
               )}
-              
+
               {!hasMore && applications.length > 0 && (
                 <p className={styles.endOfResults}>
                   You've reached the end of the results.

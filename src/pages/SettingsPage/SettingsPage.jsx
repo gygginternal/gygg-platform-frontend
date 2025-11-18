@@ -4,7 +4,6 @@ import styles from './SettingsPage.module.css';
 import PersonalInfoForm from '../../components/common/PersonalInfoForm';
 import { StripeConnectOnboarding } from '../../components/common/StripeConnectOnboarding';
 
-
 function SettingsPage() {
   const [activeTab, setActiveTab] = useState('profile');
 

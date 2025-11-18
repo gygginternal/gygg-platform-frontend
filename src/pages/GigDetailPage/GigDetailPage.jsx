@@ -11,7 +11,7 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 function GigDetailPage() {
   const { gigId } = useParams(); // Get gigId from URL
-  const { user } = useAuth(); // Get current user for potential checks
+  const { user, sessionRole } = useAuth(); // Get current user and session role for potential checks
   const navigate = useNavigate();
   const [gigData, setGigData] = useState(null);
   const [contractData, setContractData] = useState(null);
@@ -32,7 +32,7 @@ function GigDetailPage() {
       // Check if user is a provider and owns this gig
       if (
         user &&
-        user.role?.includes('provider') &&
+        sessionRole === 'provider' &&
         gig.postedBy?._id === user._id
       ) {
         // Redirect to posted gigs page with this gig selected
