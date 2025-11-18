@@ -52,7 +52,7 @@
 /* Responsive adjustments */
 @media (max-width: 1024px) {
   .pageContainer {
-    padding-top: 14px; /* 14px converted to px */
+    padding-top: 28px; /* 14px converted to px */
     min-height: calc(100vh - 32px); /* 32px converted to px */
   }
 

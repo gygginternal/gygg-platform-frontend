@@ -37,7 +37,7 @@
 /* @media (max-width: 1024px) - Large Tablets / Small Laptops */
 @media (max-width: 1024px) {
   .pageContainer {
-    padding-top: 14px; /* 72px - Matches Header height */
+    padding-top: 28px; /* 72px - Matches Header height */
     min-height: calc(100vh - 32px);
   }
   .contentWrapper {

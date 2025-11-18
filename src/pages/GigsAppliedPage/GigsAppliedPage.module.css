@@ -400,7 +400,7 @@
 /* Responsive design */
 @media (max-width: 1024px) {
   .pageContainer {
-    padding-top: 14px;
+    padding-top: 28px;
     min-height: calc(100vh - 32px);
   }
 
