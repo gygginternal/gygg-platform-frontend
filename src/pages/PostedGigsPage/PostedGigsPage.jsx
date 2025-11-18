@@ -220,12 +220,6 @@ const PostedGigsPage = () => {
             <div className={styles.emptyState}>
               <h3>No gigs posted yet</h3>
               <p>Create a gig to find taskers to help</p>
-              <button
-                className={styles.createGigButton}
-                onClick={() => navigate('/gigs/create')}
-              >
-                Create a gig
-              </button>
             </div>
           ) : (
             <div className={styles.gigsGrid}>
