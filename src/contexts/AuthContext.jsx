@@ -56,13 +56,33 @@ export const AuthProvider = ({ children }) => {
         const response = await apiClient.get('/users/me');
 
         if (response.data?.data?.user) {
-          setUser(response.data.data.user);
+          const fetchedUser = response.data.data.user;
+
+          // Check if user has completed required onboarding based on their role
+          const hasTaskerRole = fetchedUser.role?.includes('tasker');
+          const hasProviderRole = fetchedUser.role?.includes('provider');
+
+          // If user is a tasker but hasn't completed onboarding, log them out
+          if (hasTaskerRole && !fetchedUser.isTaskerOnboardingComplete) {
+            logger.info('AuthContext: Tasker has not completed onboarding, logging out.');
+            logout();
+            return null;
+          }
+
+          // If user is a provider but hasn't completed onboarding, log them out
+          if (hasProviderRole && !fetchedUser.isProviderOnboardingComplete) {
+            logger.info('AuthContext: Provider has not completed onboarding, logging out.');
+            logout();
+            return null;
+          }
+
+          setUser(fetchedUser);
           setAuthToken(currentToken); // Ensure token state is also up-to-date
           logger.debug(
             'AuthContext: User fetched successfully:',
-            response.data.data.user?._id
+            fetchedUser?._id
           );
-          return response.data.data.user; // Return the fetched user data
+          return fetchedUser; // Return the fetched user data
         } else {
           logger.warn(
             'AuthContext: Fetched user data missing in response from /users/me.'
