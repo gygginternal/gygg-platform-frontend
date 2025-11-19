@@ -13,6 +13,7 @@
   padding: 24px; /* 24px converted to px */
   margin-bottom: 20px; /* 20px converted to px */
   box-sizing: border-box;
+  position: relative; /* Needed for absolute positioning of buttons */
 }
 
 .profileHeader {
@@ -86,6 +87,9 @@
   align-items: flex-end;
   gap: 8px;
   flex-shrink: 0;
+  position: absolute;
+  bottom: 24px; /* Match the padding of profileCard */
+  right: 24px; /* Match the padding of profileCard */
 }
 
 .profileMainInfo {
@@ -134,7 +138,7 @@
 .messageButton {
   margin-top: 0;
   padding: 8px 16px; /* 8px 16px converted to px */
-  background-color: #6b7280;
+  background-color: #3d4d55;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -149,7 +153,7 @@
 }
 
 .messageButton:hover {
-  background-color: #4b5563;
+  background-color: #1a252a;
   transform: translateY(-1px);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
@@ -162,7 +166,7 @@
   flex: 1;
   min-width: 200px; /* 200px converted to px */
   margin-top: 0; /* Align with other sections in same row */
-  margin-bottom: 16px; /* 16px converted to px - Space if it wraps */
+  margin-bottom: 16px; /* Reset to original value since button is positioned relative to profileCard */
 }
 
 .skillsTitle {
@@ -476,6 +480,7 @@
     padding: 16px; /* 16px */
     margin-top: 16px;
     margin-bottom: 16px; /* 16px */
+    position: relative; /* Needed for absolute positioning of buttons */
   }
   .profileHeader {
     margin-bottom: 12px; /* 12px */
@@ -508,7 +513,7 @@
   .skillsContainer {
     min-width: 160px; /* 160px */
     margin-top: 0;
-    margin-bottom: 12px; /* 12px */
+    margin-bottom: 40px; /* Increased to make space for the message button */
   }
   .skillsTitle {
     font-size: 16px; /* 16px */
@@ -593,6 +598,7 @@
     padding: 13px; /* 12.8px */
     margin-top: 0px;
     margin-bottom: 13px; /* 12.8px */
+    position: relative; /* Needed for absolute positioning of buttons */
   }
   .profileHeader {
     margin-bottom: 10px; /* 9.6px */
@@ -624,11 +630,21 @@
   }
   .skillsContainer {
     min-width: 128px; /* 128px */
-    margin-bottom: 10px; /* 9.6px */
+    margin-bottom: 40px; /* Increased to make space for the message button */
   }
   .skillsTitle {
     font-size: 15px; /* 15px */
     margin-bottom: 8px; /* 8px */
+  }
+  .profileActions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    flex-shrink: 0;
+    position: absolute;
+    bottom: 13px; /* Match the tablet padding */
+    right: 13px;  /* Match the tablet padding */
   }
   .noSkills {
     font-size: 11px; /* ~11px */
@@ -708,6 +724,8 @@
   .profileCard {
     padding: 10px; /* 9.6px */
     margin-bottom: 10px; /* 9.6px */
+    position: relative; /* Needed for absolute positioning of buttons */
+    padding-bottom: 45px; /* Additional space at bottom for message button */
   }
   .profileHeader {
     margin-bottom: 6px; /* 6.4px */
@@ -740,15 +758,22 @@
   }
 
   .profileActions {
-    align-items: center;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    flex-shrink: 0;
+    position: absolute;
+    bottom: 10px; /* Match the mobile padding */
+    right: 10px;  /* Match the mobile padding */
+    top: auto;    /* Ensure it's positioned from the bottom, not top */
   }
 
   .skillsContainer {
     min-width: unset; /* Remove min-width to allow full flexibility */
     width: 100%; /* Take full width when stacked */
     text-align: center; /* Center text for stacked elements */
-    margin-bottom: 10px; /* 10px */
+    margin-bottom: 10px; /* Reset to default value since padding handles spacing */
   }
   .profileName {
     font-size: 18px; /* 18px */
