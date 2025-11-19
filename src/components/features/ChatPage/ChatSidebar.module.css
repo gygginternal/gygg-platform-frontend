@@ -293,12 +293,6 @@
   border: 2px solid #e2e8f0;
 }
 
-.noResultsIcon {
-  font-size: 40px;
-  margin-bottom: 16px;
-  color: #9ca3af;
-}
-
 .noResultsText {
   font-size: 20px;
   font-weight: 600;
@@ -479,11 +473,6 @@
     padding: 40px 20px;
   }
 
-  .noResultsIcon {
-    font-size: 40px;
-    margin-bottom: 12px;
-  }
-
   .noResultsText {
     font-size: 15px;
   }
@@ -538,11 +527,6 @@
 
   .noResults {
     padding: 30px 16px;
-  }
-
-  .noResultsIcon {
-    font-size: 36px;
-    margin-bottom: 10px;
   }
 
   .noResultsText {

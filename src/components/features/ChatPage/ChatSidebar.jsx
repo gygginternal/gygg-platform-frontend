@@ -71,10 +71,9 @@ const ChatSidebar = ({ contacts, selectedContact, onContactSelect }) => {
               </>
             ) : (
               <>
-                <div className={styles.noResultsIcon}>💬</div>
                 <p className={styles.noResultsText}>No conversations yet</p>
                 <p className={styles.noResultsSubtext}>
-                  Start a new chat to begin messaging
+                  Start a new chat by messaging someone
                 </p>
               </>
             )}

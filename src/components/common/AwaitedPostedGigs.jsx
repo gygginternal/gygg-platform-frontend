@@ -78,7 +78,7 @@ const AwaitedPostedGigs = () => {
           ))
         ) : (
           <p className={styles.errorMessage}>
-            No awaited posted gigs found right now.
+            You haven't posted a gig. Post a gig to hire someone for help.
           </p>
         )}
       </div>

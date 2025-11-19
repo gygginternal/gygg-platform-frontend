@@ -29,7 +29,8 @@
 .profileSection {
   display: flex;
   align-items: center;
-  gap: 20px; /* 20px converted to px */
+  gap: 12px; /* Gap between image and text elements */
+  position: relative; /* Needed for name positioning */
 }
 
 .profileImage {
@@ -44,20 +45,29 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 4px; /* 4px converted to px */
+  gap: 4px;
 }
 
 .headerRow {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: flex-end; /* Push buttons to the right */
+  flex: 1; /* Take available space */
+}
+
+.name {
+  position: absolute;
+  left: 92px; /* Position right after the image (80px width + 12px gap) */
+  top: 50%;
+  transform: translateY(-50%); /* Vertically center with image */
+  white-space: nowrap; /* Prevent wrapping */
 }
 
 .profileActions {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  gap: 8px; /* 8px converted to px */
+  align-items: flex-end; /* Right-aligned buttons */
+  gap: 8px;
 }
 
 .name {
@@ -65,6 +75,11 @@
   font-weight: 600;
   color: #111827;
   letter-spacing: -0.025em;
+  position: absolute;
+  left: 92px; /* Position right after the image (80px width + 12px gap) */
+  top: 50%;
+  transform: translateY(-50%); /* Vertically center with image */
+  white-space: nowrap; /* Prevent wrapping */
 }
 
 .viewProfileLink {
@@ -72,11 +87,17 @@
   font-size: 14px; /* 14px converted to px */
   text-decoration: none;
   font-weight: 500;
-  padding: 4px 12px; /* 4px 12px converted to px */
+  padding: 8px 16px; /* 8px 16px converted to px - consistent sizing */
   border-radius: 6px;
   transition: all 0.2s ease;
   background-color: #3d4d55;
   white-space: nowrap;
+  min-width: 120px; /* Consistent minimum width */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 32px; /* Consistent height */
 }
 
 .viewProfileLink:hover {
@@ -90,13 +111,19 @@
   color: #374151;
   border: 1px solid #e5e7eb;
   border-radius: 6px;
-  padding: 4px 12px;
+  padding: 8px 16px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
   white-space: nowrap;
+  min-width: 120px; /* Consistent minimum width */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 32px; /* Consistent height */
 }
 
 .messageButton:hover {
@@ -190,18 +217,60 @@
     width: 56px;
     height: 56px;
   }
+  .profileSection {
+    align-items: center; /* Center items vertically */
+    gap: 12px;
+    position: relative; /* Needed for name positioning */
+  }
+
+  /* Position name to appear right after the image */
+  .name {
+    position: absolute;
+    left: 68px; /* Position after image (56px image + 12px gap) */
+    top: 50%;
+    transform: translateY(-50%); /* Vertically center with image */
+    white-space: nowrap; /* Prevent wrapping */
+  }
+
+  /* On mobile, headerRow only contains buttons */
   .headerRow {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Push buttons to the right */
+    flex: 1; /* Take remaining space after image and name */
   }
+
   .profileActions {
-    align-items: flex-start;
-    width: 100%;
+    align-self: center; /* Vertically align with image and name */
   }
+
+  /* Maintaining consistent button sizing across all breakpoints */
   .viewProfileLink,
   .messageButton {
-    font-size: 13px;
-    padding: 6px 12px;
+    /* Keep consistent sizing - no changes from base styles */
+  }
+}
+
+/* Extra-small screens */
+@media (max-width: 480px) {
+  .card {
+    padding: 16px !important; /* Override global styles */
+  }
+  .profileImage {
+    width: 48px;
+    height: 48px;
+  }
+  .profileSection {
+    align-items: center; /* Keep items vertically centered */
+    gap: 12px;
+  }
+  .name {
+    left: 60px; /* Adjust for smaller image size (48px + 12px gap) */
+  }
+  .headerRow {
+    align-items: center;
+  }
+  .profileActions {
+    align-self: center;
   }
 }
