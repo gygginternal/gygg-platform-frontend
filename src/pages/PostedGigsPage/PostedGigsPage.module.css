@@ -290,30 +290,7 @@
   flex-wrap: wrap;
 }
 
-.statusBadge {
-  padding: 4px 12px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-family: inherit;
-}
-
-.statusBadge.open {
-  background: #d1fae5;
-  color: #065f46;
-}
-
-.statusBadge.closed {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-.statusBadge.completed {
-  background: #dbeafe;
-  color: #1e40af;
-}
+/* Status badge completely removed as requested */
 
 /* Payment type badges */
 .paymentTypeBadge {

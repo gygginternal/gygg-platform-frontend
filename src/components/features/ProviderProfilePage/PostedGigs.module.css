@@ -1,6 +1,6 @@
 .postedGigsSection {
   background: #fff;
-  border-radius: 8px;
+  border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   padding: 24px;
   margin-bottom: 20px; /* 20px converted to px - consistent with tasker profile */
@@ -35,7 +35,7 @@
 .gigCard {
   background: #fff;
   border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  border-radius: 16px;
   padding: 20px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -63,6 +63,17 @@
   text-decoration: none;
 }
 
+.gigDescription {
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 8px 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
 .gigMeta {
   display: flex;
   justify-content: space-between;
@@ -77,14 +88,18 @@
   flex-wrap: wrap;
 }
 
+
 .statusBadge {
-  padding: 4px 12px;
-  border-radius: 8px;
+  padding: 6px 14px;
+  border-radius: 20px; /* Pill shape */
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .statusBadge.open {

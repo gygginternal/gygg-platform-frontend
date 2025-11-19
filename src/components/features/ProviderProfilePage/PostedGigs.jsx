@@ -144,6 +144,13 @@ function PostedGigs({ providerId, isOwnProfile }) {
               <h3 className={styles.gigTitle}>
                 {decodeHTMLEntities(gig.title)}
               </h3>
+              {gig.description && (
+                <p className={styles.gigDescription}>
+                  {decodeHTMLEntities(gig.description.length > 120
+                    ? `${gig.description.substring(0, 120)}...`
+                    : gig.description)}
+                </p>
+              )}
               <div className={styles.gigMeta}>
                 <div className={styles.gigCardBadges}>
                   {gig.status === 'open' ? (
