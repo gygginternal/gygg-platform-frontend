@@ -244,20 +244,12 @@ function GigCreationForm({ onGigCreated }) {
                   </select>
                 </div>
               </div>
-              {formData.gigPaymentType === 'hourly' && (
-                <div className={styles.hourlyNote}>
-                  <small>
-                    💡 You'll be paid based on actual hours worked and approved
-                    by the provider
-                  </small>
-                </div>
-              )}
             </div>
 
             {formData.gigPaymentType === 'hourly' && (
               <div className={styles.inputGroup}>
                 <h3 className={styles.inputTitle}>
-                  Estimated hours needed (optional)
+                  Estimated hours
                 </h3>
                 <input
                   type="number"
@@ -412,10 +404,12 @@ function GigCreationForm({ onGigCreated }) {
               <div className={styles.reviewItem}>
                 <h3 className={styles.reviewLabel}>Gig pay structure?</h3>
                 <div className={styles.reviewContent}>
-                  <div>
+                  <div className={styles.reviewText}>
                     {formData.gigPaymentType === 'hourly'
                       ? 'Hourly'
-                      : 'One fixed payment'}
+                      : formData.gigPaymentType === 'fixed'
+                        ? 'One fixed payment'
+                        : 'Not specified'}
                   </div>
                   <button
                     className={styles.editButton}
