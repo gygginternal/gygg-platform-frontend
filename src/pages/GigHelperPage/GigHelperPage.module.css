@@ -155,6 +155,20 @@
   }
 }
 
+@media (max-width: 900px) {
+  .contentWrapper {
+    margin-left: 150px;
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 800px) {
+  .contentWrapper {
+    margin-left: 120px;
+    max-width: 700px;
+  }
+}
+
 @media (max-width: 768px) {
   .pageContainer {
     padding-top: 12px;
@@ -192,6 +206,21 @@
   .searchBar {
     padding: 14px 18px;
     border-radius: 18px;
+  }
+}
+
+@media (max-width: 720px) {
+  .sidebarArea {
+    display: none;
+  }
+  .mainFeedArea {
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+  }
+  .contentWrapper {
+    margin-left: 0;
+    max-width: 100%;
   }
 }
 

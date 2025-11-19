@@ -1,6 +1,6 @@
 /* Base styles for the overall page container */
 .container {
-  padding-top: 41px;
+  padding-top: 20px;
   min-height: calc(100vh - 32px);
   box-sizing: border-box;
   background-color: #f0f2f5;
@@ -12,7 +12,7 @@
 /* Header Section */
 .header {
   text-align: left;
-  padding: 32px;
+  padding: 16px;
   background: #ffffff;
   border-radius: 8px;
   border: 1px solid #e5e7eb;
@@ -21,21 +21,21 @@
 }
 
 .title {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 600;
   color: #1f2937;
-  margin: 0 0 8px 0;
+  margin: 0 0 4px 0;
   font-family:
     'Inter',
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .subtitle {
-  font-size: 18px;
+  font-size: 16px;
   color: #6b7280;
   margin: 0;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.4;
   font-family:
     'Inter',
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -446,7 +446,7 @@ tr:not(:last-child) td {
   border-radius: 8px;
   padding: 8px 16px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin: 12px 0 24px 0;
+  margin: 8px 0 16px 0;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -565,72 +565,6 @@ tr:not(:last-child) td {
   background: #60727c;
 }
 
-/* Earnings Summary Styles */
-.earningsCard {
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  padding: 24px;
-  margin-bottom: 24px;
-  border: 1px solid #e5e7eb;
-}
-
-.earningsHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-}
-
-.earningsHeader h3 {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 600;
-  color: #1f2937;
-}
-
-.periodSelect {
-  padding: 8px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  background: white;
-  font-size: 14px;
-  color: #1f2937;
-  cursor: pointer;
-}
-
-.summaryGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-}
-
-.summaryCard {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-  background: #f9fafb;
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
-}
-
-.summaryContent {
-  flex: 1;
-}
-
-.summaryValue {
-  font-size: 18px;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 4px;
-}
-
-.summaryLabel {
-  font-size: 12px;
-  color: #6b7280;
-  font-weight: 500;
-}
 
 /* Pagination Styles */
 .pagination {
@@ -722,41 +656,9 @@ tr:not(:last-child) td {
   box-shadow: none;
 }
 
-/* Loading States */
-.loadingCard {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  padding: 40px;
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-.loadingSpinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid #f3f3f3;
-  border-top: 3px solid #23b0be;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 16px;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .summaryGrid {
-    grid-template-columns: 1fr;
-  }
-
   .summaryRow {
     flex-direction: column;
     align-items: flex-start;
@@ -768,24 +670,18 @@ tr:not(:last-child) td {
     gap: 12px;
   }
 
-  .earningsHeader {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
   .header {
-    padding: 20px 24px;
-    border-radius: 20px;
+    padding: 12px 16px;
+    border-radius: 16px;
     margin-bottom: 12px;
   }
 
   .title {
-    font-size: 26px;
-    margin-bottom: 12px;
+    font-size: 24px;
+    margin-bottom: 8px;
   }
 
   .subtitle {
-    font-size: 15px;
+    font-size: 14px;
   }
 }

@@ -267,122 +267,6 @@ function InvoiceModal({ open, onClose, payment, showToast, isProvider }) {
   );
 }
 
-// Earnings Summary Component
-function EarningsSummary({
-  summary,
-  period,
-  onPeriodChange,
-  isTasker,
-  isProvider,
-}) {
-  const periods = [
-    { value: 'week', label: 'This Week' },
-    { value: 'month', label: 'This Month' },
-    { value: 'year', label: 'This Year' },
-    { value: 'all', label: 'All Time' },
-  ];
-
-  return (
-    <div className={styles.earningsCard}>
-      <div className={styles.earningsHeader}>
-        <h3>Earnings Summary</h3>
-        <select
-          value={period}
-          onChange={e => onPeriodChange(e.target.value)}
-          className={styles.periodSelect}
-        >
-          {periods.map(p => (
-            <option key={p.value} value={p.value}>
-              {p.label}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className={styles.summaryGrid}>
-        {isTasker && summary.tasker && (
-          <>
-            <div className={styles.summaryCard}>
-              <div className={styles.summaryContent}>
-                <div className={styles.summaryValue}>
-                  ${summary.tasker.totalEarnedFormatted}
-                </div>
-                <div className={styles.summaryLabel}>Total Earned</div>
-              </div>
-            </div>
-
-            <div className={styles.summaryCard}>
-              <div className={styles.summaryContent}>
-                <div className={styles.summaryValue}>
-                  ${summary.tasker.availableBalanceFormatted}
-                </div>
-                <div className={styles.summaryLabel}>Available Balance</div>
-              </div>
-            </div>
-
-            <div className={styles.summaryCard}>
-              <div className={styles.summaryContent}>
-                <div className={styles.summaryValue}>
-                  {summary.tasker.totalContracts}
-                </div>
-                <div className={styles.summaryLabel}>Completed Contracts</div>
-              </div>
-            </div>
-
-            <div className={styles.summaryCard}>
-              <div className={styles.summaryContent}>
-                <div className={styles.summaryValue}>
-                  ${summary.tasker.averageEarningFormatted}
-                </div>
-                <div className={styles.summaryLabel}>Average per Contract</div>
-              </div>
-            </div>
-          </>
-        )}
-
-        {isProvider && summary.provider && (
-          <>
-            <div className={styles.summaryCard}>
-              <div className={styles.summaryContent}>
-                <div className={styles.summaryValue}>
-                  ${summary.provider.totalSpentFormatted}
-                </div>
-                <div className={styles.summaryLabel}>Total Spent</div>
-              </div>
-            </div>
-
-            <div className={styles.summaryCard}>
-              <div className={styles.summaryContent}>
-                <div className={styles.summaryValue}>
-                  ${summary.provider.totalServiceCostsFormatted}
-                </div>
-                <div className={styles.summaryLabel}>Service Costs</div>
-              </div>
-            </div>
-
-            <div className={styles.summaryCard}>
-              <div className={styles.summaryContent}>
-                <div className={styles.summaryValue}>
-                  {summary.provider.totalContracts}
-                </div>
-                <div className={styles.summaryLabel}>Total Contracts</div>
-              </div>
-            </div>
-
-            <div className={styles.summaryCard}>
-              <div className={styles.summaryContent}>
-                <div className={styles.summaryValue}>
-                  ${summary.provider.averageSpentFormatted}
-                </div>
-                <div className={styles.summaryLabel}>Average per Contract</div>
-              </div>
-            </div>
-          </>
-        )}
-      </div>
-    </div>
-  );
-}
 
 const statusOptions = [
   'all',
@@ -426,10 +310,6 @@ export default function BillingAndPayment() {
   const [unpaidContracts, setUnpaidContracts] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
 
-  // New state for earnings summary
-  const [earningsSummary, setEarningsSummary] = useState(null);
-  const [summaryPeriod, setSummaryPeriod] = useState('month');
-  const [summaryLoading, setSummaryLoading] = useState(false);
   const [balance, setBalance] = useState(null);
   const [page, setPage] = useState(1);
   const [pagination, setPagination] = useState(null);
@@ -437,36 +317,6 @@ export default function BillingAndPayment() {
   // Determine if user has both roles
   const isTasker = sessionRole === 'tasker';
   const isProvider = sessionRole === 'provider';
-
-  // Debounce search term to avoid excessive API calls
-  // useEffect(() => {
-  //   console.log('Search term changed:', search);
-  //   const handler = setTimeout(() => {
-  //     console.log('Setting debounced search to:', search);
-  //     setDebouncedSearch(search);
-  //   }, 300);
-
-  //   // Cleanup function to clear the timeout if search changes before the delay
-  //   return () => {
-  //     clearTimeout(handler);
-  //   };
-  // }, [search]); // Only re-run the effect if search changes
-
-  // Fetch earnings summary
-  const fetchEarningsSummary = async () => {
-    setSummaryLoading(true);
-    try {
-      const res = await apiClient.get('/payments/earnings-summary', {
-        params: { period: summaryPeriod },
-      });
-      setEarningsSummary(res.data.data.summary);
-    } catch (err) {
-      console.error('Error fetching earnings summary:', err);
-      showToast('Failed to fetch earnings summary', 'error');
-    } finally {
-      setSummaryLoading(false);
-    }
-  };
 
   // Fetch balance for taskers
   const fetchBalance = async () => {
@@ -517,29 +367,14 @@ export default function BillingAndPayment() {
   useEffect(() => {
     if (user?._id) {
       fetchPayments();
-      fetchEarningsSummary();
       fetchBalance();
     }
     // eslint-disable-next-line
   }, [status, type, page, user?._id, search, minAmount, maxAmount]);
 
-  useEffect(() => {
-    if (user?._id) {
-      fetchEarningsSummary();
-    }
-    // eslint-disable-next-line
-  }, [summaryPeriod, user?._id]);
-
-  // Calculate totals from earnings summary or fallback to transactions
+  // Calculate totals from transactions only
   const getDisplayAmount = () => {
-    if (earningsSummary) {
-      if (view === 'earned' && earningsSummary.tasker) {
-        return parseFloat(earningsSummary.tasker.totalEarnedFormatted);
-      } else if (view === 'spent' && earningsSummary.provider) {
-        return parseFloat(earningsSummary.provider.totalSpentFormatted);
-      }
-    }
-    // Fallback to transaction calculation
+    // Calculate from transaction data
     const total = _transactions.reduce((sum, p) => sum + (p.amount || 0), 0);
     return total / 100;
   };
@@ -561,28 +396,8 @@ export default function BillingAndPayment() {
         'success'
       );
 
-      // Temporarily update earnings summary to show 0 available balance after withdrawal
-      const currentTaskerData =
-        (earningsSummary && earningsSummary.tasker) || {};
-      const updatedSummary = {
-        ...earningsSummary,
-        tasker: {
-          // Ensure tasker object exists with all required fields
-          totalEarnedFormatted:
-            currentTaskerData.totalEarnedFormatted || '0.00',
-          availableBalanceFormatted: '0.00', // This is the key field that needs to show 0
-          averageEarningFormatted:
-            currentTaskerData.averageEarningFormatted || '0.00',
-          totalContracts: currentTaskerData.totalContracts || 0,
-          // Make sure we have all fields to prevent conditional rendering issues
-          ...currentTaskerData, // Spread existing data after setting the defaults
-        },
-      };
-      setEarningsSummary(updatedSummary);
-
       // Refresh data to reflect the new balance after withdrawal
       await fetchBalance();
-      await fetchEarningsSummary();
       await fetchPayments();
     } catch (err) {
       console.error('Withdrawal error:', err);
@@ -680,22 +495,7 @@ export default function BillingAndPayment() {
         isProvider={isProvider}
       />
 
-      {/* Earnings Summary Section */}
-      {summaryLoading ? (
-        <div className={styles.loadingCard}>
-          <div className={styles.loadingSpinner}></div>
-          <p>Loading earnings summary...</p>
-        </div>
-      ) : earningsSummary ? (
-        <EarningsSummary
-          summary={earningsSummary}
-          period={summaryPeriod}
-          onPeriodChange={setSummaryPeriod}
-          isTasker={isTasker}
-          isProvider={isProvider}
-        />
-      ) : null}
-      <div className={styles.searchAndFilters}>
+          <div className={styles.searchAndFilters}>
         <div className={styles.searchBar}>
           <Search className={styles.searchIcon} />
           <input

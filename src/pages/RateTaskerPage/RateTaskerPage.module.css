@@ -207,6 +207,22 @@
   }
 }
 
+/* Tablet (900px - 1024px) */
+@media (max-width: 900px) {
+  .contentWrapper {
+    margin-left: 150px;
+    max-width: 800px;
+  }
+}
+
+/* Tablet (800px - 900px) */
+@media (max-width: 800px) {
+  .contentWrapper {
+    margin-left: 120px;
+    max-width: 700px;
+  }
+}
+
 /* Tablet (480px - 768px) */
 @media (max-width: 768px) {
   .pageContainer {
@@ -248,6 +264,22 @@
   .submitButton {
     width: 100%;
     text-align: center;
+  }
+}
+
+/* Tablet (720px - 768px) */
+@media (max-width: 720px) {
+  .sidebarArea {
+    display: none;
+  }
+  .mainContent {
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+  }
+  .contentWrapper {
+    margin-left: 0;
+    max-width: 100%;
   }
 }
 
