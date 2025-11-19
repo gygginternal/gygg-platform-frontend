@@ -92,7 +92,7 @@
 @media (max-width: 1024px) {
   .container {
     padding: 24px;
-    border-radius: 12px;
+    border-radius: 16px;
   }
 
   .logo {
@@ -113,7 +113,7 @@
 @media (max-width: 768px) {
   .container {
     padding: 16px;
-    border-radius: 8px;
+    border-radius: 16px;
     border: none;
   }
 

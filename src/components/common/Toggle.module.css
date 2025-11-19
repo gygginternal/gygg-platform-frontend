@@ -3,7 +3,7 @@
   width: 44px;
   height: 24px;
   background-color: #e5e7eb;
-  border-radius: 12px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.2s;
 }
@@ -31,7 +31,7 @@
   .toggleContainer {
     width: 40px;
     height: 22px;
-    border-radius: 11px;
+    border-radius: 8px;
   }
   .toggleButton {
     width: 18px;
@@ -48,7 +48,7 @@
   .toggleContainer {
     width: 36px;
     height: 20px;
-    border-radius: 10px;
+    border-radius: 8px;
   }
   .toggleButton {
     width: 16px;
@@ -65,7 +65,7 @@
   .toggleContainer {
     width: 32px;
     height: 18px;
-    border-radius: 9px;
+    border-radius: 8px;
   }
   .toggleButton {
     width: 14px;

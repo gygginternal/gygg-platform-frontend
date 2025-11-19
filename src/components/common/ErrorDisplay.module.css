@@ -47,7 +47,7 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   padding: 16px 20px;
   margin: 16px 0;
-  border-radius: 12px;
+  border-radius: 8px;
 }
 
 /* Field Variant - Input field errors */
@@ -123,7 +123,7 @@
   border: none;
   padding: 4px;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 8px;
   color: #9ca3af;
   transition: all 0.2s ease;
   margin-top: -2px;
@@ -194,7 +194,7 @@
   .card {
     padding: 8px 12px;
     margin: 8px 0;
-    border-radius: 6px;
+    border-radius: 8px;
   }
 
   .errorMessage {

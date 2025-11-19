@@ -350,7 +350,7 @@ export const GigApplications = ({ gigId, onOffer, onReject }) => {
       {applications.length === 0 ? (
         <div className={styles.noApplications}>
           <h3>No applications yet</h3>
-          <p>Applications for your gigs will appear here when taskers apply.</p>
+          <p>All the taskers that applied to your gig will be shown here.</p>
         </div>
       ) : (
         applications.map(app => {

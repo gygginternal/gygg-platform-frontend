@@ -65,7 +65,7 @@
 
 .statCard {
   background: white;
-  border-radius: 12px; /* 12px */
+  border-radius: 8px; /* 12px */
   padding: 16px; /* 16px */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -117,7 +117,7 @@
 /* Recent activity section */
 .activitySection {
   background: white;
-  border-radius: 12px; /* 12px */
+  border-radius: 8px; /* 12px */
   padding: 16px; /* 16px */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }

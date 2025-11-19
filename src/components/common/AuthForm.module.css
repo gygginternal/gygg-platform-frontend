@@ -8,7 +8,7 @@
 .formContainer {
   background-color: #fff;
   padding: 40px; /* 40px converted to px */
-  border-radius: 12px; /* 12px converted to px */
+  border-radius: 16px; /* 12px converted to px */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 4px 12px converted to px */
   width: 100%;
   max-width: 400px; /* 400px converted to px */
@@ -40,7 +40,7 @@
   width: 100%;
   padding: 12px; /* 12px converted to px */
   border: 1px solid #ccc;
-  border-radius: 6px; /* 6px converted to px */
+  border-radius: 16px; /* 6px converted to px */
   font-size: 16px; /* 16px converted to px */
   color: #333;
   box-sizing: border-box;
@@ -74,7 +74,7 @@
   background-color: #d99633;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 16px;
   padding: 12px 24px;
   font-size: 18px;
   font-weight: 600;

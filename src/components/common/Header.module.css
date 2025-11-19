@@ -75,7 +75,7 @@
   display: flex;
   position: relative;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 0 2px 5px */
-  border-radius: 15px; /* 15px */
+  border-radius: 8px; /* 15px */
 }
 
 .searchInput {
@@ -192,7 +192,7 @@
   top: 40px;
   right: 0;
   background: #ffffff;
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow:
     0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
@@ -235,7 +235,7 @@
 
 .notificationList::-webkit-scrollbar-thumb {
   background: #cbd5e0;
-  border-radius: 3px;
+  border-radius: 8px;
 }
 
 .notificationList::-webkit-scrollbar-thumb:hover {
@@ -431,7 +431,7 @@
   .searchBox {
     height: 50px; /* 50px */
     padding: 0 16px; /* 0 16px */
-    border-radius: 14px; /* 14px */
+    border-radius: 8px; /* 14px */
   }
   .searchInput {
     font-size: 15px; /* 15px */
@@ -481,7 +481,7 @@
   .searchBox {
     height: 44px; /* 44px */
     padding: 0 12px; /* 0 12px */
-    border-radius: 12px; /* 12px */
+    border-radius: 8px; /* 12px */
   }
   .searchInput {
     font-size: 14px; /* 14px */
@@ -631,7 +631,7 @@
   transform: translateX(-50%);
   margin-top: 8px;
   background: #fff;
-  border-radius: 16px;
+  border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   width: 224px;
   max-width: 90vw;
@@ -961,7 +961,7 @@
   transform: translateX(-50%);
   margin-top: 8px;
   background: #fff;
-  border-radius: 16px;
+  border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   width: 224px;
   max-width: 90vw;
@@ -1075,7 +1075,7 @@
   display: flex;
   position: relative;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 0 2px 5px */
-  border-radius: 15px; /* 15px */
+  border-radius: 8px; /* 15px */
 }
 
 .searchInput {
@@ -1208,7 +1208,7 @@
 
 .notificationList::-webkit-scrollbar-thumb {
   background: #cbd5e0;
-  border-radius: 3px;
+  border-radius: 8px;
 }
 
 .notificationList::-webkit-scrollbar-thumb:hover {
@@ -1383,7 +1383,7 @@
   .searchBox {
     height: 50px; /* 50px */
     padding: 0 16px; /* 0 16px */
-    border-radius: 14px; /* 14px */
+    border-radius: 8px; /* 14px */
   }
   .searchInput {
     font-size: 15px; /* 15px */
@@ -1433,7 +1433,7 @@
   .searchBox {
     height: 44px; /* 44px */
     padding: 0 12px; /* 0 12px */
-    border-radius: 12px; /* 12px */
+    border-radius: 8px; /* 12px */
   }
   .searchInput {
     font-size: 14px; /* 14px */
@@ -1603,7 +1603,7 @@
   transform: translateX(-50%);
   margin-top: 8px;
   background: #fff;
-  border-radius: 16px;
+  border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   width: 224px;
   max-width: 90vw;
@@ -1975,7 +1975,7 @@
   transform: translateX(-50%);
   margin-top: 8px;
   background: #fff;
-  border-radius: 16px;
+  border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   width: 224px;
   max-width: 90vw;

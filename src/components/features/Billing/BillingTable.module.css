@@ -75,7 +75,7 @@
   height: 24px;
   width: 100%;
   background: linear-gradient(90deg, #f0f6ff 25%, #e6f8fa 50%, #f0f6ff 75%);
-  border-radius: 8px;
+  border-radius: 16px;
   animation: skeleton-loading 1.2s infinite linear;
 }
 @keyframes skeleton-loading {

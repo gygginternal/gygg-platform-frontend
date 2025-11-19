@@ -3,7 +3,7 @@
 .stripePayment {
   padding: 24px;
   border: 1px solid #dee2e6;
-  border-radius: 6px;
+  border-radius: 8px;
   background-color: #f8f9fa;
 }
 
@@ -22,7 +22,7 @@
 
 .paymentContainer {
   background: white;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 24px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.075);
   border: 1px solid rgba(0, 0, 0, 0.125);
@@ -70,7 +70,7 @@
   color: #dc3545;
   background-color: #f8d7da;
   border: 1px solid #f5c6cb;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 12px;
   margin-bottom: 16px;
 }
@@ -84,7 +84,7 @@
 .cancelButton, .submitButton {
   padding: 12px 16px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.15s ease-in-out;

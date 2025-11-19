@@ -7,7 +7,7 @@
   padding: 8px; /* 8px converted to px */
   background-color: #fef2f2;
   border: 1px solid #fecaca;
-  border-radius: 6px; /* 6px converted to px */
+  border-radius: 8px; /* 6px converted to px */
 }
 
 .feedContainer {
@@ -45,7 +45,7 @@
 .filterButton,
 .activeFilterButton {
   padding: 8px 16px; /* 8px 16px */
-  border-radius: 16px; /* 16px */
+  border-radius: 8px; /* 16px */
   font-weight: 600;
   /* Facebook Buttons 13-14px */
   font-size: 14px; /* 14px */
@@ -79,7 +79,7 @@
 
 .createPostCard {
   background-color: #fff;
-  border-radius: 16px; /* 16px converted to px */
+  border-radius: 8px; /* 16px converted to px */
   padding: 16px 20px; /* 16px 20px converted to px */
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* 6px 20px converted to px */
   box-sizing: border-box;
@@ -108,7 +108,7 @@
   color: #3d4d55;
   background: #f7f7f7;
   padding: 20px 24px;
-  border-radius: 12px;
+  border-radius: 8px;
   line-height: 1.5;
   min-height: 60px;
   max-height: 120px;
@@ -165,7 +165,7 @@
   /* Facebook Buttons 13-14px */
   font-size: 14px; /* 14px */
   border: 2px solid #3d4d55; /* 2px */
-  border-radius: 16px; /* 16px */
+  border-radius: 8px; /* 16px */
   cursor: pointer;
   transition:
     background-color 0.2s ease,
@@ -233,11 +233,11 @@
   .activeFilterButton {
     padding: 6px 13px; /* 6.4px 12.8px */
     font-size: 13px; /* 13px */
-    border-radius: 14px; /* 14px */
+    border-radius: 8px; /* 14px */
   }
   .createPostCard {
     padding: 14px 16px; /* 14px 16px */
-    border-radius: 14px; /* 14px */
+    border-radius: 8px; /* 14px */
   }
   .profileImage {
     height: 40px; /* 40px */
@@ -264,7 +264,7 @@
   .postButton {
     padding: 6px 16px; /* 6.4px 16px */
     font-size: 13px; /* 13px */
-    border-radius: 14px; /* 14px */
+    border-radius: 8px; /* 14px */
   }
   .postsContainer {
     gap: 16px; /* 16px */
@@ -272,7 +272,7 @@
   .postGigButton {
     padding: 6px 16px; /* 6.4px 16px */
     font-size: 13px; /* 13px */
-    border-radius: 14px; /* 14px */
+    border-radius: 8px; /* 14px */
   }
 }
 
@@ -300,11 +300,11 @@
   .activeFilterButton {
     padding: 5px 10px; /* 4.8px 9.6px */
     font-size: 12px; /* 12px */
-    border-radius: 12px; /* 12px */
+    border-radius: 8px; /* 12px */
   }
   .createPostCard {
     padding: 12px 14px; /* 12px 14px */
-    border-radius: 12px; /* 12px */
+    border-radius: 8px; /* 12px */
   }
   .profileImage {
     height: 36px; /* 36px */
@@ -334,7 +334,7 @@
   .postButton {
     padding: 5px 13px; /* 4.8px 12.8px */
     font-size: 12px; /* 12px */
-    border-radius: 12px; /* 12px */
+    border-radius: 8px; /* 12px */
   }
   .postsContainer {
     gap: 14px; /* 14px */
@@ -342,7 +342,7 @@
   .postGigButton {
     padding: 5px 13px; /* 4.8px 12.8px */
     font-size: 12px; /* 12px */
-    border-radius: 12px; /* 12px */
+    border-radius: 8px; /* 12px */
   }
 }
 
@@ -365,11 +365,11 @@
   .activeFilterButton {
     padding: 4px 8px; /* 4px 8px */
     font-size: 11px; /* ~11px */
-    border-radius: 10px; /* 10px */
+    border-radius: 8px; /* 10px */
   }
   .createPostCard {
     padding: 10px 12px; /* 10px 12px */
-    border-radius: 10px; /* 10px */
+    border-radius: 8px; /* 10px */
   }
   .profileImage {
     height: 32px; /* 32px */
@@ -400,7 +400,7 @@
   .postButton {
     padding: 4px 10px; /* 4px 9.6px */
     font-size: 11px; /* ~11px */
-    border-radius: 10px; /* 10px */
+    border-radius: 8px; /* 10px */
   }
   .postsContainer {
     gap: 12px; /* 12px */
@@ -408,7 +408,7 @@
   .postGigButton {
     padding: 4px 10px; /* 4px 9.6px */
     font-size: 11px; /* ~11px */
-    border-radius: 10px; /* 10px */
+    border-radius: 8px; /* 10px */
   }
 }
 
@@ -430,7 +430,7 @@
   width: 100%;
   max-width: 600px;
   aspect-ratio: 16/9;
-  border-radius: 16px;
+  border-radius: 8px;
   overflow: hidden;
   background: transparent;
   margin-left: auto;
@@ -443,7 +443,7 @@
   height: 100%;
   max-width: 600px;
   aspect-ratio: 16/9;
-  border-radius: 16px;
+  border-radius: 8px;
   object-fit: cover;
   display: block;
   margin: 0;

@@ -100,7 +100,7 @@
   color: #fff;
   font-weight: 500;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 8px 28px;
   font-size: 15px;
   cursor: pointer;
@@ -154,7 +154,7 @@ tr:not(:last-child) td {
   cursor: pointer;
   border: none;
   padding: 6px 12px;
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 14px;
   transition: background 0.2s;
 }
@@ -183,7 +183,7 @@ tr:not(:last-child) td {
   padding: 6px 18px 8px 18px;
   cursor: pointer;
   color: #888;
-  border-radius: 6px 6px 0 0;
+  border-radius: 8px 6px 0 0;
   transition:
     color 0.18s,
     border-bottom 0.18s;
@@ -208,7 +208,7 @@ tr:not(:last-child) td {
 
 .modalCard {
   background: #fff;
-  border-radius: 16px;
+  border-radius: 8px;
   box-shadow: 0 4px 32px rgba(0, 0, 0, 0.18);
   min-width: 400px;
   max-width: 95vw;
@@ -259,7 +259,7 @@ tr:not(:last-child) td {
 
 .customInput {
   border: 1px solid #e0e0e0;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 6px 10px;
   font-size: 16px;
   background: #fafbfc;
@@ -279,7 +279,7 @@ tr:not(:last-child) td {
   background: #fff;
   color: #222;
   border: 1.5px solid #bbb;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 8px 28px;
   font-size: 15px;
   font-weight: 500;
@@ -295,7 +295,7 @@ tr:not(:last-child) td {
   background: #10b3c6;
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 8px 28px;
   font-size: 15px;
   font-weight: 500;
@@ -311,7 +311,7 @@ tr:not(:last-child) td {
 
 .invoiceModalCard {
   background: #fff;
-  border-radius: 14px;
+  border-radius: 8px;
   box-shadow: 0 4px 32px rgba(0, 0, 0, 0.14);
   max-width: 480px;
   width: 100%;
@@ -355,7 +355,7 @@ tr:not(:last-child) td {
   background: #2d3748;
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 10px 22px;
   font-size: 16px;
   font-weight: 500;
@@ -443,7 +443,7 @@ tr:not(:last-child) td {
 
 .searchAndFilters {
   background: white;
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 8px 16px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin: 12px 0 24px 0;
@@ -510,7 +510,7 @@ tr:not(:last-child) td {
   margin-bottom: 24px;
   padding: 19px 24px;
   background-color: #fff;
-  border-radius: 16px;
+  border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
   display: flex;
   flex-direction: column;
@@ -535,7 +535,7 @@ tr:not(:last-child) td {
   padding: 8px 12px;
   background: white;
   border: 1px solid #ddd;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 12px;
   color: #333;
   cursor: pointer;
@@ -592,7 +592,7 @@ tr:not(:last-child) td {
 .periodSelect {
   padding: 8px 12px;
   border: 1px solid #d1d5db;
-  border-radius: 6px;
+  border-radius: 8px;
   background: white;
   font-size: 14px;
   color: #1f2937;
@@ -645,7 +645,7 @@ tr:not(:last-child) td {
 .paginationBtn {
   padding: 8px 16px;
   border: 1px solid #ddd;
-  border-radius: 6px;
+  border-radius: 8px;
   background: white;
   color: #333;
   cursor: pointer;
@@ -680,7 +680,7 @@ tr:not(:last-child) td {
 .toggleView button {
   padding: 8px 16px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   background: transparent;
   color: #666;
   cursor: pointer;
@@ -725,7 +725,7 @@ tr:not(:last-child) td {
 /* Loading States */
 .loadingCard {
   background: #fff;
-  border-radius: 16px;
+  border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   padding: 40px;
   text-align: center;

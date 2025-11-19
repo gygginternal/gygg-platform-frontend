@@ -39,7 +39,7 @@
   width: 100%;
   padding: 12px;
   border: 1px solid #d1d5db;
-  border-radius: 6px;
+  border-radius: 8px;
   box-sizing: border-box;
   font-size: 16px;
   line-height: 1.5;
@@ -61,7 +61,7 @@
   background-color: #536471;
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -84,7 +84,7 @@
   background-color: #536471;
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -130,7 +130,7 @@
 .star:focus {
   outline: 2px solid #536471;
   outline-offset: 2px;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 .starSelected {

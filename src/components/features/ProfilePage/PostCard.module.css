@@ -6,7 +6,7 @@
 }
 
 .postCard {
-  border-radius: 16px;
+  border-radius: 8px;
   background-color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   transition:
@@ -113,7 +113,7 @@
 @media (max-width: 1024px) {
   .postCard {
     padding: 14px; /* 14px */
-    border-radius: 14px; /* 14px */
+    border-radius: 8px; /* 14px */
   }
   .postProfileImg {
     width: 36px; /* 36px */
@@ -142,7 +142,7 @@
 @media (max-width: 768px) {
   .postCard {
     padding: 12px; /* 12px */
-    border-radius: 12px; /* 12px */
+    border-radius: 8px; /* 12px */
   }
   .postProfileImg {
     width: 32px; /* 32px - lowest end of FB guideline */
@@ -176,7 +176,7 @@
 @media (max-width: 480px) {
   .postCard {
     padding: 10px; /* 10px */
-    border-radius: 10px; /* 10px */
+    border-radius: 8px; /* 10px */
   }
   /* Profile image size remains 32px */
   .postHeader {

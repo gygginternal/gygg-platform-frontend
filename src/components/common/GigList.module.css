@@ -6,14 +6,14 @@
   padding: 12px; /* 12px */
   background-color: #fef2f2;
   border: 1px solid #fecaca;
-  border-radius: 8px; /* 8px */
+  border-radius: 16px; /* 8px */
   text-align: center;
 }
 
 .listItemCard {
   background: white;
   border: 1px solid #e5e7eb;
-  border-radius: 12px; /* 12px */
+  border-radius: 16px; /* 12px */
   padding: 12px; /* 12px */
   margin-bottom: 12px; /* 12px */
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
@@ -66,13 +66,13 @@
     font-size: 14px; /* 14px */
     margin: 16px 0; /* 16px */
     padding: 16px; /* 16px */
-    border-radius: 8px; /* 8px */
+    border-radius: 16px; /* 8px */
   }
 
   .listItemCard {
     padding: 16px; /* 16px */
     margin-bottom: 16px; /* 16px */
-    border-radius: 12px; /* 12px */
+    border-radius: 16px; /* 12px */
   }
 
   .listItemCard h4 {
@@ -90,7 +90,7 @@
   .errorMessage {
     font-size: 15px; /* 15px */
     padding: 20px; /* 20px */
-    border-radius: 12px; /* 12px */
+    border-radius: 16px; /* 12px */
   }
 
   .listItemCard {

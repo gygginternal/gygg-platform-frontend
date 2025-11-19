@@ -34,7 +34,7 @@
   min-height: 52px; /* 52px converted to px */
   background-color: #ffffff;
   border: 2px solid #e5e7eb;
-  border-radius: 12px; /* 12px converted to px */
+  border-radius: 8px; /* 12px converted to px */
   transition: all 0.2s ease;
   cursor: text;
 }
@@ -122,7 +122,7 @@
   right: 0;
   z-index: 1000;
   background: white;
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow:
     0 10px 25px rgba(0, 0, 0, 0.15),
     0 4px 10px rgba(0, 0, 0, 0.1);
@@ -228,12 +228,12 @@
 
 .dropdownList::-webkit-scrollbar-track {
   background: #f1f5f9;
-  border-radius: 3px;
+  border-radius: 8px;
 }
 
 .dropdownList::-webkit-scrollbar-thumb {
   background: #cbd5e1;
-  border-radius: 3px;
+  border-radius: 8px;
 }
 
 .dropdownList::-webkit-scrollbar-thumb:hover {
@@ -258,7 +258,7 @@
   .tag {
     font-size: 12px; /* 12px */
     padding: 3px 8px; /* 3.2px 8px */
-    border-radius: 13px; /* 12.8px */
+    border-radius: 8px; /* 12.8px */
   }
   .remove {
     font-size: 13px; /* 13px */
@@ -288,18 +288,18 @@
   .input {
     padding: 8px 11px; /* 8px 11.2px */
     min-height: 32px; /* 32px */
-    border-radius: 6px; /* 6.4px */
+    border-radius: 8px; /* 6.4px */
   }
   .tagsInput {
     padding: 5px; /* 4.8px */
     gap: 5px; /* 4.8px */
     min-height: 40px; /* 40px */
-    border-radius: 6px; /* 6.4px */
+    border-radius: 8px; /* 6.4px */
   }
   .tag {
     font-size: 11px; /* ~11px */
     padding: 2px 6px; /* 2.4px 6.4px */
-    border-radius: 11px; /* 11.2px */
+    border-radius: 8px; /* 11.2px */
   }
   .remove {
     font-size: 12px; /* 12px */
@@ -313,7 +313,7 @@
   .dropdownList {
     max-height: 120px; /* 120px */
     top: calc(100% + 2px); /* 2.4px */
-    border-radius: 6px; /* 6.4px */
+    border-radius: 8px; /* 6.4px */
   }
   .dropdownItem {
     padding: 6px 10px; /* 6.4px 9.6px */
@@ -330,18 +330,18 @@
   .input {
     padding: 6px 8px; /* 6.4px 8px */
     min-height: 30px; /* 30px */
-    border-radius: 5px; /* 4.8px */
+    border-radius: 8px; /* 4.8px */
   }
   .tagsInput {
     padding: 4px; /* 4px */
     gap: 4px; /* 4px */
     min-height: 36px; /* 36px */
-    border-radius: 5px; /* 4.8px */
+    border-radius: 8px; /* 4.8px */
   }
   .tag {
     font-size: 10px; /* 10px */
     padding: 2px 5px; /* 1.6px 4.8px */
-    border-radius: 10px; /* 9.6px */
+    border-radius: 8px; /* 9.6px */
   }
   .remove {
     font-size: 11px; /* ~11px */
@@ -354,7 +354,7 @@
   .dropdownList {
     max-height: 96px; /* 96px */
     top: calc(100% + 2px); /* 1.6px */
-    border-radius: 5px; /* 4.8px */
+    border-radius: 8px; /* 4.8px */
   }
   .dropdownItem {
     padding: 5px 8px; /* 4.8px 8px */
@@ -371,13 +371,13 @@
   .tagsInput {
     padding: 10px;
     min-height: 48px;
-    border-radius: 10px;
+    border-radius: 8px;
   }
 
   .tag {
     padding: 5px 10px;
     font-size: 12px;
-    border-radius: 16px;
+    border-radius: 8px;
   }
 
   .removeButton {
@@ -391,7 +391,7 @@
   }
 
   .dropdownContainer {
-    border-radius: 10px;
+    border-radius: 8px;
   }
 
   .optionButton {
@@ -419,7 +419,7 @@
   .tag {
     padding: 4px 8px;
     font-size: 11px;
-    border-radius: 14px;
+    border-radius: 8px;
   }
 
   .removeButton {
@@ -461,14 +461,14 @@
   .tagsInput {
     padding: 7px;
     min-height: 40px;
-    border-radius: 7px;
+    border-radius: 8px;
     gap: 5px;
   }
 
   .tag {
     padding: 3px 7px;
     font-size: 10px;
-    border-radius: 12px;
+    border-radius: 8px;
   }
 
   .removeButton {
@@ -482,7 +482,7 @@
   }
 
   .dropdownContainer {
-    border-radius: 7px;
+    border-radius: 8px;
     top: calc(100% + 5px);
   }
 
@@ -532,7 +532,7 @@ Content Warning Styles */
   padding: 12px;
   background-color: #fef3c7;
   border: 1px solid #f59e0b;
-  border-radius: 12px;
+  border-radius: 8px;
   animation: slideInWarning 0.3s ease-out;
 }
 

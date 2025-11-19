@@ -42,7 +42,7 @@
   right: 0;
   height: 5px; /* 5px */
   background-color: #06b6d4; /* cyan-600 */
-  border-radius: 2px 2px 0 0; /* 2px */
+  border-radius: 16px 2px 0 0; /* 2px */
 }
 
 .separator {

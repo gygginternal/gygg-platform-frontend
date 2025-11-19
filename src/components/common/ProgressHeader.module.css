@@ -134,7 +134,7 @@
   padding: 12px 32px; /* 12px 32px */
   /* Facebook Buttons 13-14px. Using 16px (16px). */
   font-size: 16px; /* 16px */
-  border-radius: 12px; /* 12px */
+  border-radius: 8px; /* 12px */
   cursor: pointer;
   transition: background-color 0.3s;
   border: none; /* Ensure no default button border */
@@ -182,7 +182,7 @@
   .nextButton {
     padding: 10px 24px; /* 10px 24px */
     font-size: 15px; /* 15px */
-    border-radius: 10px; /* 10px */
+    border-radius: 8px; /* 10px */
   }
 }
 
@@ -263,7 +263,7 @@
   .nextButton {
     padding: 6px 16px; /* 6.4px 16px */
     font-size: 13px; /* 13px */
-    border-radius: 6px; /* 6.4px */
+    border-radius: 8px; /* 6.4px */
   }
 }
 

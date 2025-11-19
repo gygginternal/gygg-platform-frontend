@@ -20,7 +20,7 @@
 @media (max-width: 768px) {
   .onboardingCard {
     padding: 16px;
-    border-radius: 6px;
+    border-radius: 8px;
   }
 }
 
@@ -44,7 +44,7 @@
   background-color: #3d4d55;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 14px 28px;
   font-size: 16px;
   font-weight: 600;
@@ -68,7 +68,7 @@
   background-color: #f0f2f5;
   color: #3d4d55;
   border: 1px solid #e0e0e0;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 10px 20px;
   font-size: 14px;
   font-weight: 500;
@@ -131,7 +131,7 @@
   background-color: #3d4d55;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 12px 24px;
   font-size: 15px;
   font-weight: 500;
@@ -176,7 +176,7 @@
   color: #dc3545;
   background-color: #f8d7da;
   border: 1px solid #f5c6cb;
-  border-radius: 6px;
+  border-radius: 8px;
   margin: 16px 0;
 }
 
@@ -193,7 +193,7 @@
   background-color: #dc3545;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 10px 20px;
   font-size: 14px;
   font-weight: 500;
@@ -350,7 +350,7 @@
   .onboardingWrapper > div {
     min-height: 500px;
     max-height: 70vh;
-    border-radius: 6px;
+    border-radius: 8px;
   }
 }
 

@@ -1,7 +1,7 @@
 /* Base styles - Mobile first */
 .reviewsCard {
   background-color: #fff;
-  border-radius: 12px; /* 12px converted to px */
+  border-radius: 16px; /* 12px converted to px */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   padding: 24px; /* 24px converted to px */
   margin-bottom: 24px; /* 24px converted to px */
@@ -58,7 +58,7 @@
   text-align: center;
   padding: 16px; /* 16px converted to px */
   background-color: #ffebee;
-  border-radius: 8px; /* 8px converted to px */
+  border-radius: 16px; /* 8px converted to px */
   margin-bottom: 16px; /* 16px converted to px */
 }
 

@@ -71,7 +71,7 @@
 
 .card {
   background-color: rgba(255, 255, 255, 0.98);
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 32px 24px; /* 32px 24px converted to px */
   width: 100%;
   max-width: 400px;

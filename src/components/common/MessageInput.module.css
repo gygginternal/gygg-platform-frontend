@@ -1,7 +1,7 @@
 /* Base styles - Mobile first */
 .inputContainer {
   border: 1px solid #e5e7eb;
-  border-radius: 12px; /* 12px */
+  border-radius: 8px; /* 12px */
   display: flex;
   align-items: center;
   gap: 8px; /* 8px */
@@ -62,7 +62,7 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  border-radius: 6px; /* 6px */
+  border-radius: 8px; /* 6px */
   min-width: 36px; /* 36px - touch target */
   min-height: 36px; /* 36px - touch target */
   color: #6b7280;
@@ -96,7 +96,7 @@
     margin-top: 16px; /* 16px */
     padding: 14px; /* 14px */
     gap: 12px; /* 12px */
-    border-radius: 14px; /* 14px */
+    border-radius: 8px; /* 14px */
   }
 
   .input {
@@ -122,7 +122,7 @@
     margin-top: 20px; /* 20px */
     padding: 16px; /* 16px */
     gap: 16px; /* 16px */
-    border-radius: 16px; /* 16px */
+    border-radius: 8px; /* 16px */
   }
 
   .input {

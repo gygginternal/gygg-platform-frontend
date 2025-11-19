@@ -111,7 +111,7 @@
   font-weight: 600;
   min-width: 18px; /* 18px */
   height: 18px; /* 18px */
-  border-radius: 9px; /* 9px */
+  border-radius: 16px; /* 9px */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -339,7 +339,7 @@
 
 .conversationsList::-webkit-scrollbar-thumb {
   background: #d1d5db;
-  border-radius: 3px;
+  border-radius: 16px;
 }
 
 .conversationsList::-webkit-scrollbar-thumb:hover {

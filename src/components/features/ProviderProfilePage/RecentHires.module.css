@@ -1,7 +1,7 @@
 /* Base styles - Mobile first */
 .recentHiresSection {
   background: #fff;
-  border-radius: 12px; /* 12px converted to px */
+  border-radius: 8px; /* 12px converted to px */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   padding: 16px; /* 16px converted to px */
   margin-bottom: 20px; /* 20px converted to px - consistent with tasker profile */
@@ -28,7 +28,7 @@
 .hireCard {
   background: #fff;
   border: 1px solid #e5e7eb;
-  border-radius: 12px; /* 12px */
+  border-radius: 8px; /* 12px */
   padding: 16px; /* 16px */
   display: flex;
   flex-direction: column;
@@ -164,7 +164,7 @@
 
 .card {
   background-color: #fff;
-  border-radius: 16px;
+  border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   padding: 24px;
@@ -287,7 +287,7 @@
   background-color: #3d4d55;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
   transition: background-color 0.2s;
@@ -314,7 +314,7 @@
   .recentHiresSection {
     padding: 20px; /* 20px */
     margin-bottom: 16px; /* 16px - consistent with tasker profile */
-    border-radius: 16px; /* 16px */
+    border-radius: 8px; /* 16px */
   }
 
   .sectionTitle {

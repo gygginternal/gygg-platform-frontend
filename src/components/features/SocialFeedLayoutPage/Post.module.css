@@ -12,13 +12,13 @@
   padding: 8px; /* 8px converted to px */
   background-color: #fef2f2;
   border: 1px solid #fecaca;
-  border-radius: 6px; /* 6px converted to px */
+  border-radius: 8px; /* 6px converted to px */
 }
 
 .postCard,
 .postCardWithImage {
   background-color: #fff;
-  border-radius: 16px; /* 16px converted to px */
+  border-radius: 8px; /* 16px converted to px */
   padding: 16px; /* 16px converted to px */
   margin-bottom: 24px; /* 24px converted to px */
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* 6px 20px converted to px */
@@ -103,7 +103,7 @@
 }
 
 .postMedia {
-  border-radius: 16px;
+  border-radius: 8px;
   object-fit: cover;
   width: 100%;
   height: auto;
@@ -134,7 +134,7 @@
   align-items: center;
   gap: 6px; /* 6px Space between icon and count */
   padding: 6px; /* 6px */
-  border-radius: 4px; /* 4px */
+  border-radius: 8px; /* 4px */
   transition: background-color 0.2s ease;
   color: #536471; /* Default text color */
 }
@@ -195,7 +195,7 @@
   border: 1px solid #eff3f4; /* 1px */
   padding: 16px; /* 16px */
   margin-top: 16px; /* 16px */
-  border-radius: 12px; /* 12px */
+  border-radius: 8px; /* 12px */
 }
 
 .commentContent {
@@ -234,7 +234,7 @@
   margin-top: 16px; /* 16px */
   padding: 11px; /* 11px */
   background-color: #eff3f4;
-  border-radius: 16px; /* 16px */
+  border-radius: 8px; /* 16px */
   color: #536471;
   cursor: pointer;
   /* Facebook Post text (main body) 14-16px */
@@ -274,7 +274,7 @@
   flex-grow: 1;
   padding: 8px 12px; /* 8px 12px */
   border: 1px solid #ccd6dd; /* 1px */
-  border-radius: 16px; /* 16px */
+  border-radius: 8px; /* 16px */
   /* Facebook Comments 13-14px */
   font-size: 14px; /* 14px */
   outline: none;
@@ -290,7 +290,7 @@
   background-color: #3d4d55;
   color: white;
   border: none;
-  border-radius: 16px; /* 16px */
+  border-radius: 8px; /* 16px */
   font-weight: 600;
   /* Facebook Buttons 13-14px */
   font-size: 13px; /* 13px */
@@ -372,7 +372,7 @@
   .postCard,
   .postCardWithImage {
     padding: 14px; /* 14px */
-    border-radius: 14px; /* 14px */
+    border-radius: 8px; /* 14px */
     margin-bottom: 20px; /* 20px */
   }
   .profileImage {
@@ -417,7 +417,7 @@
   .commentSection {
     padding: 14px; /* 14px */
     margin-top: 14px; /* 14px */
-    border-radius: 10px; /* 10px */
+    border-radius: 8px; /* 10px */
   }
   .commentContent {
     margin-top: 14px; /* 14px */
@@ -480,7 +480,7 @@
   .postCard,
   .postCardWithImage {
     padding: 12px; /* 12px */
-    border-radius: 12px; /* 12px */
+    border-radius: 8px; /* 12px */
     margin-bottom: 20px; /* 20px (keep for separation when stacked) */
   }
   .postHeader {
@@ -528,7 +528,7 @@
   .commentSection {
     padding: 12px; /* 12px */
     margin-top: 12px; /* 12px */
-    border-radius: 10px; /* 10px */
+    border-radius: 8px; /* 10px */
   }
   .commentContent {
     margin-top: 12px; /* 12px */
@@ -591,7 +591,7 @@
   .postCard,
   .postCardWithImage {
     padding: 10px; /* 10px */
-    border-radius: 10px; /* 10px */
+    border-radius: 8px; /* 10px */
     margin-bottom: 16px; /* 16px */
   }
   .postHeader {
@@ -618,11 +618,11 @@
   }
   .postImage {
     margin-top: 10px; /* 10px */
-    border-radius: 6px; /* ~6.4px */
+    border-radius: 8px; /* ~6.4px */
   }
   .postMedia {
     margin-top: 10px; /* 10px */
-    border-radius: 6px; /* ~6.4px */
+    border-radius: 8px; /* ~6.4px */
   }
   .postActions {
     margin-top: 10px; /* 10px */
@@ -733,7 +733,7 @@
   flex: 1; /* Take up remaining space */
   background-color: #f0f2f5; /* Light grey background for comments */
   padding: 10px 12px; /* 10px 12px */
-  border-radius: 12px; /* 12px */
+  border-radius: 8px; /* 12px */
   display: flex;
   flex-direction: column;
   position: relative; /* For delete button positioning */
@@ -932,7 +932,7 @@
   right: 0;
   min-width: 128px;
   background: #fff;
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.13);
   border: 1px solid #e5e7eb;
   z-index: 20;

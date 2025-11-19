@@ -3,7 +3,7 @@
 /* Card container for Stripe onboarding */
 .stripeCard {
   background-color: #fff;
-  border-radius: 16px;
+  border-radius: 8px;
   margin-bottom: 20px;
   padding: 24px;
   box-sizing: border-box;

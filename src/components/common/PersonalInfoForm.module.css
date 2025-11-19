@@ -71,7 +71,7 @@
 .inputGroup input {
   padding: 10px 12px; /* 10px 12px */
   border: 1px solid #ccc; /* 1px */
-  border-radius: 6px; /* 6px */
+  border-radius: 8px; /* 6px */
   /* Facebook Post text (main body) 14-16px */
   font-size: 14px; /* 14px */
 }
@@ -87,7 +87,7 @@
   background: #3d4d55;
   color: white;
   border: none;
-  border-radius: 6px; /* 6px */
+  border-radius: 8px; /* 6px */
   /* Facebook Buttons 13-14px */
   font-size: 14px; /* 14px */
   cursor: pointer;
@@ -133,7 +133,7 @@
 .stripeSection code {
   background-color: #e9ecef;
   padding: 2px 5px; /* 2px 5px */
-  border-radius: 3px; /* 3px */
+  border-radius: 8px; /* 3px */
   /* Facebook Comments 13-14px */
   font-size: 13px; /* 13px */
   color: #343a40;
@@ -148,7 +148,7 @@
 .error-message,
 .success-message {
   padding: 10px; /* 10px */
-  border-radius: 4px; /* 4px */
+  border-radius: 8px; /* 4px */
   margin: 10px 0; /* 10px 0 */
   /* Facebook Comments 13-14px */
   font-size: 14px; /* 14px */

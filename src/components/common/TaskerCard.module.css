@@ -8,7 +8,7 @@
 .listItemCard {
   list-style: none;
   background-color: #fff;
-  border-radius: 8px; /* 8px converted to px */
+  border-radius: 16px; /* 8px converted to px */
   padding: 16px; /* 16px converted to px */
   margin-bottom: 16px; /* 16px converted to px */
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1); /* 1px 6px converted to px */

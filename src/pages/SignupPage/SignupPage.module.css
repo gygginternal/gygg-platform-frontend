@@ -113,7 +113,7 @@
   cursor: pointer;
   background-color: #d99633;
   border: none;
-  border-radius: 12px; /* 12px */
+  border-radius: 8px; /* 12px */
   width: 100%;
   height: 45px; /* ~45px */
   /* Facebook Buttons 13-14px */
@@ -232,7 +232,7 @@
   .errorWrapper {
     margin-top: 12px; /* 12px */
     padding: 8px 12px; /* 8px 12px */
-    border-radius: 6px; /* 6.4px */
+    border-radius: 8px; /* 6.4px */
   }
   .errorMessage {
     font-size: 12px; /* 12px - fits Timestamps/Meta */
@@ -279,7 +279,7 @@
   .errorWrapper {
     margin-top: 10px; /* 10px */
     padding: 6px 10px; /* 6.4px 10px */
-    border-radius: 5px; /* 4.8px */
+    border-radius: 8px; /* 4.8px */
   }
   .errorMessage {
     font-size: 11px; /* ~11px */
@@ -301,7 +301,7 @@
   width: 100%;
   height: 4px; /* 4px */
   background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 2px; /* 2px */
+  border-radius: 8px; /* 2px */
   overflow: hidden;
   margin-bottom: 8px;
 }
@@ -311,7 +311,7 @@
   transition:
     width 0.3s ease,
     background-color 0.3s ease;
-  border-radius: 2px; /* 2px */
+  border-radius: 8px; /* 2px */
 }
 
 .strength0,

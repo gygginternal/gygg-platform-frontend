@@ -14,7 +14,7 @@
 
 .providerCard {
   background-color: white;
-  border-radius: 8px;
+  border-radius: 16px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   border: 1px solid #e5e7eb;
   overflow: hidden;
@@ -125,7 +125,7 @@
   }
 
   .providerCard {
-    border-radius: 6px;
+    border-radius: 16px;
   }
 
   .imageContainer {

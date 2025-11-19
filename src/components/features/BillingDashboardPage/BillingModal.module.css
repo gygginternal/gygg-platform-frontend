@@ -170,7 +170,7 @@
 /* @media (max-width: 1024px) - Large Tablets / Small Laptops */
 @media (max-width: 1024px) {
   .panel {
-    border-radius: 16px; /* 16px */
+    border-radius: 8px; /* 16px */
     padding: 24px 24px 0 24px; /* 24px */
   }
   .closeButton {
@@ -213,7 +213,7 @@
 /* @media (max-width: 768px) - Tablets */
 @media (max-width: 768px) {
   .panel {
-    border-radius: 13px; /* 12.8px */
+    border-radius: 8px; /* 12.8px */
     padding: 20px 20px 0 20px; /* 20px */
   }
   .closeButton {
@@ -259,7 +259,7 @@
 /* @media (max-width: 480px) - Mobile Phones */
 @media (max-width: 480px) {
   .panel {
-    border-radius: 10px; /* 9.6px */
+    border-radius: 8px; /* 9.6px */
     padding: 16px 16px 0 16px; /* 16px */
   }
   .closeButton {

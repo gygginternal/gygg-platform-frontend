@@ -42,7 +42,7 @@
   max-width: 450px; /* 450px converted to px */
   width: 100%;
   padding: 30px; /* 30px converted to px */
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: transparent;
 }
 
@@ -106,7 +106,7 @@
   cursor: pointer;
   background-color: #d99633;
   border: none;
-  border-radius: 12px;
+  border-radius: 8px;
   width: 100%;
   height: 45px; /* 45px converted to px */
   font-size: 14px; /* 14px converted to px */

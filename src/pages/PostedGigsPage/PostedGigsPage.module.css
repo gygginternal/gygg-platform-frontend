@@ -109,7 +109,7 @@
   justify-content: center;
   padding: 48px 32px;
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   text-align: center;
   border: 1px solid #e5e7eb;
@@ -148,7 +148,7 @@
   justify-content: center;
   padding: 48px 32px;
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   text-align: center;
   border: 1px solid #e5e7eb;
@@ -178,7 +178,7 @@
   color: #ffffff;
   border: none;
   padding: 12px 24px;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -196,7 +196,7 @@
   justify-content: center;
   padding: 48px 32px;
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   text-align: center;
   border: 1px solid #e5e7eb;
@@ -227,7 +227,7 @@
   color: #ffffff;
   border: none;
   padding: 12px 24px;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -247,7 +247,7 @@
 /* Gig Card */
 .gigCard {
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border: 1px solid #e5e7eb;
   padding: 24px;
@@ -292,7 +292,7 @@
 
 .statusBadge {
   padding: 4px 12px;
-  border-radius: 12px;
+  border-radius: 8px;
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
@@ -318,7 +318,7 @@
 /* Payment type badges */
 .paymentTypeBadge {
   padding: 4px 12px;
-  border-radius: 12px;
+  border-radius: 8px;
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
@@ -402,7 +402,7 @@
   color: #ffffff;
   border: none;
   padding: 8px 16px;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -481,7 +481,7 @@
   font-weight: 600;
   padding: 2px 4px;
   background: #eff6ff;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 /* Loading more styles (similar to TaskerList) */
@@ -594,7 +594,7 @@
   .postGigButton {
     padding: 6px 16px; /* 6.4px 16px */
     font-size: 13px; /* 13px */
-    border-radius: 14px; /* 14px */
+    border-radius: 8px; /* 14px */
   }
 }
 
@@ -682,7 +682,7 @@
   .postGigButton {
     padding: 5px 13px; /* 4.8px 12.8px */
     font-size: 12px; /* 12px */
-    border-radius: 12px; /* 12px */
+    border-radius: 8px; /* 12px */
   }
 }
 
@@ -735,7 +735,7 @@
 
   .applicationsTitle {
     padding: 16px;
-    border-radius: 16px;
+    border-radius: 8px;
   }
 
   .applicationsTitle .title {
@@ -752,7 +752,7 @@
   .backButton {
     padding: 10px 16px;
     font-size: 14px;
-    border-radius: 12px;
+    border-radius: 8px;
   }
 
   .applicationsContainer {
@@ -807,6 +807,6 @@
   .postGigButton {
     padding: 4px 10px; /* 4px 9.6px */
     font-size: 11px; /* ~11px */
-    border-radius: 10px; /* 10px */
+    border-radius: 8px; /* 10px */
   }
 }

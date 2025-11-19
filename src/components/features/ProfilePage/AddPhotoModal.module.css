@@ -24,7 +24,7 @@
   background-color: #fff;
   width: 90%;
   max-width: 500px; /* 500px */
-  border-radius: 16px; /* 16px */
+  border-radius: 8px; /* 16px */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* 0 4px 12px */
   display: flex; /* Ensure content stacks properly */
   flex-direction: column;
@@ -37,7 +37,7 @@
   background-color: #00aaba;
   color: #fff;
   padding: 15px; /* 15px */
-  border-radius: 16px 16px 0 0; /* 16px */
+  border-radius: 8px 16px 0 0; /* 16px */
 }
 
 /* Assuming a title element (h2/h3) inside .modalHeader */

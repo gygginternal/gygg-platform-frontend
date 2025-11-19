@@ -1,6 +1,6 @@
 .postedGigsSection {
   background: #fff;
-  border-radius: 16px;
+  border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   padding: 24px;
   margin-bottom: 20px; /* 20px converted to px - consistent with tasker profile */
@@ -35,7 +35,7 @@
 .gigCard {
   background: #fff;
   border: 1px solid #e2e8f0;
-  border-radius: 16px;
+  border-radius: 8px;
   padding: 20px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -79,7 +79,7 @@
 
 .statusBadge {
   padding: 4px 12px;
-  border-radius: 12px;
+  border-radius: 8px;
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
@@ -112,7 +112,7 @@
 
 .card {
   background-color: #fff;
-  border-radius: 16px;
+  border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   padding: 24px;

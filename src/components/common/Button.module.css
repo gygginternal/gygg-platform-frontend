@@ -52,7 +52,7 @@
   .baseButton {
     padding: 6.4px 12.8px; /* 6px 13px converted to px */
     font-size: 13px; /* 13px converted to px */
-    border-radius: 14px; /* 14px converted to px */
+    border-radius: 8px; /* 14px converted to px */
   }
   .active {
     border-width: 1.6px; /* 2px converted to px */
@@ -64,7 +64,7 @@
   .baseButton {
     padding: 5.6px 11.2px; /* 6px 11px converted to px */
     font-size: 12px; /* 12px converted to px */
-    border-radius: 12px; /* 12px converted to px */
+    border-radius: 8px; /* 12px converted to px */
   }
   .active {
     border-width: 1.28px; /* 1px converted to px */
@@ -76,7 +76,7 @@
   .baseButton {
     padding: 4.8px 9.6px; /* 5px 10px converted to px */
     font-size: 11px; /* 11px converted to px */
-    border-radius: 10px; /* 10px converted to px */
+    border-radius: 8px; /* 10px converted to px */
   }
   .active {
     border-width: 0.96px; /* 1px converted to px */

@@ -168,7 +168,7 @@
   background-color: #d89362;
   color: white;
   padding: 4px 10px;
-  border-radius: 16px;
+  border-radius: 8px;
   font-size: 13px; /* 13px */
   display: flex;
   align-items: center;
@@ -329,7 +329,7 @@
   border: 1px solid #d89362;
   color: #d89362;
   padding: 11px 19px;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   margin-top: 24px;
   align-self: center; /* Centers the button in a flex column */

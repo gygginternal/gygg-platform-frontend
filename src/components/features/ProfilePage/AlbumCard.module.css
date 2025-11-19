@@ -8,7 +8,7 @@
 .albumItem {
   position: relative;
   border: 1px solid #c4c4c4; /* 1px */
-  border-radius: 16px; /* 16px */
+  border-radius: 8px; /* 16px */
   overflow: hidden;
   width: 100%; /* Takes full width of the grid column */
   max-width: 280px; /* 280px Limits max size */
@@ -119,7 +119,7 @@
 @media (max-width: 1024px) {
   .albumItem {
     max-width: 256px; /* 256px converted to px */
-    border-radius: 14px; /* 14px converted to px */
+    border-radius: 8px; /* 14px converted to px */
   }
   .albumImage {
     height: 200px; /* 200px converted to px */
@@ -145,7 +145,7 @@
 @media (max-width: 768px) {
   .albumItem {
     max-width: 100%; /* Allows it to take full width of grid column */
-    border-radius: 12px; /* 12px converted to px */
+    border-radius: 8px; /* 12px converted to px */
   }
   .albumImage {
     height: 160px; /* 160px converted to px */
@@ -170,7 +170,7 @@
 /* @media (max-width: 480px) - Mobile Phones */
 @media (max-width: 480px) {
   .albumItem {
-    border-radius: 10px; /* 10px converted to px */
+    border-radius: 8px; /* 10px converted to px */
   }
   .albumImage {
     height: 128px; /* 128px converted to px */

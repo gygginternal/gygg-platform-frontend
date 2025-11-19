@@ -64,7 +64,7 @@
   border: 1px solid #d89362; /* 1px */
   color: #d89362;
   padding: 10px 16px; /* ~9.6px 16px */
-  border-radius: 6px; /* 6px */
+  border-radius: 8px; /* 6px */
   cursor: pointer;
   margin-top: 24px; /* 24px */
   align-self: center; /* Center skip button */
@@ -136,7 +136,7 @@
   padding: 4px 10px; /* 4px 10px */
   /* Facebook Timestamps and meta info: 12px. Using 12px (12px). */
   font-size: 12px; /* 12px */
-  border-radius: 4px; /* 4px */
+  border-radius: 8px; /* 4px */
   cursor: pointer;
   margin-left: auto; /* Push to right */
   align-self: flex-start; /* Align with the top of the review item text */

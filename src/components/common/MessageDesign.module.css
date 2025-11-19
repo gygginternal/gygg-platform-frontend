@@ -113,7 +113,7 @@
 
   .messageListContainer {
     padding: 16px 20px 20px 16px;
-    border-radius: 12px;
+    border-radius: 16px;
   }
 
   .messageItem {
@@ -154,14 +154,14 @@
   .messageListContainer {
     padding: 12px 16px 16px 12px;
     margin-top: 8px;
-    border-radius: 8px;
+    border-radius: 16px;
   }
 
   .messageItem {
     gap: 12px;
     margin-top: 16px;
     padding: 8px 0;
-    border-radius: 8px;
+    border-radius: 16px;
     transition: background-color 0.2s ease;
   }
 
@@ -218,7 +218,7 @@
 @media (max-width: 480px) {
   .messageListContainer {
     padding: 8px 12px 12px 8px;
-    border-radius: 6px;
+    border-radius: 16px;
   }
 
   .messageItem {

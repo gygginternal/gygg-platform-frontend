@@ -134,7 +134,7 @@
 
 .messagesList::-webkit-scrollbar-thumb {
   background: #cbd5e0;
-  border-radius: 3px;
+  border-radius: 8px;
 }
 
 .messagesList::-webkit-scrollbar-thumb:hover {
@@ -161,7 +161,7 @@
 .message {
   max-width: 75%;
   padding: 14px 18px;
-  border-radius: 12px;
+  border-radius: 8px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -268,7 +268,7 @@
   color: #6b7280;
   cursor: pointer;
   padding: 8px;
-  border-radius: 6px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -287,7 +287,7 @@
   border: 1px solid #d1d5db;
   cursor: pointer;
   padding: 8px;
-  border-radius: 6px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -368,7 +368,7 @@
 
 @media (max-width: 1024px) {
   .chatWindow {
-    border-radius: 10px;
+    border-radius: 8px;
   }
 
   .header {
@@ -407,7 +407,7 @@
 
 @media (max-width: 768px) {
   .chatWindow {
-    border-radius: 10px;
+    border-radius: 8px;
     border: none;
     height: 100vh;
     max-height: 100vh;

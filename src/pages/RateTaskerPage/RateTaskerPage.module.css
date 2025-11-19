@@ -39,7 +39,7 @@
 
 .rateTaskerCard {
   background: #fff;
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   padding: 32px;
   margin-bottom: 32px;
@@ -121,7 +121,7 @@
   padding: 12px 24px;
   background-color: white;
   border: 1px solid #e5e7eb;
-  border-radius: 6px;
+  border-radius: 8px;
   color: #374151;
   font-weight: 500;
   cursor: pointer;
@@ -138,7 +138,7 @@
   padding: 12px 24px;
   background-color: #536471;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   color: white;
   font-weight: 500;
   cursor: pointer;
@@ -159,7 +159,7 @@
   text-align: center;
   padding: 32px;
   background: #fff;
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
