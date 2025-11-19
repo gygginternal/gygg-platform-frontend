@@ -17,17 +17,18 @@ function GigCreatePage() {
   };
 
   return (
-    // The outermost container for this page's specific layout
-    // Assuming App.js provides top padding for the global Header
-    <div className={styles.pageLayout}>
-      {/* Left Sidebar (Static Profile Info or other context) */}
-      <div className={styles.sidebarArea}>
-        <ProfileSidebar /> {/* Or any other relevant sidebar */}
-      </div>
-
-      {/* Main Content Area for Gig Creation Form */}
-      <div className={styles.formArea}>
-        <GigCreationForm onGigCreated={handleGigSuccessfullyPosted} />
+    // Structured to match PostedGigsPage layout
+    <div className={styles.pageContainer}>
+      <div className={styles.contentWrapper}>
+        <div className={styles.sidebarArea}>
+          <ProfileSidebar />
+        </div>
+        <div className={styles.mainFeedArea}>
+          {/* Main Content Area for Gig Creation Form */}
+          <div className={styles.formArea}>
+            <GigCreationForm onGigCreated={handleGigSuccessfullyPosted} />
+          </div>
+        </div>
       </div>
     </div>
   );
