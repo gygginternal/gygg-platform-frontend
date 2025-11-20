@@ -66,6 +66,23 @@
     margin-bottom: 16px; /* 16px - Space between stacked items */
   }
 }
+
+/* @media (max-width: 720px) - Align with other pages: hide sidebar */
+@media (max-width: 720px) {
+  .sidebarArea {
+    display: none;
+  }
+  .mainFeedArea {
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+  }
+  .contentWrapper {
+    margin-left: 0;
+    max-width: 100%;
+  }
+}
+
 /* @media (max-width: 480px) - Mobile Phones */
 @media (max-width: 480px) {
   .pageContainer {

@@ -1,11 +1,16 @@
 // src/pages/SettingsPage/SettingsPage.jsx
 import React, { useState } from 'react';
+import { useAuth } from '../../contexts/AuthContext'; // Import the AuthContext
 import styles from './SettingsPage.module.css';
 import PersonalInfoForm from '../../components/common/PersonalInfoForm';
 import { StripeConnectOnboarding } from '../../components/common/StripeConnectOnboarding';
 
 function SettingsPage() {
+  const { sessionRole } = useAuth(); // Get the user's session role
   const [activeTab, setActiveTab] = useState('profile');
+
+  // Payment tab should only be shown for taskers, not providers
+  const showPaymentTab = sessionRole === 'tasker';
 
   return (
     <div className={styles.settingsContainer}>
@@ -18,12 +23,14 @@ function SettingsPage() {
             >
               Personal Information
             </button>
-            <button
-              className={`${styles.tab} ${activeTab === 'payment' ? styles.activeTab : ''}`}
-              onClick={() => setActiveTab('payment')}
-            >
-              Payment Information
-            </button>
+            {showPaymentTab && (
+              <button
+                className={`${styles.tab} ${activeTab === 'payment' ? styles.activeTab : ''}`}
+                onClick={() => setActiveTab('payment')}
+              >
+                Payment Information
+              </button>
+            )}
           </div>
 
           <div className={styles.tabContent}>
@@ -33,7 +40,7 @@ function SettingsPage() {
               </div>
             )}
 
-            {activeTab === 'payment' && (
+            {activeTab === 'payment' && showPaymentTab && (
               <div className={styles.tabPanel}>
                 <StripeConnectOnboarding />
               </div>
