@@ -14,10 +14,31 @@
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
-  padding: 12px;
+  margin-left: 204px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+/* Tablet (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .content {
+    margin-left: 172px; /* Reduced margin for smaller screens */
+  }
+}
+
+/* Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+  .content {
+    margin-left: 20px; /* Small margin on mobile */
+  }
+}
+
+/* Small Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+  .content {
+    margin-left: 0; /* No left margin on small mobile */
+  }
 }
 
 .tabsContainer {
@@ -67,62 +88,6 @@
 
 .tabContent {
   padding: 24px;
-}
-
-.noBox {
-  /* Remove the box styling from PersonalInfoForm and make it take full container size */
-  max-width: none !important;
-  min-height: auto !important;
-  margin: 0 !important;
-  background: transparent !important;
-  padding: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.noBox > div {
-  /* Make sure the immediate child (PersonalInfoForm container) also takes full size */
-  width: 100% !important;
-  height: 100% !important;
-  max-width: none !important;
-}
-
-.tabPanel h2 {
-  margin-top: 0;
-  color: #333;
-  font-size: 24px;
-  margin-bottom: 16px;
-}
-
-.tabPanel p {
-  color: #666;
-  margin-bottom: 24px;
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-.paymentMethodSection {
-  margin-bottom: 32px;
-  padding: 24px;
-  border: 1px solid #e0e0e0;
-  border-radius: 16px;
-  background-color: #f8f9fa;
-}
-
-.paymentMethodSection h3 {
-  margin-top: 0;
-  color: #333;
-  font-size: 20px;
-  margin-bottom: 8px;
-}
-
-.paymentMethodSection p {
-  color: #666;
-  margin-bottom: 16px;
-  font-size: 15px;
-  line-height: 1.4;
 }
 
 /* Small Mobile to Tablet (480px - 768px) */
@@ -183,3 +148,97 @@
     padding: 24px;
   }
 }
+
+.noBox {
+  /* Remove the box styling from PersonalInfoForm and make it take full container size */
+  max-width: none !important;
+  min-height: auto !important;
+  margin: 0 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.noBox > div {
+  /* Make sure the immediate child (PersonalInfoForm container) also takes full size */
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+}
+
+.tabPanel h2 {
+  margin-top: 0;
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.tabPanel p {
+  color: #666;
+  margin-bottom: 24px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.paymentMethodSection {
+  margin-bottom: 32px;
+  padding: 24px;
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  background-color: #f8f9fa;
+}
+
+.paymentMethodSection h3 {
+  margin-top: 0;
+  color: #333;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.paymentMethodSection p {
+  color: #666;
+  margin-bottom: 16px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+/* Tablet (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .pageContainer {
+    padding-top: 28px; /* 14px converted to px */
+    min-height: calc(100vh - 32px); /* 32px converted to px */
+  }
+
+  .contentWrapper {
+    margin-left: 172px; /* 172px converted to px */
+    max-width: 960px; /* 960px converted to px */
+    padding: 8px; /* 8px converted to px */
+    gap: 16px; /* 16px converted to px */
+  }
+
+  .sidebarArea {
+    width: 240px; /* 240px converted to px - Match ProviderProfile */
+  }
+}
+
+@media (max-width: 768px) {
+  .pageContainer {
+    padding-top: 12px; /* 12px converted to px */
+    min-height: calc(100vh - 32px); /* 32px converted to px */
+  }
+
+  .contentWrapper {
+    max-width: 100%;
+    padding: 10px 15px; /* 10px 15px converted to px */
+    gap: 12px; /* 12px converted to px */
+  }
+
+  .sidebarArea {
+    margin-bottom: 16px; /* 16px converted to px - Match ProviderProfile */
+  }
+}
+
+
