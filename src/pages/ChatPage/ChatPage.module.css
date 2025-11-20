@@ -1,9 +1,10 @@
 .container {
   display: flex;
   height: calc(100vh - 41px);
-  width: 100vw;
-  padding-left: 220px;
-  padding-right: 20px; /* 20px converted to px */
+  width: 100vw; /* Use full width for large screens */
+  margin-left: 204px; /* Account for global navigation sidebar */
+  margin-right: auto; /* Keep content aligned */
+  padding: 10px; /* Use padding for internal spacing */
   padding-top: 41px;
   background: #f0f2f5;
   color: #1f2937;
@@ -14,23 +15,23 @@
   overflow-y: hidden;
   position: relative;
   box-sizing: border-box;
-  gap: 24px; /* 24px converted to px */
+  gap: 20px; /* Match SocialFeedLayout gap */
 }
 
-/* Large screen optimizations */
+/* Large screen optimizations - Adjust margins to account for larger global sidebar */
 @media (min-width: 1800px) {
   .container {
-    padding-left: 240px;
-    padding-right: 24px; /* 24px converted to px */
-    gap: 28px; /* 28px converted to px */
+    margin-left: 236px; /* Adjusted for larger global sidebar at 1800px */
+    padding: 14px; /* Slightly larger padding on large screens */
+    gap: 28px; /* Slightly larger gap on large screens */
   }
 }
 
 @media (min-width: 2000px) {
   .container {
-    padding-left: 260px;
-    padding-right: 32px;
-    gap: 32px;
+    margin-left: 256px; /* Adjusted for larger global sidebar at 2000px */
+    padding: 16px; /* Larger padding on very large screens */
+    gap: 32px; /* Larger gap on very large screens */
   }
 }
 
@@ -45,50 +46,36 @@
 }
 
 /* Enhanced responsive design for better width utilization */
-@media (max-width: 1600px) {
-  .container {
-    padding-left: 200px;
-    padding-right: 14px; /* 14px converted to px */
-    gap: 16px; /* 16px converted to px */
-  }
-}
-
-@media (max-width: 1400px) {
-  .container {
-    padding-left: 190px;
-    padding-right: 12px; /* 12px converted to px */
-    gap: 14px; /* 14px converted to px */
-  }
-}
-
-@media (max-width: 1200px) {
-  .container {
-    padding-left: 180px;
-    padding-right: 10px; /* 10px converted to px */
-    gap: 12px; /* 12px converted to px */
-  }
-}
-
 @media (max-width: 1024px) {
   .container {
-    height: calc(100vh - 35px);
-    padding-left: 170px;
-    padding-right: 8px; /* 8px converted to px */
-    padding-top: 35px;
-    gap: 10px; /* 10px converted to px */
+    height: calc(100vh - 28px);
+    margin-left: 172px; /* Adjusted for responsive sidebar width */
+    padding: 14px 16px; /* Use padding for interior spacing */
+    padding-top: 28px;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 900px) {
+  .container {
+    margin-left: 150px;
+    padding: 14px 16px;
+  }
+}
+
+@media (max-width: 800px) {
+  .container {
+    margin-left: 120px;
+    padding: 14px 16px;
   }
 }
 
 @media (max-width: 768px) {
   .container {
-    flex-direction: row;
-    height: calc(100vh - 30px);
-    padding-left: 0;
-    padding-top: 30px;
-    padding-right: 12px; /* 12px converted to px */
-    padding-bottom: 0;
-    gap: 12px; /* 12px converted to px */
-    background: #f0f2f5;
+    margin-left: 0; /* Clear the global sidebar offset */
+    padding: 12px 15px;
+    padding-top: 12px;
+    gap: 12px;
   }
 
   .chatArea {
@@ -107,14 +94,36 @@
   }
 }
 
+/* @media (max-width: 720px) - Align with other pages: hide sidebar */
+@media (max-width: 720px) {
+  .sidebar {
+    display: none;
+  }
+  .chatArea {
+    width: 100%;
+    flex: none;
+  }
+  .container {
+    margin-left: 0;
+  }
+}
+
 @media (max-width: 480px) {
   .container {
-    height: calc(100vh - 25px);
-    padding-left: 0;
-    padding-top: 25px;
-    padding-right: 4px; /* 4px converted to px */
-    padding-bottom: 0;
-    gap: 4px; /* 4px converted to px */
+    margin-left: 0 !important;
+    padding: 8px 11px !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    gap: 8px;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .chatArea {
+    width: 100% !important;
+    min-width: 0;
   }
 }
 

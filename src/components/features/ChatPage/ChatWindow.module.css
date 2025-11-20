@@ -1,18 +1,17 @@
 .chatWindow {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 100%;
+  flex: 1; /* Takes remaining space like mainFeedArea */
+  min-width: 0;
   height: 100%;
-  min-height: 0;
   background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border-radius: 16px; /* Match mainFeedArea */
   box-sizing: border-box;
   overflow: hidden;
   padding-bottom: 41px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   position: relative;
+  border: none; /* Match mainFeedArea */
 }
 
 .header {
@@ -368,7 +367,7 @@
 
 @media (max-width: 1024px) {
   .chatWindow {
-    border-radius: 8px;
+    border-radius: 16px;
   }
 
   .header {
@@ -405,9 +404,41 @@
   }
 }
 
+@media (max-width: 1024px) {
+  .chatWindow {
+    border-radius: 16px;
+  }
+
+  .header {
+    padding: 14px 20px;
+  }
+
+  .messagesList {
+    padding: 14px 20px;
+    gap: 8px;
+  }
+
+  .inputContainer {
+    padding: 14px 20px;
+  }
+
+  .message {
+    max-width: 88%;
+    padding: 12px 16px;
+  }
+
+  .messageText {
+    font-size: 14px;
+  }
+
+  .messageTime {
+    font-size: 11px;
+  }
+}
+
 @media (max-width: 768px) {
   .chatWindow {
-    border-radius: 8px;
+    border-radius: 16px;
     border: none;
     height: 100vh;
     max-height: 100vh;
@@ -481,7 +512,7 @@
 
 @media (max-width: 480px) {
   .chatWindow {
-    border-radius: 0;
+    border-radius: 16px;
     height: 100vh;
     max-height: 100vh;
   }
@@ -663,3 +694,12 @@
 .scrollToBottomBtn:active {
   transform: scale(0.95);
 }
+
+/* Reduce width by 25% (to 75%) on screens above 1200px, keep height unchanged */
+@media (min-width: 1200px) {
+  .chatWindow {
+    width: 75% !important; /* Reduce width to 75% */
+    /* Height remains unchanged */
+  }
+}
+

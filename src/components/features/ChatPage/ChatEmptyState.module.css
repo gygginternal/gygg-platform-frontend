@@ -7,13 +7,14 @@
   min-height: 0;
   background-color: #fff;
   color: #111;
-  padding: 32px;
+  padding: 24px; /* Match mainFeedArea padding */
   position: relative;
-  border: 1px solid #e0e0e0;
   box-sizing: border-box;
-  border-radius: 16px;
+  border-radius: 16px; /* Match mainFeedArea */
   overflow: hidden;
   padding-bottom: 41px;
+  flex: 1; /* Match mainFeedArea behavior */
+  min-width: 0;
 }
 
 .content {
@@ -88,11 +89,11 @@
   font-weight: 400;
 }
 
-/* Responsive design */
+/* Responsive design to match mainFeedArea */
 @media (max-width: 1024px) {
   .container {
-    padding: 24px;
-    border-radius: 16px;
+    padding: 14px; /* Match mainFeedArea padding */
+    border-radius: 16px; /* Match mainFeedArea */
   }
 
   .logo {
@@ -112,9 +113,8 @@
 
 @media (max-width: 768px) {
   .container {
-    padding: 16px;
-    border-radius: 16px;
-    border: none;
+    padding: 12px; /* Match mainFeedArea padding */
+    border-radius: 16px; /* Match mainFeedArea */
   }
 
   .logo {
@@ -156,8 +156,8 @@
 
 @media (max-width: 480px) {
   .container {
-    padding: 12px;
-    border-radius: 0;
+    padding: 8px; /* Match mainFeedArea padding */
+    border-radius: 0; /* Match mainFeedArea */
   }
 
   .logo {
@@ -217,5 +217,13 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Reduce width by 25% (to 75%) on screens above 1200px, keep height unchanged */
+@media (min-width: 1200px) {
+  .container {
+    width: 75% !important; /* Reduce width to 75% */
+    /* Height remains unchanged */
   }
 }
