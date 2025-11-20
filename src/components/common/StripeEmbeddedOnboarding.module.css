@@ -130,3 +130,65 @@
   border-radius: 8px;
   overflow: hidden;
 }
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .container {
+    padding: 16px;
+  }
+
+  .onboardingCard {
+    padding: 24px;
+  }
+
+  .embeddedOnboarding {
+    min-height: 450px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 12px;
+  }
+
+  .onboardingCard {
+    padding: 20px;
+  }
+
+  .onboardButton,
+  .refreshButton {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .embeddedOnboarding {
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 8px;
+  }
+
+  .onboardingCard {
+    padding: 16px;
+  }
+
+  .onboardingCard h3 {
+    font-size: 18px;
+  }
+
+  .onboardingCard p {
+    font-size: 14px;
+  }
+
+  .embeddedOnboarding {
+    min-height: 350px;
+  }
+
+  .statusRow {
+    flex-direction: column;
+    gap: 4px;
+  }
+}

@@ -204,3 +204,113 @@
   font-size: 16px;
   margin: 0;
 }
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .modalContent {
+    width: 95%;
+    max-width: 480px;
+  }
+
+  .modalHeader {
+    padding: 10px 20px;
+  }
+
+  .modalHeader h3 {
+    font-size: 18px;
+  }
+
+  .modalBody {
+    padding: 0 20px 20px 20px;
+  }
+
+  .modalActions {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .modalContent {
+    width: 98%;
+    max-width: 450px;
+    max-height: 75vh;
+  }
+
+  .modalHeader {
+    padding: 8px 16px;
+  }
+
+  .modalHeader h3 {
+    font-size: 16px;
+  }
+
+  .closeButton {
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+  }
+
+  .modalBody {
+    padding: 0 16px 16px 16px;
+  }
+
+  .modalActions {
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+  }
+
+  .primaryBtn,
+  .secondaryBtn {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal {
+    padding: 10px;
+  }
+
+  .modalContent {
+    width: 100%;
+    max-width: 100%;
+    max-height: 90vh;
+  }
+
+  .modalHeader {
+    padding: 8px 12px;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .modalHeader h3 {
+    font-size: 15px;
+  }
+
+  .modalRow {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .modalLabel {
+    font-weight: 600;
+  }
+
+  .modalActions {
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .noApplications {
+    padding: 24px 16px;
+  }
+
+  .noApplications h3 {
+    font-size: 16px;
+  }
+
+  .noApplications p {
+    font-size: 14px;
+  }
+}
