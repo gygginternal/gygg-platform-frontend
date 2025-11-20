@@ -285,6 +285,9 @@ const StripePayment = ({
     <div className={styles.stripePayment}>
       <h3>Pay with Credit Card (Stripe)</h3>
       <p>Securely pay using your credit or debit card through Stripe.</p>
+      <p className={styles.paymentNote}>
+        <em>Note: Additional taxes may apply and will be calculated at checkout.</em>
+      </p>
 
       <Elements stripe={stripePromise} options={{ clientSecret }}>
         <CheckoutForm

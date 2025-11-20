@@ -51,12 +51,22 @@ export const BillingModal = ({ isOpen, onClose, gig }) => {
 
           <hr className={styles.hr} />
 
-          {/* Fees and Taxes Section */}
+          {/* Platform Fee Section */}
           <section className={styles.section}>
             <div className={styles.flexRow}>
-              <p className={styles.label}>Fees and taxes</p>
+              <p className={styles.label}>Platform fee</p>
               <p className={styles.value}>
                 ${((gig.applicationFeeAmount || 0) / 100).toFixed(2)}
+              </p>
+            </div>
+          </section>
+
+          {/* Tax Section */}
+          <section className={styles.section}>
+            <div className={styles.flexRow}>
+              <p className={styles.label}>Taxes</p>
+              <p className={styles.value}>
+                ${((gig.providerTaxAmount || gig.taxAmount || 0) / 100).toFixed(2)}
               </p>
             </div>
           </section>

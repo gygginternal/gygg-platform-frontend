@@ -187,9 +187,27 @@ const StripePaymentPage = () => {
               </span>
             </div>
             <div className={styles.detailRow}>
-              <span className={styles.label}>Amount:</span>
+              <span className={styles.label}>Service Amount:</span>
               <span className={styles.value}>
                 ${contract?.agreedCost || contract?.rate || '0.00'}
+              </span>
+            </div>
+            <div className={styles.detailRow}>
+              <span className={styles.label}>Platform Fee:</span>
+              <span className={styles.value}>
+                Calculated at checkout
+              </span>
+            </div>
+            <div className={styles.detailRow}>
+              <span className={styles.label}>Tax (HST/GST):</span>
+              <span className={styles.value}>
+                Calculated at checkout
+              </span>
+            </div>
+            <div className={styles.detailRow}>
+              <span className={styles.label}>Total:</span>
+              <span className={styles.value}>
+                Calculated at checkout
               </span>
             </div>
           </div>
