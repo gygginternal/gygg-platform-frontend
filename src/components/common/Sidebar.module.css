@@ -3,17 +3,17 @@
 .sidebar {
   background-color: #f1f1f1;
   width: 270px; /* 270px Default width for larger screens */
-  min-height: 150vh;
-  height: 150vh !important; /* Ensure full height on all screens */
-  padding-top: 84px; /* 84px - Pushes content below the header on desktop */
+  top: 84px; /* 84px - Position below header */
+  bottom: 0; /* Extend to bottom of viewport */
+  height: auto; /* Let top and bottom positioning handle the height */
+  padding-top: 0; /* Content positioning handled by top property */
   position: fixed;
   left: 0; /* Always visible on desktop */
-  top: 0; /* Starts at the very top of the viewport on desktop */
   transition:
     width 0.3s ease-in-out,
     left 0.3s ease-in-out; /* Add left to transition */
   overflow-x: hidden; /* For collapsing text */
-  overflow-y: auto; /* Allow internal scrolling if content is too long */
+  overflow-y: hidden; /* Handle scrolling within content area */
   display: flex;
   flex-direction: column;
   z-index: 99; /* Below header (100) on desktop */
@@ -122,7 +122,10 @@
 @media (min-width: 1024px) {
   .sidebar {
     width: 280px; /* 280px */
-    padding-top: 88px; /* 88px - matches enhanced header */
+    top: 88px; /* 88px - Position below enhanced header */
+    bottom: 0; /* Extend to bottom of viewport */
+    height: auto; /* Let top and bottom positioning handle the height */
+    padding-top: 0; /* Content positioning handled by top property */
   }
   .sidebar.collapsed {
     width: 88px; /* 88px */
@@ -147,7 +150,10 @@
 @media (min-width: 768px) and (max-width: 1024px) {
   .sidebar {
     width: 248px; /* 248px */
-    padding-top: 76px; /* 76px - matches tablet header */
+    top: 76px; /* 76px - Position below tablet header */
+    bottom: 0; /* Extend to bottom of viewport */
+    height: auto; /* Let top and bottom positioning handle the height */
+    padding-top: 0; /* Content positioning handled by top property */
   }
   .sidebar.collapsed {
     width: 76px; /* 76px */
@@ -174,7 +180,8 @@
     left: -256px;
     width: 256px; /* 256px */
     top: 64px; /* 64px - matches header */
-    height: calc(100vh - 64px);
+    bottom: 0;
+    height: auto; /* Let top and bottom positioning handle the height */
     padding-top: 0 !important;
     z-index: 150;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
@@ -216,7 +223,8 @@
     left: -100vw;
     width: 60vw; /* 75% of viewport width */
     top: 56px; /* 56px - matches mobile header */
-    height: calc(100vh - 56px);
+    bottom: 0;
+    height: auto; /* Let top and bottom positioning handle the height */
     padding-top: 0 !important;
     z-index: 200;
     box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
@@ -292,16 +300,27 @@
   }
 }
 
-/* Sidebar toggle button */
-.sidebarToggle {
+/* Navigation items container - allows scrolling of content while keeping toggle fixed */
+.navContainer {
+  flex: 1;
+  overflow-y: auto;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+}
+
+/* Sidebar toggle button - fixed at bottom */
+.sidebarToggle {
+  align-self: flex-end;
   justify-content: center;
   cursor: pointer;
+  display: flex;
   padding: 16px 24px;
   box-sizing: border-box;
-  width: 100%;
-  position: relative;
+  position: sticky;
+  bottom: 0;
+  background-color: #f1f1f1;
+  z-index: 100; /* Above other content */
+  margin-top: auto;
 }
 
 .sidebar.collapsed .sidebarToggle {
