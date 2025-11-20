@@ -35,6 +35,13 @@ const StripePaymentPage = createLazyRoute(
   }
 );
 
+const PaymentSummaryPage = createLazyRoute(
+  () => import('./pages/ContractPayment/PaymentSummaryPage'),
+  {
+    loadingText: 'Loading payment summary...',
+  }
+);
+
 const SignupPage = createLazyRoute(
   () => import('./pages/SignupPage/SignupPage'),
   {
@@ -447,6 +454,14 @@ function AppWithNavigation() {
               element={
                 <ProtectedRoute>
                   <ContractsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/contracts/:contractId/pay-summary"
+              element={
+                <ProtectedRoute>
+                  <PaymentSummaryPage />
                 </ProtectedRoute>
               }
             />

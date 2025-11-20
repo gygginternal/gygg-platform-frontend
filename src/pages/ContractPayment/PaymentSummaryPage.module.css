@@ -1,0 +1,231 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.paymentCard {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.075);
+  padding: 32px;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  flex: 1;
+  text-align: center;
+}
+
+.backButton {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 8px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.backButton:hover {
+  background-color: #f8f9fa;
+  text-decoration: none;
+}
+
+.toWhomSection {
+  margin-bottom: 32px;
+}
+
+.toWhomSection h2 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #495057;
+}
+
+.taskerInfo {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid #dee2e6;
+}
+
+.taskerName {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 4px;
+  color: #212529;
+}
+
+.taskDescription {
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.paymentBreakdownSection {
+  margin-bottom: 32px;
+}
+
+.paymentBreakdownSection h2 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #495057;
+}
+
+.breakdownItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f1f3f5;
+}
+
+.breakdownItem:last-child {
+  border-bottom: none;
+  padding-top: 12px;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.total {
+  border-top: 2px solid #dee2e6;
+  margin-top: 8px;
+}
+
+.label {
+  color: #495057;
+}
+
+.value {
+  color: #212529;
+  font-weight: 500;
+}
+
+.total .value {
+  color: #007bff;
+  font-weight: 600;
+}
+
+.paymentInfo {
+  background-color: #e7f1ff;
+  border-radius: 8px;
+  padding: 16px;
+  border-left: 4px solid #007bff;
+}
+
+.paymentInfo h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #007bff;
+}
+
+.paymentInfo p {
+  margin: 0;
+  color: #495057;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.actionButtonContainer {
+  position: sticky;
+  bottom: 32px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.payButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.25);
+}
+
+.payButton:hover {
+  background-color: #0069d9;
+}
+
+.payButton:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.loading {
+  text-align: center;
+  padding: 32px;
+  font-size: 18px;
+  color: #6c757d;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #f5c6cb;
+}
+
+.backButton {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 16px;
+}
+
+.backButton:hover {
+  background-color: #5a6268;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .paymentCard {
+    padding: 24px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+  }
+
+  .actionButtonContainer {
+    position: static;
+    justify-content: center;
+    margin-top: 32px;
+  }
+
+  .payButton {
+    width: 100%;
+  }
+}

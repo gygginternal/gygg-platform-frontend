@@ -887,7 +887,7 @@ function ContractsPage() {
                     className={styles.primaryBtn}
                     onClick={() => {
                       navigate(
-                        `/contracts/${modalContract.id || modalContract._id}/pay-with-stripe`
+                        `/contracts/${modalContract.id || modalContract._id}/pay-summary`
                       );
                     }}
                   >

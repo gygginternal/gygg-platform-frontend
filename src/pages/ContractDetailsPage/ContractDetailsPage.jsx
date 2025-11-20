@@ -156,8 +156,8 @@ export default function ContractDetailsPage({ gig, contract, user, children }) {
         console.warn('Error validating tasker account:', validationError);
       }
 
-      // Navigate to payment page if onboarding is complete
-      navigate(`/contracts/${contractId}/pay-with-stripe`);
+      // Navigate to payment summary page if onboarding is complete
+      navigate(`/contracts/${contractId}/pay-summary`);
     } catch (error) {
       console.error('Error checking tasker onboarding status:', error);
       alert('Failed to check tasker onboarding status. Please try again.');
