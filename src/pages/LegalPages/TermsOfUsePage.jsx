@@ -211,7 +211,7 @@ function TermsOfUsePage() {
           <li>Users waive the right to participate in class actions, class arbitrations, or joint claims.</li>
         </ul>
 
-        <h3>15. Termination (Detailed)</h3>
+        <h3>15. Termination</h3>
         <p>Gygg may terminate or suspend accounts at any time for any reason including:</p>
         <ul class="tab">
           <li>fraud or risk indicators</li>

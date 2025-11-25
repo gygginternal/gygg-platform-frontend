@@ -75,7 +75,7 @@
   display: flex;
   position: relative;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 0 2px 5px */
-  border-radius: 8px; /* 15px */
+  border-radius: 16px; /* 16px on all sides */
 }
 
 .searchInput {
@@ -95,7 +95,7 @@
   color: #fff;
   cursor: pointer;
   background-color: #00aaba;
-  border-radius: 0 15px 15px 0; /* 0 15px 15px 0 */
+  border-radius: 0 16px 16px 0; /* 16px on right sides to match input on left */
   height: 54px; /* 54px */
   padding: 0 20px; /* 0 20px */
   font-weight: 700;
@@ -431,7 +431,6 @@
   .searchBox {
     height: 50px; /* 50px */
     padding: 0 16px; /* 0 16px */
-    border-radius: 8px; /* 14px */
   }
   .searchInput {
     font-size: 15px; /* 15px */
@@ -441,7 +440,7 @@
     height: 50px; /* 50px */
     padding: 0 18px; /* 0 18px */
     font-size: 14px; /* 14px */
-    border-radius: 0 14px 14px 0; /* 0 14px 14px 0 */
+    border-radius: 0 16px 16px 0; /* 16px on right sides to match input on left */
   }
   .searchButton img {
     width: 18px; /* 18px */
@@ -481,7 +480,6 @@
   .searchBox {
     height: 44px; /* 44px */
     padding: 0 12px; /* 0 12px */
-    border-radius: 8px; /* 12px */
   }
   .searchInput {
     font-size: 14px; /* 14px */
@@ -491,7 +489,7 @@
     height: 44px; /* 44px */
     padding: 0 16px; /* 0 16px */
     font-size: 13px; /* 13px */
-    border-radius: 0 12px 12px 0; /* 0 12px 12px 0 */
+    border-radius: 0 16px 16px 0; /* 16px on right sides to match input on left */
   }
   .searchButton img {
     width: 18px; /* 18px */
@@ -1075,7 +1073,7 @@
   display: flex;
   position: relative;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 0 2px 5px */
-  border-radius: 8px; /* 15px */
+  border-radius: 16px; /* 16px on all sides */
 }
 
 .searchInput {
@@ -1095,7 +1093,7 @@
   color: #fff;
   cursor: pointer;
   background-color: #00aaba;
-  border-radius: 0 15px 15px 0; /* 0 15px 15px 0 */
+  border-radius: 0 16px 16px 0; /* 16px on right sides to match input on left */
   height: 54px; /* 54px */
   padding: 0 20px; /* 0 20px */
   font-weight: 700;
@@ -1383,7 +1381,6 @@
   .searchBox {
     height: 50px; /* 50px */
     padding: 0 16px; /* 0 16px */
-    border-radius: 8px; /* 14px */
   }
   .searchInput {
     font-size: 15px; /* 15px */
@@ -1393,7 +1390,7 @@
     height: 50px; /* 50px */
     padding: 0 18px; /* 0 18px */
     font-size: 14px; /* 14px */
-    border-radius: 0 14px 14px 0; /* 0 14px 14px 0 */
+    border-radius: 0 16px 16px 0; /* 16px on right sides to match input on left */
   }
   .searchButton img {
     width: 18px; /* 18px */
@@ -1433,7 +1430,6 @@
   .searchBox {
     height: 44px; /* 44px */
     padding: 0 12px; /* 0 12px */
-    border-radius: 8px; /* 12px */
   }
   .searchInput {
     font-size: 14px; /* 14px */
@@ -1443,7 +1439,7 @@
     height: 44px; /* 44px */
     padding: 0 16px; /* 0 16px */
     font-size: 13px; /* 13px */
-    border-radius: 0 12px 12px 0; /* 0 12px 12px 0 */
+    border-radius: 0 16px 16px 0; /* 16px on right sides to match input on left */
   }
   .searchButton img {
     width: 18px; /* 18px */
