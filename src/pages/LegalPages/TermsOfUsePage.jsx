@@ -20,8 +20,10 @@ function TermsOfUsePage() {
 
         <h3>2. Description of Service</h3>
         <ol type="a" class="tab">
-          <li>Gygg operates solely as a <strong>marketplace</strong>. We do not provide, perform, or guarantee any services offered by users. All services are performed by independent individuals who are not employed by Gygg.</li>
-          <li><p>Taskers are independent contractors and are not employees, agents, or representatives of Gygg. Gygg does not set hours, assign tasks, supply tools or equipment, supervise work, or evaluate performance.</p>
+          <li><p>Marketplace only</p>
+          <p>Gygg operates solely as a <strong>marketplace</strong>. We do not provide, perform, or guarantee any services offered by users. All services are performed by independent individuals who are not employed by Gygg.</p></li>
+          <li><p>No employment relationship</p>
+          <p>Taskers are independent contractors and are not employees, agents, or representatives of Gygg. Gygg does not set hours, assign tasks, supply tools or equipment, supervise work, or evaluate performance.</p>
           <p>Taskers retain full control over:</p>
           <ul class="tab">
             <li>whether to accept jobs</li>
@@ -30,93 +32,203 @@ function TermsOfUsePage() {
             <li>their tools, equipment, and methods</li>
           </ul>
           </li>
-          <li><p>Gygg does not provide Workplace Safety and Insurance Board (WSIB) coverage, workers’ compensation, or any employment benefits.</p>
+          <li><p>No WSIB coverage</p>
+          <p>Gygg does not provide Workplace Safety and Insurance Board (WSIB) coverage, workers’ compensation, or any employment benefits.</p>
           <p>Users agree:</p>
           <ul>
           <li>Gygg is not the “employer” of any Tasker under Ontario law.</li>
           <li>Gygg has no WSIB obligations.</li>
           <li>Users waive any right to assert a WSIB claim against Gygg.</li>
-          <li>Posters are not “employers” of Gygg.</li>
+          <li>Providers are not “employers” of Gygg.</li>
           </ul>
           </li>
         </ol>
 
         <p>Taskers are solely responsible for their own insurance coverage, tax compliance, and safety.</p>
-        
-        <h3>3. Eligibility</h3>
-        <p>You must be at least 50 years old to use the Platform. By using Gygg, you represent and
-warrant that you have the legal capacity to enter into this agreement.</p>
 
-        <h3>4. User Accounts</h3>
-        <p>To access certain features of the Platform, you must register for an account. You are
-responsible for maintaining the confidentiality of your account credentials and all activities that
-occur under your account.</p>
+        <h3>3. Payments</h3>
+        <ol type="a" class="tab">
+          <li><p>Stripe Connect</p>
+          <p>Gygg uses Stripe and Stripe Connect to manage payments, store payment credentials, verify identities, and facilitate payouts. By using Gygg, all users agree to comply with Stripe’s Terms of Service, Privacy Policy, onboarding procedures, KYC, AML, and any information requests.</p></li>
+          <li><p>Gygg does not handle or hold money</p>
+          <p>All funds are held by Stripe on behalf of the relevant users. Gygg never holds, manages, or transfers funds.</p></li>
+          <li><p>Authorization</p>
+          <p>Providers authorize Stripe to charge the payment method on file when a job is approved as complete. Taskers authorize Stripe to issue payouts and consent to delays or reversals based on Stripe’s fraud or dispute processes.</p></li>
+          <li><p>Chargebacks</p>
+          <p>Stripe’s decision is final. Gygg is not liable for chargebacks, disputes, reversals, payment failures, fraud flags, or bank-related delays.</p></li>
+        </ol>
 
-        <h3>5. User Conduct</h3>
-        <p>You agree not to:</p>
+        <h3>4. Fees and Comission Structure</h3>
+        <p>Providers pay a non-refundable booking fee of [$X] per job posting.</p>
+        <p>Taskers pay a commission based on the final job price:</p>
         <ul class="tab">
-            <li>Violate any local, state, national, or international law.</li>
-            <li>Post or transmit any unlawful, harmful, defamatory, obscene, or otherwise objectionable
-content;​</li>
-            <li>Impersonate another person or misrepresent your affiliation;​</li>
-            <li>Interfere with or disrupt the Platform or any user’s experience.​</li>
+          <li>15 percent for jobs up to $X</li>
+          <li>10 percent for jobs between $X and $Y</li>
+          <li>5 percent for jobs above $Y</li>
         </ul>
+        <p>These fees may change with notice.</p>
+        <p>All Gygg fees are non-refundable unless required by law.</p>
 
-        <h3>6. Service Agreements Between Users</h3>
-        <p>All service arrangements are solely between Taskers and Providers. Gygg is not a party to any
-agreement between users and does not guarantee the quality, safety, legality, or performance of
-services offered.</p>
-
-        <h3>7. Payments</h3>
-        <p>Payments are processed via third-party providers (e.g., Stripe). You agree to comply with the
-terms and policies of these third-party services. Gygg is not liable for any issues arising from
-payment processing.</p>
-
-        <h3>8. Ratings and Reviews</h3>
-        <p>Users may leave reviews and ratings for one another after a service is completed. You agree
-that such feedback must be honest, accurate, and respectful.</p>
-
-        <h3>9. Intellectual Property</h3>
-        <p>All content, trademarks, and materials on the Gygg Platform are the property of Gygg Inc. or its
-licensors. You may not reproduce, distribute, or create derivative works without express written
-permission.</p>
-
-        <h3>10. Termination</h3>
-        <p>Gygg reserves the right to suspend or terminate your account and access to the Platform at our
-sole discretion, with or without notice, for any reason, including violations of these Terms.</p>
-
-        <h3>11. Disclaimer: No Employment or Payment Obligation</h3>
-          <p>Gygg Inc. is <strong>not</strong> an employer, payment agent, or party to any agreement between users.</p>
-          <p>Taskers and Providers enter into agreements with each other directly and are responsible for
-complying with applicable laws, including employment, tax, and labor regulations.</p>
-          <p>Gygg does not:</p>
+        <h3>5. Identity Verification and Background Checks</h3>
+        <ol type="a" class="tab">
+          <li><p>Verification tools</p>
+          <p>Gygg may use Stripe Identity, Veriff, Persona, Trulioo, or similar services to verify identity and age.</p></li>
+          <li><p>Background checks</p>
+          <p>If performed, background checks:</p>
           <ul class="tab">
-          <li>Withhold taxes;​</li>
-          <li>Provide insurance, employee benefits, or workers’ compensation;​​</li>
-          <li>Guarantee or verify any payments between users.​</li>
+            <li>are name-based, not fingerprint-based</li>
+            <li>rely on third-party databases</li>
+            <li>may be incomplete or inaccurate</li>
+            <li>do not eliminate risk</li>
+            <li>are not a guarantee of user safety</li>
+          </ul>
+          <p>Users acknowledge that verification is a risk-reduction tool only, not a security guarantee.</p>
+          </li>
+          <li><p>No reliance</p>
+          <p>Users agree that Gygg is not responsible for the completeness, accuracy, timeliness, or validity of background checks or identity data.</p></li>
+        </ol>
+        
+        <h3>6. User Conduct and Assumption of Risk</h3>
+        <ol type="a" class="tab">
+          <li><p>User responsibility</p>
+          <p>Gygg does not screen, supervise, or monitor users. Users are fully responsible for their own decisions, interactions, and safety.</p></li>
+          <li><p>Customer-side risk assumption</p>
+          <p>Provider acknowledge:</p>
+          <ul class="tab">
+            <li>allowing a stranger into their home is at their own risk</li>
+            <li>Gygg is not responsible for vetting, qualifications, behaviour, or trustworthiness of Taskers</li>
+            <li>Provider must take reasonable precautions</li>
+          </ul>
+          </li>
+          <li><p>Tasker-side responsibility</p>
+          <p>Tasker acknowledge:</p>
+          <ul class="tab">
+            <li>they perform work at their own risk</li>
+            <li>they are solely responsible for their conduct, safety, tools, and actions</li>
+            <li>they assume all risks of entering a Provider’s home or property</li>
+          </ul>
+          </li>
+        </ol>
+
+        <h3>7. Liability Disclaimers</h3>
+        <p>To the maximum extent permitted by law:</p>
+        <p>Gygg is not liable for any:</p>
+        <ul class="tab">
+          <li>property damage</li>
+          <li>theft, loss, or disappearance of items</li>
+          <li>bodily injury, accidents, or illness</li>
+          <li>negligence or misconduct by users</li>
+          <li>intentional or criminal acts</li>
+          <li>harassment, discrimination, or inappropriate behaviour</li>
+          <li>inaccurate identity information</li>
+          <li>incomplete background checks</li>
+          <li>disputes between Providers and Taskers</li>
+          <li>service outcomes, quality, or timeliness</li>
+          <li>payments, chargebacks, or bank errors</li>
+          <li>data breaches affecting Stripe or third parties</li>
         </ul>
-        <p>All financial transactions are facilitated through third-party services (e.g., Stripe), and Gygg does
-<strong>not</strong> act as a principal in any transaction.</p>
 
-        <h3>12. Limitation of Liability</h3>
-        <p>Gygg is not liable for indirect, incidental, punitive, or consequential damages arising from your
-use of the Platform or interactions with other users.</p>
+        <p>Users waive all claims against Gygg arising from the actions, omissions, or negligence of any user.</p>
 
-        <h3>13. Indemnification</h3>
-        <p>You agree to indemnify and hold harmless Gygg, its affiliates, officers, directors, employees, and
-agents from any claims, damages, or expenses arising from your use of the Platform or your
-violation of these Terms.</p>
+        <p>Gygg does not guarantee the safety, skills, suitability, identity, qualifications, behaviour, or performance of any user.</p>
 
-      <h3>14. Governing Law</h3>
-        <p>These Terms shall be governed by and construed in accordance with the laws of the Province of
-Ontario, Canada, without regard to its conflict of laws principles.</p>
+        <h3>8. Dispute Resolution Between Users</h3>
+        <p>Gygg may offer optional mediation but is not obligated to resolve disputes. Payments disputes are handled through Stripe.</p>
 
-      <h3>15. Changes to Terms</h3>
-      <p>Gygg may update these Terms from time to time. We will notify you of material changes, and
-continued use of the Platform constitutes your acceptance of the updated Terms.</p>
+        <p>Gygg does not guarantee refunds, reimbursements, or resolutions.</p>
 
-      <h3>16. Contact Us</h3>
-      <p>For questions or concerns, please contact:​ <strong>hello@gygg.co</strong></p>
+        <h3>9. Indemnification</h3>
+        <p>Users agree to indemnify and hold harmless Gygg and its directors, founders, employees, and partners from any claims, losses, damages, liabilities, legal fees, or expenses arising from:</p>
+        <ul class="tab">
+          <li>user actions or omissions</li>
+          <li>property damage or injury</li>
+          <li>Stripe disputes</li>
+          <li>WSIB or employment-related claims</li>
+          <li>criminal acts</li>
+          <li>breach of these Terms</li>
+          <li>misuse of the platform</li>
+        </ul>
+
+        <p>This indemnity survives termination of the user’s account.</p>
+
+        <h3>10. No Control Over Work</h3>
+        <p>Gygg does not:</p>
+        <ul class="tab">
+          <li>supervise work</li>
+          <li>direct work methods</li>
+          <li>train Taskers</li>
+          <li>supply tools</li>
+          <li>evaluate performance</li>
+          <li>require hours</li>
+          <li>guarantee work quality</li>
+        </ul>
+
+        <p>This is intentional and legally required for marketplace classification.</p>
+
+        <h3>11. Fraud Prevention</h3>
+        <p>Gygg may use internal and third-party tools for fraud detection including:</p>
+        <ul class="tab">
+          <li>device fingerprinting</li>
+          <li>behavioural analytics</li>
+          <li>pattern recognition</li>
+          <li>identity risk modelling</li>
+          <li>payment behaviour monitoring</li>
+        </ul>
+
+        <p>Gygg may suspend or terminate accounts flagged for elevated risk.</p>
+
+        <h3>12. Prohibited Activities</h3>
+        <p>Users may not use Gygg for activities that:</p>
+        <ul class="tab">
+          <li>violate Canadian law or Stripe’s Acceptable Use Policy</li>
+          <li>involve illegal services, fraud, or scams</li>
+          <li>involve minors</li>
+          <li>involve dangerous, regulated, or licensed work unless legally qualified</li>
+          <li>involve harassment, discrimination, weapons, or exploitation</li>
+          <li>include sexual services or adult content</li>
+          <li>are unsafe or inappropriate for older adults</li>
+        </ul>
+
+        <h3>13. Insurance</h3>
+        <p>Gygg may maintain its own general liability insurance.</p>
+        <p>Any optional user-facing guarantees (if introduced) are strictly limited, narrow in scope, and subject to exclusions such as:</p>
+        <ul class="tab">
+          <li>intentional acts</li>
+          <li>theft</li>
+          <li>harassment or assault</li>
+          <li>criminal conduct</li>
+          <li>unsafe environments</li>
+          <li>high-risk activities</li>
+        </ul>
+
+        <p>Users acknowledge insurance is primarily to protect Gygg, not users.</p>
+
+        <h3>14. Binding Arbitration and Class Action Waiver</h3>
+        <p>To the extent permitted by Ontario and Canadian law:</p>
+        <ul class="tab">
+          <li>All disputes between users and Gygg must be resolved through binding arbitration.</li>
+          <li>Users waive the right to sue Gygg in court.</li>
+          <li>Users waive the right to participate in class actions, class arbitrations, or joint claims.</li>
+        </ul>
+
+        <h3>15. Termination (Detailed)</h3>
+        <p>Gygg may terminate or suspend accounts at any time for any reason including:</p>
+        <ul class="tab">
+          <li>fraud or risk indicators</li>
+          <li>failed identity verification</li>
+          <li>user complaints</li>
+          <li>safety concerns</li>
+          <li>Stripe violations</li>
+        </ul>
+
+        <h3>16. Governing Law</h3>
+        <p>These Terms are governed by the laws of Ontario and the federal laws of Canada.</p>
+
+        <h3>17. Amendments</h3>
+        <p>Gygg may update these Terms at any time. Continued use after changes constitutes acceptance.</p>
+
+        <h3>18. Contact Us</h3>
+        <p>For questions or concerns, please contact:​ <strong>hello@gygg.co</strong></p>
     `;
 
   return (
