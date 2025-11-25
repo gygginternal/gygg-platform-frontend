@@ -110,7 +110,7 @@
   margin-top: 8px; /* Added margin-top for spacing */
   padding: 8px; /* Added padding for visibility */
   background-color: #ffe0e0; /* Light background for errors */
-  border-radius: 16px; /* Rounded corners */
+  border-radius: 8px; /* Rounded corners */
   border: 1px solid #ffc0c0; /* Light red border */
 }
 
