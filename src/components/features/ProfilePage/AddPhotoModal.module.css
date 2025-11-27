@@ -24,7 +24,7 @@
   background-color: #fff;
   width: 90%;
   max-width: 500px; /* 500px */
-  border-radius: 8px; /* 16px */
+  border-radius: 16px; /* Updated to 16px */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* 0 4px 12px */
   display: flex; /* Ensure content stacks properly */
   flex-direction: column;
@@ -37,7 +37,7 @@
   background-color: #00aaba;
   color: #fff;
   padding: 15px; /* 15px */
-  border-radius: 8px 16px 0 0; /* 16px */
+  border-radius: 16px 16px 0 0; /* Updated to 16px */
 }
 
 /* Assuming a title element (h2/h3) inside .modalHeader */
@@ -72,7 +72,7 @@
   padding: 20px; /* 20px */
   margin: 15px 0; /* 15px */
   cursor: pointer;
-  border-radius: 8px; /* 8px */
+  border-radius: 16px; /* Updated to 16px */
   text-align: center;
   position: relative;
   transition: border-color 0.2s ease; /* Added transition */
@@ -104,7 +104,7 @@
   padding: 10px; /* 10px */
   margin-top: 10px; /* 10px */
   border: 1px solid #ddd; /* 1px */
-  border-radius: 8px; /* 8px */
+  border-radius: 16px; /* Updated to 16px */
   /* Facebook Post text (main body) 14-16px */
   font-size: 14px; /* 14px */
   box-sizing: border-box; /* Crucial for width: 100% */
@@ -136,7 +136,7 @@
   padding: 10px 20px; /* 10px 20px */
   /* Facebook Buttons 13-14px */
   font-size: 14px; /* 14px */
-  border-radius: 8px; /* 8px */
+  border-radius: 8px; /* Updated to 8px */
   border: none;
   cursor: pointer;
   font-weight: 600; /* Slightly bolder for buttons */

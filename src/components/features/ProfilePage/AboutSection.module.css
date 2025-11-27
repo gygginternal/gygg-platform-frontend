@@ -8,7 +8,7 @@
 
 .aboutCard {
   background-color: #fff;
-  border-radius: 8px; /* 16px converted to px */
+  border-radius: 16px; /* Updated to 16px */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 4px 12px converted to px */
   padding: 24px; /* 24px converted to px */
   margin-bottom: 20px; /* 20px converted to px */
@@ -70,7 +70,7 @@
   background-color: #fff;
   width: 90%; /* Responsive width */
   max-width: 600px; /* 600px */
-  border-radius: 8px; /* 16px */
+  border-radius: 16px; /* Updated to 16px */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   display: flex; /* Use flex to stack header, prompt, textarea, actions */
   flex-direction: column;
@@ -96,7 +96,7 @@
 
 .modalHeader {
   display: flex;
-  border-radius: 8px 16px 0 0; /* 16px */
+  border-radius: 16px 16px 0 0; /* Updated to 16px */
   justify-content: space-between;
   align-items: center;
   /* margin-bottom removed, using padding within modalContent */
@@ -135,7 +135,7 @@
   /* Facebook Post text (main body) 14-16px */
   font-size: 16px; /* 16px */
   line-height: 1.5;
-  border-radius: 8px; /* 8px */
+  border-radius: 16px; /* Updated to 16px */
   border: 1px solid #ddd;
   resize: vertical; /* Allow vertical resizing */
   display: block;
@@ -163,7 +163,7 @@
   padding: 10px 20px; /* 10px 20px */
   /* Facebook Buttons 13-14px */
   font-size: 14px; /* 14px */
-  border-radius: 8px; /* 8px */
+  border-radius: 8px; /* Updated to 8px */
   border: none;
   cursor: pointer;
   font-weight: 600; /* Slightly bolder for buttons */
@@ -208,7 +208,7 @@
   padding: 10px 20px; /* 10px 20px */
   /* Facebook Buttons 13-14px */
   font-size: 14px; /* 14px */
-  border-radius: 8px; /* 8px */
+  border-radius: 8px; /* Updated to 8px */
   cursor: pointer;
   font-weight: 600;
 }

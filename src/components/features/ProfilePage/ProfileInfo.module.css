@@ -8,7 +8,7 @@
 
 .profileCard {
   background-color: #fff;
-  border-radius: 8px; /* 16px converted to px */
+  border-radius: 16px; /* Updated to 16px */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 4px 12px converted to px */
   padding: 24px; /* 24px converted to px */
   margin-bottom: 20px; /* 20px converted to px */
@@ -193,7 +193,7 @@
 .skillTag {
   color: #fff;
   background-color: #d99633;
-  border-radius: 8px; /* 16px */
+  border-radius: 24px; /* Pill shape */
   padding: 5px 12px; /* 5px 12px */
   /* Facebook Timestamps and meta info 12px */
   font-size: 12px; /* 12px */
@@ -223,7 +223,7 @@
   background-color: #fff;
   width: 100%;
   max-width: 600px; /* 600px */
-  border-radius: 8px; /* 12px */
+  border-radius: 16px; /* Updated to 16px */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25); /* 0 5px 15px */
   display: flex;
   flex-direction: column;
@@ -237,7 +237,7 @@
   background-color: #00aaba;
   color: #fff;
   padding: 12px 20px; /* 12px 20px */
-  border-radius: 8px 12px 0 0; /* 12px */
+  border-radius: 16px 16px 0 0; /* Updated to 16px */
   flex-shrink: 0; /* Prevent header from shrinking */
 }
 .modalHeader h3 {
@@ -312,7 +312,7 @@
   /* Facebook Post text (main body) 14-16px */
   font-size: 16px; /* 16px */
   border: 1px solid #ccc; /* 1px */
-  border-radius: 8px; /* 6px */
+  border-radius: 16px; /* Updated to 16px */
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
 }
@@ -323,7 +323,7 @@
   /* Facebook Post text (main body) 14-16px */
   font-size: 16px; /* 16px */
   border: 1px solid #e5e7eb; /* 1px - light grey border */
-  border-radius: 8px; /* 6px */
+  border-radius: 16px; /* Updated to 16px */
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
 }
@@ -368,7 +368,7 @@
 .saveButton {
   padding: 9px 18px; /* 9px 18px */
   font-size: 15px; /* 15px */
-  border-radius: 8px; /* 6px */
+  border-radius: 8px; /* Updated to 8px */
   border: none;
   cursor: pointer;
   font-weight: 500;
@@ -454,7 +454,7 @@
   background-color: #f0f0f0;
   color: #333;
   border: 1px solid #ccc; /* 1px */
-  border-radius: 8px; /* 4px */
+  border-radius: 8px; /* Updated to 8px */
   cursor: pointer;
   transition: background-color 0.2s ease;
 }

@@ -1,7 +1,7 @@
 /* src/pages/ProfilePage.module.css (assuming this is part of the profile page) */
 .postsCard {
   background-color: #fff;
-  border-radius: 20px; /* 20px for a more modern look */
+  border-radius: 16px; /* Updated to 16px */
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1); /* Deeper shadow for modern card */
   margin-bottom: 32px; /* 32px for more separation */
   padding: 40px 32px; /* More padding for a modern spacious feel */
