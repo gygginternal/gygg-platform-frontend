@@ -49,7 +49,8 @@ class SocketManager {
       console.log('[SocketManager] Socket connected:', this.socket.id);
       this._isConnected = true;
       if (userId) {
-        this.socket.emit('subscribeToNotifications', { userId });
+        // Resubscribe after connection
+        this.resubscribe(userId);
       }
       // Execute all connect callbacks
       this.connectCallbacks.forEach(callback => callback());
@@ -77,6 +78,27 @@ class SocketManager {
       if (err.message.includes('Authentication')) {
         console.warn('[SocketManager] Authentication failed');
       }
+    });
+
+    this.socket.on('reconnect', attemptNumber => {
+      console.log('[SocketManager] Reconnected successfully after attempt:', attemptNumber);
+      this._isConnected = true;
+      if (userId) {
+        this.socket.emit('subscribeToNotifications', { userId });
+      }
+    });
+
+    this.socket.on('reconnect_attempt', attemptNumber => {
+      console.log('[SocketManager] Reconnection attempt:', attemptNumber);
+    });
+
+    this.socket.on('reconnect_error', error => {
+      console.error('[SocketManager] Reconnection error:', error);
+    });
+
+    this.socket.on('reconnect_failed', () => {
+      console.error('[SocketManager] Reconnection failed');
+      this._isConnected = false;
     });
 
     this.socket.on('token_refresh', newToken => {
@@ -139,6 +161,14 @@ class SocketManager {
     } else if (token) {
       // If no socket exists but we have a token, initialize the socket
       this.init(token, userId);
+    }
+  }
+
+  // Reconnect and resubscribe to all necessary rooms after reconnection
+  resubscribe(userId) {
+    if (this.socket && userId) {
+      // Resubscribe to notifications and any other necessary rooms
+      this.socket.emit('subscribeToNotifications', { userId });
     }
   }
 

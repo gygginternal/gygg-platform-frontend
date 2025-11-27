@@ -202,7 +202,9 @@ const ChatPage = () => {
   // Join chat room for real-time updates when selectedContact changes
   useEffect(() => {
     if (socket && selectedContact && user) {
-      const room = `chat:${user.id}:${selectedContact.id}`;
+      // Create consistent room name by sorting user IDs alphabetically
+      const userIds = [user.id, selectedContact.id].sort();
+      const room = `chat:${userIds[0]}:${userIds[1]}`;
       socket.emit('join', room);
       return () => {
         socket.emit('leave', room);
@@ -242,9 +244,15 @@ const ChatPage = () => {
         };
 
         setMessages(prevMsgs => {
-          // Check for duplicates by ID or tempId
-          const existsById = prevMsgs.some(msg => msg.id === newMsg.id);
-          if (existsById) return prevMsgs;
+          // Check for duplicates by ID to prevent double messages
+          const exists = prevMsgs.some(msg =>
+            (msg.id && msg.id === newMsg.id) ||
+            (msg.tempId && msg.tempId === newMsg.tempId)
+          );
+
+          if (exists) {
+            return prevMsgs;
+          }
 
           // If this is our own message, replace any temp message
           if (newMsg.isSent) {
