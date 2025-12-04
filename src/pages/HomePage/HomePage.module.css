@@ -109,10 +109,98 @@
 
 /* Responsive adjustments */
 
-/* @media (max-width: 1024px) - Large Tablets / Small Laptops */
-@media (max-width: 1024px) {
+/* 2XL: 1281px and above */
+@media (min-width: 1281px) {
   .pageContainer {
-    flex-direction: row; /* Stack LandingVisual and LandingActions vertically */
+    flex-direction: row;
+  }
+  .loadingContainer {
+    font-size: 24px; /* 24px */
+  }
+  .authLinks {
+    margin-top: 18px; /* 18px */
+  }
+  .authLinks a {
+    font-size: 15px; /* 15px */
+    margin: 0 10px; /* 10px */
+  }
+  .loggedInInfo {
+    margin-top: 18px; /* 18px */
+  }
+  .loggedInInfo p {
+    font-size: 15px; /* 15px */
+    margin-bottom: 10px; /* 10px */
+  }
+  .loggedInInfo a {
+    font-size: 15px; /* 15px */
+    margin: 0 10px; /* 10px */
+  }
+  .icon {
+    width: 20px; /* 20px */
+    height: 20px; /* 20px */
+  }
+  .avatar-small {
+    width: 32px; /* 32px */
+    height: 32px; /* 32px */
+  }
+  .avatar-medium {
+    width: 40px; /* 40px */
+    height: 40px; /* 40px */
+  }
+  .avatar-large {
+    width: 56px; /* 56px */
+    height: 56px; /* 56px */
+  }
+}
+
+/* Extra Large (XL): 1025px – 1280px */
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .pageContainer {
+    flex-direction: row;
+  }
+  .loadingContainer {
+    font-size: 22px; /* 22px */
+  }
+  .authLinks {
+    margin-top: 16px; /* 16px */
+  }
+  .authLinks a {
+    font-size: 14px; /* 14px */
+    margin: 0 9px; /* 9px */
+  }
+  .loggedInInfo {
+    margin-top: 16px; /* 16px */
+  }
+  .loggedInInfo p {
+    font-size: 14px; /* 14px */
+    margin-bottom: 9px; /* 9px */
+  }
+  .loggedInInfo a {
+    font-size: 14px; /* 14px */
+    margin: 0 9px; /* 9px */
+  }
+  .icon {
+    width: 19px; /* 19px */
+    height: 19px; /* 19px */
+  }
+  .avatar-small {
+    width: 30px; /* 30px */
+    height: 30px; /* 30px */
+  }
+  .avatar-medium {
+    width: 38px; /* 38px */
+    height: 38px; /* 38px */
+  }
+  .avatar-large {
+    width: 54px; /* 54px */
+    height: 54px; /* 54px */
+  }
+}
+
+/* Large (LG): 769px – 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .pageContainer {
+    flex-direction: row;
   }
   .loadingContainer {
     font-size: 20px; /* 20px */
@@ -153,35 +241,75 @@
   }
 }
 
-/* At 768px and below, stack vertically */
-@media (max-width: 768px) {
+/* Medium (MD): 641px – 768px */
+@media (min-width: 641px) and (max-width: 768px) {
   .pageContainer {
     flex-direction: column;
   }
+  .loadingContainer {
+    font-size: 18px; /* 18px */
+  }
+  .authLinks {
+    margin-top: 14px; /* 14px */
+  }
+  .authLinks a {
+    font-size: 12px; /* 12px */
+    margin: 0 7px; /* 7px */
+  }
+  .loggedInInfo {
+    margin-top: 14px; /* 14px */
+  }
+  .loggedInInfo p {
+    font-size: 12px; /* 12px */
+    margin-bottom: 7px; /* 7px */
+  }
+  .loggedInInfo a {
+    font-size: 12px; /* 12px */
+    margin: 0 7px; /* 7px */
+  }
+  .icon {
+    width: 16px; /* 16px */
+    height: 16px; /* 16px */
+  }
+  .avatar-small {
+    width: 28px; /* 28px */
+    height: 28px; /* 28px */
+  }
+  .avatar-medium {
+    width: 34px; /* 34px */
+    height: 34px; /* 34px */
+  }
+  .avatar-large {
+    width: 48px; /* 48px */
+    height: 48px; /* 48px */
+  }
 }
 
-/* @media (max-width: 768px) - Tablets */
-@media (max-width: 768px) {
+/* Small (SM): 481px – 640px */
+@media (min-width: 481px) and (max-width: 640px) {
+  .pageContainer {
+    flex-direction: column;
+  }
   .loadingContainer {
     font-size: 16px; /* 16px */
   }
   .authLinks {
-    margin-top: 13px; /* 12.8px */
+    margin-top: 13px; /* 13px */
   }
   .authLinks a {
     font-size: 12px; /* 12px */
-    margin: 0 6px; /* 6.4px */
+    margin: 0 6px; /* 6px */
   }
   .loggedInInfo {
-    margin-top: 13px; /* 12.8px */
+    margin-top: 13px; /* 13px */
   }
   .loggedInInfo p {
     font-size: 12px; /* 12px */
-    margin-bottom: 6px; /* 6.4px */
+    margin-bottom: 6px; /* 6px */
   }
   .loggedInInfo a {
     font-size: 12px; /* 12px */
-    margin: 0 6px; /* 6.4px */
+    margin: 0 6px; /* 6px */
   }
   .icon {
     width: 16px; /* 16px */
@@ -201,9 +329,11 @@
   }
 }
 
-/* @media (max-width: 480px) - Mobile Phones */
+/* Extra Small (XS): 0px – 480px */
 @media (max-width: 480px) {
-  /* No need to add the fix here again, as it's already active from the 768px breakpoint */
+  .pageContainer {
+    flex-direction: column;
+  }
   .loadingContainer {
     font-size: 14px; /* 14px */
   }
@@ -211,19 +341,19 @@
     margin-top: 10px; /* 10px */
   }
   .authLinks a {
-    font-size: 11px; /* ~11px */
-    margin: 0 5px; /* 4.8px */
+    font-size: 11px; /* 11px */
+    margin: 0 5px; /* 5px */
   }
   .loggedInInfo {
     margin-top: 10px; /* 10px */
   }
   .loggedInInfo p {
-    font-size: 11px; /* ~11px */
-    margin-bottom: 5px; /* 4.8px */
+    font-size: 11px; /* 11px */
+    margin-bottom: 5px; /* 5px */
   }
   .loggedInInfo a {
-    font-size: 11px; /* ~11px */
-    margin: 0 5px; /* 4.8px */
+    font-size: 11px; /* 11px */
+    margin: 0 5px; /* 5px */
   }
   .icon {
     width: 15px; /* 15px */

@@ -7,17 +7,43 @@
   font-size: 14px; /* 14px converted to px */
 }
 
-@media (min-width: 480px) {
+/* Small (SM): 481px – 640px */
+@media (min-width: 481px) and (max-width: 640px) {
   .authenticatingUser {
-    padding: 24px; /* 24px converted to px */
+    padding: 18px; /* 18px converted to px */
+    font-size: 15px; /* 15px converted to px */
+  }
+}
+
+/* Medium (MD): 641px – 768px */
+@media (min-width: 641px) and (max-width: 768px) {
+  .authenticatingUser {
+    padding: 20px; /* 20px converted to px */
     font-size: 16px; /* 16px converted to px */
   }
 }
 
-@media (min-width: 768px) {
+/* Large (LG): 769px – 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .authenticatingUser {
+    padding: 24px; /* 24px converted to px */
+    font-size: 17px; /* 17px converted to px */
+  }
+}
+
+/* Extra Large (XL): 1025px – 1280px */
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .authenticatingUser {
+    padding: 28px; /* 28px converted to px */
+    font-size: 18px; /* 18px converted to px */
+  }
+}
+
+/* 2XL: 1281px and above */
+@media (min-width: 1281px) {
   .authenticatingUser {
     padding: 32px; /* 32px converted to px */
-    font-size: 18px; /* 18px converted to px */
+    font-size: 19px; /* 19px converted to px */
   }
 }
 
@@ -30,15 +56,38 @@
   font-size: 14px; /* 14px converted to px */
 }
 
-@media (min-width: 480px) {
+/* Small (SM): 481px – 640px */
+@media (min-width: 481px) and (max-width: 640px) {
+  .loadingApplication {
+    font-size: 15px; /* 15px converted to px */
+  }
+}
+
+/* Medium (MD): 641px – 768px */
+@media (min-width: 641px) and (max-width: 768px) {
   .loadingApplication {
     font-size: 16px; /* 16px converted to px */
   }
 }
 
-@media (min-width: 768px) {
+/* Large (LG): 769px – 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .loadingApplication {
+    font-size: 17px; /* 17px converted to px */
+  }
+}
+
+/* Extra Large (XL): 1025px – 1280px */
+@media (min-width: 1025px) and (max-width: 1280px) {
   .loadingApplication {
     font-size: 18px; /* 18px converted to px */
+  }
+}
+
+/* 2XL: 1281px and above */
+@media (min-width: 1281px) {
+  .loadingApplication {
+    font-size: 19px; /* 19px converted to px */
   }
 }
 
@@ -46,15 +95,59 @@
 .container {
   width: 100%;
   min-height: 100vh;
-  padding: 0;
+  padding: 84px 0 0 0; /* Default header height: 84px */
+  margin: 0 auto;
 }
 
-/* Mobile first approach */
-@media (min-width: 1024px) {
+/* Public page container - full width without margins */
+.publicPageContainer {
+  width: 100%;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+/* XS: 0px – 480px */
+@media (max-width: 480px) {
   .container {
-    /* padding: 0 32px; */ /* 32px converted to px */
+    padding: 56px 8px 0 8px; /* Account for mobile header (56px) */
+  }
+}
+
+/* Small (SM): 481px – 640px */
+@media (min-width: 481px) and (max-width: 640px) {
+  .container {
+    padding: 64px 10px 0 10px; /* Account for tablet header (64px) */
+  }
+}
+
+/* Medium (MD): 641px – 768px */
+@media (min-width: 641px) and (max-width: 768px) {
+  .container {
+    padding: 72px 12px 0 12px; /* Account for medium header (72px) */
+  }
+}
+
+/* Large (LG): 769px – 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    padding: 76px 16px 0 16px; /* Account for large header (76px) */
+  }
+}
+
+/* Extra Large (XL): 1025px – 1280px */
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .container {
+    padding: 88px 24px 0 24px; /* Account for large desktop header (88px) */
     max-width: 1200px;
-    /* margin: 0 auto; */
+  }
+}
+
+/* 2XL: 1281px and above */
+@media (min-width: 1281px) {
+  .container {
+    padding: 92px 32px 0 32px; /* Account for largest desktop header (92px) */
+    max-width: 1400px;
   }
 }
 
@@ -65,7 +158,7 @@
   margin: 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   .headerSeparator {
     border-top-color: #ccc;
   }
@@ -76,7 +169,7 @@
   display: block;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   .mobileOnly {
     display: none;
   }
@@ -86,7 +179,7 @@
   display: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 641px) {
   .tabletUp {
     display: block;
   }
@@ -96,7 +189,7 @@
   display: none;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1025px) {
   .desktopOnly {
     display: block;
   }
@@ -108,7 +201,7 @@
   flex-direction: column;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   .flexMobileColumn {
     flex-direction: row;
   }
@@ -130,21 +223,38 @@
   padding: 8px; /* 8px converted to px */
 }
 
-@media (min-width: 480px) {
+/* Small (SM): 481px – 640px */
+@media (min-width: 481px) and (max-width: 640px) {
+  .responsivePadding {
+    padding: 12px; /* 12px converted to px */
+  }
+}
+
+/* Medium (MD): 641px – 768px */
+@media (min-width: 641px) and (max-width: 768px) {
   .responsivePadding {
     padding: 16px; /* 16px converted to px */
   }
 }
 
-@media (min-width: 768px) {
+/* Large (LG): 769px – 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .responsivePadding {
+    padding: 20px; /* 20px converted to px */
+  }
+}
+
+/* Extra Large (XL): 1025px – 1280px */
+@media (min-width: 1025px) and (max-width: 1280px) {
   .responsivePadding {
     padding: 24px; /* 24px converted to px */
   }
 }
 
-@media (min-width: 1024px) {
+/* 2XL: 1281px and above */
+@media (min-width: 1281px) {
   .responsivePadding {
-    padding: 32px; /* 32px converted to px */
+    padding: 28px; /* 28px converted to px */
   }
 }
 
@@ -152,20 +262,37 @@
   margin: 8px; /* 8px converted to px */
 }
 
-@media (min-width: 480px) {
+/* Small (SM): 481px – 640px */
+@media (min-width: 481px) and (max-width: 640px) {
+  .responsiveMargin {
+    margin: 12px; /* 12px converted to px */
+  }
+}
+
+/* Medium (MD): 641px – 768px */
+@media (min-width: 641px) and (max-width: 768px) {
   .responsiveMargin {
     margin: 16px; /* 16px converted to px */
   }
 }
 
-@media (min-width: 768px) {
+/* Large (LG): 769px – 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .responsiveMargin {
+    margin: 20px; /* 20px converted to px */
+  }
+}
+
+/* Extra Large (XL): 1025px – 1280px */
+@media (min-width: 1025px) and (max-width: 1280px) {
   .responsiveMargin {
     margin: 24px; /* 24px converted to px */
   }
 }
 
-@media (min-width: 1024px) {
+/* 2XL: 1281px and above */
+@media (min-width: 1281px) {
   .responsiveMargin {
-    margin: 32px; /* 32px converted to px */
+    margin: 28px; /* 28px converted to px */
   }
 }

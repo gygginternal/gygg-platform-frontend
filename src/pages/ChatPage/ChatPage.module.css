@@ -2,8 +2,7 @@
   display: flex;
   height: calc(100vh - 41px);
   width: 100vw; /* Use full width for large screens */
-  margin-left: 204px; /* Account for global navigation sidebar */
-  margin-right: auto; /* Keep content aligned */
+  margin: 0 auto; /* Center content instead of left margin */
   padding: 10px; /* Use padding for internal spacing */
   padding-top: 41px;
   background: #f0f2f5;
@@ -18,10 +17,10 @@
   gap: 20px; /* Match SocialFeedLayout gap */
 }
 
-/* Large screen optimizations - Adjust margins to account for larger global sidebar */
+/* Large screen optimizations - Center content instead of left margin */
 @media (min-width: 1800px) {
   .container {
-    margin-left: 236px; /* Adjusted for larger global sidebar at 1800px */
+    margin: 0 auto; /* Center content instead of left margin */
     padding: 14px; /* Slightly larger padding on large screens */
     gap: 28px; /* Slightly larger gap on large screens */
   }
@@ -29,7 +28,7 @@
 
 @media (min-width: 2000px) {
   .container {
-    margin-left: 256px; /* Adjusted for larger global sidebar at 2000px */
+    margin: 0 auto; /* Center content instead of left margin */
     padding: 16px; /* Larger padding on very large screens */
     gap: 32px; /* Larger gap on very large screens */
   }
@@ -46,33 +45,54 @@
 }
 
 /* Enhanced responsive design for better width utilization */
-@media (max-width: 1024px) {
+
+/* 2XL: 1281px and above */
+@media (min-width: 1281px) {
   .container {
-    height: calc(100vh - 28px);
-    margin-left: 172px; /* Adjusted for responsive sidebar width */
+    height: calc(100vh - 41px);
+    margin: 0 auto; /* Center content instead of left margin */
+    padding: 10px; /* Use padding for internal spacing */
+    padding-top: 41px;
+    gap: 20px; /* Match SocialFeedLayout gap */
+  }
+}
+
+/* Extra Large (XL): 1025px – 1280px */
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .container {
+    height: calc(100vh - 41px);
+    margin: 0 auto; /* Center content instead of left margin */
     padding: 14px 16px; /* Use padding for interior spacing */
     padding-top: 28px;
     gap: 16px;
   }
 }
 
-@media (max-width: 900px) {
+/* Large (LG): 769px – 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
   .container {
-    margin-left: 150px;
-    padding: 14px 16px;
+    height: calc(100vh - 28px);
+    margin: 0 auto; /* Center content instead of left margin */
+    padding: 14px 16px; /* Use padding for interior spacing */
+    padding-top: 28px;
+    gap: 16px;
   }
 }
 
-@media (max-width: 800px) {
+/* Medium (MD): 641px – 768px */
+@media (min-width: 641px) and (max-width: 768px) {
   .container {
-    margin-left: 120px;
-    padding: 14px 16px;
+    height: calc(100vh - 24px);
+    margin: 0 auto; /* Center content instead of left margin */
+    padding: 12px 14px;
+    padding-top: 24px;
+    gap: 14px;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 720px) {
   .container {
-    margin-left: 0; /* Clear the global sidebar offset */
+    margin: 0 auto; /* Center content instead of left margin */
     padding: 12px 15px;
     padding-top: 12px;
     gap: 12px;
@@ -94,8 +114,15 @@
   }
 }
 
-/* @media (max-width: 720px) - Align with other pages: hide sidebar */
-@media (max-width: 720px) {
+/* Small (SM): 481px – 640px */
+@media (min-width: 481px) and (max-width: 640px) {
+  .container {
+    margin: 0 auto;
+    padding: 10px 12px;
+    padding-top: 16px;
+    gap: 10px;
+  }
+
   .sidebar {
     display: none;
   }
@@ -103,14 +130,12 @@
     width: 100%;
     flex: none;
   }
-  .container {
-    margin-left: 0;
-  }
 }
 
+/* Extra Small (XS): 0px – 480px */
 @media (max-width: 480px) {
   .container {
-    margin-left: 0 !important;
+    margin: 0 auto !important;
     padding: 8px 11px !important;
     padding-top: 0 !important;
     width: 100% !important;

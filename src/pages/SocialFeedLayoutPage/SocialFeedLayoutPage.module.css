@@ -11,10 +11,8 @@
   display: flex;
   flex-direction: row; /* Default for desktop: sidebar and main feed side-by-side */
   width: 100%;
-
-  /* To account for the global fixed sidebar (300px wide on desktop): */
-  margin-left: 204px; /* 300px - Pushes content to the right of the global sidebar */
-  margin-right: auto; /* Centers the content wrapper within the *remaining* space */
+  max-width: 1200px; /* Set max-width instead of left margin */
+  margin: 0 auto; /* Center the content */
 
   padding: 10px; /* 10px - Internal padding for the content within this wrapper */
   gap: 20px; /* 20px - Space between the .sidebarArea and .mainFeedArea */
@@ -41,8 +39,8 @@
     min-height: calc(100vh - 32px);
   }
   .contentWrapper {
-    margin-left: 172px; /* 240px - Corrected to match Sidebar's width at 1024px */
     max-width: 960px; /* 960px - Reduced max-width for smaller screens */
+    margin: 0 auto; /* Center the content */
     padding: 14px 16px; /* 8px - Slightly less internal padding */
     gap: 16px; /* 16px - Slightly less gap */
   }
@@ -78,7 +76,7 @@
     flex: none;
   }
   .contentWrapper {
-    margin-left: 0;
+    margin: 0 auto;
     max-width: 100%;
   }
 }
@@ -90,7 +88,7 @@
     min-height: calc(100vh - 32px);
   }
   .contentWrapper {
-    margin-left: 0 !important;
+    margin: 0 auto !important;
     max-width: 100% !important;
     width: 100% !important;
     padding: 8px 11px !important;

@@ -17,8 +17,7 @@
   flex-direction: row;
   width: 100%;
   max-width: 1200px;
-  margin-left: 300px; /* 300px - Account for sidebar */
-  margin-right: auto;
+  margin: 0 auto; /* Center content instead of left margin */
   padding: 10px;
   gap: 20px;
   box-sizing: border-box;
@@ -227,19 +226,19 @@
   .contentWrapper {
     max-width: 960px;
     padding: 8px;
-    margin-left: 240px; /* 240px - Adjusted sidebar width */
+    margin: 0 auto; /* Center content instead of left margin */
     gap: 16px;
   }
 
   .sidebarArea {
     width: 240px;
   }
-  
+
   .submittedActions {
     flex-direction: column;
   }
-  
-  .primaryBtn, 
+
+  .primaryBtn,
   .secondaryBtn {
     width: 100%;
   }
@@ -248,8 +247,7 @@
 @media (max-width: 992px) {
   .contentWrapper {
     flex-direction: column;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto; /* Center content instead of left margin */
     max-width: 95%;
     gap: 16px;
     padding: 12px;

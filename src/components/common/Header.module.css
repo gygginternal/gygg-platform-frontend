@@ -382,8 +382,36 @@
 
 /* Responsive Adjustments */
 
-/* Desktop (1024px+) - Enhanced for larger screens */
-@media (min-width: 1024px) {
+/* 2XL: 1281px and above */
+@media (min-width: 1281px) {
+  .header {
+    height: 92px; /* 92px */
+    padding: 0 40px; /* 0 40px */
+  }
+  .headerLogo {
+    width: 120px; /* 120px */
+    max-height: 68px; /* 68px */
+    margin-left: 40px; /* 40px */
+  }
+  .searchContainer {
+    max-width: 640px; /* 640px */
+  }
+  .searchBox {
+    height: 60px; /* 60px */
+    padding: 0 24px; /* 0 24px */
+  }
+  .searchButton {
+    height: 60px; /* 60px */
+    padding: 0 32px; /* 0 32px */
+    font-size: 18px; /* 18px */
+  }
+  .headerControls {
+    gap: 32px; /* 32px */
+  }
+}
+
+/* Extra Large (XL): 1025px – 1280px */
+@media (min-width: 1025px) and (max-width: 1280px) {
   .header {
     height: 88px; /* 88px */
     padding: 0 32px; /* 0 32px */
@@ -410,8 +438,8 @@
   }
 }
 
-/* Tablet (768px - 1024px) */
-@media (min-width: 768px) and (max-width: 1024px) {
+/* Large (LG): 769px – 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
   .header {
     height: 76px; /* 76px */
     padding: 0 24px; /* 0 24px */
@@ -459,8 +487,57 @@
   }
 }
 
-/* Small Tablet / Large Mobile (480px - 768px) */
-@media (min-width: 480px) and (max-width: 768px) {
+/* Medium (MD): 641px – 768px */
+@media (min-width: 641px) and (max-width: 768px) {
+  .header {
+    height: 72px; /* 72px */
+    padding: 0 20px; /* 0 20px */
+  }
+  .headerLogo {
+    width: 84px; /* 84px */
+    max-height: 48px; /* 48px */
+    margin-left: 24px; /* 24px */
+  }
+  .menuIcon {
+    width: 20px; /* 20px */
+    height: 20px; /* 20px */
+  }
+  .searchContainer {
+    max-width: 400px; /* 400px */
+  }
+  .searchBox {
+    height: 46px; /* 46px */
+    padding: 0 14px; /* 0 14px */
+  }
+  .searchInput {
+    font-size: 14px; /* 14px */
+    margin-left: 8px; /* 8px */
+  }
+  .searchButton {
+    height: 46px; /* 46px */
+    padding: 0 16px; /* 0 16px */
+    font-size: 13px; /* 13px */
+    border-radius: 0 16px 16px 0; /* 16px on right sides to match input on left */
+  }
+  .searchButton img {
+    width: 16px; /* 16px */
+    height: 16px; /* 16px */
+  }
+  .headerControls {
+    gap: 16px; /* 16px */
+  }
+  .headerControls img {
+    width: 20px; /* 20px */
+    height: 20px; /* 20px */
+  }
+  .headerControls .iconButton:nth-child(2) img {
+    width: 32px; /* 32px */
+    height: 32px; /* 32px */
+  }
+}
+
+/* Small (SM): 481px – 640px */
+@media (min-width: 481px) and (max-width: 640px) {
   .header {
     height: 64px; /* 64px */
     padding: 0 16px; /* 0 16px */
@@ -1332,8 +1409,36 @@
 
 /* Responsive Adjustments */
 
-/* Desktop (1024px+) - Enhanced for larger screens */
-@media (min-width: 1024px) {
+/* 2XL: 1281px and above */
+@media (min-width: 1281px) {
+  .header {
+    height: 92px; /* 92px */
+    padding: 0 40px; /* 0 40px */
+  }
+  .headerLogo {
+    width: 120px; /* 120px */
+    max-height: 68px; /* 68px */
+    margin-left: 40px; /* 40px */
+  }
+  .searchContainer {
+    max-width: 640px; /* 640px */
+  }
+  .searchBox {
+    height: 60px; /* 60px */
+    padding: 0 24px; /* 0 24px */
+  }
+  .searchButton {
+    height: 60px; /* 60px */
+    padding: 0 32px; /* 0 32px */
+    font-size: 18px; /* 18px */
+  }
+  .headerControls {
+    gap: 32px; /* 32px */
+  }
+}
+
+/* Extra Large (XL): 1025px – 1280px */
+@media (min-width: 1025px) and (max-width: 1280px) {
   .header {
     height: 88px; /* 88px */
     padding: 0 32px; /* 0 32px */
@@ -1360,8 +1465,8 @@
   }
 }
 
-/* Tablet (768px - 1024px) */
-@media (min-width: 768px) and (max-width: 1024px) {
+/* Large (LG): 769px – 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
   .header {
     height: 76px; /* 76px */
     padding: 0 24px; /* 0 24px */
@@ -1409,8 +1514,57 @@
   }
 }
 
-/* Small Tablet / Large Mobile (480px - 768px) */
-@media (min-width: 480px) and (max-width: 768px) {
+/* Medium (MD): 641px – 768px */
+@media (min-width: 641px) and (max-width: 768px) {
+  .header {
+    height: 72px; /* 72px */
+    padding: 0 20px; /* 0 20px */
+  }
+  .headerLogo {
+    width: 84px; /* 84px */
+    max-height: 48px; /* 48px */
+    margin-left: 24px; /* 24px */
+  }
+  .menuIcon {
+    width: 20px; /* 20px */
+    height: 20px; /* 20px */
+  }
+  .searchContainer {
+    max-width: 400px; /* 400px */
+  }
+  .searchBox {
+    height: 46px; /* 46px */
+    padding: 0 14px; /* 0 14px */
+  }
+  .searchInput {
+    font-size: 14px; /* 14px */
+    margin-left: 8px; /* 8px */
+  }
+  .searchButton {
+    height: 46px; /* 46px */
+    padding: 0 16px; /* 0 16px */
+    font-size: 13px; /* 13px */
+    border-radius: 0 16px 16px 0; /* 16px on right sides to match input on left */
+  }
+  .searchButton img {
+    width: 16px; /* 16px */
+    height: 16px; /* 16px */
+  }
+  .headerControls {
+    gap: 16px; /* 16px */
+  }
+  .headerControls img {
+    width: 20px; /* 20px */
+    height: 20px; /* 20px */
+  }
+  .headerControls .iconButton:nth-child(2) img {
+    width: 32px; /* 32px */
+    height: 32px; /* 32px */
+  }
+}
+
+/* Small (SM): 481px – 640px */
+@media (min-width: 481px) and (max-width: 640px) {
   .header {
     height: 64px; /* 64px */
     padding: 0 16px; /* 0 16px */

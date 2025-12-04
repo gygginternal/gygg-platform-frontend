@@ -1,112 +1,153 @@
 import React from 'react';
+import { AlertTriangle, X, WifiOff, ServerOff, AlertCircle } from 'lucide-react';
+import { useGlobalErrors } from '../../contexts/ErrorContext';
 import PropTypes from 'prop-types';
-import styles from './ErrorDisplay.module.css';
-import { decodeHTMLEntities } from '../../utils/htmlEntityDecoder';
 
-/**
- * Standardized Error Display Component
- * Provides consistent error messaging across the application
- */
-const ErrorDisplay = ({
-  errors,
-  variant = 'default',
-  className = '',
-  onDismiss,
-  showIcon = true,
-}) => {
-  // Handle both string and array of errors
-  const errorList = Array.isArray(errors)
-    ? errors.filter(Boolean)
-    : errors
-      ? [errors]
-      : [];
+const ErrorDisplay = ({ variant = 'inline', error, onDismiss }) => {
+  const { removeError, ERROR_TYPES } = useGlobalErrors();
 
-  if (errorList.length === 0) return null;
+  if (!error) return null;
 
-  const getVariantClass = () => {
-    switch (variant) {
-      case 'inline':
-        return styles.inline;
-      case 'banner':
-        return styles.banner;
-      case 'card':
-        return styles.card;
-      case 'field':
-        return styles.field;
+  const getErrorIcon = (type) => {
+    switch (type) {
+      case ERROR_TYPES.NETWORK_ERROR:
+        return <WifiOff size={16} />;
+      case ERROR_TYPES.SERVER_ERROR:
+        return <ServerOff size={16} />;
+      case ERROR_TYPES.UNAUTHORIZED_ERROR:
+        return <AlertCircle size={16} />;
       default:
-        return styles.default;
+        return <AlertTriangle size={16} />;
     }
   };
 
-  return (
-    <div
-      className={`${styles.errorContainer} ${getVariantClass()} ${className}`.trim()}
-    >
-      {showIcon && (
-        <div className={styles.iconContainer}>
-          <svg
-            className={styles.errorIcon}
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </div>
-      )}
+  const getErrorColor = (type) => {
+    switch (type) {
+      case ERROR_TYPES.NETWORK_ERROR:
+      case ERROR_TYPES.SERVER_ERROR:
+        return 'bg-red-100 border-red-300 text-red-700';
+      case ERROR_TYPES.UNAUTHORIZED_ERROR:
+        return 'bg-yellow-100 border-yellow-300 text-yellow-700';
+      default:
+        return 'bg-red-100 border-red-300 text-red-700';
+    }
+  };
 
-      <div className={styles.content}>
-        {errorList.length === 1 ? (
-          <p className={styles.errorMessage}>
-            {decodeHTMLEntities(errorList[0])}
-          </p>
-        ) : (
-          <div className={styles.errorList}>
-            {errorList.map((error, index) => (
-              <p key={index} className={styles.errorMessage}>
-                {decodeHTMLEntities(error)}
-              </p>
-            ))}
+  const handleDismiss = () => {
+    if (onDismiss) {
+      onDismiss(error.id);
+    } else {
+      removeError(error.id);
+    }
+  };
+
+  const containerClasses = {
+    inline: 'p-4 rounded-md border',
+    toast: 'fixed top-4 right-4 p-4 rounded-md border shadow-lg z-50 max-w-md',
+    modal: 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4'
+  };
+
+  if (variant === 'modal') {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-lg p-6 max-w-md w-full border border-red-300">
+          <div className="flex items-start">
+            <AlertTriangle className="text-red-500 mt-0.5 mr-3 flex-shrink-0" size={20} />
+            <div className="flex-1">
+              <h3 className="text-lg font-medium text-gray-900 mb-2">Error</h3>
+              <p className="text-gray-700 mb-4">{error.message}</p>
+              <button
+                onClick={handleDismiss}
+                className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors"
+              >
+                Dismiss
+              </button>
+            </div>
           </div>
-        )}
+        </div>
       </div>
+    );
+  }
 
-      {onDismiss && (
+  return (
+    <div className={`${containerClasses[variant]} ${getErrorColor(error.type)}`}>
+      <div className="flex items-start">
+        <div className="flex-shrink-0">
+          {getErrorIcon(error.type)}
+        </div>
+        <div className="ml-3 flex-1">
+          <p className="text-sm font-medium">{error.message}</p>
+          {error.metadata?.debugInfo && (
+            <p className="mt-1 text-xs opacity-75">{error.metadata.debugInfo}</p>
+          )}
+        </div>
         <button
           type="button"
-          className={styles.dismissButton}
-          onClick={onDismiss}
-          aria-label="Dismiss error"
+          className="ml-4 inline-flex text-gray-400 hover:text-gray-500 focus:outline-none"
+          onClick={handleDismiss}
         >
-          <svg
-            className={styles.dismissIcon}
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-              clipRule="evenodd"
-            />
-          </svg>
+          <X size={20} />
         </button>
-      )}
+      </div>
     </div>
   );
 };
 
 ErrorDisplay.propTypes = {
-  errors: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string),
-  ]),
-  variant: PropTypes.oneOf(['default', 'inline', 'banner', 'card', 'field']),
-  className: PropTypes.string,
-  onDismiss: PropTypes.func,
-  showIcon: PropTypes.bool,
+  variant: PropTypes.oneOf(['inline', 'toast', 'modal']),
+  error: PropTypes.object,
+  onDismiss: PropTypes.func
 };
 
+const ErrorList = ({ variant = 'inline' }) => {
+  const { errors, removeError } = useGlobalErrors();
+
+  if (errors.length === 0) return null;
+
+  return (
+    <div className="space-y-2">
+      {errors.map((error) => (
+        <ErrorDisplay
+          key={error.id}
+          error={error}
+          variant={variant}
+          onDismiss={removeError}
+        />
+      ))}
+    </div>
+  );
+};
+
+ErrorList.propTypes = {
+  variant: PropTypes.oneOf(['inline', 'toast', 'modal'])
+};
+
+const GlobalErrorDisplay = () => {
+  const { errors } = useGlobalErrors();
+
+  // Show toast-style notifications for new errors
+  if (errors.length > 0) {
+    return (
+      <div className="fixed top-4 right-4 space-y-2 z-[100]">
+        {errors.slice(0, 3).map((error) => (
+          <ErrorDisplay
+            key={error.id}
+            error={error}
+            variant="toast"
+            onDismiss={(id) => {
+              // Auto-remove after showing for a while
+              setTimeout(() => {
+                // In a real app, you'd probably have a separate remove mechanism
+              }, 5000);
+            }}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  return null;
+};
+
+export { ErrorDisplay, ErrorList, GlobalErrorDisplay };
 export default ErrorDisplay;

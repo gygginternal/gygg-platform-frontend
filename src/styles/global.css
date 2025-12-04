@@ -255,62 +255,8 @@ select:focus {
   border-top: none !important;
 }
 
-/* Responsive adjustments for general elements */
-@media (max-width: 1024px) {
-  :root {
-    --font-size-xxl: 22px; /* 22px converted to px */
-    --font-size-xl: 18px; /* 18px converted to px */
-    --font-size-lg: 16px; /* 16px converted to px */
-    --font-size-md: 15px; /* 15px converted to px */
-    --font-size-sm: 14px; /* 14px converted to px */
-    --font-size-xs: 12px; /* 12px converted to px */
-
-    --spacing-lg: 20px;
-    --spacing-xl: 24px;
-    --spacing-xxl: 32px;
-  }
-
-  button {
-    font-size: var(--font-size-sm);
-    padding: var(--spacing-xs) var(--spacing-md);
-  }
-
-  input,
-  textarea,
-  select {
-    font-size: var(--font-size-sm);
-    padding: var(--spacing-xs);
-  }
-}
-
-@media (max-width: 768px) {
-  :root {
-    --font-size-xxl: 20px; /* 20px converted to px */
-    --font-size-xl: 16px; /* 16px converted to px */
-    --font-size-lg: 15px; /* 15px converted to px */
-    --font-size-md: 14px; /* 14px converted to px */
-    --font-size-sm: 13px; /* 13px converted to px */
-    --font-size-xs: 11px; /* 11px converted to px */
-
-    --spacing-md: 12px;
-    --spacing-lg: 16px;
-    --spacing-xl: 20px;
-    --spacing-xxl: 24px;
-  }
-
-  button {
-    font-size: var(--font-size-xs);
-    padding: var(--spacing-xs) var(--spacing-sm);
-  }
-
-  input,
-  textarea,
-  select {
-    font-size: var(--font-size-xs);
-    padding: var(--spacing-xs);
-  }
-}
-
+/* Responsive adjustments for general elements using consistent breakpoints */
+/* Extra Small (XS): 0px – 480px */
 @media (max-width: 480px) {
   :root {
     --font-size-xxl: 18px; /* 18px converted to px */
@@ -337,5 +283,147 @@ select:focus {
   select {
     font-size: var(--font-size-xs);
     padding: var(--spacing-xs);
+  }
+}
+
+/* Small (SM): 481px – 640px */
+@media (min-width: 481px) and (max-width: 640px) {
+  :root {
+    --font-size-xxl: 20px; /* 20px converted to px */
+    --font-size-xl: 16px; /* 16px converted to px */
+    --font-size-lg: 15px; /* 15px converted to px */
+    --font-size-md: 14px; /* 14px converted to px */
+    --font-size-sm: 13px; /* 13px converted to px */
+    --font-size-xs: 11px; /* 11px converted to px */
+
+    --spacing-md: 12px;
+    --spacing-lg: 16px;
+    --spacing-xl: 20px;
+    --spacing-xxl: 24px;
+  }
+
+  button {
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs);
+  }
+}
+
+/* Medium (MD): 641px – 768px */
+@media (min-width: 641px) and (max-width: 768px) {
+  :root {
+    --font-size-xxl: 20px; /* 20px converted to px */
+    --font-size-xl: 16px; /* 16px converted to px */
+    --font-size-lg: 15px; /* 15px converted to px */
+    --font-size-md: 14px; /* 14px converted to px */
+    --font-size-sm: 13px; /* 13px converted to px */
+    --font-size-xs: 11px; /* 11px converted to px */
+
+    --spacing-md: 12px;
+    --spacing-lg: 16px;
+    --spacing-xl: 20px;
+    --spacing-xxl: 24px;
+  }
+
+  button {
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs);
+  }
+}
+
+/* Large (LG): 769px – 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  :root {
+    --font-size-xxl: 22px; /* 22px converted to px */
+    --font-size-xl: 18px; /* 18px converted to px */
+    --font-size-lg: 16px; /* 16px converted to px */
+    --font-size-md: 15px; /* 15px converted to px */
+    --font-size-sm: 14px; /* 14px converted to px */
+    --font-size-xs: 12px; /* 12px converted to px */
+
+    --spacing-lg: 20px;
+    --spacing-xl: 24px;
+    --spacing-xxl: 32px;
+  }
+
+  button {
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-md);
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs);
+  }
+}
+
+/* Extra Large (XL): 1025px – 1280px */
+@media (min-width: 1025px) and (max-width: 1280px) {
+  :root {
+    --font-size-xxl: 24px; /* 24px */
+    --font-size-xl: 20px; /* 20px */
+    --font-size-lg: 18px; /* 18px */
+    --font-size-md: 16px; /* 16px */
+    --font-size-sm: 14px; /* 14px */
+    --font-size-xs: 12px; /* 12px */
+
+    --spacing-lg: 24px;
+    --spacing-xl: 28px;
+    --spacing-xxl: 36px;
+  }
+
+  button {
+    font-size: var(--font-size-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: var(--font-size-md);
+    padding: var(--spacing-sm);
+  }
+}
+
+/* 2XL: 1281px – 1536px */
+@media (min-width: 1281px) and (max-width: 1536px) {
+  :root {
+    --font-size-xxl: 26px; /* 26px */
+    --font-size-xl: 22px; /* 22px */
+    --font-size-lg: 20px; /* 20px */
+    --font-size-md: 18px; /* 18px */
+    --font-size-sm: 16px; /* 16px */
+    --font-size-xs: 14px; /* 14px */
+
+    --spacing-lg: 28px;
+    --spacing-xl: 32px;
+    --spacing-xxl: 40px;
+  }
+
+  button {
+    font-size: var(--font-size-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: var(--font-size-md);
+    padding: var(--spacing-sm);
   }
 }

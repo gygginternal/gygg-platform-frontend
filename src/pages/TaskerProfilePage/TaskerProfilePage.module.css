@@ -14,8 +14,7 @@
   flex-direction: row;
   width: 100%;
   max-width: 1104px; /* 1104px converted to px */
-  margin-left: 204px; /* 204px converted to px - Pushes content to the right of the global sidebar */
-  margin-right: auto; /* Centers the content wrapper within the *remaining* space */
+  margin: 0 auto; /* Center content instead of left margin */
   margin-top: 0px;
   padding: 16px; /* 16px converted to px */
   gap: 24px; /* 24px converted to px */
@@ -57,8 +56,8 @@
   }
 
   .contentWrapper {
-    margin-left: 172px; /* 172px converted to px */
     max-width: 960px; /* 960px converted to px */
+    margin: 0 auto; /* Center content instead of left margin */
     padding: 8px; /* 8px converted to px */
     gap: 16px; /* 16px converted to px */
   }
@@ -92,7 +91,7 @@
   }
 
   .contentWrapper {
-    margin-left: 0 !important;
+    margin: 0 auto !important;
     max-width: 100% !important;
     width: 100% !important;
     padding: 1.6px 1.6px !important; /* 2px converted to px */

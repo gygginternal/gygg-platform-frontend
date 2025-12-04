@@ -13,7 +13,9 @@ import { ToastProvider } from './contexts/ToastContext';
 import ThemeProvider from './styles/ThemeProvider.jsx';
 import './styles/global.css';
 import { SocketProvider } from './contexts/SocketContext';
-import Navigation from './components/common/Navigation';
+import { ErrorProvider } from './contexts/ErrorContext.jsx';
+import ErrorBoundary from './components/common/ErrorBoundary';
+import { GlobalErrorDisplay } from './components/common/ErrorDisplay';
 import { createLazyRoute } from './components/common/Suspense/LazyComponentLoader';
 import { RoutePreloader } from './components/common/RoutePreloader';
 import { LazyLoadingMonitor } from './components/common/Performance';
@@ -289,10 +291,6 @@ function AppLayout({ children }) {
     location.pathname.startsWith(path)
   );
 
-  const mainStyle = {
-    paddingTop: showHeader ? '84px' : '0',
-  };
-
   if (isLoading && !authToken) {
     return (
       <div className={styles.loadingApplication}>Loading Application...</div>
@@ -309,11 +307,14 @@ function AppLayout({ children }) {
     );
   }
 
+  // Check if current page should have full width (public pages when not authenticated)
+  const isPublicPage = !authToken && ['/','/join', '/login', '/signup', '/verify-email-prompt', '/forgot-password', '/reset-password', '/verify-email'].includes(location.pathname);
+
   return (
     <>
       {showHeader && <Header />}
       <main
-        className={`${styles.container} ${showHeader && !isGigsPage ? styles.containerWithHeaderPadding : ''}`}
+        className={isPublicPage ? styles.publicPageContainer : styles.container}
       >
         {children}
       </main>
@@ -330,13 +331,9 @@ function AuthAwareRedirect() {
 function AppWithNavigation() {
   const location = useLocation();
   const hideNavPaths = ['/onboarding/tasker', '/onboarding/provider'];
-  const showNavigation = !hideNavPaths.some(path =>
-    location.pathname.startsWith(path)
-  );
 
   return (
     <>
-      {showNavigation && <Navigation />}
       <RoutePreloader />
       <LazyLoadingMonitor />
       <QueryClientProvider client={queryClient}>
@@ -594,15 +591,20 @@ function AppWithNavigation() {
 
 const App = () => (
   <Router>
-    <ThemeProvider>
-      <AuthProvider>
-        <ToastProvider>
-          <SocketProvider>
-            <AppWithNavigation />
-          </SocketProvider>
-        </ToastProvider>
-      </AuthProvider>
-    </ThemeProvider>
+    <ErrorProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <ToastProvider>
+            <SocketProvider>
+              <ErrorBoundary>
+                <AppWithNavigation />
+                <GlobalErrorDisplay />
+              </ErrorBoundary>
+            </SocketProvider>
+          </ToastProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </ErrorProvider>
   </Router>
 );
 

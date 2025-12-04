@@ -13,9 +13,7 @@
   flex-direction: row;
   width: 100%;
   max-width: 1104px;
-  margin-left: 204px;
-  margin-right: auto;
-  margin-top: 0px;
+  margin: 0 auto;
   padding: 16px;
   gap: 24px;
   box-sizing: border-box;
