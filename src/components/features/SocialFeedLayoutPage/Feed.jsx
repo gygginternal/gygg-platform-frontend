@@ -68,6 +68,14 @@ function Feed() {
         setHasMore(newPosts.length === params.limit); // Assuming limit is always sent
         setCurrentPage(page);
       } catch (err) {
+        // Handle rate limiting errors specifically
+        if (err.isClientThrottled) {
+          // Don't show error for client-side throttling, just retry after a brief delay
+          setTimeout(() => {
+            fetchPosts(append ? currentPage : 1, sortOrder, userLocation, append);
+          }, 150); // Retry after 150ms
+          return;
+        }
         setError(err.response?.data?.message || 'Failed to load feed.');
         setHasMore(false);
       } finally {

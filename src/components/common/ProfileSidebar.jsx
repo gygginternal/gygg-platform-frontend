@@ -15,17 +15,31 @@ function ProfileSidebar() {
   const userSkills = user?.skills || ['Pet Sitting', 'Gardening']; // Example fallback
 
   // Fetch top 3 matching gigs for taskers
-  const { data: topMatchedGigs, isLoading: isLoadingTopGigs } = useQuery({
+  const { data: topMatchedGigs, isLoading: isLoadingTopGigs, error } = useQuery({
     queryKey: ['topMatchedGigs'],
     queryFn: async () => {
       const response = await apiClient.get('/gigs/top-match');
       return response.data.data;
+    },
+    onError: err => {
+      // Check if it's a rate limiting error (either server-side 429 or client-side isClientThrottled)
+      if (err.response?.status === 429) {
+        console.warn('Rate limited when fetching top matched gigs:', err.response.data);
+      } else if (err.isClientThrottled) {
+        console.warn('Client-side rate limited when fetching top matched gigs');
+      }
     },
     enabled: sessionRole === 'tasker', // Only fetch if user's session role is tasker
     staleTime: 5 * 60 * 1000, // 5 minutes - don't refetch within 5 minutes
     cacheTime: 10 * 60 * 1000, // 10 minutes - cache for 10 minutes
     refetchOnWindowFocus: false, // Don't refetch when window gains focus
     refetchOnReconnect: false, // Don't refetch on reconnection
+    retry: (failureCount, error) => {
+      // Don't retry if it's a 429 (rate limit) error or client-side throttling, as retrying will just cause more rate limiting
+      if (error?.response?.status === 429 || error?.isClientThrottled) return false;
+      // Retry other errors up to 1 time
+      return failureCount < 1;
+    },
   });
 
   if (!user) {

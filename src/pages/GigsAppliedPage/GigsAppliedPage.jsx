@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext, useEffect } from 'react';
+import React, { useState, createContext, useContext, useEffect, useRef } from 'react';
 import apiClient from '../../api/axiosConfig';
 import styles from './GigsAppliedPage.module.css';
 import ProfileSidebar from '../../components/common/ProfileSidebar';
@@ -19,6 +19,7 @@ const GigsAppliedPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [selectedGig, setSelectedGig] = useState(null);
+  const [isRateLimited, setIsRateLimited] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedApplicationId, setSelectedApplicationId] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -31,6 +32,23 @@ const GigsAppliedPage = () => {
   const [hasMore, setHasMore] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
+  // Refs for tracking rate limiting and retry logic
+  const rateLimitRetryTimeout = useRef(null);
+  const gigDetailRetryTimeout = useRef(null);
+
+  // Cleanup function for timeouts
+  useEffect(() => {
+    return () => {
+      // Clear any pending retry timeouts when component unmounts
+      if (rateLimitRetryTimeout.current) {
+        clearTimeout(rateLimitRetryTimeout.current);
+      }
+      if (gigDetailRetryTimeout.current) {
+        clearTimeout(gigDetailRetryTimeout.current);
+      }
+    };
+  }, []);
+
   const clearFilters = () => {
     setSearchTerm('');
     setStatusFilter('All');
@@ -39,17 +57,25 @@ const GigsAppliedPage = () => {
   };
 
   const fetchApplications = async (pageToFetch = 1) => {
+    // Don't fetch if already rate limited (except for manual retries)
+    if (isRateLimited && pageToFetch !== -1) return;
+
     const isFirstPage = pageToFetch === 1;
     if (isFirstPage) {
       setLoading(true);
-    } else {
+    } else if (pageToFetch !== -1) {
       setIsLoadingMore(true);
     }
     setError('');
 
+    // Only reset rate limit flag if this is not the automatic retry
+    if (pageToFetch !== -1) {
+      setIsRateLimited(false);
+    }
+
     try {
       const params = {
-        page: pageToFetch,
+        page: pageToFetch === -1 ? 1 : pageToFetch, // Use page 1 if it's a retry
         limit: 10, // Load 10 applications per page
       };
 
@@ -70,30 +96,59 @@ const GigsAppliedPage = () => {
       setHasMore(currentPage < totalPages);
 
       // Update applications list
-      if (isFirstPage) {
+      if (isFirstPage || pageToFetch === -1) {
         setApplications(newApplications);
       } else {
         setApplications(prev => [...prev, ...newApplications]);
       }
     } catch (err) {
-      setError('Failed to load applied gigs.');
-      if (isFirstPage) setApplications([]);
+      // Handle rate limiting errors specifically with retry mechanism
+      if (err.response?.status === 429) {
+        // Check for Retry-After header
+        const retryAfter = err.response.headers['retry-after'];
+        const retryAfterSeconds = parseInt(retryAfter, 10) || 30; // Default to 30 seconds if not specified
+
+        setError(`Too many requests. Please try again in ${retryAfterSeconds} seconds.`);
+        setIsRateLimited(true);
+
+        // Clear any existing timeout
+        if (rateLimitRetryTimeout.current) {
+          clearTimeout(rateLimitRetryTimeout.current);
+        }
+
+        // Set up retry after the specified time
+        rateLimitRetryTimeout.current = setTimeout(() => {
+          setIsRateLimited(false);
+          fetchApplications(-1); // Use -1 to signal it's a retry, allowing the call to go through
+        }, retryAfterSeconds * 1000);
+      } else {
+        setError('Failed to load applied gigs.');
+      }
+      if (isFirstPage || pageToFetch === -1) setApplications([]);
     } finally {
-      setLoading(false);
-      setIsLoadingMore(false);
+      if (pageToFetch !== -1) {
+        setLoading(false);
+        setIsLoadingMore(false);
+      }
     }
   };
 
   useEffect(() => {
-    if (user && sessionRole === 'tasker') {
-      // Reset to first page when filters change
-      setCurrentPage(1);
-      setApplications([]);
-      fetchApplications(1);
-    }
-  }, [user, sessionRole, statusFilter, categoryFilter, priceRange, searchTerm]);
+    // Use a timeout to delay the initial fetch to avoid race conditions with other page loads
+    const timer = setTimeout(() => {
+      handleInitialLoad();
+    }, 500); // Increased delay to 500ms to better avoid race conditions
+
+    return () => clearTimeout(timer);
+  }, [user, sessionRole, statusFilter, categoryFilter, priceRange, searchTerm, isRateLimited]);
 
   const handleCardClick = async app => {
+    // Don't fetch if rate limited
+    if (isRateLimited) {
+      setError('Too many requests. Please wait before trying again.');
+      return;
+    }
+
     try {
       // Use the gig ID from the application's gig field
       const res = await apiClient.get(`/gigs/${app.gig._id}`);
@@ -101,7 +156,28 @@ const GigsAppliedPage = () => {
       setSelectedApplicationId(app._id); // Use the application ID
       setModalOpen(true);
     } catch (err) {
-      setError('Failed to load gig details.');
+      // Handle rate limiting errors specifically with retry mechanism
+      if (err.response?.status === 429) {
+        // Check for Retry-After header
+        const retryAfter = err.response.headers['retry-after'];
+        const retryAfterSeconds = parseInt(retryAfter, 10) || 30; // Default to 30 seconds if not specified
+
+        setError(`Too many requests. Please try again in ${retryAfterSeconds} seconds.`);
+        setIsRateLimited(true);
+
+        // Clear any existing timeout for gig detail retries
+        if (gigDetailRetryTimeout.current) {
+          clearTimeout(gigDetailRetryTimeout.current);
+        }
+
+        // Set up retry after the specified time
+        gigDetailRetryTimeout.current = setTimeout(() => {
+          setIsRateLimited(false);
+          handleCardClick(app); // Retry the same action
+        }, retryAfterSeconds * 1000);
+      } else {
+        setError('Failed to load gig details.');
+      }
     }
   };
 
@@ -116,6 +192,30 @@ const GigsAppliedPage = () => {
       setCurrentPage(1);
       setApplications([]);
       fetchApplications(1);
+    }
+  };
+
+  const handleRetry = () => {
+    // Clear any pending timeouts
+    if (rateLimitRetryTimeout.current) {
+      clearTimeout(rateLimitRetryTimeout.current);
+    }
+
+    setError('');
+    setIsRateLimited(false);
+    if (user && sessionRole === 'tasker') {
+      setCurrentPage(1);
+      setApplications([]);
+      fetchApplications(1);
+    }
+  };
+
+  // Function specifically for handling initial load retry after delay
+  const handleInitialLoad = async () => {
+    if (user && sessionRole === 'tasker' && !isRateLimited) {
+      setCurrentPage(1);
+      setApplications([]);
+      await fetchApplications(1);
     }
   };
 
@@ -266,7 +366,12 @@ const GigsAppliedPage = () => {
                   <p>Loading your applied gigs...</p>
                 </div>
               ) : error ? (
-                <p className={styles.error}>{error}</p>
+                <div className={styles.errorState}>
+                  <p className={styles.error}>{error}</p>
+                  <button className={styles.retryButton} onClick={handleRetry}>
+                    Retry Now
+                  </button>
+                </div>
               ) : applications.length === 0 ? (
                 <div className={styles.emptyState}>
                   <h3>No Applications Found</h3>

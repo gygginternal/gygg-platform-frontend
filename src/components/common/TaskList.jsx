@@ -1,5 +1,5 @@
 // frontend/src/components/GigsPage/TaskList.js
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import styles from './TaskList.module.css';
 import TaskCard from './TaskCard';
 import apiClient from '../../api/axiosConfig';
@@ -99,10 +99,21 @@ export const TaskList = ({
           'Error fetching gigs in TaskList:',
           err.response?.data || err.message
         );
-        setError(
-          err.response?.data?.message ||
-            'Could not load available gigs. Please try again later.'
-        );
+
+        // Check if this is a rate limiting error (either client or server side)
+        if (err.response?.status === 429) {
+          setError('Too many requests. Please wait before trying again.');
+        } else if (err.isClientThrottled) {
+          // For client throttling, don't display error since it's expected with rate limiting
+          // Just return to avoid updating state
+          return;
+        } else {
+          setError(
+            err.response?.data?.message ||
+              'Could not load available gigs. Please try again later.'
+          );
+        }
+
         if (isFirstLoadForTerm) setGigs([]);
         setHasMore(false);
       } finally {
@@ -113,19 +124,49 @@ export const TaskList = ({
     [category, location, priceRange]
   );
 
-  // Reset and fetch when filters change
-  useEffect(() => {
-    setCurrentPage(1);
-    setGigs([]);
-    fetchGigs(1, currentSearchTerm);
-  }, [category, location, priceRange, fetchGigs]);
+  // Ref for tracking the timeout ID
+  const debounceRef = useRef(null);
 
-  // Update search term
+  // Reset and fetch when filters change with debouncing
   useEffect(() => {
-    setCurrentSearchTerm(initialSearchTerm);
-    setCurrentPage(1);
-    setGigs([]);
-    fetchGigs(1, initialSearchTerm);
+    // Clear the previous timeout
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+
+    // Set a new timeout to fetch gigs after 500ms
+    debounceRef.current = setTimeout(() => {
+      setCurrentPage(1);
+      setGigs([]);
+      fetchGigs(1, currentSearchTerm);
+    }, 500); // 500ms delay to allow for filter changes
+
+    // Cleanup function to clear timeout when effect re-runs
+    return () => {
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+    };
+  }, [category, location, priceRange, currentSearchTerm, fetchGigs]);
+
+  // Update search term with debounce
+  useEffect(() => {
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+
+    debounceRef.current = setTimeout(() => {
+      setCurrentSearchTerm(initialSearchTerm);
+      setCurrentPage(1);
+      setGigs([]);
+      fetchGigs(1, initialSearchTerm);
+    }, 500);
+
+    return () => {
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+    };
   }, [initialSearchTerm, fetchGigs]);
 
   // Validate category (but allow 'All')
